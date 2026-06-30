@@ -42,7 +42,7 @@ export class Comments extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const dirComment of client.dir.comments.list(
+   * for await (const commentListResponse of client.dir.comments.list(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    * )) {
    *   // ...
@@ -53,31 +53,65 @@ export class Comments extends APIResource {
     dirID: string,
     query: CommentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DirCommentsDefaultFlatPagination, DirComment> {
-    return this._client.getAPIList(path`/dir/${dirID}/comments`, DefaultFlatPagination<DirComment>, {
+  ): PagePromise<CommentListResponsesDefaultFlatPagination, CommentListResponse> {
+    return this._client.getAPIList(path`/dir/${dirID}/comments`, DefaultFlatPagination<CommentListResponse>, {
       query,
       ...options,
     });
   }
 }
 
-export type DirCommentsDefaultFlatPagination = DefaultFlatPagination<DirComment>;
+export type CommentListResponsesDefaultFlatPagination = DefaultFlatPagination<CommentListResponse>;
 
-/**
- * Comment categorisation. Customers post `customer_inquiry`. The Telnyx team posts
- * `vetting_comment`, `rejection_reason`, `notification`, `status_update`, or
- * `admin_response`. `internal_note` is filtered out of customer-visible responses.
- */
-export type CommentType =
-  | 'vetting_comment'
-  | 'rejection_reason'
-  | 'internal_note'
-  | 'notification'
-  | 'status_update'
-  | 'customer_inquiry'
-  | 'admin_response';
+export interface CommentCreateResponse {
+  data: CommentCreateResponse.Data;
+}
 
-export interface DirComment {
+export namespace CommentCreateResponse {
+  export interface Data {
+    id?: string;
+
+    /**
+     * Display name of the author. May be `null`.
+     */
+    author_name?: string | null;
+
+    /**
+     * Who wrote the comment. `admin` covers the Telnyx vetting team.
+     */
+    author_role?: 'customer' | 'admin';
+
+    /**
+     * Comment categorisation. Customers post `customer_inquiry`. The Telnyx team posts
+     * `vetting_comment`, `rejection_reason`, `notification`, `status_update`, or
+     * `admin_response`. `internal_note` is filtered out of customer-visible responses.
+     */
+    comment_type?:
+      | 'vetting_comment'
+      | 'rejection_reason'
+      | 'internal_note'
+      | 'notification'
+      | 'status_update'
+      | 'customer_inquiry'
+      | 'admin_response';
+
+    content?: string;
+
+    created_at?: string;
+
+    /**
+     * Resource the comment is attached to. Always `dir` on this endpoint.
+     */
+    entity_type?: 'dir';
+
+    /**
+     * Always `customer` on this endpoint - internal-only comments are filtered out.
+     */
+    visibility?: 'customer';
+  }
+}
+
+export interface CommentListResponse {
   id?: string;
 
   /**
@@ -95,7 +129,14 @@ export interface DirComment {
    * `vetting_comment`, `rejection_reason`, `notification`, `status_update`, or
    * `admin_response`. `internal_note` is filtered out of customer-visible responses.
    */
-  comment_type?: CommentType;
+  comment_type?:
+    | 'vetting_comment'
+    | 'rejection_reason'
+    | 'internal_note'
+    | 'notification'
+    | 'status_update'
+    | 'customer_inquiry'
+    | 'admin_response';
 
   content?: string;
 
@@ -110,10 +151,6 @@ export interface DirComment {
    * Always `customer` on this endpoint - internal-only comments are filtered out.
    */
   visibility?: 'customer';
-}
-
-export interface CommentCreateResponse {
-  data: DirComment;
 }
 
 export interface CommentCreateParams {
@@ -133,15 +170,21 @@ export interface CommentListParams extends DefaultFlatPaginationParams {
    * Restrict to comments of this category. Customer-visible categories only:
    * internal-only comments are filtered out regardless of this filter.
    */
-  comment_type?: CommentType;
+  comment_type?:
+    | 'vetting_comment'
+    | 'rejection_reason'
+    | 'internal_note'
+    | 'notification'
+    | 'status_update'
+    | 'customer_inquiry'
+    | 'admin_response';
 }
 
 export declare namespace Comments {
   export {
-    type CommentType as CommentType,
-    type DirComment as DirComment,
     type CommentCreateResponse as CommentCreateResponse,
-    type DirCommentsDefaultFlatPagination as DirCommentsDefaultFlatPagination,
+    type CommentListResponse as CommentListResponse,
+    type CommentListResponsesDefaultFlatPagination as CommentListResponsesDefaultFlatPagination,
     type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
   };

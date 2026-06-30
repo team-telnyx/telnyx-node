@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as DocumentsAPI from './documents';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
@@ -25,7 +24,17 @@ export class DocumentLinks extends APIResource {
 
 export type DocumentLinkListResponsesDefaultFlatPagination = DefaultFlatPagination<DocumentLinkListResponse>;
 
-export interface DocumentLinkListResponse extends DocumentsAPI.DocServiceRecord {
+export interface DocumentLinkListResponse {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
+
   /**
    * Identifies the associated document.
    */
@@ -45,6 +54,11 @@ export interface DocumentLinkListResponse extends DocumentsAPI.DocServiceRecord 
    * Identifies the type of the resource.
    */
   record_type?: string;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
 }
 
 export interface DocumentLinkListParams extends DefaultFlatPaginationParams {

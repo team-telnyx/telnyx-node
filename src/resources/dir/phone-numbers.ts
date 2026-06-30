@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as DirAPI from './dir';
-import * as PhoneNumberBatchesAPI from './phone-number-batches';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -19,7 +17,7 @@ export class PhoneNumbers extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const dirPhoneNumber of client.dir.phoneNumbers.list(
+   * for await (const phoneNumberListResponse of client.dir.phoneNumbers.list(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    * )) {
    *   // ...
@@ -30,11 +28,12 @@ export class PhoneNumbers extends APIResource {
     dirID: string,
     query: PhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DirPhoneNumbersDefaultFlatPagination, DirPhoneNumber> {
-    return this._client.getAPIList(path`/dir/${dirID}/phone_numbers`, DefaultFlatPagination<DirPhoneNumber>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<PhoneNumberListResponsesDefaultFlatPagination, PhoneNumberListResponse> {
+    return this._client.getAPIList(
+      path`/dir/${dirID}/phone_numbers`,
+      DefaultFlatPagination<PhoneNumberListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -92,9 +91,9 @@ export class PhoneNumbers extends APIResource {
   }
 }
 
-export type DirPhoneNumbersDefaultFlatPagination = DefaultFlatPagination<DirPhoneNumber>;
+export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>;
 
-export interface DirPhoneNumber {
+export interface PhoneNumberListResponse {
   id?: string;
 
   /**
@@ -121,7 +120,7 @@ export interface DirPhoneNumber {
   /**
    * Populated when `status` is `unsuccessful` or `permanently_rejected`.
    */
-  rejection_reason?: RejectionReason | null;
+  rejection_reason?: PhoneNumberListResponse.RejectionReason | null;
 
   /**
    * Phone-number lifecycle status.
@@ -138,25 +137,37 @@ export interface DirPhoneNumber {
    * - `permanently_rejected` - terminal; cannot be re-added on this or any other DIR
    *   you own.
    */
-  status?: PhoneNumberBatchesAPI.DirPhoneNumberStatus;
+  status?:
+    | 'submitted'
+    | 'in_review'
+    | 'verified'
+    | 'unsuccessful'
+    | 'suspended'
+    | 'expired'
+    | 'permanently_rejected';
 
   updated_at?: string;
 
   verified_at?: string | null;
 }
 
-export interface RejectionReason {
-  code?: string;
-
-  detail?: string;
-
+export namespace PhoneNumberListResponse {
   /**
-   * Customer-visible free-text comment from the Telnyx vetting team. Only the first
-   * entry of `rejection_reasons` carries this; the rest are `null`.
+   * Populated when `status` is `unsuccessful` or `permanently_rejected`.
    */
-  message?: string | null;
+  export interface RejectionReason {
+    code?: string;
 
-  title?: string;
+    detail?: string;
+
+    /**
+     * Customer-visible free-text comment from the Telnyx vetting team. Only the first
+     * entry of `rejection_reasons` carries this; the rest are `null`.
+     */
+    message?: string | null;
+
+    title?: string;
+  }
 }
 
 /**
@@ -174,7 +185,86 @@ export interface PhoneNumberAddResponse {
    * Phone numbers accepted into the new batch. List order mirrors the request order.
    * Each element shares the same `batch_id`.
    */
-  data: Array<DirPhoneNumber>;
+  data: Array<PhoneNumberAddResponse.Data>;
+}
+
+export namespace PhoneNumberAddResponse {
+  export interface Data {
+    id?: string;
+
+    /**
+     * Id of the batch this number was vetted as part of.
+     */
+    batch_id?: string | null;
+
+    created_at?: string;
+
+    dir_id?: string;
+
+    enterprise_id?: string;
+
+    /**
+     * Id of the Letter of Authorization document attached to this number's batch.
+     */
+    loa_document_id?: string | null;
+
+    /**
+     * E.164 with leading `+`.
+     */
+    phone_number?: string;
+
+    /**
+     * Populated when `status` is `unsuccessful` or `permanently_rejected`.
+     */
+    rejection_reason?: Data.RejectionReason | null;
+
+    /**
+     * Phone-number lifecycle status.
+     *
+     * - `submitted` / `in_review` - Telnyx is reviewing the batch this number belongs
+     *   to.
+     * - `verified` - approved; the DIR's display identity will be shown on outbound
+     *   calls from this number.
+     * - `unsuccessful` - Telnyx rejected this submission; the customer may re-add to
+     *   retry.
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim on
+     *   the DIR).
+     * - `expired` - verification expired; re-add to renew.
+     * - `permanently_rejected` - terminal; cannot be re-added on this or any other DIR
+     *   you own.
+     */
+    status?:
+      | 'submitted'
+      | 'in_review'
+      | 'verified'
+      | 'unsuccessful'
+      | 'suspended'
+      | 'expired'
+      | 'permanently_rejected';
+
+    updated_at?: string;
+
+    verified_at?: string | null;
+  }
+
+  export namespace Data {
+    /**
+     * Populated when `status` is `unsuccessful` or `permanently_rejected`.
+     */
+    export interface RejectionReason {
+      code?: string;
+
+      detail?: string;
+
+      /**
+       * Customer-visible free-text comment from the Telnyx vetting team. Only the first
+       * entry of `rejection_reasons` carries this; the rest are `null`.
+       */
+      message?: string | null;
+
+      title?: string;
+    }
+  }
 }
 
 /**
@@ -228,7 +318,14 @@ export interface PhoneNumberListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by phone-number status.
    */
-  status?: PhoneNumberBatchesAPI.DirPhoneNumberStatus;
+  status?:
+    | 'submitted'
+    | 'in_review'
+    | 'verified'
+    | 'unsuccessful'
+    | 'suspended'
+    | 'expired'
+    | 'permanently_rejected';
 }
 
 export interface PhoneNumberAddParams {
@@ -239,7 +336,7 @@ export interface PhoneNumberAddParams {
    * Telnyx Documents API. Additional document types (e.g. business registration) may
    * be included alongside the LOA.
    */
-  documents: Array<DirAPI.Document>;
+  documents: Array<PhoneNumberAddParams.Document>;
 
   /**
    * 1–15 phone numbers in E.164 format. 10-digit US numbers are auto-prefixed with
@@ -248,17 +345,48 @@ export interface PhoneNumberAddParams {
   phone_numbers: Array<string>;
 }
 
+export namespace PhoneNumberAddParams {
+  export interface Document {
+    /**
+     * Id returned by the Telnyx Documents API after you upload the file (upload via
+     * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+     */
+    document_id: string;
+
+    /**
+     * Type of supporting document. Pick the closest match to what the file actually
+     * contains; `other` triggers manual vetting and may slow approval. The matching
+     * short_name reference list is at `GET /v2/dir/document_types`.
+     */
+    document_type:
+      | 'letter_of_authorization'
+      | 'business_registration'
+      | 'articles_of_incorporation'
+      | 'tax_document'
+      | 'ein_letter'
+      | 'trademark_registration'
+      | 'website_ownership'
+      | 'business_license'
+      | 'professional_license'
+      | 'government_id'
+      | 'utility_bill'
+      | 'bank_statement'
+      | 'other';
+
+    description?: string;
+  }
+}
+
 export interface PhoneNumberRemoveParams {
   phone_numbers: Array<string>;
 }
 
 export declare namespace PhoneNumbers {
   export {
-    type DirPhoneNumber as DirPhoneNumber,
-    type RejectionReason as RejectionReason,
+    type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberAddResponse as PhoneNumberAddResponse,
     type PhoneNumberRemoveResponse as PhoneNumberRemoveResponse,
-    type DirPhoneNumbersDefaultFlatPagination as DirPhoneNumbersDefaultFlatPagination,
+    type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberAddParams as PhoneNumberAddParams,
     type PhoneNumberRemoveParams as PhoneNumberRemoveParams,

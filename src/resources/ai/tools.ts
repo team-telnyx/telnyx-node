@@ -15,13 +15,13 @@ export class Tools extends APIResource {
    *
    * @example
    * ```ts
-   * const sharedToolResponse = await client.ai.tools.create({
+   * const tool = await client.ai.tools.create({
    *   display_name: 'display_name',
    *   type: 'type',
    * });
    * ```
    */
-  create(body: ToolCreateParams, options?: RequestOptions): APIPromise<SharedToolResponse> {
+  create(body: ToolCreateParams, options?: RequestOptions): APIPromise<ToolCreateResponse> {
     return this._client.post('/ai/tools', { body, ...options });
   }
 
@@ -30,12 +30,10 @@ export class Tools extends APIResource {
    *
    * @example
    * ```ts
-   * const sharedToolResponse = await client.ai.tools.retrieve(
-   *   'tool_id',
-   * );
+   * const tool = await client.ai.tools.retrieve('tool_id');
    * ```
    */
-  retrieve(toolID: string, options?: RequestOptions): APIPromise<SharedToolResponse> {
+  retrieve(toolID: string, options?: RequestOptions): APIPromise<ToolRetrieveResponse> {
     return this._client.get(path`/ai/tools/${toolID}`, options);
   }
 
@@ -44,12 +42,10 @@ export class Tools extends APIResource {
    *
    * @example
    * ```ts
-   * const sharedToolResponse = await client.ai.tools.update(
-   *   'tool_id',
-   * );
+   * const tool = await client.ai.tools.update('tool_id');
    * ```
    */
-  update(toolID: string, body: ToolUpdateParams, options?: RequestOptions): APIPromise<SharedToolResponse> {
+  update(toolID: string, body: ToolUpdateParams, options?: RequestOptions): APIPromise<ToolUpdateResponse> {
     return this._client.patch(path`/ai/tools/${toolID}`, { body, ...options });
   }
 
@@ -59,7 +55,7 @@ export class Tools extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const sharedToolResponse of client.ai.tools.list()) {
+   * for await (const toolListResponse of client.ai.tools.list()) {
    *   // ...
    * }
    * ```
@@ -67,8 +63,8 @@ export class Tools extends APIResource {
   list(
     query: ToolListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SharedToolResponsesDefaultFlatPagination, SharedToolResponse> {
-    return this._client.getAPIList('/ai/tools', DefaultFlatPagination<SharedToolResponse>, {
+  ): PagePromise<ToolListResponsesDefaultFlatPagination, ToolListResponse> {
+    return this._client.getAPIList('/ai/tools', DefaultFlatPagination<ToolListResponse>, {
       query,
       ...options,
     });
@@ -87,9 +83,51 @@ export class Tools extends APIResource {
   }
 }
 
-export type SharedToolResponsesDefaultFlatPagination = DefaultFlatPagination<SharedToolResponse>;
+export type ToolListResponsesDefaultFlatPagination = DefaultFlatPagination<ToolListResponse>;
 
-export interface SharedToolResponse {
+export interface ToolCreateResponse {
+  id: string;
+
+  tool_definition: { [key: string]: unknown };
+
+  type: string;
+
+  created_at?: string;
+
+  display_name?: string;
+
+  timeout_ms?: number;
+}
+
+export interface ToolRetrieveResponse {
+  id: string;
+
+  tool_definition: { [key: string]: unknown };
+
+  type: string;
+
+  created_at?: string;
+
+  display_name?: string;
+
+  timeout_ms?: number;
+}
+
+export interface ToolUpdateResponse {
+  id: string;
+
+  tool_definition: { [key: string]: unknown };
+
+  type: string;
+
+  created_at?: string;
+
+  display_name?: string;
+
+  timeout_ms?: number;
+}
+
+export interface ToolListResponse {
   id: string;
 
   tool_definition: { [key: string]: unknown };
@@ -159,9 +197,12 @@ export interface ToolListParams extends DefaultFlatPaginationParams {
 
 export declare namespace Tools {
   export {
-    type SharedToolResponse as SharedToolResponse,
+    type ToolCreateResponse as ToolCreateResponse,
+    type ToolRetrieveResponse as ToolRetrieveResponse,
+    type ToolUpdateResponse as ToolUpdateResponse,
+    type ToolListResponse as ToolListResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
-    type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
+    type ToolListResponsesDefaultFlatPagination as ToolListResponsesDefaultFlatPagination,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
     type ToolListParams as ToolListParams,

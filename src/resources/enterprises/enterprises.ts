@@ -2,15 +2,23 @@
 
 import { APIResource } from '../../core/resource';
 import * as DirAPI from './dir';
-import { Dir, DirCreateParams, DirListParams } from './dir';
+import {
+  Dir,
+  DirCreateParams,
+  DirCreateResponse,
+  DirListParams,
+  DirListResponse,
+  DirListResponsesDefaultFlatPagination,
+} from './dir';
 import * as ReputationAPI from './reputation/reputation';
 import {
   EnterpriseReputationPublic,
-  EnterpriseReputationPublicWrapped,
   Reputation,
-  ReputationCheckFrequency,
   ReputationEnableParams,
+  ReputationEnableResponse,
+  ReputationRetrieveResponse,
   ReputationUpdateFrequencyParams,
+  ReputationUpdateFrequencyResponse,
 } from './reputation/reputation';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -42,7 +50,7 @@ export class Enterprises extends APIResource {
    *
    * @example
    * ```ts
-   * const enterprisePublicWrapped = await client.enterprises.create({
+   * const enterprise = await client.enterprises.create({
    *   billing_address: {
    *     country: 'US',
    *     administrative_area: 'IL',
@@ -84,7 +92,7 @@ export class Enterprises extends APIResource {
    * });
    * ```
    */
-  create(body: EnterpriseCreateParams, options?: RequestOptions): APIPromise<EnterprisePublicWrapped> {
+  create(body: EnterpriseCreateParams, options?: RequestOptions): APIPromise<EnterpriseCreateResponse> {
     return this._client.post('/enterprises', { body, ...options });
   }
 
@@ -94,13 +102,12 @@ export class Enterprises extends APIResource {
    *
    * @example
    * ```ts
-   * const enterprisePublicWrapped =
-   *   await client.enterprises.retrieve(
-   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
-   *   );
+   * const enterprise = await client.enterprises.retrieve(
+   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   * );
    * ```
    */
-  retrieve(enterpriseID: string, options?: RequestOptions): APIPromise<EnterprisePublicWrapped> {
+  retrieve(enterpriseID: string, options?: RequestOptions): APIPromise<EnterpriseRetrieveResponse> {
     return this._client.get(path`/enterprises/${enterpriseID}`, options);
   }
 
@@ -113,7 +120,7 @@ export class Enterprises extends APIResource {
    *
    * @example
    * ```ts
-   * const enterprisePublicWrapped = await client.enterprises.update(
+   * const enterprise = await client.enterprises.update(
    *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
    *   {
    *     billing_address: {
@@ -160,7 +167,7 @@ export class Enterprises extends APIResource {
     enterpriseID: string,
     body: EnterpriseUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<EnterprisePublicWrapped> {
+  ): APIPromise<EnterpriseUpdateResponse> {
     return this._client.put(path`/enterprises/${enterpriseID}`, { body, ...options });
   }
 
@@ -236,13 +243,16 @@ export class Enterprises extends APIResource {
    *
    * @example
    * ```ts
-   * const enterprisePublicWrapped =
-   *   await client.enterprises.brandedCalling(
+   * const response =
+   *   await client.enterprises.activateBrandedCalling(
    *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
    *   );
    * ```
    */
-  brandedCalling(enterpriseID: string, options?: RequestOptions): APIPromise<EnterprisePublicWrapped> {
+  activateBrandedCalling(
+    enterpriseID: string,
+    options?: RequestOptions,
+  ): APIPromise<EnterpriseActivateBrandedCallingResponse> {
     return this._client.post(path`/enterprises/${enterpriseID}/branded_calling`, options);
   }
 }
@@ -354,39 +364,6 @@ export interface EnterprisePublic {
   website?: string;
 }
 
-export interface EnterprisePublicWrapped {
-  data?: EnterprisePublic;
-}
-
-/**
- * JSON:API pagination metadata returned with every paginated list response. Page
- * numbering is 1-based. `page_size` reports the number of items actually returned
- * in `data` for this page; the requested size is taken from the `page[size]` query
- * parameter.
- */
-export interface NumberReputationPaginationMeta {
-  /**
-   * 1-based index of this page. Echoes the `page[number]` query parameter (default
-   * `1`).
-   */
-  page_number: number;
-
-  /**
-   * Number of items returned in this page's `data` array. Capped at 250.
-   */
-  page_size: number;
-
-  /**
-   * Total number of pages available given the current `page_size`.
-   */
-  total_pages: number;
-
-  /**
-   * Total number of items across all pages (excludes soft-deleted rows).
-   */
-  total_results: number;
-}
-
 export interface OrganizationContact {
   email: string;
 
@@ -420,6 +397,22 @@ export interface PhysicalAddress {
   street_address: string;
 
   extended_address?: string | null;
+}
+
+export interface EnterpriseCreateResponse {
+  data: EnterprisePublic;
+}
+
+export interface EnterpriseRetrieveResponse {
+  data: EnterprisePublic;
+}
+
+export interface EnterpriseUpdateResponse {
+  data: EnterprisePublic;
+}
+
+export interface EnterpriseActivateBrandedCallingResponse {
+  data: EnterprisePublic;
 }
 
 export interface EnterpriseCreateParams {
@@ -668,10 +661,12 @@ export declare namespace Enterprises {
     type BillingAddress as BillingAddress,
     type BillingContact as BillingContact,
     type EnterprisePublic as EnterprisePublic,
-    type EnterprisePublicWrapped as EnterprisePublicWrapped,
-    type NumberReputationPaginationMeta as NumberReputationPaginationMeta,
     type OrganizationContact as OrganizationContact,
     type PhysicalAddress as PhysicalAddress,
+    type EnterpriseCreateResponse as EnterpriseCreateResponse,
+    type EnterpriseRetrieveResponse as EnterpriseRetrieveResponse,
+    type EnterpriseUpdateResponse as EnterpriseUpdateResponse,
+    type EnterpriseActivateBrandedCallingResponse as EnterpriseActivateBrandedCallingResponse,
     type EnterprisePublicsDefaultFlatPagination as EnterprisePublicsDefaultFlatPagination,
     type EnterpriseCreateParams as EnterpriseCreateParams,
     type EnterpriseUpdateParams as EnterpriseUpdateParams,
@@ -681,11 +676,19 @@ export declare namespace Enterprises {
   export {
     Reputation as Reputation,
     type EnterpriseReputationPublic as EnterpriseReputationPublic,
-    type EnterpriseReputationPublicWrapped as EnterpriseReputationPublicWrapped,
-    type ReputationCheckFrequency as ReputationCheckFrequency,
+    type ReputationRetrieveResponse as ReputationRetrieveResponse,
+    type ReputationEnableResponse as ReputationEnableResponse,
+    type ReputationUpdateFrequencyResponse as ReputationUpdateFrequencyResponse,
     type ReputationEnableParams as ReputationEnableParams,
     type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
   };
 
-  export { Dir as Dir, type DirCreateParams as DirCreateParams, type DirListParams as DirListParams };
+  export {
+    Dir as Dir,
+    type DirCreateResponse as DirCreateResponse,
+    type DirListResponse as DirListResponse,
+    type DirListResponsesDefaultFlatPagination as DirListResponsesDefaultFlatPagination,
+    type DirCreateParams as DirCreateParams,
+    type DirListParams as DirListParams,
+  };
 }

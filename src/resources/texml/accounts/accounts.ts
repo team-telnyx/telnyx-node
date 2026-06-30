@@ -4,46 +4,50 @@ import { APIResource } from '../../../core/resource';
 import * as QueuesAPI from './queues';
 import {
   QueueCreateParams,
+  QueueCreateResponse,
   QueueDeleteParams,
   QueueListParams,
-  QueueResource,
-  QueueResourcesDefaultPaginationForQueues,
+  QueueListResponse,
+  QueueListResponsesDefaultPaginationForQueues,
   QueueRetrieveParams,
+  QueueRetrieveResponse,
   QueueUpdateParams,
+  QueueUpdateResponse,
   Queues,
 } from './queues';
 import * as CallsAPI from './calls/calls';
 import {
   CallCallsParams,
   CallCallsResponse,
-  CallResource,
   CallRetrieveCallsParams,
   CallRetrieveCallsResponse,
   CallRetrieveParams,
+  CallRetrieveResponse,
   CallSiprecJsonParams,
   CallSiprecJsonResponse,
   CallStreamsJsonParams,
   CallStreamsJsonResponse,
   CallUpdateParams,
+  CallUpdateResponse,
   Calls,
   UpdateCall,
 } from './calls/calls';
-import * as RecordingsJsonAPI from './calls/recordings-json';
 import * as ConferencesAPI from './conferences/conferences';
 import {
-  ConferenceResource,
   ConferenceRetrieveConferencesParams,
   ConferenceRetrieveConferencesResponse,
   ConferenceRetrieveParams,
   ConferenceRetrieveRecordingsJsonParams,
+  ConferenceRetrieveRecordingsJsonResponse,
   ConferenceRetrieveRecordingsParams,
   ConferenceRetrieveRecordingsResponse,
+  ConferenceRetrieveResponse,
   ConferenceUpdateParams,
+  ConferenceUpdateResponse,
   Conferences,
 } from './conferences/conferences';
 import * as RecordingsAPI from './recordings/recordings';
 import { Recordings } from './recordings/recordings';
-import * as JsonAPI from './transcriptions/json';
 import * as TranscriptionsAPI from './transcriptions/transcriptions';
 import { Transcriptions } from './transcriptions/transcriptions';
 import { APIPromise } from '../../../core/api-promise';
@@ -65,7 +69,7 @@ export class Accounts extends APIResource {
    *
    * @example
    * ```ts
-   * const texmlGetCallRecordingsResponseBody =
+   * const response =
    *   await client.texml.accounts.retrieveRecordingsJson(
    *     'account_sid',
    *   );
@@ -75,7 +79,7 @@ export class Accounts extends APIResource {
     accountSid: string,
     query: AccountRetrieveRecordingsJsonParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<RecordingsJsonAPI.TexmlGetCallRecordingsResponseBody> {
+  ): APIPromise<AccountRetrieveRecordingsJsonResponse> {
     return this._client.get(path`/texml/Accounts/${accountSid}/Recordings.json`, { query, ...options });
   }
 
@@ -104,7 +108,7 @@ export interface TexmlGetCallRecordingResponseBody {
 
   call_sid?: string;
 
-  channels?: RecordingsJsonAPI.TwimlRecordingChannels;
+  channels?: 1 | 2;
 
   conference_sid?: string | null;
 
@@ -129,7 +133,14 @@ export interface TexmlGetCallRecordingResponseBody {
   /**
    * Defines how the recording was created.
    */
-  source?: RecordingsJsonAPI.RecordingSource;
+  source?:
+    | 'StartCallRecordingAPI'
+    | 'StartConferenceRecordingAPI'
+    | 'OutboundAPI'
+    | 'DialVerb'
+    | 'Conference'
+    | 'RecordVerb'
+    | 'Trunking';
 
   start_time?: string;
 
@@ -151,6 +162,50 @@ export interface TexmlGetCallRecordingResponseBody {
  */
 export interface TexmlRecordingSubresourcesUris {
   transcriptions?: string | null;
+}
+
+export interface AccountRetrieveRecordingsJsonResponse {
+  /**
+   * The number of the last element on the page, zero-indexed.
+   */
+  end?: number;
+
+  /**
+   * Relative uri to the first page of the query results
+   */
+  first_page_uri?: string;
+
+  /**
+   * Relative uri to the next page of the query results
+   */
+  next_page_uri?: string;
+
+  /**
+   * Current page number, zero-indexed.
+   */
+  page?: number;
+
+  /**
+   * The number of items on the page
+   */
+  page_size?: number;
+
+  /**
+   * Relative uri to the previous page of the query results
+   */
+  previous_page_uri?: string;
+
+  recordings?: Array<TexmlGetCallRecordingResponseBody>;
+
+  /**
+   * The number of the first element on the page, zero-indexed.
+   */
+  start?: number;
+
+  /**
+   * The URI of the current page.
+   */
+  uri?: string;
 }
 
 export interface AccountRetrieveTranscriptionsJsonResponse {
@@ -189,12 +244,60 @@ export interface AccountRetrieveTranscriptionsJsonResponse {
    */
   start?: number;
 
-  transcriptions?: Array<JsonAPI.TexmlRecordingTranscription>;
+  transcriptions?: Array<AccountRetrieveTranscriptionsJsonResponse.Transcription>;
 
   /**
    * The URI of the current page.
    */
   uri?: string;
+}
+
+export namespace AccountRetrieveTranscriptionsJsonResponse {
+  export interface Transcription {
+    account_sid?: string;
+
+    /**
+     * The version of the API that was used to make the request.
+     */
+    api_version?: string;
+
+    call_sid?: string;
+
+    date_created?: string;
+
+    date_updated?: string;
+
+    /**
+     * The duration of this recording, given in seconds.
+     */
+    duration?: string | null;
+
+    /**
+     * Identifier of a resource.
+     */
+    recording_sid?: string;
+
+    /**
+     * Identifier of a resource.
+     */
+    sid?: string;
+
+    /**
+     * The status of the recording transcriptions. The transcription text will be
+     * available only when the status is completed.
+     */
+    status?: 'in-progress' | 'completed';
+
+    /**
+     * The recording's transcribed text
+     */
+    transcription_text?: string;
+
+    /**
+     * The relative URI for the recording transcription resource.
+     */
+    uri?: string;
+  }
 }
 
 export interface AccountRetrieveRecordingsJsonParams {
@@ -239,6 +342,7 @@ export declare namespace Accounts {
   export {
     type TexmlGetCallRecordingResponseBody as TexmlGetCallRecordingResponseBody,
     type TexmlRecordingSubresourcesUris as TexmlRecordingSubresourcesUris,
+    type AccountRetrieveRecordingsJsonResponse as AccountRetrieveRecordingsJsonResponse,
     type AccountRetrieveTranscriptionsJsonResponse as AccountRetrieveTranscriptionsJsonResponse,
     type AccountRetrieveRecordingsJsonParams as AccountRetrieveRecordingsJsonParams,
     type AccountRetrieveTranscriptionsJsonParams as AccountRetrieveTranscriptionsJsonParams,
@@ -246,8 +350,9 @@ export declare namespace Accounts {
 
   export {
     Calls as Calls,
-    type CallResource as CallResource,
     type UpdateCall as UpdateCall,
+    type CallRetrieveResponse as CallRetrieveResponse,
+    type CallUpdateResponse as CallUpdateResponse,
     type CallCallsResponse as CallCallsResponse,
     type CallRetrieveCallsResponse as CallRetrieveCallsResponse,
     type CallSiprecJsonResponse as CallSiprecJsonResponse,
@@ -262,9 +367,11 @@ export declare namespace Accounts {
 
   export {
     Conferences as Conferences,
-    type ConferenceResource as ConferenceResource,
+    type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
+    type ConferenceUpdateResponse as ConferenceUpdateResponse,
     type ConferenceRetrieveConferencesResponse as ConferenceRetrieveConferencesResponse,
     type ConferenceRetrieveRecordingsResponse as ConferenceRetrieveRecordingsResponse,
+    type ConferenceRetrieveRecordingsJsonResponse as ConferenceRetrieveRecordingsJsonResponse,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceUpdateParams as ConferenceUpdateParams,
     type ConferenceRetrieveConferencesParams as ConferenceRetrieveConferencesParams,
@@ -278,8 +385,11 @@ export declare namespace Accounts {
 
   export {
     Queues as Queues,
-    type QueueResource as QueueResource,
-    type QueueResourcesDefaultPaginationForQueues as QueueResourcesDefaultPaginationForQueues,
+    type QueueCreateResponse as QueueCreateResponse,
+    type QueueRetrieveResponse as QueueRetrieveResponse,
+    type QueueUpdateResponse as QueueUpdateResponse,
+    type QueueListResponse as QueueListResponse,
+    type QueueListResponsesDefaultPaginationForQueues as QueueListResponsesDefaultPaginationForQueues,
     type QueueCreateParams as QueueCreateParams,
     type QueueRetrieveParams as QueueRetrieveParams,
     type QueueUpdateParams as QueueUpdateParams,

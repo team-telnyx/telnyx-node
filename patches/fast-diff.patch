@@ -1,0 +1,18 @@
+diff --git a/diff.js b/diff.js
+index b28e7dfa0183bf43352b511040a938952f0a730e..238f5726ad2aca7df2e5b0da85431bc15d5dedfc 100644
+--- a/diff.js
++++ b/diff.js
+@@ -50,6 +50,13 @@ function diff_main(text1, text2, cursor_pos, cleanup, _fix_unicode) {
+     return [];
+   }
+
++  if (process.env.SKIP_GRANULAR_DIFF === 'true') {
++    return [
++      [DIFF_DELETE, text1],
++      [DIFF_INSERT, text2],
++    ];
++  }
++
+   if (cursor_pos != null) {
+     var editdiff = find_cursor_edit_diff(text1, text2, cursor_pos);
+     if (editdiff) {

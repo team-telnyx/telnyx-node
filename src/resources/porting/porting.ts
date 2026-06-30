@@ -4,16 +4,16 @@ import { APIResource } from '../../core/resource';
 import * as EventsAPI from './events';
 import {
   EventListParams,
+  EventListResponse,
+  EventListResponsesDefaultFlatPagination,
   EventRetrieveResponse,
   Events,
-  PortingEvent,
   PortingEventDeletedPayload,
   PortingEventMessagingChangedPayload,
   PortingEventNewCommentEvent,
   PortingEventSplitEvent,
   PortingEventStatusChangedEvent,
   PortingEventWithoutWebhook,
-  PortingEventsDefaultFlatPagination,
 } from './events';
 import * as LoaConfigurationsAPI from './loa-configurations';
 import {
@@ -119,7 +119,6 @@ export declare namespace Porting {
 
   export {
     Events as Events,
-    type PortingEvent as PortingEvent,
     type PortingEventDeletedPayload as PortingEventDeletedPayload,
     type PortingEventMessagingChangedPayload as PortingEventMessagingChangedPayload,
     type PortingEventNewCommentEvent as PortingEventNewCommentEvent,
@@ -127,7 +126,8 @@ export declare namespace Porting {
     type PortingEventStatusChangedEvent as PortingEventStatusChangedEvent,
     type PortingEventWithoutWebhook as PortingEventWithoutWebhook,
     type EventRetrieveResponse as EventRetrieveResponse,
-    type PortingEventsDefaultFlatPagination as PortingEventsDefaultFlatPagination,
+    type EventListResponse as EventListResponse,
+    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
     type EventListParams as EventListParams,
   };
 

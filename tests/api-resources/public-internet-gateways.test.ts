@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource publicInternetGateways', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.publicInternetGateways.create({ body: {} });
+  test.skip('create', async () => {
+    const responsePromise = client.publicInternetGateways.create({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,11 +18,6 @@ describe('resource publicInternetGateways', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.publicInternetGateways.create({ body: {} });
   });
 
   // Mock server tests are disabled

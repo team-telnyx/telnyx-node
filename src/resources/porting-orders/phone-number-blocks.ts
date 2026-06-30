@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as PortingPhoneNumbersAPI from '../porting-phone-numbers';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -246,7 +245,20 @@ export namespace PhoneNumberBlockListParams {
     /**
      * Filter results by activation status
      */
-    activation_status?: PortingPhoneNumbersAPI.PortingOrderActivationStatus;
+    activation_status?:
+      | 'New'
+      | 'Pending'
+      | 'Conflict'
+      | 'Cancel Pending'
+      | 'Failed'
+      | 'Concurred'
+      | 'Activate RDY'
+      | 'Disconnect Pending'
+      | 'Concurrence Sent'
+      | 'Old'
+      | 'Sending'
+      | 'Active'
+      | 'Cancelled';
 
     /**
      * Filter results by a list of phone numbers

@@ -17,7 +17,7 @@ export class VerificationCodes extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const portingVerificationCode of client.portingOrders.verificationCodes.list(
+   * for await (const verificationCodeListResponse of client.portingOrders.verificationCodes.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * )) {
    *   // ...
@@ -28,10 +28,10 @@ export class VerificationCodes extends APIResource {
     id: string,
     query: VerificationCodeListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingVerificationCodesDefaultFlatPagination, PortingVerificationCode> {
+  ): PagePromise<VerificationCodeListResponsesDefaultFlatPagination, VerificationCodeListResponse> {
     return this._client.getAPIList(
       path`/porting_orders/${id}/verification_codes`,
-      DefaultFlatPagination<PortingVerificationCode>,
+      DefaultFlatPagination<VerificationCodeListResponse>,
       { query, ...options },
     );
   }
@@ -78,9 +78,10 @@ export class VerificationCodes extends APIResource {
   }
 }
 
-export type PortingVerificationCodesDefaultFlatPagination = DefaultFlatPagination<PortingVerificationCode>;
+export type VerificationCodeListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<VerificationCodeListResponse>;
 
-export interface PortingVerificationCode {
+export interface VerificationCodeListResponse {
   /**
    * Uniquely identifies this porting verification code
    */
@@ -118,7 +119,46 @@ export interface PortingVerificationCode {
 }
 
 export interface VerificationCodeVerifyResponse {
-  data?: Array<PortingVerificationCode>;
+  data?: Array<VerificationCodeVerifyResponse.Data>;
+}
+
+export namespace VerificationCodeVerifyResponse {
+  export interface Data {
+    /**
+     * Uniquely identifies this porting verification code
+     */
+    id?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * E164 formatted phone number
+     */
+    phone_number?: string;
+
+    /**
+     * Identifies the associated porting order
+     */
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was updated.
+     */
+    updated_at?: string;
+
+    /**
+     * Indicates whether the verification code has been verified
+     */
+    verified?: boolean;
+  }
 }
 
 export interface VerificationCodeListParams extends DefaultFlatPaginationParams {
@@ -176,9 +216,9 @@ export namespace VerificationCodeVerifyParams {
 
 export declare namespace VerificationCodes {
   export {
-    type PortingVerificationCode as PortingVerificationCode,
+    type VerificationCodeListResponse as VerificationCodeListResponse,
     type VerificationCodeVerifyResponse as VerificationCodeVerifyResponse,
-    type PortingVerificationCodesDefaultFlatPagination as PortingVerificationCodesDefaultFlatPagination,
+    type VerificationCodeListResponsesDefaultFlatPagination as VerificationCodeListResponsesDefaultFlatPagination,
     type VerificationCodeListParams as VerificationCodeListParams,
     type VerificationCodeSendParams as VerificationCodeSendParams,
     type VerificationCodeVerifyParams as VerificationCodeVerifyParams,

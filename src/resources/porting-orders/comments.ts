@@ -30,7 +30,7 @@ export class Comments extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const portingOrdersComment of client.portingOrders.comments.list(
+   * for await (const commentListResponse of client.portingOrders.comments.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * )) {
    *   // ...
@@ -41,18 +41,50 @@ export class Comments extends APIResource {
     id: string,
     query: CommentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingOrdersCommentsDefaultFlatPagination, PortingOrdersComment> {
+  ): PagePromise<CommentListResponsesDefaultFlatPagination, CommentListResponse> {
     return this._client.getAPIList(
       path`/porting_orders/${id}/comments`,
-      DefaultFlatPagination<PortingOrdersComment>,
+      DefaultFlatPagination<CommentListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type PortingOrdersCommentsDefaultFlatPagination = DefaultFlatPagination<PortingOrdersComment>;
+export type CommentListResponsesDefaultFlatPagination = DefaultFlatPagination<CommentListResponse>;
 
-export interface PortingOrdersComment {
+export interface CommentCreateResponse {
+  data?: CommentCreateResponse.Data;
+}
+
+export namespace CommentCreateResponse {
+  export interface Data {
+    id?: string;
+
+    /**
+     * Body of comment
+     */
+    body?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    porting_order_id?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+
+    /**
+     * Indicates whether this comment was created by a Telnyx Admin, user, or system
+     */
+    user_type?: 'admin' | 'user' | 'system';
+  }
+}
+
+export interface CommentListResponse {
   id?: string;
 
   /**
@@ -78,10 +110,6 @@ export interface PortingOrdersComment {
   user_type?: 'admin' | 'user' | 'system';
 }
 
-export interface CommentCreateResponse {
-  data?: PortingOrdersComment;
-}
-
 export interface CommentCreateParams {
   body?: string;
 }
@@ -90,9 +118,9 @@ export interface CommentListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace Comments {
   export {
-    type PortingOrdersComment as PortingOrdersComment,
     type CommentCreateResponse as CommentCreateResponse,
-    type PortingOrdersCommentsDefaultFlatPagination as PortingOrdersCommentsDefaultFlatPagination,
+    type CommentListResponse as CommentListResponse,
+    type CommentListResponsesDefaultFlatPagination as CommentListResponsesDefaultFlatPagination,
     type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
   };

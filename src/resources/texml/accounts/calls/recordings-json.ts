@@ -16,7 +16,7 @@ export class RecordingsJson extends APIResource {
    *
    * @example
    * ```ts
-   * const texmlCreateCallRecordingResponseBody =
+   * const response =
    *   await client.texml.accounts.calls.recordingsJson.recordingsJson(
    *     'call_sid',
    *     { account_sid: 'account_sid' },
@@ -27,7 +27,7 @@ export class RecordingsJson extends APIResource {
     callSid: string,
     params: RecordingsJsonRecordingsJsonParams,
     options?: RequestOptions,
-  ): APIPromise<TexmlCreateCallRecordingResponseBody> {
+  ): APIPromise<RecordingsJsonRecordingsJsonResponse> {
     const { account_sid, ...body } = params;
     return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Recordings.json`, {
       body,
@@ -41,7 +41,7 @@ export class RecordingsJson extends APIResource {
    *
    * @example
    * ```ts
-   * const texmlGetCallRecordingsResponseBody =
+   * const response =
    *   await client.texml.accounts.calls.recordingsJson.retrieveRecordingsJson(
    *     'call_sid',
    *     { account_sid: 'account_sid' },
@@ -52,30 +52,18 @@ export class RecordingsJson extends APIResource {
     callSid: string,
     params: RecordingsJsonRetrieveRecordingsJsonParams,
     options?: RequestOptions,
-  ): APIPromise<TexmlGetCallRecordingsResponseBody> {
+  ): APIPromise<RecordingsJsonRetrieveRecordingsJsonResponse> {
     const { account_sid } = params;
     return this._client.get(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Recordings.json`, options);
   }
 }
 
-/**
- * Defines how the recording was created.
- */
-export type RecordingSource =
-  | 'StartCallRecordingAPI'
-  | 'StartConferenceRecordingAPI'
-  | 'OutboundAPI'
-  | 'DialVerb'
-  | 'Conference'
-  | 'RecordVerb'
-  | 'Trunking';
-
-export interface TexmlCreateCallRecordingResponseBody {
+export interface RecordingsJsonRecordingsJsonResponse {
   account_sid?: string;
 
   call_sid?: string;
 
-  channels?: TwimlRecordingChannels;
+  channels?: 1 | 2;
 
   conference_sid?: string | null;
 
@@ -108,7 +96,14 @@ export interface TexmlCreateCallRecordingResponseBody {
   /**
    * Defines how the recording was created.
    */
-  source?: RecordingSource;
+  source?:
+    | 'StartCallRecordingAPI'
+    | 'StartConferenceRecordingAPI'
+    | 'OutboundAPI'
+    | 'DialVerb'
+    | 'Conference'
+    | 'RecordVerb'
+    | 'Trunking';
 
   start_time?: string;
 
@@ -123,7 +118,7 @@ export interface TexmlCreateCallRecordingResponseBody {
   uri?: string;
 }
 
-export interface TexmlGetCallRecordingsResponseBody {
+export interface RecordingsJsonRetrieveRecordingsJsonResponse {
   /**
    * The number of the last element on the page, zero-indexed.
    */
@@ -166,8 +161,6 @@ export interface TexmlGetCallRecordingsResponseBody {
    */
   uri?: string;
 }
-
-export type TwimlRecordingChannels = 1 | 2;
 
 export interface RecordingsJsonRecordingsJsonParams {
   /**
@@ -223,10 +216,8 @@ export interface RecordingsJsonRetrieveRecordingsJsonParams {
 
 export declare namespace RecordingsJson {
   export {
-    type RecordingSource as RecordingSource,
-    type TexmlCreateCallRecordingResponseBody as TexmlCreateCallRecordingResponseBody,
-    type TexmlGetCallRecordingsResponseBody as TexmlGetCallRecordingsResponseBody,
-    type TwimlRecordingChannels as TwimlRecordingChannels,
+    type RecordingsJsonRecordingsJsonResponse as RecordingsJsonRecordingsJsonResponse,
+    type RecordingsJsonRetrieveRecordingsJsonResponse as RecordingsJsonRetrieveRecordingsJsonResponse,
     type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
     type RecordingsJsonRetrieveRecordingsJsonParams as RecordingsJsonRetrieveRecordingsJsonParams,
   };

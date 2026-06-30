@@ -19,12 +19,12 @@ export class Recordings extends APIResource {
    *
    * @example
    * ```ts
-   * const recordingResponse = await client.recordings.retrieve(
+   * const recording = await client.recordings.retrieve(
    *   'recording_id',
    * );
    * ```
    */
-  retrieve(recordingID: string, options?: RequestOptions): APIPromise<RecordingResponse> {
+  retrieve(recordingID: string, options?: RequestOptions): APIPromise<RecordingRetrieveResponse> {
     return this._client.get(path`/recordings/${recordingID}`, options);
   }
 
@@ -54,21 +54,17 @@ export class Recordings extends APIResource {
    *
    * @example
    * ```ts
-   * const recordingResponse = await client.recordings.delete(
+   * const recording = await client.recordings.delete(
    *   'recording_id',
    * );
    * ```
    */
-  delete(recordingID: string, options?: RequestOptions): APIPromise<RecordingResponse> {
+  delete(recordingID: string, options?: RequestOptions): APIPromise<RecordingDeleteResponse> {
     return this._client.delete(path`/recordings/${recordingID}`, options);
   }
 }
 
 export type RecordingResponseDataDefaultFlatPagination = DefaultFlatPagination<RecordingResponseData>;
-
-export interface RecordingResponse {
-  data?: RecordingResponseData;
-}
 
 export interface RecordingResponseData {
   /**
@@ -186,6 +182,14 @@ export namespace RecordingResponseData {
      */
     wav?: string;
   }
+}
+
+export interface RecordingRetrieveResponse {
+  data?: RecordingResponseData;
+}
+
+export interface RecordingDeleteResponse {
+  data?: RecordingResponseData;
 }
 
 export interface RecordingListParams extends DefaultFlatPaginationParams {
@@ -306,8 +310,9 @@ Recordings.Actions = Actions;
 
 export declare namespace Recordings {
   export {
-    type RecordingResponse as RecordingResponse,
     type RecordingResponseData as RecordingResponseData,
+    type RecordingRetrieveResponse as RecordingRetrieveResponse,
+    type RecordingDeleteResponse as RecordingDeleteResponse,
     type RecordingResponseDataDefaultFlatPagination as RecordingResponseDataDefaultFlatPagination,
     type RecordingListParams as RecordingListParams,
   };

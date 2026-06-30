@@ -3,8 +3,9 @@
 export { Actions, type ActionDeleteResponse, type ActionDeleteParams } from './actions';
 export {
   Recordings,
-  type RecordingResponse,
   type RecordingResponseData,
+  type RecordingRetrieveResponse,
+  type RecordingDeleteResponse,
   type RecordingListParams,
   type RecordingResponseDataDefaultFlatPagination,
 } from './recordings';

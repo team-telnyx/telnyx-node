@@ -18,11 +18,6 @@ export class MessagingProfileMetrics extends APIResource {
   }
 }
 
-/**
- * The time frame for metrics aggregation.
- */
-export type MessagingMetricsTimeFrame = '1h' | '3h' | '24h' | '3d' | '7d' | '30d';
-
 export interface MessagingProfileMetricListResponse {
   data?: Array<{ [key: string]: unknown }>;
 
@@ -33,12 +28,11 @@ export interface MessagingProfileMetricListParams {
   /**
    * The time frame for metrics.
    */
-  time_frame?: MessagingMetricsTimeFrame;
+  time_frame?: '1h' | '3h' | '24h' | '3d' | '7d' | '30d';
 }
 
 export declare namespace MessagingProfileMetrics {
   export {
-    type MessagingMetricsTimeFrame as MessagingMetricsTimeFrame,
     type MessagingProfileMetricListResponse as MessagingProfileMetricListResponse,
     type MessagingProfileMetricListParams as MessagingProfileMetricListParams,
   };

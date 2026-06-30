@@ -4,7 +4,6 @@ export { Actions, type ActionVerifyParams } from './actions';
 export { ByPhoneNumber, type VerifyMeta, type ByPhoneNumberListResponse } from './by-phone-number/index';
 export {
   Verifications,
-  type CreateVerificationRequestSMS,
   type CreateVerificationResponse,
   type Verification,
   type VerificationRetrieveResponse,

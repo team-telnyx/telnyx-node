@@ -14,10 +14,10 @@ export class Tags extends APIResource {
    *
    * @example
    * ```ts
-   * const tagsResponse = await client.ai.assistants.tags.list();
+   * const tags = await client.ai.assistants.tags.list();
    * ```
    */
-  list(options?: RequestOptions): APIPromise<TagsResponse> {
+  list(options?: RequestOptions): APIPromise<TagListResponse> {
     return this._client.get('/ai/assistants/tags', options);
   }
 
@@ -26,13 +26,13 @@ export class Tags extends APIResource {
    *
    * @example
    * ```ts
-   * const tagsResponse = await client.ai.assistants.tags.add(
+   * const response = await client.ai.assistants.tags.add(
    *   'assistant_id',
    *   { tag: 'tag' },
    * );
    * ```
    */
-  add(assistantID: string, body: TagAddParams, options?: RequestOptions): APIPromise<TagsResponse> {
+  add(assistantID: string, body: TagAddParams, options?: RequestOptions): APIPromise<TagAddResponse> {
     return this._client.post(path`/ai/assistants/${assistantID}/tags`, { body, ...options });
   }
 
@@ -41,19 +41,26 @@ export class Tags extends APIResource {
    *
    * @example
    * ```ts
-   * const tagsResponse = await client.ai.assistants.tags.remove(
-   *   'tag',
-   *   { assistant_id: 'assistant_id' },
-   * );
+   * const tag = await client.ai.assistants.tags.remove('tag', {
+   *   assistant_id: 'assistant_id',
+   * });
    * ```
    */
-  remove(tag: string, params: TagRemoveParams, options?: RequestOptions): APIPromise<TagsResponse> {
+  remove(tag: string, params: TagRemoveParams, options?: RequestOptions): APIPromise<TagRemoveResponse> {
     const { assistant_id } = params;
     return this._client.delete(path`/ai/assistants/${assistant_id}/tags/${tag}`, options);
   }
 }
 
-export interface TagsResponse {
+export interface TagListResponse {
+  tags: Array<string>;
+}
+
+export interface TagAddResponse {
+  tags: Array<string>;
+}
+
+export interface TagRemoveResponse {
   tags: Array<string>;
 }
 
@@ -70,7 +77,9 @@ export interface TagRemoveParams {
 
 export declare namespace Tags {
   export {
-    type TagsResponse as TagsResponse,
+    type TagListResponse as TagListResponse,
+    type TagAddResponse as TagAddResponse,
+    type TagRemoveResponse as TagRemoveResponse,
     type TagAddParams as TagAddParams,
     type TagRemoveParams as TagRemoveParams,
   };

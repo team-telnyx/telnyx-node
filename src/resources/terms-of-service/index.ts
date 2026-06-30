@@ -2,18 +2,17 @@
 
 export {
   Agreements,
-  type TosAgreement,
-  type TosAgreementWrapped,
-  type TosProductType,
+  type AgreementRetrieveResponse,
+  type AgreementListResponse,
   type AgreementListParams,
-  type TosAgreementsDefaultFlatPagination,
+  type AgreementListResponsesDefaultFlatPagination,
 } from './agreements';
-export { BrandedCalling } from './branded-calling';
-export { NumberReputation } from './number-reputation';
+export { BrandedCalling, type BrandedCallingAgreeResponse } from './branded-calling';
+export { NumberReputation, type NumberReputationAgreeResponse } from './number-reputation';
 export {
   TermsOfService,
-  type TermsOfServiceRetrieveInfoResponse,
-  type TermsOfServiceRetrieveStatusResponse,
-  type TermsOfServiceRetrieveInfoParams,
-  type TermsOfServiceRetrieveStatusParams,
+  type TermsOfServiceInfoResponse,
+  type TermsOfServiceStatusResponse,
+  type TermsOfServiceInfoParams,
+  type TermsOfServiceStatusParams,
 } from './terms-of-service';

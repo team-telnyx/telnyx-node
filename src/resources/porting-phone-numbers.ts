@@ -14,39 +14,36 @@ export class PortingPhoneNumbers extends APIResource {
   list(
     query: PortingPhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PortingPhoneNumbersDefaultFlatPagination, PortingPhoneNumber> {
-    return this._client.getAPIList('/porting_phone_numbers', DefaultFlatPagination<PortingPhoneNumber>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<PortingPhoneNumberListResponsesDefaultFlatPagination, PortingPhoneNumberListResponse> {
+    return this._client.getAPIList(
+      '/porting_phone_numbers',
+      DefaultFlatPagination<PortingPhoneNumberListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type PortingPhoneNumbersDefaultFlatPagination = DefaultFlatPagination<PortingPhoneNumber>;
+export type PortingPhoneNumberListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<PortingPhoneNumberListResponse>;
 
-/**
- * Activation status
- */
-export type PortingOrderActivationStatus =
-  | 'New'
-  | 'Pending'
-  | 'Conflict'
-  | 'Cancel Pending'
-  | 'Failed'
-  | 'Concurred'
-  | 'Activate RDY'
-  | 'Disconnect Pending'
-  | 'Concurrence Sent'
-  | 'Old'
-  | 'Sending'
-  | 'Active'
-  | 'Cancelled';
-
-export interface PortingPhoneNumber {
+export interface PortingPhoneNumberListResponse {
   /**
    * Activation status
    */
-  activation_status?: PortingOrderActivationStatus;
+  activation_status?:
+    | 'New'
+    | 'Pending'
+    | 'Conflict'
+    | 'Cancel Pending'
+    | 'Failed'
+    | 'Concurred'
+    | 'Activate RDY'
+    | 'Disconnect Pending'
+    | 'Concurrence Sent'
+    | 'Old'
+    | 'Sending'
+    | 'Active'
+    | 'Cancelled';
 
   /**
    * E164 formatted phone number
@@ -133,9 +130,8 @@ export namespace PortingPhoneNumberListParams {
 
 export declare namespace PortingPhoneNumbers {
   export {
-    type PortingOrderActivationStatus as PortingOrderActivationStatus,
-    type PortingPhoneNumber as PortingPhoneNumber,
-    type PortingPhoneNumbersDefaultFlatPagination as PortingPhoneNumbersDefaultFlatPagination,
+    type PortingPhoneNumberListResponse as PortingPhoneNumberListResponse,
+    type PortingPhoneNumberListResponsesDefaultFlatPagination as PortingPhoneNumberListResponsesDefaultFlatPagination,
     type PortingPhoneNumberListParams as PortingPhoneNumberListParams,
   };
 }

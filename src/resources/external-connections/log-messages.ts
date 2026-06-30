@@ -36,7 +36,7 @@ export class LogMessages extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const logMessage of client.externalConnections.logMessages.list()) {
+   * for await (const logMessageListResponse of client.externalConnections.logMessages.list()) {
    *   // ...
    * }
    * ```
@@ -44,10 +44,10 @@ export class LogMessages extends APIResource {
   list(
     query: LogMessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<LogMessagesDefaultPaginationForLogMessages, LogMessage> {
+  ): PagePromise<LogMessageListResponsesDefaultPaginationForLogMessages, LogMessageListResponse> {
     return this._client.getAPIList(
       '/external_connections/log_messages',
-      DefaultPaginationForLogMessages<LogMessage>,
+      DefaultPaginationForLogMessages<LogMessageListResponse>,
       { query, ...options },
     );
   }
@@ -68,21 +68,66 @@ export class LogMessages extends APIResource {
   }
 }
 
-export type LogMessagesDefaultPaginationForLogMessages = DefaultPaginationForLogMessages<LogMessage>;
+export type LogMessageListResponsesDefaultPaginationForLogMessages =
+  DefaultPaginationForLogMessages<LogMessageListResponse>;
 
-export interface LogMessage {
+export interface LogMessageRetrieveResponse {
+  log_messages?: Array<LogMessageRetrieveResponse.LogMessage>;
+}
+
+export namespace LogMessageRetrieveResponse {
+  export interface LogMessage {
+    code: string;
+
+    title: string;
+
+    detail?: string;
+
+    meta?: LogMessage.Meta;
+
+    source?: LogMessage.Source;
+  }
+
+  export namespace LogMessage {
+    export interface Meta {
+      /**
+       * The external connection the log message is associated with, if any.
+       */
+      external_connection_id?: string;
+
+      /**
+       * The telephone number the log message is associated with, if any.
+       */
+      telephone_number?: string;
+
+      /**
+       * The ticket ID for an operation that generated the log message, if any.
+       */
+      ticket_id?: string;
+    }
+
+    export interface Source {
+      /**
+       * JSON pointer (RFC6901) to the offending entity.
+       */
+      pointer?: string;
+    }
+  }
+}
+
+export interface LogMessageListResponse {
   code: string;
 
   title: string;
 
   detail?: string;
 
-  meta?: LogMessage.Meta;
+  meta?: LogMessageListResponse.Meta;
 
-  source?: LogMessage.Source;
+  source?: LogMessageListResponse.Source;
 }
 
-export namespace LogMessage {
+export namespace LogMessageListResponse {
   export interface Meta {
     /**
      * The external connection the log message is associated with, if any.
@@ -106,10 +151,6 @@ export namespace LogMessage {
      */
     pointer?: string;
   }
-}
-
-export interface LogMessageRetrieveResponse {
-  log_messages?: Array<LogMessage>;
 }
 
 export interface LogMessageDismissResponse {
@@ -168,10 +209,10 @@ export namespace LogMessageListParams {
 
 export declare namespace LogMessages {
   export {
-    type LogMessage as LogMessage,
     type LogMessageRetrieveResponse as LogMessageRetrieveResponse,
+    type LogMessageListResponse as LogMessageListResponse,
     type LogMessageDismissResponse as LogMessageDismissResponse,
-    type LogMessagesDefaultPaginationForLogMessages as LogMessagesDefaultPaginationForLogMessages,
+    type LogMessageListResponsesDefaultPaginationForLogMessages as LogMessageListResponsesDefaultPaginationForLogMessages,
     type LogMessageListParams as LogMessageListParams,
   };
 }

@@ -10,7 +10,9 @@ const client = new Telnyx({
 describe('resource wireguardPeers', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.wireguardPeers.create({ body: {} });
+    const responsePromise = client.wireguardPeers.create({
+      wireguard_interface_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +24,9 @@ describe('resource wireguardPeers', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.wireguardPeers.create({ body: {} });
+    const response = await client.wireguardPeers.create({
+      wireguard_interface_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+    });
   });
 
   // Mock server tests are disabled

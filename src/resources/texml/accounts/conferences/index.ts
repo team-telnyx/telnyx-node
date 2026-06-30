@@ -2,9 +2,11 @@
 
 export {
   Conferences,
-  type ConferenceResource,
+  type ConferenceRetrieveResponse,
+  type ConferenceUpdateResponse,
   type ConferenceRetrieveConferencesResponse,
   type ConferenceRetrieveRecordingsResponse,
+  type ConferenceRetrieveRecordingsJsonResponse,
   type ConferenceRetrieveParams,
   type ConferenceUpdateParams,
   type ConferenceRetrieveConferencesParams,
@@ -13,7 +15,8 @@ export {
 } from './conferences';
 export {
   Participants,
-  type ParticipantResource,
+  type ParticipantRetrieveResponse,
+  type ParticipantUpdateResponse,
   type ParticipantParticipantsResponse,
   type ParticipantRetrieveParticipantsResponse,
   type ParticipantRetrieveParams,

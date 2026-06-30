@@ -221,6 +221,32 @@ export class Messages extends APIResource {
   }
 }
 
+export interface MessagingError {
+  code: string;
+
+  title: string;
+
+  detail?: string;
+
+  meta?: { [key: string]: unknown };
+
+  source?: MessagingError.Source;
+}
+
+export namespace MessagingError {
+  export interface Source {
+    /**
+     * Indicates which query parameter caused the error.
+     */
+    parameter?: string;
+
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
+  }
+}
+
 export interface OutboundMessagePayload {
   /**
    * Identifies the type of resource.
@@ -256,7 +282,7 @@ export interface OutboundMessagePayload {
    * These errors may point at addressees when referring to unsuccessful/unconfirmed
    * delivery statuses.
    */
-  errors?: Array<Shared.MessagingError>;
+  errors?: Array<MessagingError>;
 
   from?: OutboundMessagePayload.From;
 
@@ -1272,7 +1298,7 @@ export interface MessageCancelScheduledResponse {
    * These errors may point at addressees when referring to unsuccessful/unconfirmed
    * delivery statuses.
    */
-  errors?: Array<Shared.MessagingError>;
+  errors?: Array<MessagingError>;
 
   from?: MessageCancelScheduledResponse.From;
 
@@ -2111,6 +2137,7 @@ Messages.Rcs = Rcs;
 
 export declare namespace Messages {
   export {
+    type MessagingError as MessagingError,
     type OutboundMessagePayload as OutboundMessagePayload,
     type RcsAgentMessage as RcsAgentMessage,
     type RcsCardContent as RcsCardContent,

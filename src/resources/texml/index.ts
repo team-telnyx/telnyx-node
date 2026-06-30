@@ -4,6 +4,7 @@ export {
   Accounts,
   type TexmlGetCallRecordingResponseBody,
   type TexmlRecordingSubresourcesUris,
+  type AccountRetrieveRecordingsJsonResponse,
   type AccountRetrieveTranscriptionsJsonResponse,
   type AccountRetrieveRecordingsJsonParams,
   type AccountRetrieveTranscriptionsJsonParams,

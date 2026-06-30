@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
-import * as EnterprisesAPI from '../enterprises';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -24,7 +23,7 @@ export class Numbers extends APIResource {
    *
    * @example
    * ```ts
-   * const reputationPhoneNumberWithReputation =
+   * const number =
    *   await client.enterprises.reputation.numbers.retrieve(
    *     '+19493253498',
    *     {
@@ -37,7 +36,7 @@ export class Numbers extends APIResource {
     phoneNumber: string,
     params: NumberRetrieveParams,
     options?: RequestOptions,
-  ): APIPromise<ReputationPhoneNumberWithReputation> {
+  ): APIPromise<NumberRetrieveResponse> {
     const { enterprise_id, ...query } = params;
     return this._client.get(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, {
       query,
@@ -53,7 +52,7 @@ export class Numbers extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const reputationPhoneNumber of client.enterprises.reputation.numbers.list(
+   * for await (const numberListResponse of client.enterprises.reputation.numbers.list(
    *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
    * )) {
    *   // ...
@@ -64,10 +63,10 @@ export class Numbers extends APIResource {
     enterpriseID: string,
     query: NumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ReputationPhoneNumbersDefaultFlatPagination, ReputationPhoneNumber> {
+  ): PagePromise<NumberListResponsesDefaultFlatPagination, NumberListResponse> {
     return this._client.getAPIList(
       path`/enterprises/${enterpriseID}/reputation/numbers`,
-      DefaultFlatPagination<ReputationPhoneNumber>,
+      DefaultFlatPagination<NumberListResponse>,
       { query, ...options },
     );
   }
@@ -85,7 +84,7 @@ export class Numbers extends APIResource {
    *
    * @example
    * ```ts
-   * const reputationPhoneNumberList =
+   * const response =
    *   await client.enterprises.reputation.numbers.associate(
    *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
    *     { phone_numbers: ['+19493253498', '+12134445566'] },
@@ -96,7 +95,7 @@ export class Numbers extends APIResource {
     enterpriseID: string,
     body: NumberAssociateParams,
     options?: RequestOptions,
-  ): APIPromise<ReputationPhoneNumberList> {
+  ): APIPromise<NumberAssociateResponse> {
     return this._client.post(path`/enterprises/${enterpriseID}/reputation/numbers`, { body, ...options });
   }
 
@@ -154,9 +153,35 @@ export class Numbers extends APIResource {
   }
 }
 
-export type ReputationPhoneNumbersDefaultFlatPagination = DefaultFlatPagination<ReputationPhoneNumber>;
+export type NumberListResponsesDefaultFlatPagination = DefaultFlatPagination<NumberListResponse>;
 
-export interface ReputationPhoneNumber {
+export interface NumberRetrieveResponse {
+  data: NumberRetrieveResponse.Data;
+}
+
+export namespace NumberRetrieveResponse {
+  export interface Data {
+    id?: string;
+
+    created_at?: string;
+
+    enterprise_id?: string;
+
+    /**
+     * E.164 with leading `+`.
+     */
+    phone_number?: string;
+
+    /**
+     * `null` until the first refresh has been collected for this number.
+     */
+    reputation_data?: Shared.ReputationData | null;
+
+    updated_at?: string;
+  }
+}
+
+export interface NumberListResponse {
   id?: string;
 
   created_at?: string;
@@ -176,8 +201,8 @@ export interface ReputationPhoneNumber {
   updated_at?: string;
 }
 
-export interface ReputationPhoneNumberList {
-  data: Array<ReputationPhoneNumber>;
+export interface NumberAssociateResponse {
+  data: Array<NumberAssociateResponse.Data>;
 
   /**
    * JSON:API pagination metadata returned with every paginated list response. Page
@@ -185,15 +210,29 @@ export interface ReputationPhoneNumberList {
    * in `data` for this page; the requested size is taken from the `page[size]` query
    * parameter.
    */
-  meta: EnterprisesAPI.NumberReputationPaginationMeta;
+  meta: NumberAssociateResponse.Meta;
 }
 
-/**
- * List of reputation-monitored phone numbers, each carrying its current reputation
- * data.
- */
-export interface ReputationPhoneNumberListWithReputation {
-  data: Array<ReputationPhoneNumber>;
+export namespace NumberAssociateResponse {
+  export interface Data {
+    id?: string;
+
+    created_at?: string;
+
+    enterprise_id?: string;
+
+    /**
+     * E.164 with leading `+`.
+     */
+    phone_number?: string;
+
+    /**
+     * `null` until the first refresh has been collected for this number.
+     */
+    reputation_data?: Shared.ReputationData | null;
+
+    updated_at?: string;
+  }
 
   /**
    * JSON:API pagination metadata returned with every paginated list response. Page
@@ -201,11 +240,28 @@ export interface ReputationPhoneNumberListWithReputation {
    * in `data` for this page; the requested size is taken from the `page[size]` query
    * parameter.
    */
-  meta: EnterprisesAPI.NumberReputationPaginationMeta;
-}
+  export interface Meta {
+    /**
+     * 1-based index of this page. Echoes the `page[number]` query parameter (default
+     * `1`).
+     */
+    page_number: number;
 
-export interface ReputationPhoneNumberWithReputation {
-  data: ReputationPhoneNumber;
+    /**
+     * Number of items returned in this page's `data` array. Capped at 250.
+     */
+    page_size: number;
+
+    /**
+     * Total number of pages available given the current `page_size`.
+     */
+    total_pages: number;
+
+    /**
+     * Total number of items across all pages (excludes soft-deleted rows).
+     */
+    total_results: number;
+  }
 }
 
 export interface NumberRefreshResponse {
@@ -289,12 +345,11 @@ export interface NumberRefreshParams {
 
 export declare namespace Numbers {
   export {
-    type ReputationPhoneNumber as ReputationPhoneNumber,
-    type ReputationPhoneNumberList as ReputationPhoneNumberList,
-    type ReputationPhoneNumberListWithReputation as ReputationPhoneNumberListWithReputation,
-    type ReputationPhoneNumberWithReputation as ReputationPhoneNumberWithReputation,
+    type NumberRetrieveResponse as NumberRetrieveResponse,
+    type NumberListResponse as NumberListResponse,
+    type NumberAssociateResponse as NumberAssociateResponse,
     type NumberRefreshResponse as NumberRefreshResponse,
-    type ReputationPhoneNumbersDefaultFlatPagination as ReputationPhoneNumbersDefaultFlatPagination,
+    type NumberListResponsesDefaultFlatPagination as NumberListResponsesDefaultFlatPagination,
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
     type NumberAssociateParams as NumberAssociateParams,

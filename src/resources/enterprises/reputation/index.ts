@@ -1,35 +1,35 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Loa, type AgentInput, type LoaUpdateParams, type LoaRenderParams } from './loa';
+export { Loa, type LoaUpdateResponse, type LoaUpdateParams, type LoaRenderParams } from './loa';
 export {
   Numbers,
-  type ReputationPhoneNumber,
-  type ReputationPhoneNumberList,
-  type ReputationPhoneNumberListWithReputation,
-  type ReputationPhoneNumberWithReputation,
+  type NumberRetrieveResponse,
+  type NumberListResponse,
+  type NumberAssociateResponse,
   type NumberRefreshResponse,
   type NumberRetrieveParams,
   type NumberListParams,
   type NumberAssociateParams,
   type NumberDisassociateParams,
   type NumberRefreshParams,
-  type ReputationPhoneNumbersDefaultFlatPagination,
+  type NumberListResponsesDefaultFlatPagination,
 } from './numbers';
 export {
   Remediation,
-  type RemediationRequestWrapped,
-  type RemediationStatus,
+  type RemediationRetrieveResponse,
   type RemediationListResponse,
-  type RemediationCreateParams,
+  type RemediationSubmitResponse,
   type RemediationRetrieveParams,
   type RemediationListParams,
+  type RemediationSubmitParams,
   type RemediationListResponsesDefaultFlatPagination,
 } from './remediation';
 export {
   Reputation,
   type EnterpriseReputationPublic,
-  type EnterpriseReputationPublicWrapped,
-  type ReputationCheckFrequency,
+  type ReputationRetrieveResponse,
+  type ReputationEnableResponse,
+  type ReputationUpdateFrequencyResponse,
   type ReputationEnableParams,
   type ReputationUpdateFrequencyParams,
 } from './reputation';

@@ -119,14 +119,6 @@ export type AnchorsiteOverride =
   | 'Vancouver, Canada'
   | 'Frankfurt, Germany';
 
-/**
- * Controls when noise suppression is applied to calls. When set to 'inbound',
- * noise suppression is applied to incoming audio. When set to 'outbound', it's
- * applied to outgoing audio. When set to 'both', it's applied in both directions.
- * When set to 'disabled', noise suppression is turned off.
- */
-export type ConnectionNoiseSuppression = 'inbound' | 'outbound' | 'both' | 'disabled';
-
 export interface ConnectionRtcpSettings {
   /**
    * BETA - Enable the capture and storage of RTCP messages to create QoS reports on
@@ -228,7 +220,7 @@ export interface CredentialConnection {
    * applied to outgoing audio. When set to 'both', it's applied in both directions.
    * When set to 'disabled', noise suppression is turned off.
    */
-  noise_suppression?: ConnectionNoiseSuppression;
+  noise_suppression?: 'inbound' | 'outbound' | 'both' | 'disabled';
 
   /**
    * Configuration options for noise suppression. These settings are stored
@@ -564,7 +556,7 @@ export interface CredentialConnectionCreateParams {
    * applied to outgoing audio. When set to 'both', it's applied in both directions.
    * When set to 'disabled', noise suppression is turned off.
    */
-  noise_suppression?: ConnectionNoiseSuppression;
+  noise_suppression?: 'inbound' | 'outbound' | 'both' | 'disabled';
 
   /**
    * Configuration options for noise suppression. These settings are stored
@@ -699,7 +691,7 @@ export interface CredentialConnectionUpdateParams {
    * applied to outgoing audio. When set to 'both', it's applied in both directions.
    * When set to 'disabled', noise suppression is turned off.
    */
-  noise_suppression?: ConnectionNoiseSuppression;
+  noise_suppression?: 'inbound' | 'outbound' | 'both' | 'disabled';
 
   /**
    * Configuration options for noise suppression. These settings are stored
@@ -840,7 +832,6 @@ CredentialConnections.Actions = Actions;
 export declare namespace CredentialConnections {
   export {
     type AnchorsiteOverride as AnchorsiteOverride,
-    type ConnectionNoiseSuppression as ConnectionNoiseSuppression,
     type ConnectionRtcpSettings as ConnectionRtcpSettings,
     type CredentialConnection as CredentialConnection,
     type CredentialInbound as CredentialInbound,

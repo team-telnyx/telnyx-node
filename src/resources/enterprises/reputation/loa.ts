@@ -18,21 +18,19 @@ export class Loa extends APIResource {
    *
    * @example
    * ```ts
-   * const enterpriseReputationPublicWrapped =
-   *   await client.enterprises.reputation.loa.update(
-   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
-   *     {
-   *       loa_document_id:
-   *         '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',
-   *     },
-   *   );
+   * const loa = await client.enterprises.reputation.loa.update(
+   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *   {
+   *     loa_document_id: '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',
+   *   },
+   * );
    * ```
    */
   update(
     enterpriseID: string,
     body: LoaUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<ReputationAPI.EnterpriseReputationPublicWrapped> {
+  ): APIPromise<LoaUpdateResponse> {
     return this._client.patch(path`/enterprises/${enterpriseID}/reputation/loa`, { body, ...options });
   }
 
@@ -70,34 +68,8 @@ export class Loa extends APIResource {
   }
 }
 
-/**
- * Third-party reseller / partner managing the enterprise's phone numbers. Omit
- * when the enterprise works directly with Telnyx.
- */
-export interface AgentInput {
-  administrative_area: string;
-
-  city: string;
-
-  contact_email: string;
-
-  contact_name: string;
-
-  contact_phone: string;
-
-  contact_title: string;
-
-  country: string;
-
-  legal_name: string;
-
-  postal_code: string;
-
-  street_address: string;
-
-  dba?: string | null;
-
-  extended_address?: string | null;
+export interface LoaUpdateResponse {
+  data: ReputationAPI.EnterpriseReputationPublic;
 }
 
 export interface LoaUpdateParams {
@@ -114,7 +86,7 @@ export interface LoaRenderParams {
    * Third-party reseller / partner managing the enterprise's phone numbers. Omit
    * when the enterprise works directly with Telnyx.
    */
-  agent?: AgentInput;
+  agent?: LoaRenderParams.Agent;
 
   /**
    * Optional signature embedded in the rendered PDF. When omitted the PDF is
@@ -124,6 +96,36 @@ export interface LoaRenderParams {
 }
 
 export namespace LoaRenderParams {
+  /**
+   * Third-party reseller / partner managing the enterprise's phone numbers. Omit
+   * when the enterprise works directly with Telnyx.
+   */
+  export interface Agent {
+    administrative_area: string;
+
+    city: string;
+
+    contact_email: string;
+
+    contact_name: string;
+
+    contact_phone: string;
+
+    contact_title: string;
+
+    country: string;
+
+    legal_name: string;
+
+    postal_code: string;
+
+    street_address: string;
+
+    dba?: string | null;
+
+    extended_address?: string | null;
+  }
+
   /**
    * Optional signature embedded in the rendered PDF. When omitted the PDF is
    * returned unsigned for the customer to sign and upload.
@@ -140,7 +142,7 @@ export namespace LoaRenderParams {
 
 export declare namespace Loa {
   export {
-    type AgentInput as AgentInput,
+    type LoaUpdateResponse as LoaUpdateResponse,
     type LoaUpdateParams as LoaUpdateParams,
     type LoaRenderParams as LoaRenderParams,
   };

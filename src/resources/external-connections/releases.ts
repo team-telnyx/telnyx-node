@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as ReleasesAPI from './releases';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -39,7 +40,7 @@ export class Releases extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const release of client.externalConnections.releases.list(
+   * for await (const releaseListResponse of client.externalConnections.releases.list(
    *   '1293384261075731499',
    * )) {
    *   // ...
@@ -50,18 +51,62 @@ export class Releases extends APIResource {
     id: string,
     query: ReleaseListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ReleasesDefaultFlatPagination, Release> {
+  ): PagePromise<ReleaseListResponsesDefaultFlatPagination, ReleaseListResponse> {
     return this._client.getAPIList(
       path`/external_connections/${id}/releases`,
-      DefaultFlatPagination<Release>,
+      DefaultFlatPagination<ReleaseListResponse>,
       { query, ...options },
     );
   }
 }
 
-export type ReleasesDefaultFlatPagination = DefaultFlatPagination<Release>;
+export type ReleaseListResponsesDefaultFlatPagination = DefaultFlatPagination<ReleaseListResponse>;
 
-export interface Release {
+export interface TnReleaseEntry {
+  /**
+   * Phone number ID from the Telnyx API.
+   */
+  number_id?: string;
+
+  /**
+   * Phone number in E164 format.
+   */
+  phone_number?: string;
+}
+
+export interface ReleaseRetrieveResponse {
+  data?: ReleaseRetrieveResponse.Data;
+}
+
+export namespace ReleaseRetrieveResponse {
+  export interface Data {
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    created_at?: string;
+
+    /**
+     * A message set if there is an error with the upload process.
+     */
+    error_message?: string;
+
+    /**
+     * Represents the status of the release on Microsoft Teams.
+     */
+    status?: 'pending_upload' | 'pending' | 'in_progress' | 'complete' | 'failed' | 'expired' | 'unknown';
+
+    telephone_numbers?: Array<ReleasesAPI.TnReleaseEntry>;
+
+    tenant_id?: string;
+
+    /**
+     * Uniquely identifies the resource.
+     */
+    ticket_id?: string;
+  }
+}
+
+export interface ReleaseListResponse {
   /**
    * ISO 8601 formatted date indicating when the resource was created.
    */
@@ -85,22 +130,6 @@ export interface Release {
    * Uniquely identifies the resource.
    */
   ticket_id?: string;
-}
-
-export interface TnReleaseEntry {
-  /**
-   * Phone number ID from the Telnyx API.
-   */
-  number_id?: string;
-
-  /**
-   * Phone number in E164 format.
-   */
-  phone_number?: string;
-}
-
-export interface ReleaseRetrieveResponse {
-  data?: Release;
 }
 
 export interface ReleaseRetrieveParams {
@@ -181,10 +210,10 @@ export namespace ReleaseListParams {
 
 export declare namespace Releases {
   export {
-    type Release as Release,
     type TnReleaseEntry as TnReleaseEntry,
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
-    type ReleasesDefaultFlatPagination as ReleasesDefaultFlatPagination,
+    type ReleaseListResponse as ReleaseListResponse,
+    type ReleaseListResponsesDefaultFlatPagination as ReleaseListResponsesDefaultFlatPagination,
     type ReleaseRetrieveParams as ReleaseRetrieveParams,
     type ReleaseListParams as ReleaseListParams,
   };

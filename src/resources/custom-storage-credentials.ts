@@ -15,7 +15,7 @@ export class CustomStorageCredentials extends APIResource {
    *
    * @example
    * ```ts
-   * const credentialsResponse =
+   * const customStorageCredential =
    *   await client.customStorageCredentials.create(
    *     'connection_id',
    *     {
@@ -29,7 +29,7 @@ export class CustomStorageCredentials extends APIResource {
     connectionID: string,
     body: CustomStorageCredentialCreateParams,
     options?: RequestOptions,
-  ): APIPromise<CredentialsResponse> {
+  ): APIPromise<CustomStorageCredentialCreateResponse> {
     return this._client.post(path`/custom_storage_credentials/${connectionID}`, { body, ...options });
   }
 
@@ -38,13 +38,16 @@ export class CustomStorageCredentials extends APIResource {
    *
    * @example
    * ```ts
-   * const credentialsResponse =
+   * const customStorageCredential =
    *   await client.customStorageCredentials.retrieve(
    *     'connection_id',
    *   );
    * ```
    */
-  retrieve(connectionID: string, options?: RequestOptions): APIPromise<CredentialsResponse> {
+  retrieve(
+    connectionID: string,
+    options?: RequestOptions,
+  ): APIPromise<CustomStorageCredentialRetrieveResponse> {
     return this._client.get(path`/custom_storage_credentials/${connectionID}`, options);
   }
 
@@ -53,7 +56,7 @@ export class CustomStorageCredentials extends APIResource {
    *
    * @example
    * ```ts
-   * const credentialsResponse =
+   * const customStorageCredential =
    *   await client.customStorageCredentials.update(
    *     'connection_id',
    *     {
@@ -67,7 +70,7 @@ export class CustomStorageCredentials extends APIResource {
     connectionID: string,
     body: CustomStorageCredentialUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<CredentialsResponse> {
+  ): APIPromise<CustomStorageCredentialUpdateResponse> {
     return this._client.put(path`/custom_storage_credentials/${connectionID}`, { body, ...options });
   }
 
@@ -109,21 +112,6 @@ export interface AzureConfigurationData {
    * Name of the bucket to be used to store recording files.
    */
   bucket?: string;
-}
-
-export interface CredentialsResponse {
-  /**
-   * Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection
-   * resource.
-   */
-  connection_id: string;
-
-  data: CustomStorageConfiguration;
-
-  /**
-   * Identifies record type.
-   */
-  record_type: 'custom_storage_credentials';
 }
 
 export interface CustomStorageConfiguration {
@@ -177,6 +165,51 @@ export interface S3ConfigurationData {
   region?: string;
 }
 
+export interface CustomStorageCredentialCreateResponse {
+  /**
+   * Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection
+   * resource.
+   */
+  connection_id: string;
+
+  data: CustomStorageConfiguration;
+
+  /**
+   * Identifies record type.
+   */
+  record_type: 'custom_storage_credentials';
+}
+
+export interface CustomStorageCredentialRetrieveResponse {
+  /**
+   * Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection
+   * resource.
+   */
+  connection_id: string;
+
+  data: CustomStorageConfiguration;
+
+  /**
+   * Identifies record type.
+   */
+  record_type: 'custom_storage_credentials';
+}
+
+export interface CustomStorageCredentialUpdateResponse {
+  /**
+   * Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection
+   * resource.
+   */
+  connection_id: string;
+
+  data: CustomStorageConfiguration;
+
+  /**
+   * Identifies record type.
+   */
+  record_type: 'custom_storage_credentials';
+}
+
 export interface CustomStorageCredentialCreateParams {
   backend: 'gcs' | 's3' | 'azure';
 
@@ -192,10 +225,12 @@ export interface CustomStorageCredentialUpdateParams {
 export declare namespace CustomStorageCredentials {
   export {
     type AzureConfigurationData as AzureConfigurationData,
-    type CredentialsResponse as CredentialsResponse,
     type CustomStorageConfiguration as CustomStorageConfiguration,
     type GcsConfigurationData as GcsConfigurationData,
     type S3ConfigurationData as S3ConfigurationData,
+    type CustomStorageCredentialCreateResponse as CustomStorageCredentialCreateResponse,
+    type CustomStorageCredentialRetrieveResponse as CustomStorageCredentialRetrieveResponse,
+    type CustomStorageCredentialUpdateResponse as CustomStorageCredentialUpdateResponse,
     type CustomStorageCredentialCreateParams as CustomStorageCredentialCreateParams,
     type CustomStorageCredentialUpdateParams as CustomStorageCredentialUpdateParams,
   };

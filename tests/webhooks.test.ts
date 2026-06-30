@@ -229,7 +229,7 @@ describe('Webhooks Resource', () => {
       },
     });
 
-    it('should unwrap valid webhook with verification', () => {
+    it('should unwrap valid webhook with verification', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const signedPayload = Buffer.concat([
         Buffer.from(timestamp, 'utf8'),
@@ -244,14 +244,14 @@ describe('Webhooks Resource', () => {
         'Telnyx-Timestamp': timestamp,
       };
 
-      const result = client.webhooks.unwrap(payload, { headers }) as CallAIGatherEndedWebhookEvent;
+      const result = await client.webhooks.unwrap<CallAIGatherEndedWebhookEvent>(payload, { headers });
       expect(result.data?.event_type).toBe('call.ai_gather.ended');
       expect(result.data?.payload?.call_control_id).toBe(
         'v2:T02llQxIyaRkhfRKxgAP8nY511EhFLizdvdUKJiSw8d6A9BborherQ',
       );
     });
 
-    it('should unwrap valid webhook with provided key', () => {
+    it('should unwrap valid webhook with provided key', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const signedPayload = Buffer.concat([
         Buffer.from(timestamp, 'utf8'),
@@ -267,41 +267,45 @@ describe('Webhooks Resource', () => {
       };
 
       const clientWithoutKey = new Telnyx({ apiKey: 'test-key' });
-      const result = clientWithoutKey.webhooks.unwrap(payload, {
+      const result = await clientWithoutKey.webhooks.unwrap<CallAIGatherEndedWebhookEvent>(payload, {
         headers,
         key: keyPair.publicKeyBase64,
-      }) as CallAIGatherEndedWebhookEvent;
+      });
       expect(result.data?.event_type).toBe('call.ai_gather.ended');
     });
 
-    it('should reject webhook without verification when no key available', () => {
+    it('should reject webhook without verification when no key available', async () => {
       const clientWithoutKey = new Telnyx({ apiKey: 'test-key' });
       const headers = {
         'Telnyx-Signature-Ed25519': 'dummy',
         'Telnyx-Timestamp': Math.floor(Date.now() / 1000).toString(),
       };
 
-      expect(() => clientWithoutKey.webhooks.unwrap(payload, { headers })).toThrow();
+      await expect(clientWithoutKey.webhooks.unwrap(payload, { headers })).rejects.toThrow(
+        TelnyxWebhookVerificationError,
+      );
     });
 
-    it('should unwrap without verification when no headers provided', () => {
-      const result = client.webhooks.unsafeUnwrap(payload) as CallAIGatherEndedWebhookEvent;
+    it('should unwrap without verification when no headers provided', async () => {
+      const result = await client.webhooks.unwrap<CallAIGatherEndedWebhookEvent>(payload);
       expect(result.data?.event_type).toBe('call.ai_gather.ended');
     });
 
     it('should unsafe unwrap without verification', () => {
-      const result = client.webhooks.unsafeUnwrap(payload) as CallAIGatherEndedWebhookEvent;
+      const result = client.webhooks.unsafeUnwrap<CallAIGatherEndedWebhookEvent>(payload);
       expect(result.data?.event_type).toBe('call.ai_gather.ended');
     });
 
-    it('should reject invalid webhook signature', () => {
+    it('should reject invalid webhook signature', async () => {
       const timestamp = Math.floor(Date.now() / 1000).toString();
       const headers = {
         'Telnyx-Signature-Ed25519': 'invalid_signature',
         'Telnyx-Timestamp': timestamp,
       };
 
-      expect(() => client.webhooks.unwrap(payload, { headers })).toThrow();
+      await expect(client.webhooks.unwrap(payload, { headers })).rejects.toThrow(
+        TelnyxWebhookVerificationError,
+      );
     });
   });
 });
@@ -378,9 +382,9 @@ describe('E2E Webhook Verification', () => {
       publicKey: testKeyPair.publicKeyBase64,
     });
 
-    const result = client.webhooks.unwrap(realPayload, {
+    const result = await client.webhooks.unwrap<CallAnsweredWebhookEvent>(realPayload, {
       headers: realHeaders,
-    }) as CallAnsweredWebhookEvent;
+    });
 
     expect(result.data?.event_type).toBe('call.answered');
     expect(result.data?.payload?.call_control_id).toBe('v2:12345678-1234-1234-1234-123456789012');

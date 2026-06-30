@@ -158,7 +158,12 @@ export class Documents extends APIResource {
 
 export type DocServiceDocumentsDefaultFlatPagination = DefaultFlatPagination<DocServiceDocument>;
 
-export interface DocServiceDocument extends DocServiceRecord {
+export interface DocServiceDocument {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
   /**
    * The antivirus scan status of the document.
    */
@@ -168,6 +173,11 @@ export interface DocServiceDocument extends DocServiceRecord {
    * The document's content_type.
    */
   content_type?: string;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
 
   /**
    * Optional reference string for customer tracking.
@@ -198,6 +208,11 @@ export interface DocServiceDocument extends DocServiceRecord {
    * Indicates the current document reviewing status
    */
   status?: 'pending' | 'verified' | 'denied';
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
 }
 
 export namespace DocServiceDocument {
@@ -215,28 +230,6 @@ export namespace DocServiceDocument {
      */
     unit?: string;
   }
-}
-
-export interface DocServiceRecord {
-  /**
-   * Identifies the resource.
-   */
-  id?: string;
-
-  /**
-   * ISO 8601 formatted date-time indicating when the resource was created.
-   */
-  created_at?: string;
-
-  /**
-   * Identifies the type of the resource.
-   */
-  record_type?: string;
-
-  /**
-   * ISO 8601 formatted date-time indicating when the resource was updated.
-   */
-  updated_at?: string;
 }
 
 export interface DocumentRetrieveResponse {
@@ -409,7 +402,6 @@ export namespace DocumentUploadJsonParams {
 export declare namespace Documents {
   export {
     type DocServiceDocument as DocServiceDocument,
-    type DocServiceRecord as DocServiceRecord,
     type DocumentRetrieveResponse as DocumentRetrieveResponse,
     type DocumentUpdateResponse as DocumentUpdateResponse,
     type DocumentDeleteResponse as DocumentDeleteResponse,

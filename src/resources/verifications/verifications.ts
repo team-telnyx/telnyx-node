@@ -111,31 +111,6 @@ export class Verifications extends APIResource {
   }
 }
 
-/**
- * The request body when creating a verification.
- */
-export interface CreateVerificationRequestSMS {
-  /**
-   * +E164 formatted phone number.
-   */
-  phone_number: string;
-
-  /**
-   * The identifier of the associated Verify profile.
-   */
-  verify_profile_id: string;
-
-  /**
-   * Send a self-generated numeric code to the end-user
-   */
-  custom_code?: string | null;
-
-  /**
-   * The number of seconds the verification code is valid for.
-   */
-  timeout_secs?: number;
-}
-
 export interface CreateVerificationResponse {
   data: Verification;
 }
@@ -283,7 +258,6 @@ Verifications.Actions = Actions;
 
 export declare namespace Verifications {
   export {
-    type CreateVerificationRequestSMS as CreateVerificationRequestSMS,
     type CreateVerificationResponse as CreateVerificationResponse,
     type Verification as Verification,
     type VerificationRetrieveResponse as VerificationRetrieveResponse,

@@ -2,11 +2,11 @@
 
 export {
   ActionRequirements,
-  type PortingActionRequirement,
+  type ActionRequirementListResponse,
   type ActionRequirementInitiateResponse,
   type ActionRequirementListParams,
   type ActionRequirementInitiateParams,
-  type PortingActionRequirementsDefaultFlatPagination,
+  type ActionRequirementListResponsesDefaultFlatPagination,
 } from './action-requirements';
 export {
   Actions,
@@ -26,12 +26,12 @@ export {
 } from './activation-jobs';
 export {
   AdditionalDocuments,
-  type PortingAdditionalDocument,
   type AdditionalDocumentCreateResponse,
+  type AdditionalDocumentListResponse,
   type AdditionalDocumentCreateParams,
   type AdditionalDocumentListParams,
   type AdditionalDocumentDeleteParams,
-  type PortingAdditionalDocumentsDefaultFlatPagination,
+  type AdditionalDocumentListResponsesDefaultFlatPagination,
 } from './additional-documents';
 export {
   AssociatedPhoneNumbers,
@@ -45,11 +45,11 @@ export {
 } from './associated-phone-numbers';
 export {
   Comments,
-  type PortingOrdersComment,
   type CommentCreateResponse,
+  type CommentListResponse,
   type CommentCreateParams,
   type CommentListParams,
-  type PortingOrdersCommentsDefaultFlatPagination,
+  type CommentListResponsesDefaultFlatPagination,
 } from './comments';
 export {
   PhoneNumberBlocks,
@@ -63,11 +63,11 @@ export {
 } from './phone-number-blocks';
 export {
   PhoneNumberConfigurations,
-  type PortingPhoneNumberConfiguration,
   type PhoneNumberConfigurationCreateResponse,
+  type PhoneNumberConfigurationListResponse,
   type PhoneNumberConfigurationCreateParams,
   type PhoneNumberConfigurationListParams,
-  type PortingPhoneNumberConfigurationsDefaultFlatPagination,
+  type PhoneNumberConfigurationListResponsesDefaultFlatPagination,
 } from './phone-number-configurations';
 export {
   PhoneNumberExtensions,
@@ -113,10 +113,10 @@ export {
 } from './porting-orders';
 export {
   VerificationCodes,
-  type PortingVerificationCode,
+  type VerificationCodeListResponse,
   type VerificationCodeVerifyResponse,
   type VerificationCodeListParams,
   type VerificationCodeSendParams,
   type VerificationCodeVerifyParams,
-  type PortingVerificationCodesDefaultFlatPagination,
+  type VerificationCodeListResponsesDefaultFlatPagination,
 } from './verification-codes';

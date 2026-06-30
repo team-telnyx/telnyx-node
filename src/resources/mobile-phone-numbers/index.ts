@@ -2,10 +2,10 @@
 
 export {
   Messaging,
-  type MobilePhoneNumberWithMessagingSettings,
   type MessagingRetrieveResponse,
+  type MessagingListResponse,
   type MessagingListParams,
-  type MobilePhoneNumberWithMessagingSettingsDefaultFlatPagination,
+  type MessagingListResponsesDefaultFlatPagination,
 } from './messaging';
 export {
   MobilePhoneNumbers,

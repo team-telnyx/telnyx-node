@@ -15,7 +15,7 @@ export class SiprecConnectors extends APIResource {
    *
    * @example
    * ```ts
-   * const siprecConnectorResponse =
+   * const siprecConnector =
    *   await client.siprecConnectors.create({
    *     host: 'siprec.telnyx.com',
    *     name: 'my-siprec-connector',
@@ -23,7 +23,10 @@ export class SiprecConnectors extends APIResource {
    *   });
    * ```
    */
-  create(body: SiprecConnectorCreateParams, options?: RequestOptions): APIPromise<SiprecConnectorResponse> {
+  create(
+    body: SiprecConnectorCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<SiprecConnectorCreateResponse> {
     return this._client.post('/siprec_connectors', { body, ...options });
   }
 
@@ -32,11 +35,11 @@ export class SiprecConnectors extends APIResource {
    *
    * @example
    * ```ts
-   * const siprecConnectorResponse =
+   * const siprecConnector =
    *   await client.siprecConnectors.retrieve('connector_name');
    * ```
    */
-  retrieve(connectorName: string, options?: RequestOptions): APIPromise<SiprecConnectorResponse> {
+  retrieve(connectorName: string, options?: RequestOptions): APIPromise<SiprecConnectorRetrieveResponse> {
     return this._client.get(path`/siprec_connectors/${connectorName}`, options);
   }
 
@@ -45,7 +48,7 @@ export class SiprecConnectors extends APIResource {
    *
    * @example
    * ```ts
-   * const siprecConnectorResponse =
+   * const siprecConnector =
    *   await client.siprecConnectors.update('connector_name', {
    *     host: 'siprec.telnyx.com',
    *     name: 'my-siprec-connector',
@@ -57,7 +60,7 @@ export class SiprecConnectors extends APIResource {
     connectorName: string,
     body: SiprecConnectorUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<SiprecConnectorResponse> {
+  ): APIPromise<SiprecConnectorUpdateResponse> {
     return this._client.put(path`/siprec_connectors/${connectorName}`, { body, ...options });
   }
 
@@ -77,11 +80,91 @@ export class SiprecConnectors extends APIResource {
   }
 }
 
-export interface SiprecConnectorResponse {
-  data: SiprecConnectorResponse.Data;
+export interface SiprecConnectorCreateResponse {
+  data: SiprecConnectorCreateResponse.Data;
 }
 
-export namespace SiprecConnectorResponse {
+export namespace SiprecConnectorCreateResponse {
+  export interface Data {
+    /**
+     * Subdomain to route calls when using Telnyx SRS (optional).
+     */
+    app_subdomain?: string;
+
+    /**
+     * ISO 8601 formatted date/time of creation.
+     */
+    created_at?: string;
+
+    /**
+     * Hostname/IPv4 address of the SIPREC SRS.
+     */
+    host?: string;
+
+    /**
+     * Name for the SIPREC connector resource.
+     */
+    name?: string;
+
+    /**
+     * Port for the SIPREC SRS.
+     */
+    port?: number;
+
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date/time of last update.
+     */
+    updated_at?: string;
+  }
+}
+
+export interface SiprecConnectorRetrieveResponse {
+  data: SiprecConnectorRetrieveResponse.Data;
+}
+
+export namespace SiprecConnectorRetrieveResponse {
+  export interface Data {
+    /**
+     * Subdomain to route calls when using Telnyx SRS (optional).
+     */
+    app_subdomain?: string;
+
+    /**
+     * ISO 8601 formatted date/time of creation.
+     */
+    created_at?: string;
+
+    /**
+     * Hostname/IPv4 address of the SIPREC SRS.
+     */
+    host?: string;
+
+    /**
+     * Name for the SIPREC connector resource.
+     */
+    name?: string;
+
+    /**
+     * Port for the SIPREC SRS.
+     */
+    port?: number;
+
+    record_type?: string;
+
+    /**
+     * ISO 8601 formatted date/time of last update.
+     */
+    updated_at?: string;
+  }
+}
+
+export interface SiprecConnectorUpdateResponse {
+  data: SiprecConnectorUpdateResponse.Data;
+}
+
+export namespace SiprecConnectorUpdateResponse {
   export interface Data {
     /**
      * Subdomain to route calls when using Telnyx SRS (optional).
@@ -163,7 +246,9 @@ export interface SiprecConnectorUpdateParams {
 
 export declare namespace SiprecConnectors {
   export {
-    type SiprecConnectorResponse as SiprecConnectorResponse,
+    type SiprecConnectorCreateResponse as SiprecConnectorCreateResponse,
+    type SiprecConnectorRetrieveResponse as SiprecConnectorRetrieveResponse,
+    type SiprecConnectorUpdateResponse as SiprecConnectorUpdateResponse,
     type SiprecConnectorCreateParams as SiprecConnectorCreateParams,
     type SiprecConnectorUpdateParams as SiprecConnectorUpdateParams,
   };

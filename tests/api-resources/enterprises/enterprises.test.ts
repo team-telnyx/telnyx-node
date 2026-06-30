@@ -174,8 +174,8 @@ describe('resource enterprises', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('brandedCalling', async () => {
-    const responsePromise = client.enterprises.brandedCalling('4a6192a4-573d-446d-b3ce-aff9117272a6');
+  test.skip('activateBrandedCalling', async () => {
+    const responsePromise = client.enterprises.activateBrandedCalling('4a6192a4-573d-446d-b3ce-aff9117272a6');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

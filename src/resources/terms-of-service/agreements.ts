@@ -14,7 +14,7 @@ export class Agreements extends APIResource {
    * Retrieve a single ToS agreement record. Returns `404` if the agreement does not
    * exist or does not belong to the authenticated user.
    */
-  retrieve(agreementID: string, options?: RequestOptions): APIPromise<TosAgreementWrapped> {
+  retrieve(agreementID: string, options?: RequestOptions): APIPromise<AgreementRetrieveResponse> {
     return this._client.get(path`/terms_of_service/agreements/${agreementID}`, options);
   }
 
@@ -33,22 +33,59 @@ export class Agreements extends APIResource {
   list(
     query: AgreementListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<TosAgreementsDefaultFlatPagination, TosAgreement> {
-    return this._client.getAPIList('/terms_of_service/agreements', DefaultFlatPagination<TosAgreement>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<AgreementListResponsesDefaultFlatPagination, AgreementListResponse> {
+    return this._client.getAPIList(
+      '/terms_of_service/agreements',
+      DefaultFlatPagination<AgreementListResponse>,
+      { query, ...options },
+    );
   }
 }
 
-export type TosAgreementsDefaultFlatPagination = DefaultFlatPagination<TosAgreement>;
+export type AgreementListResponsesDefaultFlatPagination = DefaultFlatPagination<AgreementListResponse>;
+
+export interface AgreementRetrieveResponse {
+  /**
+   * A recorded user agreement to a product's Terms of Service. The `user_id` is
+   * intentionally NOT echoed back on this public surface - the caller already knows
+   * their own identity.
+   */
+  data: AgreementRetrieveResponse.Data;
+}
+
+export namespace AgreementRetrieveResponse {
+  /**
+   * A recorded user agreement to a product's Terms of Service. The `user_id` is
+   * intentionally NOT echoed back on this public surface - the caller already knows
+   * their own identity.
+   */
+  export interface Data {
+    id?: string;
+
+    agreed_at?: string;
+
+    created_at?: string;
+
+    /**
+     * Telnyx product the Terms of Service apply to.
+     */
+    product_type?: 'branded_calling' | 'number_reputation';
+
+    terms_version?: string;
+
+    /**
+     * Convenience alias of `terms_version`. Both keys are present on every response.
+     */
+    version?: string;
+  }
+}
 
 /**
  * A recorded user agreement to a product's Terms of Service. The `user_id` is
  * intentionally NOT echoed back on this public surface - the caller already knows
  * their own identity.
  */
-export interface TosAgreement {
+export interface AgreementListResponse {
   id?: string;
 
   agreed_at?: string;
@@ -58,7 +95,7 @@ export interface TosAgreement {
   /**
    * Telnyx product the Terms of Service apply to.
    */
-  product_type?: TosProductType;
+  product_type?: 'branded_calling' | 'number_reputation';
 
   terms_version?: string;
 
@@ -68,35 +105,20 @@ export interface TosAgreement {
   version?: string;
 }
 
-export interface TosAgreementWrapped {
-  /**
-   * A recorded user agreement to a product's Terms of Service. The `user_id` is
-   * intentionally NOT echoed back on this public surface - the caller already knows
-   * their own identity.
-   */
-  data: TosAgreement;
-}
-
-/**
- * Telnyx product the Terms of Service apply to.
- */
-export type TosProductType = 'branded_calling' | 'number_reputation';
-
 export interface AgreementListParams extends DefaultFlatPaginationParams {
   /**
    * Optional filter. Omit to list the user's agreements for **every** product
    * (branded_calling and number_reputation); pass a value to return only that
    * product's agreements.
    */
-  product_type?: TosProductType;
+  product_type?: 'branded_calling' | 'number_reputation';
 }
 
 export declare namespace Agreements {
   export {
-    type TosAgreement as TosAgreement,
-    type TosAgreementWrapped as TosAgreementWrapped,
-    type TosProductType as TosProductType,
-    type TosAgreementsDefaultFlatPagination as TosAgreementsDefaultFlatPagination,
+    type AgreementRetrieveResponse as AgreementRetrieveResponse,
+    type AgreementListResponse as AgreementListResponse,
+    type AgreementListResponsesDefaultFlatPagination as AgreementListResponsesDefaultFlatPagination,
     type AgreementListParams as AgreementListParams,
   };
 }

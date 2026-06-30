@@ -11,27 +11,22 @@ export class Plan extends APIResource {
    *
    * @example
    * ```ts
-   * const planStepsCreatedResponse =
-   *   await client.ai.missions.runs.plan.create(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     {
-   *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *       steps: [
-   *         {
-   *           description: 'description',
-   *           sequence: 0,
-   *           step_id: 'step_id',
-   *         },
-   *       ],
-   *     },
-   *   );
+   * const plan = await client.ai.missions.runs.plan.create(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     steps: [
+   *       {
+   *         description: 'description',
+   *         sequence: 0,
+   *         step_id: 'step_id',
+   *       },
+   *     ],
+   *   },
+   * );
    * ```
    */
-  create(
-    runID: string,
-    params: PlanCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<PlanStepsCreatedResponse> {
+  create(runID: string, params: PlanCreateParams, options?: RequestOptions): APIPromise<PlanCreateResponse> {
     const { mission_id, ...body } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/plan`, { body, ...options });
   }
@@ -61,7 +56,7 @@ export class Plan extends APIResource {
    *
    * @example
    * ```ts
-   * const planStepsCreatedResponse =
+   * const response =
    *   await client.ai.missions.runs.plan.addStepsToPlan(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     {
@@ -81,7 +76,7 @@ export class Plan extends APIResource {
     runID: string,
     params: PlanAddStepsToPlanParams,
     options?: RequestOptions,
-  ): APIPromise<PlanStepsCreatedResponse> {
+  ): APIPromise<PlanAddStepsToPlanResponse> {
     const { mission_id, ...body } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/plan/steps`, { body, ...options });
   }
@@ -91,7 +86,7 @@ export class Plan extends APIResource {
    *
    * @example
    * ```ts
-   * const planStepResponse =
+   * const response =
    *   await client.ai.missions.runs.plan.getStepDetails(
    *     'step_id',
    *     {
@@ -105,7 +100,7 @@ export class Plan extends APIResource {
     stepID: string,
     params: PlanGetStepDetailsParams,
     options?: RequestOptions,
-  ): APIPromise<PlanStepResponse> {
+  ): APIPromise<PlanGetStepDetailsResponse> {
     const { mission_id, run_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, options);
   }
@@ -115,7 +110,7 @@ export class Plan extends APIResource {
    *
    * @example
    * ```ts
-   * const planStepResponse =
+   * const response =
    *   await client.ai.missions.runs.plan.updateStep('step_id', {
    *     mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     run_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -126,25 +121,13 @@ export class Plan extends APIResource {
     stepID: string,
     params: PlanUpdateStepParams,
     options?: RequestOptions,
-  ): APIPromise<PlanStepResponse> {
+  ): APIPromise<PlanUpdateStepResponse> {
     const { mission_id, run_id, ...body } = params;
     return this._client.patch(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, {
       body,
       ...options,
     });
   }
-}
-
-export interface CreatePlanStepRequest {
-  description: string;
-
-  sequence: number;
-
-  step_id: string;
-
-  metadata?: { [key: string]: unknown };
-
-  parent_step_id?: string;
 }
 
 export interface PlanStepData {
@@ -154,7 +137,7 @@ export interface PlanStepData {
 
   sequence: number;
 
-  status: StepStatus;
+  status: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
 
   step_id: string;
 
@@ -167,18 +150,24 @@ export interface PlanStepData {
   started_at?: string;
 }
 
-export interface PlanStepResponse {
-  data: PlanStepData;
-}
-
-export interface PlanStepsCreatedResponse {
+export interface PlanCreateResponse {
   data: Array<PlanStepData>;
 }
-
-export type StepStatus = 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
 
 export interface PlanRetrieveResponse {
   data: Array<PlanStepData>;
+}
+
+export interface PlanAddStepsToPlanResponse {
+  data: Array<PlanStepData>;
+}
+
+export interface PlanGetStepDetailsResponse {
+  data: PlanStepData;
+}
+
+export interface PlanUpdateStepResponse {
+  data: PlanStepData;
 }
 
 export interface PlanCreateParams {
@@ -190,7 +179,21 @@ export interface PlanCreateParams {
   /**
    * Body param
    */
-  steps: Array<CreatePlanStepRequest>;
+  steps: Array<PlanCreateParams.Step>;
+}
+
+export namespace PlanCreateParams {
+  export interface Step {
+    description: string;
+
+    sequence: number;
+
+    step_id: string;
+
+    metadata?: { [key: string]: unknown };
+
+    parent_step_id?: string;
+  }
 }
 
 export interface PlanRetrieveParams {
@@ -209,7 +212,21 @@ export interface PlanAddStepsToPlanParams {
   /**
    * Body param
    */
-  steps: Array<CreatePlanStepRequest>;
+  steps: Array<PlanAddStepsToPlanParams.Step>;
+}
+
+export namespace PlanAddStepsToPlanParams {
+  export interface Step {
+    description: string;
+
+    sequence: number;
+
+    step_id: string;
+
+    metadata?: { [key: string]: unknown };
+
+    parent_step_id?: string;
+  }
 }
 
 export interface PlanGetStepDetailsParams {
@@ -243,17 +260,17 @@ export interface PlanUpdateStepParams {
   /**
    * Body param
    */
-  status?: StepStatus;
+  status?: 'pending' | 'in_progress' | 'completed' | 'skipped' | 'failed';
 }
 
 export declare namespace Plan {
   export {
-    type CreatePlanStepRequest as CreatePlanStepRequest,
     type PlanStepData as PlanStepData,
-    type PlanStepResponse as PlanStepResponse,
-    type PlanStepsCreatedResponse as PlanStepsCreatedResponse,
-    type StepStatus as StepStatus,
+    type PlanCreateResponse as PlanCreateResponse,
     type PlanRetrieveResponse as PlanRetrieveResponse,
+    type PlanAddStepsToPlanResponse as PlanAddStepsToPlanResponse,
+    type PlanGetStepDetailsResponse as PlanGetStepDetailsResponse,
+    type PlanUpdateStepResponse as PlanUpdateStepResponse,
     type PlanCreateParams as PlanCreateParams,
     type PlanRetrieveParams as PlanRetrieveParams,
     type PlanAddStepsToPlanParams as PlanAddStepsToPlanParams,

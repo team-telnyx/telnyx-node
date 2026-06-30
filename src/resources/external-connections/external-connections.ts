@@ -13,12 +13,12 @@ import {
 } from './civic-addresses';
 import * as LogMessagesAPI from './log-messages';
 import {
-  LogMessage,
   LogMessageDismissResponse,
   LogMessageListParams,
+  LogMessageListResponse,
+  LogMessageListResponsesDefaultPaginationForLogMessages,
   LogMessageRetrieveResponse,
   LogMessages,
-  LogMessagesDefaultPaginationForLogMessages,
 } from './log-messages';
 import * as PhoneNumbersAPI from './phone-numbers';
 import {
@@ -33,12 +33,12 @@ import {
 } from './phone-numbers';
 import * as ReleasesAPI from './releases';
 import {
-  Release,
   ReleaseListParams,
+  ReleaseListResponse,
+  ReleaseListResponsesDefaultFlatPagination,
   ReleaseRetrieveParams,
   ReleaseRetrieveResponse,
   Releases,
-  ReleasesDefaultFlatPagination,
   TnReleaseEntry,
 } from './releases';
 import * as UploadsAPI from './uploads';
@@ -562,10 +562,10 @@ export declare namespace ExternalConnections {
 
   export {
     LogMessages as LogMessages,
-    type LogMessage as LogMessage,
     type LogMessageRetrieveResponse as LogMessageRetrieveResponse,
+    type LogMessageListResponse as LogMessageListResponse,
     type LogMessageDismissResponse as LogMessageDismissResponse,
-    type LogMessagesDefaultPaginationForLogMessages as LogMessagesDefaultPaginationForLogMessages,
+    type LogMessageListResponsesDefaultPaginationForLogMessages as LogMessageListResponsesDefaultPaginationForLogMessages,
     type LogMessageListParams as LogMessageListParams,
   };
 
@@ -592,10 +592,10 @@ export declare namespace ExternalConnections {
 
   export {
     Releases as Releases,
-    type Release as Release,
     type TnReleaseEntry as TnReleaseEntry,
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
-    type ReleasesDefaultFlatPagination as ReleasesDefaultFlatPagination,
+    type ReleaseListResponse as ReleaseListResponse,
+    type ReleaseListResponsesDefaultFlatPagination as ReleaseListResponsesDefaultFlatPagination,
     type ReleaseRetrieveParams as ReleaseRetrieveParams,
     type ReleaseListParams as ReleaseListParams,
   };

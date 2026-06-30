@@ -1,49 +1,42 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as CallReasonsAPI from '../call-reasons';
-import * as InfringementClaimsAPI from '../infringement-claims';
-import { InfringementClaimsDefaultFlatPagination } from '../infringement-claims';
 import * as CommentsAPI from './comments';
 import {
   CommentCreateParams,
   CommentCreateResponse,
   CommentListParams,
-  CommentType,
+  CommentListResponse,
+  CommentListResponsesDefaultFlatPagination,
   Comments,
-  DirComment,
-  DirCommentsDefaultFlatPagination,
 } from './comments';
 import * as PhoneNumberBatchesAPI from './phone-number-batches';
 import {
-  DirPhoneNumberStatus,
-  PhoneNumberBatch,
   PhoneNumberBatchListParams,
+  PhoneNumberBatchListResponse,
+  PhoneNumberBatchListResponsesDefaultFlatPagination,
   PhoneNumberBatchRetrieveParams,
   PhoneNumberBatchRetrieveResponse,
   PhoneNumberBatches,
-  PhoneNumberBatchesDefaultFlatPagination,
 } from './phone-number-batches';
 import * as PhoneNumbersAPI from './phone-numbers';
 import {
-  DirPhoneNumber,
-  DirPhoneNumbersDefaultFlatPagination,
   PhoneNumberAddParams,
   PhoneNumberAddResponse,
   PhoneNumberListParams,
+  PhoneNumberListResponse,
+  PhoneNumberListResponsesDefaultFlatPagination,
   PhoneNumberRemoveParams,
   PhoneNumberRemoveResponse,
   PhoneNumbers,
-  RejectionReason,
 } from './phone-numbers';
-import * as LoaAPI from '../enterprises/reputation/loa';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-export class DirResource extends APIResource {
+export class Dir extends APIResource {
   comments: CommentsAPI.Comments = new CommentsAPI.Comments(this._client);
   phoneNumberBatches: PhoneNumberBatchesAPI.PhoneNumberBatches = new PhoneNumberBatchesAPI.PhoneNumberBatches(
     this._client,
@@ -56,12 +49,12 @@ export class DirResource extends APIResource {
    *
    * @example
    * ```ts
-   * const dirWrapped = await client.dir.retrieve(
+   * const dir = await client.dir.retrieve(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    * );
    * ```
    */
-  retrieve(dirID: string, options?: RequestOptions): APIPromise<DirWrapped> {
+  retrieve(dirID: string, options?: RequestOptions): APIPromise<DirRetrieveResponse> {
     return this._client.get(path`/dir/${dirID}`, options);
   }
 
@@ -78,7 +71,7 @@ export class DirResource extends APIResource {
    *
    * @example
    * ```ts
-   * const dirWrapped = await client.dir.update(
+   * const dir = await client.dir.update(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    *   {
    *     call_reasons: [
@@ -93,7 +86,7 @@ export class DirResource extends APIResource {
    * );
    * ```
    */
-  update(dirID: string, body: DirUpdateParams, options?: RequestOptions): APIPromise<DirWrapped> {
+  update(dirID: string, body: DirUpdateParams, options?: RequestOptions): APIPromise<DirUpdateResponse> {
     return this._client.patch(path`/dir/${dirID}`, { body, ...options });
   }
 
@@ -110,7 +103,7 @@ export class DirResource extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const dir of client.dir.list()) {
+   * for await (const dirListResponse of client.dir.list()) {
    *   // ...
    * }
    * ```
@@ -118,8 +111,8 @@ export class DirResource extends APIResource {
   list(
     query: DirListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<DirsDefaultFlatPagination, Dir> {
-    return this._client.getAPIList('/dir', DefaultFlatPagination<Dir>, { query, ...options });
+  ): PagePromise<DirListResponsesDefaultFlatPagination, DirListResponse> {
+    return this._client.getAPIList('/dir', DefaultFlatPagination<DirListResponse>, { query, ...options });
   }
 
   /**
@@ -138,6 +131,38 @@ export class DirResource extends APIResource {
     return this._client.delete(path`/dir/${dirID}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Generate a pre-filled Letter of Authorization (LOA) PDF for a DIR. Enterprise
+   * identity (legal name, DBA, address, contact, website, tax id) and the DIR
+   * display name are read server-side; the caller supplies the telephone numbers to
+   * authorize, an optional Authorized Agent block, and an optional drawn signature.
+   *
+   * When `signature` is omitted the PDF is returned unsigned so the customer can
+   * sign it externally and upload it via the Documents API. When `signature` is
+   * present the PDF embeds the supplied image, printed name, and signed-at date.
+   *
+   * Returns `application/pdf`.
+   *
+   * @example
+   * ```ts
+   * const response = await client.dir.createLoa(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { phone_numbers: ['+13125550000'] },
+   * );
+   *
+   * const content = await response.blob();
+   * console.log(content);
+   * ```
+   */
+  createLoa(dirID: string, body: DirCreateLoaParams, options?: RequestOptions): APIPromise<Response> {
+    return this._client.post(path`/dir/${dirID}/loa`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
+      __binaryResponse: true,
     });
   }
 
@@ -167,7 +192,7 @@ export class DirResource extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const infringementClaim of client.dir.listInfringementClaims(
+   * for await (const dirListInfringementClaimsResponse of client.dir.listInfringementClaims(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    * )) {
    *   // ...
@@ -178,44 +203,12 @@ export class DirResource extends APIResource {
     dirID: string,
     query: DirListInfringementClaimsParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<InfringementClaimsDefaultFlatPagination, InfringementClaimsAPI.InfringementClaim> {
+  ): PagePromise<DirListInfringementClaimsResponsesDefaultFlatPagination, DirListInfringementClaimsResponse> {
     return this._client.getAPIList(
       path`/dir/${dirID}/infringement_claims`,
-      DefaultFlatPagination<InfringementClaimsAPI.InfringementClaim>,
+      DefaultFlatPagination<DirListInfringementClaimsResponse>,
       { query, ...options },
     );
-  }
-
-  /**
-   * Generate a pre-filled Letter of Authorization (LOA) PDF for a DIR. Enterprise
-   * identity (legal name, DBA, address, contact, website, tax id) and the DIR
-   * display name are read server-side; the caller supplies the telephone numbers to
-   * authorize, an optional Authorized Agent block, and an optional drawn signature.
-   *
-   * When `signature` is omitted the PDF is returned unsigned so the customer can
-   * sign it externally and upload it via the Documents API. When `signature` is
-   * present the PDF embeds the supplied image, printed name, and signed-at date.
-   *
-   * Returns `application/pdf`.
-   *
-   * @example
-   * ```ts
-   * const response = await client.dir.newLoa(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { phone_numbers: ['+13125550000'] },
-   * );
-   *
-   * const content = await response.blob();
-   * console.log(content);
-   * ```
-   */
-  newLoa(dirID: string, body: DirNewLoaParams, options?: RequestOptions): APIPromise<Response> {
-    return this._client.post(path`/dir/${dirID}/loa`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
-      __binaryResponse: true,
-    });
   }
 
   /**
@@ -230,12 +223,12 @@ export class DirResource extends APIResource {
    *
    * @example
    * ```ts
-   * const dirWrapped = await client.dir.submit(
+   * const response = await client.dir.submit(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    * );
    * ```
    */
-  submit(dirID: string, options?: RequestOptions): APIPromise<DirWrapped> {
+  submit(dirID: string, options?: RequestOptions): APIPromise<DirSubmitResponse> {
     return this._client.post(path`/dir/${dirID}/submit`, options);
   }
 
@@ -249,7 +242,7 @@ export class DirResource extends APIResource {
    *
    * @example
    * ```ts
-   * const dirWrapped = await client.dir.updateInfringement(
+   * const response = await client.dir.updateInfringement(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    *   {
    *     certify_brand_is_accurate: true,
@@ -266,21 +259,284 @@ export class DirResource extends APIResource {
     dirID: string,
     body: DirUpdateInfringementParams,
     options?: RequestOptions,
-  ): APIPromise<DirWrapped> {
+  ): APIPromise<DirUpdateInfringementResponse> {
     return this._client.put(path`/dir/${dirID}/infringement_update`, { body, ...options });
   }
 }
 
-export type DirsDefaultFlatPagination = DefaultFlatPagination<Dir>;
+export type DirListResponsesDefaultFlatPagination = DefaultFlatPagination<DirListResponse>;
 
-export interface Dir {
+export type DirListInfringementClaimsResponsesDefaultFlatPagination =
+  DefaultFlatPagination<DirListInfringementClaimsResponse>;
+
+export interface DirRetrieveResponse {
+  data: DirRetrieveResponse.Data;
+}
+
+export namespace DirRetrieveResponse {
+  export interface Data {
+    id?: string;
+
+    authorizer_email?: string | null;
+
+    authorizer_name?: string | null;
+
+    call_reasons?: Array<Data.CallReason>;
+
+    certify_brand_is_accurate?: boolean;
+
+    certify_ip_ownership?: boolean;
+
+    certify_no_shaft_content?: boolean;
+
+    created_at?: string;
+
+    display_name?: string;
+
+    documents?: Array<Data.Document> | null;
+
+    enterprise_id?: string;
+
+    expiring_at?: string | null;
+
+    logo_url?: string | null;
+
+    rejected_at?: string | null;
+
+    /**
+     * Populated when `status` is `rejected`; cleared on `/submit` or successful
+     * approval.
+     */
+    rejection_reasons?: Array<Data.RejectionReason> | null;
+
+    reselling?: boolean;
+
+    /**
+     * DIR lifecycle status.
+     *
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
+     *   populated; customer can edit and resubmit.
+     * - `unsuccessful` - system-side error during processing; customer can edit and
+     *   resubmit.
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
+     *   DIR.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
+     */
+    status?:
+      | 'draft'
+      | 'submitted'
+      | 'in_review'
+      | 'verified'
+      | 'rejected'
+      | 'unsuccessful'
+      | 'suspended'
+      | 'expired'
+      | 'infringement_claimed'
+      | 'permanently_rejected';
+
+    submitted_at?: string | null;
+
+    updated_at?: string;
+
+    verified_at?: string | null;
+  }
+
+  export namespace Data {
+    export interface CallReason {
+      created_at?: string;
+
+      reason?: string;
+    }
+
+    export interface Document {
+      /**
+       * Id returned by the Telnyx Documents API after you upload the file (upload via
+       * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+       */
+      document_id: string;
+
+      /**
+       * Type of supporting document. Pick the closest match to what the file actually
+       * contains; `other` triggers manual vetting and may slow approval. The matching
+       * short_name reference list is at `GET /v2/dir/document_types`.
+       */
+      document_type:
+        | 'letter_of_authorization'
+        | 'business_registration'
+        | 'articles_of_incorporation'
+        | 'tax_document'
+        | 'ein_letter'
+        | 'trademark_registration'
+        | 'website_ownership'
+        | 'business_license'
+        | 'professional_license'
+        | 'government_id'
+        | 'utility_bill'
+        | 'bank_statement'
+        | 'other';
+
+      description?: string;
+    }
+
+    export interface RejectionReason {
+      code?: string;
+
+      detail?: string;
+
+      /**
+       * Customer-visible free-text comment from the Telnyx vetting team. Only the first
+       * entry of `rejection_reasons` carries this; the rest are `null`.
+       */
+      message?: string | null;
+
+      title?: string;
+    }
+  }
+}
+
+export interface DirUpdateResponse {
+  data: DirUpdateResponse.Data;
+}
+
+export namespace DirUpdateResponse {
+  export interface Data {
+    id?: string;
+
+    authorizer_email?: string | null;
+
+    authorizer_name?: string | null;
+
+    call_reasons?: Array<Data.CallReason>;
+
+    certify_brand_is_accurate?: boolean;
+
+    certify_ip_ownership?: boolean;
+
+    certify_no_shaft_content?: boolean;
+
+    created_at?: string;
+
+    display_name?: string;
+
+    documents?: Array<Data.Document> | null;
+
+    enterprise_id?: string;
+
+    expiring_at?: string | null;
+
+    logo_url?: string | null;
+
+    rejected_at?: string | null;
+
+    /**
+     * Populated when `status` is `rejected`; cleared on `/submit` or successful
+     * approval.
+     */
+    rejection_reasons?: Array<Data.RejectionReason> | null;
+
+    reselling?: boolean;
+
+    /**
+     * DIR lifecycle status.
+     *
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
+     *   populated; customer can edit and resubmit.
+     * - `unsuccessful` - system-side error during processing; customer can edit and
+     *   resubmit.
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
+     *   DIR.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
+     */
+    status?:
+      | 'draft'
+      | 'submitted'
+      | 'in_review'
+      | 'verified'
+      | 'rejected'
+      | 'unsuccessful'
+      | 'suspended'
+      | 'expired'
+      | 'infringement_claimed'
+      | 'permanently_rejected';
+
+    submitted_at?: string | null;
+
+    updated_at?: string;
+
+    verified_at?: string | null;
+  }
+
+  export namespace Data {
+    export interface CallReason {
+      created_at?: string;
+
+      reason?: string;
+    }
+
+    export interface Document {
+      /**
+       * Id returned by the Telnyx Documents API after you upload the file (upload via
+       * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+       */
+      document_id: string;
+
+      /**
+       * Type of supporting document. Pick the closest match to what the file actually
+       * contains; `other` triggers manual vetting and may slow approval. The matching
+       * short_name reference list is at `GET /v2/dir/document_types`.
+       */
+      document_type:
+        | 'letter_of_authorization'
+        | 'business_registration'
+        | 'articles_of_incorporation'
+        | 'tax_document'
+        | 'ein_letter'
+        | 'trademark_registration'
+        | 'website_ownership'
+        | 'business_license'
+        | 'professional_license'
+        | 'government_id'
+        | 'utility_bill'
+        | 'bank_statement'
+        | 'other';
+
+      description?: string;
+    }
+
+    export interface RejectionReason {
+      code?: string;
+
+      detail?: string;
+
+      /**
+       * Customer-visible free-text comment from the Telnyx vetting team. Only the first
+       * entry of `rejection_reasons` carries this; the rest are `null`.
+       */
+      message?: string | null;
+
+      title?: string;
+    }
+  }
+}
+
+export interface DirListResponse {
   id?: string;
 
   authorizer_email?: string | null;
 
   authorizer_name?: string | null;
 
-  call_reasons?: Array<Dir.CallReason>;
+  call_reasons?: Array<DirListResponse.CallReason>;
 
   certify_brand_is_accurate?: boolean;
 
@@ -292,7 +548,7 @@ export interface Dir {
 
   display_name?: string;
 
-  documents?: Array<Document> | null;
+  documents?: Array<DirListResponse.Document> | null;
 
   enterprise_id?: string;
 
@@ -306,7 +562,7 @@ export interface Dir {
    * Populated when `status` is `rejected`; cleared on `/submit` or successful
    * approval.
    */
-  rejection_reasons?: Array<PhoneNumbersAPI.RejectionReason> | null;
+  rejection_reasons?: Array<DirListResponse.RejectionReason> | null;
 
   reselling?: boolean;
 
@@ -326,7 +582,17 @@ export interface Dir {
    *   DIR.
    * - `permanently_rejected` - terminal; cannot be resubmitted.
    */
-  status?: DirStatus;
+  status?:
+    | 'draft'
+    | 'submitted'
+    | 'in_review'
+    | 'verified'
+    | 'rejected'
+    | 'unsuccessful'
+    | 'suspended'
+    | 'expired'
+    | 'infringement_claimed'
+    | 'permanently_rejected';
 
   submitted_at?: string | null;
 
@@ -335,86 +601,56 @@ export interface Dir {
   verified_at?: string | null;
 }
 
-export namespace Dir {
+export namespace DirListResponse {
   export interface CallReason {
     created_at?: string;
 
     reason?: string;
   }
-}
 
-export interface DirList {
-  data: Array<Dir>;
+  export interface Document {
+    /**
+     * Id returned by the Telnyx Documents API after you upload the file (upload via
+     * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+     */
+    document_id: string;
 
-  /**
-   * JSON:API pagination metadata returned with every paginated list response. Page
-   * numbering is 1-based. `page_size` reports the number of items actually returned
-   * in `data` for this page; the requested size is taken from the `page[size]` query
-   * parameter.
-   */
-  meta: CallReasonsAPI.BrandedCallingPaginationMeta;
-}
+    /**
+     * Type of supporting document. Pick the closest match to what the file actually
+     * contains; `other` triggers manual vetting and may slow approval. The matching
+     * short_name reference list is at `GET /v2/dir/document_types`.
+     */
+    document_type:
+      | 'letter_of_authorization'
+      | 'business_registration'
+      | 'articles_of_incorporation'
+      | 'tax_document'
+      | 'ein_letter'
+      | 'trademark_registration'
+      | 'website_ownership'
+      | 'business_license'
+      | 'professional_license'
+      | 'government_id'
+      | 'utility_bill'
+      | 'bank_statement'
+      | 'other';
 
-/**
- * DIR lifecycle status.
- *
- * - `draft` - newly created; editable; not yet submitted.
- * - `submitted` / `in_review` - Telnyx is reviewing.
- * - `verified` - approved; phone numbers may be attached.
- * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
- *   populated; customer can edit and resubmit.
- * - `unsuccessful` - system-side error during processing; customer can edit and
- *   resubmit.
- * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
- * - `expired` - verification expired; customer must resubmit.
- * - `infringement_claimed` - a trademark/impersonation claim is open against this
- *   DIR.
- * - `permanently_rejected` - terminal; cannot be resubmitted.
- */
-export type DirStatus =
-  | 'draft'
-  | 'submitted'
-  | 'in_review'
-  | 'verified'
-  | 'rejected'
-  | 'unsuccessful'
-  | 'suspended'
-  | 'expired'
-  | 'infringement_claimed'
-  | 'permanently_rejected';
+    description?: string;
+  }
 
-export interface DirWrapped {
-  data: Dir;
-}
+  export interface RejectionReason {
+    code?: string;
 
-export interface Document {
-  /**
-   * Id returned by the Telnyx Documents API after you upload the file (upload via
-   * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
-   */
-  document_id: string;
+    detail?: string;
 
-  /**
-   * Type of supporting document. Pick the closest match to what the file actually
-   * contains; `other` triggers manual vetting and may slow approval. The matching
-   * short_name reference list is at `GET /v2/dir/document_types`.
-   */
-  document_type:
-    | 'letter_of_authorization'
-    | 'business_registration'
-    | 'articles_of_incorporation'
-    | 'tax_document'
-    | 'ein_letter'
-    | 'trademark_registration'
-    | 'website_ownership'
-    | 'business_license'
-    | 'professional_license'
-    | 'government_id'
-    | 'utility_bill'
-    | 'bank_statement'
-    | 'other';
+    /**
+     * Customer-visible free-text comment from the Telnyx vetting team. Only the first
+     * entry of `rejection_reasons` carries this; the rest are `null`.
+     */
+    message?: string | null;
 
-  description?: string;
+    title?: string;
+  }
 }
 
 export interface DirListDocumentTypesResponse {
@@ -426,7 +662,7 @@ export interface DirListDocumentTypesResponse {
    * in `data` for this page; the requested size is taken from the `page[size]` query
    * parameter.
    */
-  meta: CallReasonsAPI.BrandedCallingPaginationMeta;
+  meta: DirListDocumentTypesResponse.Meta;
 }
 
 export namespace DirListDocumentTypesResponse {
@@ -440,6 +676,440 @@ export namespace DirListDocumentTypesResponse {
      * Stable identifier passed to `Document.document_type`.
      */
     short_name?: string;
+  }
+
+  /**
+   * JSON:API pagination metadata returned with every paginated list response. Page
+   * numbering is 1-based. `page_size` reports the number of items actually returned
+   * in `data` for this page; the requested size is taken from the `page[size]` query
+   * parameter.
+   */
+  export interface Meta {
+    /**
+     * 1-based index of this page. Echoes the `page[number]` query parameter (default
+     * `1`).
+     */
+    page_number: number;
+
+    /**
+     * Number of items returned in this page's `data` array. Capped at 250.
+     */
+    page_size: number;
+
+    /**
+     * Total number of pages available given the current `page_size`.
+     */
+    total_pages: number;
+
+    /**
+     * Total number of items across all pages (excludes soft-deleted rows).
+     */
+    total_results: number;
+  }
+}
+
+export interface DirListInfringementClaimsResponse {
+  id?: string;
+
+  /**
+   * When the claim was filed (set by the claimant's representative at file time).
+   */
+  claim_date?: string;
+
+  claim_description?: string;
+
+  /**
+   * Category of infringement being claimed.
+   */
+  claim_type?: 'trademark' | 'copyright';
+
+  claimant_contact?: string;
+
+  claimant_name?: string;
+
+  /**
+   * Aggregated across all customer contest submissions on this claim.
+   */
+  contest_documents?: Array<DirListInfringementClaimsResponse.ContestDocument>;
+
+  /**
+   * Per-round submission audit trail. Each entry records one
+   * `POST /infringement_claims/{id}/contest` call (notes, timestamp, document
+   * count). Aggregated documents live on `contest_documents`.
+   */
+  contest_history?: Array<DirListInfringementClaimsResponse.ContestHistory>;
+
+  created_at?: string;
+
+  /**
+   * Snapshot of the DIR the claim is filed against, embedded for convenience.
+   */
+  dir?: DirListInfringementClaimsResponse.Dir;
+
+  dir_id?: string;
+
+  enterprise_id?: string;
+
+  /**
+   * Set only when `status` is `resolved`.
+   */
+  resolution?: 'upheld' | 'rejected' | 'modified' | null;
+
+  resolution_date?: string | null;
+
+  resolution_notes?: string | null;
+
+  /**
+   * Lifecycle status. `pending` - newly filed; the DIR is auto-suspended.
+   * `contested` - you have submitted contest evidence; awaiting Telnyx review.
+   * `resolved` - final.
+   */
+  status?: 'pending' | 'contested' | 'resolved';
+
+  updated_at?: string;
+}
+
+export namespace DirListInfringementClaimsResponse {
+  export interface ContestDocument {
+    /**
+     * Id returned by the Telnyx Documents API after you upload the file (upload via
+     * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+     */
+    document_id: string;
+
+    /**
+     * Type of supporting document. Pick the closest match to what the file actually
+     * contains; `other` triggers manual vetting and may slow approval. The matching
+     * short_name reference list is at `GET /v2/dir/document_types`.
+     */
+    document_type:
+      | 'letter_of_authorization'
+      | 'business_registration'
+      | 'articles_of_incorporation'
+      | 'tax_document'
+      | 'ein_letter'
+      | 'trademark_registration'
+      | 'website_ownership'
+      | 'business_license'
+      | 'professional_license'
+      | 'government_id'
+      | 'utility_bill'
+      | 'bank_statement'
+      | 'other';
+
+    description?: string;
+  }
+
+  /**
+   * One round of customer contest evidence on an infringement claim. The aggregated
+   * documents across rounds live on the parent claim's `contest_documents`; this
+   * submission record carries only the per-round notes and document count.
+   */
+  export interface ContestHistory {
+    document_count?: number;
+
+    notes?: string;
+
+    submitted_at?: string;
+  }
+
+  /**
+   * Snapshot of the DIR the claim is filed against, embedded for convenience.
+   */
+  export interface Dir {
+    id?: string;
+
+    display_name?: string;
+
+    enterprise_id?: string;
+
+    /**
+     * DIR lifecycle status.
+     *
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
+     *   populated; customer can edit and resubmit.
+     * - `unsuccessful` - system-side error during processing; customer can edit and
+     *   resubmit.
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
+     *   DIR.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
+     */
+    status?:
+      | 'draft'
+      | 'submitted'
+      | 'in_review'
+      | 'verified'
+      | 'rejected'
+      | 'unsuccessful'
+      | 'suspended'
+      | 'expired'
+      | 'infringement_claimed'
+      | 'permanently_rejected';
+  }
+}
+
+export interface DirSubmitResponse {
+  data: DirSubmitResponse.Data;
+}
+
+export namespace DirSubmitResponse {
+  export interface Data {
+    id?: string;
+
+    authorizer_email?: string | null;
+
+    authorizer_name?: string | null;
+
+    call_reasons?: Array<Data.CallReason>;
+
+    certify_brand_is_accurate?: boolean;
+
+    certify_ip_ownership?: boolean;
+
+    certify_no_shaft_content?: boolean;
+
+    created_at?: string;
+
+    display_name?: string;
+
+    documents?: Array<Data.Document> | null;
+
+    enterprise_id?: string;
+
+    expiring_at?: string | null;
+
+    logo_url?: string | null;
+
+    rejected_at?: string | null;
+
+    /**
+     * Populated when `status` is `rejected`; cleared on `/submit` or successful
+     * approval.
+     */
+    rejection_reasons?: Array<Data.RejectionReason> | null;
+
+    reselling?: boolean;
+
+    /**
+     * DIR lifecycle status.
+     *
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
+     *   populated; customer can edit and resubmit.
+     * - `unsuccessful` - system-side error during processing; customer can edit and
+     *   resubmit.
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
+     *   DIR.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
+     */
+    status?:
+      | 'draft'
+      | 'submitted'
+      | 'in_review'
+      | 'verified'
+      | 'rejected'
+      | 'unsuccessful'
+      | 'suspended'
+      | 'expired'
+      | 'infringement_claimed'
+      | 'permanently_rejected';
+
+    submitted_at?: string | null;
+
+    updated_at?: string;
+
+    verified_at?: string | null;
+  }
+
+  export namespace Data {
+    export interface CallReason {
+      created_at?: string;
+
+      reason?: string;
+    }
+
+    export interface Document {
+      /**
+       * Id returned by the Telnyx Documents API after you upload the file (upload via
+       * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+       */
+      document_id: string;
+
+      /**
+       * Type of supporting document. Pick the closest match to what the file actually
+       * contains; `other` triggers manual vetting and may slow approval. The matching
+       * short_name reference list is at `GET /v2/dir/document_types`.
+       */
+      document_type:
+        | 'letter_of_authorization'
+        | 'business_registration'
+        | 'articles_of_incorporation'
+        | 'tax_document'
+        | 'ein_letter'
+        | 'trademark_registration'
+        | 'website_ownership'
+        | 'business_license'
+        | 'professional_license'
+        | 'government_id'
+        | 'utility_bill'
+        | 'bank_statement'
+        | 'other';
+
+      description?: string;
+    }
+
+    export interface RejectionReason {
+      code?: string;
+
+      detail?: string;
+
+      /**
+       * Customer-visible free-text comment from the Telnyx vetting team. Only the first
+       * entry of `rejection_reasons` carries this; the rest are `null`.
+       */
+      message?: string | null;
+
+      title?: string;
+    }
+  }
+}
+
+export interface DirUpdateInfringementResponse {
+  data: DirUpdateInfringementResponse.Data;
+}
+
+export namespace DirUpdateInfringementResponse {
+  export interface Data {
+    id?: string;
+
+    authorizer_email?: string | null;
+
+    authorizer_name?: string | null;
+
+    call_reasons?: Array<Data.CallReason>;
+
+    certify_brand_is_accurate?: boolean;
+
+    certify_ip_ownership?: boolean;
+
+    certify_no_shaft_content?: boolean;
+
+    created_at?: string;
+
+    display_name?: string;
+
+    documents?: Array<Data.Document> | null;
+
+    enterprise_id?: string;
+
+    expiring_at?: string | null;
+
+    logo_url?: string | null;
+
+    rejected_at?: string | null;
+
+    /**
+     * Populated when `status` is `rejected`; cleared on `/submit` or successful
+     * approval.
+     */
+    rejection_reasons?: Array<Data.RejectionReason> | null;
+
+    reselling?: boolean;
+
+    /**
+     * DIR lifecycle status.
+     *
+     * - `draft` - newly created; editable; not yet submitted.
+     * - `submitted` / `in_review` - Telnyx is reviewing.
+     * - `verified` - approved; phone numbers may be attached.
+     * - `rejected` - Telnyx rejected this submission; `rejection_reasons` is
+     *   populated; customer can edit and resubmit.
+     * - `unsuccessful` - system-side error during processing; customer can edit and
+     *   resubmit.
+     * - `suspended` - temporarily disabled (e.g. by an active infringement claim).
+     * - `expired` - verification expired; customer must resubmit.
+     * - `infringement_claimed` - a trademark/impersonation claim is open against this
+     *   DIR.
+     * - `permanently_rejected` - terminal; cannot be resubmitted.
+     */
+    status?:
+      | 'draft'
+      | 'submitted'
+      | 'in_review'
+      | 'verified'
+      | 'rejected'
+      | 'unsuccessful'
+      | 'suspended'
+      | 'expired'
+      | 'infringement_claimed'
+      | 'permanently_rejected';
+
+    submitted_at?: string | null;
+
+    updated_at?: string;
+
+    verified_at?: string | null;
+  }
+
+  export namespace Data {
+    export interface CallReason {
+      created_at?: string;
+
+      reason?: string;
+    }
+
+    export interface Document {
+      /**
+       * Id returned by the Telnyx Documents API after you upload the file (upload via
+       * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+       */
+      document_id: string;
+
+      /**
+       * Type of supporting document. Pick the closest match to what the file actually
+       * contains; `other` triggers manual vetting and may slow approval. The matching
+       * short_name reference list is at `GET /v2/dir/document_types`.
+       */
+      document_type:
+        | 'letter_of_authorization'
+        | 'business_registration'
+        | 'articles_of_incorporation'
+        | 'tax_document'
+        | 'ein_letter'
+        | 'trademark_registration'
+        | 'website_ownership'
+        | 'business_license'
+        | 'professional_license'
+        | 'government_id'
+        | 'utility_bill'
+        | 'bank_statement'
+        | 'other';
+
+      description?: string;
+    }
+
+    export interface RejectionReason {
+      code?: string;
+
+      detail?: string;
+
+      /**
+       * Customer-visible free-text comment from the Telnyx vetting team. Only the first
+       * entry of `rejection_reasons` carries this; the rest are `null`.
+       */
+      message?: string | null;
+
+      title?: string;
+    }
   }
 }
 
@@ -491,7 +1161,7 @@ export interface DirUpdateParams {
    * never removed or replaced, and an empty or omitted list is a no-op. Each
    * `document_id` may appear at most once on a DIR.
    */
-  documents?: Array<Document>;
+  documents?: Array<DirUpdateParams.Document>;
 
   /**
    * Publicly accessible HTTPS URL (max 128 chars) to a 256x256 BMP logo (max 1 MB).
@@ -503,6 +1173,38 @@ export interface DirUpdateParams {
    * (BPO/reseller). Updating this triggers re-vetting on next submit.
    */
   reselling?: boolean;
+}
+
+export namespace DirUpdateParams {
+  export interface Document {
+    /**
+     * Id returned by the Telnyx Documents API after you upload the file (upload via
+     * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+     */
+    document_id: string;
+
+    /**
+     * Type of supporting document. Pick the closest match to what the file actually
+     * contains; `other` triggers manual vetting and may slow approval. The matching
+     * short_name reference list is at `GET /v2/dir/document_types`.
+     */
+    document_type:
+      | 'letter_of_authorization'
+      | 'business_registration'
+      | 'articles_of_incorporation'
+      | 'tax_document'
+      | 'ein_letter'
+      | 'trademark_registration'
+      | 'website_ownership'
+      | 'business_license'
+      | 'professional_license'
+      | 'government_id'
+      | 'utility_bill'
+      | 'bank_statement'
+      | 'other';
+
+    description?: string;
+  }
 }
 
 export interface DirListParams extends DefaultFlatPaginationParams {
@@ -535,7 +1237,17 @@ export interface DirListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by DIR status.
    */
-  'filter[status]'?: DirStatus;
+  'filter[status]'?:
+    | 'draft'
+    | 'submitted'
+    | 'in_review'
+    | 'verified'
+    | 'rejected'
+    | 'unsuccessful'
+    | 'suspended'
+    | 'expired'
+    | 'infringement_claimed'
+    | 'permanently_rejected';
 
   /**
    * Sort field. Allowed values: `created_at`, `updated_at`, `display_name`,
@@ -552,9 +1264,7 @@ export interface DirListParams extends DefaultFlatPaginationParams {
     | '-status';
 }
 
-export interface DirListInfringementClaimsParams extends DefaultFlatPaginationParams {}
-
-export interface DirNewLoaParams {
+export interface DirCreateLoaParams {
   /**
    * Telephone numbers to authorize on the DIR, in `+E164` format (`+` followed by
    * 10-15 digits). Max 15 per request.
@@ -565,17 +1275,47 @@ export interface DirNewLoaParams {
    * Third-party reseller / partner managing the enterprise's phone numbers. Omit
    * when the enterprise works directly with Telnyx.
    */
-  agent?: LoaAPI.AgentInput;
+  agent?: DirCreateLoaParams.Agent;
 
   /**
    * Optional. When provided the rendered PDF embeds the signature image, printed
    * name, and signed-at date. When absent the PDF is returned unsigned so the
    * customer can sign externally and upload it via the Documents API.
    */
-  signature?: DirNewLoaParams.Signature;
+  signature?: DirCreateLoaParams.Signature;
 }
 
-export namespace DirNewLoaParams {
+export namespace DirCreateLoaParams {
+  /**
+   * Third-party reseller / partner managing the enterprise's phone numbers. Omit
+   * when the enterprise works directly with Telnyx.
+   */
+  export interface Agent {
+    administrative_area: string;
+
+    city: string;
+
+    contact_email: string;
+
+    contact_name: string;
+
+    contact_phone: string;
+
+    contact_title: string;
+
+    country: string;
+
+    legal_name: string;
+
+    postal_code: string;
+
+    street_address: string;
+
+    dba?: string | null;
+
+    extended_address?: string | null;
+  }
+
   /**
    * Optional. When provided the rendered PDF embeds the signature image, printed
    * name, and signed-at date. When absent the PDF is returned unsigned so the
@@ -594,6 +1334,8 @@ export namespace DirNewLoaParams {
     signer_name?: string | null;
   }
 }
+
+export interface DirListInfringementClaimsParams extends DefaultFlatPaginationParams {}
 
 export interface DirUpdateInfringementParams {
   /**
@@ -628,7 +1370,7 @@ export interface DirUpdateInfringementParams {
   /**
    * Append-only supporting documents.
    */
-  documents?: Array<Document> | null;
+  documents?: Array<DirUpdateInfringementParams.Document> | null;
 
   /**
    * Publicly accessible HTTPS URL (max 128 chars) to a 256x256 BMP logo (max 1 MB).
@@ -636,57 +1378,86 @@ export interface DirUpdateInfringementParams {
   logo_url?: string | null;
 }
 
-DirResource.Comments = Comments;
-DirResource.PhoneNumberBatches = PhoneNumberBatches;
-DirResource.PhoneNumbers = PhoneNumbers;
+export namespace DirUpdateInfringementParams {
+  export interface Document {
+    /**
+     * Id returned by the Telnyx Documents API after you upload the file (upload via
+     * `POST /v2/documents`; see https://developers.telnyx.com/api/documents).
+     */
+    document_id: string;
 
-export declare namespace DirResource {
+    /**
+     * Type of supporting document. Pick the closest match to what the file actually
+     * contains; `other` triggers manual vetting and may slow approval. The matching
+     * short_name reference list is at `GET /v2/dir/document_types`.
+     */
+    document_type:
+      | 'letter_of_authorization'
+      | 'business_registration'
+      | 'articles_of_incorporation'
+      | 'tax_document'
+      | 'ein_letter'
+      | 'trademark_registration'
+      | 'website_ownership'
+      | 'business_license'
+      | 'professional_license'
+      | 'government_id'
+      | 'utility_bill'
+      | 'bank_statement'
+      | 'other';
+
+    description?: string;
+  }
+}
+
+Dir.Comments = Comments;
+Dir.PhoneNumberBatches = PhoneNumberBatches;
+Dir.PhoneNumbers = PhoneNumbers;
+
+export declare namespace Dir {
   export {
-    type Dir as Dir,
-    type DirList as DirList,
-    type DirStatus as DirStatus,
-    type DirWrapped as DirWrapped,
-    type Document as Document,
+    type DirRetrieveResponse as DirRetrieveResponse,
+    type DirUpdateResponse as DirUpdateResponse,
+    type DirListResponse as DirListResponse,
     type DirListDocumentTypesResponse as DirListDocumentTypesResponse,
-    type DirsDefaultFlatPagination as DirsDefaultFlatPagination,
+    type DirListInfringementClaimsResponse as DirListInfringementClaimsResponse,
+    type DirSubmitResponse as DirSubmitResponse,
+    type DirUpdateInfringementResponse as DirUpdateInfringementResponse,
+    type DirListResponsesDefaultFlatPagination as DirListResponsesDefaultFlatPagination,
+    type DirListInfringementClaimsResponsesDefaultFlatPagination as DirListInfringementClaimsResponsesDefaultFlatPagination,
     type DirUpdateParams as DirUpdateParams,
     type DirListParams as DirListParams,
+    type DirCreateLoaParams as DirCreateLoaParams,
     type DirListInfringementClaimsParams as DirListInfringementClaimsParams,
-    type DirNewLoaParams as DirNewLoaParams,
     type DirUpdateInfringementParams as DirUpdateInfringementParams,
   };
 
   export {
     Comments as Comments,
-    type CommentType as CommentType,
-    type DirComment as DirComment,
     type CommentCreateResponse as CommentCreateResponse,
-    type DirCommentsDefaultFlatPagination as DirCommentsDefaultFlatPagination,
+    type CommentListResponse as CommentListResponse,
+    type CommentListResponsesDefaultFlatPagination as CommentListResponsesDefaultFlatPagination,
     type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
   };
 
   export {
     PhoneNumberBatches as PhoneNumberBatches,
-    type DirPhoneNumberStatus as DirPhoneNumberStatus,
-    type PhoneNumberBatch as PhoneNumberBatch,
     type PhoneNumberBatchRetrieveResponse as PhoneNumberBatchRetrieveResponse,
-    type PhoneNumberBatchesDefaultFlatPagination as PhoneNumberBatchesDefaultFlatPagination,
+    type PhoneNumberBatchListResponse as PhoneNumberBatchListResponse,
+    type PhoneNumberBatchListResponsesDefaultFlatPagination as PhoneNumberBatchListResponsesDefaultFlatPagination,
     type PhoneNumberBatchRetrieveParams as PhoneNumberBatchRetrieveParams,
     type PhoneNumberBatchListParams as PhoneNumberBatchListParams,
   };
 
   export {
     PhoneNumbers as PhoneNumbers,
-    type DirPhoneNumber as DirPhoneNumber,
-    type RejectionReason as RejectionReason,
+    type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberAddResponse as PhoneNumberAddResponse,
     type PhoneNumberRemoveResponse as PhoneNumberRemoveResponse,
-    type DirPhoneNumbersDefaultFlatPagination as DirPhoneNumbersDefaultFlatPagination,
+    type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberAddParams as PhoneNumberAddParams,
     type PhoneNumberRemoveParams as PhoneNumberRemoveParams,
   };
 }
-
-export { type InfringementClaimsDefaultFlatPagination };

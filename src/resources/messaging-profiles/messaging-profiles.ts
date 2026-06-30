@@ -3,7 +3,6 @@
 import { APIResource } from '../../core/resource';
 import * as AlphanumericSenderIDsAPI from '../alphanumeric-sender-ids';
 import { AlphanumericSenderIDsDefaultFlatPagination } from '../alphanumeric-sender-ids';
-import * as MessagingProfileMetricsAPI from '../messaging-profile-metrics';
 import * as Shared from '../shared';
 import {
   PhoneNumberWithMessagingSettingsDefaultFlatPagination,
@@ -742,7 +741,7 @@ export interface MessagingProfileRetrieveMetricsParams {
   /**
    * The time frame for metrics.
    */
-  time_frame?: MessagingProfileMetricsAPI.MessagingMetricsTimeFrame;
+  time_frame?: '1h' | '3h' | '24h' | '3d' | '7d' | '30d';
 }
 
 MessagingProfiles.AutorespConfigs = AutorespConfigs;

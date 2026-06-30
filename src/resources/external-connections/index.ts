@@ -26,11 +26,11 @@ export {
 } from './external-connections';
 export {
   LogMessages,
-  type LogMessage,
   type LogMessageRetrieveResponse,
+  type LogMessageListResponse,
   type LogMessageDismissResponse,
   type LogMessageListParams,
-  type LogMessagesDefaultPaginationForLogMessages,
+  type LogMessageListResponsesDefaultPaginationForLogMessages,
 } from './log-messages';
 export {
   PhoneNumbers,
@@ -44,12 +44,12 @@ export {
 } from './phone-numbers';
 export {
   Releases,
-  type Release,
   type TnReleaseEntry,
   type ReleaseRetrieveResponse,
+  type ReleaseListResponse,
   type ReleaseRetrieveParams,
   type ReleaseListParams,
-  type ReleasesDefaultFlatPagination,
+  type ReleaseListResponsesDefaultFlatPagination,
 } from './releases';
 export {
   Uploads,

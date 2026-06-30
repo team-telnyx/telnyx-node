@@ -17,18 +17,12 @@ export {
 } from './phone-numbers/index';
 export {
   Templates,
-  type WhatsappTemplateBodyComponent,
-  type WhatsappTemplateButtonsComponent,
-  type WhatsappTemplateCarouselComponent,
-  type WhatsappTemplateFooterComponent,
-  type WhatsappTemplateHeaderComponent,
   type TemplateCreateResponse,
   type TemplateCreateParams,
   type TemplateListParams,
 } from './templates';
 export {
   UserData,
-  type WhatsappUserData,
   type UserDataRetrieveResponse,
   type UserDataUpdateResponse,
   type UserDataUpdateParams,

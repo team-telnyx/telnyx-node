@@ -18,14 +18,13 @@ export class VoiceDesigns extends APIResource {
    *
    * @example
    * ```ts
-   * const voiceDesignResponse =
-   *   await client.voiceDesigns.create({
-   *     prompt: 'Speak in a warm, friendly tone',
-   *     text: 'Hello, welcome to our service.',
-   *   });
+   * const voiceDesign = await client.voiceDesigns.create({
+   *   prompt: 'Speak in a warm, friendly tone',
+   *   text: 'Hello, welcome to our service.',
+   * });
    * ```
    */
-  create(body: VoiceDesignCreateParams, options?: RequestOptions): APIPromise<VoiceDesignResponse> {
+  create(body: VoiceDesignCreateParams, options?: RequestOptions): APIPromise<VoiceDesignCreateResponse> {
     return this._client.post('/voice_designs', { body, ...options });
   }
 
@@ -36,15 +35,16 @@ export class VoiceDesigns extends APIResource {
    *
    * @example
    * ```ts
-   * const voiceDesignResponse =
-   *   await client.voiceDesigns.retrieve('id');
+   * const voiceDesign = await client.voiceDesigns.retrieve(
+   *   'id',
+   * );
    * ```
    */
   retrieve(
     id: string,
     query: VoiceDesignRetrieveParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<VoiceDesignResponse> {
+  ): APIPromise<VoiceDesignRetrieveResponse> {
     return this._client.get(path`/voice_designs/${id}`, { query, ...options });
   }
 
@@ -55,7 +55,7 @@ export class VoiceDesigns extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const voiceDesignSummaryData of client.voiceDesigns.list()) {
+   * for await (const voiceDesignListResponse of client.voiceDesigns.list()) {
    *   // ...
    * }
    * ```
@@ -63,8 +63,8 @@ export class VoiceDesigns extends APIResource {
   list(
     query: VoiceDesignListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<VoiceDesignSummaryDataDefaultFlatPagination, VoiceDesignSummaryData> {
-    return this._client.getAPIList('/voice_designs', DefaultFlatPagination<VoiceDesignSummaryData>, {
+  ): PagePromise<VoiceDesignListResponsesDefaultFlatPagination, VoiceDesignListResponse> {
+    return this._client.getAPIList('/voice_designs', DefaultFlatPagination<VoiceDesignListResponse>, {
       query,
       ...options,
     });
@@ -154,7 +154,7 @@ export class VoiceDesigns extends APIResource {
   }
 }
 
-export type VoiceDesignSummaryDataDefaultFlatPagination = DefaultFlatPagination<VoiceDesignSummaryData>;
+export type VoiceDesignListResponsesDefaultFlatPagination = DefaultFlatPagination<VoiceDesignListResponse>;
 
 /**
  * A voice design object with full version detail.
@@ -231,7 +231,17 @@ export interface VoiceDesignData {
 /**
  * Response envelope for a single voice design with full version detail.
  */
-export interface VoiceDesignResponse {
+export interface VoiceDesignCreateResponse {
+  /**
+   * A voice design object with full version detail.
+   */
+  data?: VoiceDesignData;
+}
+
+/**
+ * Response envelope for a single voice design with full version detail.
+ */
+export interface VoiceDesignRetrieveResponse {
   /**
    * A voice design object with full version detail.
    */
@@ -241,7 +251,7 @@ export interface VoiceDesignResponse {
 /**
  * A summarized voice design object (without version-specific fields).
  */
-export interface VoiceDesignSummaryData {
+export interface VoiceDesignListResponse {
   /**
    * Unique identifier for the voice design.
    */
@@ -286,7 +296,49 @@ export interface VoiceDesignRenameResponse {
   /**
    * A summarized voice design object (without version-specific fields).
    */
-  data?: VoiceDesignSummaryData;
+  data?: VoiceDesignRenameResponse.Data;
+}
+
+export namespace VoiceDesignRenameResponse {
+  /**
+   * A summarized voice design object (without version-specific fields).
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the voice design.
+     */
+    id?: string;
+
+    /**
+     * Timestamp when the voice design was first created.
+     */
+    created_at?: string;
+
+    /**
+     * Name of the voice design.
+     */
+    name?: string;
+
+    /**
+     * Voice synthesis provider used for this design.
+     */
+    provider?: 'telnyx' | 'minimax' | null;
+
+    /**
+     * List of TTS model identifiers supported by this design's provider.
+     */
+    provider_supported_models?: Array<string>;
+
+    /**
+     * Identifies the resource type.
+     */
+    record_type?: 'voice_design';
+
+    /**
+     * Timestamp when the voice design was last updated.
+     */
+    updated_at?: string;
+  }
 }
 
 export interface VoiceDesignCreateParams {
@@ -400,10 +452,11 @@ export interface VoiceDesignRenameParams {
 export declare namespace VoiceDesigns {
   export {
     type VoiceDesignData as VoiceDesignData,
-    type VoiceDesignResponse as VoiceDesignResponse,
-    type VoiceDesignSummaryData as VoiceDesignSummaryData,
+    type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
+    type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
+    type VoiceDesignListResponse as VoiceDesignListResponse,
     type VoiceDesignRenameResponse as VoiceDesignRenameResponse,
-    type VoiceDesignSummaryDataDefaultFlatPagination as VoiceDesignSummaryDataDefaultFlatPagination,
+    type VoiceDesignListResponsesDefaultFlatPagination as VoiceDesignListResponsesDefaultFlatPagination,
     type VoiceDesignCreateParams as VoiceDesignCreateParams,
     type VoiceDesignRetrieveParams as VoiceDesignRetrieveParams,
     type VoiceDesignListParams as VoiceDesignListParams,

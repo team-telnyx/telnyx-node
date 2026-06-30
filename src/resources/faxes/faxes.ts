@@ -169,7 +169,7 @@ export interface Fax {
    * available, but also present longer fax processing times. `ultra_light` is best
    * suited for images, wihle `ultra_dark` is best suited for text.
    */
-  quality?: Quality;
+  quality?: 'normal' | 'high' | 'very_high' | 'ultra_light' | 'ultra_dark';
 
   /**
    * Identifies the type of the resource.
@@ -223,13 +223,6 @@ export interface Fax {
    */
   webhook_url?: string;
 }
-
-/**
- * The quality of the fax. The `ultra` settings provides the highest quality
- * available, but also present longer fax processing times. `ultra_light` is best
- * suited for images, wihle `ultra_dark` is best suited for text.
- */
-export type Quality = 'normal' | 'high' | 'very_high' | 'ultra_light' | 'ultra_dark';
 
 export interface FaxCreateResponse {
   data?: Fax;
@@ -306,7 +299,7 @@ export interface FaxCreateParams {
    * available, but also present longer fax processing times. `ultra_light` is best
    * suited for images, wihle `ultra_dark` is best suited for text.
    */
-  quality?: Quality;
+  quality?: 'normal' | 'high' | 'very_high' | 'ultra_light' | 'ultra_dark';
 
   /**
    * Should fax media be stored on temporary URL. It does not support media_name,
@@ -431,7 +424,6 @@ Faxes.Actions = Actions;
 export declare namespace Faxes {
   export {
     type Fax as Fax,
-    type Quality as Quality,
     type FaxCreateResponse as FaxCreateResponse,
     type FaxRetrieveResponse as FaxRetrieveResponse,
     type FaxesDefaultFlatPagination as FaxesDefaultFlatPagination,

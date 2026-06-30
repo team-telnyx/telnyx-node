@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as RemediationAPI from './remediation';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -16,46 +15,12 @@ import { path } from '../../../internal/utils/path';
  */
 export class Remediation extends APIResource {
   /**
-   * Submit a batch of phone numbers belonging to this enterprise for reputation
-   * remediation. The request is accepted asynchronously: this endpoint returns `202`
-   * with the persisted request id, then the request transitions through processing
-   * states until completion. Use the GET endpoints to poll status and per-number
-   * results.
-   *
-   * Each phone number must be in E.164 format and belong to this enterprise. A
-   * number that already has an in-flight remediation request is rejected.
-   *
-   * @example
-   * ```ts
-   * const remediationRequestWrapped =
-   *   await client.enterprises.reputation.remediation.create(
-   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
-   *     {
-   *       call_purpose:
-   *         'Appointment reminders for our dental clinic.',
-   *       phone_numbers: ['+19493253498', '+12134445566'],
-   *       contact_email: 'ops@example.com',
-   *       webhook_url:
-   *         'https://example.com/webhooks/remediation',
-   *     },
-   *   );
-   * ```
-   */
-  create(
-    enterpriseID: string,
-    body: RemediationCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<RemediationRequestWrapped> {
-    return this._client.post(path`/enterprises/${enterpriseID}/reputation/remediation`, { body, ...options });
-  }
-
-  /**
    * Retrieve the full detail of a remediation request, including current status,
    * per-number results (once available), and submission metadata.
    *
    * @example
    * ```ts
-   * const remediationRequestWrapped =
+   * const remediation =
    *   await client.enterprises.reputation.remediation.retrieve(
    *     'b7c1f1c0-7a9d-4f0a-9d3e-2f6a1c4b8e21',
    *     {
@@ -68,7 +33,7 @@ export class Remediation extends APIResource {
     remediationID: string,
     params: RemediationRetrieveParams,
     options?: RequestOptions,
-  ): APIPromise<RemediationRequestWrapped> {
+  ): APIPromise<RemediationRetrieveResponse> {
     const { enterprise_id } = params;
     return this._client.get(
       path`/enterprises/${enterprise_id}/reputation/remediation/${remediationID}`,
@@ -103,18 +68,52 @@ export class Remediation extends APIResource {
       { query, ...options },
     );
   }
+
+  /**
+   * Submit a batch of phone numbers belonging to this enterprise for reputation
+   * remediation. The request is accepted asynchronously: this endpoint returns `202`
+   * with the persisted request id, then the request transitions through processing
+   * states until completion. Use the GET endpoints to poll status and per-number
+   * results.
+   *
+   * Each phone number must be in E.164 format and belong to this enterprise. A
+   * number that already has an in-flight remediation request is rejected.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.enterprises.reputation.remediation.submit(
+   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *     {
+   *       call_purpose:
+   *         'Appointment reminders for our dental clinic.',
+   *       phone_numbers: ['+19493253498', '+12134445566'],
+   *       contact_email: 'ops@example.com',
+   *       webhook_url:
+   *         'https://example.com/webhooks/remediation',
+   *     },
+   *   );
+   * ```
+   */
+  submit(
+    enterpriseID: string,
+    body: RemediationSubmitParams,
+    options?: RequestOptions,
+  ): APIPromise<RemediationSubmitResponse> {
+    return this._client.post(path`/enterprises/${enterpriseID}/reputation/remediation`, { body, ...options });
+  }
 }
 
 export type RemediationListResponsesDefaultFlatPagination = DefaultFlatPagination<RemediationListResponse>;
 
-export interface RemediationRequestWrapped {
+export interface RemediationRetrieveResponse {
   /**
    * Full detail of a remediation request, returned on submit and GET by id.
    */
-  data: RemediationRequestWrapped.Data;
+  data: RemediationRetrieveResponse.Data;
 }
 
-export namespace RemediationRequestWrapped {
+export namespace RemediationRetrieveResponse {
   /**
    * Full detail of a remediation request, returned on submit and GET by id.
    */
@@ -145,7 +144,7 @@ export namespace RemediationRequestWrapped {
     /**
      * Customer-facing status of a remediation request.
      */
-    status: RemediationAPI.RemediationStatus;
+    status: 'pending' | 'in_progress' | 'completed' | 'failed' | 'cancelled';
 
     updated_at: string;
 
@@ -184,11 +183,6 @@ export namespace RemediationRequestWrapped {
 }
 
 /**
- * Customer-facing status of a remediation request.
- */
-export type RemediationStatus = 'pending' | 'in_progress' | 'completed' | 'failed' | 'cancelled';
-
-/**
  * Slim list-endpoint shape. Omits per-number results and webhook URLs to keep
  * responses small.
  */
@@ -204,7 +198,7 @@ export interface RemediationListResponse {
   /**
    * Customer-facing status of a remediation request.
    */
-  status: RemediationStatus;
+  status: 'pending' | 'in_progress' | 'completed' | 'failed' | 'cancelled';
 
   updated_at: string;
 
@@ -213,27 +207,80 @@ export interface RemediationListResponse {
   tier2_completed_at?: string | null;
 }
 
-export interface RemediationCreateParams {
+export interface RemediationSubmitResponse {
   /**
-   * How the numbers are used (free text).
+   * Full detail of a remediation request, returned on submit and GET by id.
    */
-  call_purpose: string;
+  data: RemediationSubmitResponse.Data;
+}
 
+export namespace RemediationSubmitResponse {
   /**
-   * Phone numbers in E.164 format. Each must belong to this enterprise. Maximum
-   * 2,000 per request.
+   * Full detail of a remediation request, returned on submit and GET by id.
    */
-  phone_numbers: Array<string>;
+  export interface Data {
+    id: string;
 
-  /**
-   * Optional contact email for this remediation request.
-   */
-  contact_email?: string;
+    call_purpose: string;
 
-  /**
-   * Optional https:// URL for status notifications.
-   */
-  webhook_url?: string;
+    created_at: string;
+
+    /**
+     * Total phone numbers in this batch, including any later cancelled. May exceed the
+     * sum of the per-category result buckets, which omit cancelled numbers.
+     */
+    phone_numbers_count: number;
+
+    /**
+     * Numbers rejected before submission (e.g. cooldown).
+     */
+    phone_numbers_ineligible: number;
+
+    /**
+     * Numbers accepted for remediation, i.e. not rejected as ineligible. Counts
+     * numbers still queued (pending) as well as processed ones.
+     */
+    phone_numbers_submitted: number;
+
+    /**
+     * Customer-facing status of a remediation request.
+     */
+    status: 'pending' | 'in_progress' | 'completed' | 'failed' | 'cancelled';
+
+    updated_at: string;
+
+    contact_email?: string | null;
+
+    /**
+     * Per-category buckets. Populated once results are available. Null while the
+     * request is still pending.
+     */
+    results?: Data.Results | null;
+
+    tier1_completed_at?: string | null;
+
+    tier2_completed_at?: string | null;
+
+    webhook_url?: string | null;
+  }
+
+  export namespace Data {
+    /**
+     * Per-category buckets. Populated once results are available. Null while the
+     * request is still pending.
+     */
+    export interface Results {
+      ineligible?: Array<string>;
+
+      not_flagged?: Array<string>;
+
+      refused?: Array<string>;
+
+      remediated?: Array<string>;
+
+      requires_review?: Array<string>;
+    }
+  }
 }
 
 export interface RemediationRetrieveParams {
@@ -257,17 +304,40 @@ export interface RemediationListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by customer-facing status.
    */
-  'filter[status]'?: RemediationStatus;
+  'filter[status]'?: 'pending' | 'in_progress' | 'completed' | 'failed' | 'cancelled';
+}
+
+export interface RemediationSubmitParams {
+  /**
+   * How the numbers are used (free text).
+   */
+  call_purpose: string;
+
+  /**
+   * Phone numbers in E.164 format. Each must belong to this enterprise. Maximum
+   * 2,000 per request.
+   */
+  phone_numbers: Array<string>;
+
+  /**
+   * Optional contact email for this remediation request.
+   */
+  contact_email?: string;
+
+  /**
+   * Optional https:// URL for status notifications.
+   */
+  webhook_url?: string;
 }
 
 export declare namespace Remediation {
   export {
-    type RemediationRequestWrapped as RemediationRequestWrapped,
-    type RemediationStatus as RemediationStatus,
+    type RemediationRetrieveResponse as RemediationRetrieveResponse,
     type RemediationListResponse as RemediationListResponse,
+    type RemediationSubmitResponse as RemediationSubmitResponse,
     type RemediationListResponsesDefaultFlatPagination as RemediationListResponsesDefaultFlatPagination,
-    type RemediationCreateParams as RemediationCreateParams,
     type RemediationRetrieveParams as RemediationRetrieveParams,
     type RemediationListParams as RemediationListParams,
+    type RemediationSubmitParams as RemediationSubmitParams,
   };
 }

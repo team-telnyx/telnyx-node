@@ -1,28 +1,19 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import { type WebhookUnwrapOptions, unsafeUnwrapWebhook, unwrapWebhook } from '../lib/webhooks';
 import * as NumberOrdersAPI from './number-orders';
 import * as Shared from './shared';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
-import { Webhook } from 'standardwebhooks';
 
 export class Webhooks extends APIResource {
-  unsafeUnwrap(body: string): UnsafeUnwrapWebhookEvent {
-    return JSON.parse(body) as UnsafeUnwrapWebhookEvent;
+  unsafeUnwrap<T = UnsafeUnwrapWebhookEvent>(body: string): T {
+    return unsafeUnwrapWebhook<T>(body);
   }
 
-  unwrap(
-    body: string,
-    { headers, key }: { headers: Record<string, string>; key?: string },
-  ): UnwrapWebhookEvent {
-    if (headers !== undefined) {
-      const keyStr: string | null = key === undefined ? this._client.publicKey : key;
-      if (keyStr === null) throw new Error('Webhook key must not be null in order to unwrap');
-      const wh = new Webhook(keyStr);
-      wh.verify(body, headers);
-    }
-    return JSON.parse(body) as UnwrapWebhookEvent;
+  async unwrap<T = UnwrapWebhookEvent>(body: string, options?: WebhookUnwrapOptions): Promise<T> {
+    return unwrapWebhook<T>(body, options, this._client.publicKey);
   }
 }
 

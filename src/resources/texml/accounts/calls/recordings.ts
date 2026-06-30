@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as RecordingsJsonAPI from './recordings-json';
 import { APIPromise } from '../../../../core/api-promise';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
@@ -16,7 +15,7 @@ export class Recordings extends APIResource {
    *
    * @example
    * ```ts
-   * const texmlCreateCallRecordingResponseBody =
+   * const response =
    *   await client.texml.accounts.calls.recordings.recordingSidJson(
    *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
    *     { account_sid: 'account_sid', call_sid: 'call_sid' },
@@ -27,7 +26,7 @@ export class Recordings extends APIResource {
     recordingSid: string,
     params: RecordingRecordingSidJsonParams,
     options?: RequestOptions,
-  ): APIPromise<RecordingsJsonAPI.TexmlCreateCallRecordingResponseBody> {
+  ): APIPromise<RecordingRecordingSidJsonResponse> {
     const { account_sid, call_sid, ...body } = params;
     return this._client.post(
       path`/texml/Accounts/${account_sid}/Calls/${call_sid}/Recordings/${recordingSid}.json`,
@@ -38,6 +37,66 @@ export class Recordings extends APIResource {
       },
     );
   }
+}
+
+export interface RecordingRecordingSidJsonResponse {
+  account_sid?: string;
+
+  call_sid?: string;
+
+  channels?: 1 | 2;
+
+  conference_sid?: string | null;
+
+  date_created?: string;
+
+  date_updated?: string;
+
+  /**
+   * The duration of this recording, given in seconds.
+   */
+  duration?: string | null;
+
+  error_code?: string | null;
+
+  /**
+   * The price of this recording, the currency is specified in the price_unit field.
+   */
+  price?: string | null;
+
+  /**
+   * The unit in which the price is given.
+   */
+  price_unit?: string | null;
+
+  /**
+   * Identifier of a resource.
+   */
+  sid?: string;
+
+  /**
+   * Defines how the recording was created.
+   */
+  source?:
+    | 'StartCallRecordingAPI'
+    | 'StartConferenceRecordingAPI'
+    | 'OutboundAPI'
+    | 'DialVerb'
+    | 'Conference'
+    | 'RecordVerb'
+    | 'Trunking';
+
+  start_time?: string;
+
+  /**
+   * The audio track to record for the call. The default is `both`.
+   */
+  track?: 'inbound' | 'outbound' | 'both';
+
+  /**
+   * The relative URI for this recording resource.
+   */
+  uri?: string;
 }
 
 export interface RecordingRecordingSidJsonParams {
@@ -58,5 +117,8 @@ export interface RecordingRecordingSidJsonParams {
 }
 
 export declare namespace Recordings {
-  export { type RecordingRecordingSidJsonParams as RecordingRecordingSidJsonParams };
+  export {
+    type RecordingRecordingSidJsonResponse as RecordingRecordingSidJsonResponse,
+    type RecordingRecordingSidJsonParams as RecordingRecordingSidJsonParams,
+  };
 }

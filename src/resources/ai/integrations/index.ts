@@ -6,4 +6,4 @@ export {
   type ConnectionRetrieveResponse,
   type ConnectionListResponse,
 } from './connections';
-export { Integrations, type Integration, type IntegrationListResponse } from './integrations';
+export { Integrations, type IntegrationRetrieveResponse, type IntegrationListResponse } from './integrations';

@@ -48,7 +48,7 @@ export class GlobalIPHealthChecks extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const globalIPHealthCheck of client.globalIPHealthChecks.list()) {
+   * for await (const globalIPHealthCheckListResponse of client.globalIPHealthChecks.list()) {
    *   // ...
    * }
    * ```
@@ -56,11 +56,12 @@ export class GlobalIPHealthChecks extends APIResource {
   list(
     query: GlobalIPHealthCheckListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<GlobalIPHealthChecksDefaultFlatPagination, GlobalIPHealthCheck> {
-    return this._client.getAPIList('/global_ip_health_checks', DefaultFlatPagination<GlobalIPHealthCheck>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<GlobalIPHealthCheckListResponsesDefaultFlatPagination, GlobalIPHealthCheckListResponse> {
+    return this._client.getAPIList(
+      '/global_ip_health_checks',
+      DefaultFlatPagination<GlobalIPHealthCheckListResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -79,9 +80,56 @@ export class GlobalIPHealthChecks extends APIResource {
   }
 }
 
-export type GlobalIPHealthChecksDefaultFlatPagination = DefaultFlatPagination<GlobalIPHealthCheck>;
+export type GlobalIPHealthCheckListResponsesDefaultFlatPagination =
+  DefaultFlatPagination<GlobalIPHealthCheckListResponse>;
 
-export interface GlobalIPHealthCheck extends GlobalIPAssignmentsAPI.Record {
+export interface GlobalIPHealthCheckCreateResponse {
+  data?: GlobalIPHealthCheckCreateResponse.Data;
+}
+
+export namespace GlobalIPHealthCheckCreateResponse {
+  export interface Data extends GlobalIPAssignmentsAPI.Record {
+    /**
+     * Global IP ID.
+     */
+    global_ip_id?: string;
+
+    /**
+     * A Global IP health check params.
+     */
+    health_check_params?: { [key: string]: unknown };
+
+    /**
+     * The Global IP health check type.
+     */
+    health_check_type?: string;
+  }
+}
+
+export interface GlobalIPHealthCheckRetrieveResponse {
+  data?: GlobalIPHealthCheckRetrieveResponse.Data;
+}
+
+export namespace GlobalIPHealthCheckRetrieveResponse {
+  export interface Data extends GlobalIPAssignmentsAPI.Record {
+    /**
+     * Global IP ID.
+     */
+    global_ip_id?: string;
+
+    /**
+     * A Global IP health check params.
+     */
+    health_check_params?: { [key: string]: unknown };
+
+    /**
+     * The Global IP health check type.
+     */
+    health_check_type?: string;
+  }
+}
+
+export interface GlobalIPHealthCheckListResponse extends GlobalIPAssignmentsAPI.Record {
   /**
    * Global IP ID.
    */
@@ -98,16 +146,27 @@ export interface GlobalIPHealthCheck extends GlobalIPAssignmentsAPI.Record {
   health_check_type?: string;
 }
 
-export interface GlobalIPHealthCheckCreateResponse {
-  data?: GlobalIPHealthCheck;
-}
-
-export interface GlobalIPHealthCheckRetrieveResponse {
-  data?: GlobalIPHealthCheck;
-}
-
 export interface GlobalIPHealthCheckDeleteResponse {
-  data?: GlobalIPHealthCheck;
+  data?: GlobalIPHealthCheckDeleteResponse.Data;
+}
+
+export namespace GlobalIPHealthCheckDeleteResponse {
+  export interface Data extends GlobalIPAssignmentsAPI.Record {
+    /**
+     * Global IP ID.
+     */
+    global_ip_id?: string;
+
+    /**
+     * A Global IP health check params.
+     */
+    health_check_params?: { [key: string]: unknown };
+
+    /**
+     * The Global IP health check type.
+     */
+    health_check_type?: string;
+  }
 }
 
 export interface GlobalIPHealthCheckCreateParams {
@@ -131,11 +190,11 @@ export interface GlobalIPHealthCheckListParams extends DefaultFlatPaginationPara
 
 export declare namespace GlobalIPHealthChecks {
   export {
-    type GlobalIPHealthCheck as GlobalIPHealthCheck,
     type GlobalIPHealthCheckCreateResponse as GlobalIPHealthCheckCreateResponse,
     type GlobalIPHealthCheckRetrieveResponse as GlobalIPHealthCheckRetrieveResponse,
+    type GlobalIPHealthCheckListResponse as GlobalIPHealthCheckListResponse,
     type GlobalIPHealthCheckDeleteResponse as GlobalIPHealthCheckDeleteResponse,
-    type GlobalIPHealthChecksDefaultFlatPagination as GlobalIPHealthChecksDefaultFlatPagination,
+    type GlobalIPHealthCheckListResponsesDefaultFlatPagination as GlobalIPHealthCheckListResponsesDefaultFlatPagination,
     type GlobalIPHealthCheckCreateParams as GlobalIPHealthCheckCreateParams,
     type GlobalIPHealthCheckListParams as GlobalIPHealthCheckListParams,
   };

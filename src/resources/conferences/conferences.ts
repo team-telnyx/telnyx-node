@@ -39,7 +39,6 @@ import {
   ActionUpdateResponse,
   Actions,
   ConferenceCommandResult,
-  ConferenceRegion,
   UpdateConference,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
@@ -152,7 +151,7 @@ export class Conferences extends APIResource {
    *
    * @example
    * ```ts
-   * const conferenceParticipantResource =
+   * const response =
    *   await client.conferences.retrieveParticipant(
    *     'participant_id',
    *     { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
@@ -163,7 +162,7 @@ export class Conferences extends APIResource {
     participantID: string,
     params: ConferenceRetrieveParticipantParams,
     options?: RequestOptions,
-  ): APIPromise<ConferenceParticipantResource> {
+  ): APIPromise<ConferenceRetrieveParticipantResponse> {
     const { id } = params;
     return this._client.get(path`/conferences/${id}/participants/${participantID}`, options);
   }
@@ -173,18 +172,17 @@ export class Conferences extends APIResource {
    *
    * @example
    * ```ts
-   * const conferenceParticipantResource =
-   *   await client.conferences.updateParticipant(
-   *     'participant_id',
-   *     { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   *   );
+   * const response = await client.conferences.updateParticipant(
+   *   'participant_id',
+   *   { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   * );
    * ```
    */
   updateParticipant(
     participantID: string,
     params: ConferenceUpdateParticipantParams,
     options?: RequestOptions,
-  ): APIPromise<ConferenceParticipantResource> {
+  ): APIPromise<ConferenceUpdateParticipantResponse> {
     const { id, ...body } = params;
     return this._client.patch(path`/conferences/${id}/participants/${participantID}`, { body, ...options });
   }
@@ -335,10 +333,6 @@ export interface ConferenceParticipant {
   whisper_call_control_ids?: Array<string>;
 }
 
-export interface ConferenceParticipantResource {
-  data?: ConferenceParticipant;
-}
-
 export interface ConferenceCreateResponse {
   data?: Conference;
 }
@@ -428,6 +422,14 @@ export namespace ConferenceListParticipantsResponse {
      */
     name?: string;
   }
+}
+
+export interface ConferenceRetrieveParticipantResponse {
+  data?: ConferenceParticipant;
+}
+
+export interface ConferenceUpdateParticipantResponse {
+  data?: ConferenceParticipant;
 }
 
 export interface ConferenceCreateParams {
@@ -726,10 +728,11 @@ export declare namespace Conferences {
   export {
     type Conference as Conference,
     type ConferenceParticipant as ConferenceParticipant,
-    type ConferenceParticipantResource as ConferenceParticipantResource,
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
+    type ConferenceRetrieveParticipantResponse as ConferenceRetrieveParticipantResponse,
+    type ConferenceUpdateParticipantResponse as ConferenceUpdateParticipantResponse,
     type ConferencesDefaultFlatPagination as ConferencesDefaultFlatPagination,
     type ConferenceListParticipantsResponsesDefaultFlatPagination as ConferenceListParticipantsResponsesDefaultFlatPagination,
     type ConferenceCreateParams as ConferenceCreateParams,
@@ -743,7 +746,6 @@ export declare namespace Conferences {
   export {
     Actions as Actions,
     type ConferenceCommandResult as ConferenceCommandResult,
-    type ConferenceRegion as ConferenceRegion,
     type UpdateConference as UpdateConference,
     type ActionUpdateResponse as ActionUpdateResponse,
     type ActionEndConferenceResponse as ActionEndConferenceResponse,

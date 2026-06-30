@@ -59,35 +59,6 @@ export class CallReasons extends APIResource {
 export type CallReasonListResponsesDefaultFlatPagination = DefaultFlatPagination<CallReasonListResponse>;
 
 /**
- * JSON:API pagination metadata returned with every paginated list response. Page
- * numbering is 1-based. `page_size` reports the number of items actually returned
- * in `data` for this page; the requested size is taken from the `page[size]` query
- * parameter.
- */
-export interface BrandedCallingPaginationMeta {
-  /**
-   * 1-based index of this page. Echoes the `page[number]` query parameter (default
-   * `1`).
-   */
-  page_number: number;
-
-  /**
-   * Number of items returned in this page's `data` array. Capped at 250.
-   */
-  page_size: number;
-
-  /**
-   * Total number of pages available given the current `page_size`.
-   */
-  total_pages: number;
-
-  /**
-   * Total number of items across all pages (excludes soft-deleted rows).
-   */
-  total_results: number;
-}
-
-/**
  * Pre-vetted call-reason library entry.
  */
 export interface CallReasonListResponse {
@@ -139,7 +110,6 @@ export interface CallReasonValidateParams {
 
 export declare namespace CallReasons {
   export {
-    type BrandedCallingPaginationMeta as BrandedCallingPaginationMeta,
     type CallReasonListResponse as CallReasonListResponse,
     type CallReasonValidateResponse as CallReasonValidateResponse,
     type CallReasonListResponsesDefaultFlatPagination as CallReasonListResponsesDefaultFlatPagination,
