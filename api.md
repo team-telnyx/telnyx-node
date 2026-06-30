@@ -4662,12 +4662,14 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberRetrieveConversationWindowResponse</a></code>
 
 Methods:
 
 - <code title="get /v2/whatsapp/phone_numbers">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">list</a>({ ...params }) -> PhoneNumberListResponsesDefaultFlatPagination</code>
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/resend_verification">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">resendVerification</a>(phoneNumber, { ...params }) -> void</code>
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversation_window">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">retrieveConversationWindow</a>(phoneNumber, { ...params }) -> PhoneNumberRetrieveConversationWindowResponse</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/verify">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">verify</a>(phoneNumber, { ...params }) -> void</code>
 
 ### CallingSettings
