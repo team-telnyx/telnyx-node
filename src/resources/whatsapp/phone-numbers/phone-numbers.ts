@@ -72,6 +72,31 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
+   * Returns whether the 24-hour conversation window is currently open for a given
+   * source/destination pair. If window_active is false, only template messages may
+   * be sent.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.whatsapp.phoneNumbers.getConversationWindow(
+   *     'phone_number',
+   *     { destination_number: '+353894650851' },
+   *   );
+   * ```
+   */
+  getConversationWindow(
+    phoneNumber: string,
+    query: PhoneNumberGetConversationWindowParams,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberGetConversationWindowResponse> {
+    return this._client.get(path`/v2/whatsapp/phone_numbers/${phoneNumber}/conversation_window`, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Resend verification code
    *
    * @example
@@ -153,7 +178,42 @@ export interface PhoneNumberListResponse {
   waba_id?: string;
 }
 
+export interface PhoneNumberGetConversationWindowResponse {
+  data?: PhoneNumberGetConversationWindowResponse.Data;
+}
+
+export namespace PhoneNumberGetConversationWindowResponse {
+  export interface Data {
+    /**
+     * Timestamp of the last inbound message that opened the window
+     */
+    last_user_message_at?: string;
+
+    /**
+     * Whether the 24-hour conversation window is currently open
+     */
+    window_active?: boolean;
+
+    /**
+     * When the window closes. Null if no active window.
+     */
+    window_expires_at?: string;
+
+    /**
+     * Window type. Currently always 24h when present.
+     */
+    window_type?: string;
+  }
+}
+
 export interface PhoneNumberListParams extends DefaultFlatPaginationParams {}
+
+export interface PhoneNumberGetConversationWindowParams {
+  /**
+   * Destination phone number in E.164 format
+   */
+  destination_number: string;
+}
 
 export interface PhoneNumberResendVerificationParams {
   verification_method?: 'sms' | 'voice';
@@ -169,8 +229,10 @@ PhoneNumbers.Profile = Profile;
 export declare namespace PhoneNumbers {
   export {
     type PhoneNumberListResponse as PhoneNumberListResponse,
+    type PhoneNumberGetConversationWindowResponse as PhoneNumberGetConversationWindowResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
+    type PhoneNumberGetConversationWindowParams as PhoneNumberGetConversationWindowParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
   };

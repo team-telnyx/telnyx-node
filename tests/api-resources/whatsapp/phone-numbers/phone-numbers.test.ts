@@ -44,6 +44,27 @@ describe('resource phoneNumbers', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('getConversationWindow: only required params', async () => {
+    const responsePromise = client.whatsapp.phoneNumbers.getConversationWindow('phone_number', {
+      destination_number: '+353894650851',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getConversationWindow: required and optional params', async () => {
+    const response = await client.whatsapp.phoneNumbers.getConversationWindow('phone_number', {
+      destination_number: '+353894650851',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('resendVerification', async () => {
     const responsePromise = client.whatsapp.phoneNumbers.resendVerification('phone_number', {});
     const rawResponse = await responsePromise.asResponse();

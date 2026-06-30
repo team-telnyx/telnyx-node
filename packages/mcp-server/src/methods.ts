@@ -5921,6 +5921,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}',
   },
   {
+    clientCallName: 'client.whatsapp.phoneNumbers.getConversationWindow',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.getConversationWindow',
+    httpMethod: 'get',
+    httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/conversation_window',
+  },
+  {
     clientCallName: 'client.whatsapp.phoneNumbers.resendVerification',
     fullyQualifiedName: 'whatsapp.phoneNumbers.resendVerification',
     httpMethod: 'post',

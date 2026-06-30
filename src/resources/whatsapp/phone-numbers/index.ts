@@ -10,7 +10,9 @@ export {
 export {
   PhoneNumbers,
   type PhoneNumberListResponse,
+  type PhoneNumberGetConversationWindowResponse,
   type PhoneNumberListParams,
+  type PhoneNumberGetConversationWindowParams,
   type PhoneNumberResendVerificationParams,
   type PhoneNumberVerifyParams,
   type PhoneNumberListResponsesDefaultFlatPagination,

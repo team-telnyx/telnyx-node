@@ -1094,6 +1094,7 @@ const fuse = new Fuse(
     'client.whatsapp.templates.create',
     'client.whatsapp.templates.list',
     'client.whatsapp.phoneNumbers.delete',
+    'client.whatsapp.phoneNumbers.getConversationWindow',
     'client.whatsapp.phoneNumbers.list',
     'client.whatsapp.phoneNumbers.resendVerification',
     'client.whatsapp.phoneNumbers.verify',
