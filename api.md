@@ -5089,6 +5089,33 @@ Methods:
 - <code title="post /dir/{dir_id}/phone_numbers">client.dir.phoneNumbers.<a href="./src/resources/dir/phone-numbers.ts">add</a>(dirID, { ...params }) -> PhoneNumberAddResponse</code>
 - <code title="delete /dir/{dir_id}/phone_numbers">client.dir.phoneNumbers.<a href="./src/resources/dir/phone-numbers.ts">remove</a>(dirID, { ...params }) -> PhoneNumberRemoveResponse</code>
 
+## References
+
+Types:
+
+- <code><a href="./src/resources/dir/references.ts">Reference</a></code>
+- <code><a href="./src/resources/dir/references.ts">ReferenceInput</a></code>
+- <code><a href="./src/resources/dir/references.ts">ReferenceList</a></code>
+- <code><a href="./src/resources/dir/references.ts">ReferenceUpdateResponse</a></code>
+
+Methods:
+
+- <code title="post /dir/{dir_id}/references">client.dir.references.<a href="./src/resources/dir/references.ts">create</a>(dirID, { ...params }) -> ReferenceList</code>
+- <code title="patch /dir/{dir_id}/references/{ref_type}/{slot}">client.dir.references.<a href="./src/resources/dir/references.ts">update</a>(slot, { ...params }) -> ReferenceUpdateResponse</code>
+- <code title="get /dir/{dir_id}/references">client.dir.references.<a href="./src/resources/dir/references.ts">list</a>(dirID) -> ReferenceList</code>
+
+## VerifyEmail
+
+Types:
+
+- <code><a href="./src/resources/dir/verify-email.ts">EmailVerificationStatusWrapped</a></code>
+
+Methods:
+
+- <code title="post /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">create</a>(dirID) -> EmailVerificationStatusWrapped</code>
+- <code title="get /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">list</a>(dirID) -> EmailVerificationStatusWrapped</code>
+- <code title="post /dir/{dir_id}/verify_email/confirm">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">confirm</a>(dirID, { ...params }) -> EmailVerificationStatusWrapped</code>
+
 # InfringementClaims
 
 Types:
