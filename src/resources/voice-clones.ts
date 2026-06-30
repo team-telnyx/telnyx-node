@@ -19,8 +19,8 @@ export class VoiceClones extends APIResource {
    *
    * @example
    * ```ts
-   * const voiceClone = await client.voiceClones.create({
-   *   params: {
+   * const voiceCloneResponse = await client.voiceClones.create({
+   *   voice_clone_request: {
    *     gender: 'male',
    *     language: 'en',
    *     name: 'clone-narrator',
@@ -30,9 +30,9 @@ export class VoiceClones extends APIResource {
    * });
    * ```
    */
-  create(args: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneCreateResponse> {
-    const { params } = args;
-    return this._client.post('/voice_clones', { body: params, ...options });
+  create(params: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneResponse> {
+    const { voice_clone_request } = params;
+    return this._client.post('/voice_clones', { body: voice_clone_request, ...options });
   }
 
   /**
@@ -40,17 +40,13 @@ export class VoiceClones extends APIResource {
    *
    * @example
    * ```ts
-   * const voiceClone = await client.voiceClones.update(
+   * const voiceCloneResponse = await client.voiceClones.update(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   { name: 'updated-clone' },
    * );
    * ```
    */
-  update(
-    id: string,
-    body: VoiceCloneUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<VoiceCloneUpdateResponse> {
+  update(id: string, body: VoiceCloneUpdateParams, options?: RequestOptions): APIPromise<VoiceCloneResponse> {
     return this._client.patch(path`/voice_clones/${id}`, { body, ...options });
   }
 
@@ -99,25 +95,26 @@ export class VoiceClones extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.voiceClones.createFromUpload({
-   *   params: {
-   *     audio_file: fs.createReadStream('path/to/file'),
-   *     gender: 'male',
-   *     language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
-   *     name: 'name',
-   *     provider: 'telnyx',
-   *   },
-   * });
+   * const voiceCloneResponse =
+   *   await client.voiceClones.createFromUpload({
+   *     voice_clone_upload_request: {
+   *       audio_file: fs.createReadStream('path/to/file'),
+   *       gender: 'male',
+   *       language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
+   *       name: 'name',
+   *       provider: 'telnyx',
+   *     },
+   *   });
    * ```
    */
   createFromUpload(
-    args: VoiceCloneCreateFromUploadParams,
+    params: VoiceCloneCreateFromUploadParams,
     options?: RequestOptions,
-  ): APIPromise<VoiceCloneCreateFromUploadResponse> {
-    const { params } = args;
+  ): APIPromise<VoiceCloneResponse> {
+    const { voice_clone_upload_request } = params;
     return this._client.post(
       '/voice_clones/from_upload',
-      multipartFormRequestOptions({ body: params, ...options }, this._client),
+      multipartFormRequestOptions({ body: voice_clone_upload_request, ...options }, this._client),
     );
   }
 
@@ -231,7 +228,7 @@ export interface VoiceCloneData {
 /**
  * Response envelope for a single voice clone.
  */
-export interface VoiceCloneCreateResponse {
+export interface VoiceCloneResponse {
   /**
    * A voice clone object.
    */
@@ -239,30 +236,35 @@ export interface VoiceCloneCreateResponse {
 }
 
 /**
- * Response envelope for a single voice clone.
+ * Pagination metadata returned with list responses.
  */
-export interface VoiceCloneUpdateResponse {
+export interface VoiceDesignsPaginationMeta {
   /**
-   * A voice clone object.
+   * Current page number (1-based).
    */
-  data?: VoiceCloneData;
-}
+  page_number?: number;
 
-/**
- * Response envelope for a single voice clone.
- */
-export interface VoiceCloneCreateFromUploadResponse {
   /**
-   * A voice clone object.
+   * Number of results per page.
    */
-  data?: VoiceCloneData;
+  page_size?: number;
+
+  /**
+   * Total number of pages.
+   */
+  total_pages?: number;
+
+  /**
+   * Total number of results across all pages.
+   */
+  total_results?: number;
 }
 
 export interface VoiceCloneCreateParams {
   /**
    * Request body for creating a voice clone from an existing voice design.
    */
-  params: VoiceCloneCreateParams.TelnyxDesignClone | VoiceCloneCreateParams.MinimaxDesignClone;
+  voice_clone_request: VoiceCloneCreateParams.TelnyxDesignClone | VoiceCloneCreateParams.MinimaxDesignClone;
 }
 
 export namespace VoiceCloneCreateParams {
@@ -367,7 +369,7 @@ export interface VoiceCloneCreateFromUploadParams {
    * Multipart form data for creating a voice clone from a direct audio upload.
    * Maximum file size: 5MB for Telnyx, 20MB for Minimax.
    */
-  params:
+  voice_clone_upload_request:
     | VoiceCloneCreateFromUploadParams.TelnyxQwen3TtsClone
     | VoiceCloneCreateFromUploadParams.TelnyxUltraClone
     | VoiceCloneCreateFromUploadParams.MinimaxClone;
@@ -519,9 +521,8 @@ export namespace VoiceCloneCreateFromUploadParams {
 export declare namespace VoiceClones {
   export {
     type VoiceCloneData as VoiceCloneData,
-    type VoiceCloneCreateResponse as VoiceCloneCreateResponse,
-    type VoiceCloneUpdateResponse as VoiceCloneUpdateResponse,
-    type VoiceCloneCreateFromUploadResponse as VoiceCloneCreateFromUploadResponse,
+    type VoiceCloneResponse as VoiceCloneResponse,
+    type VoiceDesignsPaginationMeta as VoiceDesignsPaginationMeta,
     type VoiceCloneDataDefaultFlatPagination as VoiceCloneDataDefaultFlatPagination,
     type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneUpdateParams as VoiceCloneUpdateParams,

@@ -17,3 +17,5 @@ jobs:
       - name: Check release environment
         run: |
           bash ./bin/check-release-environment
+        env:
+          SDK_WRITE_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}

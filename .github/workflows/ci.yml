@@ -18,15 +18,15 @@ jobs:
   lint:
     timeout-minutes: 10
     name: lint
-    runs-on: ${{ github.repository == 'stainless-sdks/telnyx-typescript' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.fork) && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'push' || github.event_name == 'pull_request') && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
       - name: Set up Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: '22'
+          node-version: '20'
 
       - name: Set up pnpm
         uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
@@ -42,8 +42,8 @@ jobs:
   build:
     timeout-minutes: 5
     name: build
-    runs-on: ${{ github.repository == 'stainless-sdks/telnyx-typescript' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: (github.event_name == 'push' || github.event.pull_request.head.repo.fork) && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
+    runs-on: ubuntu-latest
+    if: (github.event_name == 'push' || github.event_name == 'pull_request') && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
     permissions:
       contents: read
       id-token: write
@@ -53,7 +53,7 @@ jobs:
       - name: Set up Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
-          node-version: '22'
+          node-version: '20'
 
       - name: Set up pnpm
         uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
@@ -65,59 +65,3 @@ jobs:
 
       - name: Check build
         run: ./scripts/build
-
-      - name: Get GitHub OIDC Token
-        if: |-
-          github.repository == 'stainless-sdks/telnyx-typescript' &&
-          !startsWith(github.ref, 'refs/heads/stl/')
-        id: github-oidc
-        uses: actions/github-script@ed597411d8f924073f98dfc5c65a23a2325f34cd # v8.0.0
-        with:
-          script: core.setOutput('github_token', await core.getIDToken());
-
-      - name: Upload tarball
-        if: |-
-          github.repository == 'stainless-sdks/telnyx-typescript' &&
-          !startsWith(github.ref, 'refs/heads/stl/')
-        env:
-          URL: https://pkg.stainless.com/s
-          AUTH: ${{ steps.github-oidc.outputs.github_token }}
-          SHA: ${{ github.sha }}
-        run: ./scripts/utils/upload-artifact.sh
-
-      - name: Upload MCP Server tarball
-        if: |-
-          github.repository == 'stainless-sdks/telnyx-typescript' &&
-          !startsWith(github.ref, 'refs/heads/stl/')
-        env:
-          URL: https://pkg.stainless.com/s?subpackage=mcp-server
-          AUTH: ${{ steps.github-oidc.outputs.github_token }}
-          SHA: ${{ github.sha }}
-          BASE_PATH: packages/mcp-server
-        run: ./scripts/utils/upload-artifact.sh
-  test:
-    timeout-minutes: 10
-    name: test
-    runs-on: ${{ github.repository == 'stainless-sdks/telnyx-typescript' && 'depot-ubuntu-24.04' || 'ubuntu-latest' }}
-    if: github.event_name == 'push' || github.event.pull_request.head.repo.fork
-    steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
-
-      - name: Set up Node
-        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
-        with:
-          node-version: '22'
-
-      - name: Set up pnpm
-        uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
-        with:
-          version: '10.30.1'
-
-      - name: Bootstrap
-        run: ./scripts/bootstrap
-
-      - name: Build
-        run: ./scripts/build
-
-      - name: Run tests
-        run: ./scripts/test

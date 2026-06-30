@@ -25,7 +25,7 @@ export class Integrations extends APIResource {
    * );
    * ```
    */
-  retrieve(integrationID: string, options?: RequestOptions): APIPromise<IntegrationRetrieveResponse> {
+  retrieve(integrationID: string, options?: RequestOptions): APIPromise<Integration> {
     return this._client.get(path`/ai/integrations/${integrationID}`, options);
   }
 
@@ -42,7 +42,7 @@ export class Integrations extends APIResource {
   }
 }
 
-export interface IntegrationRetrieveResponse {
+export interface Integration {
   id: string;
 
   available_tools: Array<string>;
@@ -59,34 +59,13 @@ export interface IntegrationRetrieveResponse {
 }
 
 export interface IntegrationListResponse {
-  data: Array<IntegrationListResponse.Data>;
-}
-
-export namespace IntegrationListResponse {
-  export interface Data {
-    id: string;
-
-    available_tools: Array<string>;
-
-    description: string;
-
-    display_name: string;
-
-    logo_url: string;
-
-    name: string;
-
-    status: 'disconnected' | 'connected';
-  }
+  data: Array<Integration>;
 }
 
 Integrations.Connections = Connections;
 
 export declare namespace Integrations {
-  export {
-    type IntegrationRetrieveResponse as IntegrationRetrieveResponse,
-    type IntegrationListResponse as IntegrationListResponse,
-  };
+  export { type Integration as Integration, type IntegrationListResponse as IntegrationListResponse };
 
   export {
     Connections as Connections,

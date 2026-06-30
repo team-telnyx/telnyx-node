@@ -10,19 +10,27 @@ export {
 export {
   PhoneNumbers,
   type PhoneNumberListResponse,
+  type PhoneNumberRetrieveConversationWindowResponse,
   type PhoneNumberListParams,
   type PhoneNumberResendVerificationParams,
+  type PhoneNumberRetrieveConversationWindowParams,
   type PhoneNumberVerifyParams,
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers/index';
 export {
   Templates,
+  type WhatsappTemplateBodyComponent,
+  type WhatsappTemplateButtonsComponent,
+  type WhatsappTemplateCarouselComponent,
+  type WhatsappTemplateFooterComponent,
+  type WhatsappTemplateHeaderComponent,
   type TemplateCreateResponse,
   type TemplateCreateParams,
   type TemplateListParams,
 } from './templates';
 export {
   UserData,
+  type WhatsappUserData,
   type UserDataRetrieveResponse,
   type UserDataUpdateResponse,
   type UserDataUpdateParams,

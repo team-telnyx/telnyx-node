@@ -1,7 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
-  DefaultGateway,
+  DefaultGatewayResource,
+  type DefaultGateway,
   type DefaultGatewayCreateResponse,
   type DefaultGatewayRetrieveResponse,
   type DefaultGatewayDeleteResponse,
@@ -10,17 +11,17 @@ export {
 export {
   Networks,
   type InterfaceStatus,
+  type Network,
   type NetworkCreate,
   type NetworkCreateResponse,
   type NetworkRetrieveResponse,
   type NetworkUpdateResponse,
-  type NetworkListResponse,
   type NetworkDeleteResponse,
   type NetworkListInterfacesResponse,
   type NetworkCreateParams,
   type NetworkUpdateParams,
   type NetworkListParams,
   type NetworkListInterfacesParams,
-  type NetworkListResponsesDefaultFlatPagination,
+  type NetworksDefaultFlatPagination,
   type NetworkListInterfacesResponsesDefaultFlatPagination,
 } from './networks';

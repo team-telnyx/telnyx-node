@@ -210,7 +210,7 @@ export interface FqdnConnection {
    * applied to outgoing audio. When set to 'both', it's applied in both directions.
    * When set to 'disabled', noise suppression is turned off.
    */
-  noise_suppression?: 'inbound' | 'outbound' | 'both' | 'disabled';
+  noise_suppression?: CredentialConnectionsAPI.ConnectionNoiseSuppression;
 
   /**
    * Configuration options for noise suppression. These settings are stored
@@ -625,7 +625,7 @@ export interface FqdnConnectionCreateParams {
    * applied to outgoing audio. When set to 'both', it's applied in both directions.
    * When set to 'disabled', noise suppression is turned off.
    */
-  noise_suppression?: 'inbound' | 'outbound' | 'both' | 'disabled';
+  noise_suppression?: CredentialConnectionsAPI.ConnectionNoiseSuppression;
 
   /**
    * Configuration options for noise suppression. These settings are stored
@@ -755,7 +755,7 @@ export interface FqdnConnectionUpdateParams {
    * applied to outgoing audio. When set to 'both', it's applied in both directions.
    * When set to 'disabled', noise suppression is turned off.
    */
-  noise_suppression?: 'inbound' | 'outbound' | 'both' | 'disabled';
+  noise_suppression?: CredentialConnectionsAPI.ConnectionNoiseSuppression;
 
   /**
    * Configuration options for noise suppression. These settings are stored

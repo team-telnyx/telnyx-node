@@ -20,7 +20,7 @@ export class ChannelZones extends APIResource {
     channelZoneID: string,
     body: ChannelZoneUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<ChannelZoneUpdateResponse> {
+  ): APIPromise<GcbChannelZone> {
     return this._client.put(path`/channel_zones/${channelZoneID}`, { body, ...options });
   }
 
@@ -34,43 +34,17 @@ export class ChannelZones extends APIResource {
   list(
     query: ChannelZoneListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ChannelZoneListResponsesDefaultFlatPagination, ChannelZoneListResponse> {
-    return this._client.getAPIList('/channel_zones', DefaultFlatPagination<ChannelZoneListResponse>, {
+  ): PagePromise<GcbChannelZonesDefaultFlatPagination, GcbChannelZone> {
+    return this._client.getAPIList('/channel_zones', DefaultFlatPagination<GcbChannelZone>, {
       query,
       ...options,
     });
   }
 }
 
-export type ChannelZoneListResponsesDefaultFlatPagination = DefaultFlatPagination<ChannelZoneListResponse>;
+export type GcbChannelZonesDefaultFlatPagination = DefaultFlatPagination<GcbChannelZone>;
 
-export interface ChannelZoneUpdateResponse {
-  id: string;
-
-  channels: number;
-
-  /**
-   * List of countries (in ISO 3166-2, capitalized) members of the billing channel
-   * zone
-   */
-  countries: Array<string>;
-
-  name: string;
-
-  record_type: 'channel_zone';
-
-  /**
-   * ISO 8601 formatted date of when the channel zone was created
-   */
-  created_at?: string;
-
-  /**
-   * ISO 8601 formatted date of when the channel zone was updated
-   */
-  updated_at?: string;
-}
-
-export interface ChannelZoneListResponse {
+export interface GcbChannelZone {
   id: string;
 
   channels: number;
@@ -107,9 +81,8 @@ export interface ChannelZoneListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace ChannelZones {
   export {
-    type ChannelZoneUpdateResponse as ChannelZoneUpdateResponse,
-    type ChannelZoneListResponse as ChannelZoneListResponse,
-    type ChannelZoneListResponsesDefaultFlatPagination as ChannelZoneListResponsesDefaultFlatPagination,
+    type GcbChannelZone as GcbChannelZone,
+    type GcbChannelZonesDefaultFlatPagination as GcbChannelZonesDefaultFlatPagination,
     type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
     type ChannelZoneListParams as ChannelZoneListParams,
   };

@@ -15,7 +15,7 @@ export class Participants extends APIResource {
    *
    * @example
    * ```ts
-   * const participant =
+   * const participantResource =
    *   await client.texml.accounts.conferences.participants.retrieve(
    *     'call_sid_or_participant_label',
    *     {
@@ -29,7 +29,7 @@ export class Participants extends APIResource {
     callSidOrParticipantLabel: string,
     params: ParticipantRetrieveParams,
     options?: RequestOptions,
-  ): APIPromise<ParticipantRetrieveResponse> {
+  ): APIPromise<ParticipantResource> {
     const { account_sid, conference_sid } = params;
     return this._client.get(
       path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
@@ -42,7 +42,7 @@ export class Participants extends APIResource {
    *
    * @example
    * ```ts
-   * const participant =
+   * const participantResource =
    *   await client.texml.accounts.conferences.participants.update(
    *     'call_sid_or_participant_label',
    *     {
@@ -56,7 +56,7 @@ export class Participants extends APIResource {
     callSidOrParticipantLabel: string,
     params: ParticipantUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<ParticipantUpdateResponse> {
+  ): APIPromise<ParticipantResource> {
     const { account_sid, conference_sid, ...body } = params;
     return this._client.post(
       path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
@@ -144,84 +144,7 @@ export class Participants extends APIResource {
   }
 }
 
-export interface ParticipantRetrieveResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The version of the API that was used to make the request.
-   */
-  api_version?: string;
-
-  /**
-   * The identifier of this participant's call.
-   */
-  call_sid?: string;
-
-  /**
-   * The identifier of this participant's call.
-   */
-  call_sid_legacy?: string;
-
-  /**
-   * Whether the participant is coaching another call.
-   */
-  coaching?: boolean;
-
-  /**
-   * The identifier of the coached participant's call.
-   */
-  coaching_call_sid?: string;
-
-  /**
-   * The identifier of the coached participant's call.
-   */
-  coaching_call_sid_legacy?: string;
-
-  /**
-   * The unique identifier for the conference.
-   */
-  conference_sid?: string;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * Whether the conference ends when the participant leaves.
-   */
-  end_conference_on_exit?: boolean;
-
-  /**
-   * Whether the participant is on hold.
-   */
-  hold?: boolean;
-
-  /**
-   * Whether the participant is muted.
-   */
-  muted?: boolean;
-
-  /**
-   * The status of the participant's call in the conference.
-   */
-  status?: 'connecting' | 'connected' | 'completed';
-
-  /**
-   * The relative URI for this participant.
-   */
-  uri?: string;
-}
-
-export interface ParticipantUpdateResponse {
+export interface ParticipantResource {
   /**
    * The id of the account the resource belongs to.
    */
@@ -376,7 +299,7 @@ export interface ParticipantRetrieveParticipantsResponse {
    */
   page_size?: number;
 
-  participants?: Array<ParticipantRetrieveParticipantsResponse.Participant>;
+  participants?: Array<ParticipantResource>;
 
   /**
    * The number of the first element on the page, zero-indexed.
@@ -387,85 +310,6 @@ export interface ParticipantRetrieveParticipantsResponse {
    * The URI of the current page.
    */
   uri?: string;
-}
-
-export namespace ParticipantRetrieveParticipantsResponse {
-  export interface Participant {
-    /**
-     * The id of the account the resource belongs to.
-     */
-    account_sid?: string;
-
-    /**
-     * The version of the API that was used to make the request.
-     */
-    api_version?: string;
-
-    /**
-     * The identifier of this participant's call.
-     */
-    call_sid?: string;
-
-    /**
-     * The identifier of this participant's call.
-     */
-    call_sid_legacy?: string;
-
-    /**
-     * Whether the participant is coaching another call.
-     */
-    coaching?: boolean;
-
-    /**
-     * The identifier of the coached participant's call.
-     */
-    coaching_call_sid?: string;
-
-    /**
-     * The identifier of the coached participant's call.
-     */
-    coaching_call_sid_legacy?: string;
-
-    /**
-     * The unique identifier for the conference.
-     */
-    conference_sid?: string;
-
-    /**
-     * The timestamp of when the resource was created.
-     */
-    date_created?: string;
-
-    /**
-     * The timestamp of when the resource was last updated.
-     */
-    date_updated?: string;
-
-    /**
-     * Whether the conference ends when the participant leaves.
-     */
-    end_conference_on_exit?: boolean;
-
-    /**
-     * Whether the participant is on hold.
-     */
-    hold?: boolean;
-
-    /**
-     * Whether the participant is muted.
-     */
-    muted?: boolean;
-
-    /**
-     * The status of the participant's call in the conference.
-     */
-    status?: 'connecting' | 'connected' | 'completed';
-
-    /**
-     * The relative URI for this participant.
-     */
-    uri?: string;
-  }
 }
 
 export interface ParticipantRetrieveParams {
@@ -892,8 +736,7 @@ export interface ParticipantRetrieveParticipantsParams {
 
 export declare namespace Participants {
   export {
-    type ParticipantRetrieveResponse as ParticipantRetrieveResponse,
-    type ParticipantUpdateResponse as ParticipantUpdateResponse,
+    type ParticipantResource as ParticipantResource,
     type ParticipantParticipantsResponse as ParticipantParticipantsResponse,
     type ParticipantRetrieveParticipantsResponse as ParticipantRetrieveParticipantsResponse,
     type ParticipantRetrieveParams as ParticipantRetrieveParams,

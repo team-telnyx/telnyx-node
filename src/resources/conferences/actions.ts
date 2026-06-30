@@ -327,6 +327,12 @@ export interface ConferenceCommandResult {
   result: string;
 }
 
+/**
+ * Region where the conference data is located. Defaults to the region defined in
+ * user's data locality settings (Europe or US).
+ */
+export type ConferenceRegion = 'Australia' | 'Europe' | 'Middle East' | 'US';
+
 export interface UpdateConference {
   /**
    * Unique identifier and token for controlling the call
@@ -353,7 +359,7 @@ export interface UpdateConference {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 
   /**
    * Array of unique call_control_ids the supervisor can whisper to. If none
@@ -457,7 +463,7 @@ export interface ActionUpdateParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 
   /**
    * Array of unique call_control_ids the supervisor can whisper to. If none
@@ -587,7 +593,7 @@ export interface ActionHoldParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export interface ActionJoinParams {
@@ -657,7 +663,7 @@ export interface ActionJoinParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 
   /**
    * Whether the conference should end after the participant leaves the conference.
@@ -712,7 +718,7 @@ export interface ActionLeaveParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export interface ActionMuteParams {
@@ -726,7 +732,7 @@ export interface ActionMuteParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export interface ActionPlayParams {
@@ -760,7 +766,7 @@ export interface ActionPlayParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export interface ActionRecordPauseParams {
@@ -779,7 +785,7 @@ export interface ActionRecordPauseParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export interface ActionRecordResumeParams {
@@ -798,7 +804,7 @@ export interface ActionRecordResumeParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export interface ActionRecordStartParams {
@@ -835,7 +841,7 @@ export interface ActionRecordStartParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 
   /**
    * When set to `trim-silence`, silence will be removed from the beginning and end
@@ -866,7 +872,7 @@ export interface ActionRecordStopParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export interface ActionSendDtmfParams {
@@ -1008,7 +1014,7 @@ export interface ActionSpeakParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 
   /**
    * The settings associated with the voice selected
@@ -1021,37 +1027,8 @@ export interface ActionSpeakParams {
     | Shared.AzureVoiceSettings
     | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
-    | ActionSpeakParams.InworldVoiceSettings
-    | ActionSpeakParams.XaiVoiceSettings;
-}
-
-export namespace ActionSpeakParams {
-  export interface InworldVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'inworld';
-
-    /**
-     * Controls the expressiveness and consistency of the Inworld `TTS2` model's speech
-     * synthesis. `STABLE` favors consistent, predictable output, `CREATIVE` allows
-     * more expressive variation, and `BALANCED` sits in between. Optional and only
-     * supported by `TTS2`; when omitted, the provider default applies.
-     */
-    delivery_mode?: 'STABLE' | 'BALANCED' | 'CREATIVE';
-  }
-
-  export interface XaiVoiceSettings {
-    /**
-     * Voice settings provider type
-     */
-    type: 'xai';
-
-    /**
-     * Language code, or `auto` to detect automatically.
-     */
-    language?: string;
-  }
+    | Shared.InworldVoiceSettings
+    | Shared.XaiVoiceSettings;
 }
 
 export interface ActionStopParams {
@@ -1065,7 +1042,7 @@ export interface ActionStopParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export interface ActionUnholdParams {
@@ -1079,7 +1056,7 @@ export interface ActionUnholdParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export interface ActionUnmuteParams {
@@ -1093,12 +1070,13 @@ export interface ActionUnmuteParams {
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+  region?: ConferenceRegion;
 }
 
 export declare namespace Actions {
   export {
     type ConferenceCommandResult as ConferenceCommandResult,
+    type ConferenceRegion as ConferenceRegion,
     type UpdateConference as UpdateConference,
     type ActionUpdateResponse as ActionUpdateResponse,
     type ActionEndConferenceResponse as ActionEndConferenceResponse,

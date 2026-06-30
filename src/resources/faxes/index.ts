@@ -4,6 +4,7 @@ export { Actions, type ActionCancelResponse, type ActionRefreshResponse } from '
 export {
   Faxes,
   type Fax,
+  type Quality,
   type FaxCreateResponse,
   type FaxRetrieveResponse,
   type FaxCreateParams,

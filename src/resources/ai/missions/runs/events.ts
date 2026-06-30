@@ -43,7 +43,7 @@ export class Events extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const eventResponse =
    *   await client.ai.missions.runs.events.getEventDetails(
    *     'event_id',
    *     {
@@ -57,7 +57,7 @@ export class Events extends APIResource {
     eventID: string,
     params: EventGetEventDetailsParams,
     options?: RequestOptions,
-  ): APIPromise<EventGetEventDetailsResponse> {
+  ): APIPromise<EventResponse> {
     const { mission_id, run_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/runs/${run_id}/events/${eventID}`, options);
   }
@@ -67,17 +67,18 @@ export class Events extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.ai.missions.runs.events.log(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   {
-   *     mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     summary: 'summary',
-   *     type: 'status_change',
-   *   },
-   * );
+   * const eventResponse =
+   *   await client.ai.missions.runs.events.log(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *       summary: 'summary',
+   *       type: 'status_change',
+   *     },
+   *   );
    * ```
    */
-  log(runID: string, params: EventLogParams, options?: RequestOptions): APIPromise<EventLogResponse> {
+  log(runID: string, params: EventLogParams, options?: RequestOptions): APIPromise<EventResponse> {
     const { mission_id, ...body } = params;
     return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/events`, { body, ...options });
   }
@@ -94,16 +95,7 @@ export interface EventData {
 
   timestamp: string;
 
-  type:
-    | 'status_change'
-    | 'step_started'
-    | 'step_completed'
-    | 'step_failed'
-    | 'tool_call'
-    | 'tool_result'
-    | 'message'
-    | 'error'
-    | 'custom';
+  type: EventType;
 
   agent_id?: string;
 
@@ -114,13 +106,20 @@ export interface EventData {
   step_id?: string;
 }
 
-export interface EventGetEventDetailsResponse {
+export interface EventResponse {
   data: EventData;
 }
 
-export interface EventLogResponse {
-  data: EventData;
-}
+export type EventType =
+  | 'status_change'
+  | 'step_started'
+  | 'step_completed'
+  | 'step_failed'
+  | 'tool_call'
+  | 'tool_result'
+  | 'message'
+  | 'error'
+  | 'custom';
 
 export interface EventListParams extends DefaultFlatPaginationParams {
   /**
@@ -170,16 +169,7 @@ export interface EventLogParams {
   /**
    * Body param
    */
-  type:
-    | 'status_change'
-    | 'step_started'
-    | 'step_completed'
-    | 'step_failed'
-    | 'tool_call'
-    | 'tool_result'
-    | 'message'
-    | 'error'
-    | 'custom';
+  type: EventType;
 
   /**
    * Body param
@@ -205,8 +195,8 @@ export interface EventLogParams {
 export declare namespace Events {
   export {
     type EventData as EventData,
-    type EventGetEventDetailsResponse as EventGetEventDetailsResponse,
-    type EventLogResponse as EventLogResponse,
+    type EventResponse as EventResponse,
+    type EventType as EventType,
     type EventDataDefaultFlatPagination as EventDataDefaultFlatPagination,
     type EventListParams as EventListParams,
     type EventGetEventDetailsParams as EventGetEventDetailsParams,

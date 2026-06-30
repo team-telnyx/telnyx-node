@@ -23,7 +23,7 @@ export class SipRegistrationStatus extends APIResource {
 
 export interface SipRegistrationStatusRetrieveResponse {
   /**
-   * Identifier of the UAC connection.
+   * Identifier of the connection associated with the credential.
    */
   connection_id?: string;
 
@@ -35,7 +35,7 @@ export interface SipRegistrationStatusRetrieveResponse {
   /**
    * The credential type that was looked up.
    */
-  credential_type?: 'uac_external_credential';
+  credential_type?: 'uac_external_credential' | 'telephony_credential';
 
   /**
    * SIP username used for the registration.
@@ -53,7 +53,8 @@ export interface SipRegistrationStatusRetrieveResponse {
   registered?: boolean;
 
   /**
-   * Detailed registration information reported by the registrar.
+   * Detailed registration information reported by the registrar. The populated
+   * fields depend on `credential_type`.
    */
   sip_registration_details?: SipRegistrationStatusRetrieveResponse.SipRegistrationDetails;
 
@@ -72,7 +73,8 @@ export interface SipRegistrationStatusRetrieveResponse {
 
 export namespace SipRegistrationStatusRetrieveResponse {
   /**
-   * Detailed registration information reported by the registrar.
+   * Detailed registration information reported by the registrar. The populated
+   * fields depend on `credential_type`.
    */
   export interface SipRegistrationDetails {
     /**
@@ -91,14 +93,39 @@ export namespace SipRegistrationStatusRetrieveResponse {
     failures?: number;
 
     /**
+     * Timestamp when the registration row was last modified (telephony_credential).
+     */
+    last_modified?: string;
+
+    /**
      * Unix timestamp of the next scheduled registration action.
      */
     next_action_at?: number;
 
     /**
+     * Registrar node handling the registration (telephony_credential).
+     */
+    node?: string;
+
+    /**
      * SIP URI user@host of the registered contact.
      */
     sip_uri_user_host?: string;
+
+    /**
+     * Transport used for the registration, e.g. UDP/TCP/TLS (telephony_credential).
+     */
+    transport?: string;
+
+    /**
+     * IP address of the registered user agent (telephony_credential).
+     */
+    ua_ip?: string;
+
+    /**
+     * Port of the registered user agent (telephony_credential).
+     */
+    ua_port?: number;
 
     /**
      * Registration uptime reported by the registrar.
@@ -109,15 +136,22 @@ export namespace SipRegistrationStatusRetrieveResponse {
 
 export interface SipRegistrationStatusRetrieveParams {
   /**
-   * Identifier of the UAC connection to look up.
+   * The kind of credential to look up. `uac_external_credential` is keyed by
+   * `connection_id`; `telephony_credential` is keyed by `username`.
    */
-  connection_id: string;
+  credential_type: 'uac_external_credential' | 'telephony_credential';
 
   /**
-   * The kind of credential to look up. Only `uac_external_credential` is supported
-   * today.
+   * Identifier of the UAC connection to look up. Required when `credential_type` is
+   * `uac_external_credential`.
    */
-  credential_type: 'uac_external_credential';
+  connection_id?: string;
+
+  /**
+   * SIP username of the telephony credential to look up. Required when
+   * `credential_type` is `telephony_credential`.
+   */
+  username?: string;
 }
 
 export declare namespace SipRegistrationStatus {

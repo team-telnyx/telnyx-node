@@ -11,7 +11,7 @@ describe('resource voiceClones', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.voiceClones.create({
-      params: {
+      voice_clone_request: {
         gender: 'male',
         language: 'en',
         name: 'clone-narrator',
@@ -31,7 +31,7 @@ describe('resource voiceClones', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.voiceClones.create({
-      params: {
+      voice_clone_request: {
         gender: 'male',
         language: 'en',
         name: 'clone-narrator',
@@ -108,7 +108,7 @@ describe('resource voiceClones', () => {
   // Mock server tests are disabled
   test.skip('createFromUpload: only required params', async () => {
     const responsePromise = client.voiceClones.createFromUpload({
-      params: {
+      voice_clone_upload_request: {
         audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
         gender: 'male',
         language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
@@ -128,7 +128,7 @@ describe('resource voiceClones', () => {
   // Mock server tests are disabled
   test.skip('createFromUpload: required and optional params', async () => {
     const response = await client.voiceClones.createFromUpload({
-      params: {
+      voice_clone_upload_request: {
         audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
         gender: 'male',
         language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
