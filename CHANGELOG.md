@@ -1,5 +1,20 @@
 # Changelog
 
+## 7.3.0 (2026-06-30)
+
+Full Changelog: [v7.2.0...v7.3.0](https://github.com/team-telnyx/telnyx-node/compare/v7.2.0...v7.3.0)
+
+### Bug Fixes
+
+* add --local flag so release-please scans next branch for commits ([#456](https://github.com/team-telnyx/telnyx-node/issues/456)) ([f1432e4](https://github.com/team-telnyx/telnyx-node/commit/f1432e4518383fea98c96dd206ed34347e88d1c4))
+
+
+### Chores
+
+* promote from staging e42b968 ([76fd227](https://github.com/team-telnyx/telnyx-node/commit/76fd2275c356875d7af5dd6ef649d2b824292028))
+* remove leaked staging-only promote-to-prod.yml from prod ([#458](https://github.com/team-telnyx/telnyx-node/issues/458)) ([3626e67](https://github.com/team-telnyx/telnyx-node/commit/3626e678bcd3dcf0c6af362d981e5e3133816fd3))
+* sync repo ([41cd995](https://github.com/team-telnyx/telnyx-node/commit/41cd9955bcb6309159c41221e7f46f42ca8a2bef))
+
 ## [6.83.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.82.0...v6.83.0) (2026-06-16)
 
 
