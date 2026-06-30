@@ -104,7 +104,7 @@ describe('resource calls', () => {
       SipAuthUsername: 'user',
       SipRegion: 'Canada',
       StatusCallback: 'https://www.example.com/callback',
-      StatusCallbackEvent: 'initiated',
+      StatusCallbackEvent: 'initiated answered',
       StatusCallbackMethod: 'GET',
       SuperviseCallSid: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
       SupervisingRole: 'monitor',

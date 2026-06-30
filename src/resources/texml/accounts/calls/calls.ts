@@ -700,7 +700,7 @@ export declare namespace CallCallsParams {
      * The call events for which Telnyx should send a webhook. Multiple events can be
      * defined when separated by a space.
      */
-    StatusCallbackEvent?: 'initiated' | 'ringing' | 'answered' | 'completed';
+    StatusCallbackEvent?: string;
 
     /**
      * HTTP request type used for `StatusCallback`.
@@ -976,7 +976,7 @@ export declare namespace CallCallsParams {
      * The call events for which Telnyx should send a webhook. Multiple events can be
      * defined when separated by a space.
      */
-    StatusCallbackEvent?: 'initiated' | 'ringing' | 'answered' | 'completed';
+    StatusCallbackEvent?: string;
 
     /**
      * HTTP request type used for `StatusCallback`.
@@ -1246,7 +1246,7 @@ export declare namespace CallCallsParams {
      * The call events for which Telnyx should send a webhook. Multiple events can be
      * defined when separated by a space.
      */
-    StatusCallbackEvent?: 'initiated' | 'ringing' | 'answered' | 'completed';
+    StatusCallbackEvent?: string;
 
     /**
      * HTTP request type used for `StatusCallback`.
