@@ -1,0 +1,173 @@
+name: Promote to Prod
+
+# Promotes generated SDK code from this staging repo to the production repo.
+#
+# Flow:
+#   1. stlc-generate.yml pushes generated code to staging main (unchanged)
+#   2. This workflow triggers on push to main
+#   3. Clones the prod repo, checks out its `next` branch
+#   4. Syncs the staging tree into prod's `next` (full replacement)
+#   5. Restores prod-owned files that differ from staging
+#   6. Commits with a Release-As footer and pushes to `next`
+#   7. Prod's release-please.yml (triggered on `next` push) creates a release PR
+#      → auto-merge → tag → publish-npm.yml → npm
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+concurrency:
+  group: promote-to-prod
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    if: github.repository == 'team-telnyx/telnyx-typescript-staging'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout staging
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SDK_WRITE_TOKEN }}
+
+      - name: Read Release-As version from staging history
+        id: version
+        env:
+          GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
+        run: |
+          set -euo pipefail
+          VERSION=""
+
+          # Primary: read the current released version from PROD master's manifest.
+          # This is the source of truth — prod master reflects the last successful
+          # release. We bump minor (X.Y.Z → X.(Y+1).0) to compute the next version.
+          # Staging history can be stale (old Release-As footers persist), leading
+          # to duplicate version collisions.
+          PROD_MANIFEST=$(gh api "repos/team-telnyx/telnyx-node/contents/.release-please-manifest.json?ref=master" --jq '.content' 2>/dev/null | base64 -d 2>/dev/null || true)
+          CUR=$(echo "$PROD_MANIFEST" | jq -r '.["."] // empty' 2>/dev/null || true)
+          if [ -n "$CUR" ] && printf '%s' "$CUR" | grep -Eq '^[0-9]+\.[0-9]+\.[0-9]+$'; then
+            VERSION=$(printf '%s' "$CUR" | awk -F. '{printf "%d.%d.0", $1, $2+1}')
+            echo "Read prod master manifest: $CUR → next (minor bump) $VERSION"
+          fi
+
+          # Fallback: read Release-As from staging history (last 50 commits)
+          if [ -z "$VERSION" ]; then
+            for commit in $(git rev-list HEAD --max-count=50); do
+              BODY=$(git log -1 --format=%b "$commit")
+              RA=$(echo "$BODY" | grep -oP 'Release-As:\s*\K[\d.]+' || true)
+              if [ -n "$RA" ]; then
+                VERSION="$RA"
+                break
+              fi
+            done
+            [ -n "$VERSION" ] && echo "Fallback: read Release-As from staging history: $VERSION"
+          fi
+
+          # Fallback: read from staging manifest
+          if [ -z "$VERSION" ]; then
+            VERSION=$(jq -r '.["."] // empty' .release-please-manifest.json 2>/dev/null || true)
+            [ -n "$VERSION" ] && echo "Fallback: read from staging manifest: $VERSION"
+          fi
+
+          if [ -z "$VERSION" ]; then
+            echo "::warning::Could not determine version; skipping promote"
+            echo "has_version=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "has_version=true" >> "$GITHUB_OUTPUT"
+            echo "Next version: $VERSION"
+          fi
+
+      - name: Clone prod repo
+        if: steps.version.outputs.has_version == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
+        run: |
+          git clone https://x-access-token:${GH_TOKEN}@github.com/team-telnyx/telnyx-node.git prod-repo
+          cd prod-repo
+          git checkout next
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Sync staging tree → prod next
+        if: steps.version.outputs.has_version == 'true'
+        working-directory: prod-repo
+        run: |
+          # Remove all tracked files from prod's working tree
+          git rm -rf . 2>/dev/null || true
+
+          # Copy entire staging tree into prod (excluding .git and prod-repo itself)
+          rsync -a --exclude='.git' --exclude='prod-repo' "$GITHUB_WORKSPACE/" .
+
+          # ── Restore prod-owned files ──────────────────────────────────
+          #
+          # These files/directories exist on prod but have DIFFERENT content
+          # on staging (or don't exist on staging at all). The prod version
+          # must be preserved as-is.
+          #
+          # Key differences:
+          #   release-please.yml:      staging = removed; prod = two-phase on next → master
+          #   ci.yml:                  staging = simple; prod = depot runner, full test
+          #   publish-npm.yml:         staging = workflow_dispatch only; prod = release trigger
+          #   publish-mcp.yml:         staging = workflow_dispatch only; prod = release trigger
+          #   release-doctor.yml:      staging checks secrets; prod does not
+          #   release-please-config.json: staging has prerelease; prod does not
+          #   packages/mcp-server/:    prod-only MCP server package
+          #   patches/:                prod-only fast-diff patch
+          #   pnpm-workspace.yaml:     prod has packages: ['packages/*'] for MCP
+          #   .dockerignore:           prod-only
+
+          # All prod-owned files are restored from master (the canonical prod
+          # source). Restoring from `next` is unreliable because the rsync
+          # above already overwrote next's working tree with staging content,
+          # so `git checkout next -- <file>` returns the staging version, not
+          # the prod version. This was the root cause of publish-npm.yml losing
+          # its `release: [published]` trigger — the staging version only has
+          # `workflow_dispatch`, so npm publishes stopped after the cutover.
+          #
+          # Key differences (staging vs prod):
+          #   release-please.yml:      staging = removed; prod = two-phase on next → master
+          #   ci.yml:                  staging = simple; prod = depot runner, full test
+          #   publish-npm.yml:         staging = workflow_dispatch only; prod = + release trigger
+          #   publish-mcp.yml:         staging = workflow_dispatch only; prod = + release trigger
+          #   release-doctor.yml:      staging checks secrets; prod does not
+          #   release-please-config.json: staging has prerelease; prod does not
+          #   packages/mcp-server/:    prod-only MCP server package (frozen, not STLC-managed)
+          #   patches/:                prod-only fast-diff patch
+          #   pnpm-workspace.yaml:     prod has packages: ['packages/*'] for MCP
+          #   .dockerignore:           prod-only
+          git fetch origin master:refs/remotes/origin/master 2>/dev/null || true
+
+          git checkout origin/master -- \
+            .github/workflows/release-please.yml \
+            .github/workflows/ci.yml \
+            .github/workflows/publish-npm.yml \
+            .github/workflows/publish-mcp.yml \
+            .github/workflows/release-doctor.yml \
+            release-please-config.json \
+            .release-please-manifest.json \
+            packages/mcp-server/ \
+            pnpm-workspace.yaml \
+            2>/dev/null || true
+
+      - name: Commit and push to prod next
+        if: steps.version.outputs.has_version == 'true'
+        working-directory: prod-repo
+        env:
+          NEXT_VERSION: ${{ steps.version.outputs.version }}
+        run: |
+          git add -A
+          if git diff --cached --quiet; then
+            echo "No changes to promote — prod next is already up to date"
+            exit 0
+          fi
+
+          git commit -m "chore: promote from staging ${GITHUB_SHA:0:7}" -m "Release-As: ${NEXT_VERSION}"
+          git push origin next
+
+          echo "✅ Promoted to prod next with Release-As: ${NEXT_VERSION}"

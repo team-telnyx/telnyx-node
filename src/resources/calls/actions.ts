@@ -1115,6 +1115,13 @@ export interface DeepgramNova2Config {
   transcription_model: 'deepgram/nova-2';
 
   /**
+   * Nova-2 keyword biasing without intensifiers. Up to 100 terms to bias recognition
+   * toward. For weighted biasing, use `keywords_boosting` instead. Nova-2-only; use
+   * `keyterms` on Nova-3.
+   */
+  hints?: Array<string>;
+
+  /**
    * Whether to send also interim results. If set to false, only final results will
    * be sent.
    */
@@ -1177,6 +1184,15 @@ export interface DeepgramNova2Config {
     | 'auto_detect';
 
   /**
+   * Enable Deepgram's smart formatting (capitalization, punctuation, and digit
+   * normalization). Note: Telnyx defaults this to `true`, overriding Deepgram's
+   * underlying default of `false` — omit the field to get a smart-formatted
+   * transcript, or set it to `false` to receive the raw lowercase transcript without
+   * punctuation.
+   */
+  smart_format?: boolean;
+
+  /**
    * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
    * to 5000 ms.
    */
@@ -1193,6 +1209,12 @@ export interface DeepgramNova3Config {
    * be sent.
    */
   interim_results?: boolean;
+
+  /**
+   * Nova-3 keyterm prompting. Up to 100 domain-specific terms or brand names to bias
+   * recognition toward. Nova-3-only; use `hints` on Nova-2.
+   */
+  keyterms?: Array<string>;
 
   /**
    * Keywords and their respective intensifiers (boosting values) to improve
@@ -1221,6 +1243,15 @@ export interface DeepgramNova3Config {
     | 'pt-BR'
     | 'pt-PT'
     | 'auto_detect';
+
+  /**
+   * Enable Deepgram's smart formatting (capitalization, punctuation, and digit
+   * normalization). Note: Telnyx defaults this to `true`, overriding Deepgram's
+   * underlying default of `false` — omit the field to get a smart-formatted
+   * transcript, or set it to `false` to receive the raw lowercase transcript without
+   * punctuation.
+   */
+  smart_format?: boolean;
 
   /**
    * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
