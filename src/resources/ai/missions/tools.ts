@@ -8,6 +8,20 @@ import { path } from '../../../internal/utils/path';
 
 export class Tools extends APIResource {
   /**
+   * List all tools for a mission
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.missions.tools.listTools(
+   *   'mission_id',
+   * );
+   * ```
+   */
+  listTools(missionID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.get(path`/ai/missions/${missionID}/tools`, options);
+  }
+
+  /**
    * Create a new tool for a mission
    *
    * @example
@@ -53,20 +67,6 @@ export class Tools extends APIResource {
   getTool(toolID: string, params: ToolGetToolParams, options?: RequestOptions): APIPromise<unknown> {
     const { mission_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/tools/${toolID}`, options);
-  }
-
-  /**
-   * List all tools for a mission
-   *
-   * @example
-   * ```ts
-   * const response = await client.ai.missions.tools.listTools(
-   *   'mission_id',
-   * );
-   * ```
-   */
-  listTools(missionID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.get(path`/ai/missions/${missionID}/tools`, options);
   }
 
   /**

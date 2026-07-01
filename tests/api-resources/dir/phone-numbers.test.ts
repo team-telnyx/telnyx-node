@@ -9,6 +9,27 @@ const client = new Telnyx({
 
 describe('resource phoneNumbers', () => {
   // Mock server tests are disabled
+  test.skip('remove: only required params', async () => {
+    const responsePromise = client.dir.phoneNumbers.remove('16635d38-75a6-4481-82e8-69af60e05011', {
+      phone_numbers: ['+19493253498'],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('remove: required and optional params', async () => {
+    const response = await client.dir.phoneNumbers.remove('16635d38-75a6-4481-82e8-69af60e05011', {
+      phone_numbers: ['+19493253498'],
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.dir.phoneNumbers.list('16635d38-75a6-4481-82e8-69af60e05011');
     const rawResponse = await responsePromise.asResponse();
@@ -64,27 +85,6 @@ describe('resource phoneNumbers', () => {
         },
       ],
       phone_numbers: ['+19493253498', '+12134445566'],
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('remove: only required params', async () => {
-    const responsePromise = client.dir.phoneNumbers.remove('16635d38-75a6-4481-82e8-69af60e05011', {
-      phone_numbers: ['+19493253498'],
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('remove: required and optional params', async () => {
-    const response = await client.dir.phoneNumbers.remove('16635d38-75a6-4481-82e8-69af60e05011', {
-      phone_numbers: ['+19493253498'],
     });
   });
 });

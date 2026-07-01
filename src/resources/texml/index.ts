@@ -12,6 +12,6 @@ export {
   Texml,
   type TexmlInitiateAICallResponse,
   type TexmlSecretsResponse,
-  type TexmlInitiateAICallParams,
   type TexmlSecretsParams,
+  type TexmlInitiateAICallParams,
 } from './texml';

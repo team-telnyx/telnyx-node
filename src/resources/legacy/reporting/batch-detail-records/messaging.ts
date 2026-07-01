@@ -11,6 +11,19 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Messaging extends APIResource {
   /**
+   * Retrieves all MDR detailed report requests for the authenticated user
+   *
+   * @example
+   * ```ts
+   * const messagings =
+   *   await client.legacy.reporting.batchDetailRecords.messaging.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<MessagingListResponse> {
+    return this._client.get('/legacy/reporting/batch_detail_records/messaging', options);
+  }
+
+  /**
    * Creates a new MDR detailed report request with the specified filters
    *
    * @example
@@ -29,34 +42,6 @@ export class Messaging extends APIResource {
   }
 
   /**
-   * Retrieves a specific MDR detailed report request by ID
-   *
-   * @example
-   * ```ts
-   * const messaging =
-   *   await client.legacy.reporting.batchDetailRecords.messaging.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<MessagingRetrieveResponse> {
-    return this._client.get(path`/legacy/reporting/batch_detail_records/messaging/${id}`, options);
-  }
-
-  /**
-   * Retrieves all MDR detailed report requests for the authenticated user
-   *
-   * @example
-   * ```ts
-   * const messagings =
-   *   await client.legacy.reporting.batchDetailRecords.messaging.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<MessagingListResponse> {
-    return this._client.get('/legacy/reporting/batch_detail_records/messaging', options);
-  }
-
-  /**
    * Deletes a specific MDR detailed report request by ID
    *
    * @example
@@ -69,6 +54,21 @@ export class Messaging extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<MessagingDeleteResponse> {
     return this._client.delete(path`/legacy/reporting/batch_detail_records/messaging/${id}`, options);
+  }
+
+  /**
+   * Retrieves a specific MDR detailed report request by ID
+   *
+   * @example
+   * ```ts
+   * const messaging =
+   *   await client.legacy.reporting.batchDetailRecords.messaging.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<MessagingRetrieveResponse> {
+    return this._client.get(path`/legacy/reporting/batch_detail_records/messaging/${id}`, options);
   }
 }
 

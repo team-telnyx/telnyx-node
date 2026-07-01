@@ -15,8 +15,8 @@ export {
   type CredentialConnectionRetrieveResponse,
   type CredentialConnectionUpdateResponse,
   type CredentialConnectionDeleteResponse,
+  type CredentialConnectionListParams,
   type CredentialConnectionCreateParams,
   type CredentialConnectionUpdateParams,
-  type CredentialConnectionListParams,
   type CredentialConnectionsDefaultFlatPagination,
 } from './credential-connections';

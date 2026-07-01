@@ -8,8 +8,8 @@ export {
   type EmbeddingRetrieveResponse,
   type EmbeddingListResponse,
   type EmbeddingSimilaritySearchResponse,
-  type EmbeddingCreateParams,
   type EmbeddingListParams,
+  type EmbeddingCreateParams,
   type EmbeddingSimilaritySearchParams,
   type EmbeddingURLParams,
 } from './embeddings';

@@ -12,6 +12,19 @@ import { path } from '../../../../internal/utils/path';
  */
 export class NumberLookup extends APIResource {
   /**
+   * Retrieve a paginated list of telco data usage reports
+   *
+   * @example
+   * ```ts
+   * const numberLookups =
+   *   await client.legacy.reporting.usageReports.numberLookup.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<NumberLookupListResponse> {
+    return this._client.get('/legacy/reporting/usage_reports/number_lookup', options);
+  }
+
+  /**
    * Submit a new telco data usage report
    *
    * @example
@@ -29,34 +42,6 @@ export class NumberLookup extends APIResource {
   }
 
   /**
-   * Retrieve a specific telco data usage report by its ID
-   *
-   * @example
-   * ```ts
-   * const numberLookup =
-   *   await client.legacy.reporting.usageReports.numberLookup.retrieve(
-   *     'id',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<NumberLookupRetrieveResponse> {
-    return this._client.get(path`/legacy/reporting/usage_reports/number_lookup/${id}`, options);
-  }
-
-  /**
-   * Retrieve a paginated list of telco data usage reports
-   *
-   * @example
-   * ```ts
-   * const numberLookups =
-   *   await client.legacy.reporting.usageReports.numberLookup.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<NumberLookupListResponse> {
-    return this._client.get('/legacy/reporting/usage_reports/number_lookup', options);
-  }
-
-  /**
    * Delete a specific telco data usage report by its ID
    *
    * @example
@@ -71,6 +56,21 @@ export class NumberLookup extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * Retrieve a specific telco data usage report by its ID
+   *
+   * @example
+   * ```ts
+   * const numberLookup =
+   *   await client.legacy.reporting.usageReports.numberLookup.retrieve(
+   *     'id',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<NumberLookupRetrieveResponse> {
+    return this._client.get(path`/legacy/reporting/usage_reports/number_lookup/${id}`, options);
   }
 }
 

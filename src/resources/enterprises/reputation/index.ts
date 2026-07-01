@@ -8,10 +8,10 @@ export {
   type ReputationPhoneNumberListWithReputation,
   type ReputationPhoneNumberWithReputation,
   type NumberRefreshResponse,
-  type NumberRetrieveParams,
   type NumberListParams,
   type NumberAssociateParams,
   type NumberDisassociateParams,
+  type NumberRetrieveParams,
   type NumberRefreshParams,
   type ReputationPhoneNumbersDefaultFlatPagination,
 } from './numbers';
@@ -20,9 +20,9 @@ export {
   type RemediationRequestWrapped,
   type RemediationStatus,
   type RemediationListResponse,
+  type RemediationListParams,
   type RemediationCreateParams,
   type RemediationRetrieveParams,
-  type RemediationListParams,
   type RemediationListResponsesDefaultFlatPagination,
 } from './remediation';
 export {

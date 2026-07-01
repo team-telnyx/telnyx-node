@@ -11,6 +11,38 @@ import { path } from '../internal/utils/path';
  */
 export class CustomStorageCredentials extends APIResource {
   /**
+   * Deletes a stored custom credentials configuration.
+   *
+   * @example
+   * ```ts
+   * await client.customStorageCredentials.delete(
+   *   'connection_id',
+   * );
+   * ```
+   */
+  delete(connectionID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/custom_storage_credentials/${connectionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Returns the information about custom storage credentials.
+   *
+   * @example
+   * ```ts
+   * const credentialsResponse =
+   *   await client.customStorageCredentials.retrieve(
+   *     'connection_id',
+   *   );
+   * ```
+   */
+  retrieve(connectionID: string, options?: RequestOptions): APIPromise<CredentialsResponse> {
+    return this._client.get(path`/custom_storage_credentials/${connectionID}`, options);
+  }
+
+  /**
    * Creates a custom storage credentials configuration.
    *
    * @example
@@ -34,21 +66,6 @@ export class CustomStorageCredentials extends APIResource {
   }
 
   /**
-   * Returns the information about custom storage credentials.
-   *
-   * @example
-   * ```ts
-   * const credentialsResponse =
-   *   await client.customStorageCredentials.retrieve(
-   *     'connection_id',
-   *   );
-   * ```
-   */
-  retrieve(connectionID: string, options?: RequestOptions): APIPromise<CredentialsResponse> {
-    return this._client.get(path`/custom_storage_credentials/${connectionID}`, options);
-  }
-
-  /**
    * Updates a stored custom credentials configuration.
    *
    * @example
@@ -69,23 +86,6 @@ export class CustomStorageCredentials extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CredentialsResponse> {
     return this._client.put(path`/custom_storage_credentials/${connectionID}`, { body, ...options });
-  }
-
-  /**
-   * Deletes a stored custom credentials configuration.
-   *
-   * @example
-   * ```ts
-   * await client.customStorageCredentials.delete(
-   *   'connection_id',
-   * );
-   * ```
-   */
-  delete(connectionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/custom_storage_credentials/${connectionID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 

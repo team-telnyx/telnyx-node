@@ -32,6 +32,28 @@ export class Tests extends APIResource {
   runs: RunsAPI.Runs = new RunsAPI.Runs(this._client);
 
   /**
+   * Retrieves a paginated list of assistant tests with optional filtering
+   * capabilities
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const assistantTest of client.ai.assistants.tests.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: TestListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AssistantTestsDefaultFlatPagination, AssistantTest> {
+    return this._client.getAPIList('/ai/assistants/tests', DefaultFlatPagination<AssistantTest>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a comprehensive test configuration for evaluating AI assistant
    * performance
    *
@@ -61,6 +83,21 @@ export class Tests extends APIResource {
   }
 
   /**
+   * Permanently removes an assistant test and all associated data
+   *
+   * @example
+   * ```ts
+   * await client.ai.assistants.tests.delete('test_id');
+   * ```
+   */
+  delete(testID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/assistants/tests/${testID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Retrieves detailed information about a specific assistant test
    *
    * @example
@@ -84,43 +121,6 @@ export class Tests extends APIResource {
    */
   update(testID: string, body: TestUpdateParams, options?: RequestOptions): APIPromise<AssistantTest> {
     return this._client.put(path`/ai/assistants/tests/${testID}`, { body, ...options });
-  }
-
-  /**
-   * Retrieves a paginated list of assistant tests with optional filtering
-   * capabilities
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const assistantTest of client.ai.assistants.tests.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: TestListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AssistantTestsDefaultFlatPagination, AssistantTest> {
-    return this._client.getAPIList('/ai/assistants/tests', DefaultFlatPagination<AssistantTest>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Permanently removes an assistant test and all associated data
-   *
-   * @example
-   * ```ts
-   * await client.ai.assistants.tests.delete('test_id');
-   * ```
-   */
-  delete(testID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/assistants/tests/${testID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 
@@ -201,6 +201,23 @@ export namespace AssistantTest {
 }
 
 export type TelnyxConversationChannel = 'phone_call' | 'web_call' | 'sms_chat' | 'web_chat';
+
+export interface TestListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter tests by destination (phone number, webhook URL, etc.)
+   */
+  destination?: string;
+
+  /**
+   * Filter tests by communication channel (e.g., 'web_chat', 'sms')
+   */
+  telnyx_conversation_channel?: string;
+
+  /**
+   * Filter tests by test suite name
+   */
+  test_suite?: string;
+}
 
 export interface TestCreateParams {
   /**
@@ -324,23 +341,6 @@ export namespace TestUpdateParams {
   }
 }
 
-export interface TestListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter tests by destination (phone number, webhook URL, etc.)
-   */
-  destination?: string;
-
-  /**
-   * Filter tests by communication channel (e.g., 'web_chat', 'sms')
-   */
-  telnyx_conversation_channel?: string;
-
-  /**
-   * Filter tests by test suite name
-   */
-  test_suite?: string;
-}
-
 Tests.TestSuites = TestSuites;
 Tests.Runs = Runs;
 
@@ -349,9 +349,9 @@ export declare namespace Tests {
     type AssistantTest as AssistantTest,
     type TelnyxConversationChannel as TelnyxConversationChannel,
     type AssistantTestsDefaultFlatPagination as AssistantTestsDefaultFlatPagination,
+    type TestListParams as TestListParams,
     type TestCreateParams as TestCreateParams,
     type TestUpdateParams as TestUpdateParams,
-    type TestListParams as TestListParams,
   };
 
   export { TestSuites as TestSuites, type TestSuiteListResponse as TestSuiteListResponse };
@@ -362,8 +362,8 @@ export declare namespace Tests {
     type TestRunResponse as TestRunResponse,
     type TestStatus as TestStatus,
     type TestRunResponsesDefaultFlatPagination as TestRunResponsesDefaultFlatPagination,
-    type RunRetrieveParams as RunRetrieveParams,
     type RunListParams as RunListParams,
     type RunTriggerParams as RunTriggerParams,
+    type RunRetrieveParams as RunRetrieveParams,
   };
 }

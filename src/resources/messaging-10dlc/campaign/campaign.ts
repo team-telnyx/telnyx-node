@@ -18,39 +18,6 @@ export class Campaign extends APIResource {
   osr: OsrAPI.Osr = new OsrAPI.Osr(this._client);
 
   /**
-   * Retrieve campaign details by `campaignId`.
-   *
-   * @example
-   * ```ts
-   * const telnyxCampaignCsp =
-   *   await client.messaging10dlc.campaign.retrieve(
-   *     'campaignId',
-   *   );
-   * ```
-   */
-  retrieve(campaignID: string, options?: RequestOptions): APIPromise<TelnyxCampaignCsp> {
-    return this._client.get(path`/10dlc/campaign/${campaignID}`, options);
-  }
-
-  /**
-   * Update a campaign's properties by `campaignId`. **Please note:** only sample
-   * messages are editable.
-   *
-   * @example
-   * ```ts
-   * const telnyxCampaignCsp =
-   *   await client.messaging10dlc.campaign.update('campaignId');
-   * ```
-   */
-  update(
-    campaignID: string,
-    body: CampaignUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<TelnyxCampaignCsp> {
-    return this._client.put(path`/10dlc/campaign/${campaignID}`, { body, ...options });
-  }
-
-  /**
    * Retrieve a list of campaigns associated with a supplied `brandId`.
    *
    * @example
@@ -104,6 +71,65 @@ export class Campaign extends APIResource {
   }
 
   /**
+   * Retrieve campaign details by `campaignId`.
+   *
+   * @example
+   * ```ts
+   * const telnyxCampaignCsp =
+   *   await client.messaging10dlc.campaign.retrieve(
+   *     'campaignId',
+   *   );
+   * ```
+   */
+  retrieve(campaignID: string, options?: RequestOptions): APIPromise<TelnyxCampaignCsp> {
+    return this._client.get(path`/10dlc/campaign/${campaignID}`, options);
+  }
+
+  /**
+   * Update a campaign's properties by `campaignId`. **Please note:** only sample
+   * messages are editable.
+   *
+   * @example
+   * ```ts
+   * const telnyxCampaignCsp =
+   *   await client.messaging10dlc.campaign.update('campaignId');
+   * ```
+   */
+  update(
+    campaignID: string,
+    body: CampaignUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<TelnyxCampaignCsp> {
+    return this._client.put(path`/10dlc/campaign/${campaignID}`, { body, ...options });
+  }
+
+  /**
+   * Submits an appeal for rejected native campaigns in TELNYX_FAILED or MNO_REJECTED
+   * status. The appeal is recorded for manual compliance team review and the
+   * campaign status is reset to TCR_ACCEPTED. Note: Appeal forwarding is handled
+   * manually to allow proper review before incurring upstream charges.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.messaging10dlc.campaign.submitAppeal(
+   *     '5eb13888-32b7-4cab-95e6-d834dde21d64',
+   *     {
+   *       appeal_reason:
+   *         'The website has been updated to include the required privacy policy and terms of service.',
+   *     },
+   *   );
+   * ```
+   */
+  submitAppeal(
+    campaignID: string,
+    body: CampaignSubmitAppealParams,
+    options?: RequestOptions,
+  ): APIPromise<CampaignSubmitAppealResponse> {
+    return this._client.post(path`/10dlc/campaign/${campaignID}/appeal`, { body, ...options });
+  }
+
+  /**
    * Get the campaign metadata for each MNO it was submitted to.
    *
    * @example
@@ -152,32 +178,6 @@ export class Campaign extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CampaignGetSharingStatusResponse> {
     return this._client.get(path`/10dlc/campaign/${campaignID}/sharing`, options);
-  }
-
-  /**
-   * Submits an appeal for rejected native campaigns in TELNYX_FAILED or MNO_REJECTED
-   * status. The appeal is recorded for manual compliance team review and the
-   * campaign status is reset to TCR_ACCEPTED. Note: Appeal forwarding is handled
-   * manually to allow proper review before incurring upstream charges.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.messaging10dlc.campaign.submitAppeal(
-   *     '5eb13888-32b7-4cab-95e6-d834dde21d64',
-   *     {
-   *       appeal_reason:
-   *         'The website has been updated to include the required privacy policy and terms of service.',
-   *     },
-   *   );
-   * ```
-   */
-  submitAppeal(
-    campaignID: string,
-    body: CampaignSubmitAppealParams,
-    options?: RequestOptions,
-  ): APIPromise<CampaignSubmitAppealResponse> {
-    return this._client.post(path`/10dlc/campaign/${campaignID}/appeal`, { body, ...options });
   }
 }
 
@@ -802,6 +802,29 @@ export interface CampaignSubmitAppealResponse {
   appealed_at?: string;
 }
 
+export interface CampaignListParams extends PerPagePaginationV2Params {
+  /**
+   * Filter results by brand id.
+   */
+  brandId: string;
+
+  /**
+   * Specifies the sort order for results. If not given, results are sorted by
+   * createdAt in descending order.
+   */
+  sort?:
+    | 'assignedPhoneNumbersCount'
+    | '-assignedPhoneNumbersCount'
+    | 'campaignId'
+    | '-campaignId'
+    | 'createdAt'
+    | '-createdAt'
+    | 'status'
+    | '-status'
+    | 'tcrCampaignId'
+    | '-tcrCampaignId';
+}
+
 export interface CampaignUpdateParams {
   /**
    * Help message of the campaign.
@@ -860,29 +883,6 @@ export interface CampaignUpdateParams {
   webhookURL?: string;
 }
 
-export interface CampaignListParams extends PerPagePaginationV2Params {
-  /**
-   * Filter results by brand id.
-   */
-  brandId: string;
-
-  /**
-   * Specifies the sort order for results. If not given, results are sorted by
-   * createdAt in descending order.
-   */
-  sort?:
-    | 'assignedPhoneNumbersCount'
-    | '-assignedPhoneNumbersCount'
-    | 'campaignId'
-    | '-campaignId'
-    | 'createdAt'
-    | '-createdAt'
-    | 'status'
-    | '-status'
-    | 'tcrCampaignId'
-    | '-tcrCampaignId';
-}
-
 export interface CampaignSubmitAppealParams {
   /**
    * Detailed explanation of why the campaign should be reconsidered and what changes
@@ -906,8 +906,8 @@ export declare namespace Campaign {
     type CampaignGetSharingStatusResponse as CampaignGetSharingStatusResponse,
     type CampaignSubmitAppealResponse as CampaignSubmitAppealResponse,
     type CampaignListResponsesPerPagePaginationV2 as CampaignListResponsesPerPagePaginationV2,
-    type CampaignUpdateParams as CampaignUpdateParams,
     type CampaignListParams as CampaignListParams,
+    type CampaignUpdateParams as CampaignUpdateParams,
     type CampaignSubmitAppealParams as CampaignSubmitAppealParams,
   };
 

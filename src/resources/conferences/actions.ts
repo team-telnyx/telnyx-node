@@ -12,67 +12,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
-   * Update conference participant supervisor_role
-   *
-   * @example
-   * ```ts
-   * const action = await client.conferences.actions.update(
-   *   'id',
-   *   {
-   *     call_control_id:
-   *       'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
-   *     supervisor_role: 'whisper',
-   *   },
-   * );
-   * ```
-   */
-  update(id: string, body: ActionUpdateParams, options?: RequestOptions): APIPromise<ActionUpdateResponse> {
-    return this._client.post(path`/conferences/${id}/actions/update`, { body, ...options });
-  }
-
-  /**
-   * End a conference and terminate all active participants.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.conferences.actions.endConference(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  endConference(
-    id: string,
-    body: ActionEndConferenceParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ActionEndConferenceResponse> {
-    return this._client.post(path`/conferences/${id}/actions/end`, { body, ...options });
-  }
-
-  /**
-   * Play an audio file to a specific conference participant and gather DTMF input.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.conferences.actions.gatherDtmfAudio(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     {
-   *       call_control_id:
-   *         'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
-   *     },
-   *   );
-   * ```
-   */
-  gatherDtmfAudio(
-    id: string,
-    body: ActionGatherDtmfAudioParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionGatherDtmfAudioResponse> {
-    return this._client.post(path`/conferences/${id}/actions/gather_using_audio`, { body, ...options });
-  }
-
-  /**
    * Hold a list of participants in a conference call
    *
    * @example
@@ -242,25 +181,6 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Send DTMF tones to one or more conference participants.
-   *
-   * @example
-   * ```ts
-   * const response = await client.conferences.actions.sendDtmf(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { digits: '1234#' },
-   * );
-   * ```
-   */
-  sendDtmf(
-    id: string,
-    body: ActionSendDtmfParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionSendDtmfResponse> {
-    return this._client.post(path`/conferences/${id}/actions/send_dtmf`, { body, ...options });
-  }
-
-  /**
    * Convert text to speech and play it to all or some participants.
    *
    * @example
@@ -320,6 +240,86 @@ export class Actions extends APIResource {
    */
   unmute(id: string, body: ActionUnmuteParams, options?: RequestOptions): APIPromise<ActionUnmuteResponse> {
     return this._client.post(path`/conferences/${id}/actions/unmute`, { body, ...options });
+  }
+
+  /**
+   * Update conference participant supervisor_role
+   *
+   * @example
+   * ```ts
+   * const action = await client.conferences.actions.update(
+   *   'id',
+   *   {
+   *     call_control_id:
+   *       'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+   *     supervisor_role: 'whisper',
+   *   },
+   * );
+   * ```
+   */
+  update(id: string, body: ActionUpdateParams, options?: RequestOptions): APIPromise<ActionUpdateResponse> {
+    return this._client.post(path`/conferences/${id}/actions/update`, { body, ...options });
+  }
+
+  /**
+   * End a conference and terminate all active participants.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.conferences.actions.endConference(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  endConference(
+    id: string,
+    body: ActionEndConferenceParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ActionEndConferenceResponse> {
+    return this._client.post(path`/conferences/${id}/actions/end`, { body, ...options });
+  }
+
+  /**
+   * Play an audio file to a specific conference participant and gather DTMF input.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.conferences.actions.gatherDtmfAudio(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       call_control_id:
+   *         'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+   *     },
+   *   );
+   * ```
+   */
+  gatherDtmfAudio(
+    id: string,
+    body: ActionGatherDtmfAudioParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionGatherDtmfAudioResponse> {
+    return this._client.post(path`/conferences/${id}/actions/gather_using_audio`, { body, ...options });
+  }
+
+  /**
+   * Send DTMF tones to one or more conference participants.
+   *
+   * @example
+   * ```ts
+   * const response = await client.conferences.actions.sendDtmf(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { digits: '1234#' },
+   * );
+   * ```
+   */
+  sendDtmf(
+    id: string,
+    body: ActionSendDtmfParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionSendDtmfResponse> {
+    return this._client.post(path`/conferences/${id}/actions/send_dtmf`, { body, ...options });
   }
 }
 
@@ -435,137 +435,6 @@ export interface ActionUnholdResponse {
 
 export interface ActionUnmuteResponse {
   data?: ConferenceCommandResult;
-}
-
-export interface ActionUpdateParams {
-  /**
-   * Unique identifier and token for controlling the call
-   */
-  call_control_id: string;
-
-  /**
-   * Sets the participant as a supervisor for the conference. A conference can have
-   * multiple supervisors. "barge" means the supervisor enters the conference as a
-   * normal participant. This is the same as "none". "monitor" means the supervisor
-   * is muted but can hear all participants. "whisper" means that only the specified
-   * "whisper_call_control_ids" can hear the supervisor. Defaults to "none".
-   */
-  supervisor_role: 'barge' | 'monitor' | 'none' | 'whisper';
-
-  /**
-   * Use this field to avoid execution of duplicate commands. Telnyx will ignore
-   * subsequent commands with the same `command_id` as one that has already been
-   * executed.
-   */
-  command_id?: string;
-
-  /**
-   * Region where the conference data is located. Defaults to the region defined in
-   * user's data locality settings (Europe or US).
-   */
-  region?: ConferenceRegion;
-
-  /**
-   * Array of unique call_control_ids the supervisor can whisper to. If none
-   * provided, the supervisor will join the conference as a monitoring participant
-   * only.
-   */
-  whisper_call_control_ids?: Array<string>;
-}
-
-export interface ActionEndConferenceParams {
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same conference.
-   */
-  command_id?: string;
-}
-
-export interface ActionGatherDtmfAudioParams {
-  /**
-   * Unique identifier and token for controlling the call leg that will receive the
-   * gather prompt.
-   */
-  call_control_id: string;
-
-  /**
-   * The URL of the audio file to play as the gather prompt. Must be WAV or MP3
-   * format.
-   */
-  audio_url?: string;
-
-  /**
-   * Use this field to add state to every subsequent webhook. Must be a valid Base-64
-   * encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Identifier for this gather command. Will be included in the gather ended
-   * webhook. Maximum 100 characters.
-   */
-  gather_id?: string;
-
-  /**
-   * Duration in milliseconds to wait for the first digit before timing out.
-   */
-  initial_timeout_millis?: number;
-
-  /**
-   * Duration in milliseconds to wait between digits.
-   */
-  inter_digit_timeout_millis?: number;
-
-  /**
-   * URL of audio file to play when invalid input is received.
-   */
-  invalid_audio_url?: string;
-
-  /**
-   * Name of media file to play when invalid input is received.
-   */
-  invalid_media_name?: string;
-
-  /**
-   * Maximum number of digits to gather.
-   */
-  maximum_digits?: number;
-
-  /**
-   * Maximum number of times to play the prompt if no input is received.
-   */
-  maximum_tries?: number;
-
-  /**
-   * The name of the media file uploaded to the Media Storage API to play as the
-   * gather prompt.
-   */
-  media_name?: string;
-
-  /**
-   * Minimum number of digits to gather.
-   */
-  minimum_digits?: number;
-
-  /**
-   * Whether to stop the audio playback when a DTMF digit is received.
-   */
-  stop_playback_on_dtmf?: boolean;
-
-  /**
-   * Digit that terminates gathering.
-   */
-  terminating_digit?: string;
-
-  /**
-   * Duration in milliseconds to wait for input before timing out.
-   */
-  timeout_millis?: number;
-
-  /**
-   * Digits that are valid for gathering. All other digits will be ignored.
-   */
-  valid_digits?: string;
 }
 
 export interface ActionHoldParams {
@@ -875,31 +744,6 @@ export interface ActionRecordStopParams {
   region?: ConferenceRegion;
 }
 
-export interface ActionSendDtmfParams {
-  /**
-   * DTMF digits to send. Valid characters: 0-9, A-D, \*, #, w (0.5s pause), W (1s
-   * pause).
-   */
-  digits: string;
-
-  /**
-   * Array of participant call control IDs to send DTMF to. When empty, DTMF will be
-   * sent to all participants.
-   */
-  call_control_ids?: Array<string>;
-
-  /**
-   * Use this field to add state to every subsequent webhook. Must be a valid Base-64
-   * encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Duration of each DTMF digit in milliseconds.
-   */
-  duration_millis?: number;
-}
-
 export interface ActionSpeakParams {
   /**
    * The text or SSML to be converted into speech. There is a 3,000 character limit.
@@ -1073,6 +917,162 @@ export interface ActionUnmuteParams {
   region?: ConferenceRegion;
 }
 
+export interface ActionUpdateParams {
+  /**
+   * Unique identifier and token for controlling the call
+   */
+  call_control_id: string;
+
+  /**
+   * Sets the participant as a supervisor for the conference. A conference can have
+   * multiple supervisors. "barge" means the supervisor enters the conference as a
+   * normal participant. This is the same as "none". "monitor" means the supervisor
+   * is muted but can hear all participants. "whisper" means that only the specified
+   * "whisper_call_control_ids" can hear the supervisor. Defaults to "none".
+   */
+  supervisor_role: 'barge' | 'monitor' | 'none' | 'whisper';
+
+  /**
+   * Use this field to avoid execution of duplicate commands. Telnyx will ignore
+   * subsequent commands with the same `command_id` as one that has already been
+   * executed.
+   */
+  command_id?: string;
+
+  /**
+   * Region where the conference data is located. Defaults to the region defined in
+   * user's data locality settings (Europe or US).
+   */
+  region?: ConferenceRegion;
+
+  /**
+   * Array of unique call_control_ids the supervisor can whisper to. If none
+   * provided, the supervisor will join the conference as a monitoring participant
+   * only.
+   */
+  whisper_call_control_ids?: Array<string>;
+}
+
+export interface ActionEndConferenceParams {
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same conference.
+   */
+  command_id?: string;
+}
+
+export interface ActionGatherDtmfAudioParams {
+  /**
+   * Unique identifier and token for controlling the call leg that will receive the
+   * gather prompt.
+   */
+  call_control_id: string;
+
+  /**
+   * The URL of the audio file to play as the gather prompt. Must be WAV or MP3
+   * format.
+   */
+  audio_url?: string;
+
+  /**
+   * Use this field to add state to every subsequent webhook. Must be a valid Base-64
+   * encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Identifier for this gather command. Will be included in the gather ended
+   * webhook. Maximum 100 characters.
+   */
+  gather_id?: string;
+
+  /**
+   * Duration in milliseconds to wait for the first digit before timing out.
+   */
+  initial_timeout_millis?: number;
+
+  /**
+   * Duration in milliseconds to wait between digits.
+   */
+  inter_digit_timeout_millis?: number;
+
+  /**
+   * URL of audio file to play when invalid input is received.
+   */
+  invalid_audio_url?: string;
+
+  /**
+   * Name of media file to play when invalid input is received.
+   */
+  invalid_media_name?: string;
+
+  /**
+   * Maximum number of digits to gather.
+   */
+  maximum_digits?: number;
+
+  /**
+   * Maximum number of times to play the prompt if no input is received.
+   */
+  maximum_tries?: number;
+
+  /**
+   * The name of the media file uploaded to the Media Storage API to play as the
+   * gather prompt.
+   */
+  media_name?: string;
+
+  /**
+   * Minimum number of digits to gather.
+   */
+  minimum_digits?: number;
+
+  /**
+   * Whether to stop the audio playback when a DTMF digit is received.
+   */
+  stop_playback_on_dtmf?: boolean;
+
+  /**
+   * Digit that terminates gathering.
+   */
+  terminating_digit?: string;
+
+  /**
+   * Duration in milliseconds to wait for input before timing out.
+   */
+  timeout_millis?: number;
+
+  /**
+   * Digits that are valid for gathering. All other digits will be ignored.
+   */
+  valid_digits?: string;
+}
+
+export interface ActionSendDtmfParams {
+  /**
+   * DTMF digits to send. Valid characters: 0-9, A-D, \*, #, w (0.5s pause), W (1s
+   * pause).
+   */
+  digits: string;
+
+  /**
+   * Array of participant call control IDs to send DTMF to. When empty, DTMF will be
+   * sent to all participants.
+   */
+  call_control_ids?: Array<string>;
+
+  /**
+   * Use this field to add state to every subsequent webhook. Must be a valid Base-64
+   * encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Duration of each DTMF digit in milliseconds.
+   */
+  duration_millis?: number;
+}
+
 export declare namespace Actions {
   export {
     type ConferenceCommandResult as ConferenceCommandResult,
@@ -1095,9 +1095,6 @@ export declare namespace Actions {
     type ActionStopResponse as ActionStopResponse,
     type ActionUnholdResponse as ActionUnholdResponse,
     type ActionUnmuteResponse as ActionUnmuteResponse,
-    type ActionUpdateParams as ActionUpdateParams,
-    type ActionEndConferenceParams as ActionEndConferenceParams,
-    type ActionGatherDtmfAudioParams as ActionGatherDtmfAudioParams,
     type ActionHoldParams as ActionHoldParams,
     type ActionJoinParams as ActionJoinParams,
     type ActionLeaveParams as ActionLeaveParams,
@@ -1107,10 +1104,13 @@ export declare namespace Actions {
     type ActionRecordResumeParams as ActionRecordResumeParams,
     type ActionRecordStartParams as ActionRecordStartParams,
     type ActionRecordStopParams as ActionRecordStopParams,
-    type ActionSendDtmfParams as ActionSendDtmfParams,
     type ActionSpeakParams as ActionSpeakParams,
     type ActionStopParams as ActionStopParams,
     type ActionUnholdParams as ActionUnholdParams,
     type ActionUnmuteParams as ActionUnmuteParams,
+    type ActionUpdateParams as ActionUpdateParams,
+    type ActionEndConferenceParams as ActionEndConferenceParams,
+    type ActionGatherDtmfAudioParams as ActionGatherDtmfAudioParams,
+    type ActionSendDtmfParams as ActionSendDtmfParams,
   };
 }

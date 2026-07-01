@@ -8,21 +8,6 @@ import { path } from '../../internal/utils/path';
 
 export class Actions extends APIResource {
   /**
-   * This API allows fetching detailed information about a SIM card group action
-   * resource to make follow-ups in an existing asynchronous operation.
-   *
-   * @example
-   * ```ts
-   * const action = await client.simCardGroups.actions.retrieve(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<ActionRetrieveResponse> {
-    return this._client.get(path`/sim_card_group_actions/${id}`, options);
-  }
-
-  /**
    * This API allows listing a paginated collection a SIM card group actions. It
    * allows to explore a collection of existing asynchronous operation using specific
    * filters.
@@ -43,6 +28,21 @@ export class Actions extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * This API allows fetching detailed information about a SIM card group action
+   * resource to make follow-ups in an existing asynchronous operation.
+   *
+   * @example
+   * ```ts
+   * const action = await client.simCardGroups.actions.retrieve(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<ActionRetrieveResponse> {
+    return this._client.get(path`/sim_card_group_actions/${id}`, options);
   }
 
   /**

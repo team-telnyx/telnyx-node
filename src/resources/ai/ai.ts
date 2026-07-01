@@ -291,6 +291,92 @@ export class AI extends APIResource {
   summarize(body: AISummarizeParams, options?: RequestOptions): APIPromise<AISummarizeResponse> {
     return this._client.post('/ai/summarize', { body, ...options });
   }
+
+  /**
+   * **Deprecated**: Use `POST /v2/ai/openai/responses` instead. This endpoint is
+   * compatible with the
+   * [OpenAI Responses API](https://developers.openai.com/api/reference/responses/overview)
+   * and may be used with the OpenAI JS or Python SDK. Response id parameter is not
+   * supported at the moment. Use the `conversation` parameter with a Telnyx
+   * Conversation ID to leverage persistent conversations.
+   *
+   * @deprecated
+   */
+  createResponseDeprecated(
+    params: AICreateResponseDeprecatedParams,
+    options?: RequestOptions,
+  ): APIPromise<AICreateResponseDeprecatedResponse> {
+    const { response_request } = params;
+    return this._client.post('/ai/responses', { body: response_request, ...options });
+  }
+
+  /**
+   * Performs semantic vector search across conversation history records.
+   *
+   * **How it works:**
+   *
+   * 1. The query text is embedded into a 1024-dimensional vector using the
+   *    multilingual-e5-large model.
+   * 2. The vector is compared against indexed record chunks using semantic
+   *    similarity search.
+   * 3. When no region is specified, all regions are queried in parallel (fan-out)
+   *    and results are merged by score.
+   * 4. Results are ranked by similarity score (descending) and paginated via
+   *    `page[number]` / `page[size]`.
+   *
+   * **Authentication:** Requires a Telnyx API key via `Authorization: Bearer <key>`.
+   * Results are automatically scoped to the caller's organization —
+   * `organization_id` is injected from the auth token and cannot be overridden.
+   *
+   * **Chunking:** Records are split into chunks of up to 480 tokens with 64-token
+   * overlap at ingestion time. Each search result represents a single chunk, with
+   * `chunk_index` and `chunk_total` indicating its position within the original
+   * record.
+   *
+   * **Filtering:** Use `filter[field][operator]=value` query parameters to narrow
+   * results before vector search.
+   *
+   * Top-level filterable fields: `user_id`, `region`, `record_id`,
+   * `record_created_at`, `ingested_at`, `retention`
+   *
+   * Note: `retention` is filter-only — it can be used to narrow results but is not
+   * returned in the response body.
+   *
+   * Metadata fields: any field not in the list above is resolved to
+   * `data.metadata.<field>` (e.g., `filter[language]=en` →
+   * `data.metadata.language`).
+   *
+   * Supported filter operators:
+   *
+   * - `eq` — exact match (default when no operator specified)
+   * - `in` — match any of comma-separated values
+   * - `gte`, `gt`, `lte`, `lt` — range comparisons (useful for date filtering)
+   * - `contains` — wildcard substring match
+   *
+   * **Examples:**
+   *
+   * ```
+   * GET /v2/ai/conversation_histories?q=billing+issue&page[size]=10
+   * GET /v2/ai/conversation_histories?q=setup+guide&region=USA&min_score=0.5
+   * GET /v2/ai/conversation_histories?q=refund&filter[record_created_at][gte]=2026-01-01T00:00:00Z
+   * GET /v2/ai/conversation_histories?q=outage&filter[region][in]=USA,DEU
+   * GET /v2/ai/conversation_histories?q=hold+time&filter[language]=en
+   * ```
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.ai.retrieveConversationHistories({
+   *     q: 'customer called about billing issue',
+   *   });
+   * ```
+   */
+  retrieveConversationHistories(
+    query: AIRetrieveConversationHistoriesParams,
+    options?: RequestOptions,
+  ): APIPromise<AIRetrieveConversationHistoriesResponse> {
+    return this._client.get('/ai/conversation_histories', { query, ...options });
+  }
 }
 
 /**
@@ -552,6 +638,23 @@ export namespace AISummarizeResponse {
   }
 }
 
+export interface AISummarizeParams {
+  /**
+   * The name of the bucket that contains the file to be summarized.
+   */
+  bucket: string;
+
+  /**
+   * The name of the file to be summarized.
+   */
+  filename: string;
+
+  /**
+   * A system prompt to guide the summary generation.
+   */
+  system_prompt?: string;
+}
+
 export interface AICreateResponseDeprecatedParams {
   response_request: { [key: string]: unknown };
 }
@@ -670,9 +773,9 @@ export declare namespace AI {
     type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveConversationHistoriesResponse as AIRetrieveConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
+    type AISummarizeParams as AISummarizeParams,
     type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
     type AIRetrieveConversationHistoriesParams as AIRetrieveConversationHistoriesParams,
-    type AISummarizeParams as AISummarizeParams,
   };
 
   export {
@@ -726,10 +829,10 @@ export declare namespace AI {
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
     type AssistantSendSMSResponse as AssistantSendSMSResponse,
     type AssistantCreateParams as AssistantCreateParams,
+    type AssistantImportsParams as AssistantImportsParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
-    type AssistantImportsParams as AssistantImportsParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
   };
 
@@ -754,9 +857,9 @@ export declare namespace AI {
     type ClusterListResponse as ClusterListResponse,
     type ClusterComputeResponse as ClusterComputeResponse,
     type ClusterListResponsesDefaultFlatPagination as ClusterListResponsesDefaultFlatPagination,
-    type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterListParams as ClusterListParams,
     type ClusterComputeParams as ClusterComputeParams,
+    type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterFetchGraphParams as ClusterFetchGraphParams,
   };
 
@@ -767,9 +870,9 @@ export declare namespace AI {
     type ConversationUpdateResponse as ConversationUpdateResponse,
     type ConversationListResponse as ConversationListResponse,
     type ConversationRetrieveConversationsInsightsResponse as ConversationRetrieveConversationsInsightsResponse,
+    type ConversationListParams as ConversationListParams,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
-    type ConversationListParams as ConversationListParams,
     type ConversationAddMessageParams as ConversationAddMessageParams,
   };
 
@@ -780,8 +883,8 @@ export declare namespace AI {
     type EmbeddingRetrieveResponse as EmbeddingRetrieveResponse,
     type EmbeddingListResponse as EmbeddingListResponse,
     type EmbeddingSimilaritySearchResponse as EmbeddingSimilaritySearchResponse,
-    type EmbeddingCreateParams as EmbeddingCreateParams,
     type EmbeddingListParams as EmbeddingListParams,
+    type EmbeddingCreateParams as EmbeddingCreateParams,
     type EmbeddingSimilaritySearchParams as EmbeddingSimilaritySearchParams,
     type EmbeddingURLParams as EmbeddingURLParams,
   };
@@ -798,9 +901,9 @@ export declare namespace AI {
     McpServers as McpServers,
     type McpServer as McpServer,
     type McpServersDefaultFlatPaginationTopLevelArray as McpServersDefaultFlatPaginationTopLevelArray,
+    type McpServerListParams as McpServerListParams,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
-    type McpServerListParams as McpServerListParams,
   };
 
   export {
@@ -811,8 +914,8 @@ export declare namespace AI {
     type MissionResponse as MissionResponse,
     type MissionCloneMissionResponse as MissionCloneMissionResponse,
     type MissionDataDefaultFlatPagination as MissionDataDefaultFlatPagination,
-    type MissionCreateParams as MissionCreateParams,
     type MissionListParams as MissionListParams,
+    type MissionCreateParams as MissionCreateParams,
     type MissionListEventsParams as MissionListEventsParams,
     type MissionUpdateMissionParams as MissionUpdateMissionParams,
   };
@@ -828,8 +931,8 @@ export declare namespace AI {
     type SharedToolResponse as SharedToolResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
+    type ToolListParams as ToolListParams,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
-    type ToolListParams as ToolListParams,
   };
 }

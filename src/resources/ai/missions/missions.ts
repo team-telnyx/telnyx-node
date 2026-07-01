@@ -71,6 +71,24 @@ export class Missions extends APIResource {
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
 
   /**
+   * List all missions for the organization
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const missionData of client.ai.missions.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: MissionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MissionDataDefaultFlatPagination, MissionData> {
+    return this._client.getAPIList('/ai/missions', DefaultFlatPagination<MissionData>, { query, ...options });
+  }
+
+  /**
    * Create a new mission definition
    *
    * @example
@@ -99,55 +117,6 @@ export class Missions extends APIResource {
   }
 
   /**
-   * List all missions for the organization
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const missionData of client.ai.missions.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: MissionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MissionDataDefaultFlatPagination, MissionData> {
-    return this._client.getAPIList('/ai/missions', DefaultFlatPagination<MissionData>, { query, ...options });
-  }
-
-  /**
-   * Clone an existing mission
-   *
-   * @example
-   * ```ts
-   * const response = await client.ai.missions.cloneMission(
-   *   'mission_id',
-   * );
-   * ```
-   */
-  cloneMission(missionID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post(path`/ai/missions/${missionID}/clone`, options);
-  }
-
-  /**
-   * Delete a mission
-   *
-   * @example
-   * ```ts
-   * await client.ai.missions.deleteMission(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  deleteMission(missionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/missions/${missionID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
    * List recent events across all missions
    *
    * @example
@@ -169,6 +138,23 @@ export class Missions extends APIResource {
   }
 
   /**
+   * Delete a mission
+   *
+   * @example
+   * ```ts
+   * await client.ai.missions.deleteMission(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  deleteMission(missionID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/missions/${missionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Update a mission definition
    *
    * @example
@@ -185,6 +171,20 @@ export class Missions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MissionResponse> {
     return this._client.put(path`/ai/missions/${missionID}`, { body, ...options });
+  }
+
+  /**
+   * Clone an existing mission
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.missions.cloneMission(
+   *   'mission_id',
+   * );
+   * ```
+   */
+  cloneMission(missionID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.post(path`/ai/missions/${missionID}/clone`, options);
   }
 }
 
@@ -224,6 +224,8 @@ export interface MissionResponse {
 
 export type MissionCloneMissionResponse = unknown;
 
+export interface MissionListParams extends DefaultFlatPaginationParams {}
+
 export interface MissionCreateParams {
   name: string;
 
@@ -237,8 +239,6 @@ export interface MissionCreateParams {
 
   model?: string;
 }
-
-export interface MissionListParams extends DefaultFlatPaginationParams {}
 
 export interface MissionListEventsParams extends DefaultFlatPaginationParams {
   /**
@@ -274,8 +274,8 @@ export declare namespace Missions {
     type MissionResponse as MissionResponse,
     type MissionCloneMissionResponse as MissionCloneMissionResponse,
     type MissionDataDefaultFlatPagination as MissionDataDefaultFlatPagination,
-    type MissionCreateParams as MissionCreateParams,
     type MissionListParams as MissionListParams,
+    type MissionCreateParams as MissionCreateParams,
     type MissionListEventsParams as MissionListEventsParams,
     type MissionUpdateMissionParams as MissionUpdateMissionParams,
   };
@@ -287,12 +287,12 @@ export declare namespace Missions {
     type MissionRunsListResponse as MissionRunsListResponse,
     type RunStatus as RunStatus,
     type MissionRunDataDefaultFlatPagination as MissionRunDataDefaultFlatPagination,
+    type RunListParams as RunListParams,
     type RunCreateParams as RunCreateParams,
     type RunRetrieveParams as RunRetrieveParams,
     type RunUpdateParams as RunUpdateParams,
-    type RunListParams as RunListParams,
-    type RunCancelRunParams as RunCancelRunParams,
     type RunListRunsParams as RunListRunsParams,
+    type RunCancelRunParams as RunCancelRunParams,
     type RunPauseRunParams as RunPauseRunParams,
     type RunResumeRunParams as RunResumeRunParams,
   };

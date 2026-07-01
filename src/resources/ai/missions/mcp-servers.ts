@@ -8,6 +8,21 @@ import { path } from '../../../internal/utils/path';
 
 export class McpServers extends APIResource {
   /**
+   * List all MCP servers for a mission
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.ai.missions.mcpServers.listMcpServers(
+   *     'mission_id',
+   *   );
+   * ```
+   */
+  listMcpServers(missionID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.get(path`/ai/missions/${missionID}/mcp-servers`, options);
+  }
+
+  /**
    * Create a new MCP server for a mission
    *
    * @example
@@ -64,21 +79,6 @@ export class McpServers extends APIResource {
   ): APIPromise<unknown> {
     const { mission_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/mcp-servers/${mcpServerID}`, options);
-  }
-
-  /**
-   * List all MCP servers for a mission
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.ai.missions.mcpServers.listMcpServers(
-   *     'mission_id',
-   *   );
-   * ```
-   */
-  listMcpServers(missionID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.get(path`/ai/missions/${missionID}/mcp-servers`, options);
   }
 
   /**

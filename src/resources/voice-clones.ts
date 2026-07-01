@@ -14,43 +14,6 @@ import { path } from '../internal/utils/path';
  */
 export class VoiceClones extends APIResource {
   /**
-   * Creates a new voice clone by capturing the voice identity of an existing voice
-   * design. The clone can then be used for text-to-speech synthesis.
-   *
-   * @example
-   * ```ts
-   * const voiceCloneResponse = await client.voiceClones.create({
-   *   voice_clone_request: {
-   *     gender: 'male',
-   *     language: 'en',
-   *     name: 'clone-narrator',
-   *     voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
-   *     provider: 'telnyx',
-   *   },
-   * });
-   * ```
-   */
-  create(params: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneResponse> {
-    const { voice_clone_request } = params;
-    return this._client.post('/voice_clones', { body: voice_clone_request, ...options });
-  }
-
-  /**
-   * Updates the name, language, or gender of a voice clone.
-   *
-   * @example
-   * ```ts
-   * const voiceCloneResponse = await client.voiceClones.update(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { name: 'updated-clone' },
-   * );
-   * ```
-   */
-  update(id: string, body: VoiceCloneUpdateParams, options?: RequestOptions): APIPromise<VoiceCloneResponse> {
-    return this._client.patch(path`/voice_clones/${id}`, { body, ...options });
-  }
-
-  /**
    * Returns a paginated list of voice clones belonging to the authenticated account.
    *
    * @example
@@ -72,20 +35,25 @@ export class VoiceClones extends APIResource {
   }
 
   /**
-   * Permanently deletes a voice clone. This action cannot be undone.
+   * Creates a new voice clone by capturing the voice identity of an existing voice
+   * design. The clone can then be used for text-to-speech synthesis.
    *
    * @example
    * ```ts
-   * await client.voiceClones.delete(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * const voiceCloneResponse = await client.voiceClones.create({
+   *   voice_clone_request: {
+   *     gender: 'male',
+   *     language: 'en',
+   *     name: 'clone-narrator',
+   *     voice_design_id: '550e8400-e29b-41d4-a716-446655440000',
+   *     provider: 'telnyx',
+   *   },
+   * });
    * ```
    */
-  delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/voice_clones/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  create(params: VoiceCloneCreateParams, options?: RequestOptions): APIPromise<VoiceCloneResponse> {
+    const { voice_clone_request } = params;
+    return this._client.post('/voice_clones', { body: voice_clone_request, ...options });
   }
 
   /**
@@ -116,6 +84,38 @@ export class VoiceClones extends APIResource {
       '/voice_clones/from_upload',
       multipartFormRequestOptions({ body: voice_clone_upload_request, ...options }, this._client),
     );
+  }
+
+  /**
+   * Permanently deletes a voice clone. This action cannot be undone.
+   *
+   * @example
+   * ```ts
+   * await client.voiceClones.delete(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/voice_clones/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Updates the name, language, or gender of a voice clone.
+   *
+   * @example
+   * ```ts
+   * const voiceCloneResponse = await client.voiceClones.update(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { name: 'updated-clone' },
+   * );
+   * ```
+   */
+  update(id: string, body: VoiceCloneUpdateParams, options?: RequestOptions): APIPromise<VoiceCloneResponse> {
+    return this._client.patch(path`/voice_clones/${id}`, { body, ...options });
   }
 
   /**
@@ -260,6 +260,23 @@ export interface VoiceDesignsPaginationMeta {
   total_results?: number;
 }
 
+export interface VoiceCloneListParams extends DefaultFlatPaginationParams {
+  /**
+   * Case-insensitive substring filter on the name field.
+   */
+  'filter[name]'?: string;
+
+  /**
+   * Filter by voice synthesis provider. Case-insensitive.
+   */
+  'filter[provider]'?: 'telnyx' | 'minimax';
+
+  /**
+   * Sort order. Prefix with `-` for descending. Defaults to `-created_at`.
+   */
+  sort?: 'name' | '-name' | 'created_at' | '-created_at';
+}
+
 export interface VoiceCloneCreateParams {
   /**
    * Request body for creating a voice clone from an existing voice design.
@@ -328,40 +345,6 @@ export namespace VoiceCloneCreateParams {
      */
     voice_design_id: string;
   }
-}
-
-export interface VoiceCloneUpdateParams {
-  /**
-   * New name for the voice clone.
-   */
-  name: string;
-
-  /**
-   * Updated gender for the voice clone.
-   */
-  gender?: 'male' | 'female' | 'neutral';
-
-  /**
-   * Updated ISO 639-1 language code or `auto`.
-   */
-  language?: string;
-}
-
-export interface VoiceCloneListParams extends DefaultFlatPaginationParams {
-  /**
-   * Case-insensitive substring filter on the name field.
-   */
-  'filter[name]'?: string;
-
-  /**
-   * Filter by voice synthesis provider. Case-insensitive.
-   */
-  'filter[provider]'?: 'telnyx' | 'minimax';
-
-  /**
-   * Sort order. Prefix with `-` for descending. Defaults to `-created_at`.
-   */
-  sort?: 'name' | '-name' | 'created_at' | '-created_at';
 }
 
 export interface VoiceCloneCreateFromUploadParams {
@@ -518,15 +501,32 @@ export namespace VoiceCloneCreateFromUploadParams {
   }
 }
 
+export interface VoiceCloneUpdateParams {
+  /**
+   * New name for the voice clone.
+   */
+  name: string;
+
+  /**
+   * Updated gender for the voice clone.
+   */
+  gender?: 'male' | 'female' | 'neutral';
+
+  /**
+   * Updated ISO 639-1 language code or `auto`.
+   */
+  language?: string;
+}
+
 export declare namespace VoiceClones {
   export {
     type VoiceCloneData as VoiceCloneData,
     type VoiceCloneResponse as VoiceCloneResponse,
     type VoiceDesignsPaginationMeta as VoiceDesignsPaginationMeta,
     type VoiceCloneDataDefaultFlatPagination as VoiceCloneDataDefaultFlatPagination,
-    type VoiceCloneCreateParams as VoiceCloneCreateParams,
-    type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
+    type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneCreateFromUploadParams as VoiceCloneCreateFromUploadParams,
+    type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
   };
 }

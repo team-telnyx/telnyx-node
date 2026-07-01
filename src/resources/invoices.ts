@@ -8,17 +8,6 @@ import { path } from '../internal/utils/path';
 
 export class Invoices extends APIResource {
   /**
-   * Retrieve a single invoice by its unique identifier.
-   */
-  retrieve(
-    id: string,
-    query: InvoiceRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<InvoiceRetrieveResponse> {
-    return this._client.get(path`/invoices/${id}`, { query, ...options });
-  }
-
-  /**
    * Retrieve a paginated list of invoices.
    */
   list(
@@ -29,6 +18,17 @@ export class Invoices extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Retrieve a single invoice by its unique identifier.
+   */
+  retrieve(
+    id: string,
+    query: InvoiceRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<InvoiceRetrieveResponse> {
+    return this._client.get(path`/invoices/${id}`, { query, ...options });
   }
 }
 
@@ -73,13 +73,6 @@ export interface InvoiceListResponse {
   url?: string;
 }
 
-export interface InvoiceRetrieveParams {
-  /**
-   * Invoice action
-   */
-  action?: 'json' | 'link';
-}
-
 export interface InvoiceListParams extends DefaultFlatPaginationParams {
   /**
    * Specifies the sort order for results.
@@ -87,12 +80,19 @@ export interface InvoiceListParams extends DefaultFlatPaginationParams {
   sort?: 'period_start' | '-period_start';
 }
 
+export interface InvoiceRetrieveParams {
+  /**
+   * Invoice action
+   */
+  action?: 'json' | 'link';
+}
+
 export declare namespace Invoices {
   export {
     type InvoiceRetrieveResponse as InvoiceRetrieveResponse,
     type InvoiceListResponse as InvoiceListResponse,
     type InvoiceListResponsesDefaultFlatPagination as InvoiceListResponsesDefaultFlatPagination,
-    type InvoiceRetrieveParams as InvoiceRetrieveParams,
     type InvoiceListParams as InvoiceListParams,
+    type InvoiceRetrieveParams as InvoiceRetrieveParams,
   };
 }

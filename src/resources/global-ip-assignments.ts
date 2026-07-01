@@ -12,6 +12,19 @@ import { path } from '../internal/utils/path';
  */
 export class GlobalIPAssignments extends APIResource {
   /**
+   * List all Global IP assignments.
+   */
+  list(
+    query: GlobalIPAssignmentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<GlobalIPAssignmentsDefaultFlatPagination, GlobalIPAssignment> {
+    return this._client.getAPIList('/global_ip_assignments', DefaultFlatPagination<GlobalIPAssignment>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a Global IP assignment.
    */
   create(
@@ -19,6 +32,13 @@ export class GlobalIPAssignments extends APIResource {
     options?: RequestOptions,
   ): APIPromise<GlobalIPAssignmentCreateResponse> {
     return this._client.post('/global_ip_assignments', { body, ...options });
+  }
+
+  /**
+   * Delete a Global IP assignment.
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<GlobalIPAssignmentDeleteResponse> {
+    return this._client.delete(path`/global_ip_assignments/${id}`, options);
   }
 
   /**
@@ -41,26 +61,6 @@ export class GlobalIPAssignments extends APIResource {
       body: globalIpAssignmentUpdateRequest,
       ...options,
     });
-  }
-
-  /**
-   * List all Global IP assignments.
-   */
-  list(
-    query: GlobalIPAssignmentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<GlobalIPAssignmentsDefaultFlatPagination, GlobalIPAssignment> {
-    return this._client.getAPIList('/global_ip_assignments', DefaultFlatPagination<GlobalIPAssignment>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete a Global IP assignment.
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<GlobalIPAssignmentDeleteResponse> {
-    return this._client.delete(path`/global_ip_assignments/${id}`, options);
   }
 }
 
@@ -126,6 +126,8 @@ export interface GlobalIPAssignmentDeleteResponse {
   data?: GlobalIPAssignment;
 }
 
+export interface GlobalIPAssignmentListParams extends DefaultFlatPaginationParams {}
+
 export interface GlobalIPAssignmentCreateParams {}
 
 export interface GlobalIPAssignmentUpdateParams {
@@ -136,8 +138,6 @@ export namespace GlobalIPAssignmentUpdateParams {
   export interface GlobalIPAssignmentUpdateRequest extends GlobalIPAssignmentsAPI.GlobalIPAssignment {}
 }
 
-export interface GlobalIPAssignmentListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace GlobalIPAssignments {
   export {
     type GlobalIPAssignment as GlobalIPAssignment,
@@ -147,8 +147,8 @@ export declare namespace GlobalIPAssignments {
     type GlobalIPAssignmentUpdateResponse as GlobalIPAssignmentUpdateResponse,
     type GlobalIPAssignmentDeleteResponse as GlobalIPAssignmentDeleteResponse,
     type GlobalIPAssignmentsDefaultFlatPagination as GlobalIPAssignmentsDefaultFlatPagination,
+    type GlobalIPAssignmentListParams as GlobalIPAssignmentListParams,
     type GlobalIPAssignmentCreateParams as GlobalIPAssignmentCreateParams,
     type GlobalIPAssignmentUpdateParams as GlobalIPAssignmentUpdateParams,
-    type GlobalIPAssignmentListParams as GlobalIPAssignmentListParams,
   };
 }

@@ -26,6 +26,25 @@ export class Conferences extends APIResource {
   participants: ParticipantsAPI.Participants = new ParticipantsAPI.Participants(this._client);
 
   /**
+   * Lists conference resources.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.texml.accounts.conferences.retrieveConferences(
+   *     'account_sid',
+   *   );
+   * ```
+   */
+  retrieveConferences(
+    accountSid: string,
+    query: ConferenceRetrieveConferencesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConferenceRetrieveConferencesResponse> {
+    return this._client.get(path`/texml/Accounts/${accountSid}/Conferences`, { query, ...options });
+  }
+
+  /**
    * Returns a conference resource.
    *
    * @example
@@ -69,25 +88,6 @@ export class Conferences extends APIResource {
       ...options,
       headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
     });
-  }
-
-  /**
-   * Lists conference resources.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.texml.accounts.conferences.retrieveConferences(
-   *     'account_sid',
-   *   );
-   * ```
-   */
-  retrieveConferences(
-    accountSid: string,
-    query: ConferenceRetrieveConferencesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveConferencesResponse> {
-    return this._client.get(path`/texml/Accounts/${accountSid}/Conferences`, { query, ...options });
   }
 
   /**
@@ -375,38 +375,6 @@ export namespace ConferenceRetrieveRecordingsResponse {
   }
 }
 
-export interface ConferenceRetrieveParams {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid: string;
-}
-
-export interface ConferenceUpdateParams {
-  /**
-   * Path param: The id of the account the resource belongs to.
-   */
-  account_sid: string;
-
-  /**
-   * Body param: The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
-   */
-  AnnounceMethod?: 'GET' | 'POST';
-
-  /**
-   * Body param: The URL we should call to announce something into the conference.
-   * The URL may return an MP3 file, a WAV file, or a TwiML document that contains
-   * `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-   */
-  AnnounceUrl?: string;
-
-  /**
-   * Body param: The new status of the resource. Specifying `completed` will end the
-   * conference and hang up all participants.
-   */
-  Status?: string;
-}
-
 export interface ConferenceRetrieveConferencesParams {
   /**
    * Filters conferences by the creation date. Expected format is YYYY-MM-DD. Also
@@ -447,6 +415,38 @@ export interface ConferenceRetrieveConferencesParams {
   Status?: 'init' | 'in-progress' | 'completed';
 }
 
+export interface ConferenceRetrieveParams {
+  /**
+   * The id of the account the resource belongs to.
+   */
+  account_sid: string;
+}
+
+export interface ConferenceUpdateParams {
+  /**
+   * Path param: The id of the account the resource belongs to.
+   */
+  account_sid: string;
+
+  /**
+   * Body param: The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
+   */
+  AnnounceMethod?: 'GET' | 'POST';
+
+  /**
+   * Body param: The URL we should call to announce something into the conference.
+   * The URL may return an MP3 file, a WAV file, or a TwiML document that contains
+   * `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+   */
+  AnnounceUrl?: string;
+
+  /**
+   * Body param: The new status of the resource. Specifying `completed` will end the
+   * conference and hang up all participants.
+   */
+  Status?: string;
+}
+
 export interface ConferenceRetrieveRecordingsParams {
   /**
    * The id of the account the resource belongs to.
@@ -468,9 +468,9 @@ export declare namespace Conferences {
     type ConferenceResource as ConferenceResource,
     type ConferenceRetrieveConferencesResponse as ConferenceRetrieveConferencesResponse,
     type ConferenceRetrieveRecordingsResponse as ConferenceRetrieveRecordingsResponse,
+    type ConferenceRetrieveConferencesParams as ConferenceRetrieveConferencesParams,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceUpdateParams as ConferenceUpdateParams,
-    type ConferenceRetrieveConferencesParams as ConferenceRetrieveConferencesParams,
     type ConferenceRetrieveRecordingsParams as ConferenceRetrieveRecordingsParams,
     type ConferenceRetrieveRecordingsJsonParams as ConferenceRetrieveRecordingsJsonParams,
   };
@@ -480,10 +480,10 @@ export declare namespace Conferences {
     type ParticipantResource as ParticipantResource,
     type ParticipantParticipantsResponse as ParticipantParticipantsResponse,
     type ParticipantRetrieveParticipantsResponse as ParticipantRetrieveParticipantsResponse,
+    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
+    type ParticipantParticipantsParams as ParticipantParticipantsParams,
+    type ParticipantDeleteParams as ParticipantDeleteParams,
     type ParticipantRetrieveParams as ParticipantRetrieveParams,
     type ParticipantUpdateParams as ParticipantUpdateParams,
-    type ParticipantDeleteParams as ParticipantDeleteParams,
-    type ParticipantParticipantsParams as ParticipantParticipantsParams,
-    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
   };
 }

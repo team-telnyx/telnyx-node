@@ -18,6 +18,30 @@ export class UacConnections extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
+   * Returns a list of your UAC connections. A UAC (User Agent Client) Connection
+   * registers Telnyx to your PBX — the opposite of a standard SIP trunk, where the
+   * PBX registers to Telnyx. Use UAC when your PBX doesn’t support outbound SIP
+   * registration or you need Telnyx to maintain the registration.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const uacConnection of client.uacConnections.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: UacConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<UacConnectionsDefaultFlatPagination, UacConnection> {
+    return this._client.getAPIList('/uac_connections', DefaultFlatPagination<UacConnection>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a UAC connection. A UAC (User Agent Client) Connection registers Telnyx
    * to your PBX — the opposite of a standard SIP trunk, where the PBX registers to
    * Telnyx. Use UAC when your PBX doesn’t support outbound SIP registration or you
@@ -32,6 +56,20 @@ export class UacConnections extends APIResource {
    */
   create(body: UacConnectionCreateParams, options?: RequestOptions): APIPromise<UacConnectionCreateResponse> {
     return this._client.post('/uac_connections', { body, ...options });
+  }
+
+  /**
+   * Deletes an existing UAC connection.
+   *
+   * @example
+   * ```ts
+   * const uacConnection = await client.uacConnections.delete(
+   *   'id',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<UacConnectionDeleteResponse> {
+    return this._client.delete(path`/uac_connections/${id}`, options);
   }
 
   /**
@@ -64,44 +102,6 @@ export class UacConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<UacConnectionUpdateResponse> {
     return this._client.patch(path`/uac_connections/${id}`, { body, ...options });
-  }
-
-  /**
-   * Returns a list of your UAC connections. A UAC (User Agent Client) Connection
-   * registers Telnyx to your PBX — the opposite of a standard SIP trunk, where the
-   * PBX registers to Telnyx. Use UAC when your PBX doesn’t support outbound SIP
-   * registration or you need Telnyx to maintain the registration.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const uacConnection of client.uacConnections.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: UacConnectionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<UacConnectionsDefaultFlatPagination, UacConnection> {
-    return this._client.getAPIList('/uac_connections', DefaultFlatPagination<UacConnection>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Deletes an existing UAC connection.
-   *
-   * @example
-   * ```ts
-   * const uacConnection = await client.uacConnections.delete(
-   *   'id',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<UacConnectionDeleteResponse> {
-    return this._client.delete(path`/uac_connections/${id}`, options);
   }
 }
 
@@ -655,6 +655,72 @@ export interface UacConnectionDeleteResponse {
   data?: UacConnection;
 }
 
+export interface UacConnectionListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
+   * filter[outbound.outbound_voice_profile_id]
+   */
+  filter?: UacConnectionListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'connection_name' | 'active';
+}
+
+export namespace UacConnectionListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
+   * filter[outbound.outbound_voice_profile_id]
+   */
+  export interface Filter {
+    /**
+     * Filter by connection_name using nested operations
+     */
+    connection_name?: Filter.ConnectionName;
+
+    /**
+     * If present, connections with an `fqdn` that equals the given value will be
+     * returned. Matching is case-sensitive, and the full string must match.
+     */
+    fqdn?: string;
+
+    /**
+     * Identifies the associated outbound voice profile.
+     */
+    outbound_voice_profile_id?: string;
+  }
+
+  export namespace Filter {
+    /**
+     * Filter by connection_name using nested operations
+     */
+    export interface ConnectionName {
+      /**
+       * If present, connections with <code>connection_name</code> containing the given
+       * value will be returned. Matching is not case-sensitive. Requires at least three
+       * characters.
+       */
+      contains?: string;
+    }
+  }
+}
+
 export interface UacConnectionCreateParams {
   /**
    * A user-assigned name to help manage the connection.
@@ -979,72 +1045,6 @@ export interface UacConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface UacConnectionListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
-   * filter[outbound.outbound_voice_profile_id]
-   */
-  filter?: UacConnectionListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'connection_name' | 'active';
-}
-
-export namespace UacConnectionListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
-   * filter[outbound.outbound_voice_profile_id]
-   */
-  export interface Filter {
-    /**
-     * Filter by connection_name using nested operations
-     */
-    connection_name?: Filter.ConnectionName;
-
-    /**
-     * If present, connections with an `fqdn` that equals the given value will be
-     * returned. Matching is case-sensitive, and the full string must match.
-     */
-    fqdn?: string;
-
-    /**
-     * Identifies the associated outbound voice profile.
-     */
-    outbound_voice_profile_id?: string;
-  }
-
-  export namespace Filter {
-    /**
-     * Filter by connection_name using nested operations
-     */
-    export interface ConnectionName {
-      /**
-       * If present, connections with <code>connection_name</code> containing the given
-       * value will be returned. Matching is not case-sensitive. Requires at least three
-       * characters.
-       */
-      contains?: string;
-    }
-  }
-}
-
 UacConnections.Actions = Actions;
 
 export declare namespace UacConnections {
@@ -1060,9 +1060,9 @@ export declare namespace UacConnections {
     type UacConnectionUpdateResponse as UacConnectionUpdateResponse,
     type UacConnectionDeleteResponse as UacConnectionDeleteResponse,
     type UacConnectionsDefaultFlatPagination as UacConnectionsDefaultFlatPagination,
+    type UacConnectionListParams as UacConnectionListParams,
     type UacConnectionCreateParams as UacConnectionCreateParams,
     type UacConnectionUpdateParams as UacConnectionUpdateParams,
-    type UacConnectionListParams as UacConnectionListParams,
   };
 
   export {

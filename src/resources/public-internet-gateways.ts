@@ -14,24 +14,6 @@ import { path } from '../internal/utils/path';
  */
 export class PublicInternetGateways extends APIResource {
   /**
-   * Create a new Public Internet Gateway.
-   */
-  create(
-    params: PublicInternetGatewayCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<PublicInternetGatewayCreateResponse> {
-    const { body } = params;
-    return this._client.post('/public_internet_gateways', { body: body, ...options });
-  }
-
-  /**
-   * Retrieve a Public Internet Gateway.
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<PublicInternetGatewayRetrieveResponse> {
-    return this._client.get(path`/public_internet_gateways/${id}`, options);
-  }
-
-  /**
    * List all Public Internet Gateways.
    */
   list(
@@ -46,10 +28,28 @@ export class PublicInternetGateways extends APIResource {
   }
 
   /**
+   * Create a new Public Internet Gateway.
+   */
+  create(
+    params: PublicInternetGatewayCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PublicInternetGatewayCreateResponse> {
+    const { body } = params;
+    return this._client.post('/public_internet_gateways', { body: body, ...options });
+  }
+
+  /**
    * Delete a Public Internet Gateway.
    */
   delete(id: string, options?: RequestOptions): APIPromise<PublicInternetGatewayDeleteResponse> {
     return this._client.delete(path`/public_internet_gateways/${id}`, options);
+  }
+
+  /**
+   * Retrieve a Public Internet Gateway.
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<PublicInternetGatewayRetrieveResponse> {
+    return this._client.get(path`/public_internet_gateways/${id}`, options);
   }
 }
 
@@ -151,14 +151,6 @@ export interface PublicInternetGatewayDeleteResponse {
   data?: PublicInternetGatewayRead;
 }
 
-export interface PublicInternetGatewayCreateParams {
-  body: PublicInternetGatewayCreateParams.Body;
-}
-
-export namespace PublicInternetGatewayCreateParams {
-  export interface Body extends PublicInternetGatewaysAPI.PublicInternetGateway {}
-}
-
 export interface PublicInternetGatewayListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
@@ -178,6 +170,14 @@ export namespace PublicInternetGatewayListParams {
   }
 }
 
+export interface PublicInternetGatewayCreateParams {
+  body: PublicInternetGatewayCreateParams.Body;
+}
+
+export namespace PublicInternetGatewayCreateParams {
+  export interface Body extends PublicInternetGatewaysAPI.PublicInternetGateway {}
+}
+
 export declare namespace PublicInternetGateways {
   export {
     type NetworkInterface as NetworkInterface,
@@ -188,7 +188,7 @@ export declare namespace PublicInternetGateways {
     type PublicInternetGatewayRetrieveResponse as PublicInternetGatewayRetrieveResponse,
     type PublicInternetGatewayDeleteResponse as PublicInternetGatewayDeleteResponse,
     type PublicInternetGatewayReadsDefaultFlatPagination as PublicInternetGatewayReadsDefaultFlatPagination,
-    type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
+    type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
   };
 }

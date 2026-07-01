@@ -9,6 +9,27 @@ import { path } from '../internal/utils/path';
 
 export class OAuthClients extends APIResource {
   /**
+   * Retrieve a paginated list of OAuth clients for the authenticated user
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const oauthClient of client.oauthClients.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: OAuthClientListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<OAuthClientsDefaultFlatPagination, OAuthClient> {
+    return this._client.getAPIList('/oauth_clients', DefaultFlatPagination<OAuthClient>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a new OAuth client
    *
    * @example
@@ -23,6 +44,23 @@ export class OAuthClients extends APIResource {
    */
   create(body: OAuthClientCreateParams, options?: RequestOptions): APIPromise<OAuthClientCreateResponse> {
     return this._client.post('/oauth_clients', { body, ...options });
+  }
+
+  /**
+   * Delete an OAuth client
+   *
+   * @example
+   * ```ts
+   * await client.oauthClients.delete(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/oauth_clients/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -55,44 +93,6 @@ export class OAuthClients extends APIResource {
     options?: RequestOptions,
   ): APIPromise<OAuthClientUpdateResponse> {
     return this._client.put(path`/oauth_clients/${id}`, { body, ...options });
-  }
-
-  /**
-   * Retrieve a paginated list of OAuth clients for the authenticated user
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const oauthClient of client.oauthClients.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: OAuthClientListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<OAuthClientsDefaultFlatPagination, OAuthClient> {
-    return this._client.getAPIList('/oauth_clients', DefaultFlatPagination<OAuthClient>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete an OAuth client
-   *
-   * @example
-   * ```ts
-   * await client.oauthClients.delete(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/oauth_clients/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 
@@ -214,6 +214,38 @@ export interface OAuthClientUpdateResponse {
   data?: OAuthClient;
 }
 
+export interface OAuthClientListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter by allowed grant type
+   */
+  'filter[allowed_grant_types][contains]'?: 'client_credentials' | 'authorization_code' | 'refresh_token';
+
+  /**
+   * Filter by client ID
+   */
+  'filter[client_id]'?: string;
+
+  /**
+   * Filter by client type
+   */
+  'filter[client_type]'?: 'confidential' | 'public';
+
+  /**
+   * Filter by exact client name
+   */
+  'filter[name]'?: string;
+
+  /**
+   * Filter by client name containing text
+   */
+  'filter[name][contains]'?: string;
+
+  /**
+   * Filter by verification status
+   */
+  'filter[verified]'?: boolean;
+}
+
 export interface OAuthClientCreateParams {
   /**
    * List of allowed OAuth grant types
@@ -303,38 +335,6 @@ export interface OAuthClientUpdateParams {
   tos_uri?: string;
 }
 
-export interface OAuthClientListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter by allowed grant type
-   */
-  'filter[allowed_grant_types][contains]'?: 'client_credentials' | 'authorization_code' | 'refresh_token';
-
-  /**
-   * Filter by client ID
-   */
-  'filter[client_id]'?: string;
-
-  /**
-   * Filter by client type
-   */
-  'filter[client_type]'?: 'confidential' | 'public';
-
-  /**
-   * Filter by exact client name
-   */
-  'filter[name]'?: string;
-
-  /**
-   * Filter by client name containing text
-   */
-  'filter[name][contains]'?: string;
-
-  /**
-   * Filter by verification status
-   */
-  'filter[verified]'?: boolean;
-}
-
 export declare namespace OAuthClients {
   export {
     type OAuthClient as OAuthClient,
@@ -343,8 +343,8 @@ export declare namespace OAuthClients {
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
     type OAuthClientUpdateResponse as OAuthClientUpdateResponse,
     type OAuthClientsDefaultFlatPagination as OAuthClientsDefaultFlatPagination,
+    type OAuthClientListParams as OAuthClientListParams,
     type OAuthClientCreateParams as OAuthClientCreateParams,
     type OAuthClientUpdateParams as OAuthClientUpdateParams,
-    type OAuthClientListParams as OAuthClientListParams,
   };
 }

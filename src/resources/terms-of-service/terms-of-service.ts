@@ -28,18 +28,6 @@ export class TermsOfService extends APIResource {
   brandedCalling: BrandedCallingAPI.BrandedCalling = new BrandedCallingAPI.BrandedCalling(this._client);
 
   /**
-   * Returns the available Terms of Service agreements (product, current version,
-   * terms URL, effective date). Omit `product_type` to return all products; pass it
-   * to scope to one.
-   */
-  retrieveInfo(
-    query: TermsOfServiceRetrieveInfoParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<TermsOfServiceRetrieveInfoResponse> {
-    return this._client.get('/terms_of_service/info', { query, ...options });
-  }
-
-  /**
    * Returns whether the authenticated user has agreed to the current Terms of
    * Service for the product given by `product_type`. Used during onboarding to
    * decide whether to prompt the user with the ToS dialog before continuing.
@@ -52,6 +40,18 @@ export class TermsOfService extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TermsOfServiceRetrieveStatusResponse> {
     return this._client.get('/terms_of_service/status', { query, ...options });
+  }
+
+  /**
+   * Returns the available Terms of Service agreements (product, current version,
+   * terms URL, effective date). Omit `product_type` to return all products; pass it
+   * to scope to one.
+   */
+  retrieveInfo(
+    query: TermsOfServiceRetrieveInfoParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TermsOfServiceRetrieveInfoResponse> {
+    return this._client.get('/terms_of_service/info', { query, ...options });
   }
 }
 
@@ -121,16 +121,16 @@ export namespace TermsOfServiceRetrieveStatusResponse {
   }
 }
 
-export interface TermsOfServiceRetrieveInfoParams {
+export interface TermsOfServiceRetrieveStatusParams {
   /**
-   * Optional product filter. Omit to return info for all products.
+   * Which product's ToS to check. Defaults to `branded_calling`.
    */
   product_type?: AgreementsAPI.TosProductType;
 }
 
-export interface TermsOfServiceRetrieveStatusParams {
+export interface TermsOfServiceRetrieveInfoParams {
   /**
-   * Which product's ToS to check. Defaults to `branded_calling`.
+   * Optional product filter. Omit to return info for all products.
    */
   product_type?: AgreementsAPI.TosProductType;
 }
@@ -143,8 +143,8 @@ export declare namespace TermsOfService {
   export {
     type TermsOfServiceRetrieveInfoResponse as TermsOfServiceRetrieveInfoResponse,
     type TermsOfServiceRetrieveStatusResponse as TermsOfServiceRetrieveStatusResponse,
-    type TermsOfServiceRetrieveInfoParams as TermsOfServiceRetrieveInfoParams,
     type TermsOfServiceRetrieveStatusParams as TermsOfServiceRetrieveStatusParams,
+    type TermsOfServiceRetrieveInfoParams as TermsOfServiceRetrieveInfoParams,
   };
 
   export { NumberReputation as NumberReputation };

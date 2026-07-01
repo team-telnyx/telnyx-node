@@ -17,6 +17,33 @@ import { path } from '../../../internal/utils/path';
  */
 export class Requests extends APIResource {
   /**
+   * Get a list of previously-submitted tollfree verification requests
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const verificationRequestStatus of client.messagingTollfree.verification.requests.list(
+   *   { page: 1, page_size: 1 },
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: RequestListParams,
+    options?: RequestOptions,
+  ): PagePromise<
+    VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
+    VerificationRequestStatus
+  > {
+    return this._client.getAPIList(
+      '/messaging_tollfree/verification/requests',
+      DefaultPaginationForMessagingTollfree<VerificationRequestStatus>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Submit a new tollfree verification request
    *
    * @example
@@ -51,6 +78,29 @@ export class Requests extends APIResource {
    */
   create(body: RequestCreateParams, options?: RequestOptions): APIPromise<VerificationRequestEgress> {
     return this._client.post('/messaging_tollfree/verification/requests', { body, ...options });
+  }
+
+  /**
+   * Delete a verification request
+   *
+   * A request may only be deleted when when the request is in the "rejected" state.
+   *
+   * - `HTTP 200`: request successfully deleted
+   * - `HTTP 400`: request exists but can't be deleted (i.e. not rejected)
+   * - `HTTP 404`: request unknown or already deleted
+   *
+   * @example
+   * ```ts
+   * await client.messagingTollfree.verification.requests.delete(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/messaging_tollfree/verification/requests/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -111,56 +161,6 @@ export class Requests extends APIResource {
     options?: RequestOptions,
   ): APIPromise<VerificationRequestEgress> {
     return this._client.patch(path`/messaging_tollfree/verification/requests/${id}`, { body, ...options });
-  }
-
-  /**
-   * Get a list of previously-submitted tollfree verification requests
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const verificationRequestStatus of client.messagingTollfree.verification.requests.list(
-   *   { page: 1, page_size: 1 },
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: RequestListParams,
-    options?: RequestOptions,
-  ): PagePromise<
-    VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
-    VerificationRequestStatus
-  > {
-    return this._client.getAPIList(
-      '/messaging_tollfree/verification/requests',
-      DefaultPaginationForMessagingTollfree<VerificationRequestStatus>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * Delete a verification request
-   *
-   * A request may only be deleted when when the request is in the "rejected" state.
-   *
-   * - `HTTP 200`: request successfully deleted
-   * - `HTTP 400`: request exists but can't be deleted (i.e. not rejected)
-   * - `HTTP 404`: request unknown or already deleted
-   *
-   * @example
-   * ```ts
-   * await client.messagingTollfree.verification.requests.delete(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/messaging_tollfree/verification/requests/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 
   /**
@@ -698,6 +698,33 @@ export namespace RequestRetrieveStatusHistoryResponse {
   }
 }
 
+export interface RequestListParams extends DefaultPaginationForMessagingTollfreeParams {
+  /**
+   * Filter verification requests by business name
+   */
+  business_name?: string;
+
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
+  date_end?: string;
+
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
+  date_start?: string;
+
+  /**
+   * Filter results by phone number.
+   */
+  phone_number?: string;
+
+  /**
+   * Filter results by status.
+   */
+  status?: TfVerificationStatus;
+}
+
 export interface RequestCreateParams {
   /**
    * Any additional information
@@ -1056,33 +1083,6 @@ export interface RequestUpdateParams {
   webhookUrl?: string;
 }
 
-export interface RequestListParams extends DefaultPaginationForMessagingTollfreeParams {
-  /**
-   * Filter verification requests by business name
-   */
-  business_name?: string;
-
-  /**
-   * End of the date range filter (inclusive, ISO 8601).
-   */
-  date_end?: string;
-
-  /**
-   * Start of the date range filter (inclusive, ISO 8601).
-   */
-  date_start?: string;
-
-  /**
-   * Filter results by phone number.
-   */
-  phone_number?: string;
-
-  /**
-   * Filter results by status.
-   */
-  status?: TfVerificationStatus;
-}
-
 export interface RequestRetrieveStatusHistoryParams {
   /**
    * Page number to retrieve (1-based).
@@ -1108,9 +1108,9 @@ export declare namespace Requests {
     type Volume as Volume,
     type RequestRetrieveStatusHistoryResponse as RequestRetrieveStatusHistoryResponse,
     type VerificationRequestStatusesDefaultPaginationForMessagingTollfree as VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
+    type RequestListParams as RequestListParams,
     type RequestCreateParams as RequestCreateParams,
     type RequestUpdateParams as RequestUpdateParams,
-    type RequestListParams as RequestListParams,
     type RequestRetrieveStatusHistoryParams as RequestRetrieveStatusHistoryParams,
   };
 }

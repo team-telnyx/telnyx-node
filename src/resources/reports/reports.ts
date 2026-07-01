@@ -399,8 +399,8 @@ export declare namespace Reports {
     type MdrUsageReportDeleteResponse as MdrUsageReportDeleteResponse,
     type MdrUsageReportFetchSyncResponse as MdrUsageReportFetchSyncResponse,
     type MdrUsageReportsDefaultFlatPagination as MdrUsageReportsDefaultFlatPagination,
-    type MdrUsageReportCreateParams as MdrUsageReportCreateParams,
     type MdrUsageReportListParams as MdrUsageReportListParams,
+    type MdrUsageReportCreateParams as MdrUsageReportCreateParams,
     type MdrUsageReportFetchSyncParams as MdrUsageReportFetchSyncParams,
   };
 }

@@ -12,37 +12,6 @@ import { path } from '../internal/utils/path';
  */
 export class GlobalIPHealthChecks extends APIResource {
   /**
-   * Create a Global IP health check.
-   *
-   * @example
-   * ```ts
-   * const globalIPHealthCheck =
-   *   await client.globalIPHealthChecks.create();
-   * ```
-   */
-  create(
-    body: GlobalIPHealthCheckCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<GlobalIPHealthCheckCreateResponse> {
-    return this._client.post('/global_ip_health_checks', { body, ...options });
-  }
-
-  /**
-   * Retrieve a Global IP health check.
-   *
-   * @example
-   * ```ts
-   * const globalIPHealthCheck =
-   *   await client.globalIPHealthChecks.retrieve(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<GlobalIPHealthCheckRetrieveResponse> {
-    return this._client.get(path`/global_ip_health_checks/${id}`, options);
-  }
-
-  /**
    * List all Global IP health checks.
    *
    * @example
@@ -64,6 +33,22 @@ export class GlobalIPHealthChecks extends APIResource {
   }
 
   /**
+   * Create a Global IP health check.
+   *
+   * @example
+   * ```ts
+   * const globalIPHealthCheck =
+   *   await client.globalIPHealthChecks.create();
+   * ```
+   */
+  create(
+    body: GlobalIPHealthCheckCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<GlobalIPHealthCheckCreateResponse> {
+    return this._client.post('/global_ip_health_checks', { body, ...options });
+  }
+
+  /**
    * Delete a Global IP health check.
    *
    * @example
@@ -76,6 +61,21 @@ export class GlobalIPHealthChecks extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<GlobalIPHealthCheckDeleteResponse> {
     return this._client.delete(path`/global_ip_health_checks/${id}`, options);
+  }
+
+  /**
+   * Retrieve a Global IP health check.
+   *
+   * @example
+   * ```ts
+   * const globalIPHealthCheck =
+   *   await client.globalIPHealthChecks.retrieve(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<GlobalIPHealthCheckRetrieveResponse> {
+    return this._client.get(path`/global_ip_health_checks/${id}`, options);
   }
 }
 
@@ -110,6 +110,8 @@ export interface GlobalIPHealthCheckDeleteResponse {
   data?: GlobalIPHealthCheck;
 }
 
+export interface GlobalIPHealthCheckListParams extends DefaultFlatPaginationParams {}
+
 export interface GlobalIPHealthCheckCreateParams {
   /**
    * Global IP ID.
@@ -127,8 +129,6 @@ export interface GlobalIPHealthCheckCreateParams {
   health_check_type?: string;
 }
 
-export interface GlobalIPHealthCheckListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace GlobalIPHealthChecks {
   export {
     type GlobalIPHealthCheck as GlobalIPHealthCheck,
@@ -136,7 +136,7 @@ export declare namespace GlobalIPHealthChecks {
     type GlobalIPHealthCheckRetrieveResponse as GlobalIPHealthCheckRetrieveResponse,
     type GlobalIPHealthCheckDeleteResponse as GlobalIPHealthCheckDeleteResponse,
     type GlobalIPHealthChecksDefaultFlatPagination as GlobalIPHealthChecksDefaultFlatPagination,
-    type GlobalIPHealthCheckCreateParams as GlobalIPHealthCheckCreateParams,
     type GlobalIPHealthCheckListParams as GlobalIPHealthCheckListParams,
+    type GlobalIPHealthCheckCreateParams as GlobalIPHealthCheckCreateParams,
   };
 }

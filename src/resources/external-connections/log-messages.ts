@@ -15,21 +15,6 @@ import { path } from '../../internal/utils/path';
  */
 export class LogMessages extends APIResource {
   /**
-   * Retrieve a log message for an external connection associated with your account.
-   *
-   * @example
-   * ```ts
-   * const logMessage =
-   *   await client.externalConnections.logMessages.retrieve(
-   *     '1293384261075731499',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<LogMessageRetrieveResponse> {
-    return this._client.get(path`/external_connections/log_messages/${id}`, options);
-  }
-
-  /**
    * Retrieve a list of log messages for all external connections associated with
    * your account.
    *
@@ -65,6 +50,21 @@ export class LogMessages extends APIResource {
    */
   dismiss(id: string, options?: RequestOptions): APIPromise<LogMessageDismissResponse> {
     return this._client.delete(path`/external_connections/log_messages/${id}`, options);
+  }
+
+  /**
+   * Retrieve a log message for an external connection associated with your account.
+   *
+   * @example
+   * ```ts
+   * const logMessage =
+   *   await client.externalConnections.logMessages.retrieve(
+   *     '1293384261075731499',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<LogMessageRetrieveResponse> {
+    return this._client.get(path`/external_connections/log_messages/${id}`, options);
   }
 }
 

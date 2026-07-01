@@ -11,14 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class BulkSimCardActions extends APIResource {
   /**
-   * This API fetches information about a bulk SIM card action. A bulk SIM card
-   * action contains details about a collection of individual SIM card actions.
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<BulkSimCardActionRetrieveResponse> {
-    return this._client.get(path`/bulk_sim_card_actions/${id}`, options);
-  }
-
-  /**
    * This API lists a paginated collection of bulk SIM card actions. A bulk SIM card
    * action contains details about a collection of individual SIM card actions.
    */
@@ -31,6 +23,14 @@ export class BulkSimCardActions extends APIResource {
       DefaultFlatPagination<BulkSimCardActionDetailed>,
       { query, ...options },
     );
+  }
+
+  /**
+   * This API fetches information about a bulk SIM card action. A bulk SIM card
+   * action contains details about a collection of individual SIM card actions.
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<BulkSimCardActionRetrieveResponse> {
+    return this._client.get(path`/bulk_sim_card_actions/${id}`, options);
   }
 }
 

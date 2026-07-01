@@ -14,24 +14,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Clusters extends APIResource {
   /**
-   * Fetch a cluster
-   *
-   * @example
-   * ```ts
-   * const cluster = await client.ai.clusters.retrieve(
-   *   'task_id',
-   * );
-   * ```
-   */
-  retrieve(
-    taskID: string,
-    query: ClusterRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ClusterRetrieveResponse> {
-    return this._client.get(path`/ai/clusters/${taskID}`, { query, ...options });
-  }
-
-  /**
    * List all clusters
    *
    * @example
@@ -53,6 +35,22 @@ export class Clusters extends APIResource {
   }
 
   /**
+   * Starts a background task to compute how the data in an
+   * [embedded storage bucket](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
+   * is clustered. This helps identify common themes and patterns in the data.
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.clusters.compute({
+   *   bucket: 'bucket',
+   * });
+   * ```
+   */
+  compute(body: ClusterComputeParams, options?: RequestOptions): APIPromise<ClusterComputeResponse> {
+    return this._client.post('/ai/clusters', { body, ...options });
+  }
+
+  /**
    * Delete a cluster
    *
    * @example
@@ -68,19 +66,21 @@ export class Clusters extends APIResource {
   }
 
   /**
-   * Starts a background task to compute how the data in an
-   * [embedded storage bucket](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
-   * is clustered. This helps identify common themes and patterns in the data.
+   * Fetch a cluster
    *
    * @example
    * ```ts
-   * const response = await client.ai.clusters.compute({
-   *   bucket: 'bucket',
-   * });
+   * const cluster = await client.ai.clusters.retrieve(
+   *   'task_id',
+   * );
    * ```
    */
-  compute(body: ClusterComputeParams, options?: RequestOptions): APIPromise<ClusterComputeResponse> {
-    return this._client.post('/ai/clusters', { body, ...options });
+  retrieve(
+    taskID: string,
+    query: ClusterRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ClusterRetrieveResponse> {
+    return this._client.get(path`/ai/clusters/${taskID}`, { query, ...options });
   }
 
   /**
@@ -181,19 +181,6 @@ export namespace ClusterComputeResponse {
   }
 }
 
-export interface ClusterRetrieveParams {
-  /**
-   * Whether or not to include subclusters and their nodes in the response.
-   */
-  show_subclusters?: boolean;
-
-  /**
-   * The number of nodes in the cluster to return in the response. Nodes will be
-   * sorted by their centrality within the cluster.
-   */
-  top_n_nodes?: number;
-}
-
 export interface ClusterListParams extends DefaultFlatPaginationParams {}
 
 export interface ClusterComputeParams {
@@ -227,6 +214,19 @@ export interface ClusterComputeParams {
   prefix?: string;
 }
 
+export interface ClusterRetrieveParams {
+  /**
+   * Whether or not to include subclusters and their nodes in the response.
+   */
+  show_subclusters?: boolean;
+
+  /**
+   * The number of nodes in the cluster to return in the response. Nodes will be
+   * sorted by their centrality within the cluster.
+   */
+  top_n_nodes?: number;
+}
+
 export interface ClusterFetchGraphParams {
   /**
    * Filter results by cluster id.
@@ -241,9 +241,9 @@ export declare namespace Clusters {
     type ClusterListResponse as ClusterListResponse,
     type ClusterComputeResponse as ClusterComputeResponse,
     type ClusterListResponsesDefaultFlatPagination as ClusterListResponsesDefaultFlatPagination,
-    type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterListParams as ClusterListParams,
     type ClusterComputeParams as ClusterComputeParams,
+    type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterFetchGraphParams as ClusterFetchGraphParams,
   };
 }

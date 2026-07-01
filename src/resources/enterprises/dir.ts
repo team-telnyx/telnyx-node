@@ -13,6 +13,39 @@ import { path } from '../../internal/utils/path';
  */
 export class Dir extends APIResource {
   /**
+   * Return the DIRs (Display Identity Records) belonging to a single enterprise.
+   * Pagination is JSON:API style (`page[number]`, `page[size]`, max 250). Supports
+   * `filter[]` query params: `filter[status]`, `filter[display_name][contains]`,
+   * `filter[call_reason][contains]`, plus the renewal-window filters
+   * `filter[expiring_at][gte]` / `filter[expiring_at][lte]` and the convenience
+   * `filter[expiring_within_days]` (mutually exclusive with the explicit gte/lte
+   * form). Sortable by `created_at`, `updated_at`, `display_name`, `status`,
+   * `submitted_at`, `verified_at`, `expiring_at` (prefix `-` for descending; default
+   * `-created_at`).
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const dir of client.enterprises.dir.list(
+   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    enterpriseID: string,
+    query: DirListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DirsDefaultFlatPagination, DirAPI.Dir> {
+    return this._client.getAPIList(
+      path`/enterprises/${enterpriseID}/dir`,
+      DefaultFlatPagination<DirAPI.Dir>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create a new DIR under the given enterprise. The DIR starts in `draft` status;
    * it must be submitted (`POST .../submit`) and approved by Telnyx before any phone
    * number can be attached.
@@ -65,39 +98,62 @@ export class Dir extends APIResource {
   ): APIPromise<DirAPI.DirWrapped> {
     return this._client.post(path`/enterprises/${enterpriseID}/dir`, { body, ...options });
   }
+}
+
+export interface DirListParams extends DefaultFlatPaginationParams {
+  /**
+   * Case-insensitive partial match on call reason.
+   */
+  'filter[call_reason][contains]'?: string;
 
   /**
-   * Return the DIRs (Display Identity Records) belonging to a single enterprise.
-   * Pagination is JSON:API style (`page[number]`, `page[size]`, max 250). Supports
-   * `filter[]` query params: `filter[status]`, `filter[display_name][contains]`,
-   * `filter[call_reason][contains]`, plus the renewal-window filters
-   * `filter[expiring_at][gte]` / `filter[expiring_at][lte]` and the convenience
-   * `filter[expiring_within_days]` (mutually exclusive with the explicit gte/lte
-   * form). Sortable by `created_at`, `updated_at`, `display_name`, `status`,
-   * `submitted_at`, `verified_at`, `expiring_at` (prefix `-` for descending; default
-   * `-created_at`).
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const dir of client.enterprises.dir.list(
-   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
-   * )) {
-   *   // ...
-   * }
-   * ```
+   * Case-insensitive partial match on display name.
    */
-  list(
-    enterpriseID: string,
-    query: DirListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<DirsDefaultFlatPagination, DirAPI.Dir> {
-    return this._client.getAPIList(
-      path`/enterprises/${enterpriseID}/dir`,
-      DefaultFlatPagination<DirAPI.Dir>,
-      { query, ...options },
-    );
-  }
+  'filter[display_name][contains]'?: string;
+
+  /**
+   * Return only DIRs whose `expiring_at` is at or after this ISO-8601 timestamp.
+   */
+  'filter[expiring_at][gte]'?: string;
+
+  /**
+   * Return only DIRs whose `expiring_at` is at or before this ISO-8601 timestamp.
+   */
+  'filter[expiring_at][lte]'?: string;
+
+  /**
+   * Convenience: returns DIRs whose `expiring_at` falls within the next N days
+   * (1–365). Equivalent to setting `filter[expiring_at][gte]=<now>` +
+   * `filter[expiring_at][lte]=<now+N>`. Mutually exclusive with the explicit
+   * `[gte]`/`[lte]` filters - combining returns 400.
+   */
+  'filter[expiring_within_days]'?: number;
+
+  /**
+   * Filter by DIR status.
+   */
+  'filter[status]'?: DirAPI.DirStatus;
+
+  /**
+   * Sort field. Allowed: `created_at`, `updated_at`, `display_name`, `status`,
+   * `submitted_at`, `verified_at`, `expiring_at`. Prefix with `-` for descending.
+   * Default `-created_at`.
+   */
+  sort?:
+    | 'created_at'
+    | '-created_at'
+    | 'updated_at'
+    | '-updated_at'
+    | 'display_name'
+    | '-display_name'
+    | 'status'
+    | '-status'
+    | 'submitted_at'
+    | '-submitted_at'
+    | 'verified_at'
+    | '-verified_at'
+    | 'expiring_at'
+    | '-expiring_at';
 }
 
 export interface DirCreateParams {
@@ -157,64 +213,8 @@ export interface DirCreateParams {
   reselling?: boolean;
 }
 
-export interface DirListParams extends DefaultFlatPaginationParams {
-  /**
-   * Case-insensitive partial match on call reason.
-   */
-  'filter[call_reason][contains]'?: string;
-
-  /**
-   * Case-insensitive partial match on display name.
-   */
-  'filter[display_name][contains]'?: string;
-
-  /**
-   * Return only DIRs whose `expiring_at` is at or after this ISO-8601 timestamp.
-   */
-  'filter[expiring_at][gte]'?: string;
-
-  /**
-   * Return only DIRs whose `expiring_at` is at or before this ISO-8601 timestamp.
-   */
-  'filter[expiring_at][lte]'?: string;
-
-  /**
-   * Convenience: returns DIRs whose `expiring_at` falls within the next N days
-   * (1–365). Equivalent to setting `filter[expiring_at][gte]=<now>` +
-   * `filter[expiring_at][lte]=<now+N>`. Mutually exclusive with the explicit
-   * `[gte]`/`[lte]` filters - combining returns 400.
-   */
-  'filter[expiring_within_days]'?: number;
-
-  /**
-   * Filter by DIR status.
-   */
-  'filter[status]'?: DirAPI.DirStatus;
-
-  /**
-   * Sort field. Allowed: `created_at`, `updated_at`, `display_name`, `status`,
-   * `submitted_at`, `verified_at`, `expiring_at`. Prefix with `-` for descending.
-   * Default `-created_at`.
-   */
-  sort?:
-    | 'created_at'
-    | '-created_at'
-    | 'updated_at'
-    | '-updated_at'
-    | 'display_name'
-    | '-display_name'
-    | 'status'
-    | '-status'
-    | 'submitted_at'
-    | '-submitted_at'
-    | 'verified_at'
-    | '-verified_at'
-    | 'expiring_at'
-    | '-expiring_at';
-}
-
 export declare namespace Dir {
-  export { type DirCreateParams as DirCreateParams, type DirListParams as DirListParams };
+  export { type DirListParams as DirListParams, type DirCreateParams as DirCreateParams };
 }
 
 export { type DirsDefaultFlatPagination };

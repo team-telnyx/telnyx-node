@@ -9,30 +9,6 @@ const client = new Telnyx({
 
 describe('resource roomCompositions', () => {
   // Mock server tests are disabled
-  test.skip('create', async () => {
-    const responsePromise = client.roomCompositions.create({});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.roomCompositions.retrieve('5219b3af-87c6-4c08-9b58-5a533d893e21');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.roomCompositions.list();
     const rawResponse = await responsePromise.asResponse();
@@ -68,8 +44,32 @@ describe('resource roomCompositions', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('create', async () => {
+    const responsePromise = client.roomCompositions.create({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.roomCompositions.delete('5219b3af-87c6-4c08-9b58-5a533d893e21');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.roomCompositions.retrieve('5219b3af-87c6-4c08-9b58-5a533d893e21');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

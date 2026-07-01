@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.4.0](https://github.com/team-telnyx/telnyx-node/compare/v7.3.0...v7.4.0) (2026-07-01)
+
+
+### Bug Fixes
+
+* remove --target-branch from release-pr so it scans next for commits ([#462](https://github.com/team-telnyx/telnyx-node/issues/462)) ([e8f2742](https://github.com/team-telnyx/telnyx-node/commit/e8f2742c47bb38f1f942f32ce022b0310732c2d3))
+
 ## [7.3.0](https://github.com/team-telnyx/telnyx-node/compare/v7.2.0...v7.3.0) (2026-07-01)
 
 

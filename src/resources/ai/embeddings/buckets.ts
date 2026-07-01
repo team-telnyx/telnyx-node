@@ -11,21 +11,6 @@ import { path } from '../../../internal/utils/path';
  */
 export class Buckets extends APIResource {
   /**
-   * Get all embedded files for a given user bucket, including their processing
-   * status.
-   *
-   * @example
-   * ```ts
-   * const bucket = await client.ai.embeddings.buckets.retrieve(
-   *   'bucket_name',
-   * );
-   * ```
-   */
-  retrieve(bucketName: string, options?: RequestOptions): APIPromise<BucketRetrieveResponse> {
-    return this._client.get(path`/ai/embeddings/buckets/${bucketName}`, options);
-  }
-
-  /**
    * Get all embedding buckets for a user.
    *
    * @example
@@ -51,6 +36,21 @@ export class Buckets extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * Get all embedded files for a given user bucket, including their processing
+   * status.
+   *
+   * @example
+   * ```ts
+   * const bucket = await client.ai.embeddings.buckets.retrieve(
+   *   'bucket_name',
+   * );
+   * ```
+   */
+  retrieve(bucketName: string, options?: RequestOptions): APIPromise<BucketRetrieveResponse> {
+    return this._client.get(path`/ai/embeddings/buckets/${bucketName}`, options);
   }
 }
 

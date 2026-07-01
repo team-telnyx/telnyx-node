@@ -11,6 +11,19 @@ import { path } from '../internal/utils/path';
  */
 export class NotificationProfiles extends APIResource {
   /**
+   * Returns a list of your notifications profiles.
+   */
+  list(
+    query: NotificationProfileListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NotificationProfilesDefaultFlatPagination, NotificationProfile> {
+    return this._client.getAPIList('/notification_profiles', DefaultFlatPagination<NotificationProfile>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a notification profile.
    */
   create(
@@ -18,6 +31,13 @@ export class NotificationProfiles extends APIResource {
     options?: RequestOptions,
   ): APIPromise<NotificationProfileCreateResponse> {
     return this._client.post('/notification_profiles', { body, ...options });
+  }
+
+  /**
+   * Delete a notification profile.
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<NotificationProfileDeleteResponse> {
+    return this._client.delete(path`/notification_profiles/${id}`, options);
   }
 
   /**
@@ -36,26 +56,6 @@ export class NotificationProfiles extends APIResource {
     options?: RequestOptions,
   ): APIPromise<NotificationProfileUpdateResponse> {
     return this._client.patch(path`/notification_profiles/${notificationProfileID}`, { body, ...options });
-  }
-
-  /**
-   * Returns a list of your notifications profiles.
-   */
-  list(
-    query: NotificationProfileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NotificationProfilesDefaultFlatPagination, NotificationProfile> {
-    return this._client.getAPIList('/notification_profiles', DefaultFlatPagination<NotificationProfile>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete a notification profile.
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<NotificationProfileDeleteResponse> {
-    return this._client.delete(path`/notification_profiles/${id}`, options);
   }
 }
 
@@ -114,6 +114,8 @@ export interface NotificationProfileDeleteResponse {
   data?: NotificationProfile;
 }
 
+export interface NotificationProfileListParams extends DefaultFlatPaginationParams {}
+
 export interface NotificationProfileCreateParams {
   /**
    * A human readable name.
@@ -128,8 +130,6 @@ export interface NotificationProfileUpdateParams {
   name?: string;
 }
 
-export interface NotificationProfileListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace NotificationProfiles {
   export {
     type NotificationProfile as NotificationProfile,
@@ -138,8 +138,8 @@ export declare namespace NotificationProfiles {
     type NotificationProfileUpdateResponse as NotificationProfileUpdateResponse,
     type NotificationProfileDeleteResponse as NotificationProfileDeleteResponse,
     type NotificationProfilesDefaultFlatPagination as NotificationProfilesDefaultFlatPagination,
+    type NotificationProfileListParams as NotificationProfileListParams,
     type NotificationProfileCreateParams as NotificationProfileCreateParams,
     type NotificationProfileUpdateParams as NotificationProfileUpdateParams,
-    type NotificationProfileListParams as NotificationProfileListParams,
   };
 }

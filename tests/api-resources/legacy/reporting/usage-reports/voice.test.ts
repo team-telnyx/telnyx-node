@@ -9,6 +9,29 @@ const client = new Telnyx({
 
 describe('resource voice', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.legacy.reporting.usageReports.voice.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.legacy.reporting.usageReports.voice.list(
+        { page: 1, per_page: 1 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.legacy.reporting.usageReports.voice.create({
       end_time: '2024-02-01T00:00:00Z',
@@ -37,8 +60,8 @@ describe('resource voice', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.legacy.reporting.usageReports.voice.retrieve(
+  test.skip('delete', async () => {
+    const responsePromise = client.legacy.reporting.usageReports.voice.delete(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
     const rawResponse = await responsePromise.asResponse();
@@ -51,31 +74,8 @@ describe('resource voice', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.legacy.reporting.usageReports.voice.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.legacy.reporting.usageReports.voice.list(
-        { page: 1, per_page: 1 },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.legacy.reporting.usageReports.voice.delete(
+  test.skip('retrieve', async () => {
+    const responsePromise = client.legacy.reporting.usageReports.voice.retrieve(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
     );
     const rawResponse = await responsePromise.asResponse();

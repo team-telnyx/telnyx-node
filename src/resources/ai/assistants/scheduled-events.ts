@@ -16,6 +16,31 @@ import { path } from '../../../internal/utils/path';
  */
 export class ScheduledEvents extends APIResource {
   /**
+   * Get scheduled events for an assistant with pagination and filtering
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const scheduledEventListResponse of client.ai.assistants.scheduledEvents.list(
+   *   'assistant_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    assistantID: string,
+    query: ScheduledEventListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ScheduledEventListResponsesDefaultFlatPagination, ScheduledEventListResponse> {
+    return this._client.getAPIList(
+      path`/ai/assistants/${assistantID}/scheduled_events`,
+      DefaultFlatPagination<ScheduledEventListResponse>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create a scheduled event for an assistant
    *
    * @example
@@ -42,6 +67,26 @@ export class ScheduledEvents extends APIResource {
   }
 
   /**
+   * If the event is pending, this will cancel the event. Otherwise, this will simply
+   * remove the record of the event.
+   *
+   * @example
+   * ```ts
+   * await client.ai.assistants.scheduledEvents.delete(
+   *   'event_id',
+   *   { assistant_id: 'assistant_id' },
+   * );
+   * ```
+   */
+  delete(eventID: string, params: ScheduledEventDeleteParams, options?: RequestOptions): APIPromise<void> {
+    const { assistant_id } = params;
+    return this._client.delete(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Retrieve a scheduled event by event ID
    *
    * @example
@@ -60,51 +105,6 @@ export class ScheduledEvents extends APIResource {
   ): APIPromise<ScheduledEventResponse> {
     const { assistant_id } = params;
     return this._client.get(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, options);
-  }
-
-  /**
-   * Get scheduled events for an assistant with pagination and filtering
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const scheduledEventListResponse of client.ai.assistants.scheduledEvents.list(
-   *   'assistant_id',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    assistantID: string,
-    query: ScheduledEventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ScheduledEventListResponsesDefaultFlatPagination, ScheduledEventListResponse> {
-    return this._client.getAPIList(
-      path`/ai/assistants/${assistantID}/scheduled_events`,
-      DefaultFlatPagination<ScheduledEventListResponse>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * If the event is pending, this will cancel the event. Otherwise, this will simply
-   * remove the record of the event.
-   *
-   * @example
-   * ```ts
-   * await client.ai.assistants.scheduledEvents.delete(
-   *   'event_id',
-   *   { assistant_id: 'assistant_id' },
-   * );
-   * ```
-   */
-  delete(eventID: string, params: ScheduledEventDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { assistant_id } = params;
-    return this._client.delete(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 
@@ -259,6 +259,23 @@ export interface ScheduledSMSEventResponse {
 
 export type ScheduledEventListResponse = ScheduledPhoneCallEventResponse | ScheduledSMSEventResponse;
 
+export interface ScheduledEventListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by conversation channel.
+   */
+  conversation_channel?: ConversationChannelType;
+
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
+  from_date?: string;
+
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
+  to_date?: string;
+}
+
 export interface ScheduledEventCreateParams {
   /**
    * The datetime at which the event should be scheduled. Formatted as ISO 8601.
@@ -310,31 +327,14 @@ export interface ScheduledEventCreateParams {
   text?: string;
 }
 
-export interface ScheduledEventRetrieveParams {
+export interface ScheduledEventDeleteParams {
   /**
    * Unique identifier of the assistant.
    */
   assistant_id: string;
 }
 
-export interface ScheduledEventListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter results by conversation channel.
-   */
-  conversation_channel?: ConversationChannelType;
-
-  /**
-   * Start of the date range filter (inclusive, ISO 8601).
-   */
-  from_date?: string;
-
-  /**
-   * End of the date range filter (inclusive, ISO 8601).
-   */
-  to_date?: string;
-}
-
-export interface ScheduledEventDeleteParams {
+export interface ScheduledEventRetrieveParams {
   /**
    * Unique identifier of the assistant.
    */
@@ -351,9 +351,9 @@ export declare namespace ScheduledEvents {
     type ScheduledSMSEventResponse as ScheduledSMSEventResponse,
     type ScheduledEventListResponse as ScheduledEventListResponse,
     type ScheduledEventListResponsesDefaultFlatPagination as ScheduledEventListResponsesDefaultFlatPagination,
-    type ScheduledEventCreateParams as ScheduledEventCreateParams,
-    type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
     type ScheduledEventListParams as ScheduledEventListParams,
+    type ScheduledEventCreateParams as ScheduledEventCreateParams,
     type ScheduledEventDeleteParams as ScheduledEventDeleteParams,
+    type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
   };
 }

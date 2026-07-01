@@ -13,6 +13,27 @@ import { path } from '../internal/utils/path';
  */
 export class IPConnections extends APIResource {
   /**
+   * Returns a list of your IP connections.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const ipConnection of client.ipConnections.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: IPConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<IPConnectionsDefaultFlatPagination, IPConnection> {
+    return this._client.getAPIList('/ip_connections', DefaultFlatPagination<IPConnection>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates an IP connection.
    *
    * @example
@@ -22,6 +43,20 @@ export class IPConnections extends APIResource {
    */
   create(body: IPConnectionCreateParams, options?: RequestOptions): APIPromise<IPConnectionCreateResponse> {
     return this._client.post('/ip_connections', { body, ...options });
+  }
+
+  /**
+   * Deletes an existing IP connection.
+   *
+   * @example
+   * ```ts
+   * const ipConnection = await client.ipConnections.delete(
+   *   'id',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<IPConnectionDeleteResponse> {
+    return this._client.delete(path`/ip_connections/${id}`, options);
   }
 
   /**
@@ -54,41 +89,6 @@ export class IPConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<IPConnectionUpdateResponse> {
     return this._client.patch(path`/ip_connections/${id}`, { body, ...options });
-  }
-
-  /**
-   * Returns a list of your IP connections.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const ipConnection of client.ipConnections.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: IPConnectionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<IPConnectionsDefaultFlatPagination, IPConnection> {
-    return this._client.getAPIList('/ip_connections', DefaultFlatPagination<IPConnection>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Deletes an existing IP connection.
-   *
-   * @example
-   * ```ts
-   * const ipConnection = await client.ipConnections.delete(
-   *   'id',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<IPConnectionDeleteResponse> {
-    return this._client.delete(path`/ip_connections/${id}`, options);
   }
 }
 
@@ -445,6 +445,72 @@ export interface IPConnectionDeleteResponse {
   data?: IPConnection;
 }
 
+export interface IPConnectionListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
+   * filter[outbound.outbound_voice_profile_id]
+   */
+  filter?: IPConnectionListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'connection_name' | 'active';
+}
+
+export namespace IPConnectionListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
+   * filter[outbound.outbound_voice_profile_id]
+   */
+  export interface Filter {
+    /**
+     * Filter by connection_name using nested operations
+     */
+    connection_name?: Filter.ConnectionName;
+
+    /**
+     * If present, connections with an `fqdn` that equals the given value will be
+     * returned. Matching is case-sensitive, and the full string must match.
+     */
+    fqdn?: string;
+
+    /**
+     * Identifies the associated outbound voice profile.
+     */
+    outbound_voice_profile_id?: string;
+  }
+
+  export namespace Filter {
+    /**
+     * Filter by connection_name using nested operations
+     */
+    export interface ConnectionName {
+      /**
+       * If present, connections with <code>connection_name</code> containing the given
+       * value will be returned. Matching is not case-sensitive. Requires at least three
+       * characters.
+       */
+      contains?: string;
+    }
+  }
+}
+
 export interface IPConnectionCreateParams {
   /**
    * Defaults to true
@@ -793,72 +859,6 @@ export interface IPConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface IPConnectionListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
-   * filter[outbound.outbound_voice_profile_id]
-   */
-  filter?: IPConnectionListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'connection_name' | 'active';
-}
-
-export namespace IPConnectionListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
-   * filter[outbound.outbound_voice_profile_id]
-   */
-  export interface Filter {
-    /**
-     * Filter by connection_name using nested operations
-     */
-    connection_name?: Filter.ConnectionName;
-
-    /**
-     * If present, connections with an `fqdn` that equals the given value will be
-     * returned. Matching is case-sensitive, and the full string must match.
-     */
-    fqdn?: string;
-
-    /**
-     * Identifies the associated outbound voice profile.
-     */
-    outbound_voice_profile_id?: string;
-  }
-
-  export namespace Filter {
-    /**
-     * Filter by connection_name using nested operations
-     */
-    export interface ConnectionName {
-      /**
-       * If present, connections with <code>connection_name</code> containing the given
-       * value will be returned. Matching is not case-sensitive. Requires at least three
-       * characters.
-       */
-      contains?: string;
-    }
-  }
-}
-
 export declare namespace IPConnections {
   export {
     type InboundIP as InboundIP,
@@ -869,8 +869,8 @@ export declare namespace IPConnections {
     type IPConnectionUpdateResponse as IPConnectionUpdateResponse,
     type IPConnectionDeleteResponse as IPConnectionDeleteResponse,
     type IPConnectionsDefaultFlatPagination as IPConnectionsDefaultFlatPagination,
+    type IPConnectionListParams as IPConnectionListParams,
     type IPConnectionCreateParams as IPConnectionCreateParams,
     type IPConnectionUpdateParams as IPConnectionUpdateParams,
-    type IPConnectionListParams as IPConnectionListParams,
   };
 }

@@ -112,65 +112,6 @@ export class DirResource extends APIResource {
   }
 
   /**
-   * Returns every DIR (Display Identity Record) you own, across all of your
-   * enterprises, as a single list. Pagination is JSON:API style (`page[number]`,
-   * `page[size]`, max 250). Supports `filter[]` query params:
-   * `filter[enterprise_id]`, `filter[status]`, `filter[display_name][contains]`,
-   * `filter[call_reason][contains]`, plus the renewal-window filters
-   * `filter[expiring_at][gte]` / `filter[expiring_at][lte]`. Sortable by
-   * `created_at`, `updated_at`, `display_name`, `status` (prefix `-` for descending;
-   * default `-created_at`).
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const dir of client.dir.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: DirListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<DirsDefaultFlatPagination, Dir> {
-    return this._client.getAPIList('/dir', DefaultFlatPagination<Dir>, { query, ...options });
-  }
-
-  /**
-   * Delete a DIR. Failure modes: `400` if a child phone number is in a non-deletable
-   * status, `409` if the DIR has an unresolved infringement claim, `404` if the DIR
-   * is not yours.
-   *
-   * @example
-   * ```ts
-   * await client.dir.delete(
-   *   '16635d38-75a6-4481-82e8-69af60e05011',
-   * );
-   * ```
-   */
-  delete(dirID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/dir/${dirID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Reference list of `document_type` values accepted by
-   * `DirCreateRequest.documents[].document_type` and the infringement-contest
-   * endpoint. Each entry has a stable `short_name` (used in API calls) and a
-   * customer-facing description.
-   *
-   * @example
-   * ```ts
-   * const response = await client.dir.listDocumentTypes();
-   * ```
-   */
-  listDocumentTypes(options?: RequestOptions): APIPromise<DirListDocumentTypesResponse> {
-    return this._client.get('/dir/document_types', options);
-  }
-
-  /**
    * Return the trademark or copyright claims filed against this DIR. Each claim's
    * `status` is `pending` (newly filed; DIR auto-suspended), `contested` (you have
    * submitted contest evidence; awaiting resolution), or `resolved` (final).
@@ -198,6 +139,58 @@ export class DirResource extends APIResource {
       DefaultFlatPagination<InfringementClaimsAPI.InfringementClaim>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Push a fix for a DIR that is `suspended` with an open infringement claim back
+   * into vetting. `POST /dir/{dir_id}/submit` is blocked while a claim is open, so
+   * this is the customer-callable path to update the DIR's content and re-certify
+   * before Telnyx adjudicates the claim. All four certification booleans must be
+   * `true`. Optional content fields (`display_name`, `logo_url`, `call_reasons`,
+   * `documents`) update the DIR; documents are append-only.
+   *
+   * @example
+   * ```ts
+   * const dirWrapped = await client.dir.updateInfringement(
+   *   '16635d38-75a6-4481-82e8-69af60e05011',
+   *   {
+   *     certify_brand_is_accurate: true,
+   *     certify_ip_ownership: true,
+   *     certify_no_infringement: true,
+   *     certify_no_shaft_content: true,
+   *     infringement_resolution_notes:
+   *       'Updated the display name to remove the disputed mark and re-uploaded the authorization.',
+   *   },
+   * );
+   * ```
+   */
+  updateInfringement(
+    dirID: string,
+    body: DirUpdateInfringementParams,
+    options?: RequestOptions,
+  ): APIPromise<DirWrapped> {
+    return this._client.put(path`/dir/${dirID}/infringement_update`, { body, ...options });
+  }
+
+  /**
+   * Submit a DIR for vetting. Sends the DIR back through the vetting cycle from any
+   * non-terminal status. When re-submitting from `suspended` or `expired`, the DIR's
+   * previous Branded Calling registration is torn down transactionally and its phone
+   * numbers flip back to `submitted`. When re-submitting from `verified`, the
+   * existing registration stays live throughout the new vetting cycle.
+   *
+   * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `409`
+   * if the DIR has an unresolved infringement claim.
+   *
+   * @example
+   * ```ts
+   * const dirWrapped = await client.dir.submit(
+   *   '16635d38-75a6-4481-82e8-69af60e05011',
+   * );
+   * ```
+   */
+  submit(dirID: string, options?: RequestOptions): APIPromise<DirWrapped> {
+    return this._client.post(path`/dir/${dirID}/submit`, options);
   }
 
   /**
@@ -230,58 +223,6 @@ export class DirResource extends APIResource {
       headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
       __binaryResponse: true,
     });
-  }
-
-  /**
-   * Submit a DIR for vetting. Sends the DIR back through the vetting cycle from any
-   * non-terminal status. When re-submitting from `suspended` or `expired`, the DIR's
-   * previous Branded Calling registration is torn down transactionally and its phone
-   * numbers flip back to `submitted`. When re-submitting from `verified`, the
-   * existing registration stays live throughout the new vetting cycle.
-   *
-   * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `409`
-   * if the DIR has an unresolved infringement claim.
-   *
-   * @example
-   * ```ts
-   * const dirWrapped = await client.dir.submit(
-   *   '16635d38-75a6-4481-82e8-69af60e05011',
-   * );
-   * ```
-   */
-  submit(dirID: string, options?: RequestOptions): APIPromise<DirWrapped> {
-    return this._client.post(path`/dir/${dirID}/submit`, options);
-  }
-
-  /**
-   * Push a fix for a DIR that is `suspended` with an open infringement claim back
-   * into vetting. `POST /dir/{dir_id}/submit` is blocked while a claim is open, so
-   * this is the customer-callable path to update the DIR's content and re-certify
-   * before Telnyx adjudicates the claim. All four certification booleans must be
-   * `true`. Optional content fields (`display_name`, `logo_url`, `call_reasons`,
-   * `documents`) update the DIR; documents are append-only.
-   *
-   * @example
-   * ```ts
-   * const dirWrapped = await client.dir.updateInfringement(
-   *   '16635d38-75a6-4481-82e8-69af60e05011',
-   *   {
-   *     certify_brand_is_accurate: true,
-   *     certify_ip_ownership: true,
-   *     certify_no_infringement: true,
-   *     certify_no_shaft_content: true,
-   *     infringement_resolution_notes:
-   *       'Updated the display name to remove the disputed mark and re-uploaded the authorization.',
-   *   },
-   * );
-   * ```
-   */
-  updateInfringement(
-    dirID: string,
-    body: DirUpdateInfringementParams,
-    options?: RequestOptions,
-  ): APIPromise<DirWrapped> {
-    return this._client.put(path`/dir/${dirID}/infringement_update`, { body, ...options });
   }
 }
 
@@ -457,6 +398,53 @@ export namespace DirListDocumentTypesResponse {
   }
 }
 
+export interface DirListParams extends DefaultFlatPaginationParams {
+  /**
+   * Case-insensitive partial match on call reason.
+   */
+  'filter[call_reason][contains]'?: string;
+
+  /**
+   * Case-insensitive partial match on display name.
+   */
+  'filter[display_name][contains]'?: string;
+
+  /**
+   * Filter by enterprise ID.
+   */
+  'filter[enterprise_id]'?: string;
+
+  /**
+   * Return only DIRs whose `expiring_at` is at or after this ISO-8601 timestamp.
+   * Pairs with the `[lte]` variant to build renewal-window dashboards.
+   */
+  'filter[expiring_at][gte]'?: string;
+
+  /**
+   * Return only DIRs whose `expiring_at` is at or before this ISO-8601 timestamp.
+   */
+  'filter[expiring_at][lte]'?: string;
+
+  /**
+   * Filter by DIR status.
+   */
+  'filter[status]'?: DirStatus;
+
+  /**
+   * Sort field. Allowed values: `created_at`, `updated_at`, `display_name`,
+   * `status`. Prefix with `-` for descending. Default `-created_at`.
+   */
+  sort?:
+    | 'created_at'
+    | '-created_at'
+    | 'updated_at'
+    | '-updated_at'
+    | 'display_name'
+    | '-display_name'
+    | 'status'
+    | '-status';
+}
+
 export interface DirUpdateParams {
   /**
    * Contact email of the authorizer. Telnyx may send verification or infringement
@@ -519,95 +507,7 @@ export interface DirUpdateParams {
   reselling?: boolean;
 }
 
-export interface DirListParams extends DefaultFlatPaginationParams {
-  /**
-   * Case-insensitive partial match on call reason.
-   */
-  'filter[call_reason][contains]'?: string;
-
-  /**
-   * Case-insensitive partial match on display name.
-   */
-  'filter[display_name][contains]'?: string;
-
-  /**
-   * Filter by enterprise ID.
-   */
-  'filter[enterprise_id]'?: string;
-
-  /**
-   * Return only DIRs whose `expiring_at` is at or after this ISO-8601 timestamp.
-   * Pairs with the `[lte]` variant to build renewal-window dashboards.
-   */
-  'filter[expiring_at][gte]'?: string;
-
-  /**
-   * Return only DIRs whose `expiring_at` is at or before this ISO-8601 timestamp.
-   */
-  'filter[expiring_at][lte]'?: string;
-
-  /**
-   * Filter by DIR status.
-   */
-  'filter[status]'?: DirStatus;
-
-  /**
-   * Sort field. Allowed values: `created_at`, `updated_at`, `display_name`,
-   * `status`. Prefix with `-` for descending. Default `-created_at`.
-   */
-  sort?:
-    | 'created_at'
-    | '-created_at'
-    | 'updated_at'
-    | '-updated_at'
-    | 'display_name'
-    | '-display_name'
-    | 'status'
-    | '-status';
-}
-
 export interface DirListInfringementClaimsParams extends DefaultFlatPaginationParams {}
-
-export interface DirNewLoaParams {
-  /**
-   * Telephone numbers to authorize on the DIR, in `+E164` format (`+` followed by
-   * 10-15 digits). Max 15 per request.
-   */
-  phone_numbers: Array<string>;
-
-  /**
-   * Third-party reseller / partner managing the enterprise's phone numbers. Omit
-   * when the enterprise works directly with Telnyx.
-   */
-  agent?: LoaAPI.AgentInput;
-
-  /**
-   * Optional. When provided the rendered PDF embeds the signature image, printed
-   * name, and signed-at date. When absent the PDF is returned unsigned so the
-   * customer can sign externally and upload it via the Documents API.
-   */
-  signature?: DirNewLoaParams.Signature;
-}
-
-export namespace DirNewLoaParams {
-  /**
-   * Optional. When provided the rendered PDF embeds the signature image, printed
-   * name, and signed-at date. When absent the PDF is returned unsigned so the
-   * customer can sign externally and upload it via the Documents API.
-   */
-  export interface Signature {
-    /**
-     * PNG image, base64-encoded.
-     */
-    image_base64: string;
-
-    /**
-     * Optional. When absent the rendered PDF falls back to the enterprise contact's
-     * legal name.
-     */
-    signer_name?: string | null;
-  }
-}
 
 export interface DirUpdateInfringementParams {
   /**
@@ -650,6 +550,47 @@ export interface DirUpdateInfringementParams {
   logo_url?: string | null;
 }
 
+export interface DirNewLoaParams {
+  /**
+   * Telephone numbers to authorize on the DIR, in `+E164` format (`+` followed by
+   * 10-15 digits). Max 15 per request.
+   */
+  phone_numbers: Array<string>;
+
+  /**
+   * Third-party reseller / partner managing the enterprise's phone numbers. Omit
+   * when the enterprise works directly with Telnyx.
+   */
+  agent?: LoaAPI.AgentInput;
+
+  /**
+   * Optional. When provided the rendered PDF embeds the signature image, printed
+   * name, and signed-at date. When absent the PDF is returned unsigned so the
+   * customer can sign externally and upload it via the Documents API.
+   */
+  signature?: DirNewLoaParams.Signature;
+}
+
+export namespace DirNewLoaParams {
+  /**
+   * Optional. When provided the rendered PDF embeds the signature image, printed
+   * name, and signed-at date. When absent the PDF is returned unsigned so the
+   * customer can sign externally and upload it via the Documents API.
+   */
+  export interface Signature {
+    /**
+     * PNG image, base64-encoded.
+     */
+    image_base64: string;
+
+    /**
+     * Optional. When absent the rendered PDF falls back to the enterprise contact's
+     * legal name.
+     */
+    signer_name?: string | null;
+  }
+}
+
 DirResource.Comments = Comments;
 DirResource.PhoneNumberBatches = PhoneNumberBatches;
 DirResource.PhoneNumbers = PhoneNumbers;
@@ -665,11 +606,11 @@ export declare namespace DirResource {
     type Document as Document,
     type DirListDocumentTypesResponse as DirListDocumentTypesResponse,
     type DirsDefaultFlatPagination as DirsDefaultFlatPagination,
-    type DirUpdateParams as DirUpdateParams,
     type DirListParams as DirListParams,
+    type DirUpdateParams as DirUpdateParams,
     type DirListInfringementClaimsParams as DirListInfringementClaimsParams,
-    type DirNewLoaParams as DirNewLoaParams,
     type DirUpdateInfringementParams as DirUpdateInfringementParams,
+    type DirNewLoaParams as DirNewLoaParams,
   };
 
   export {
@@ -678,8 +619,8 @@ export declare namespace DirResource {
     type DirComment as DirComment,
     type CommentCreateResponse as CommentCreateResponse,
     type DirCommentsDefaultFlatPagination as DirCommentsDefaultFlatPagination,
-    type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
+    type CommentCreateParams as CommentCreateParams,
   };
 
   export {
@@ -688,8 +629,8 @@ export declare namespace DirResource {
     type PhoneNumberBatch as PhoneNumberBatch,
     type PhoneNumberBatchRetrieveResponse as PhoneNumberBatchRetrieveResponse,
     type PhoneNumberBatchesDefaultFlatPagination as PhoneNumberBatchesDefaultFlatPagination,
-    type PhoneNumberBatchRetrieveParams as PhoneNumberBatchRetrieveParams,
     type PhoneNumberBatchListParams as PhoneNumberBatchListParams,
+    type PhoneNumberBatchRetrieveParams as PhoneNumberBatchRetrieveParams,
   };
 
   export {
@@ -699,9 +640,25 @@ export declare namespace DirResource {
     type PhoneNumberAddResponse as PhoneNumberAddResponse,
     type PhoneNumberRemoveResponse as PhoneNumberRemoveResponse,
     type DirPhoneNumbersDefaultFlatPagination as DirPhoneNumbersDefaultFlatPagination,
+    type PhoneNumberRemoveParams as PhoneNumberRemoveParams,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberAddParams as PhoneNumberAddParams,
-    type PhoneNumberRemoveParams as PhoneNumberRemoveParams,
+  };
+
+  export {
+    References as References,
+    type Reference as Reference,
+    type ReferenceInput as ReferenceInput,
+    type ReferenceList as ReferenceList,
+    type ReferenceUpdateResponse as ReferenceUpdateResponse,
+    type ReferenceCreateParams as ReferenceCreateParams,
+    type ReferenceUpdateParams as ReferenceUpdateParams,
+  };
+
+  export {
+    VerifyEmail as VerifyEmail,
+    type EmailVerificationStatusWrapped as EmailVerificationStatusWrapped,
+    type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
   };
 
   export {

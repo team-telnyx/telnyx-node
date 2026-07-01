@@ -13,6 +13,26 @@ import { path } from '../../internal/utils/path';
  */
 export class PhoneNumbers extends APIResource {
   /**
+   * Deregister phone numbers from a DIR. The enterprise is resolved server-side from
+   * the DIR id. Returns a partial-success envelope.
+   *
+   * @example
+   * ```ts
+   * const phoneNumber = await client.dir.phoneNumbers.remove(
+   *   '16635d38-75a6-4481-82e8-69af60e05011',
+   *   { phone_numbers: ['+19493253498'] },
+   * );
+   * ```
+   */
+  remove(
+    dirID: string,
+    body: PhoneNumberRemoveParams,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberRemoveResponse> {
+    return this._client.delete(path`/dir/${dirID}/phone_numbers`, { body, ...options });
+  }
+
+  /**
    * List the phone numbers registered under a DIR. The enterprise is resolved
    * server-side from the DIR id.
    *
@@ -69,26 +89,6 @@ export class PhoneNumbers extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PhoneNumberAddResponse> {
     return this._client.post(path`/dir/${dirID}/phone_numbers`, { body, ...options });
-  }
-
-  /**
-   * Deregister phone numbers from a DIR. The enterprise is resolved server-side from
-   * the DIR id. Returns a partial-success envelope.
-   *
-   * @example
-   * ```ts
-   * const phoneNumber = await client.dir.phoneNumbers.remove(
-   *   '16635d38-75a6-4481-82e8-69af60e05011',
-   *   { phone_numbers: ['+19493253498'] },
-   * );
-   * ```
-   */
-  remove(
-    dirID: string,
-    body: PhoneNumberRemoveParams,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberRemoveResponse> {
-    return this._client.delete(path`/dir/${dirID}/phone_numbers`, { body, ...options });
   }
 }
 
@@ -224,6 +224,10 @@ export namespace PhoneNumberRemoveResponse {
   }
 }
 
+export interface PhoneNumberRemoveParams {
+  phone_numbers: Array<string>;
+}
+
 export interface PhoneNumberListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by phone-number status.
@@ -248,10 +252,6 @@ export interface PhoneNumberAddParams {
   phone_numbers: Array<string>;
 }
 
-export interface PhoneNumberRemoveParams {
-  phone_numbers: Array<string>;
-}
-
 export declare namespace PhoneNumbers {
   export {
     type DirPhoneNumber as DirPhoneNumber,
@@ -259,8 +259,8 @@ export declare namespace PhoneNumbers {
     type PhoneNumberAddResponse as PhoneNumberAddResponse,
     type PhoneNumberRemoveResponse as PhoneNumberRemoveResponse,
     type DirPhoneNumbersDefaultFlatPagination as DirPhoneNumbersDefaultFlatPagination,
+    type PhoneNumberRemoveParams as PhoneNumberRemoveParams,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberAddParams as PhoneNumberAddParams,
-    type PhoneNumberRemoveParams as PhoneNumberRemoveParams,
   };
 }

@@ -14,25 +14,45 @@ import { path } from '../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
-   * Add messages to the conversation started by an AI assistant on the call.
+   * Start an AI assistant on the call.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.conversation.ended`
+   * - `call.conversation_insights.generated`
    *
    * @example
    * ```ts
    * const response =
-   *   await client.calls.actions.addAIAssistantMessages(
+   *   await client.calls.actions.startAIAssistant(
    *     'call_control_id',
    *   );
    * ```
    */
-  addAIAssistantMessages(
+  startAIAssistant(
     callControlID: string,
-    body: ActionAddAIAssistantMessagesParams,
+    body: ActionStartAIAssistantParams,
     options?: RequestOptions,
-  ): APIPromise<ActionAddAIAssistantMessagesResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_add_messages`, {
-      body,
-      ...options,
-    });
+  ): APIPromise<ActionStartAIAssistantResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_start`, { body, ...options });
+  }
+
+  /**
+   * Stop an AI assistant on the call.
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.stopAIAssistant(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  stopAIAssistant(
+    callControlID: string,
+    body: ActionStopAIAssistantParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopAIAssistantResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_stop`, { body, ...options });
   }
 
   /**
@@ -99,6 +119,26 @@ export class Actions extends APIResource {
   }
 
   /**
+   * Updates client state
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.calls.actions.updateClientState(
+   *     'call_control_id',
+   *     { client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d' },
+   *   );
+   * ```
+   */
+  updateClientState(
+    callControlID: string,
+    body: ActionUpdateClientStateParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionUpdateClientStateResponse> {
+    return this._client.put(path`/calls/${callControlID}/actions/client_state_update`, { body, ...options });
+  }
+
+  /**
    * Put the call in a queue.
    *
    * @example
@@ -115,6 +155,55 @@ export class Actions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ActionEnqueueResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/enqueue`, { body, ...options });
+  }
+
+  /**
+   * Call forking allows you to stream the media from a call to a specific target in
+   * realtime. This stream can be used to enable realtime audio analysis to support a
+   * variety of use cases, including fraud detection, or the creation of AI-generated
+   * audio responses. Requests must specify either the `target` attribute or the `rx`
+   * and `tx` attributes.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.fork.started`
+   * - `call.fork.stopped`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.startForking(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  startForking(
+    callControlID: string,
+    body: ActionStartForkingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartForkingResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/fork_start`, { body, ...options });
+  }
+
+  /**
+   * Stop forking a call.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.fork.stopped`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.stopForking(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  stopForking(
+    callControlID: string,
+    body: ActionStopForkingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopForkingResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/fork_stop`, { body, ...options });
   }
 
   /**
@@ -141,6 +230,28 @@ export class Actions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ActionGatherResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/gather`, { body, ...options });
+  }
+
+  /**
+   * Stop current gather.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.gather.ended`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.stopGather(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  stopGather(
+    callControlID: string,
+    body: ActionStopGatherParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopGatherResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/gather_stop`, { body, ...options });
   }
 
   /**
@@ -266,29 +377,6 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Add a participant to an existing AI assistant conversation. Use this command to
-   * bring an additional call leg into a running AI conversation.
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.joinAIAssistant(
-   *   'call_control_id',
-   *   {
-   *     conversation_id: 'v3:abc123',
-   *     participant: { id: 'v3:abc123def456', role: 'user' },
-   *   },
-   * );
-   * ```
-   */
-  joinAIAssistant(
-    callControlID: string,
-    body: ActionJoinAIAssistantParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionJoinAIAssistantResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_join`, { body, ...options });
-  }
-
-  /**
    * Removes the call from a queue.
    *
    * @example
@@ -304,6 +392,58 @@ export class Actions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ActionLeaveQueueResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/leave_queue`, { body, ...options });
+  }
+
+  /**
+   * Play an audio file on the call. If multiple play audio commands are issued
+   * consecutively, the audio files will be placed in a queue awaiting playback.
+   *
+   * _Notes:_
+   *
+   * - When `overlay` is enabled, `target_legs` is limited to `self`.
+   * - A customer cannot Play Audio with `overlay=true` unless there is a Play Audio
+   *   with `overlay=false` actively playing.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.playback.started`
+   * - `call.playback.ended`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.startPlayback(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  startPlayback(
+    callControlID: string,
+    body: ActionStartPlaybackParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartPlaybackResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/playback_start`, { body, ...options });
+  }
+
+  /**
+   * Stop audio being played on the call.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.playback.ended` or `call.speak.ended`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.stopPlayback(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  stopPlayback(
+    callControlID: string,
+    body: ActionStopPlaybackParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopPlaybackResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/playback_stop`, { body, ...options });
   }
 
   /**
@@ -326,6 +466,76 @@ export class Actions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ActionPauseRecordingResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/record_pause`, { body, ...options });
+  }
+
+  /**
+   * Resume recording the call.
+   *
+   * **Expected Webhooks:**
+   *
+   * There are no webhooks associated with this command.
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.resumeRecording(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  resumeRecording(
+    callControlID: string,
+    body: ActionResumeRecordingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionResumeRecordingResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/record_resume`, { body, ...options });
+  }
+
+  /**
+   * Start recording the call. Recording will stop on call hang-up, or can be
+   * initiated via the Stop Recording command.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.recording.saved`
+   * - `call.recording.transcription.saved`
+   * - `call.recording.error`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.startRecording(
+   *   'call_control_id',
+   *   { channels: 'single', format: 'wav' },
+   * );
+   * ```
+   */
+  startRecording(
+    callControlID: string,
+    body: ActionStartRecordingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartRecordingResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/record_start`, { body, ...options });
+  }
+
+  /**
+   * Stop recording the call.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.recording.saved`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.stopRecording(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  stopRecording(
+    callControlID: string,
+    body: ActionStopRecordingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopRecordingResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/record_stop`, { body, ...options });
   }
 
   /**
@@ -380,28 +590,6 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Resume recording the call.
-   *
-   * **Expected Webhooks:**
-   *
-   * There are no webhooks associated with this command.
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.resumeRecording(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  resumeRecording(
-    callControlID: string,
-    body: ActionResumeRecordingParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionResumeRecordingResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/record_resume`, { body, ...options });
-  }
-
-  /**
    * Sends DTMF tones from this leg. DTMF tones will be heard by the other end of the
    * call.
    *
@@ -452,6 +640,52 @@ export class Actions extends APIResource {
   }
 
   /**
+   * Start siprec session to configured in SIPREC connector SRS.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `siprec.started`
+   * - `siprec.stopped`
+   * - `siprec.failed`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.startSiprec(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  startSiprec(
+    callControlID: string,
+    body: ActionStartSiprecParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartSiprecResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/siprec_start`, { body, ...options });
+  }
+
+  /**
+   * Stop SIPREC session.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `siprec.stopped`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.stopSiprec(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  stopSiprec(
+    callControlID: string,
+    body: ActionStopSiprecParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopSiprecResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/siprec_stop`, { body, ...options });
+  }
+
+  /**
    * Convert text to speech and play it back on the call. If multiple speak text
    * commands are issued consecutively, the audio files will be placed in a queue
    * awaiting playback.
@@ -478,86 +712,48 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Start an AI assistant on the call.
+   * Start streaming the media from a call to a specific WebSocket address or
+   * Dialogflow connection in near-realtime. Audio will be delivered as
+   * base64-encoded RTP payload (raw audio), wrapped in JSON payloads.
    *
-   * **Expected Webhooks:**
-   *
-   * - `call.conversation.ended`
-   * - `call.conversation_insights.generated`
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.calls.actions.startAIAssistant(
-   *     'call_control_id',
-   *   );
-   * ```
-   */
-  startAIAssistant(
-    callControlID: string,
-    body: ActionStartAIAssistantParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStartAIAssistantResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_start`, { body, ...options });
-  }
-
-  /**
-   * Start a Conversation Relay session on an active call. Conversation Relay
-   * connects the call audio to your WebSocket so your application can exchange
-   * realtime messages with the caller while Telnyx handles speech recognition and
-   * text-to-speech. Only one AI Assistant or Conversation Relay session can be
-   * active on a call at a time.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `call.conversation.ended` - Sent when the Conversation Relay session ends. If
-   *   the customer WebSocket disconnects, the webhook payload `reason` is
-   *   `customer_disconnect`.
+   * Please find more details about media streaming messages specification under the
+   * [link](https://developers.telnyx.com/docs/voice/programmable-voice/media-streaming).
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.calls.actions.startConversationRelay(
-   *     'call_control_id',
-   *   );
-   * ```
-   */
-  startConversationRelay(
-    callControlID: string,
-    body: ActionStartConversationRelayParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStartConversationRelayResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/conversation_relay_start`, {
-      body,
-      ...options,
-    });
-  }
-
-  /**
-   * Call forking allows you to stream the media from a call to a specific target in
-   * realtime. This stream can be used to enable realtime audio analysis to support a
-   * variety of use cases, including fraud detection, or the creation of AI-generated
-   * audio responses. Requests must specify either the `target` attribute or the `rx`
-   * and `tx` attributes.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `call.fork.started`
-   * - `call.fork.stopped`
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.startForking(
+   * const response = await client.calls.actions.startStreaming(
    *   'call_control_id',
    * );
    * ```
    */
-  startForking(
+  startStreaming(
     callControlID: string,
-    body: ActionStartForkingParams,
+    body: ActionStartStreamingParams,
     options?: RequestOptions,
-  ): APIPromise<ActionStartForkingResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/fork_start`, { body, ...options });
+  ): APIPromise<ActionStartStreamingResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/streaming_start`, { body, ...options });
+  }
+
+  /**
+   * Stop streaming a call to a WebSocket.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `streaming.stopped`
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.stopStreaming(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  stopStreaming(
+    callControlID: string,
+    body: ActionStopStreamingParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopStreamingResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/streaming_stop`, { body, ...options });
   }
 
   /**
@@ -580,106 +776,46 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Play an audio file on the call. If multiple play audio commands are issued
-   * consecutively, the audio files will be placed in a queue awaiting playback.
-   *
-   * _Notes:_
-   *
-   * - When `overlay` is enabled, `target_legs` is limited to `self`.
-   * - A customer cannot Play Audio with `overlay=true` unless there is a Play Audio
-   *   with `overlay=false` actively playing.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `call.playback.started`
-   * - `call.playback.ended`
+   * Noise Suppression Stop (BETA)
    *
    * @example
    * ```ts
-   * const response = await client.calls.actions.startPlayback(
-   *   'call_control_id',
-   * );
+   * const response =
+   *   await client.calls.actions.stopNoiseSuppression(
+   *     'call_control_id',
+   *   );
    * ```
    */
-  startPlayback(
+  stopNoiseSuppression(
     callControlID: string,
-    body: ActionStartPlaybackParams,
+    body: ActionStopNoiseSuppressionParams,
     options?: RequestOptions,
-  ): APIPromise<ActionStartPlaybackResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/playback_start`, { body, ...options });
+  ): APIPromise<ActionStopNoiseSuppressionResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/suppression_stop`, { body, ...options });
   }
 
   /**
-   * Start recording the call. Recording will stop on call hang-up, or can be
-   * initiated via the Stop Recording command.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `call.recording.saved`
-   * - `call.recording.transcription.saved`
-   * - `call.recording.error`
+   * Switch the supervisor role for a bridged call. This allows switching between
+   * different supervisor modes during an active call
    *
    * @example
    * ```ts
-   * const response = await client.calls.actions.startRecording(
-   *   'call_control_id',
-   *   { channels: 'single', format: 'wav' },
-   * );
+   * const response =
+   *   await client.calls.actions.switchSupervisorRole(
+   *     'call_control_id',
+   *     { role: 'barge' },
+   *   );
    * ```
    */
-  startRecording(
+  switchSupervisorRole(
     callControlID: string,
-    body: ActionStartRecordingParams,
+    body: ActionSwitchSupervisorRoleParams,
     options?: RequestOptions,
-  ): APIPromise<ActionStartRecordingResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/record_start`, { body, ...options });
-  }
-
-  /**
-   * Start siprec session to configured in SIPREC connector SRS.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `siprec.started`
-   * - `siprec.stopped`
-   * - `siprec.failed`
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.startSiprec(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  startSiprec(
-    callControlID: string,
-    body: ActionStartSiprecParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStartSiprecResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/siprec_start`, { body, ...options });
-  }
-
-  /**
-   * Start streaming the media from a call to a specific WebSocket address or
-   * Dialogflow connection in near-realtime. Audio will be delivered as
-   * base64-encoded RTP payload (raw audio), wrapped in JSON payloads.
-   *
-   * Please find more details about media streaming messages specification under the
-   * [link](https://developers.telnyx.com/docs/voice/programmable-voice/media-streaming).
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.startStreaming(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  startStreaming(
-    callControlID: string,
-    body: ActionStartStreamingParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStartStreamingResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/streaming_start`, { body, ...options });
+  ): APIPromise<ActionSwitchSupervisorRoleResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/switch_supervisor_role`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -707,197 +843,6 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Stop an AI assistant on the call.
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.stopAIAssistant(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  stopAIAssistant(
-    callControlID: string,
-    body: ActionStopAIAssistantParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStopAIAssistantResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_stop`, { body, ...options });
-  }
-
-  /**
-   * Stop the active Conversation Relay session on a call.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.calls.actions.stopConversationRelay(
-   *     'call_control_id',
-   *   );
-   * ```
-   */
-  stopConversationRelay(
-    callControlID: string,
-    body: ActionStopConversationRelayParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStopConversationRelayResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/conversation_relay_stop`, {
-      body,
-      ...options,
-    });
-  }
-
-  /**
-   * Stop forking a call.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `call.fork.stopped`
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.stopForking(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  stopForking(
-    callControlID: string,
-    body: ActionStopForkingParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStopForkingResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/fork_stop`, { body, ...options });
-  }
-
-  /**
-   * Stop current gather.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `call.gather.ended`
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.stopGather(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  stopGather(
-    callControlID: string,
-    body: ActionStopGatherParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStopGatherResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/gather_stop`, { body, ...options });
-  }
-
-  /**
-   * Noise Suppression Stop (BETA)
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.calls.actions.stopNoiseSuppression(
-   *     'call_control_id',
-   *   );
-   * ```
-   */
-  stopNoiseSuppression(
-    callControlID: string,
-    body: ActionStopNoiseSuppressionParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStopNoiseSuppressionResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/suppression_stop`, { body, ...options });
-  }
-
-  /**
-   * Stop audio being played on the call.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `call.playback.ended` or `call.speak.ended`
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.stopPlayback(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  stopPlayback(
-    callControlID: string,
-    body: ActionStopPlaybackParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStopPlaybackResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/playback_stop`, { body, ...options });
-  }
-
-  /**
-   * Stop recording the call.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `call.recording.saved`
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.stopRecording(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  stopRecording(
-    callControlID: string,
-    body: ActionStopRecordingParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStopRecordingResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/record_stop`, { body, ...options });
-  }
-
-  /**
-   * Stop SIPREC session.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `siprec.stopped`
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.stopSiprec(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  stopSiprec(
-    callControlID: string,
-    body: ActionStopSiprecParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStopSiprecResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/siprec_stop`, { body, ...options });
-  }
-
-  /**
-   * Stop streaming a call to a WebSocket.
-   *
-   * **Expected Webhooks:**
-   *
-   * - `streaming.stopped`
-   *
-   * @example
-   * ```ts
-   * const response = await client.calls.actions.stopStreaming(
-   *   'call_control_id',
-   * );
-   * ```
-   */
-  stopStreaming(
-    callControlID: string,
-    body: ActionStopStreamingParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionStopStreamingResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/streaming_stop`, { body, ...options });
-  }
-
-  /**
    * Stop real-time transcription.
    *
    * @example
@@ -914,30 +859,6 @@ export class Actions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ActionStopTranscriptionResponse> {
     return this._client.post(path`/calls/${callControlID}/actions/transcription_stop`, { body, ...options });
-  }
-
-  /**
-   * Switch the supervisor role for a bridged call. This allows switching between
-   * different supervisor modes during an active call
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.calls.actions.switchSupervisorRole(
-   *     'call_control_id',
-   *     { role: 'barge' },
-   *   );
-   * ```
-   */
-  switchSupervisorRole(
-    callControlID: string,
-    body: ActionSwitchSupervisorRoleParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionSwitchSupervisorRoleResponse> {
-    return this._client.post(path`/calls/${callControlID}/actions/switch_supervisor_role`, {
-      body,
-      ...options,
-    });
   }
 
   /**
@@ -979,23 +900,102 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Updates client state
+   * Add messages to the conversation started by an AI assistant on the call.
    *
    * @example
    * ```ts
    * const response =
-   *   await client.calls.actions.updateClientState(
+   *   await client.calls.actions.addAIAssistantMessages(
    *     'call_control_id',
-   *     { client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d' },
    *   );
    * ```
    */
-  updateClientState(
+  addAIAssistantMessages(
     callControlID: string,
-    body: ActionUpdateClientStateParams,
+    body: ActionAddAIAssistantMessagesParams,
     options?: RequestOptions,
-  ): APIPromise<ActionUpdateClientStateResponse> {
-    return this._client.put(path`/calls/${callControlID}/actions/client_state_update`, { body, ...options });
+  ): APIPromise<ActionAddAIAssistantMessagesResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_add_messages`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
+   * Add a participant to an existing AI assistant conversation. Use this command to
+   * bring an additional call leg into a running AI conversation.
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.joinAIAssistant(
+   *   'call_control_id',
+   *   {
+   *     conversation_id: 'v3:abc123',
+   *     participant: { id: 'v3:abc123def456', role: 'user' },
+   *   },
+   * );
+   * ```
+   */
+  joinAIAssistant(
+    callControlID: string,
+    body: ActionJoinAIAssistantParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionJoinAIAssistantResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/ai_assistant_join`, { body, ...options });
+  }
+
+  /**
+   * Start a Conversation Relay session on an active call. Conversation Relay
+   * connects the call audio to your WebSocket so your application can exchange
+   * realtime messages with the caller while Telnyx handles speech recognition and
+   * text-to-speech. Only one AI Assistant or Conversation Relay session can be
+   * active on a call at a time.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.conversation.ended` - Sent when the Conversation Relay session ends. If
+   *   the customer WebSocket disconnects, the webhook payload `reason` is
+   *   `customer_disconnect`.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.calls.actions.startConversationRelay(
+   *     'call_control_id',
+   *   );
+   * ```
+   */
+  startConversationRelay(
+    callControlID: string,
+    body: ActionStartConversationRelayParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStartConversationRelayResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/conversation_relay_start`, {
+      body,
+      ...options,
+    });
+  }
+
+  /**
+   * Stop the active Conversation Relay session on a call.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.calls.actions.stopConversationRelay(
+   *     'call_control_id',
+   *   );
+   * ```
+   */
+  stopConversationRelay(
+    callControlID: string,
+    body: ActionStopConversationRelayParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionStopConversationRelayResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/conversation_relay_stop`, {
+      body,
+      ...options,
+    });
   }
 }
 
@@ -2334,7 +2334,14 @@ export interface ActionUpdateClientStateResponse {
   data?: CallControlCommandResult;
 }
 
-export interface ActionAddAIAssistantMessagesParams {
+export interface ActionStartAIAssistantParams {
+  /**
+   * AI Assistant configuration. All fields except `id` are optional — the
+   * assistant's stored configuration will be used as fallback for any omitted
+   * fields.
+   */
+  assistant?: CallsAPI.CallAssistantRequest;
+
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
    * Base-64 encoded string.
@@ -2348,9 +2355,98 @@ export interface ActionAddAIAssistantMessagesParams {
   command_id?: string;
 
   /**
-   * The messages to add to the conversation.
+   * Text that will be played when the assistant starts, if none then nothing will be
+   * played when the assistant starts. The greeting can be text for any voice or SSML
+   * for `AWS.Polly.<voice_id>` voices. There is a 3,000 character limit.
    */
-  messages?: Array<UserMessage | AssistantMessage | ToolMessage | SystemMessage | DeveloperMessage>;
+  greeting?: string;
+
+  /**
+   * Settings for handling user interruptions during assistant speech
+   */
+  interruption_settings?: InterruptionSettings;
+
+  /**
+   * A list of messages to seed the conversation history before the assistant starts.
+   * Follows the same message format as the `ai_assistant_add_messages` command.
+   */
+  message_history?: Array<UserMessage | AssistantMessage | ToolMessage | SystemMessage | DeveloperMessage>;
+
+  /**
+   * A list of participants to add to the conversation when it starts.
+   */
+  participants?: Array<AIAssistantJoinParticipant>;
+
+  /**
+   * When `true`, a webhook is sent each time the conversation message history is
+   * updated.
+   */
+  send_message_history_updates?: boolean;
+
+  /**
+   * The settings associated with speech to text for the voice assistant. This is
+   * only relevant if the assistant uses a text-to-text language model. Any assistant
+   * using a model with native audio support (e.g. `fixie-ai/ultravox-v0_4`) will
+   * ignore this field.
+   */
+  transcription?: TranscriptionConfig;
+
+  /**
+   * The voice to be used by the voice assistant. Currently we support ElevenLabs,
+   * Telnyx and AWS voices.
+   *
+   * **Supported Providers:**
+   *
+   * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural
+   *   voices, which provide more realistic, human-like speech, append `-Neural` to
+   *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
+   *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
+   *   for compatibility.
+   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
+   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
+   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
+   *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
+   *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
+   *   under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See
+   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   *   for details. Check
+   *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+   * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+   *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,
+   *   `Max`, `TTS2`.
+   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+   *   `ara`, `rex`, `sal`, `leo`.
+   */
+  voice?: string;
+
+  /**
+   * The settings associated with the voice selected
+   */
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings
+    | Shared.XaiVoiceSettings;
+}
+
+export interface ActionStopAIAssistantParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
 }
 
 export interface ActionAnswerParams {
@@ -2750,6 +2846,14 @@ export interface ActionBridgeParams {
   video_room_id?: string;
 }
 
+export interface ActionUpdateClientStateParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state: string;
+}
+
 export interface ActionEnqueueParams {
   /**
    * The name of the queue the call should be put in. If a queue with a given name
@@ -2786,6 +2890,59 @@ export interface ActionEnqueueParams {
    * The number of seconds after which the call will be removed from the queue.
    */
   max_wait_time_secs?: number;
+}
+
+export interface ActionStartForkingParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * The network target, <udp:ip_address:port>, where the call's incoming RTP media
+   * packets should be forwarded.
+   */
+  rx?: string;
+
+  /**
+   * Optionally specify a media type to stream. If `decrypted` selected, Telnyx will
+   * decrypt incoming SIP media before forking to the target. `rx` and `tx` are
+   * required fields if `decrypted` selected.
+   */
+  stream_type?: 'decrypted';
+
+  /**
+   * The network target, <udp:ip_address:port>, where the call's outgoing RTP media
+   * packets should be forwarded.
+   */
+  tx?: string;
+}
+
+export interface ActionStopForkingParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Optionally specify a `stream_type`. This should match the `stream_type` that was
+   * used in `fork_start` command to properly stop the fork.
+   */
+  stream_type?: 'raw' | 'decrypted';
 }
 
 export interface ActionGatherParams {
@@ -2843,6 +3000,20 @@ export interface ActionGatherParams {
    * A list of all digits accepted as valid.
    */
   valid_digits?: string;
+}
+
+export interface ActionStopGatherParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
 }
 
 export interface ActionGatherUsingAIParams {
@@ -3266,27 +3437,6 @@ export interface ActionHangupParams {
   custom_headers?: Array<CallsAPI.CustomSipHeader>;
 }
 
-export interface ActionJoinAIAssistantParams {
-  /**
-   * The ID of the AI assistant conversation to join.
-   */
-  conversation_id: string;
-
-  participant: AIAssistantJoinParticipant;
-
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-}
-
 export interface ActionLeaveQueueParams {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -3299,775 +3449,6 @@ export interface ActionLeaveQueueParams {
    * the same `command_id` for the same `call_control_id`.
    */
   command_id?: string;
-}
-
-export interface ActionPauseRecordingParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * Uniquely identifies the resource.
-   */
-  recording_id?: string;
-}
-
-export interface ActionReferParams {
-  /**
-   * The SIP URI to which the call will be referred to.
-   */
-  sip_address: string;
-
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid execution of duplicate commands. Telnyx will ignore
-   * subsequent commands with the same `command_id` as one that has already been
-   * executed.
-   */
-  command_id?: string;
-
-  /**
-   * Custom headers to be added to the SIP INVITE.
-   */
-  custom_headers?: Array<CallsAPI.CustomSipHeader>;
-
-  /**
-   * SIP Authentication password used for SIP challenges.
-   */
-  sip_auth_password?: string;
-
-  /**
-   * SIP Authentication username used for SIP challenges.
-   */
-  sip_auth_username?: string;
-
-  /**
-   * SIP headers to be added to the request. Currently only User-to-User header is
-   * supported.
-   */
-  sip_headers?: Array<CallsAPI.SipHeader>;
-}
-
-export interface ActionRejectParams {
-  /**
-   * Cause for call rejection.
-   */
-  cause: 'CALL_REJECTED' | 'USER_BUSY';
-
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-}
-
-export interface ActionResumeRecordingParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * Uniquely identifies the resource.
-   */
-  recording_id?: string;
-}
-
-export interface ActionSendDtmfParams {
-  /**
-   * DTMF digits to send. Valid digits are 0-9, A-D, \*, and #. Pauses can be added
-   * using w (0.5s) and W (1s).
-   */
-  digits: string;
-
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * Specifies for how many milliseconds each digit will be played in the audio
-   * stream. Ranges from 100 to 500ms
-   */
-  duration_millis?: number;
-}
-
-export interface ActionSendSipInfoParams {
-  /**
-   * Content of the SIP INFO
-   */
-  body: string;
-
-  /**
-   * Content type of the INFO body. Must be MIME type compliant. There is a 1,400
-   * bytes limit
-   */
-  content_type: string;
-
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-}
-
-export interface ActionSpeakParams {
-  /**
-   * The text or SSML to be converted into speech. There is a 3,000 character limit.
-   */
-  payload: string;
-
-  /**
-   * Specifies the voice used in speech synthesis.
-   *
-   * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only
-   *   the provider will give default values for voice_id and model_id.
-   *
-   *   **Supported Providers:**
-   *
-   * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural
-   *   voices, which provide more realistic, human-like speech, append `-Neural` to
-   *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
-   *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
-   *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
-   *   `Azure.en-US-BrianMultilingualNeural`,
-   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
-   *   `voice_settings` to configure custom deployments, regions, or API keys.
-   * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
-   *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part
-   *   is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
-   *   integration identifier secret in
-   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
-   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   *   for details. Check
-   *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`).
-   *   Use `voice_settings` to configure voice_speed and other synthesis parameters.
-   * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
-   *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
-   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
-   *   to configure speed, volume, pitch, and language_boost.
-   * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
-   *   Supported model_ids: `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use
-   *   `voice_settings` to configure voice_speed.
-   * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
-   *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
-   *   `voice_settings` to configure precision, sample_rate, and format.
-   * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
-   *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,
-   *   `Max`, `TTS2`. Use `voice_settings` to configure `delivery_mode` (`STABLE`,
-   *   `BALANCED`, `CREATIVE`), supported by `TTS2` only.
-   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
-   *   `ara`, `rex`, `sal`, `leo`.
-   *
-   * For service_level basic, you may define the gender of the speaker (male or
-   * female).
-   */
-  voice: string;
-
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * The language you want spoken. This parameter is ignored when a `Polly.*` voice
-   * is specified.
-   */
-  language?:
-    | 'arb'
-    | 'cmn-CN'
-    | 'cy-GB'
-    | 'da-DK'
-    | 'de-DE'
-    | 'en-AU'
-    | 'en-GB'
-    | 'en-GB-WLS'
-    | 'en-IN'
-    | 'en-US'
-    | 'es-ES'
-    | 'es-MX'
-    | 'es-US'
-    | 'fr-CA'
-    | 'fr-FR'
-    | 'hi-IN'
-    | 'is-IS'
-    | 'it-IT'
-    | 'ja-JP'
-    | 'ko-KR'
-    | 'nb-NO'
-    | 'nl-NL'
-    | 'pl-PL'
-    | 'pt-BR'
-    | 'pt-PT'
-    | 'ro-RO'
-    | 'ru-RU'
-    | 'sv-SE'
-    | 'tr-TR';
-
-  /**
-   * The number of times to play the audio file. Use `infinity` to loop indefinitely.
-   * Defaults to 1.
-   */
-  loop?: Loopcount;
-
-  /**
-   * The type of the provided payload. The payload can either be plain text, or
-   * Speech Synthesis Markup Language (SSML).
-   */
-  payload_type?: 'text' | 'ssml';
-
-  /**
-   * This parameter impacts speech quality, language options and payload types. When
-   * using `basic`, only the `en-US` language and payload type `text` are allowed.
-   */
-  service_level?: 'basic' | 'premium';
-
-  /**
-   * When specified, it stops the current audio being played. Specify `current` to
-   * stop the current audio being played, and to play the next file in the queue.
-   * Specify `all` to stop the current audio file being played and to also clear all
-   * audio files from the queue.
-   */
-  stop?: string;
-
-  /**
-   * Specifies which legs of the call should receive the spoken audio.
-   */
-  target_legs?: 'self' | 'opposite' | 'both';
-
-  /**
-   * The settings associated with the voice selected
-   */
-  voice_settings?:
-    | ElevenLabsVoiceSettings
-    | TelnyxVoiceSettings
-    | AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings
-    | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
-    | Shared.ResembleVoiceSettings
-    | Shared.InworldVoiceSettings
-    | Shared.XaiVoiceSettings;
-}
-
-export interface ActionStartAIAssistantParams {
-  /**
-   * AI Assistant configuration. All fields except `id` are optional — the
-   * assistant's stored configuration will be used as fallback for any omitted
-   * fields.
-   */
-  assistant?: CallsAPI.CallAssistantRequest;
-
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * Text that will be played when the assistant starts, if none then nothing will be
-   * played when the assistant starts. The greeting can be text for any voice or SSML
-   * for `AWS.Polly.<voice_id>` voices. There is a 3,000 character limit.
-   */
-  greeting?: string;
-
-  /**
-   * Settings for handling user interruptions during assistant speech
-   */
-  interruption_settings?: InterruptionSettings;
-
-  /**
-   * A list of messages to seed the conversation history before the assistant starts.
-   * Follows the same message format as the `ai_assistant_add_messages` command.
-   */
-  message_history?: Array<UserMessage | AssistantMessage | ToolMessage | SystemMessage | DeveloperMessage>;
-
-  /**
-   * A list of participants to add to the conversation when it starts.
-   */
-  participants?: Array<AIAssistantJoinParticipant>;
-
-  /**
-   * When `true`, a webhook is sent each time the conversation message history is
-   * updated.
-   */
-  send_message_history_updates?: boolean;
-
-  /**
-   * The settings associated with speech to text for the voice assistant. This is
-   * only relevant if the assistant uses a text-to-text language model. Any assistant
-   * using a model with native audio support (e.g. `fixie-ai/ultravox-v0_4`) will
-   * ignore this field.
-   */
-  transcription?: TranscriptionConfig;
-
-  /**
-   * The voice to be used by the voice assistant. Currently we support ElevenLabs,
-   * Telnyx and AWS voices.
-   *
-   * **Supported Providers:**
-   *
-   * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural
-   *   voices, which provide more realistic, human-like speech, append `-Neural` to
-   *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
-   *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
-   *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
-   * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
-   *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
-   *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
-   *   under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See
-   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   *   for details. Check
-   *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-   * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
-   *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,
-   *   `Max`, `TTS2`.
-   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
-   *   `ara`, `rex`, `sal`, `leo`.
-   */
-  voice?: string;
-
-  /**
-   * The settings associated with the voice selected
-   */
-  voice_settings?:
-    | ElevenLabsVoiceSettings
-    | TelnyxVoiceSettings
-    | AwsVoiceSettings
-    | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
-    | Shared.ResembleVoiceSettings
-    | Shared.XaiVoiceSettings;
-}
-
-export interface ActionStartConversationRelayParams {
-  /**
-   * Custom parameters for the Conversation Relay session. Pass key-value data as
-   * `assistant.dynamic_variables` to make it available to the relay session.
-   */
-  assistant?: ActionStartConversationRelayParams.Assistant;
-
-  /**
-   * Use this field to add state to subsequent webhooks. It must be a valid Base-64
-   * encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * Enable DTMF detection for the relay session.
-   */
-  conversation_relay_dtmf_detection?: boolean;
-
-  /**
-   * Conversation Relay connection settings. This object can provide `url`,
-   * `dtmf_detection`, `interruptible`, `interruptible_greeting`, and `languages`.
-   * Top-level aliases override nested values when both are present.
-   */
-  conversation_relay_settings?: ActionStartConversationRelayParams.ConversationRelaySettings;
-
-  /**
-   * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
-   * `wss://`.
-   */
-  conversation_relay_url?: string;
-
-  /**
-   * Custom key-value parameters forwarded to the relay session as
-   * `assistant.dynamic_variables`. If `assistant.dynamic_variables` is also present,
-   * these values are merged in.
-   */
-  custom_parameters?: { [key: string]: unknown };
-
-  /**
-   * Public alias for `conversation_relay_dtmf_detection`. If both are present, this
-   * value wins.
-   */
-  dtmf_detection?: boolean;
-
-  /**
-   * Text played when the relay session starts.
-   */
-  greeting?: string;
-
-  /**
-   * Controls when caller input can interrupt assistant speech. `any` allows speech
-   * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
-   * only; `dtmf` allows DTMF only.
-   */
-  interruptible?: ConversationRelayInterruptible;
-
-  /**
-   * Controls when caller input can interrupt assistant speech. `any` allows speech
-   * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
-   * only; `dtmf` allows DTMF only.
-   */
-  interruptible_greeting?: ConversationRelayInterruptible;
-
-  /**
-   * Settings for handling caller interruptions during Conversation Relay speech.
-   */
-  interruption_settings?: CallsAPI.ConversationRelayInterruptionSettings;
-
-  /**
-   * Default language for the relay session. This value is used for both
-   * text-to-speech and speech recognition.
-   */
-  language?: string;
-
-  /**
-   * Per-language TTS and transcription settings.
-   */
-  languages?: Array<CallsAPI.ConversationRelayLanguage>;
-
-  /**
-   * Structured voice provider. Must be supplied together with `structured_provider`.
-   */
-  provider?: string;
-
-  /**
-   * Provider-specific structured voice settings. Must be supplied together with
-   * `provider`; Telnyx sends the value as the nested provider configuration for
-   * Conversation Relay.
-   */
-  structured_provider?: { [key: string]: unknown };
-
-  /**
-   * @deprecated Not supported for Conversation Relay start requests. Use
-   * `transcription_engine` and `transcription_engine_config` instead.
-   */
-  transcription?: { [key: string]: unknown };
-
-  /**
-   * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
-   * `Telnyx` are supported for backward compatibility. For Conversation Relay, use
-   * this field with `transcription_engine_config`; the `transcription` object is not
-   * supported.
-   */
-  transcription_engine?:
-    | 'Google'
-    | 'Telnyx'
-    | 'Deepgram'
-    | 'Azure'
-    | 'xAI'
-    | 'AssemblyAI'
-    | 'Speechmatics'
-    | 'Soniox'
-    | 'A'
-    | 'B';
-
-  /**
-   * Engine-specific transcription settings for Conversation Relay. This accepts the
-   * same provider-specific options used by the Call Transcription Start command,
-   * such as `transcription_model`, without requiring the engine discriminator to be
-   * repeated inside this object.
-   */
-  transcription_engine_config?: { [key: string]: unknown };
-
-  /**
-   * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or
-   * `provider`.
-   */
-  tts_provider?: string;
-
-  /**
-   * Public alias for `conversation_relay_url`. Must start with `ws://` or `wss://`.
-   * If both are present, this value wins.
-   */
-  url?: string;
-
-  /**
-   * The voice to be used by the voice assistant. Currently we support ElevenLabs,
-   * Telnyx and AWS voices.
-   *
-   * **Supported Providers:**
-   *
-   * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural
-   *   voices, which provide more realistic, human-like speech, append `-Neural` to
-   *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
-   *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
-   *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
-   * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
-   *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
-   *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
-   *   under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See
-   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   *   for details. Check
-   *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-   * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
-   *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,
-   *   `Max`, `TTS2`.
-   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
-   *   `ara`, `rex`, `sal`, `leo`.
-   */
-  voice?: string;
-
-  /**
-   * The settings associated with the voice selected
-   */
-  voice_settings?:
-    | ElevenLabsVoiceSettings
-    | TelnyxVoiceSettings
-    | AwsVoiceSettings
-    | Shared.MinimaxVoiceSettings
-    | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
-    | Shared.ResembleVoiceSettings
-    | Shared.InworldVoiceSettings
-    | Shared.XaiVoiceSettings;
-}
-
-export namespace ActionStartConversationRelayParams {
-  /**
-   * Custom parameters for the Conversation Relay session. Pass key-value data as
-   * `assistant.dynamic_variables` to make it available to the relay session.
-   */
-  export interface Assistant {
-    /**
-     * Custom key-value parameters forwarded to the Conversation Relay session.
-     */
-    dynamic_variables?: { [key: string]: string };
-
-    [k: string]: unknown;
-  }
-
-  /**
-   * Conversation Relay connection settings. This object can provide `url`,
-   * `dtmf_detection`, `interruptible`, `interruptible_greeting`, and `languages`.
-   * Top-level aliases override nested values when both are present.
-   */
-  export interface ConversationRelaySettings {
-    /**
-     * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
-     * `wss://`.
-     */
-    url: string;
-
-    /**
-     * Whether to enable DTMF detection during the relay session.
-     */
-    dtmf_detection?: boolean;
-
-    /**
-     * Controls when caller input can interrupt assistant speech. `any` allows speech
-     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
-     * only; `dtmf` allows DTMF only.
-     */
-    interruptible?: ActionsAPI.ConversationRelayInterruptible;
-
-    /**
-     * Controls when caller input can interrupt assistant speech. `any` allows speech
-     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
-     * only; `dtmf` allows DTMF only.
-     */
-    interruptible_greeting?: ActionsAPI.ConversationRelayInterruptible;
-
-    /**
-     * Language-specific TTS and transcription settings.
-     */
-    languages?: Array<CallsAPI.ConversationRelayLanguage>;
-  }
-}
-
-export interface ActionStartForkingParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * The network target, <udp:ip_address:port>, where the call's incoming RTP media
-   * packets should be forwarded.
-   */
-  rx?: string;
-
-  /**
-   * Optionally specify a media type to stream. If `decrypted` selected, Telnyx will
-   * decrypt incoming SIP media before forking to the target. `rx` and `tx` are
-   * required fields if `decrypted` selected.
-   */
-  stream_type?: 'decrypted';
-
-  /**
-   * The network target, <udp:ip_address:port>, where the call's outgoing RTP media
-   * packets should be forwarded.
-   */
-  tx?: string;
-}
-
-export interface ActionStartNoiseSuppressionParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * The direction of the audio stream to be noise suppressed.
-   */
-  direction?: 'inbound' | 'outbound' | 'both';
-
-  /**
-   * The engine to use for noise suppression. For backward compatibility, engines A,
-   * B, C, and D are also supported, but are deprecated: A - Denoiser B -
-   * DeepFilterNet C - Krisp D - AiCoustics
-   */
-  noise_suppression_engine?:
-    | 'Denoiser'
-    | 'DeepFilterNet'
-    | 'Krisp'
-    | 'AiCoustics'
-    | 'aic_l_quail'
-    | 'aic_l_rook'
-    | 'aic_s_quail'
-    | 'aic_s_rook'
-    | 'quail_voice_focus_s'
-    | 'quail_voice_focus_xs';
-
-  /**
-   * Configuration parameters for noise suppression engines. Different engines
-   * support different parameters.
-   */
-  noise_suppression_engine_config?: ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig;
-}
-
-export namespace ActionStartNoiseSuppressionParams {
-  /**
-   * Configuration parameters for noise suppression engines. Different engines
-   * support different parameters.
-   */
-  export interface NoiseSuppressionEngineConfig {
-    /**
-     * The attenuation limit for noise suppression (0-100). Only applicable for
-     * DeepFilterNet.
-     */
-    attenuation_limit?: number;
-
-    /**
-     * Enhancement intensity (0.0-1.0). Only applicable for AiCoustics.
-     */
-    enhancement_level?: number;
-
-    /**
-     * AiCoustics model family. 'sparrow' optimized for human-to-human calls, 'quail'
-     * optimized for Voice AI/STT. Only applicable for AiCoustics.
-     */
-    family?: 'sparrow' | 'quail';
-
-    /**
-     * Processing mode. Only applicable for DeepFilterNet.
-     */
-    mode?: 'standard' | 'advanced';
-
-    /**
-     * The Krisp model to use. Only applicable for Krisp.
-     */
-    model?:
-      | 'krisp-viva-tel-v2.kef'
-      | 'krisp-viva-tel-lite-v1.kef'
-      | 'krisp-viva-pro-v1.kef'
-      | 'krisp-viva-ss-v1.kef';
-
-    /**
-     * AiCoustics model size. 's' and 'l' work with both families. 'xs' and 'xxs' are
-     * sparrow-only. 'vf_l' and 'vf_1_1_l' are quail-only. Only applicable for
-     * AiCoustics.
-     */
-    size?: 's' | 'l' | 'xs' | 'xxs' | 'vf_l' | 'vf_1_1_l';
-
-    /**
-     * Suppression level (0.0-100.0). Only applicable for Krisp.
-     */
-    suppression_level?: number;
-
-    /**
-     * Voice gain multiplier (0.1-4.0). Only applicable for AiCoustics.
-     */
-    voice_gain?: number;
-  }
 }
 
 export interface ActionStartPlaybackParams {
@@ -4142,6 +3523,69 @@ export interface ActionStartPlaybackParams {
    * must be either `self`, `opposite` or `both`.
    */
   target_legs?: string;
+}
+
+export interface ActionStopPlaybackParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * When enabled, it stops the audio being played in the overlay queue.
+   */
+  overlay?: boolean;
+
+  /**
+   * Use `current` to stop the current audio being played. Use `all` to stop the
+   * current audio file being played and clear all audio files from the queue.
+   */
+  stop?: string;
+}
+
+export interface ActionPauseRecordingParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Uniquely identifies the resource.
+   */
+  recording_id?: string;
+}
+
+export interface ActionResumeRecordingParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Uniquely identifies the resource.
+   */
+  recording_id?: string;
 }
 
 export interface ActionStartRecordingParams {
@@ -4494,6 +3938,136 @@ export interface ActionStartRecordingParams {
   trim?: 'trim-silence';
 }
 
+export interface ActionStopRecordingParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Uniquely identifies the resource.
+   */
+  recording_id?: string;
+}
+
+export interface ActionReferParams {
+  /**
+   * The SIP URI to which the call will be referred to.
+   */
+  sip_address: string;
+
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid execution of duplicate commands. Telnyx will ignore
+   * subsequent commands with the same `command_id` as one that has already been
+   * executed.
+   */
+  command_id?: string;
+
+  /**
+   * Custom headers to be added to the SIP INVITE.
+   */
+  custom_headers?: Array<CallsAPI.CustomSipHeader>;
+
+  /**
+   * SIP Authentication password used for SIP challenges.
+   */
+  sip_auth_password?: string;
+
+  /**
+   * SIP Authentication username used for SIP challenges.
+   */
+  sip_auth_username?: string;
+
+  /**
+   * SIP headers to be added to the request. Currently only User-to-User header is
+   * supported.
+   */
+  sip_headers?: Array<CallsAPI.SipHeader>;
+}
+
+export interface ActionRejectParams {
+  /**
+   * Cause for call rejection.
+   */
+  cause: 'CALL_REJECTED' | 'USER_BUSY';
+
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+}
+
+export interface ActionSendDtmfParams {
+  /**
+   * DTMF digits to send. Valid digits are 0-9, A-D, \*, and #. Pauses can be added
+   * using w (0.5s) and W (1s).
+   */
+  digits: string;
+
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Specifies for how many milliseconds each digit will be played in the audio
+   * stream. Ranges from 100 to 500ms
+   */
+  duration_millis?: number;
+}
+
+export interface ActionSendSipInfoParams {
+  /**
+   * Content of the SIP INFO
+   */
+  body: string;
+
+  /**
+   * Content type of the INFO body. Must be MIME type compliant. There is a 1,400
+   * bytes limit
+   */
+  content_type: string;
+
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+}
+
 export interface ActionStartSiprecParams {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -4535,6 +4109,169 @@ export interface ActionStartSiprecParams {
    * Specifies which track should be sent on siprec session.
    */
   siprec_track?: 'inbound_track' | 'outbound_track' | 'both_tracks';
+}
+
+export interface ActionStopSiprecParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+}
+
+export interface ActionSpeakParams {
+  /**
+   * The text or SSML to be converted into speech. There is a 3,000 character limit.
+   */
+  payload: string;
+
+  /**
+   * Specifies the voice used in speech synthesis.
+   *
+   * - Define voices using the format `<Provider>.<Model>.<VoiceId>`. Specifying only
+   *   the provider will give default values for voice_id and model_id.
+   *
+   *   **Supported Providers:**
+   *
+   * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural
+   *   voices, which provide more realistic, human-like speech, append `-Neural` to
+   *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
+   *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
+   *   for compatibility.
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery). Use
+   *   `voice_settings` to configure custom deployments, regions, or API keys.
+   * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
+   *   `ElevenLabs.eleven_multilingual_v2.21m00Tcm4TlvDq8ikWAM`). The `ModelId` part
+   *   is optional. To use ElevenLabs, you must provide your ElevenLabs API key as an
+   *   integration identifier secret in
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`. See
+   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   *   for details. Check
+   *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`).
+   *   Use `voice_settings` to configure voice_speed and other synthesis parameters.
+   * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
+   *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
+   *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
+   *   to configure speed, volume, pitch, and language_boost.
+   * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
+   *   Supported model_ids: `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use
+   *   `voice_settings` to configure voice_speed.
+   * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
+   *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
+   *   `voice_settings` to configure precision, sample_rate, and format.
+   * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+   *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,
+   *   `Max`, `TTS2`. Use `voice_settings` to configure `delivery_mode` (`STABLE`,
+   *   `BALANCED`, `CREATIVE`), supported by `TTS2` only.
+   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+   *   `ara`, `rex`, `sal`, `leo`.
+   *
+   * For service_level basic, you may define the gender of the speaker (male or
+   * female).
+   */
+  voice: string;
+
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * The language you want spoken. This parameter is ignored when a `Polly.*` voice
+   * is specified.
+   */
+  language?:
+    | 'arb'
+    | 'cmn-CN'
+    | 'cy-GB'
+    | 'da-DK'
+    | 'de-DE'
+    | 'en-AU'
+    | 'en-GB'
+    | 'en-GB-WLS'
+    | 'en-IN'
+    | 'en-US'
+    | 'es-ES'
+    | 'es-MX'
+    | 'es-US'
+    | 'fr-CA'
+    | 'fr-FR'
+    | 'hi-IN'
+    | 'is-IS'
+    | 'it-IT'
+    | 'ja-JP'
+    | 'ko-KR'
+    | 'nb-NO'
+    | 'nl-NL'
+    | 'pl-PL'
+    | 'pt-BR'
+    | 'pt-PT'
+    | 'ro-RO'
+    | 'ru-RU'
+    | 'sv-SE'
+    | 'tr-TR';
+
+  /**
+   * The number of times to play the audio file. Use `infinity` to loop indefinitely.
+   * Defaults to 1.
+   */
+  loop?: Loopcount;
+
+  /**
+   * The type of the provided payload. The payload can either be plain text, or
+   * Speech Synthesis Markup Language (SSML).
+   */
+  payload_type?: 'text' | 'ssml';
+
+  /**
+   * This parameter impacts speech quality, language options and payload types. When
+   * using `basic`, only the `en-US` language and payload type `text` are allowed.
+   */
+  service_level?: 'basic' | 'premium';
+
+  /**
+   * When specified, it stops the current audio being played. Specify `current` to
+   * stop the current audio being played, and to play the next file in the queue.
+   * Specify `all` to stop the current audio file being played and to also clear all
+   * audio files from the queue.
+   */
+  stop?: string;
+
+  /**
+   * Specifies which legs of the call should receive the spoken audio.
+   */
+  target_legs?: 'self' | 'opposite' | 'both';
+
+  /**
+   * The settings associated with the voice selected
+   */
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.MinimaxVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings
+    | Shared.InworldVoiceSettings
+    | Shared.XaiVoiceSettings;
 }
 
 export interface ActionStartStreamingParams {
@@ -4620,6 +4357,146 @@ export namespace ActionStartStreamingParams {
   }
 }
 
+export interface ActionStopStreamingParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Identifies the stream. If the `stream_id` is not provided the command stops all
+   * streams associated with a given `call_control_id`.
+   */
+  stream_id?: string;
+}
+
+export interface ActionStartNoiseSuppressionParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * The direction of the audio stream to be noise suppressed.
+   */
+  direction?: 'inbound' | 'outbound' | 'both';
+
+  /**
+   * The engine to use for noise suppression. For backward compatibility, engines A,
+   * B, C, and D are also supported, but are deprecated: A - Denoiser B -
+   * DeepFilterNet C - Krisp D - AiCoustics
+   */
+  noise_suppression_engine?:
+    | 'Denoiser'
+    | 'DeepFilterNet'
+    | 'Krisp'
+    | 'AiCoustics'
+    | 'aic_l_quail'
+    | 'aic_l_rook'
+    | 'aic_s_quail'
+    | 'aic_s_rook'
+    | 'quail_voice_focus_s'
+    | 'quail_voice_focus_xs';
+
+  /**
+   * Configuration parameters for noise suppression engines. Different engines
+   * support different parameters.
+   */
+  noise_suppression_engine_config?: ActionStartNoiseSuppressionParams.NoiseSuppressionEngineConfig;
+}
+
+export namespace ActionStartNoiseSuppressionParams {
+  /**
+   * Configuration parameters for noise suppression engines. Different engines
+   * support different parameters.
+   */
+  export interface NoiseSuppressionEngineConfig {
+    /**
+     * The attenuation limit for noise suppression (0-100). Only applicable for
+     * DeepFilterNet.
+     */
+    attenuation_limit?: number;
+
+    /**
+     * Enhancement intensity (0.0-1.0). Only applicable for AiCoustics.
+     */
+    enhancement_level?: number;
+
+    /**
+     * AiCoustics model family. 'sparrow' optimized for human-to-human calls, 'quail'
+     * optimized for Voice AI/STT. Only applicable for AiCoustics.
+     */
+    family?: 'sparrow' | 'quail';
+
+    /**
+     * Processing mode. Only applicable for DeepFilterNet.
+     */
+    mode?: 'standard' | 'advanced';
+
+    /**
+     * The Krisp model to use. Only applicable for Krisp.
+     */
+    model?:
+      | 'krisp-viva-tel-v2.kef'
+      | 'krisp-viva-tel-lite-v1.kef'
+      | 'krisp-viva-pro-v1.kef'
+      | 'krisp-viva-ss-v1.kef';
+
+    /**
+     * AiCoustics model size. 's' and 'l' work with both families. 'xs' and 'xxs' are
+     * sparrow-only. 'vf_l' and 'vf_1_1_l' are quail-only. Only applicable for
+     * AiCoustics.
+     */
+    size?: 's' | 'l' | 'xs' | 'xxs' | 'vf_l' | 'vf_1_1_l';
+
+    /**
+     * Suppression level (0.0-100.0). Only applicable for Krisp.
+     */
+    suppression_level?: number;
+
+    /**
+     * Voice gain multiplier (0.1-4.0). Only applicable for AiCoustics.
+     */
+    voice_gain?: number;
+  }
+}
+
+export interface ActionStopNoiseSuppressionParams {
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+}
+
+export interface ActionSwitchSupervisorRoleParams {
+  /**
+   * The supervisor role to switch to. 'barge' allows speaking to both parties,
+   * 'whisper' allows speaking to caller only, 'monitor' allows listening only.
+   */
+  role: 'barge' | 'whisper' | 'monitor';
+}
+
 export interface ActionStartTranscriptionParams {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -4672,160 +4549,6 @@ export interface ActionStartTranscriptionParams {
   transcription_tracks?: string;
 }
 
-export interface ActionStopAIAssistantParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-}
-
-export interface ActionStopConversationRelayParams {
-  /**
-   * Use this field to add state to subsequent webhooks. It must be a valid Base-64
-   * encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-}
-
-export interface ActionStopForkingParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * Optionally specify a `stream_type`. This should match the `stream_type` that was
-   * used in `fork_start` command to properly stop the fork.
-   */
-  stream_type?: 'raw' | 'decrypted';
-}
-
-export interface ActionStopGatherParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-}
-
-export interface ActionStopNoiseSuppressionParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-}
-
-export interface ActionStopPlaybackParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * When enabled, it stops the audio being played in the overlay queue.
-   */
-  overlay?: boolean;
-
-  /**
-   * Use `current` to stop the current audio being played. Use `all` to stop the
-   * current audio file being played and clear all audio files from the queue.
-   */
-  stop?: string;
-}
-
-export interface ActionStopRecordingParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * Uniquely identifies the resource.
-   */
-  recording_id?: string;
-}
-
-export interface ActionStopSiprecParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-}
-
-export interface ActionStopStreamingParams {
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
-   * the same `command_id` for the same `call_control_id`.
-   */
-  command_id?: string;
-
-  /**
-   * Identifies the stream. If the `stream_id` is not provided the command stops all
-   * streams associated with a given `call_control_id`.
-   */
-  stream_id?: string;
-}
-
 export interface ActionStopTranscriptionParams {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -4838,14 +4561,6 @@ export interface ActionStopTranscriptionParams {
    * the same `command_id` for the same `call_control_id`.
    */
   command_id?: string;
-}
-
-export interface ActionSwitchSupervisorRoleParams {
-  /**
-   * The supervisor role to switch to. 'barge' allows speaking to both parties,
-   * 'whisper' allows speaking to caller only, 'monitor' allows listening only.
-   */
-  role: 'barge' | 'whisper' | 'monitor';
 }
 
 export interface ActionTransferParams {
@@ -5197,12 +4912,297 @@ export namespace ActionTransferParams {
   }
 }
 
-export interface ActionUpdateClientStateParams {
+export interface ActionAddAIAssistantMessagesParams {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
    * Base-64 encoded string.
    */
-  client_state: string;
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * The messages to add to the conversation.
+   */
+  messages?: Array<UserMessage | AssistantMessage | ToolMessage | SystemMessage | DeveloperMessage>;
+}
+
+export interface ActionJoinAIAssistantParams {
+  /**
+   * The ID of the AI assistant conversation to join.
+   */
+  conversation_id: string;
+
+  participant: AIAssistantJoinParticipant;
+
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+}
+
+export interface ActionStartConversationRelayParams {
+  /**
+   * Custom parameters for the Conversation Relay session. Pass key-value data as
+   * `assistant.dynamic_variables` to make it available to the relay session.
+   */
+  assistant?: ActionStartConversationRelayParams.Assistant;
+
+  /**
+   * Use this field to add state to subsequent webhooks. It must be a valid Base-64
+   * encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Enable DTMF detection for the relay session.
+   */
+  conversation_relay_dtmf_detection?: boolean;
+
+  /**
+   * Conversation Relay connection settings. This object can provide `url`,
+   * `dtmf_detection`, `interruptible`, `interruptible_greeting`, and `languages`.
+   * Top-level aliases override nested values when both are present.
+   */
+  conversation_relay_settings?: ActionStartConversationRelayParams.ConversationRelaySettings;
+
+  /**
+   * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+   * `wss://`.
+   */
+  conversation_relay_url?: string;
+
+  /**
+   * Custom key-value parameters forwarded to the relay session as
+   * `assistant.dynamic_variables`. If `assistant.dynamic_variables` is also present,
+   * these values are merged in.
+   */
+  custom_parameters?: { [key: string]: unknown };
+
+  /**
+   * Public alias for `conversation_relay_dtmf_detection`. If both are present, this
+   * value wins.
+   */
+  dtmf_detection?: boolean;
+
+  /**
+   * Text played when the relay session starts.
+   */
+  greeting?: string;
+
+  /**
+   * Controls when caller input can interrupt assistant speech. `any` allows speech
+   * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+   * only; `dtmf` allows DTMF only.
+   */
+  interruptible?: ConversationRelayInterruptible;
+
+  /**
+   * Controls when caller input can interrupt assistant speech. `any` allows speech
+   * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+   * only; `dtmf` allows DTMF only.
+   */
+  interruptible_greeting?: ConversationRelayInterruptible;
+
+  /**
+   * Settings for handling caller interruptions during Conversation Relay speech.
+   */
+  interruption_settings?: CallsAPI.ConversationRelayInterruptionSettings;
+
+  /**
+   * Default language for the relay session. This value is used for both
+   * text-to-speech and speech recognition.
+   */
+  language?: string;
+
+  /**
+   * Per-language TTS and transcription settings.
+   */
+  languages?: Array<CallsAPI.ConversationRelayLanguage>;
+
+  /**
+   * Structured voice provider. Must be supplied together with `structured_provider`.
+   */
+  provider?: string;
+
+  /**
+   * Provider-specific structured voice settings. Must be supplied together with
+   * `provider`; Telnyx sends the value as the nested provider configuration for
+   * Conversation Relay.
+   */
+  structured_provider?: { [key: string]: unknown };
+
+  /**
+   * @deprecated Not supported for Conversation Relay start requests. Use
+   * `transcription_engine` and `transcription_engine_config` instead.
+   */
+  transcription?: { [key: string]: unknown };
+
+  /**
+   * Engine to use for speech recognition. Legacy values `A` - `Google`, `B` -
+   * `Telnyx` are supported for backward compatibility. For Conversation Relay, use
+   * this field with `transcription_engine_config`; the `transcription` object is not
+   * supported.
+   */
+  transcription_engine?:
+    | 'Google'
+    | 'Telnyx'
+    | 'Deepgram'
+    | 'Azure'
+    | 'xAI'
+    | 'AssemblyAI'
+    | 'Speechmatics'
+    | 'Soniox'
+    | 'A'
+    | 'B';
+
+  /**
+   * Engine-specific transcription settings for Conversation Relay. This accepts the
+   * same provider-specific options used by the Call Transcription Start command,
+   * such as `transcription_model`, without requiring the engine discriminator to be
+   * repeated inside this object.
+   */
+  transcription_engine_config?: { [key: string]: unknown };
+
+  /**
+   * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or
+   * `provider`.
+   */
+  tts_provider?: string;
+
+  /**
+   * Public alias for `conversation_relay_url`. Must start with `ws://` or `wss://`.
+   * If both are present, this value wins.
+   */
+  url?: string;
+
+  /**
+   * The voice to be used by the voice assistant. Currently we support ElevenLabs,
+   * Telnyx and AWS voices.
+   *
+   * **Supported Providers:**
+   *
+   * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural
+   *   voices, which provide more realistic, human-like speech, append `-Neural` to
+   *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
+   *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
+   *   for compatibility.
+   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
+   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
+   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
+   *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
+   *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
+   *   under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See
+   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   *   for details. Check
+   *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
+   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
+   * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
+   *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,
+   *   `Max`, `TTS2`.
+   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
+   *   `ara`, `rex`, `sal`, `leo`.
+   */
+  voice?: string;
+
+  /**
+   * The settings associated with the voice selected
+   */
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.MinimaxVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.RimeVoiceSettings
+    | Shared.ResembleVoiceSettings
+    | Shared.InworldVoiceSettings
+    | Shared.XaiVoiceSettings;
+}
+
+export namespace ActionStartConversationRelayParams {
+  /**
+   * Custom parameters for the Conversation Relay session. Pass key-value data as
+   * `assistant.dynamic_variables` to make it available to the relay session.
+   */
+  export interface Assistant {
+    /**
+     * Custom key-value parameters forwarded to the Conversation Relay session.
+     */
+    dynamic_variables?: { [key: string]: string };
+
+    [k: string]: unknown;
+  }
+
+  /**
+   * Conversation Relay connection settings. This object can provide `url`,
+   * `dtmf_detection`, `interruptible`, `interruptible_greeting`, and `languages`.
+   * Top-level aliases override nested values when both are present.
+   */
+  export interface ConversationRelaySettings {
+    /**
+     * WebSocket URL for your Conversation Relay server. Must start with `ws://` or
+     * `wss://`.
+     */
+    url: string;
+
+    /**
+     * Whether to enable DTMF detection during the relay session.
+     */
+    dtmf_detection?: boolean;
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible?: ActionsAPI.ConversationRelayInterruptible;
+
+    /**
+     * Controls when caller input can interrupt assistant speech. `any` allows speech
+     * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
+     * only; `dtmf` allows DTMF only.
+     */
+    interruptible_greeting?: ActionsAPI.ConversationRelayInterruptible;
+
+    /**
+     * Language-specific TTS and transcription settings.
+     */
+    languages?: Array<CallsAPI.ConversationRelayLanguage>;
+  }
+}
+
+export interface ActionStopConversationRelayParams {
+  /**
+   * Use this field to add state to subsequent webhooks. It must be a valid Base-64
+   * encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * Use this field to avoid duplicate commands. Telnyx will ignore any command with
+   * the same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
 }
 
 export declare namespace Actions {
@@ -5279,45 +5279,45 @@ export declare namespace Actions {
     type ActionSwitchSupervisorRoleResponse as ActionSwitchSupervisorRoleResponse,
     type ActionTransferResponse as ActionTransferResponse,
     type ActionUpdateClientStateResponse as ActionUpdateClientStateResponse,
-    type ActionAddAIAssistantMessagesParams as ActionAddAIAssistantMessagesParams,
+    type ActionStartAIAssistantParams as ActionStartAIAssistantParams,
+    type ActionStopAIAssistantParams as ActionStopAIAssistantParams,
     type ActionAnswerParams as ActionAnswerParams,
     type ActionBridgeParams as ActionBridgeParams,
+    type ActionUpdateClientStateParams as ActionUpdateClientStateParams,
     type ActionEnqueueParams as ActionEnqueueParams,
+    type ActionStartForkingParams as ActionStartForkingParams,
+    type ActionStopForkingParams as ActionStopForkingParams,
     type ActionGatherParams as ActionGatherParams,
+    type ActionStopGatherParams as ActionStopGatherParams,
     type ActionGatherUsingAIParams as ActionGatherUsingAIParams,
     type ActionGatherUsingAudioParams as ActionGatherUsingAudioParams,
     type ActionGatherUsingSpeakParams as ActionGatherUsingSpeakParams,
     type ActionHangupParams as ActionHangupParams,
-    type ActionJoinAIAssistantParams as ActionJoinAIAssistantParams,
     type ActionLeaveQueueParams as ActionLeaveQueueParams,
+    type ActionStartPlaybackParams as ActionStartPlaybackParams,
+    type ActionStopPlaybackParams as ActionStopPlaybackParams,
     type ActionPauseRecordingParams as ActionPauseRecordingParams,
+    type ActionResumeRecordingParams as ActionResumeRecordingParams,
+    type ActionStartRecordingParams as ActionStartRecordingParams,
+    type ActionStopRecordingParams as ActionStopRecordingParams,
     type ActionReferParams as ActionReferParams,
     type ActionRejectParams as ActionRejectParams,
-    type ActionResumeRecordingParams as ActionResumeRecordingParams,
     type ActionSendDtmfParams as ActionSendDtmfParams,
     type ActionSendSipInfoParams as ActionSendSipInfoParams,
-    type ActionSpeakParams as ActionSpeakParams,
-    type ActionStartAIAssistantParams as ActionStartAIAssistantParams,
-    type ActionStartConversationRelayParams as ActionStartConversationRelayParams,
-    type ActionStartForkingParams as ActionStartForkingParams,
-    type ActionStartNoiseSuppressionParams as ActionStartNoiseSuppressionParams,
-    type ActionStartPlaybackParams as ActionStartPlaybackParams,
-    type ActionStartRecordingParams as ActionStartRecordingParams,
     type ActionStartSiprecParams as ActionStartSiprecParams,
-    type ActionStartStreamingParams as ActionStartStreamingParams,
-    type ActionStartTranscriptionParams as ActionStartTranscriptionParams,
-    type ActionStopAIAssistantParams as ActionStopAIAssistantParams,
-    type ActionStopConversationRelayParams as ActionStopConversationRelayParams,
-    type ActionStopForkingParams as ActionStopForkingParams,
-    type ActionStopGatherParams as ActionStopGatherParams,
-    type ActionStopNoiseSuppressionParams as ActionStopNoiseSuppressionParams,
-    type ActionStopPlaybackParams as ActionStopPlaybackParams,
-    type ActionStopRecordingParams as ActionStopRecordingParams,
     type ActionStopSiprecParams as ActionStopSiprecParams,
+    type ActionSpeakParams as ActionSpeakParams,
+    type ActionStartStreamingParams as ActionStartStreamingParams,
     type ActionStopStreamingParams as ActionStopStreamingParams,
-    type ActionStopTranscriptionParams as ActionStopTranscriptionParams,
+    type ActionStartNoiseSuppressionParams as ActionStartNoiseSuppressionParams,
+    type ActionStopNoiseSuppressionParams as ActionStopNoiseSuppressionParams,
     type ActionSwitchSupervisorRoleParams as ActionSwitchSupervisorRoleParams,
+    type ActionStartTranscriptionParams as ActionStartTranscriptionParams,
+    type ActionStopTranscriptionParams as ActionStopTranscriptionParams,
     type ActionTransferParams as ActionTransferParams,
-    type ActionUpdateClientStateParams as ActionUpdateClientStateParams,
+    type ActionAddAIAssistantMessagesParams as ActionAddAIAssistantMessagesParams,
+    type ActionJoinAIAssistantParams as ActionJoinAIAssistantParams,
+    type ActionStartConversationRelayParams as ActionStartConversationRelayParams,
+    type ActionStopConversationRelayParams as ActionStopConversationRelayParams,
   };
 }

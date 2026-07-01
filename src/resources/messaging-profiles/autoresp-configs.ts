@@ -11,6 +11,25 @@ import { path } from '../../internal/utils/path';
  */
 export class AutorespConfigs extends APIResource {
   /**
+   * List Auto-Response Settings
+   *
+   * @example
+   * ```ts
+   * const autorespConfigs =
+   *   await client.messagingProfiles.autorespConfigs.list(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  list(
+    profileID: string,
+    query: AutorespConfigListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<AutorespConfigListResponse> {
+    return this._client.get(path`/messaging_profiles/${profileID}/autoresp_configs`, { query, ...options });
+  }
+
+  /**
    * Create auto-response setting
    *
    * @example
@@ -32,6 +51,30 @@ export class AutorespConfigs extends APIResource {
     options?: RequestOptions,
   ): APIPromise<AutoRespConfigResponse> {
     return this._client.post(path`/messaging_profiles/${profileID}/autoresp_configs`, { body, ...options });
+  }
+
+  /**
+   * Delete Auto-Response Setting
+   *
+   * @example
+   * ```ts
+   * const autorespConfig =
+   *   await client.messagingProfiles.autorespConfigs.delete(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { profile_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
+   * ```
+   */
+  delete(
+    autorespCfgID: string,
+    params: AutorespConfigDeleteParams,
+    options?: RequestOptions,
+  ): APIPromise<string> {
+    const { profile_id } = params;
+    return this._client.delete(
+      path`/messaging_profiles/${profile_id}/autoresp_configs/${autorespCfgID}`,
+      options,
+    );
   }
 
   /**
@@ -86,49 +129,6 @@ export class AutorespConfigs extends APIResource {
       ...options,
     });
   }
-
-  /**
-   * List Auto-Response Settings
-   *
-   * @example
-   * ```ts
-   * const autorespConfigs =
-   *   await client.messagingProfiles.autorespConfigs.list(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  list(
-    profileID: string,
-    query: AutorespConfigListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<AutorespConfigListResponse> {
-    return this._client.get(path`/messaging_profiles/${profileID}/autoresp_configs`, { query, ...options });
-  }
-
-  /**
-   * Delete Auto-Response Setting
-   *
-   * @example
-   * ```ts
-   * const autorespConfig =
-   *   await client.messagingProfiles.autorespConfigs.delete(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     { profile_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   *   );
-   * ```
-   */
-  delete(
-    autorespCfgID: string,
-    params: AutorespConfigDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<string> {
-    const { profile_id } = params;
-    return this._client.delete(
-      path`/messaging_profiles/${profile_id}/autoresp_configs/${autorespCfgID}`,
-      options,
-    );
-  }
 }
 
 export interface AutoRespConfig {
@@ -172,50 +172,6 @@ export interface AutorespConfigListResponse {
 
 export type AutorespConfigDeleteResponse = string;
 
-export interface AutorespConfigCreateParams {
-  country_code: string;
-
-  keywords: Array<string>;
-
-  op: 'start' | 'stop' | 'info';
-
-  resp_text?: string;
-}
-
-export interface AutorespConfigRetrieveParams {
-  /**
-   * Unique identifier of the profile.
-   */
-  profile_id: string;
-}
-
-export interface AutorespConfigUpdateParams {
-  /**
-   * Path param: Unique identifier of the profile.
-   */
-  profile_id: string;
-
-  /**
-   * Body param
-   */
-  country_code: string;
-
-  /**
-   * Body param
-   */
-  keywords: Array<string>;
-
-  /**
-   * Body param
-   */
-  op: 'start' | 'stop' | 'info';
-
-  /**
-   * Body param
-   */
-  resp_text?: string;
-}
-
 export interface AutorespConfigListParams {
   /**
    * Filter results by country code.
@@ -257,11 +213,55 @@ export namespace AutorespConfigListParams {
   }
 }
 
+export interface AutorespConfigCreateParams {
+  country_code: string;
+
+  keywords: Array<string>;
+
+  op: 'start' | 'stop' | 'info';
+
+  resp_text?: string;
+}
+
 export interface AutorespConfigDeleteParams {
   /**
    * Unique identifier of the profile.
    */
   profile_id: string;
+}
+
+export interface AutorespConfigRetrieveParams {
+  /**
+   * Unique identifier of the profile.
+   */
+  profile_id: string;
+}
+
+export interface AutorespConfigUpdateParams {
+  /**
+   * Path param: Unique identifier of the profile.
+   */
+  profile_id: string;
+
+  /**
+   * Body param
+   */
+  country_code: string;
+
+  /**
+   * Body param
+   */
+  keywords: Array<string>;
+
+  /**
+   * Body param
+   */
+  op: 'start' | 'stop' | 'info';
+
+  /**
+   * Body param
+   */
+  resp_text?: string;
 }
 
 export declare namespace AutorespConfigs {
@@ -271,10 +271,10 @@ export declare namespace AutorespConfigs {
     type AutoRespConfigResponse as AutoRespConfigResponse,
     type AutorespConfigListResponse as AutorespConfigListResponse,
     type AutorespConfigDeleteResponse as AutorespConfigDeleteResponse,
+    type AutorespConfigListParams as AutorespConfigListParams,
     type AutorespConfigCreateParams as AutorespConfigCreateParams,
+    type AutorespConfigDeleteParams as AutorespConfigDeleteParams,
     type AutorespConfigRetrieveParams as AutorespConfigRetrieveParams,
     type AutorespConfigUpdateParams as AutorespConfigUpdateParams,
-    type AutorespConfigListParams as AutorespConfigListParams,
-    type AutorespConfigDeleteParams as AutorespConfigDeleteParams,
   };
 }

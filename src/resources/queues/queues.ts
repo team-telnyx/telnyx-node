@@ -25,20 +25,6 @@ export class Queues extends APIResource {
   calls: CallsAPI.Calls = new CallsAPI.Calls(this._client);
 
   /**
-   * Create a new call queue.
-   *
-   * @example
-   * ```ts
-   * const queue = await client.queues.create({
-   *   queue_name: 'tier_1_support',
-   * });
-   * ```
-   */
-  create(body: QueueCreateParams, options?: RequestOptions): APIPromise<QueueCreateResponse> {
-    return this._client.post('/queues', { body, ...options });
-  }
-
-  /**
    * Retrieve an existing call queue
    *
    * @example
@@ -48,24 +34,6 @@ export class Queues extends APIResource {
    */
   retrieve(queueName: string, options?: RequestOptions): APIPromise<QueueRetrieveResponse> {
     return this._client.get(path`/queues/${queueName}`, options);
-  }
-
-  /**
-   * Update properties of an existing call queue.
-   *
-   * @example
-   * ```ts
-   * const queue = await client.queues.update('queue_name', {
-   *   max_size: 200,
-   * });
-   * ```
-   */
-  update(
-    queueName: string,
-    body: QueueUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<QueueUpdateResponse> {
-    return this._client.post(path`/queues/${queueName}`, { body, ...options });
   }
 
   /**
@@ -87,6 +55,20 @@ export class Queues extends APIResource {
   }
 
   /**
+   * Create a new call queue.
+   *
+   * @example
+   * ```ts
+   * const queue = await client.queues.create({
+   *   queue_name: 'tier_1_support',
+   * });
+   * ```
+   */
+  create(body: QueueCreateParams, options?: RequestOptions): APIPromise<QueueCreateResponse> {
+    return this._client.post('/queues', { body, ...options });
+  }
+
+  /**
    * Delete an existing call queue.
    *
    * @example
@@ -99,6 +81,24 @@ export class Queues extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * Update properties of an existing call queue.
+   *
+   * @example
+   * ```ts
+   * const queue = await client.queues.update('queue_name', {
+   *   max_size: 200,
+   * });
+   * ```
+   */
+  update(
+    queueName: string,
+    body: QueueUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<QueueUpdateResponse> {
+    return this._client.post(path`/queues/${queueName}`, { body, ...options });
   }
 }
 
@@ -156,6 +156,8 @@ export interface QueueUpdateResponse {
   data?: Queue;
 }
 
+export interface QueueListParams extends DefaultFlatPaginationParams {}
+
 export interface QueueCreateParams {
   /**
    * The name of the queue. Must be between 1 and 255 characters.
@@ -175,8 +177,6 @@ export interface QueueUpdateParams {
   max_size: number;
 }
 
-export interface QueueListParams extends DefaultFlatPaginationParams {}
-
 Queues.Calls = Calls;
 
 export declare namespace Queues {
@@ -186,9 +186,9 @@ export declare namespace Queues {
     type QueueRetrieveResponse as QueueRetrieveResponse,
     type QueueUpdateResponse as QueueUpdateResponse,
     type QueuesDefaultFlatPagination as QueuesDefaultFlatPagination,
+    type QueueListParams as QueueListParams,
     type QueueCreateParams as QueueCreateParams,
     type QueueUpdateParams as QueueUpdateParams,
-    type QueueListParams as QueueListParams,
   };
 
   export {
@@ -196,9 +196,9 @@ export declare namespace Queues {
     type QueueCall as QueueCall,
     type CallRetrieveResponse as CallRetrieveResponse,
     type QueueCallsDefaultFlatPagination as QueueCallsDefaultFlatPagination,
-    type CallRetrieveParams as CallRetrieveParams,
-    type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,
+    type CallRetrieveParams as CallRetrieveParams,
     type CallRemoveParams as CallRemoveParams,
+    type CallUpdateParams as CallUpdateParams,
   };
 }

@@ -21,6 +21,19 @@ export class MobilePhoneNumbers extends APIResource {
   messaging: MessagingAPI.Messaging = new MessagingAPI.Messaging(this._client);
 
   /**
+   * List Mobile Phone Numbers
+   */
+  list(
+    query: MobilePhoneNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MobilePhoneNumbersDefaultFlatPagination, MobilePhoneNumber> {
+    return this._client.getAPIList('/v2/mobile_phone_numbers', DefaultFlatPagination<MobilePhoneNumber>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Retrieve a Mobile Phone Number
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MobilePhoneNumberRetrieveResponse> {
@@ -36,19 +49,6 @@ export class MobilePhoneNumbers extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MobilePhoneNumberUpdateResponse> {
     return this._client.patch(path`/v2/mobile_phone_numbers/${id}`, { body, ...options });
-  }
-
-  /**
-   * List Mobile Phone Numbers
-   */
-  list(
-    query: MobilePhoneNumberListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MobilePhoneNumbersDefaultFlatPagination, MobilePhoneNumber> {
-    return this._client.getAPIList('/v2/mobile_phone_numbers', DefaultFlatPagination<MobilePhoneNumber>, {
-      query,
-      ...options,
-    });
   }
 }
 
@@ -207,6 +207,8 @@ export interface MobilePhoneNumberUpdateResponse {
   data?: MobilePhoneNumber;
 }
 
+export interface MobilePhoneNumberListParams extends DefaultFlatPaginationParams {}
+
 export interface MobilePhoneNumberUpdateParams {
   call_forwarding?: MobilePhoneNumberUpdateParams.CallForwarding;
 
@@ -271,8 +273,6 @@ export namespace MobilePhoneNumberUpdateParams {
   }
 }
 
-export interface MobilePhoneNumberListParams extends DefaultFlatPaginationParams {}
-
 MobilePhoneNumbers.Messaging = Messaging;
 
 export declare namespace MobilePhoneNumbers {
@@ -281,8 +281,8 @@ export declare namespace MobilePhoneNumbers {
     type MobilePhoneNumberRetrieveResponse as MobilePhoneNumberRetrieveResponse,
     type MobilePhoneNumberUpdateResponse as MobilePhoneNumberUpdateResponse,
     type MobilePhoneNumbersDefaultFlatPagination as MobilePhoneNumbersDefaultFlatPagination,
-    type MobilePhoneNumberUpdateParams as MobilePhoneNumberUpdateParams,
     type MobilePhoneNumberListParams as MobilePhoneNumberListParams,
+    type MobilePhoneNumberUpdateParams as MobilePhoneNumberUpdateParams,
   };
 
   export {

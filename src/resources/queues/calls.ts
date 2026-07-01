@@ -12,45 +12,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Calls extends APIResource {
   /**
-   * Retrieve an existing call from an existing queue
-   *
-   * @example
-   * ```ts
-   * const call = await client.queues.calls.retrieve(
-   *   'call_control_id',
-   *   { queue_name: 'queue_name' },
-   * );
-   * ```
-   */
-  retrieve(
-    callControlID: string,
-    params: CallRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<CallRetrieveResponse> {
-    const { queue_name } = params;
-    return this._client.get(path`/queues/${queue_name}/calls/${callControlID}`, options);
-  }
-
-  /**
-   * Update queued call's keep_after_hangup flag
-   *
-   * @example
-   * ```ts
-   * await client.queues.calls.update('call_control_id', {
-   *   queue_name: 'queue_name',
-   * });
-   * ```
-   */
-  update(callControlID: string, params: CallUpdateParams, options?: RequestOptions): APIPromise<void> {
-    const { queue_name, ...body } = params;
-    return this._client.patch(path`/queues/${queue_name}/calls/${callControlID}`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
    * Retrieve the list of calls in an existing queue
    *
    * @example
@@ -75,6 +36,26 @@ export class Calls extends APIResource {
   }
 
   /**
+   * Retrieve an existing call from an existing queue
+   *
+   * @example
+   * ```ts
+   * const call = await client.queues.calls.retrieve(
+   *   'call_control_id',
+   *   { queue_name: 'queue_name' },
+   * );
+   * ```
+   */
+  retrieve(
+    callControlID: string,
+    params: CallRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<CallRetrieveResponse> {
+    const { queue_name } = params;
+    return this._client.get(path`/queues/${queue_name}/calls/${callControlID}`, options);
+  }
+
+  /**
    * Removes an inactive call from a queue. If the call is no longer active, use this
    * command to remove it from the queue.
    *
@@ -88,6 +69,25 @@ export class Calls extends APIResource {
   remove(callControlID: string, params: CallRemoveParams, options?: RequestOptions): APIPromise<void> {
     const { queue_name } = params;
     return this._client.delete(path`/queues/${queue_name}/calls/${callControlID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Update queued call's keep_after_hangup flag
+   *
+   * @example
+   * ```ts
+   * await client.queues.calls.update('call_control_id', {
+   *   queue_name: 'queue_name',
+   * });
+   * ```
+   */
+  update(callControlID: string, params: CallUpdateParams, options?: RequestOptions): APIPromise<void> {
+    const { queue_name, ...body } = params;
+    return this._client.patch(path`/queues/${queue_name}/calls/${callControlID}`, {
+      body,
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
@@ -161,7 +161,16 @@ export interface CallRetrieveResponse {
   data?: QueueCall;
 }
 
+export interface CallListParams extends DefaultFlatPaginationParams {}
+
 export interface CallRetrieveParams {
+  /**
+   * Uniquely identifies the queue by name
+   */
+  queue_name: string;
+}
+
+export interface CallRemoveParams {
   /**
    * Uniquely identifies the queue by name
    */
@@ -180,23 +189,14 @@ export interface CallUpdateParams {
   keep_after_hangup?: boolean;
 }
 
-export interface CallListParams extends DefaultFlatPaginationParams {}
-
-export interface CallRemoveParams {
-  /**
-   * Uniquely identifies the queue by name
-   */
-  queue_name: string;
-}
-
 export declare namespace Calls {
   export {
     type QueueCall as QueueCall,
     type CallRetrieveResponse as CallRetrieveResponse,
     type QueueCallsDefaultFlatPagination as QueueCallsDefaultFlatPagination,
-    type CallRetrieveParams as CallRetrieveParams,
-    type CallUpdateParams as CallUpdateParams,
     type CallListParams as CallListParams,
+    type CallRetrieveParams as CallRetrieveParams,
     type CallRemoveParams as CallRemoveParams,
+    type CallUpdateParams as CallUpdateParams,
   };
 }

@@ -9,30 +9,6 @@ const client = new Telnyx({
 
 describe('resource sessions', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.rooms.sessions.retrieve('0ccc7b54-4df3-4bca-a65a-3da1ecc777f0');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.rooms.sessions.retrieve(
-        '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-        { include_participants: true },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
   test.skip('list0', async () => {
     const responsePromise = client.rooms.sessions.list0();
     const rawResponse = await responsePromise.asResponse();
@@ -119,6 +95,30 @@ describe('resource sessions', () => {
           'page[number]': 0,
           'page[size]': 0,
         },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.rooms.sessions.retrieve('0ccc7b54-4df3-4bca-a65a-3da1ecc777f0');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.rooms.sessions.retrieve(
+        '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+        { include_participants: true },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

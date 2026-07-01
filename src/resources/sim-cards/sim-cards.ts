@@ -38,42 +38,6 @@ export class SimCards extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Returns the details regarding a specific SIM card.
-   *
-   * @example
-   * ```ts
-   * const simCard = await client.simCards.retrieve(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  retrieve(
-    id: string,
-    query: SimCardRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<SimCardRetrieveResponse> {
-    return this._client.get(path`/sim_cards/${id}`, { query, ...options });
-  }
-
-  /**
-   * Updates SIM card data
-   *
-   * @example
-   * ```ts
-   * const simCard = await client.simCards.update(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  update(
-    simCardID: string,
-    body: SimCardUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<SimCardUpdateResponse> {
-    return this._client.patch(path`/sim_cards/${simCardID}`, { body, ...options });
-  }
-
-  /**
    * Get all SIM cards belonging to the user that match the given filters.
    *
    * @example
@@ -117,6 +81,42 @@ export class SimCards extends APIResource {
   ): APIPromise<SimCardDeleteResponse> {
     const { report_lost } = params ?? {};
     return this._client.delete(path`/sim_cards/${id}`, { query: { report_lost }, ...options });
+  }
+
+  /**
+   * Returns the details regarding a specific SIM card.
+   *
+   * @example
+   * ```ts
+   * const simCard = await client.simCards.retrieve(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  retrieve(
+    id: string,
+    query: SimCardRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SimCardRetrieveResponse> {
+    return this._client.get(path`/sim_cards/${id}`, { query, ...options });
+  }
+
+  /**
+   * Updates SIM card data
+   *
+   * @example
+   * ```ts
+   * const simCard = await client.simCards.update(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  update(
+    simCardID: string,
+    body: SimCardUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<SimCardUpdateResponse> {
+    return this._client.patch(path`/sim_cards/${simCardID}`, { body, ...options });
   }
 
   /**
@@ -627,56 +627,6 @@ export interface SimCardListWirelessConnectivityLogsResponse {
   stop_time?: string;
 }
 
-export interface SimCardRetrieveParams {
-  /**
-   * When set to true, includes the PIN and PUK codes in the response. These codes
-   * are used for SIM card security and unlocking purposes. Available for both
-   * physical SIM cards and eSIMs.
-   */
-  include_pin_puk_codes?: boolean;
-
-  /**
-   * It includes the associated SIM card group object in the response when present.
-   */
-  include_sim_card_group?: boolean;
-}
-
-export interface SimCardUpdateParams {
-  /**
-   * List of IMEIs authorized to use a given SIM card.
-   */
-  authorized_imeis?: Array<string> | null;
-
-  /**
-   * The SIM card individual data limit configuration.
-   */
-  data_limit?: SimCardUpdateParams.DataLimit;
-
-  /**
-   * The group SIMCardGroup identification. This attribute can be <code>null</code>
-   * when it's present in an associated resource.
-   */
-  sim_card_group_id?: string;
-
-  status?: Shared.SimCardStatus;
-
-  /**
-   * Searchable tags associated with the SIM card
-   */
-  tags?: Array<string>;
-}
-
-export namespace SimCardUpdateParams {
-  /**
-   * The SIM card individual data limit configuration.
-   */
-  export interface DataLimit {
-    amount?: string;
-
-    unit?: 'MB' | 'GB';
-  }
-}
-
 export interface SimCardListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter for SIM cards (deepObject style). Originally:
@@ -745,6 +695,56 @@ export interface SimCardDeleteParams {
   report_lost?: boolean;
 }
 
+export interface SimCardRetrieveParams {
+  /**
+   * When set to true, includes the PIN and PUK codes in the response. These codes
+   * are used for SIM card security and unlocking purposes. Available for both
+   * physical SIM cards and eSIMs.
+   */
+  include_pin_puk_codes?: boolean;
+
+  /**
+   * It includes the associated SIM card group object in the response when present.
+   */
+  include_sim_card_group?: boolean;
+}
+
+export interface SimCardUpdateParams {
+  /**
+   * List of IMEIs authorized to use a given SIM card.
+   */
+  authorized_imeis?: Array<string> | null;
+
+  /**
+   * The SIM card individual data limit configuration.
+   */
+  data_limit?: SimCardUpdateParams.DataLimit;
+
+  /**
+   * The group SIMCardGroup identification. This attribute can be <code>null</code>
+   * when it's present in an associated resource.
+   */
+  sim_card_group_id?: string;
+
+  status?: Shared.SimCardStatus;
+
+  /**
+   * Searchable tags associated with the SIM card
+   */
+  tags?: Array<string>;
+}
+
+export namespace SimCardUpdateParams {
+  /**
+   * The SIM card individual data limit configuration.
+   */
+  export interface DataLimit {
+    amount?: string;
+
+    unit?: 'MB' | 'GB';
+  }
+}
+
 export interface SimCardListWirelessConnectivityLogsParams extends DefaultFlatPaginationParams {}
 
 SimCards.Actions = Actions;
@@ -760,10 +760,10 @@ export declare namespace SimCards {
     type SimCardGetPublicIPResponse as SimCardGetPublicIPResponse,
     type SimCardListWirelessConnectivityLogsResponse as SimCardListWirelessConnectivityLogsResponse,
     type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination as SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
-    type SimCardRetrieveParams as SimCardRetrieveParams,
-    type SimCardUpdateParams as SimCardUpdateParams,
     type SimCardListParams as SimCardListParams,
     type SimCardDeleteParams as SimCardDeleteParams,
+    type SimCardRetrieveParams as SimCardRetrieveParams,
+    type SimCardUpdateParams as SimCardUpdateParams,
     type SimCardListWirelessConnectivityLogsParams as SimCardListWirelessConnectivityLogsParams,
   };
 
@@ -783,11 +783,11 @@ export declare namespace SimCards {
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
     type SimCardActionsDefaultFlatPagination as SimCardActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
+    type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
+    type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,
+    type ActionSetPublicIPParams as ActionSetPublicIPParams,
     type ActionBulkDisableVoiceParams as ActionBulkDisableVoiceParams,
     type ActionBulkEnableVoiceParams as ActionBulkEnableVoiceParams,
-    type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
-    type ActionSetPublicIPParams as ActionSetPublicIPParams,
-    type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,
   };
 }
 

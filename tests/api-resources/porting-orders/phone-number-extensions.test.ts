@@ -9,37 +9,6 @@ const client = new Telnyx({
 
 describe('resource phoneNumberExtensions', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.portingOrders.phoneNumberExtensions.create(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      {
-        activation_ranges: [{ end_at: 10, start_at: 1 }],
-        extension_range: { end_at: 10, start_at: 1 },
-        porting_phone_number_id: 'f24151b6-3389-41d3-8747-7dd8c681e5e2',
-      },
-    );
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.portingOrders.phoneNumberExtensions.create(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      {
-        activation_ranges: [{ end_at: 10, start_at: 1 }],
-        extension_range: { end_at: 10, start_at: 1 },
-        porting_phone_number_id: 'f24151b6-3389-41d3-8747-7dd8c681e5e2',
-      },
-    );
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.portingOrders.phoneNumberExtensions.list(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -68,6 +37,37 @@ describe('resource phoneNumberExtensions', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.portingOrders.phoneNumberExtensions.create(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        activation_ranges: [{ end_at: 10, start_at: 1 }],
+        extension_range: { end_at: 10, start_at: 1 },
+        porting_phone_number_id: 'f24151b6-3389-41d3-8747-7dd8c681e5e2',
+      },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.portingOrders.phoneNumberExtensions.create(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        activation_ranges: [{ end_at: 10, start_at: 1 }],
+        extension_range: { end_at: 10, start_at: 1 },
+        porting_phone_number_id: 'f24151b6-3389-41d3-8747-7dd8c681e5e2',
+      },
+    );
   });
 
   // Mock server tests are disabled

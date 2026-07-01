@@ -9,6 +9,54 @@ const client = new Telnyx({
 
 describe('resource callControlApplications', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.callControlApplications.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.callControlApplications.list(
+        {
+          filter: {
+            application_name: { contains: 'contains' },
+            application_session_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            connection_id: 'connection_id',
+            failed: false,
+            from: '+12025550142',
+            leg_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+            name: 'name',
+            occurred_at: {
+              eq: '2019-03-29T11:10:00Z',
+              gt: '2019-03-29T11:10:00Z',
+              gte: '2019-03-29T11:10:00Z',
+              lt: '2019-03-29T11:10:00Z',
+              lte: '2019-03-29T11:10:00Z',
+            },
+            'outbound.outbound_voice_profile_id': '1293384261075731499',
+            product: 'texml',
+            status: 'init',
+            to: '+12025550142',
+            type: 'webhook',
+          },
+          'page[number]': 0,
+          'page[size]': 0,
+          sort: 'connection_name',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.callControlApplications.create({
       application_name: 'call-router',
@@ -46,6 +94,18 @@ describe('resource callControlApplications', () => {
       webhook_event_failover_url: 'https://failover.example.com',
       webhook_timeout_secs: 25,
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.callControlApplications.delete('1293384261075731499');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled
@@ -99,65 +159,5 @@ describe('resource callControlApplications', () => {
       webhook_event_failover_url: 'https://failover.example.com',
       webhook_timeout_secs: 25,
     });
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.callControlApplications.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.callControlApplications.list(
-        {
-          filter: {
-            application_name: { contains: 'contains' },
-            application_session_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            connection_id: 'connection_id',
-            failed: false,
-            from: '+12025550142',
-            leg_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-            name: 'name',
-            occurred_at: {
-              eq: '2019-03-29T11:10:00Z',
-              gt: '2019-03-29T11:10:00Z',
-              gte: '2019-03-29T11:10:00Z',
-              lt: '2019-03-29T11:10:00Z',
-              lte: '2019-03-29T11:10:00Z',
-            },
-            'outbound.outbound_voice_profile_id': '1293384261075731499',
-            product: 'texml',
-            status: 'init',
-            to: '+12025550142',
-            type: 'webhook',
-          },
-          'page[number]': 0,
-          'page[size]': 0,
-          sort: 'connection_name',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.callControlApplications.delete('1293384261075731499');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

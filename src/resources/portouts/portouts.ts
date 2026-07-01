@@ -55,20 +55,6 @@ export class Portouts extends APIResource {
     new SupportingDocumentsAPI.SupportingDocuments(this._client);
 
   /**
-   * Returns the portout request based on the ID provided
-   *
-   * @example
-   * ```ts
-   * const portout = await client.portouts.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<PortoutRetrieveResponse> {
-    return this._client.get(path`/portouts/${id}`, options);
-  }
-
-  /**
    * Returns the portout requests according to filters
    *
    * @example
@@ -102,6 +88,20 @@ export class Portouts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PortoutListRejectionCodesResponse> {
     return this._client.get(path`/portouts/rejections/${portoutID}`, { query, ...options });
+  }
+
+  /**
+   * Returns the portout request based on the ID provided
+   *
+   * @example
+   * ```ts
+   * const portout = await client.portouts.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<PortoutRetrieveResponse> {
+    return this._client.get(path`/portouts/${id}`, options);
   }
 
   /**
@@ -477,8 +477,8 @@ export declare namespace Portouts {
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
     type PortoutReportsDefaultFlatPagination as PortoutReportsDefaultFlatPagination,
-    type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
+    type ReportCreateParams as ReportCreateParams,
   };
 
   export {

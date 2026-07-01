@@ -9,26 +9,6 @@ const client = new Telnyx({
 
 describe('resource accessIPRanges', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.accessIPRanges.create({ cidr_block: 'cidr_block' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.accessIPRanges.create({
-      cidr_block: 'cidr_block',
-      description: 'description',
-    });
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.accessIPRanges.list();
     const rawResponse = await responsePromise.asResponse();
@@ -53,6 +33,26 @@ describe('resource accessIPRanges', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.accessIPRanges.create({ cidr_block: 'cidr_block' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.accessIPRanges.create({
+      cidr_block: 'cidr_block',
+      description: 'description',
+    });
   });
 
   // Mock server tests are disabled

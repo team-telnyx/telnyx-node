@@ -11,6 +11,37 @@ import { path } from '../internal/utils/path';
  */
 export class DialogflowConnections extends APIResource {
   /**
+   * Deletes a stored Dialogflow Connection.
+   *
+   * @example
+   * ```ts
+   * await client.dialogflowConnections.delete('connection_id');
+   * ```
+   */
+  delete(connectionID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/dialogflow_connections/${connectionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Return details of the Dialogflow connection associated with the given
+   * CallControl connection.
+   *
+   * @example
+   * ```ts
+   * const dialogflowConnectionResponse =
+   *   await client.dialogflowConnections.retrieve(
+   *     'connection_id',
+   *   );
+   * ```
+   */
+  retrieve(connectionID: string, options?: RequestOptions): APIPromise<DialogflowConnectionResponse> {
+    return this._client.get(path`/dialogflow_connections/${connectionID}`, options);
+  }
+
+  /**
    * Save Dialogflow Credentiails to Telnyx, so it can be used with other Telnyx
    * services.
    *
@@ -45,22 +76,6 @@ export class DialogflowConnections extends APIResource {
   }
 
   /**
-   * Return details of the Dialogflow connection associated with the given
-   * CallControl connection.
-   *
-   * @example
-   * ```ts
-   * const dialogflowConnectionResponse =
-   *   await client.dialogflowConnections.retrieve(
-   *     'connection_id',
-   *   );
-   * ```
-   */
-  retrieve(connectionID: string, options?: RequestOptions): APIPromise<DialogflowConnectionResponse> {
-    return this._client.get(path`/dialogflow_connections/${connectionID}`, options);
-  }
-
-  /**
    * Updates a stored Dialogflow Connection.
    *
    * @example
@@ -91,21 +106,6 @@ export class DialogflowConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<DialogflowConnectionResponse> {
     return this._client.put(path`/dialogflow_connections/${connectionID}`, { body, ...options });
-  }
-
-  /**
-   * Deletes a stored Dialogflow Connection.
-   *
-   * @example
-   * ```ts
-   * await client.dialogflowConnections.delete('connection_id');
-   * ```
-   */
-  delete(connectionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/dialogflow_connections/${connectionID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 

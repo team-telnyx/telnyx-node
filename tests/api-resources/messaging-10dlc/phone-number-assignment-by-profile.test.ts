@@ -32,9 +32,8 @@ describe('resource phoneNumberAssignmentByProfile', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('listPhoneNumberStatus', async () => {
-    const responsePromise =
-      client.messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus('taskId');
+  test.skip('retrieveStatus', async () => {
+    const responsePromise = client.messaging10dlc.phoneNumberAssignmentByProfile.retrieveStatus('taskId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -42,18 +41,6 @@ describe('resource phoneNumberAssignmentByProfile', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('listPhoneNumberStatus: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus(
-        'taskId',
-        { page: 0, recordsPerPage: 0 },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -82,8 +69,9 @@ describe('resource phoneNumberAssignmentByProfile', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieveStatus', async () => {
-    const responsePromise = client.messaging10dlc.phoneNumberAssignmentByProfile.retrieveStatus('taskId');
+  test.skip('listPhoneNumberStatus', async () => {
+    const responsePromise =
+      client.messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus('taskId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -91,5 +79,17 @@ describe('resource phoneNumberAssignmentByProfile', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('listPhoneNumberStatus: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus(
+        'taskId',
+        { page: 0, recordsPerPage: 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

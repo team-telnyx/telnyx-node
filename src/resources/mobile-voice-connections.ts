@@ -11,6 +11,20 @@ import { path } from '../internal/utils/path';
  */
 export class MobileVoiceConnections extends APIResource {
   /**
+   * List Mobile Voice Connections
+   */
+  list(
+    query: MobileVoiceConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MobileVoiceConnectionsDefaultFlatPagination, MobileVoiceConnection> {
+    return this._client.getAPIList(
+      '/v2/mobile_voice_connections',
+      DefaultFlatPagination<MobileVoiceConnection>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create a Mobile Voice Connection
    */
   create(
@@ -18,6 +32,13 @@ export class MobileVoiceConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MobileVoiceConnectionCreateResponse> {
     return this._client.post('/v2/mobile_voice_connections', { body, ...options });
+  }
+
+  /**
+   * Delete a Mobile Voice Connection
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<MobileVoiceConnectionDeleteResponse> {
+    return this._client.delete(path`/v2/mobile_voice_connections/${id}`, options);
   }
 
   /**
@@ -36,27 +57,6 @@ export class MobileVoiceConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MobileVoiceConnectionUpdateResponse> {
     return this._client.patch(path`/v2/mobile_voice_connections/${id}`, { body, ...options });
-  }
-
-  /**
-   * List Mobile Voice Connections
-   */
-  list(
-    query: MobileVoiceConnectionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MobileVoiceConnectionsDefaultFlatPagination, MobileVoiceConnection> {
-    return this._client.getAPIList(
-      '/v2/mobile_voice_connections',
-      DefaultFlatPagination<MobileVoiceConnection>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * Delete a Mobile Voice Connection
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<MobileVoiceConnectionDeleteResponse> {
-    return this._client.delete(path`/v2/mobile_voice_connections/${id}`, options);
   }
 }
 
@@ -145,6 +145,19 @@ export interface MobileVoiceConnectionDeleteResponse {
   data?: MobileVoiceConnection;
 }
 
+export interface MobileVoiceConnectionListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter by connection name containing the given string
+   */
+  'filter[connection_name][contains]'?: string;
+
+  /**
+   * Sort by field (e.g., created_at, connection_name, active). Prefix with - for
+   * descending order.
+   */
+  sort?: string;
+}
+
 export interface MobileVoiceConnectionCreateParams {
   active?: boolean;
 
@@ -209,19 +222,6 @@ export namespace MobileVoiceConnectionUpdateParams {
   }
 }
 
-export interface MobileVoiceConnectionListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter by connection name containing the given string
-   */
-  'filter[connection_name][contains]'?: string;
-
-  /**
-   * Sort by field (e.g., created_at, connection_name, active). Prefix with - for
-   * descending order.
-   */
-  sort?: string;
-}
-
 export declare namespace MobileVoiceConnections {
   export {
     type MobileVoiceConnection as MobileVoiceConnection,
@@ -230,8 +230,8 @@ export declare namespace MobileVoiceConnections {
     type MobileVoiceConnectionUpdateResponse as MobileVoiceConnectionUpdateResponse,
     type MobileVoiceConnectionDeleteResponse as MobileVoiceConnectionDeleteResponse,
     type MobileVoiceConnectionsDefaultFlatPagination as MobileVoiceConnectionsDefaultFlatPagination,
+    type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,
     type MobileVoiceConnectionCreateParams as MobileVoiceConnectionCreateParams,
     type MobileVoiceConnectionUpdateParams as MobileVoiceConnectionUpdateParams,
-    type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,
   };
 }

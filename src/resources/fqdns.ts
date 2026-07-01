@@ -11,6 +11,24 @@ import { path } from '../internal/utils/path';
  */
 export class Fqdns extends APIResource {
   /**
+   * Get all FQDNs belonging to the user that match the given filters.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const fqdn of client.fqdns.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: FqdnListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FqdnsDefaultFlatPagination, Fqdn> {
+    return this._client.getAPIList('/fqdns', DefaultFlatPagination<Fqdn>, { query, ...options });
+  }
+
+  /**
    * Create a new FQDN object.
    *
    * @example
@@ -24,6 +42,20 @@ export class Fqdns extends APIResource {
    */
   create(body: FqdnCreateParams, options?: RequestOptions): APIPromise<FqdnCreateResponse> {
     return this._client.post('/fqdns', { body, ...options });
+  }
+
+  /**
+   * Delete an FQDN.
+   *
+   * @example
+   * ```ts
+   * const fqdn = await client.fqdns.delete(
+   *   '1517907029795014409',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<FqdnDeleteResponse> {
+    return this._client.delete(path`/fqdns/${id}`, options);
   }
 
   /**
@@ -56,38 +88,6 @@ export class Fqdns extends APIResource {
     options?: RequestOptions,
   ): APIPromise<FqdnUpdateResponse> {
     return this._client.patch(path`/fqdns/${id}`, { body, ...options });
-  }
-
-  /**
-   * Get all FQDNs belonging to the user that match the given filters.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const fqdn of client.fqdns.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: FqdnListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FqdnsDefaultFlatPagination, Fqdn> {
-    return this._client.getAPIList('/fqdns', DefaultFlatPagination<Fqdn>, { query, ...options });
-  }
-
-  /**
-   * Delete an FQDN.
-   *
-   * @example
-   * ```ts
-   * const fqdn = await client.fqdns.delete(
-   *   '1517907029795014409',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<FqdnDeleteResponse> {
-    return this._client.delete(path`/fqdns/${id}`, options);
   }
 }
 
@@ -154,6 +154,42 @@ export interface FqdnDeleteResponse {
   data?: Fqdn;
 }
 
+export interface FqdnListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_id], filter[fqdn], filter[port], filter[dns_record_type]
+   */
+  filter?: FqdnListParams.Filter;
+}
+
+export namespace FqdnListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_id], filter[fqdn], filter[port], filter[dns_record_type]
+   */
+  export interface Filter {
+    /**
+     * ID of the FQDN connection to which the FQDN belongs.
+     */
+    connection_id?: string;
+
+    /**
+     * DNS record type used by the FQDN.
+     */
+    dns_record_type?: string;
+
+    /**
+     * FQDN represented by the resource.
+     */
+    fqdn?: string;
+
+    /**
+     * Port to use when connecting to the FQDN.
+     */
+    port?: number;
+  }
+}
+
 export interface FqdnCreateParams {
   /**
    * ID of the FQDN connection to which this IP should be attached.
@@ -204,42 +240,6 @@ export interface FqdnUpdateParams {
   port?: number | null;
 }
 
-export interface FqdnListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_id], filter[fqdn], filter[port], filter[dns_record_type]
-   */
-  filter?: FqdnListParams.Filter;
-}
-
-export namespace FqdnListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_id], filter[fqdn], filter[port], filter[dns_record_type]
-   */
-  export interface Filter {
-    /**
-     * ID of the FQDN connection to which the FQDN belongs.
-     */
-    connection_id?: string;
-
-    /**
-     * DNS record type used by the FQDN.
-     */
-    dns_record_type?: string;
-
-    /**
-     * FQDN represented by the resource.
-     */
-    fqdn?: string;
-
-    /**
-     * Port to use when connecting to the FQDN.
-     */
-    port?: number;
-  }
-}
-
 export declare namespace Fqdns {
   export {
     type Fqdn as Fqdn,
@@ -248,8 +248,8 @@ export declare namespace Fqdns {
     type FqdnUpdateResponse as FqdnUpdateResponse,
     type FqdnDeleteResponse as FqdnDeleteResponse,
     type FqdnsDefaultFlatPagination as FqdnsDefaultFlatPagination,
+    type FqdnListParams as FqdnListParams,
     type FqdnCreateParams as FqdnCreateParams,
     type FqdnUpdateParams as FqdnUpdateParams,
-    type FqdnListParams as FqdnListParams,
   };
 }

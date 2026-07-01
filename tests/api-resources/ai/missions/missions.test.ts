@@ -9,6 +9,26 @@ const client = new Telnyx({
 
 describe('resource missions', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.ai.missions.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.ai.missions.list({ 'page[number]': 1, 'page[size]': 1 }, { path: '/_stainless_unknown_path' }),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.ai.missions.create({ name: 'name' });
     const rawResponse = await responsePromise.asResponse();
@@ -35,50 +55,6 @@ describe('resource missions', () => {
   // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.ai.missions.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.ai.missions.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.ai.missions.list({ 'page[number]': 1, 'page[size]': 1 }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('cloneMission', async () => {
-    const responsePromise = client.ai.missions.cloneMission('mission_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('deleteMission', async () => {
-    const responsePromise = client.ai.missions.deleteMission('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -116,8 +92,32 @@ describe('resource missions', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('deleteMission', async () => {
+    const responsePromise = client.ai.missions.deleteMission('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('updateMission', async () => {
     const responsePromise = client.ai.missions.updateMission('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('cloneMission', async () => {
+    const responsePromise = client.ai.missions.cloneMission('mission_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

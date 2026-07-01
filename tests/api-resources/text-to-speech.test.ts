@@ -9,18 +9,6 @@ const client = new Telnyx({
 
 describe('resource textToSpeech', () => {
   // Mock server tests are disabled
-  test.skip('generateSpeech', async () => {
-    const responsePromise = client.textToSpeech.generateSpeech({});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('listVoices', async () => {
     const responsePromise = client.textToSpeech.listVoices();
     const rawResponse = await responsePromise.asResponse();
@@ -41,6 +29,18 @@ describe('resource textToSpeech', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('generateSpeech', async () => {
+    const responsePromise = client.textToSpeech.generateSpeech({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled

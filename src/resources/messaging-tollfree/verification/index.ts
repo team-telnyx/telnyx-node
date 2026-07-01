@@ -12,9 +12,9 @@ export {
   type VerificationRequestStatus,
   type Volume,
   type RequestRetrieveStatusHistoryResponse,
+  type RequestListParams,
   type RequestCreateParams,
   type RequestUpdateParams,
-  type RequestListParams,
   type RequestRetrieveStatusHistoryParams,
   type VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
 } from './requests';

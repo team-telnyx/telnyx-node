@@ -11,20 +11,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Comments extends APIResource {
   /**
-   * Creates a comment on a portout request.
-   *
-   * @example
-   * ```ts
-   * const comment = await client.portouts.comments.create(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  create(id: string, body: CommentCreateParams, options?: RequestOptions): APIPromise<CommentCreateResponse> {
-    return this._client.post(path`/portouts/${id}/comments`, { body, ...options });
-  }
-
-  /**
    * Returns a list of comments for a portout request.
    *
    * @example
@@ -36,6 +22,20 @@ export class Comments extends APIResource {
    */
   list(id: string, options?: RequestOptions): APIPromise<CommentListResponse> {
     return this._client.get(path`/portouts/${id}/comments`, options);
+  }
+
+  /**
+   * Creates a comment on a portout request.
+   *
+   * @example
+   * ```ts
+   * const comment = await client.portouts.comments.create(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  create(id: string, body: CommentCreateParams, options?: RequestOptions): APIPromise<CommentCreateResponse> {
+    return this._client.post(path`/portouts/${id}/comments`, { body, ...options });
   }
 }
 

@@ -8,6 +8,27 @@ import { path } from '../../internal/utils/path';
 
 export class CsvDownloads extends APIResource {
   /**
+   * List CSV downloads
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const csvDownload of client.phoneNumbers.csvDownloads.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: CsvDownloadListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CsvDownloadsDefaultFlatPagination, CsvDownload> {
+    return this._client.getAPIList('/phone_numbers/csv_downloads', DefaultFlatPagination<CsvDownload>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a CSV download
    *
    * @example
@@ -35,27 +56,6 @@ export class CsvDownloads extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<CsvDownloadRetrieveResponse> {
     return this._client.get(path`/phone_numbers/csv_downloads/${id}`, options);
-  }
-
-  /**
-   * List CSV downloads
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const csvDownload of client.phoneNumbers.csvDownloads.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: CsvDownloadListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<CsvDownloadsDefaultFlatPagination, CsvDownload> {
-    return this._client.getAPIList('/phone_numbers/csv_downloads', DefaultFlatPagination<CsvDownload>, {
-      query,
-      ...options,
-    });
   }
 }
 
@@ -91,6 +91,8 @@ export interface CsvDownloadCreateResponse {
 export interface CsvDownloadRetrieveResponse {
   data?: Array<CsvDownload>;
 }
+
+export interface CsvDownloadListParams extends DefaultFlatPaginationParams {}
 
 export interface CsvDownloadCreateParams {
   /**
@@ -211,15 +213,13 @@ export namespace CsvDownloadCreateParams {
   }
 }
 
-export interface CsvDownloadListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace CsvDownloads {
   export {
     type CsvDownload as CsvDownload,
     type CsvDownloadCreateResponse as CsvDownloadCreateResponse,
     type CsvDownloadRetrieveResponse as CsvDownloadRetrieveResponse,
     type CsvDownloadsDefaultFlatPagination as CsvDownloadsDefaultFlatPagination,
-    type CsvDownloadCreateParams as CsvDownloadCreateParams,
     type CsvDownloadListParams as CsvDownloadListParams,
+    type CsvDownloadCreateParams as CsvDownloadCreateParams,
   };
 }

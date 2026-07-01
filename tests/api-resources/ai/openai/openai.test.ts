@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource openai', () => {
   // Mock server tests are disabled
-  test.skip('createResponse', async () => {
-    const responsePromise = client.ai.openai.createResponse({});
+  test.skip('listModels', async () => {
+    const responsePromise = client.ai.openai.listModels();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +21,8 @@ describe('resource openai', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('listModels', async () => {
-    const responsePromise = client.ai.openai.listModels();
+  test.skip('createResponse', async () => {
+    const responsePromise = client.ai.openai.createResponse({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

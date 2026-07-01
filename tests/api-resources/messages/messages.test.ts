@@ -9,72 +9,6 @@ const client = new Telnyx({
 
 describe('resource messages', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.messages.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('cancelScheduled', async () => {
-    const responsePromise = client.messages.cancelScheduled('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieveGroupMessages', async () => {
-    const responsePromise = client.messages.retrieveGroupMessages('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('schedule: only required params', async () => {
-    const responsePromise = client.messages.schedule({ to: '+18445550001' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('schedule: required and optional params', async () => {
-    const response = await client.messages.schedule({
-      to: '+18445550001',
-      auto_detect: true,
-      from: '+18445550001',
-      media_urls: ['string'],
-      messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
-      send_at: '2019-01-23T18:30:00Z',
-      subject: 'From Telnyx!',
-      text: 'Hello, World!',
-      type: 'SMS',
-      use_profile_webhooks: true,
-      webhook_failover_url: 'https://backup.example.com/hooks',
-      webhook_url: 'http://example.com/webhooks',
-    });
-  });
-
-  // Mock server tests are disabled
   test.skip('send: only required params', async () => {
     const responsePromise = client.messages.send({ to: '+18445550001' });
     const rawResponse = await responsePromise.asResponse();
@@ -99,35 +33,6 @@ describe('resource messages', () => {
       subject: 'From Telnyx!',
       text: 'Hello, World!',
       type: 'MMS',
-      use_profile_webhooks: true,
-      webhook_failover_url: 'https://backup.example.com/hooks',
-      webhook_url: 'http://example.com/webhooks',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('sendGroupMms: only required params', async () => {
-    const responsePromise = client.messages.sendGroupMms({
-      from: '+13125551234',
-      to: ['+18655551234', '+14155551234'],
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('sendGroupMms: required and optional params', async () => {
-    const response = await client.messages.sendGroupMms({
-      from: '+13125551234',
-      to: ['+18655551234', '+14155551234'],
-      media_urls: ['http://example.com'],
-      subject: 'From Telnyx!',
-      text: 'Hello, World!',
       use_profile_webhooks: true,
       webhook_failover_url: 'https://backup.example.com/hooks',
       webhook_url: 'http://example.com/webhooks',
@@ -218,6 +123,35 @@ describe('resource messages', () => {
       subject: 'From Telnyx!',
       text: 'Hello, World!',
       type: 'MMS',
+      use_profile_webhooks: true,
+      webhook_failover_url: 'https://backup.example.com/hooks',
+      webhook_url: 'http://example.com/webhooks',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('sendGroupMms: only required params', async () => {
+    const responsePromise = client.messages.sendGroupMms({
+      from: '+13125551234',
+      to: ['+18655551234', '+14155551234'],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('sendGroupMms: required and optional params', async () => {
+    const response = await client.messages.sendGroupMms({
+      from: '+13125551234',
+      to: ['+18655551234', '+14155551234'],
+      media_urls: ['http://example.com'],
+      subject: 'From Telnyx!',
+      text: 'Hello, World!',
       use_profile_webhooks: true,
       webhook_failover_url: 'https://backup.example.com/hooks',
       webhook_url: 'http://example.com/webhooks',
@@ -415,6 +349,60 @@ describe('resource messages', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('schedule: only required params', async () => {
+    const responsePromise = client.messages.schedule({ to: '+18445550001' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('schedule: required and optional params', async () => {
+    const response = await client.messages.schedule({
+      to: '+18445550001',
+      auto_detect: true,
+      from: '+18445550001',
+      media_urls: ['string'],
+      messaging_profile_id: 'abc85f64-5717-4562-b3fc-2c9600000000',
+      send_at: '2019-01-23T18:30:00Z',
+      subject: 'From Telnyx!',
+      text: 'Hello, World!',
+      type: 'SMS',
+      use_profile_webhooks: true,
+      webhook_failover_url: 'https://backup.example.com/hooks',
+      webhook_url: 'http://example.com/webhooks',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('cancelScheduled', async () => {
+    const responsePromise = client.messages.cancelScheduled('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.messages.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('sendWithAlphanumericSender: only required params', async () => {
     const responsePromise = client.messages.sendWithAlphanumericSender({
       from: 'MyCompany',
@@ -442,5 +430,17 @@ describe('resource messages', () => {
       webhook_failover_url: 'webhook_failover_url',
       webhook_url: 'webhook_url',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveGroupMessages', async () => {
+    const responsePromise = client.messages.retrieveGroupMessages('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

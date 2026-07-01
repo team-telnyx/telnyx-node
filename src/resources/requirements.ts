@@ -12,20 +12,6 @@ import { path } from '../internal/utils/path';
  */
 export class Requirements extends APIResource {
   /**
-   * Retrieve a document requirement record
-   *
-   * @example
-   * ```ts
-   * const requirement = await client.requirements.retrieve(
-   *   'a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<RequirementRetrieveResponse> {
-    return this._client.get(path`/requirements/${id}`, options);
-  }
-
-  /**
    * List all requirements with filtering, sorting, and pagination
    *
    * @example
@@ -44,6 +30,20 @@ export class Requirements extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Retrieve a document requirement record
+   *
+   * @example
+   * ```ts
+   * const requirement = await client.requirements.retrieve(
+   *   'a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<RequirementRetrieveResponse> {
+    return this._client.get(path`/requirements/${id}`, options);
   }
 }
 

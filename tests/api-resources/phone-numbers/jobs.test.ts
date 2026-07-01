@@ -9,18 +9,6 @@ const client = new Telnyx({
 
 describe('resource jobs', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.phoneNumbers.jobs.retrieve('id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.phoneNumbers.jobs.list();
     const rawResponse = await responsePromise.asResponse();
@@ -66,6 +54,30 @@ describe('resource jobs', () => {
   test.skip('deleteBatch: required and optional params', async () => {
     const response = await client.phoneNumbers.jobs.deleteBatch({
       phone_numbers: ['+19705555098', '+19715555098', '32873127836'],
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('updateEmergencySettingsBatch: only required params', async () => {
+    const responsePromise = client.phoneNumbers.jobs.updateEmergencySettingsBatch({
+      emergency_enabled: true,
+      phone_numbers: ['+19705555098', '+19715555098', '32873127836'],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('updateEmergencySettingsBatch: required and optional params', async () => {
+    const response = await client.phoneNumbers.jobs.updateEmergencySettingsBatch({
+      emergency_enabled: true,
+      phone_numbers: ['+19705555098', '+19715555098', '32873127836'],
+      emergency_address_id: '53829456729313',
     });
   });
 
@@ -138,11 +150,8 @@ describe('resource jobs', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('updateEmergencySettingsBatch: only required params', async () => {
-    const responsePromise = client.phoneNumbers.jobs.updateEmergencySettingsBatch({
-      emergency_enabled: true,
-      phone_numbers: ['+19705555098', '+19715555098', '32873127836'],
-    });
+  test.skip('retrieve', async () => {
+    const responsePromise = client.phoneNumbers.jobs.retrieve('id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -150,14 +159,5 @@ describe('resource jobs', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('updateEmergencySettingsBatch: required and optional params', async () => {
-    const response = await client.phoneNumbers.jobs.updateEmergencySettingsBatch({
-      emergency_enabled: true,
-      phone_numbers: ['+19705555098', '+19715555098', '32873127836'],
-      emergency_address_id: '53829456729313',
-    });
   });
 });

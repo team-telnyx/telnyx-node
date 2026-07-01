@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource canaryDeploys', () => {
   // Mock server tests are disabled
-  test.skip('create', async () => {
-    const responsePromise = client.ai.assistants.canaryDeploys.create('assistant_id', {});
+  test.skip('delete', async () => {
+    const responsePromise = client.ai.assistants.canaryDeploys.delete('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -33,8 +33,8 @@ describe('resource canaryDeploys', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('update', async () => {
-    const responsePromise = client.ai.assistants.canaryDeploys.update('assistant_id', {});
+  test.skip('create', async () => {
+    const responsePromise = client.ai.assistants.canaryDeploys.create('assistant_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -45,8 +45,8 @@ describe('resource canaryDeploys', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.ai.assistants.canaryDeploys.delete('assistant_id');
+  test.skip('update', async () => {
+    const responsePromise = client.ai.assistants.canaryDeploys.update('assistant_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

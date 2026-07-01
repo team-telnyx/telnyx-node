@@ -12,32 +12,6 @@ import { path } from '../internal/utils/path';
  */
 export class GlobalIPs extends APIResource {
   /**
-   * Create a Global IP.
-   *
-   * @example
-   * ```ts
-   * const globalIP = await client.globalIPs.create();
-   * ```
-   */
-  create(body: GlobalIPCreateParams, options?: RequestOptions): APIPromise<GlobalIPCreateResponse> {
-    return this._client.post('/global_ips', { body, ...options });
-  }
-
-  /**
-   * Retrieve a Global IP.
-   *
-   * @example
-   * ```ts
-   * const globalIP = await client.globalIPs.retrieve(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<GlobalIPRetrieveResponse> {
-    return this._client.get(path`/global_ips/${id}`, options);
-  }
-
-  /**
    * List all Global IPs.
    *
    * @example
@@ -56,6 +30,18 @@ export class GlobalIPs extends APIResource {
   }
 
   /**
+   * Create a Global IP.
+   *
+   * @example
+   * ```ts
+   * const globalIP = await client.globalIPs.create();
+   * ```
+   */
+  create(body: GlobalIPCreateParams, options?: RequestOptions): APIPromise<GlobalIPCreateResponse> {
+    return this._client.post('/global_ips', { body, ...options });
+  }
+
+  /**
    * Delete a Global IP.
    *
    * @example
@@ -67,6 +53,20 @@ export class GlobalIPs extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<GlobalIPDeleteResponse> {
     return this._client.delete(path`/global_ips/${id}`, options);
+  }
+
+  /**
+   * Retrieve a Global IP.
+   *
+   * @example
+   * ```ts
+   * const globalIP = await client.globalIPs.retrieve(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<GlobalIPRetrieveResponse> {
+    return this._client.get(path`/global_ips/${id}`, options);
   }
 }
 
@@ -106,6 +106,8 @@ export interface GlobalIPDeleteResponse {
   data?: GlobalIP;
 }
 
+export interface GlobalIPListParams extends DefaultFlatPaginationParams {}
+
 export interface GlobalIPCreateParams {
   /**
    * A user specified description for the address.
@@ -123,8 +125,6 @@ export interface GlobalIPCreateParams {
   ports?: { [key: string]: unknown };
 }
 
-export interface GlobalIPListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace GlobalIPs {
   export {
     type GlobalIP as GlobalIP,
@@ -132,7 +132,7 @@ export declare namespace GlobalIPs {
     type GlobalIPRetrieveResponse as GlobalIPRetrieveResponse,
     type GlobalIPDeleteResponse as GlobalIPDeleteResponse,
     type GlobalIPsDefaultFlatPagination as GlobalIPsDefaultFlatPagination,
-    type GlobalIPCreateParams as GlobalIPCreateParams,
     type GlobalIPListParams as GlobalIPListParams,
+    type GlobalIPCreateParams as GlobalIPCreateParams,
   };
 }

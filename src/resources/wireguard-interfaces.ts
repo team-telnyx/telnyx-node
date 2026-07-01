@@ -15,25 +15,6 @@ import { path } from '../internal/utils/path';
  */
 export class WireguardInterfaces extends APIResource {
   /**
-   * Create a new WireGuard Interface. Current limitation of 10 interfaces per user
-   * can be created.
-   */
-  create(
-    params: WireguardInterfaceCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<WireguardInterfaceCreateResponse> {
-    const { body } = params;
-    return this._client.post('/wireguard_interfaces', { body: body, ...options });
-  }
-
-  /**
-   * Retrieve a WireGuard Interfaces.
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<WireguardInterfaceRetrieveResponse> {
-    return this._client.get(path`/wireguard_interfaces/${id}`, options);
-  }
-
-  /**
    * List all WireGuard Interfaces.
    */
   list(
@@ -47,10 +28,29 @@ export class WireguardInterfaces extends APIResource {
   }
 
   /**
+   * Create a new WireGuard Interface. Current limitation of 10 interfaces per user
+   * can be created.
+   */
+  create(
+    params: WireguardInterfaceCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<WireguardInterfaceCreateResponse> {
+    const { body } = params;
+    return this._client.post('/wireguard_interfaces', { body: body, ...options });
+  }
+
+  /**
    * Delete a WireGuard Interface.
    */
   delete(id: string, options?: RequestOptions): APIPromise<WireguardInterfaceDeleteResponse> {
     return this._client.delete(path`/wireguard_interfaces/${id}`, options);
+  }
+
+  /**
+   * Retrieve a WireGuard Interfaces.
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<WireguardInterfaceRetrieveResponse> {
+    return this._client.get(path`/wireguard_interfaces/${id}`, options);
   }
 }
 
@@ -165,16 +165,6 @@ export interface WireguardInterfaceDeleteResponse {
   data?: WireguardInterfaceRead;
 }
 
-export interface WireguardInterfaceCreateParams {
-  body: WireguardInterfaceCreateParams.Body;
-}
-
-export namespace WireguardInterfaceCreateParams {
-  export interface Body
-    extends WireguardInterfacesAPI.WireguardInterface,
-      PublicInternetGatewaysAPI.NetworkInterfaceRegion {}
-}
-
 export interface WireguardInterfaceListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
@@ -194,6 +184,16 @@ export namespace WireguardInterfaceListParams {
   }
 }
 
+export interface WireguardInterfaceCreateParams {
+  body: WireguardInterfaceCreateParams.Body;
+}
+
+export namespace WireguardInterfaceCreateParams {
+  export interface Body
+    extends WireguardInterfacesAPI.WireguardInterface,
+      PublicInternetGatewaysAPI.NetworkInterfaceRegion {}
+}
+
 export declare namespace WireguardInterfaces {
   export {
     type WireguardInterface as WireguardInterface,
@@ -202,7 +202,7 @@ export declare namespace WireguardInterfaces {
     type WireguardInterfaceRetrieveResponse as WireguardInterfaceRetrieveResponse,
     type WireguardInterfaceDeleteResponse as WireguardInterfaceDeleteResponse,
     type WireguardInterfaceReadsDefaultFlatPagination as WireguardInterfaceReadsDefaultFlatPagination,
-    type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
     type WireguardInterfaceListParams as WireguardInterfaceListParams,
+    type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
   };
 }

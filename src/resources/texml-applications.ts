@@ -12,6 +12,27 @@ import { path } from '../internal/utils/path';
  */
 export class TexmlApplications extends APIResource {
   /**
+   * Returns a list of your TeXML Applications.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const texmlApplication of client.texmlApplications.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: TexmlApplicationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TexmlApplicationsDefaultFlatPagination, TexmlApplication> {
+    return this._client.getAPIList('/texml_applications', DefaultFlatPagination<TexmlApplication>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a TeXML Application.
    *
    * @example
@@ -28,6 +49,21 @@ export class TexmlApplications extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TexmlApplicationCreateResponse> {
     return this._client.post('/texml_applications', { body, ...options });
+  }
+
+  /**
+   * Deletes a TeXML Application.
+   *
+   * @example
+   * ```ts
+   * const texmlApplication =
+   *   await client.texmlApplications.delete(
+   *     '1293384261075731499',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<TexmlApplicationDeleteResponse> {
+    return this._client.delete(path`/texml_applications/${id}`, options);
   }
 
   /**
@@ -66,42 +102,6 @@ export class TexmlApplications extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TexmlApplicationUpdateResponse> {
     return this._client.patch(path`/texml_applications/${id}`, { body, ...options });
-  }
-
-  /**
-   * Returns a list of your TeXML Applications.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const texmlApplication of client.texmlApplications.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: TexmlApplicationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TexmlApplicationsDefaultFlatPagination, TexmlApplication> {
-    return this._client.getAPIList('/texml_applications', DefaultFlatPagination<TexmlApplication>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Deletes a TeXML Application.
-   *
-   * @example
-   * ```ts
-   * const texmlApplication =
-   *   await client.texmlApplications.delete(
-   *     '1293384261075731499',
-   *   );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<TexmlApplicationDeleteResponse> {
-    return this._client.delete(path`/texml_applications/${id}`, options);
   }
 }
 
@@ -265,6 +265,52 @@ export interface TexmlApplicationUpdateResponse {
 
 export interface TexmlApplicationDeleteResponse {
   data?: TexmlApplication;
+}
+
+export interface TexmlApplicationListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[outbound_voice_profile_id], filter[friendly_name]
+   */
+  filter?: TexmlApplicationListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>friendly_name</code>: sorts the result by the
+   *     <code>friendly_name</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-friendly_name</code>: sorts the result by the
+   *     <code>friendly_name</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'friendly_name' | 'active';
+}
+
+export namespace TexmlApplicationListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[outbound_voice_profile_id], filter[friendly_name]
+   */
+  export interface Filter {
+    /**
+     * If present, applications with <code>friendly_name</code> containing the given
+     * value will be returned. Matching is not case-sensitive. Requires at least three
+     * characters.
+     */
+    friendly_name?: string;
+
+    /**
+     * Identifies the associated outbound voice profile.
+     */
+    outbound_voice_profile_id?: string;
+  }
 }
 
 export interface TexmlApplicationCreateParams {
@@ -515,52 +561,6 @@ export namespace TexmlApplicationUpdateParams {
   }
 }
 
-export interface TexmlApplicationListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[outbound_voice_profile_id], filter[friendly_name]
-   */
-  filter?: TexmlApplicationListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>friendly_name</code>: sorts the result by the
-   *     <code>friendly_name</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-friendly_name</code>: sorts the result by the
-   *     <code>friendly_name</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'friendly_name' | 'active';
-}
-
-export namespace TexmlApplicationListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[outbound_voice_profile_id], filter[friendly_name]
-   */
-  export interface Filter {
-    /**
-     * If present, applications with <code>friendly_name</code> containing the given
-     * value will be returned. Matching is not case-sensitive. Requires at least three
-     * characters.
-     */
-    friendly_name?: string;
-
-    /**
-     * Identifies the associated outbound voice profile.
-     */
-    outbound_voice_profile_id?: string;
-  }
-}
-
 export declare namespace TexmlApplications {
   export {
     type TexmlApplication as TexmlApplication,
@@ -569,8 +569,8 @@ export declare namespace TexmlApplications {
     type TexmlApplicationUpdateResponse as TexmlApplicationUpdateResponse,
     type TexmlApplicationDeleteResponse as TexmlApplicationDeleteResponse,
     type TexmlApplicationsDefaultFlatPagination as TexmlApplicationsDefaultFlatPagination,
+    type TexmlApplicationListParams as TexmlApplicationListParams,
     type TexmlApplicationCreateParams as TexmlApplicationCreateParams,
     type TexmlApplicationUpdateParams as TexmlApplicationUpdateParams,
-    type TexmlApplicationListParams as TexmlApplicationListParams,
   };
 }

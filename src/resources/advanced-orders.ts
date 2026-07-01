@@ -7,6 +7,18 @@ import { path } from '../internal/utils/path';
 
 export class AdvancedOrders extends APIResource {
   /**
+   * List Advanced Orders
+   *
+   * @example
+   * ```ts
+   * const advancedOrders = await client.advancedOrders.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<AdvancedOrderListResponse> {
+    return this._client.get('/advanced_orders', options);
+  }
+
+  /**
    * Create Advanced Order
    *
    * @example
@@ -30,18 +42,6 @@ export class AdvancedOrders extends APIResource {
    */
   retrieve(orderID: string, options?: RequestOptions): APIPromise<AdvancedOrder> {
     return this._client.get(path`/advanced_orders/${orderID}`, options);
-  }
-
-  /**
-   * List Advanced Orders
-   *
-   * @example
-   * ```ts
-   * const advancedOrders = await client.advancedOrders.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<AdvancedOrderListResponse> {
-    return this._client.get('/advanced_orders', options);
   }
 
   /**
