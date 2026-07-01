@@ -44,3 +44,17 @@ export {
   type PhoneNumberRemoveParams,
   type DirPhoneNumbersDefaultFlatPagination,
 } from './phone-numbers';
+export {
+  References,
+  type Reference,
+  type ReferenceInput,
+  type ReferenceList,
+  type ReferenceUpdateResponse,
+  type ReferenceCreateParams,
+  type ReferenceUpdateParams,
+} from './references';
+export {
+  VerifyEmail,
+  type EmailVerificationStatusWrapped,
+  type VerifyEmailConfirmParams,
+} from './verify-email';

@@ -36,6 +36,18 @@ import {
   PhoneNumbers,
   RejectionReason,
 } from './phone-numbers';
+import * as ReferencesAPI from './references';
+import {
+  Reference,
+  ReferenceCreateParams,
+  ReferenceInput,
+  ReferenceList,
+  ReferenceUpdateParams,
+  ReferenceUpdateResponse,
+  References,
+} from './references';
+import * as VerifyEmailAPI from './verify-email';
+import { EmailVerificationStatusWrapped, VerifyEmail, VerifyEmailConfirmParams } from './verify-email';
 import * as LoaAPI from '../enterprises/reputation/loa';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -49,6 +61,8 @@ export class DirResource extends APIResource {
     this._client,
   );
   phoneNumbers: PhoneNumbersAPI.PhoneNumbers = new PhoneNumbersAPI.PhoneNumbers(this._client);
+  references: ReferencesAPI.References = new ReferencesAPI.References(this._client);
+  verifyEmail: VerifyEmailAPI.VerifyEmail = new VerifyEmailAPI.VerifyEmail(this._client);
 
   /**
    * Returns a single DIR by id. The enterprise is resolved server-side from the DIR
@@ -639,6 +653,8 @@ export interface DirUpdateInfringementParams {
 DirResource.Comments = Comments;
 DirResource.PhoneNumberBatches = PhoneNumberBatches;
 DirResource.PhoneNumbers = PhoneNumbers;
+DirResource.References = References;
+DirResource.VerifyEmail = VerifyEmail;
 
 export declare namespace DirResource {
   export {
@@ -686,6 +702,22 @@ export declare namespace DirResource {
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberAddParams as PhoneNumberAddParams,
     type PhoneNumberRemoveParams as PhoneNumberRemoveParams,
+  };
+
+  export {
+    References as References,
+    type Reference as Reference,
+    type ReferenceInput as ReferenceInput,
+    type ReferenceList as ReferenceList,
+    type ReferenceUpdateResponse as ReferenceUpdateResponse,
+    type ReferenceCreateParams as ReferenceCreateParams,
+    type ReferenceUpdateParams as ReferenceUpdateParams,
+  };
+
+  export {
+    VerifyEmail as VerifyEmail,
+    type EmailVerificationStatusWrapped as EmailVerificationStatusWrapped,
+    type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
   };
 }
 
