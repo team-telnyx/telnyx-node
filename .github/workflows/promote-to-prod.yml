@@ -117,7 +117,7 @@ jobs:
           #   publish-mcp.yml:         staging = workflow_dispatch only; prod = release trigger
           #   release-doctor.yml:      staging checks secrets; prod does not
           #   release-please-config.json: staging has prerelease; prod does not
-          #   packages/mcp-server/:    prod-only MCP server package
+          #   packages/mcp-server/:    now STLC-generated (mcp_server: true), no longer restored from prod
           #   patches/:                prod-only fast-diff patch
           #   pnpm-workspace.yaml:     prod has packages: ['packages/*'] for MCP
           #   .dockerignore:           prod-only
@@ -137,7 +137,7 @@ jobs:
           #   publish-mcp.yml:         staging = workflow_dispatch only; prod = + release trigger
           #   release-doctor.yml:      staging checks secrets; prod does not
           #   release-please-config.json: staging has prerelease; prod does not
-          #   packages/mcp-server/:    prod-only MCP server package (frozen, not STLC-managed)
+          #   packages/mcp-server/:    now STLC-generated (mcp_server: true), no longer restored from prod
           #   patches/:                prod-only fast-diff patch
           #   pnpm-workspace.yaml:     prod has packages: ['packages/*'] for MCP
           #   .dockerignore:           prod-only
@@ -151,7 +151,6 @@ jobs:
             .github/workflows/release-doctor.yml \
             release-please-config.json \
             .release-please-manifest.json \
-            packages/mcp-server/ \
             pnpm-workspace.yaml \
             2>/dev/null || true
 
@@ -167,7 +166,7 @@ jobs:
             exit 0
           fi
 
-          git commit -m "chore: promote from staging ${GITHUB_SHA:0:7}" -m "Release-As: ${NEXT_VERSION}"
+          git commit -m "feat: promote from staging ${GITHUB_SHA:0:7}" -m "Release-As: ${NEXT_VERSION}"
           git push origin next
 
           echo "✅ Promoted to prod next with Release-As: ${NEXT_VERSION}"
