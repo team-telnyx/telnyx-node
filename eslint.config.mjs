@@ -31,7 +31,7 @@ export default tseslint.config(
     },
   },
   {
-    files: ['tests/**', 'examples/**'],
+    files: ['tests/**', 'examples/**', 'packages/mcp-server/**'],
     rules: {
       'no-restricted-imports': 'off',
     },
