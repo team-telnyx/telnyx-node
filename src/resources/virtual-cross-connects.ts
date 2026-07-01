@@ -14,6 +14,28 @@ import { path } from '../internal/utils/path';
  */
 export class VirtualCrossConnects extends APIResource {
   /**
+   * List all Virtual Cross Connects.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const virtualCrossConnectCombined of client.virtualCrossConnects.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: VirtualCrossConnectListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<VirtualCrossConnectCombinedsDefaultFlatPagination, VirtualCrossConnectCombined> {
+    return this._client.getAPIList(
+      '/virtual_cross_connects',
+      DefaultFlatPagination<VirtualCrossConnectCombined>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create a new Virtual Cross Connect.<br /><br />For AWS and GCE, you have the
    * option of creating the primary connection first and the secondary connection
    * later. You also have the option of disabling the primary and/or secondary
@@ -34,6 +56,21 @@ export class VirtualCrossConnects extends APIResource {
     options?: RequestOptions,
   ): APIPromise<VirtualCrossConnectCreateResponse> {
     return this._client.post('/virtual_cross_connects', { body, ...options });
+  }
+
+  /**
+   * Delete a Virtual Cross Connect.
+   *
+   * @example
+   * ```ts
+   * const virtualCrossConnect =
+   *   await client.virtualCrossConnects.delete(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<VirtualCrossConnectDeleteResponse> {
+    return this._client.delete(path`/virtual_cross_connects/${id}`, options);
   }
 
   /**
@@ -74,43 +111,6 @@ export class VirtualCrossConnects extends APIResource {
     options?: RequestOptions,
   ): APIPromise<VirtualCrossConnectUpdateResponse> {
     return this._client.patch(path`/virtual_cross_connects/${id}`, { body, ...options });
-  }
-
-  /**
-   * List all Virtual Cross Connects.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const virtualCrossConnectCombined of client.virtualCrossConnects.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: VirtualCrossConnectListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<VirtualCrossConnectCombinedsDefaultFlatPagination, VirtualCrossConnectCombined> {
-    return this._client.getAPIList(
-      '/virtual_cross_connects',
-      DefaultFlatPagination<VirtualCrossConnectCombined>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * Delete a Virtual Cross Connect.
-   *
-   * @example
-   * ```ts
-   * const virtualCrossConnect =
-   *   await client.virtualCrossConnects.delete(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<VirtualCrossConnectDeleteResponse> {
-    return this._client.delete(path`/virtual_cross_connects/${id}`, options);
   }
 }
 
@@ -416,6 +416,25 @@ export interface VirtualCrossConnectDeleteResponse {
   data?: VirtualCrossConnectCombined;
 }
 
+export interface VirtualCrossConnectListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
+   */
+  filter?: VirtualCrossConnectListParams.Filter;
+}
+
+export namespace VirtualCrossConnectListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
+   */
+  export interface Filter {
+    /**
+     * The associated network id to filter on.
+     */
+    network_id?: string;
+  }
+}
+
 export interface VirtualCrossConnectCreateParams {
   /**
    * The region the interface should be deployed to.
@@ -552,25 +571,6 @@ export interface VirtualCrossConnectUpdateParams {
   secondary_routing_announcement?: boolean;
 }
 
-export interface VirtualCrossConnectListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
-   */
-  filter?: VirtualCrossConnectListParams.Filter;
-}
-
-export namespace VirtualCrossConnectListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
-   */
-  export interface Filter {
-    /**
-     * The associated network id to filter on.
-     */
-    network_id?: string;
-  }
-}
-
 export declare namespace VirtualCrossConnects {
   export {
     type RegionOut as RegionOut,
@@ -582,8 +582,8 @@ export declare namespace VirtualCrossConnects {
     type VirtualCrossConnectUpdateResponse as VirtualCrossConnectUpdateResponse,
     type VirtualCrossConnectDeleteResponse as VirtualCrossConnectDeleteResponse,
     type VirtualCrossConnectCombinedsDefaultFlatPagination as VirtualCrossConnectCombinedsDefaultFlatPagination,
+    type VirtualCrossConnectListParams as VirtualCrossConnectListParams,
     type VirtualCrossConnectCreateParams as VirtualCrossConnectCreateParams,
     type VirtualCrossConnectUpdateParams as VirtualCrossConnectUpdateParams,
-    type VirtualCrossConnectListParams as VirtualCrossConnectListParams,
   };
 }

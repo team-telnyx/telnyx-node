@@ -8,39 +8,6 @@ import { path } from '../internal/utils/path';
 
 export class AlphanumericSenderIDs extends APIResource {
   /**
-   * Create a new alphanumeric sender ID associated with a messaging profile.
-   *
-   * @example
-   * ```ts
-   * const alphanumericSenderID =
-   *   await client.alphanumericSenderIDs.create({
-   *     alphanumeric_sender_id: 'MyCompany',
-   *     messaging_profile_id:
-   *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   });
-   * ```
-   */
-  create(
-    body: AlphanumericSenderIDCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<AlphanumericSenderIDCreateResponse> {
-    return this._client.post('/alphanumeric_sender_ids', { body, ...options });
-  }
-
-  /**
-   * Retrieve a specific alphanumeric sender ID.
-   *
-   * @example
-   * ```ts
-   * const alphanumericSenderID =
-   *   await client.alphanumericSenderIDs.retrieve('id');
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<AlphanumericSenderIDRetrieveResponse> {
-    return this._client.get(path`/alphanumeric_sender_ids/${id}`, options);
-  }
-
-  /**
    * List all alphanumeric sender IDs for the authenticated user.
    *
    * @example
@@ -62,6 +29,26 @@ export class AlphanumericSenderIDs extends APIResource {
   }
 
   /**
+   * Create a new alphanumeric sender ID associated with a messaging profile.
+   *
+   * @example
+   * ```ts
+   * const alphanumericSenderID =
+   *   await client.alphanumericSenderIDs.create({
+   *     alphanumeric_sender_id: 'MyCompany',
+   *     messaging_profile_id:
+   *       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   });
+   * ```
+   */
+  create(
+    body: AlphanumericSenderIDCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<AlphanumericSenderIDCreateResponse> {
+    return this._client.post('/alphanumeric_sender_ids', { body, ...options });
+  }
+
+  /**
    * Delete an alphanumeric sender ID and disassociate it from its messaging profile.
    *
    * @example
@@ -72,6 +59,19 @@ export class AlphanumericSenderIDs extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<AlphanumericSenderIDDeleteResponse> {
     return this._client.delete(path`/alphanumeric_sender_ids/${id}`, options);
+  }
+
+  /**
+   * Retrieve a specific alphanumeric sender ID.
+   *
+   * @example
+   * ```ts
+   * const alphanumericSenderID =
+   *   await client.alphanumericSenderIDs.retrieve('id');
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<AlphanumericSenderIDRetrieveResponse> {
+    return this._client.get(path`/alphanumeric_sender_ids/${id}`, options);
   }
 }
 
@@ -118,6 +118,13 @@ export interface AlphanumericSenderIDDeleteResponse {
   data?: AlphanumericSenderID;
 }
 
+export interface AlphanumericSenderIDListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter by messaging profile ID.
+   */
+  'filter[messaging_profile_id]'?: string;
+}
+
 export interface AlphanumericSenderIDCreateParams {
   /**
    * The alphanumeric sender ID string.
@@ -135,13 +142,6 @@ export interface AlphanumericSenderIDCreateParams {
   us_long_code_fallback?: string;
 }
 
-export interface AlphanumericSenderIDListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter by messaging profile ID.
-   */
-  'filter[messaging_profile_id]'?: string;
-}
-
 export declare namespace AlphanumericSenderIDs {
   export {
     type AlphanumericSenderID as AlphanumericSenderID,
@@ -149,7 +149,7 @@ export declare namespace AlphanumericSenderIDs {
     type AlphanumericSenderIDRetrieveResponse as AlphanumericSenderIDRetrieveResponse,
     type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,
     type AlphanumericSenderIDsDefaultFlatPagination as AlphanumericSenderIDsDefaultFlatPagination,
-    type AlphanumericSenderIDCreateParams as AlphanumericSenderIDCreateParams,
     type AlphanumericSenderIDListParams as AlphanumericSenderIDListParams,
+    type AlphanumericSenderIDCreateParams as AlphanumericSenderIDCreateParams,
   };
 }

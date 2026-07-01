@@ -4,9 +4,9 @@ export {
   InsightGroups,
   type InsightTemplateGroup,
   type InsightTemplateGroupDetail,
-  type InsightGroupUpdateParams,
-  type InsightGroupInsightGroupsParams,
   type InsightGroupRetrieveInsightGroupsParams,
+  type InsightGroupInsightGroupsParams,
+  type InsightGroupUpdateParams,
   type InsightTemplateGroupsDefaultFlatPagination,
 } from './insight-groups';
 export { Insights, type InsightAssignParams, type InsightDeleteUnassignParams } from './insights';

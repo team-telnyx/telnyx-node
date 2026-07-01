@@ -12,10 +12,17 @@ import { path } from '../internal/utils/path';
  */
 export class RoomRecordings extends APIResource {
   /**
-   * View a room recording.
+   * Delete several room recordings in a bulk.
    */
-  retrieve(roomRecordingID: string, options?: RequestOptions): APIPromise<RoomRecordingRetrieveResponse> {
-    return this._client.get(path`/room_recordings/${roomRecordingID}`, options);
+  deleteBulk(
+    params: RoomRecordingDeleteBulkParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RoomRecordingDeleteBulkResponse> {
+    const { filter, 'page[number]': pageNumber, 'page[size]': pageSize } = params ?? {};
+    return this._client.delete('/room_recordings', {
+      query: { filter, 'page[number]': pageNumber, 'page[size]': pageSize },
+      ...options,
+    });
   }
 
   /**
@@ -42,17 +49,10 @@ export class RoomRecordings extends APIResource {
   }
 
   /**
-   * Delete several room recordings in a bulk.
+   * View a room recording.
    */
-  deleteBulk(
-    params: RoomRecordingDeleteBulkParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<RoomRecordingDeleteBulkResponse> {
-    const { filter, 'page[number]': pageNumber, 'page[size]': pageSize } = params ?? {};
-    return this._client.delete('/room_recordings', {
-      query: { filter, 'page[number]': pageNumber, 'page[size]': pageSize },
-      ...options,
-    });
+  retrieve(roomRecordingID: string, options?: RequestOptions): APIPromise<RoomRecordingRetrieveResponse> {
+    return this._client.get(path`/room_recordings/${roomRecordingID}`, options);
   }
 }
 
@@ -154,100 +154,6 @@ export namespace RoomRecordingDeleteBulkResponse {
   }
 }
 
-export interface RoomRecordingListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[date_ended_at][eq], filter[date_ended_at][gte],
-   * filter[date_ended_at][lte], filter[date_started_at][eq],
-   * filter[date_started_at][gte], filter[date_started_at][lte], filter[room_id],
-   * filter[participant_id], filter[session_id], filter[status], filter[type],
-   * filter[duration_secs]
-   */
-  filter?: RoomRecordingListParams.Filter;
-}
-
-export namespace RoomRecordingListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[date_ended_at][eq], filter[date_ended_at][gte],
-   * filter[date_ended_at][lte], filter[date_started_at][eq],
-   * filter[date_started_at][gte], filter[date_started_at][lte], filter[room_id],
-   * filter[participant_id], filter[session_id], filter[status], filter[type],
-   * filter[duration_secs]
-   */
-  export interface Filter {
-    date_ended_at?: Filter.DateEndedAt;
-
-    date_started_at?: Filter.DateStartedAt;
-
-    /**
-     * duration_secs greater or equal for filtering room recordings.
-     */
-    duration_secs?: number;
-
-    /**
-     * participant_id for filtering room recordings.
-     */
-    participant_id?: string;
-
-    /**
-     * room_id for filtering room recordings.
-     */
-    room_id?: string;
-
-    /**
-     * session_id for filtering room recordings.
-     */
-    session_id?: string;
-
-    /**
-     * status for filtering room recordings.
-     */
-    status?: string;
-
-    /**
-     * type for filtering room recordings.
-     */
-    type?: string;
-  }
-
-  export namespace Filter {
-    export interface DateEndedAt {
-      /**
-       * ISO 8601 date for filtering room recordings ended on that date.
-       */
-      eq?: string;
-
-      /**
-       * ISO 8601 date for filtering room recordings ended on or after that date.
-       */
-      gte?: string;
-
-      /**
-       * ISO 8601 date for filtering room recordings ended on or before that date.
-       */
-      lte?: string;
-    }
-
-    export interface DateStartedAt {
-      /**
-       * ISO 8601 date for filtering room recordings started on that date.
-       */
-      eq?: string;
-
-      /**
-       * ISO 8601 date for filtering room recordings started on or after that date.
-       */
-      gte?: string;
-
-      /**
-       * ISO 8601 date for filtering room recordings started on or before that date.
-       */
-      lte?: string;
-    }
-  }
-}
-
 export interface RoomRecordingDeleteBulkParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -346,13 +252,107 @@ export namespace RoomRecordingDeleteBulkParams {
   }
 }
 
+export interface RoomRecordingListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[date_ended_at][eq], filter[date_ended_at][gte],
+   * filter[date_ended_at][lte], filter[date_started_at][eq],
+   * filter[date_started_at][gte], filter[date_started_at][lte], filter[room_id],
+   * filter[participant_id], filter[session_id], filter[status], filter[type],
+   * filter[duration_secs]
+   */
+  filter?: RoomRecordingListParams.Filter;
+}
+
+export namespace RoomRecordingListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[date_ended_at][eq], filter[date_ended_at][gte],
+   * filter[date_ended_at][lte], filter[date_started_at][eq],
+   * filter[date_started_at][gte], filter[date_started_at][lte], filter[room_id],
+   * filter[participant_id], filter[session_id], filter[status], filter[type],
+   * filter[duration_secs]
+   */
+  export interface Filter {
+    date_ended_at?: Filter.DateEndedAt;
+
+    date_started_at?: Filter.DateStartedAt;
+
+    /**
+     * duration_secs greater or equal for filtering room recordings.
+     */
+    duration_secs?: number;
+
+    /**
+     * participant_id for filtering room recordings.
+     */
+    participant_id?: string;
+
+    /**
+     * room_id for filtering room recordings.
+     */
+    room_id?: string;
+
+    /**
+     * session_id for filtering room recordings.
+     */
+    session_id?: string;
+
+    /**
+     * status for filtering room recordings.
+     */
+    status?: string;
+
+    /**
+     * type for filtering room recordings.
+     */
+    type?: string;
+  }
+
+  export namespace Filter {
+    export interface DateEndedAt {
+      /**
+       * ISO 8601 date for filtering room recordings ended on that date.
+       */
+      eq?: string;
+
+      /**
+       * ISO 8601 date for filtering room recordings ended on or after that date.
+       */
+      gte?: string;
+
+      /**
+       * ISO 8601 date for filtering room recordings ended on or before that date.
+       */
+      lte?: string;
+    }
+
+    export interface DateStartedAt {
+      /**
+       * ISO 8601 date for filtering room recordings started on that date.
+       */
+      eq?: string;
+
+      /**
+       * ISO 8601 date for filtering room recordings started on or after that date.
+       */
+      gte?: string;
+
+      /**
+       * ISO 8601 date for filtering room recordings started on or before that date.
+       */
+      lte?: string;
+    }
+  }
+}
+
 export declare namespace RoomRecordings {
   export {
     type RoomRecording as RoomRecording,
     type RoomRecordingRetrieveResponse as RoomRecordingRetrieveResponse,
     type RoomRecordingDeleteBulkResponse as RoomRecordingDeleteBulkResponse,
     type RoomRecordingsDefaultFlatPagination as RoomRecordingsDefaultFlatPagination,
-    type RoomRecordingListParams as RoomRecordingListParams,
     type RoomRecordingDeleteBulkParams as RoomRecordingDeleteBulkParams,
+    type RoomRecordingListParams as RoomRecordingListParams,
   };
 }

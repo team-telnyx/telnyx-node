@@ -2422,11 +2422,19 @@ export class Telnyx {
     return () => controller.abort();
   }
 
-  private buildBody({ options: { body, headers: rawHeaders } }: { options: FinalRequestOptions }): {
+  private buildBody({ options }: { options: FinalRequestOptions }): {
     bodyHeaders: HeadersLike;
     body: BodyInit | undefined;
   } {
+    const { body, headers: rawHeaders } = options;
     if (!body) {
+      // A resource method always passes a `body` key when its operation defines a
+      // request body, even if the caller omitted an optional body param. Keep the
+      // content-type for those, and only elide it for operations with no body at
+      // all (e.g. GET/DELETE).
+      if (body == null && 'body' in options) {
+        return this.#encoder({ body, headers: buildHeaders([rawHeaders]) });
+      }
       return { bodyHeaders: undefined, body: undefined };
     }
     const headers = buildHeaders([rawHeaders]);
@@ -3283,10 +3291,10 @@ export declare namespace Telnyx {
     type OAuthRegisterResponse as OAuthRegisterResponse,
     type OAuthRetrieveJwksResponse as OAuthRetrieveJwksResponse,
     type OAuthTokenResponse as OAuthTokenResponse,
+    type OAuthRetrieveAuthorizeParams as OAuthRetrieveAuthorizeParams,
     type OAuthGrantsParams as OAuthGrantsParams,
     type OAuthIntrospectParams as OAuthIntrospectParams,
     type OAuthRegisterParams as OAuthRegisterParams,
-    type OAuthRetrieveAuthorizeParams as OAuthRetrieveAuthorizeParams,
     type OAuthTokenParams as OAuthTokenParams,
   };
 
@@ -3298,9 +3306,9 @@ export declare namespace Telnyx {
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
     type OAuthClientUpdateResponse as OAuthClientUpdateResponse,
     type OAuthClientsDefaultFlatPagination as OAuthClientsDefaultFlatPagination,
+    type OAuthClientListParams as OAuthClientListParams,
     type OAuthClientCreateParams as OAuthClientCreateParams,
     type OAuthClientUpdateParams as OAuthClientUpdateParams,
-    type OAuthClientListParams as OAuthClientListParams,
   };
 
   export {
@@ -3442,16 +3450,16 @@ export declare namespace Telnyx {
     type CloudflareSyncStatus as CloudflareSyncStatus,
     type PaginationMetaCloudflareIPListSync as PaginationMetaCloudflareIPListSync,
     type AccessIPAddressResponsesDefaultFlatPagination as AccessIPAddressResponsesDefaultFlatPagination,
-    type AccessIPAddressCreateParams as AccessIPAddressCreateParams,
     type AccessIPAddressListParams as AccessIPAddressListParams,
+    type AccessIPAddressCreateParams as AccessIPAddressCreateParams,
   };
 
   export {
     AccessIPRanges as AccessIPRanges,
     type AccessIPRange as AccessIPRange,
     type AccessIPRangesDefaultFlatPagination as AccessIPRangesDefaultFlatPagination,
-    type AccessIPRangeCreateParams as AccessIPRangeCreateParams,
     type AccessIPRangeListParams as AccessIPRangeListParams,
+    type AccessIPRangeCreateParams as AccessIPRangeCreateParams,
   };
 
   export { Actions as Actions, type WirelessError as WirelessError };
@@ -3463,8 +3471,8 @@ export declare namespace Telnyx {
     type AddressRetrieveResponse as AddressRetrieveResponse,
     type AddressDeleteResponse as AddressDeleteResponse,
     type AddressesDefaultFlatPagination as AddressesDefaultFlatPagination,
-    type AddressCreateParams as AddressCreateParams,
     type AddressListParams as AddressListParams,
+    type AddressCreateParams as AddressCreateParams,
   };
 
   export {
@@ -3483,9 +3491,9 @@ export declare namespace Telnyx {
     type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveConversationHistoriesResponse as AIRetrieveConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
+    type AISummarizeParams as AISummarizeParams,
     type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
     type AIRetrieveConversationHistoriesParams as AIRetrieveConversationHistoriesParams,
-    type AISummarizeParams as AISummarizeParams,
   };
 
   export {
@@ -3505,9 +3513,9 @@ export declare namespace Telnyx {
     type AuthenticationProviderUpdateResponse as AuthenticationProviderUpdateResponse,
     type AuthenticationProviderDeleteResponse as AuthenticationProviderDeleteResponse,
     type AuthenticationProvidersDefaultFlatPagination as AuthenticationProvidersDefaultFlatPagination,
+    type AuthenticationProviderListParams as AuthenticationProviderListParams,
     type AuthenticationProviderCreateParams as AuthenticationProviderCreateParams,
     type AuthenticationProviderUpdateParams as AuthenticationProviderUpdateParams,
-    type AuthenticationProviderListParams as AuthenticationProviderListParams,
   };
 
   export {
@@ -3532,9 +3540,9 @@ export declare namespace Telnyx {
     type BillingGroupUpdateResponse as BillingGroupUpdateResponse,
     type BillingGroupDeleteResponse as BillingGroupDeleteResponse,
     type BillingGroupsDefaultFlatPagination as BillingGroupsDefaultFlatPagination,
+    type BillingGroupListParams as BillingGroupListParams,
     type BillingGroupCreateParams as BillingGroupCreateParams,
     type BillingGroupUpdateParams as BillingGroupUpdateParams,
-    type BillingGroupListParams as BillingGroupListParams,
   };
 
   export {
@@ -3558,9 +3566,9 @@ export declare namespace Telnyx {
     type CallControlApplicationUpdateResponse as CallControlApplicationUpdateResponse,
     type CallControlApplicationDeleteResponse as CallControlApplicationDeleteResponse,
     type CallControlApplicationsDefaultFlatPagination as CallControlApplicationsDefaultFlatPagination,
+    type CallControlApplicationListParams as CallControlApplicationListParams,
     type CallControlApplicationCreateParams as CallControlApplicationCreateParams,
     type CallControlApplicationUpdateParams as CallControlApplicationUpdateParams,
-    type CallControlApplicationListParams as CallControlApplicationListParams,
   };
 
   export {
@@ -3594,8 +3602,8 @@ export declare namespace Telnyx {
     ChannelZones as ChannelZones,
     type GcbChannelZone as GcbChannelZone,
     type GcbChannelZonesDefaultFlatPagination as GcbChannelZonesDefaultFlatPagination,
-    type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
     type ChannelZoneListParams as ChannelZoneListParams,
+    type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
   };
 
   export {
@@ -3618,8 +3626,8 @@ export declare namespace Telnyx {
     type CommentRetrieveResponse as CommentRetrieveResponse,
     type CommentListResponse as CommentListResponse,
     type CommentMarkAsReadResponse as CommentMarkAsReadResponse,
-    type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
+    type CommentCreateParams as CommentCreateParams,
   };
 
   export {
@@ -3632,10 +3640,10 @@ export declare namespace Telnyx {
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
     type ConferencesDefaultFlatPagination as ConferencesDefaultFlatPagination,
     type ConferenceListParticipantsResponsesDefaultFlatPagination as ConferenceListParticipantsResponsesDefaultFlatPagination,
-    type ConferenceCreateParams as ConferenceCreateParams,
-    type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,
+    type ConferenceCreateParams as ConferenceCreateParams,
     type ConferenceListParticipantsParams as ConferenceListParticipantsParams,
+    type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceRetrieveParticipantParams as ConferenceRetrieveParticipantParams,
     type ConferenceUpdateParticipantParams as ConferenceUpdateParticipantParams,
   };
@@ -3673,9 +3681,9 @@ export declare namespace Telnyx {
     type CredentialConnectionUpdateResponse as CredentialConnectionUpdateResponse,
     type CredentialConnectionDeleteResponse as CredentialConnectionDeleteResponse,
     type CredentialConnectionsDefaultFlatPagination as CredentialConnectionsDefaultFlatPagination,
+    type CredentialConnectionListParams as CredentialConnectionListParams,
     type CredentialConnectionCreateParams as CredentialConnectionCreateParams,
     type CredentialConnectionUpdateParams as CredentialConnectionUpdateParams,
-    type CredentialConnectionListParams as CredentialConnectionListParams,
   };
 
   export {
@@ -3696,8 +3704,8 @@ export declare namespace Telnyx {
     type CustomerServiceRecordRetrieveResponse as CustomerServiceRecordRetrieveResponse,
     type CustomerServiceRecordVerifyPhoneNumberCoverageResponse as CustomerServiceRecordVerifyPhoneNumberCoverageResponse,
     type CustomerServiceRecordsDefaultFlatPagination as CustomerServiceRecordsDefaultFlatPagination,
-    type CustomerServiceRecordCreateParams as CustomerServiceRecordCreateParams,
     type CustomerServiceRecordListParams as CustomerServiceRecordListParams,
+    type CustomerServiceRecordCreateParams as CustomerServiceRecordCreateParams,
     type CustomerServiceRecordVerifyPhoneNumberCoverageParams as CustomerServiceRecordVerifyPhoneNumberCoverageParams,
   };
 
@@ -3733,10 +3741,10 @@ export declare namespace Telnyx {
     type DocumentUploadResponse as DocumentUploadResponse,
     type DocumentUploadJsonResponse as DocumentUploadJsonResponse,
     type DocServiceDocumentsDefaultFlatPagination as DocServiceDocumentsDefaultFlatPagination,
-    type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,
     type DocumentUploadParams as DocumentUploadParams,
     type DocumentUploadJsonParams as DocumentUploadJsonParams,
+    type DocumentUpdateParams as DocumentUpdateParams,
   };
 
   export {
@@ -3746,8 +3754,8 @@ export declare namespace Telnyx {
     type DynamicEmergencyAddressRetrieveResponse as DynamicEmergencyAddressRetrieveResponse,
     type DynamicEmergencyAddressDeleteResponse as DynamicEmergencyAddressDeleteResponse,
     type DynamicEmergencyAddressesDefaultFlatPagination as DynamicEmergencyAddressesDefaultFlatPagination,
-    type DynamicEmergencyAddressCreateParams as DynamicEmergencyAddressCreateParams,
     type DynamicEmergencyAddressListParams as DynamicEmergencyAddressListParams,
+    type DynamicEmergencyAddressCreateParams as DynamicEmergencyAddressCreateParams,
   };
 
   export {
@@ -3757,8 +3765,8 @@ export declare namespace Telnyx {
     type DynamicEmergencyEndpointRetrieveResponse as DynamicEmergencyEndpointRetrieveResponse,
     type DynamicEmergencyEndpointDeleteResponse as DynamicEmergencyEndpointDeleteResponse,
     type DynamicEmergencyEndpointsDefaultFlatPagination as DynamicEmergencyEndpointsDefaultFlatPagination,
-    type DynamicEmergencyEndpointCreateParams as DynamicEmergencyEndpointCreateParams,
     type DynamicEmergencyEndpointListParams as DynamicEmergencyEndpointListParams,
+    type DynamicEmergencyEndpointCreateParams as DynamicEmergencyEndpointCreateParams,
   };
 
   export {
@@ -3771,9 +3779,9 @@ export declare namespace Telnyx {
     type ExternalConnectionDeleteResponse as ExternalConnectionDeleteResponse,
     type ExternalConnectionUpdateLocationResponse as ExternalConnectionUpdateLocationResponse,
     type ExternalConnectionsDefaultFlatPagination as ExternalConnectionsDefaultFlatPagination,
+    type ExternalConnectionListParams as ExternalConnectionListParams,
     type ExternalConnectionCreateParams as ExternalConnectionCreateParams,
     type ExternalConnectionUpdateParams as ExternalConnectionUpdateParams,
-    type ExternalConnectionListParams as ExternalConnectionListParams,
     type ExternalConnectionUpdateLocationParams as ExternalConnectionUpdateLocationParams,
   };
 
@@ -3785,9 +3793,9 @@ export declare namespace Telnyx {
     type FaxApplicationUpdateResponse as FaxApplicationUpdateResponse,
     type FaxApplicationDeleteResponse as FaxApplicationDeleteResponse,
     type FaxApplicationsDefaultFlatPagination as FaxApplicationsDefaultFlatPagination,
+    type FaxApplicationListParams as FaxApplicationListParams,
     type FaxApplicationCreateParams as FaxApplicationCreateParams,
     type FaxApplicationUpdateParams as FaxApplicationUpdateParams,
-    type FaxApplicationListParams as FaxApplicationListParams,
   };
 
   export {
@@ -3797,8 +3805,8 @@ export declare namespace Telnyx {
     type FaxCreateResponse as FaxCreateResponse,
     type FaxRetrieveResponse as FaxRetrieveResponse,
     type FaxesDefaultFlatPagination as FaxesDefaultFlatPagination,
-    type FaxCreateParams as FaxCreateParams,
     type FaxListParams as FaxListParams,
+    type FaxCreateParams as FaxCreateParams,
   };
 
   export {
@@ -3813,9 +3821,9 @@ export declare namespace Telnyx {
     type FqdnConnectionUpdateResponse as FqdnConnectionUpdateResponse,
     type FqdnConnectionDeleteResponse as FqdnConnectionDeleteResponse,
     type FqdnConnectionsDefaultFlatPagination as FqdnConnectionsDefaultFlatPagination,
+    type FqdnConnectionListParams as FqdnConnectionListParams,
     type FqdnConnectionCreateParams as FqdnConnectionCreateParams,
     type FqdnConnectionUpdateParams as FqdnConnectionUpdateParams,
-    type FqdnConnectionListParams as FqdnConnectionListParams,
   };
 
   export {
@@ -3826,9 +3834,9 @@ export declare namespace Telnyx {
     type FqdnUpdateResponse as FqdnUpdateResponse,
     type FqdnDeleteResponse as FqdnDeleteResponse,
     type FqdnsDefaultFlatPagination as FqdnsDefaultFlatPagination,
+    type FqdnListParams as FqdnListParams,
     type FqdnCreateParams as FqdnCreateParams,
     type FqdnUpdateParams as FqdnUpdateParams,
-    type FqdnListParams as FqdnListParams,
   };
 
   export {
@@ -3851,9 +3859,9 @@ export declare namespace Telnyx {
     type GlobalIPAssignmentUpdateResponse as GlobalIPAssignmentUpdateResponse,
     type GlobalIPAssignmentDeleteResponse as GlobalIPAssignmentDeleteResponse,
     type GlobalIPAssignmentsDefaultFlatPagination as GlobalIPAssignmentsDefaultFlatPagination,
+    type GlobalIPAssignmentListParams as GlobalIPAssignmentListParams,
     type GlobalIPAssignmentCreateParams as GlobalIPAssignmentCreateParams,
     type GlobalIPAssignmentUpdateParams as GlobalIPAssignmentUpdateParams,
-    type GlobalIPAssignmentListParams as GlobalIPAssignmentListParams,
   };
 
   export {
@@ -3874,8 +3882,8 @@ export declare namespace Telnyx {
     type GlobalIPHealthCheckRetrieveResponse as GlobalIPHealthCheckRetrieveResponse,
     type GlobalIPHealthCheckDeleteResponse as GlobalIPHealthCheckDeleteResponse,
     type GlobalIPHealthChecksDefaultFlatPagination as GlobalIPHealthChecksDefaultFlatPagination,
-    type GlobalIPHealthCheckCreateParams as GlobalIPHealthCheckCreateParams,
     type GlobalIPHealthCheckListParams as GlobalIPHealthCheckListParams,
+    type GlobalIPHealthCheckCreateParams as GlobalIPHealthCheckCreateParams,
   };
 
   export {
@@ -3902,8 +3910,8 @@ export declare namespace Telnyx {
     type GlobalIPRetrieveResponse as GlobalIPRetrieveResponse,
     type GlobalIPDeleteResponse as GlobalIPDeleteResponse,
     type GlobalIPsDefaultFlatPagination as GlobalIPsDefaultFlatPagination,
-    type GlobalIPCreateParams as GlobalIPCreateParams,
     type GlobalIPListParams as GlobalIPListParams,
+    type GlobalIPCreateParams as GlobalIPCreateParams,
   };
 
   export {
@@ -3918,8 +3926,8 @@ export declare namespace Telnyx {
     type IntegrationSecret as IntegrationSecret,
     type IntegrationSecretCreateResponse as IntegrationSecretCreateResponse,
     type IntegrationSecretsDefaultFlatPagination as IntegrationSecretsDefaultFlatPagination,
-    type IntegrationSecretCreateParams as IntegrationSecretCreateParams,
     type IntegrationSecretListParams as IntegrationSecretListParams,
+    type IntegrationSecretCreateParams as IntegrationSecretCreateParams,
   };
 
   export {
@@ -3933,8 +3941,8 @@ export declare namespace Telnyx {
     type InvoiceRetrieveResponse as InvoiceRetrieveResponse,
     type InvoiceListResponse as InvoiceListResponse,
     type InvoiceListResponsesDefaultFlatPagination as InvoiceListResponsesDefaultFlatPagination,
-    type InvoiceRetrieveParams as InvoiceRetrieveParams,
     type InvoiceListParams as InvoiceListParams,
+    type InvoiceRetrieveParams as InvoiceRetrieveParams,
   };
 
   export {
@@ -3947,9 +3955,9 @@ export declare namespace Telnyx {
     type IPConnectionUpdateResponse as IPConnectionUpdateResponse,
     type IPConnectionDeleteResponse as IPConnectionDeleteResponse,
     type IPConnectionsDefaultFlatPagination as IPConnectionsDefaultFlatPagination,
+    type IPConnectionListParams as IPConnectionListParams,
     type IPConnectionCreateParams as IPConnectionCreateParams,
     type IPConnectionUpdateParams as IPConnectionUpdateParams,
-    type IPConnectionListParams as IPConnectionListParams,
   };
 
   export {
@@ -3960,9 +3968,9 @@ export declare namespace Telnyx {
     type IPUpdateResponse as IPUpdateResponse,
     type IPDeleteResponse as IPDeleteResponse,
     type IPsDefaultFlatPagination as IPsDefaultFlatPagination,
+    type IPListParams as IPListParams,
     type IPCreateParams as IPCreateParams,
     type IPUpdateParams as IPUpdateParams,
-    type IPListParams as IPListParams,
   };
 
   export {
@@ -3990,9 +3998,9 @@ export declare namespace Telnyx {
     type ManagedAccountGetAllocatableGlobalOutboundChannelsResponse as ManagedAccountGetAllocatableGlobalOutboundChannelsResponse,
     type ManagedAccountUpdateGlobalChannelLimitResponse as ManagedAccountUpdateGlobalChannelLimitResponse,
     type ManagedAccountListResponsesDefaultFlatPagination as ManagedAccountListResponsesDefaultFlatPagination,
+    type ManagedAccountListParams as ManagedAccountListParams,
     type ManagedAccountCreateParams as ManagedAccountCreateParams,
     type ManagedAccountUpdateParams as ManagedAccountUpdateParams,
-    type ManagedAccountListParams as ManagedAccountListParams,
     type ManagedAccountUpdateGlobalChannelLimitParams as ManagedAccountUpdateGlobalChannelLimitParams,
   };
 
@@ -4003,9 +4011,9 @@ export declare namespace Telnyx {
     type MediaUpdateResponse as MediaUpdateResponse,
     type MediaListResponse as MediaListResponse,
     type MediaUploadResponse as MediaUploadResponse,
-    type MediaUpdateParams as MediaUpdateParams,
     type MediaListParams as MediaListParams,
     type MediaUploadParams as MediaUploadParams,
+    type MediaUpdateParams as MediaUpdateParams,
   };
 
   export {
@@ -4033,13 +4041,13 @@ export declare namespace Telnyx {
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
     type MessageSendWhatsappResponse as MessageSendWhatsappResponse,
     type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
-    type MessageScheduleParams as MessageScheduleParams,
     type MessageSendParams as MessageSendParams,
-    type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
     type MessageSendLongCodeParams as MessageSendLongCodeParams,
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
+    type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
     type MessageSendWhatsappParams as MessageSendWhatsappParams,
+    type MessageScheduleParams as MessageScheduleParams,
     type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
   };
 
@@ -4053,11 +4061,11 @@ export declare namespace Telnyx {
     type MessagingHostedNumberOrderCheckEligibilityResponse as MessagingHostedNumberOrderCheckEligibilityResponse,
     type MessagingHostedNumberOrderCreateVerificationCodesResponse as MessagingHostedNumberOrderCreateVerificationCodesResponse,
     type MessagingHostedNumberOrderValidateCodesResponse as MessagingHostedNumberOrderValidateCodesResponse,
-    type MessagingHostedNumberOrderCreateParams as MessagingHostedNumberOrderCreateParams,
     type MessagingHostedNumberOrderListParams as MessagingHostedNumberOrderListParams,
+    type MessagingHostedNumberOrderCreateParams as MessagingHostedNumberOrderCreateParams,
     type MessagingHostedNumberOrderCheckEligibilityParams as MessagingHostedNumberOrderCheckEligibilityParams,
-    type MessagingHostedNumberOrderCreateVerificationCodesParams as MessagingHostedNumberOrderCreateVerificationCodesParams,
     type MessagingHostedNumberOrderValidateCodesParams as MessagingHostedNumberOrderValidateCodesParams,
+    type MessagingHostedNumberOrderCreateVerificationCodesParams as MessagingHostedNumberOrderCreateVerificationCodesParams,
   };
 
   export {
@@ -4066,8 +4074,8 @@ export declare namespace Telnyx {
     type MessagingHostedNumberRetrieveResponse as MessagingHostedNumberRetrieveResponse,
     type MessagingHostedNumberUpdateResponse as MessagingHostedNumberUpdateResponse,
     type MessagingHostedNumberDeleteResponse as MessagingHostedNumberDeleteResponse,
-    type MessagingHostedNumberUpdateParams as MessagingHostedNumberUpdateParams,
     type MessagingHostedNumberListParams as MessagingHostedNumberListParams,
+    type MessagingHostedNumberUpdateParams as MessagingHostedNumberUpdateParams,
   };
 
   export {
@@ -4096,12 +4104,12 @@ export declare namespace Telnyx {
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
     type MessagingProfileRetrieveMetricsResponse as MessagingProfileRetrieveMetricsResponse,
     type MessagingProfilesDefaultFlatPagination as MessagingProfilesDefaultFlatPagination,
+    type MessagingProfileListParams as MessagingProfileListParams,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
-    type MessagingProfileListParams as MessagingProfileListParams,
-    type MessagingProfileListAlphanumericSenderIDsParams as MessagingProfileListAlphanumericSenderIDsParams,
     type MessagingProfileListPhoneNumbersParams as MessagingProfileListPhoneNumbersParams,
     type MessagingProfileListShortCodesParams as MessagingProfileListShortCodesParams,
+    type MessagingProfileListAlphanumericSenderIDsParams as MessagingProfileListAlphanumericSenderIDsParams,
     type MessagingProfileRetrieveMetricsParams as MessagingProfileRetrieveMetricsParams,
   };
 
@@ -4126,8 +4134,8 @@ export declare namespace Telnyx {
     type PushCredential as PushCredential,
     type PushCredentialResponse as PushCredentialResponse,
     type PushCredentialsDefaultFlatPagination as PushCredentialsDefaultFlatPagination,
-    type MobilePushCredentialCreateParams as MobilePushCredentialCreateParams,
     type MobilePushCredentialListParams as MobilePushCredentialListParams,
+    type MobilePushCredentialCreateParams as MobilePushCredentialCreateParams,
   };
 
   export {
@@ -4150,9 +4158,9 @@ export declare namespace Telnyx {
     type NetworkListInterfacesResponse as NetworkListInterfacesResponse,
     type NetworksDefaultFlatPagination as NetworksDefaultFlatPagination,
     type NetworkListInterfacesResponsesDefaultFlatPagination as NetworkListInterfacesResponsesDefaultFlatPagination,
+    type NetworkListParams as NetworkListParams,
     type NetworkCreateParams as NetworkCreateParams,
     type NetworkUpdateParams as NetworkUpdateParams,
-    type NetworkListParams as NetworkListParams,
     type NetworkListInterfacesParams as NetworkListInterfacesParams,
   };
 
@@ -4164,9 +4172,9 @@ export declare namespace Telnyx {
     type NotificationChannelUpdateResponse as NotificationChannelUpdateResponse,
     type NotificationChannelDeleteResponse as NotificationChannelDeleteResponse,
     type NotificationChannelsDefaultFlatPagination as NotificationChannelsDefaultFlatPagination,
+    type NotificationChannelListParams as NotificationChannelListParams,
     type NotificationChannelCreateParams as NotificationChannelCreateParams,
     type NotificationChannelUpdateParams as NotificationChannelUpdateParams,
-    type NotificationChannelListParams as NotificationChannelListParams,
   };
 
   export {
@@ -4191,9 +4199,9 @@ export declare namespace Telnyx {
     type NotificationProfileUpdateResponse as NotificationProfileUpdateResponse,
     type NotificationProfileDeleteResponse as NotificationProfileDeleteResponse,
     type NotificationProfilesDefaultFlatPagination as NotificationProfilesDefaultFlatPagination,
+    type NotificationProfileListParams as NotificationProfileListParams,
     type NotificationProfileCreateParams as NotificationProfileCreateParams,
     type NotificationProfileUpdateParams as NotificationProfileUpdateParams,
-    type NotificationProfileListParams as NotificationProfileListParams,
   };
 
   export {
@@ -4203,8 +4211,8 @@ export declare namespace Telnyx {
     type NotificationSettingRetrieveResponse as NotificationSettingRetrieveResponse,
     type NotificationSettingDeleteResponse as NotificationSettingDeleteResponse,
     type NotificationSettingsDefaultFlatPagination as NotificationSettingsDefaultFlatPagination,
-    type NotificationSettingCreateParams as NotificationSettingCreateParams,
     type NotificationSettingListParams as NotificationSettingListParams,
+    type NotificationSettingCreateParams as NotificationSettingCreateParams,
   };
 
   export {
@@ -4213,8 +4221,8 @@ export declare namespace Telnyx {
     type NumberBlockOrderCreateResponse as NumberBlockOrderCreateResponse,
     type NumberBlockOrderRetrieveResponse as NumberBlockOrderRetrieveResponse,
     type NumberBlockOrdersDefaultFlatPagination as NumberBlockOrdersDefaultFlatPagination,
-    type NumberBlockOrderCreateParams as NumberBlockOrderCreateParams,
     type NumberBlockOrderListParams as NumberBlockOrderListParams,
+    type NumberBlockOrderCreateParams as NumberBlockOrderCreateParams,
   };
 
   export {
@@ -4245,9 +4253,9 @@ export declare namespace Telnyx {
     type NumberOrderUpdateResponse as NumberOrderUpdateResponse,
     type NumberOrderListResponse as NumberOrderListResponse,
     type NumberOrderListResponsesDefaultFlatPagination as NumberOrderListResponsesDefaultFlatPagination,
+    type NumberOrderListParams as NumberOrderListParams,
     type NumberOrderCreateParams as NumberOrderCreateParams,
     type NumberOrderUpdateParams as NumberOrderUpdateParams,
-    type NumberOrderListParams as NumberOrderListParams,
   };
 
   export {
@@ -4257,8 +4265,8 @@ export declare namespace Telnyx {
     type NumberReservationCreateResponse as NumberReservationCreateResponse,
     type NumberReservationRetrieveResponse as NumberReservationRetrieveResponse,
     type NumberReservationsDefaultFlatPagination as NumberReservationsDefaultFlatPagination,
-    type NumberReservationCreateParams as NumberReservationCreateParams,
     type NumberReservationListParams as NumberReservationListParams,
+    type NumberReservationCreateParams as NumberReservationCreateParams,
   };
 
   export {
@@ -4289,9 +4297,9 @@ export declare namespace Telnyx {
     type OutboundVoiceProfileUpdateResponse as OutboundVoiceProfileUpdateResponse,
     type OutboundVoiceProfileDeleteResponse as OutboundVoiceProfileDeleteResponse,
     type OutboundVoiceProfilesDefaultFlatPagination as OutboundVoiceProfilesDefaultFlatPagination,
+    type OutboundVoiceProfileListParams as OutboundVoiceProfileListParams,
     type OutboundVoiceProfileCreateParams as OutboundVoiceProfileCreateParams,
     type OutboundVoiceProfileUpdateParams as OutboundVoiceProfileUpdateParams,
-    type OutboundVoiceProfileListParams as OutboundVoiceProfileListParams,
   };
 
   export {
@@ -4311,9 +4319,9 @@ export declare namespace Telnyx {
     type PhoneNumberSlimListResponse as PhoneNumberSlimListResponse,
     type PhoneNumberDetailedsDefaultFlatPagination as PhoneNumberDetailedsDefaultFlatPagination,
     type PhoneNumberSlimListResponsesDefaultFlatPagination as PhoneNumberSlimListResponsesDefaultFlatPagination,
-    type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberSlimListParams as PhoneNumberSlimListParams,
+    type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
   };
 
   export {
@@ -4354,10 +4362,10 @@ export declare namespace Telnyx {
     type PortingOrderRetrieveSubRequestResponse as PortingOrderRetrieveSubRequestResponse,
     type PortingOrdersDefaultFlatPagination as PortingOrdersDefaultFlatPagination,
     type PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination as PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination,
+    type PortingOrderListParams as PortingOrderListParams,
     type PortingOrderCreateParams as PortingOrderCreateParams,
     type PortingOrderRetrieveParams as PortingOrderRetrieveParams,
     type PortingOrderUpdateParams as PortingOrderUpdateParams,
-    type PortingOrderListParams as PortingOrderListParams,
     type PortingOrderRetrieveLoaTemplateParams as PortingOrderRetrieveLoaTemplateParams,
     type PortingOrderRetrieveRequirementsParams as PortingOrderRetrieveRequirementsParams,
   };
@@ -4391,8 +4399,8 @@ export declare namespace Telnyx {
     type PrivateWirelessGatewayRetrieveResponse as PrivateWirelessGatewayRetrieveResponse,
     type PrivateWirelessGatewayDeleteResponse as PrivateWirelessGatewayDeleteResponse,
     type PrivateWirelessGatewaysDefaultFlatPagination as PrivateWirelessGatewaysDefaultFlatPagination,
-    type PrivateWirelessGatewayCreateParams as PrivateWirelessGatewayCreateParams,
     type PrivateWirelessGatewayListParams as PrivateWirelessGatewayListParams,
+    type PrivateWirelessGatewayCreateParams as PrivateWirelessGatewayCreateParams,
   };
 
   export {
@@ -4405,8 +4413,8 @@ export declare namespace Telnyx {
     type PublicInternetGatewayRetrieveResponse as PublicInternetGatewayRetrieveResponse,
     type PublicInternetGatewayDeleteResponse as PublicInternetGatewayDeleteResponse,
     type PublicInternetGatewayReadsDefaultFlatPagination as PublicInternetGatewayReadsDefaultFlatPagination,
-    type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
+    type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
   };
 
   export {
@@ -4416,9 +4424,9 @@ export declare namespace Telnyx {
     type QueueRetrieveResponse as QueueRetrieveResponse,
     type QueueUpdateResponse as QueueUpdateResponse,
     type QueuesDefaultFlatPagination as QueuesDefaultFlatPagination,
+    type QueueListParams as QueueListParams,
     type QueueCreateParams as QueueCreateParams,
     type QueueUpdateParams as QueueUpdateParams,
-    type QueueListParams as QueueListParams,
   };
 
   export { RcsAgents as RcsAgents, type RcsAgent as RcsAgent, type RcsAgentResponse as RcsAgentResponse };
@@ -4472,9 +4480,9 @@ export declare namespace Telnyx {
     type RequirementGroup as RequirementGroup,
     type UserRequirement as UserRequirement,
     type RequirementGroupListResponse as RequirementGroupListResponse,
+    type RequirementGroupListParams as RequirementGroupListParams,
     type RequirementGroupCreateParams as RequirementGroupCreateParams,
     type RequirementGroupUpdateParams as RequirementGroupUpdateParams,
-    type RequirementGroupListParams as RequirementGroupListParams,
   };
 
   export {
@@ -4499,8 +4507,8 @@ export declare namespace Telnyx {
     type RoomCompositionCreateResponse as RoomCompositionCreateResponse,
     type RoomCompositionRetrieveResponse as RoomCompositionRetrieveResponse,
     type RoomCompositionsDefaultFlatPagination as RoomCompositionsDefaultFlatPagination,
-    type RoomCompositionCreateParams as RoomCompositionCreateParams,
     type RoomCompositionListParams as RoomCompositionListParams,
+    type RoomCompositionCreateParams as RoomCompositionCreateParams,
   };
 
   export {
@@ -4515,8 +4523,8 @@ export declare namespace Telnyx {
     type RoomRecordingRetrieveResponse as RoomRecordingRetrieveResponse,
     type RoomRecordingDeleteBulkResponse as RoomRecordingDeleteBulkResponse,
     type RoomRecordingsDefaultFlatPagination as RoomRecordingsDefaultFlatPagination,
-    type RoomRecordingListParams as RoomRecordingListParams,
     type RoomRecordingDeleteBulkParams as RoomRecordingDeleteBulkParams,
+    type RoomRecordingListParams as RoomRecordingListParams,
   };
 
   export {
@@ -4527,10 +4535,10 @@ export declare namespace Telnyx {
     type RoomRetrieveResponse as RoomRetrieveResponse,
     type RoomUpdateResponse as RoomUpdateResponse,
     type RoomsDefaultFlatPagination as RoomsDefaultFlatPagination,
+    type RoomListParams as RoomListParams,
     type RoomCreateParams as RoomCreateParams,
     type RoomRetrieveParams as RoomRetrieveParams,
     type RoomUpdateParams as RoomUpdateParams,
-    type RoomListParams as RoomListParams,
   };
 
   export {
@@ -4543,8 +4551,8 @@ export declare namespace Telnyx {
     ShortCodes as ShortCodes,
     type ShortCodeRetrieveResponse as ShortCodeRetrieveResponse,
     type ShortCodeUpdateResponse as ShortCodeUpdateResponse,
-    type ShortCodeUpdateParams as ShortCodeUpdateParams,
     type ShortCodeListParams as ShortCodeListParams,
+    type ShortCodeUpdateParams as ShortCodeUpdateParams,
   };
 
   export {
@@ -4555,9 +4563,9 @@ export declare namespace Telnyx {
     type SimCardDataUsageNotificationUpdateResponse as SimCardDataUsageNotificationUpdateResponse,
     type SimCardDataUsageNotificationDeleteResponse as SimCardDataUsageNotificationDeleteResponse,
     type SimCardDataUsageNotificationsDefaultFlatPagination as SimCardDataUsageNotificationsDefaultFlatPagination,
+    type SimCardDataUsageNotificationListParams as SimCardDataUsageNotificationListParams,
     type SimCardDataUsageNotificationCreateParams as SimCardDataUsageNotificationCreateParams,
     type SimCardDataUsageNotificationUpdateParams as SimCardDataUsageNotificationUpdateParams,
-    type SimCardDataUsageNotificationListParams as SimCardDataUsageNotificationListParams,
   };
 
   export {
@@ -4570,10 +4578,10 @@ export declare namespace Telnyx {
     type SimCardGroupListResponse as SimCardGroupListResponse,
     type SimCardGroupDeleteResponse as SimCardGroupDeleteResponse,
     type SimCardGroupListResponsesDefaultFlatPagination as SimCardGroupListResponsesDefaultFlatPagination,
+    type SimCardGroupListParams as SimCardGroupListParams,
     type SimCardGroupCreateParams as SimCardGroupCreateParams,
     type SimCardGroupRetrieveParams as SimCardGroupRetrieveParams,
     type SimCardGroupUpdateParams as SimCardGroupUpdateParams,
-    type SimCardGroupListParams as SimCardGroupListParams,
   };
 
   export {
@@ -4588,8 +4596,8 @@ export declare namespace Telnyx {
     type SimCardOrderCreateResponse as SimCardOrderCreateResponse,
     type SimCardOrderRetrieveResponse as SimCardOrderRetrieveResponse,
     type SimCardOrdersDefaultFlatPagination as SimCardOrdersDefaultFlatPagination,
-    type SimCardOrderCreateParams as SimCardOrderCreateParams,
     type SimCardOrderListParams as SimCardOrderListParams,
+    type SimCardOrderCreateParams as SimCardOrderCreateParams,
   };
 
   export {
@@ -4603,10 +4611,10 @@ export declare namespace Telnyx {
     type SimCardGetPublicIPResponse as SimCardGetPublicIPResponse,
     type SimCardListWirelessConnectivityLogsResponse as SimCardListWirelessConnectivityLogsResponse,
     type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination as SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
-    type SimCardRetrieveParams as SimCardRetrieveParams,
-    type SimCardUpdateParams as SimCardUpdateParams,
     type SimCardListParams as SimCardListParams,
     type SimCardDeleteParams as SimCardDeleteParams,
+    type SimCardRetrieveParams as SimCardRetrieveParams,
+    type SimCardUpdateParams as SimCardUpdateParams,
     type SimCardListWirelessConnectivityLogsParams as SimCardListWirelessConnectivityLogsParams,
   };
 
@@ -4631,10 +4639,10 @@ export declare namespace Telnyx {
     type SubNumberOrderListResponse as SubNumberOrderListResponse,
     type SubNumberOrderCancelResponse as SubNumberOrderCancelResponse,
     type SubNumberOrderUpdateRequirementGroupResponse as SubNumberOrderUpdateRequirementGroupResponse,
-    type SubNumberOrderRetrieveParams as SubNumberOrderRetrieveParams,
-    type SubNumberOrderUpdateParams as SubNumberOrderUpdateParams,
     type SubNumberOrderListParams as SubNumberOrderListParams,
     type SubNumberOrderUpdateRequirementGroupParams as SubNumberOrderUpdateRequirementGroupParams,
+    type SubNumberOrderRetrieveParams as SubNumberOrderRetrieveParams,
+    type SubNumberOrderUpdateParams as SubNumberOrderUpdateParams,
   };
 
   export {
@@ -4655,17 +4663,17 @@ export declare namespace Telnyx {
     type TelephonyCredentialDeleteResponse as TelephonyCredentialDeleteResponse,
     type TelephonyCredentialCreateTokenResponse as TelephonyCredentialCreateTokenResponse,
     type TelephonyCredentialsDefaultFlatPagination as TelephonyCredentialsDefaultFlatPagination,
+    type TelephonyCredentialListParams as TelephonyCredentialListParams,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
     type TelephonyCredentialUpdateParams as TelephonyCredentialUpdateParams,
-    type TelephonyCredentialListParams as TelephonyCredentialListParams,
   };
 
   export {
     Texml as Texml,
     type TexmlInitiateAICallResponse as TexmlInitiateAICallResponse,
     type TexmlSecretsResponse as TexmlSecretsResponse,
-    type TexmlInitiateAICallParams as TexmlInitiateAICallParams,
     type TexmlSecretsParams as TexmlSecretsParams,
+    type TexmlInitiateAICallParams as TexmlInitiateAICallParams,
   };
 
   export {
@@ -4676,9 +4684,9 @@ export declare namespace Telnyx {
     type TexmlApplicationUpdateResponse as TexmlApplicationUpdateResponse,
     type TexmlApplicationDeleteResponse as TexmlApplicationDeleteResponse,
     type TexmlApplicationsDefaultFlatPagination as TexmlApplicationsDefaultFlatPagination,
+    type TexmlApplicationListParams as TexmlApplicationListParams,
     type TexmlApplicationCreateParams as TexmlApplicationCreateParams,
     type TexmlApplicationUpdateParams as TexmlApplicationUpdateParams,
-    type TexmlApplicationListParams as TexmlApplicationListParams,
   };
 
   export {
@@ -4687,8 +4695,8 @@ export declare namespace Telnyx {
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
-    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
+    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechRetrieveSpeechParams as TextToSpeechRetrieveSpeechParams,
   };
 
@@ -4707,8 +4715,8 @@ export declare namespace Telnyx {
     type UserAddressCreateResponse as UserAddressCreateResponse,
     type UserAddressRetrieveResponse as UserAddressRetrieveResponse,
     type UserAddressesDefaultFlatPagination as UserAddressesDefaultFlatPagination,
-    type UserAddressCreateParams as UserAddressCreateParams,
     type UserAddressListParams as UserAddressListParams,
+    type UserAddressCreateParams as UserAddressCreateParams,
   };
 
   export {
@@ -4735,8 +4743,8 @@ export declare namespace Telnyx {
     type VerifiedNumberDataWrapper as VerifiedNumberDataWrapper,
     type VerifiedNumberCreateResponse as VerifiedNumberCreateResponse,
     type VerifiedNumbersDefaultFlatPagination as VerifiedNumbersDefaultFlatPagination,
-    type VerifiedNumberCreateParams as VerifiedNumberCreateParams,
     type VerifiedNumberListParams as VerifiedNumberListParams,
+    type VerifiedNumberCreateParams as VerifiedNumberCreateParams,
   };
 
   export {
@@ -4747,9 +4755,9 @@ export declare namespace Telnyx {
     type VerifyProfileMessageTemplateResponse as VerifyProfileMessageTemplateResponse,
     type VerifyProfileRetrieveTemplatesResponse as VerifyProfileRetrieveTemplatesResponse,
     type VerifyProfilesDefaultFlatPagination as VerifyProfilesDefaultFlatPagination,
+    type VerifyProfileListParams as VerifyProfileListParams,
     type VerifyProfileCreateParams as VerifyProfileCreateParams,
     type VerifyProfileUpdateParams as VerifyProfileUpdateParams,
-    type VerifyProfileListParams as VerifyProfileListParams,
     type VerifyProfileCreateTemplateParams as VerifyProfileCreateTemplateParams,
     type VerifyProfileUpdateTemplateParams as VerifyProfileUpdateTemplateParams,
   };
@@ -4765,9 +4773,9 @@ export declare namespace Telnyx {
     type VirtualCrossConnectUpdateResponse as VirtualCrossConnectUpdateResponse,
     type VirtualCrossConnectDeleteResponse as VirtualCrossConnectDeleteResponse,
     type VirtualCrossConnectCombinedsDefaultFlatPagination as VirtualCrossConnectCombinedsDefaultFlatPagination,
+    type VirtualCrossConnectListParams as VirtualCrossConnectListParams,
     type VirtualCrossConnectCreateParams as VirtualCrossConnectCreateParams,
     type VirtualCrossConnectUpdateParams as VirtualCrossConnectUpdateParams,
-    type VirtualCrossConnectListParams as VirtualCrossConnectListParams,
   };
 
   export {
@@ -4795,8 +4803,8 @@ export declare namespace Telnyx {
     type WireguardInterfaceRetrieveResponse as WireguardInterfaceRetrieveResponse,
     type WireguardInterfaceDeleteResponse as WireguardInterfaceDeleteResponse,
     type WireguardInterfaceReadsDefaultFlatPagination as WireguardInterfaceReadsDefaultFlatPagination,
-    type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
     type WireguardInterfaceListParams as WireguardInterfaceListParams,
+    type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
   };
 
   export {
@@ -4809,9 +4817,9 @@ export declare namespace Telnyx {
     type WireguardPeerDeleteResponse as WireguardPeerDeleteResponse,
     type WireguardPeerRetrieveConfigResponse as WireguardPeerRetrieveConfigResponse,
     type WireguardPeersDefaultFlatPagination as WireguardPeersDefaultFlatPagination,
+    type WireguardPeerListParams as WireguardPeerListParams,
     type WireguardPeerCreateParams as WireguardPeerCreateParams,
     type WireguardPeerUpdateParams as WireguardPeerUpdateParams,
-    type WireguardPeerListParams as WireguardPeerListParams,
   };
 
   export {
@@ -4834,9 +4842,9 @@ export declare namespace Telnyx {
     type WirelessBlocklistUpdateResponse as WirelessBlocklistUpdateResponse,
     type WirelessBlocklistDeleteResponse as WirelessBlocklistDeleteResponse,
     type WirelessBlocklistsDefaultFlatPagination as WirelessBlocklistsDefaultFlatPagination,
-    type WirelessBlocklistCreateParams as WirelessBlocklistCreateParams,
-    type WirelessBlocklistUpdateParams as WirelessBlocklistUpdateParams,
     type WirelessBlocklistListParams as WirelessBlocklistListParams,
+    type WirelessBlocklistUpdateParams as WirelessBlocklistUpdateParams,
+    type WirelessBlocklistCreateParams as WirelessBlocklistCreateParams,
   };
 
   export {
@@ -4851,8 +4859,8 @@ export declare namespace Telnyx {
     type InexplicitNumberOrderCreateResponse as InexplicitNumberOrderCreateResponse,
     type InexplicitNumberOrderRetrieveResponse as InexplicitNumberOrderRetrieveResponse,
     type InexplicitNumberOrderResponsesDefaultFlatPaginationForInexplicitNumberOrders as InexplicitNumberOrderResponsesDefaultFlatPaginationForInexplicitNumberOrders,
-    type InexplicitNumberOrderCreateParams as InexplicitNumberOrderCreateParams,
     type InexplicitNumberOrderListParams as InexplicitNumberOrderListParams,
+    type InexplicitNumberOrderCreateParams as InexplicitNumberOrderCreateParams,
   };
 
   export {
@@ -4861,8 +4869,8 @@ export declare namespace Telnyx {
     type MobilePhoneNumberRetrieveResponse as MobilePhoneNumberRetrieveResponse,
     type MobilePhoneNumberUpdateResponse as MobilePhoneNumberUpdateResponse,
     type MobilePhoneNumbersDefaultFlatPagination as MobilePhoneNumbersDefaultFlatPagination,
-    type MobilePhoneNumberUpdateParams as MobilePhoneNumberUpdateParams,
     type MobilePhoneNumberListParams as MobilePhoneNumberListParams,
+    type MobilePhoneNumberUpdateParams as MobilePhoneNumberUpdateParams,
   };
 
   export {
@@ -4873,9 +4881,9 @@ export declare namespace Telnyx {
     type MobileVoiceConnectionUpdateResponse as MobileVoiceConnectionUpdateResponse,
     type MobileVoiceConnectionDeleteResponse as MobileVoiceConnectionDeleteResponse,
     type MobileVoiceConnectionsDefaultFlatPagination as MobileVoiceConnectionsDefaultFlatPagination,
+    type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,
     type MobileVoiceConnectionCreateParams as MobileVoiceConnectionCreateParams,
     type MobileVoiceConnectionUpdateParams as MobileVoiceConnectionUpdateParams,
-    type MobileVoiceConnectionListParams as MobileVoiceConnectionListParams,
   };
 
   export {
@@ -4892,8 +4900,8 @@ export declare namespace Telnyx {
     type AlphanumericSenderIDRetrieveResponse as AlphanumericSenderIDRetrieveResponse,
     type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,
     type AlphanumericSenderIDsDefaultFlatPagination as AlphanumericSenderIDsDefaultFlatPagination,
-    type AlphanumericSenderIDCreateParams as AlphanumericSenderIDCreateParams,
     type AlphanumericSenderIDListParams as AlphanumericSenderIDListParams,
+    type AlphanumericSenderIDCreateParams as AlphanumericSenderIDCreateParams,
   };
 
   export {
@@ -4927,10 +4935,10 @@ export declare namespace Telnyx {
     type VoiceCloneResponse as VoiceCloneResponse,
     type VoiceDesignsPaginationMeta as VoiceDesignsPaginationMeta,
     type VoiceCloneDataDefaultFlatPagination as VoiceCloneDataDefaultFlatPagination,
-    type VoiceCloneCreateParams as VoiceCloneCreateParams,
-    type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
     type VoiceCloneListParams as VoiceCloneListParams,
+    type VoiceCloneCreateParams as VoiceCloneCreateParams,
     type VoiceCloneCreateFromUploadParams as VoiceCloneCreateFromUploadParams,
+    type VoiceCloneUpdateParams as VoiceCloneUpdateParams,
   };
 
   export {
@@ -4940,12 +4948,12 @@ export declare namespace Telnyx {
     type VoiceDesignSummaryData as VoiceDesignSummaryData,
     type VoiceDesignRenameResponse as VoiceDesignRenameResponse,
     type VoiceDesignSummaryDataDefaultFlatPagination as VoiceDesignSummaryDataDefaultFlatPagination,
+    type VoiceDesignListParams as VoiceDesignListParams,
     type VoiceDesignCreateParams as VoiceDesignCreateParams,
     type VoiceDesignRetrieveParams as VoiceDesignRetrieveParams,
-    type VoiceDesignListParams as VoiceDesignListParams,
-    type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
-    type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
     type VoiceDesignRenameParams as VoiceDesignRenameParams,
+    type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
+    type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
   };
 
   export {
@@ -4958,10 +4966,10 @@ export declare namespace Telnyx {
     type TrafficPolicyProfileListServicesResponse as TrafficPolicyProfileListServicesResponse,
     type TrafficPolicyProfilesDefaultFlatPagination as TrafficPolicyProfilesDefaultFlatPagination,
     type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination as TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
-    type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
-    type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
     type TrafficPolicyProfileListParams as TrafficPolicyProfileListParams,
+    type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
     type TrafficPolicyProfileListServicesParams as TrafficPolicyProfileListServicesParams,
+    type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
   };
 
   export {
@@ -4974,9 +4982,9 @@ export declare namespace Telnyx {
     type OrganizationContact as OrganizationContact,
     type PhysicalAddress as PhysicalAddress,
     type EnterprisePublicsDefaultFlatPagination as EnterprisePublicsDefaultFlatPagination,
+    type EnterpriseListParams as EnterpriseListParams,
     type EnterpriseCreateParams as EnterpriseCreateParams,
     type EnterpriseUpdateParams as EnterpriseUpdateParams,
-    type EnterpriseListParams as EnterpriseListParams,
   };
 
   export { Reputation as Reputation };
@@ -4985,8 +4993,8 @@ export declare namespace Telnyx {
     TermsOfService as TermsOfService,
     type TermsOfServiceRetrieveInfoResponse as TermsOfServiceRetrieveInfoResponse,
     type TermsOfServiceRetrieveStatusResponse as TermsOfServiceRetrieveStatusResponse,
-    type TermsOfServiceRetrieveInfoParams as TermsOfServiceRetrieveInfoParams,
     type TermsOfServiceRetrieveStatusParams as TermsOfServiceRetrieveStatusParams,
+    type TermsOfServiceRetrieveInfoParams as TermsOfServiceRetrieveInfoParams,
   };
 
   export {
@@ -4997,9 +5005,9 @@ export declare namespace Telnyx {
     type PronunciationDictPhonemeItem as PronunciationDictPhonemeItem,
     type PronunciationDictResponse as PronunciationDictResponse,
     type PronunciationDictDataDefaultFlatPagination as PronunciationDictDataDefaultFlatPagination,
+    type PronunciationDictListParams as PronunciationDictListParams,
     type PronunciationDictCreateParams as PronunciationDictCreateParams,
     type PronunciationDictUpdateParams as PronunciationDictUpdateParams,
-    type PronunciationDictListParams as PronunciationDictListParams,
   };
 
   export {
@@ -5015,9 +5023,9 @@ export declare namespace Telnyx {
     type UacConnectionUpdateResponse as UacConnectionUpdateResponse,
     type UacConnectionDeleteResponse as UacConnectionDeleteResponse,
     type UacConnectionsDefaultFlatPagination as UacConnectionsDefaultFlatPagination,
+    type UacConnectionListParams as UacConnectionListParams,
     type UacConnectionCreateParams as UacConnectionCreateParams,
     type UacConnectionUpdateParams as UacConnectionUpdateParams,
-    type UacConnectionListParams as UacConnectionListParams,
   };
 
   export {
@@ -5054,11 +5062,11 @@ export declare namespace Telnyx {
     type Document as Document,
     type DirListDocumentTypesResponse as DirListDocumentTypesResponse,
     type DirsDefaultFlatPagination as DirsDefaultFlatPagination,
-    type DirUpdateParams as DirUpdateParams,
     type DirListParams as DirListParams,
+    type DirUpdateParams as DirUpdateParams,
     type DirListInfringementClaimsParams as DirListInfringementClaimsParams,
-    type DirNewLoaParams as DirNewLoaParams,
     type DirUpdateInfringementParams as DirUpdateInfringementParams,
+    type DirNewLoaParams as DirNewLoaParams,
   };
 
   export {

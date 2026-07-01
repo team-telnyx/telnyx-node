@@ -15,6 +15,27 @@ export class NumberReservations extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
+   * Gets a paginated list of phone number reservations.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const numberReservation of client.numberReservations.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: NumberReservationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NumberReservationsDefaultFlatPagination, NumberReservation> {
+    return this._client.getAPIList('/number_reservations', DefaultFlatPagination<NumberReservation>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a Phone Number Reservation for multiple numbers.
    *
    * @example
@@ -46,27 +67,6 @@ export class NumberReservations extends APIResource {
     options?: RequestOptions,
   ): APIPromise<NumberReservationRetrieveResponse> {
     return this._client.get(path`/number_reservations/${numberReservationID}`, options);
-  }
-
-  /**
-   * Gets a paginated list of phone number reservations.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const numberReservation of client.numberReservations.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: NumberReservationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NumberReservationsDefaultFlatPagination, NumberReservation> {
-    return this._client.getAPIList('/number_reservations', DefaultFlatPagination<NumberReservation>, {
-      query,
-      ...options,
-    });
   }
 }
 
@@ -149,15 +149,6 @@ export interface NumberReservationRetrieveResponse {
   data?: NumberReservation;
 }
 
-export interface NumberReservationCreateParams {
-  /**
-   * A customer reference string for customer look ups.
-   */
-  customer_reference?: string;
-
-  phone_numbers?: Array<ReservedPhoneNumber>;
-}
-
 export interface NumberReservationListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
@@ -213,6 +204,15 @@ export namespace NumberReservationListParams {
   }
 }
 
+export interface NumberReservationCreateParams {
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string;
+
+  phone_numbers?: Array<ReservedPhoneNumber>;
+}
+
 NumberReservations.Actions = Actions;
 
 export declare namespace NumberReservations {
@@ -222,8 +222,8 @@ export declare namespace NumberReservations {
     type NumberReservationCreateResponse as NumberReservationCreateResponse,
     type NumberReservationRetrieveResponse as NumberReservationRetrieveResponse,
     type NumberReservationsDefaultFlatPagination as NumberReservationsDefaultFlatPagination,
-    type NumberReservationCreateParams as NumberReservationCreateParams,
     type NumberReservationListParams as NumberReservationListParams,
+    type NumberReservationCreateParams as NumberReservationCreateParams,
   };
 
   export { Actions as Actions, type ActionExtendResponse as ActionExtendResponse };

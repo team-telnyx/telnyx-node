@@ -98,8 +98,8 @@ export declare namespace UsageReports {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingDeleteResponse as MessagingDeleteResponse,
     type MdrUsageReportResponseLegaciesPerPagePagination as MdrUsageReportResponseLegaciesPerPagePagination,
-    type MessagingCreateParams as MessagingCreateParams,
     type MessagingListParams as MessagingListParams,
+    type MessagingCreateParams as MessagingCreateParams,
   };
 
   export {
@@ -120,7 +120,7 @@ export declare namespace UsageReports {
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceDeleteResponse as VoiceDeleteResponse,
     type CdrUsageReportResponseLegaciesPerPagePagination as CdrUsageReportResponseLegaciesPerPagePagination,
-    type VoiceCreateParams as VoiceCreateParams,
     type VoiceListParams as VoiceListParams,
+    type VoiceCreateParams as VoiceCreateParams,
   };
 }

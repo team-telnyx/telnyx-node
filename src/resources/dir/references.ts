@@ -10,6 +10,25 @@ import { path } from '../../internal/utils/path';
  */
 export class References extends APIResource {
   /**
+   * List the business and financial references submitted for a DIR.
+   *
+   * Returns the two business references (slots 0 and 1) followed by the single
+   * financial reference. Each entry carries only the customer-supplied details
+   * (name, title, organization, relationship, phone, email, timezone). Returns an
+   * empty list when no references were submitted.
+   *
+   * @example
+   * ```ts
+   * const referenceList = await client.dir.references.list(
+   *   '16635d38-75a6-4481-82e8-69af60e05011',
+   * );
+   * ```
+   */
+  list(dirID: string, options?: RequestOptions): APIPromise<ReferenceList> {
+    return this._client.get(path`/dir/${dirID}/references`, options);
+  }
+
+  /**
    * Submit the two business references and one financial reference for a DIR.
    *
    * The DIR's authorizer email must be verified first (see the email-verification
@@ -78,25 +97,6 @@ export class References extends APIResource {
   ): APIPromise<ReferenceUpdateResponse> {
     const { dir_id, ref_type, ...body } = params;
     return this._client.patch(path`/dir/${dir_id}/references/${ref_type}/${slot}`, { body, ...options });
-  }
-
-  /**
-   * List the business and financial references submitted for a DIR.
-   *
-   * Returns the two business references (slots 0 and 1) followed by the single
-   * financial reference. Each entry carries only the customer-supplied details
-   * (name, title, organization, relationship, phone, email, timezone). Returns an
-   * empty list when no references were submitted.
-   *
-   * @example
-   * ```ts
-   * const referenceList = await client.dir.references.list(
-   *   '16635d38-75a6-4481-82e8-69af60e05011',
-   * );
-   * ```
-   */
-  list(dirID: string, options?: RequestOptions): APIPromise<ReferenceList> {
-    return this._client.get(path`/dir/${dirID}/references`, options);
   }
 }
 

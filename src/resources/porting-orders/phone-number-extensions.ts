@@ -11,6 +11,31 @@ import { path } from '../../internal/utils/path';
  */
 export class PhoneNumberExtensions extends APIResource {
   /**
+   * Returns a list of all phone number extensions of a porting order.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const portingPhoneNumberExtension of client.portingOrders.phoneNumberExtensions.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    portingOrderID: string,
+    query: PhoneNumberExtensionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortingPhoneNumberExtensionsDefaultFlatPagination, PortingPhoneNumberExtension> {
+    return this._client.getAPIList(
+      path`/porting_orders/${portingOrderID}/phone_number_extensions`,
+      DefaultFlatPagination<PortingPhoneNumberExtension>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Creates a new phone number extension.
    *
    * @example
@@ -36,31 +61,6 @@ export class PhoneNumberExtensions extends APIResource {
       body,
       ...options,
     });
-  }
-
-  /**
-   * Returns a list of all phone number extensions of a porting order.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const portingPhoneNumberExtension of client.portingOrders.phoneNumberExtensions.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    portingOrderID: string,
-    query: PhoneNumberExtensionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PortingPhoneNumberExtensionsDefaultFlatPagination, PortingPhoneNumberExtension> {
-    return this._client.getAPIList(
-      path`/porting_orders/${portingOrderID}/phone_number_extensions`,
-      DefaultFlatPagination<PortingPhoneNumberExtension>,
-      { query, ...options },
-    );
   }
 
   /**
@@ -175,6 +175,43 @@ export interface PhoneNumberExtensionDeleteResponse {
   data?: PortingPhoneNumberExtension;
 }
 
+export interface PhoneNumberExtensionListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[porting_phone_number_id]
+   */
+  filter?: PhoneNumberExtensionListParams.Filter;
+
+  /**
+   * Consolidated sort parameter (deepObject style). Originally: sort[value]
+   */
+  sort?: PhoneNumberExtensionListParams.Sort;
+}
+
+export namespace PhoneNumberExtensionListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[porting_phone_number_id]
+   */
+  export interface Filter {
+    /**
+     * Filter results by porting phone number id
+     */
+    porting_phone_number_id?: string;
+  }
+
+  /**
+   * Consolidated sort parameter (deepObject style). Originally: sort[value]
+   */
+  export interface Sort {
+    /**
+     * Specifies the sort order for results. If not given, results are sorted by
+     * created_at in descending order
+     */
+    value?: '-created_at' | 'created_at';
+  }
+}
+
 export interface PhoneNumberExtensionCreateParams {
   /**
    * Specifies the activation ranges for this porting phone number extension. The
@@ -222,43 +259,6 @@ export namespace PhoneNumberExtensionCreateParams {
   }
 }
 
-export interface PhoneNumberExtensionListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[porting_phone_number_id]
-   */
-  filter?: PhoneNumberExtensionListParams.Filter;
-
-  /**
-   * Consolidated sort parameter (deepObject style). Originally: sort[value]
-   */
-  sort?: PhoneNumberExtensionListParams.Sort;
-}
-
-export namespace PhoneNumberExtensionListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[porting_phone_number_id]
-   */
-  export interface Filter {
-    /**
-     * Filter results by porting phone number id
-     */
-    porting_phone_number_id?: string;
-  }
-
-  /**
-   * Consolidated sort parameter (deepObject style). Originally: sort[value]
-   */
-  export interface Sort {
-    /**
-     * Specifies the sort order for results. If not given, results are sorted by
-     * created_at in descending order
-     */
-    value?: '-created_at' | 'created_at';
-  }
-}
-
 export interface PhoneNumberExtensionDeleteParams {
   /**
    * Identifies the Porting Order associated with the phone number extension
@@ -272,8 +272,8 @@ export declare namespace PhoneNumberExtensions {
     type PhoneNumberExtensionCreateResponse as PhoneNumberExtensionCreateResponse,
     type PhoneNumberExtensionDeleteResponse as PhoneNumberExtensionDeleteResponse,
     type PortingPhoneNumberExtensionsDefaultFlatPagination as PortingPhoneNumberExtensionsDefaultFlatPagination,
-    type PhoneNumberExtensionCreateParams as PhoneNumberExtensionCreateParams,
     type PhoneNumberExtensionListParams as PhoneNumberExtensionListParams,
+    type PhoneNumberExtensionCreateParams as PhoneNumberExtensionCreateParams,
     type PhoneNumberExtensionDeleteParams as PhoneNumberExtensionDeleteParams,
   };
 }

@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource reputation', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.enterprises.reputation.retrieve('4a6192a4-573d-446d-b3ce-aff9117272a6');
+  test.skip('disable', async () => {
+    const responsePromise = client.enterprises.reputation.disable('4a6192a4-573d-446d-b3ce-aff9117272a6');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +21,8 @@ describe('resource reputation', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('disable', async () => {
-    const responsePromise = client.enterprises.reputation.disable('4a6192a4-573d-446d-b3ce-aff9117272a6');
+  test.skip('retrieve', async () => {
+    const responsePromise = client.enterprises.reputation.retrieve('4a6192a4-573d-446d-b3ce-aff9117272a6');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

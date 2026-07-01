@@ -16,10 +16,10 @@ export {
   type CallRetrieveCallsResponse,
   type CallSiprecJsonResponse,
   type CallStreamsJsonResponse,
+  type CallRetrieveCallsParams,
+  type CallCallsParams,
   type CallRetrieveParams,
   type CallUpdateParams,
-  type CallCallsParams,
-  type CallRetrieveCallsParams,
   type CallSiprecJsonParams,
   type CallStreamsJsonParams,
 } from './calls/index';
@@ -28,9 +28,9 @@ export {
   type ConferenceResource,
   type ConferenceRetrieveConferencesResponse,
   type ConferenceRetrieveRecordingsResponse,
+  type ConferenceRetrieveConferencesParams,
   type ConferenceRetrieveParams,
   type ConferenceUpdateParams,
-  type ConferenceRetrieveConferencesParams,
   type ConferenceRetrieveRecordingsParams,
   type ConferenceRetrieveRecordingsJsonParams,
 } from './conferences/index';
@@ -38,10 +38,10 @@ export {
   Queues,
   type QueueResource,
   type QueueCreateParams,
+  type QueueDeleteParams,
   type QueueRetrieveParams,
   type QueueUpdateParams,
   type QueueListParams,
-  type QueueDeleteParams,
   type QueueResourcesDefaultPaginationForQueues,
 } from './queues';
 export { Recordings } from './recordings/index';

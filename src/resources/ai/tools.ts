@@ -11,6 +11,27 @@ import { path } from '../../internal/utils/path';
  */
 export class Tools extends APIResource {
   /**
+   * List Tools
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const sharedToolResponse of client.ai.tools.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: ToolListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SharedToolResponsesDefaultFlatPagination, SharedToolResponse> {
+    return this._client.getAPIList('/ai/tools', DefaultFlatPagination<SharedToolResponse>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create Tool
    *
    * @example
@@ -23,6 +44,18 @@ export class Tools extends APIResource {
    */
   create(body: ToolCreateParams, options?: RequestOptions): APIPromise<SharedToolResponse> {
     return this._client.post('/ai/tools', { body, ...options });
+  }
+
+  /**
+   * Delete Tool
+   *
+   * @example
+   * ```ts
+   * const tool = await client.ai.tools.delete('tool_id');
+   * ```
+   */
+  delete(toolID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.delete(path`/ai/tools/${toolID}`, options);
   }
 
   /**
@@ -52,39 +85,6 @@ export class Tools extends APIResource {
   update(toolID: string, body: ToolUpdateParams, options?: RequestOptions): APIPromise<SharedToolResponse> {
     return this._client.patch(path`/ai/tools/${toolID}`, { body, ...options });
   }
-
-  /**
-   * List Tools
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const sharedToolResponse of client.ai.tools.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: ToolListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<SharedToolResponsesDefaultFlatPagination, SharedToolResponse> {
-    return this._client.getAPIList('/ai/tools', DefaultFlatPagination<SharedToolResponse>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete Tool
-   *
-   * @example
-   * ```ts
-   * const tool = await client.ai.tools.delete('tool_id');
-   * ```
-   */
-  delete(toolID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.delete(path`/ai/tools/${toolID}`, options);
-  }
 }
 
 export type SharedToolResponsesDefaultFlatPagination = DefaultFlatPagination<SharedToolResponse>;
@@ -104,6 +104,18 @@ export interface SharedToolResponse {
 }
 
 export type ToolDeleteResponse = unknown;
+
+export interface ToolListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by filter name.
+   */
+  'filter[name]'?: string;
+
+  /**
+   * Filter results by filter type.
+   */
+  'filter[type]'?: string;
+}
 
 export interface ToolCreateParams {
   display_name: string;
@@ -145,25 +157,13 @@ export interface ToolUpdateParams {
   [k: string]: unknown;
 }
 
-export interface ToolListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter results by filter name.
-   */
-  'filter[name]'?: string;
-
-  /**
-   * Filter results by filter type.
-   */
-  'filter[type]'?: string;
-}
-
 export declare namespace Tools {
   export {
     type SharedToolResponse as SharedToolResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
+    type ToolListParams as ToolListParams,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
-    type ToolListParams as ToolListParams,
   };
 }

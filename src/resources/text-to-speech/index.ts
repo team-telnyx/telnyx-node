@@ -6,8 +6,8 @@ export {
   type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
-  type TextToSpeechGenerateSpeechParams,
   type TextToSpeechListVoicesParams,
+  type TextToSpeechGenerateSpeechParams,
   type TextToSpeechRetrieveSpeechParams,
 } from './text-to-speech';
 export { type TextToSpeechWSClientOptions } from './ws';

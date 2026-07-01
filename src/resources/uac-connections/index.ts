@@ -13,8 +13,8 @@ export {
   type UacConnectionRetrieveResponse,
   type UacConnectionUpdateResponse,
   type UacConnectionDeleteResponse,
+  type UacConnectionListParams,
   type UacConnectionCreateParams,
   type UacConnectionUpdateParams,
-  type UacConnectionListParams,
   type UacConnectionsDefaultFlatPagination,
 } from './uac-connections';

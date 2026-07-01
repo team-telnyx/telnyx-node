@@ -8,13 +8,6 @@ import { path } from '../internal/utils/path';
 
 export class OAuthGrants extends APIResource {
   /**
-   * Retrieve a single OAuth grant by ID
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<OAuthGrantRetrieveResponse> {
-    return this._client.get(path`/oauth_grants/${id}`, options);
-  }
-
-  /**
    * Retrieve a paginated list of OAuth grants for the authenticated user
    */
   list(
@@ -29,6 +22,13 @@ export class OAuthGrants extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<OAuthGrantDeleteResponse> {
     return this._client.delete(path`/oauth_grants/${id}`, options);
+  }
+
+  /**
+   * Retrieve a single OAuth grant by ID
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<OAuthGrantRetrieveResponse> {
+    return this._client.get(path`/oauth_grants/${id}`, options);
   }
 }
 

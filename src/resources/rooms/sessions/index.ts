@@ -14,8 +14,8 @@ export {
 export {
   Sessions,
   type SessionRetrieveResponse,
-  type SessionRetrieveParams,
   type SessionList0Params,
   type SessionList1Params,
+  type SessionRetrieveParams,
   type SessionRetrieveParticipantsParams,
 } from './sessions';

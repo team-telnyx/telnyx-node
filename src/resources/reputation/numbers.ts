@@ -14,18 +14,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Numbers extends APIResource {
   /**
-   * Convenience alias for
-   * `GET /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
-   */
-  retrieve(
-    phoneNumber: string,
-    query: NumberRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ReputationNumbersAPI.ReputationPhoneNumberWithReputation> {
-    return this._client.get(path`/reputation/numbers/${phoneNumber}`, { query, ...options });
-  }
-
-  /**
    * Convenience alias for `GET /v2/enterprises/{enterprise_id}/reputation/numbers`
    * that returns numbers across every enterprise you own. Useful when you don't want
    * to look up the enterprise id first.
@@ -51,14 +39,18 @@ export class Numbers extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
-}
 
-export interface NumberRetrieveParams {
   /**
-   * When true, fetches fresh reputation data (incurs API cost). When false
-   * (default), returns cached data.
+   * Convenience alias for
+   * `GET /v2/enterprises/{enterprise_id}/reputation/numbers/{phone_number}`.
    */
-  fresh?: boolean;
+  retrieve(
+    phoneNumber: string,
+    query: NumberRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ReputationNumbersAPI.ReputationPhoneNumberWithReputation> {
+    return this._client.get(path`/reputation/numbers/${phoneNumber}`, { query, ...options });
+  }
 }
 
 export interface NumberListParams extends DefaultFlatPaginationParams {
@@ -78,8 +70,16 @@ export interface NumberListParams extends DefaultFlatPaginationParams {
   'filter[phone_number][eq]'?: string;
 }
 
+export interface NumberRetrieveParams {
+  /**
+   * When true, fetches fresh reputation data (incurs API cost). When false
+   * (default), returns cached data.
+   */
+  fresh?: boolean;
+}
+
 export declare namespace Numbers {
-  export { type NumberRetrieveParams as NumberRetrieveParams, type NumberListParams as NumberListParams };
+  export { type NumberListParams as NumberListParams, type NumberRetrieveParams as NumberRetrieveParams };
 }
 
 export { type ReputationPhoneNumbersDefaultFlatPagination };

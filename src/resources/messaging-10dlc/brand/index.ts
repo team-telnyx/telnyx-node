@@ -14,18 +14,18 @@ export {
   type BrandListResponse,
   type BrandGetFeedbackResponse,
   type BrandTriggerSMSOtpResponse,
+  type BrandListParams,
   type BrandCreateParams,
   type BrandUpdateParams,
-  type BrandListParams,
-  type BrandGetSMSOtpByReferenceParams,
   type BrandTriggerSMSOtpParams,
   type BrandVerifySMSOtpParams,
+  type BrandGetSMSOtpByReferenceParams,
   type BrandListResponsesPerPagePaginationV2,
 } from './brand';
 export {
   ExternalVettingResource,
   type ExternalVetting,
   type ExternalVettingListResponse,
-  type ExternalVettingImportsParams,
   type ExternalVettingOrderParams,
+  type ExternalVettingImportsParams,
 } from './external-vetting';

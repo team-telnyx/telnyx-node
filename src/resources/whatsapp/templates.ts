@@ -12,24 +12,6 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class Templates extends APIResource {
   /**
-   * Create a Whatsapp message template
-   *
-   * @example
-   * ```ts
-   * const template = await client.whatsapp.templates.create({
-   *   category: 'MARKETING',
-   *   components: [{ format: 'TEXT', type: 'HEADER' }],
-   *   language: 'language',
-   *   name: 'name',
-   *   waba_id: 'waba_id',
-   * });
-   * ```
-   */
-  create(body: TemplateCreateParams, options?: RequestOptions): APIPromise<TemplateCreateResponse> {
-    return this._client.post('/v2/whatsapp/message_templates', { body, ...options });
-  }
-
-  /**
    * List Whatsapp message templates
    *
    * @example
@@ -49,6 +31,24 @@ export class Templates extends APIResource {
       DefaultFlatPagination<Shared.WhatsappTemplateData>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Create a Whatsapp message template
+   *
+   * @example
+   * ```ts
+   * const template = await client.whatsapp.templates.create({
+   *   category: 'MARKETING',
+   *   components: [{ format: 'TEXT', type: 'HEADER' }],
+   *   language: 'language',
+   *   name: 'name',
+   *   waba_id: 'waba_id',
+   * });
+   * ```
+   */
+  create(body: TemplateCreateParams, options?: RequestOptions): APIPromise<TemplateCreateResponse> {
+    return this._client.post('/v2/whatsapp/message_templates', { body, ...options });
   }
 }
 
@@ -244,6 +244,28 @@ export interface TemplateCreateResponse {
   data?: Shared.WhatsappTemplateData;
 }
 
+export interface TemplateListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter by category
+   */
+  'filter[category]'?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
+
+  /**
+   * Search templates by name
+   */
+  'filter[search]'?: string;
+
+  /**
+   * Filter by template status
+   */
+  'filter[status]'?: string;
+
+  /**
+   * Filter by WABA ID
+   */
+  'filter[waba_id]'?: string;
+}
+
 export interface TemplateCreateParams {
   /**
    * Template category: AUTHENTICATION, UTILITY, or MARKETING.
@@ -279,28 +301,6 @@ export interface TemplateCreateParams {
   waba_id: string;
 }
 
-export interface TemplateListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter by category
-   */
-  'filter[category]'?: 'MARKETING' | 'UTILITY' | 'AUTHENTICATION';
-
-  /**
-   * Search templates by name
-   */
-  'filter[search]'?: string;
-
-  /**
-   * Filter by template status
-   */
-  'filter[status]'?: string;
-
-  /**
-   * Filter by WABA ID
-   */
-  'filter[waba_id]'?: string;
-}
-
 export declare namespace Templates {
   export {
     type WhatsappTemplateBodyComponent as WhatsappTemplateBodyComponent,
@@ -309,8 +309,8 @@ export declare namespace Templates {
     type WhatsappTemplateFooterComponent as WhatsappTemplateFooterComponent,
     type WhatsappTemplateHeaderComponent as WhatsappTemplateHeaderComponent,
     type TemplateCreateResponse as TemplateCreateResponse,
-    type TemplateCreateParams as TemplateCreateParams,
     type TemplateListParams as TemplateListParams,
+    type TemplateCreateParams as TemplateCreateParams,
   };
 }
 

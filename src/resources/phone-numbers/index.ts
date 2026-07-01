@@ -6,9 +6,9 @@ export {
   type ActionChangeBundleStatusResponse,
   type ActionEnableEmergencyResponse,
   type ActionVerifyOwnershipResponse,
+  type ActionVerifyOwnershipParams,
   type ActionChangeBundleStatusParams,
   type ActionEnableEmergencyParams,
-  type ActionVerifyOwnershipParams,
   type PhoneNumberWithVoiceSettingsDefaultFlatPagination,
 } from './actions';
 export {
@@ -16,8 +16,8 @@ export {
   type CsvDownload,
   type CsvDownloadCreateResponse,
   type CsvDownloadRetrieveResponse,
-  type CsvDownloadCreateParams,
   type CsvDownloadListParams,
+  type CsvDownloadCreateParams,
   type CsvDownloadsDefaultFlatPagination,
 } from './csv-downloads';
 export {
@@ -29,16 +29,16 @@ export {
   type JobUpdateEmergencySettingsBatchResponse,
   type JobListParams,
   type JobDeleteBatchParams,
-  type JobUpdateBatchParams,
   type JobUpdateEmergencySettingsBatchParams,
+  type JobUpdateBatchParams,
   type PhoneNumbersJobsDefaultFlatPagination,
 } from './jobs';
 export {
   Messaging,
   type MessagingRetrieveResponse,
   type MessagingUpdateResponse,
-  type MessagingUpdateParams,
   type MessagingListParams,
+  type MessagingUpdateParams,
 } from './messaging';
 export {
   PhoneNumbers,
@@ -47,9 +47,9 @@ export {
   type PhoneNumberUpdateResponse,
   type PhoneNumberDeleteResponse,
   type PhoneNumberSlimListResponse,
-  type PhoneNumberUpdateParams,
   type PhoneNumberListParams,
   type PhoneNumberSlimListParams,
+  type PhoneNumberUpdateParams,
   type PhoneNumberDetailedsDefaultFlatPagination,
   type PhoneNumberSlimListResponsesDefaultFlatPagination,
 } from './phone-numbers';
@@ -62,8 +62,8 @@ export {
   type UpdateVoiceSettings,
   type VoiceRetrieveResponse,
   type VoiceUpdateResponse,
-  type VoiceUpdateParams,
   type VoiceListParams,
+  type VoiceUpdateParams,
 } from './voice';
 export {
   Voicemail,
@@ -72,6 +72,6 @@ export {
   type VoicemailCreateResponse,
   type VoicemailRetrieveResponse,
   type VoicemailUpdateResponse,
-  type VoicemailCreateParams,
   type VoicemailUpdateParams,
+  type VoicemailCreateParams,
 } from './voicemail';

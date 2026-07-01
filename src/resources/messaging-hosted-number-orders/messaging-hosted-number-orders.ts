@@ -17,35 +17,6 @@ export class MessagingHostedNumberOrders extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Create a messaging hosted number order
-   *
-   * @example
-   * ```ts
-   * const messagingHostedNumberOrder =
-   *   await client.messagingHostedNumberOrders.create();
-   * ```
-   */
-  create(
-    body: MessagingHostedNumberOrderCreateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<MessagingHostedNumberOrderCreateResponse> {
-    return this._client.post('/messaging_hosted_number_orders', { body, ...options });
-  }
-
-  /**
-   * Retrieve a messaging hosted number order
-   *
-   * @example
-   * ```ts
-   * const messagingHostedNumberOrder =
-   *   await client.messagingHostedNumberOrders.retrieve('id');
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<MessagingHostedNumberOrderRetrieveResponse> {
-    return this._client.get(path`/messaging_hosted_number_orders/${id}`, options);
-  }
-
-  /**
    * List messaging hosted number orders
    *
    * @example
@@ -68,16 +39,19 @@ export class MessagingHostedNumberOrders extends APIResource {
   }
 
   /**
-   * Delete a messaging hosted number order and all associated phone numbers.
+   * Create a messaging hosted number order
    *
    * @example
    * ```ts
    * const messagingHostedNumberOrder =
-   *   await client.messagingHostedNumberOrders.delete('id');
+   *   await client.messagingHostedNumberOrders.create();
    * ```
    */
-  delete(id: string, options?: RequestOptions): APIPromise<MessagingHostedNumberOrderDeleteResponse> {
-    return this._client.delete(path`/messaging_hosted_number_orders/${id}`, options);
+  create(
+    body: MessagingHostedNumberOrderCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<MessagingHostedNumberOrderCreateResponse> {
+    return this._client.post('/messaging_hosted_number_orders', { body, ...options });
   }
 
   /**
@@ -96,6 +70,60 @@ export class MessagingHostedNumberOrders extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MessagingHostedNumberOrderCheckEligibilityResponse> {
     return this._client.post('/messaging_hosted_number_orders/eligibility_numbers_check', {
+      body,
+      ...options,
+    });
+  }
+
+  /**
+   * Delete a messaging hosted number order and all associated phone numbers.
+   *
+   * @example
+   * ```ts
+   * const messagingHostedNumberOrder =
+   *   await client.messagingHostedNumberOrders.delete('id');
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<MessagingHostedNumberOrderDeleteResponse> {
+    return this._client.delete(path`/messaging_hosted_number_orders/${id}`, options);
+  }
+
+  /**
+   * Retrieve a messaging hosted number order
+   *
+   * @example
+   * ```ts
+   * const messagingHostedNumberOrder =
+   *   await client.messagingHostedNumberOrders.retrieve('id');
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<MessagingHostedNumberOrderRetrieveResponse> {
+    return this._client.get(path`/messaging_hosted_number_orders/${id}`, options);
+  }
+
+  /**
+   * Validate the verification codes sent to the numbers of the hosted order. The
+   * verification codes must be created in the verification codes endpoint.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.messagingHostedNumberOrders.validateCodes(
+   *     'id',
+   *     {
+   *       verification_codes: [
+   *         { code: 'code', phone_number: 'phone_number' },
+   *       ],
+   *     },
+   *   );
+   * ```
+   */
+  validateCodes(
+    id: string,
+    body: MessagingHostedNumberOrderValidateCodesParams,
+    options?: RequestOptions,
+  ): APIPromise<MessagingHostedNumberOrderValidateCodesResponse> {
+    return this._client.post(path`/messaging_hosted_number_orders/${id}/validation_codes`, {
       body,
       ...options,
     });
@@ -123,34 +151,6 @@ export class MessagingHostedNumberOrders extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MessagingHostedNumberOrderCreateVerificationCodesResponse> {
     return this._client.post(path`/messaging_hosted_number_orders/${id}/verification_codes`, {
-      body,
-      ...options,
-    });
-  }
-
-  /**
-   * Validate the verification codes sent to the numbers of the hosted order. The
-   * verification codes must be created in the verification codes endpoint.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.messagingHostedNumberOrders.validateCodes(
-   *     'id',
-   *     {
-   *       verification_codes: [
-   *         { code: 'code', phone_number: 'phone_number' },
-   *       ],
-   *     },
-   *   );
-   * ```
-   */
-  validateCodes(
-    id: string,
-    body: MessagingHostedNumberOrderValidateCodesParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagingHostedNumberOrderValidateCodesResponse> {
-    return this._client.post(path`/messaging_hosted_number_orders/${id}/validation_codes`, {
       body,
       ...options,
     });
@@ -263,6 +263,8 @@ export namespace MessagingHostedNumberOrderValidateCodesResponse {
   }
 }
 
+export interface MessagingHostedNumberOrderListParams extends DefaultFlatPaginationParams {}
+
 export interface MessagingHostedNumberOrderCreateParams {
   /**
    * Automatically associate the number with this messaging profile ID when the order
@@ -276,19 +278,11 @@ export interface MessagingHostedNumberOrderCreateParams {
   phone_numbers?: Array<string>;
 }
 
-export interface MessagingHostedNumberOrderListParams extends DefaultFlatPaginationParams {}
-
 export interface MessagingHostedNumberOrderCheckEligibilityParams {
   /**
    * List of phone numbers to check eligibility
    */
   phone_numbers: Array<string>;
-}
-
-export interface MessagingHostedNumberOrderCreateVerificationCodesParams {
-  phone_numbers: Array<string>;
-
-  verification_method: 'sms' | 'call';
 }
 
 export interface MessagingHostedNumberOrderValidateCodesParams {
@@ -303,6 +297,12 @@ export namespace MessagingHostedNumberOrderValidateCodesParams {
   }
 }
 
+export interface MessagingHostedNumberOrderCreateVerificationCodesParams {
+  phone_numbers: Array<string>;
+
+  verification_method: 'sms' | 'call';
+}
+
 MessagingHostedNumberOrders.Actions = Actions;
 
 export declare namespace MessagingHostedNumberOrders {
@@ -313,11 +313,11 @@ export declare namespace MessagingHostedNumberOrders {
     type MessagingHostedNumberOrderCheckEligibilityResponse as MessagingHostedNumberOrderCheckEligibilityResponse,
     type MessagingHostedNumberOrderCreateVerificationCodesResponse as MessagingHostedNumberOrderCreateVerificationCodesResponse,
     type MessagingHostedNumberOrderValidateCodesResponse as MessagingHostedNumberOrderValidateCodesResponse,
-    type MessagingHostedNumberOrderCreateParams as MessagingHostedNumberOrderCreateParams,
     type MessagingHostedNumberOrderListParams as MessagingHostedNumberOrderListParams,
+    type MessagingHostedNumberOrderCreateParams as MessagingHostedNumberOrderCreateParams,
     type MessagingHostedNumberOrderCheckEligibilityParams as MessagingHostedNumberOrderCheckEligibilityParams,
-    type MessagingHostedNumberOrderCreateVerificationCodesParams as MessagingHostedNumberOrderCreateVerificationCodesParams,
     type MessagingHostedNumberOrderValidateCodesParams as MessagingHostedNumberOrderValidateCodesParams,
+    type MessagingHostedNumberOrderCreateVerificationCodesParams as MessagingHostedNumberOrderCreateVerificationCodesParams,
   };
 
   export {

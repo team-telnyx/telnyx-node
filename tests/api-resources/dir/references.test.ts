@@ -9,6 +9,18 @@ const client = new Telnyx({
 
 describe('resource references', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.dir.references.list('16635d38-75a6-4481-82e8-69af60e05011');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.dir.references.create('16635d38-75a6-4481-82e8-69af60e05011', {
       business_references: [
@@ -104,17 +116,5 @@ describe('resource references', () => {
       relationship_to_registrant: 'Supplier',
       timezone: 'America/New_York',
     });
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.dir.references.list('16635d38-75a6-4481-82e8-69af60e05011');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

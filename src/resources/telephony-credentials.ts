@@ -9,6 +9,27 @@ import { path } from '../internal/utils/path';
 
 export class TelephonyCredentials extends APIResource {
   /**
+   * List all On-demand Credentials.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const telephonyCredential of client.telephonyCredentials.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: TelephonyCredentialListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TelephonyCredentialsDefaultFlatPagination, TelephonyCredential> {
+    return this._client.getAPIList('/telephony_credentials', DefaultFlatPagination<TelephonyCredential>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a credential.
    *
    * @example
@@ -24,6 +45,19 @@ export class TelephonyCredentials extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TelephonyCredentialCreateResponse> {
     return this._client.post('/telephony_credentials', { body, ...options });
+  }
+
+  /**
+   * Delete an existing credential.
+   *
+   * @example
+   * ```ts
+   * const telephonyCredential =
+   *   await client.telephonyCredentials.delete('id');
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<TelephonyCredentialDeleteResponse> {
+    return this._client.delete(path`/telephony_credentials/${id}`, options);
   }
 
   /**
@@ -54,40 +88,6 @@ export class TelephonyCredentials extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TelephonyCredentialUpdateResponse> {
     return this._client.patch(path`/telephony_credentials/${id}`, { body, ...options });
-  }
-
-  /**
-   * List all On-demand Credentials.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const telephonyCredential of client.telephonyCredentials.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: TelephonyCredentialListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TelephonyCredentialsDefaultFlatPagination, TelephonyCredential> {
-    return this._client.getAPIList('/telephony_credentials', DefaultFlatPagination<TelephonyCredential>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete an existing credential.
-   *
-   * @example
-   * ```ts
-   * const telephonyCredential =
-   *   await client.telephonyCredentials.delete('id');
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<TelephonyCredentialDeleteResponse> {
-    return this._client.delete(path`/telephony_credentials/${id}`, options);
   }
 
   /**
@@ -181,44 +181,6 @@ export interface TelephonyCredentialDeleteResponse {
 
 export type TelephonyCredentialCreateTokenResponse = string;
 
-export interface TelephonyCredentialCreateParams {
-  /**
-   * Identifies the Credential Connection this credential is associated with.
-   */
-  connection_id: string;
-
-  /**
-   * ISO-8601 formatted date indicating when the credential will expire.
-   */
-  expires_at?: string;
-
-  name?: string;
-
-  /**
-   * Tags a credential. A single tag can hold at maximum 1000 credentials.
-   */
-  tag?: string;
-}
-
-export interface TelephonyCredentialUpdateParams {
-  /**
-   * Identifies the Credential Connection this credential is associated with.
-   */
-  connection_id?: string;
-
-  /**
-   * ISO-8601 formatted date indicating when the credential will expire.
-   */
-  expires_at?: string;
-
-  name?: string;
-
-  /**
-   * Tags a credential. A single tag can hold at maximum 1000 credentials.
-   */
-  tag?: string;
-}
-
 export interface TelephonyCredentialListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[tag],
@@ -260,6 +222,44 @@ export namespace TelephonyCredentialListParams {
   }
 }
 
+export interface TelephonyCredentialCreateParams {
+  /**
+   * Identifies the Credential Connection this credential is associated with.
+   */
+  connection_id: string;
+
+  /**
+   * ISO-8601 formatted date indicating when the credential will expire.
+   */
+  expires_at?: string;
+
+  name?: string;
+
+  /**
+   * Tags a credential. A single tag can hold at maximum 1000 credentials.
+   */
+  tag?: string;
+}
+
+export interface TelephonyCredentialUpdateParams {
+  /**
+   * Identifies the Credential Connection this credential is associated with.
+   */
+  connection_id?: string;
+
+  /**
+   * ISO-8601 formatted date indicating when the credential will expire.
+   */
+  expires_at?: string;
+
+  name?: string;
+
+  /**
+   * Tags a credential. A single tag can hold at maximum 1000 credentials.
+   */
+  tag?: string;
+}
+
 export declare namespace TelephonyCredentials {
   export {
     type TelephonyCredential as TelephonyCredential,
@@ -269,8 +269,8 @@ export declare namespace TelephonyCredentials {
     type TelephonyCredentialDeleteResponse as TelephonyCredentialDeleteResponse,
     type TelephonyCredentialCreateTokenResponse as TelephonyCredentialCreateTokenResponse,
     type TelephonyCredentialsDefaultFlatPagination as TelephonyCredentialsDefaultFlatPagination,
+    type TelephonyCredentialListParams as TelephonyCredentialListParams,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
     type TelephonyCredentialUpdateParams as TelephonyCredentialUpdateParams,
-    type TelephonyCredentialListParams as TelephonyCredentialListParams,
   };
 }

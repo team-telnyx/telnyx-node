@@ -165,6 +165,48 @@ export class AI extends APIResource {
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
 
   /**
+   * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
+   *
+   * Returns the same `ModelsResponse` payload as the OpenAI-compatible endpoint —
+   * open-source LLMs hosted on Telnyx (e.g. `moonshotai/Kimi-K2.6`,
+   * `zai-org/GLM-5.1-FP8`, `MiniMaxAI/MiniMax-M2.7`), embedding models, and
+   * fine-tuned models — kept around for backwards compatibility. New integrations
+   * should use `/v2/ai/openai/models`.
+   *
+   * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
+   *
+   * @deprecated
+   */
+  retrieveModels(options?: RequestOptions): APIPromise<ModelsResponse> {
+    return this._client.get('/ai/models', options);
+  }
+
+  /**
+   * Generate a summary of a file's contents.
+   *
+   * Supports the following text formats:
+   *
+   * - PDF, HTML, txt, json, csv
+   *
+   * Supports the following media formats (billed for both the transcription and
+   * summary):
+   *
+   * - flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm
+   * - Up to 100 MB
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.summarize({
+   *   bucket: 'bucket',
+   *   filename: 'filename',
+   * });
+   * ```
+   */
+  summarize(body: AISummarizeParams, options?: RequestOptions): APIPromise<AISummarizeResponse> {
+    return this._client.post('/ai/summarize', { body, ...options });
+  }
+
+  /**
    * **Deprecated**: Use `POST /v2/ai/openai/responses` instead. This endpoint is
    * compatible with the
    * [OpenAI Responses API](https://developers.openai.com/api/reference/responses/overview)
@@ -248,48 +290,6 @@ export class AI extends APIResource {
     options?: RequestOptions,
   ): APIPromise<AIRetrieveConversationHistoriesResponse> {
     return this._client.get('/ai/conversation_histories', { query, ...options });
-  }
-
-  /**
-   * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
-   *
-   * Returns the same `ModelsResponse` payload as the OpenAI-compatible endpoint —
-   * open-source LLMs hosted on Telnyx (e.g. `moonshotai/Kimi-K2.6`,
-   * `zai-org/GLM-5.1-FP8`, `MiniMaxAI/MiniMax-M2.7`), embedding models, and
-   * fine-tuned models — kept around for backwards compatibility. New integrations
-   * should use `/v2/ai/openai/models`.
-   *
-   * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
-   *
-   * @deprecated
-   */
-  retrieveModels(options?: RequestOptions): APIPromise<ModelsResponse> {
-    return this._client.get('/ai/models', options);
-  }
-
-  /**
-   * Generate a summary of a file's contents.
-   *
-   * Supports the following text formats:
-   *
-   * - PDF, HTML, txt, json, csv
-   *
-   * Supports the following media formats (billed for both the transcription and
-   * summary):
-   *
-   * - flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm
-   * - Up to 100 MB
-   *
-   * @example
-   * ```ts
-   * const response = await client.ai.summarize({
-   *   bucket: 'bucket',
-   *   filename: 'filename',
-   * });
-   * ```
-   */
-  summarize(body: AISummarizeParams, options?: RequestOptions): APIPromise<AISummarizeResponse> {
-    return this._client.post('/ai/summarize', { body, ...options });
   }
 }
 
@@ -552,6 +552,23 @@ export namespace AISummarizeResponse {
   }
 }
 
+export interface AISummarizeParams {
+  /**
+   * The name of the bucket that contains the file to be summarized.
+   */
+  bucket: string;
+
+  /**
+   * The name of the file to be summarized.
+   */
+  filename: string;
+
+  /**
+   * A system prompt to guide the summary generation.
+   */
+  system_prompt?: string;
+}
+
 export interface AICreateResponseDeprecatedParams {
   response_request: { [key: string]: unknown };
 }
@@ -633,23 +650,6 @@ export interface AIRetrieveConversationHistoriesParams {
   region?: 'USA' | 'DEU' | 'AUS' | 'UAE';
 }
 
-export interface AISummarizeParams {
-  /**
-   * The name of the bucket that contains the file to be summarized.
-   */
-  bucket: string;
-
-  /**
-   * The name of the file to be summarized.
-   */
-  filename: string;
-
-  /**
-   * A system prompt to guide the summary generation.
-   */
-  system_prompt?: string;
-}
-
 AI.Assistants = Assistants;
 AI.Audio = Audio;
 AI.Chat = Chat;
@@ -670,9 +670,9 @@ export declare namespace AI {
     type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveConversationHistoriesResponse as AIRetrieveConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
+    type AISummarizeParams as AISummarizeParams,
     type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
     type AIRetrieveConversationHistoriesParams as AIRetrieveConversationHistoriesParams,
-    type AISummarizeParams as AISummarizeParams,
   };
 
   export {
@@ -726,10 +726,10 @@ export declare namespace AI {
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
     type AssistantSendSMSResponse as AssistantSendSMSResponse,
     type AssistantCreateParams as AssistantCreateParams,
+    type AssistantImportsParams as AssistantImportsParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
-    type AssistantImportsParams as AssistantImportsParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
   };
 
@@ -754,9 +754,9 @@ export declare namespace AI {
     type ClusterListResponse as ClusterListResponse,
     type ClusterComputeResponse as ClusterComputeResponse,
     type ClusterListResponsesDefaultFlatPagination as ClusterListResponsesDefaultFlatPagination,
-    type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterListParams as ClusterListParams,
     type ClusterComputeParams as ClusterComputeParams,
+    type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterFetchGraphParams as ClusterFetchGraphParams,
   };
 
@@ -767,9 +767,9 @@ export declare namespace AI {
     type ConversationUpdateResponse as ConversationUpdateResponse,
     type ConversationListResponse as ConversationListResponse,
     type ConversationRetrieveConversationsInsightsResponse as ConversationRetrieveConversationsInsightsResponse,
+    type ConversationListParams as ConversationListParams,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
-    type ConversationListParams as ConversationListParams,
     type ConversationAddMessageParams as ConversationAddMessageParams,
   };
 
@@ -780,8 +780,8 @@ export declare namespace AI {
     type EmbeddingRetrieveResponse as EmbeddingRetrieveResponse,
     type EmbeddingListResponse as EmbeddingListResponse,
     type EmbeddingSimilaritySearchResponse as EmbeddingSimilaritySearchResponse,
-    type EmbeddingCreateParams as EmbeddingCreateParams,
     type EmbeddingListParams as EmbeddingListParams,
+    type EmbeddingCreateParams as EmbeddingCreateParams,
     type EmbeddingSimilaritySearchParams as EmbeddingSimilaritySearchParams,
     type EmbeddingURLParams as EmbeddingURLParams,
   };
@@ -798,9 +798,9 @@ export declare namespace AI {
     McpServers as McpServers,
     type McpServer as McpServer,
     type McpServersDefaultFlatPaginationTopLevelArray as McpServersDefaultFlatPaginationTopLevelArray,
+    type McpServerListParams as McpServerListParams,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
-    type McpServerListParams as McpServerListParams,
   };
 
   export {
@@ -811,8 +811,8 @@ export declare namespace AI {
     type MissionResponse as MissionResponse,
     type MissionCloneMissionResponse as MissionCloneMissionResponse,
     type MissionDataDefaultFlatPagination as MissionDataDefaultFlatPagination,
-    type MissionCreateParams as MissionCreateParams,
     type MissionListParams as MissionListParams,
+    type MissionCreateParams as MissionCreateParams,
     type MissionListEventsParams as MissionListEventsParams,
     type MissionUpdateMissionParams as MissionUpdateMissionParams,
   };
@@ -828,8 +828,8 @@ export declare namespace AI {
     type SharedToolResponse as SharedToolResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
+    type ToolListParams as ToolListParams,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
-    type ToolListParams as ToolListParams,
   };
 }

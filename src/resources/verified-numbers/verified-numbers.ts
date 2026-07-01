@@ -15,38 +15,6 @@ export class VerifiedNumbers extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Initiates phone number verification procedure. Supports DTMF extension dialing
-   * for voice calls to numbers behind IVR systems.
-   *
-   * @example
-   * ```ts
-   * const verifiedNumber = await client.verifiedNumbers.create({
-   *   phone_number: '+15551234567',
-   *   verification_method: 'sms',
-   * });
-   * ```
-   */
-  create(
-    body: VerifiedNumberCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<VerifiedNumberCreateResponse> {
-    return this._client.post('/verified_numbers', { body, ...options });
-  }
-
-  /**
-   * Retrieve a verified number
-   *
-   * @example
-   * ```ts
-   * const verifiedNumberDataWrapper =
-   *   await client.verifiedNumbers.retrieve('+15551234567');
-   * ```
-   */
-  retrieve(phoneNumber: string, options?: RequestOptions): APIPromise<VerifiedNumberDataWrapper> {
-    return this._client.get(path`/verified_numbers/${phoneNumber}`, options);
-  }
-
-  /**
    * Gets a paginated list of Verified Numbers.
    *
    * @example
@@ -68,6 +36,25 @@ export class VerifiedNumbers extends APIResource {
   }
 
   /**
+   * Initiates phone number verification procedure. Supports DTMF extension dialing
+   * for voice calls to numbers behind IVR systems.
+   *
+   * @example
+   * ```ts
+   * const verifiedNumber = await client.verifiedNumbers.create({
+   *   phone_number: '+15551234567',
+   *   verification_method: 'sms',
+   * });
+   * ```
+   */
+  create(
+    body: VerifiedNumberCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<VerifiedNumberCreateResponse> {
+    return this._client.post('/verified_numbers', { body, ...options });
+  }
+
+  /**
    * Delete a verified number
    *
    * @example
@@ -78,6 +65,19 @@ export class VerifiedNumbers extends APIResource {
    */
   delete(phoneNumber: string, options?: RequestOptions): APIPromise<VerifiedNumberDataWrapper> {
     return this._client.delete(path`/verified_numbers/${phoneNumber}`, options);
+  }
+
+  /**
+   * Retrieve a verified number
+   *
+   * @example
+   * ```ts
+   * const verifiedNumberDataWrapper =
+   *   await client.verifiedNumbers.retrieve('+15551234567');
+   * ```
+   */
+  retrieve(phoneNumber: string, options?: RequestOptions): APIPromise<VerifiedNumberDataWrapper> {
+    return this._client.get(path`/verified_numbers/${phoneNumber}`, options);
   }
 }
 
@@ -104,6 +104,8 @@ export interface VerifiedNumberCreateResponse {
   verification_method?: string;
 }
 
+export interface VerifiedNumberListParams extends DefaultFlatPaginationParams {}
+
 export interface VerifiedNumberCreateParams {
   phone_number: string;
 
@@ -122,8 +124,6 @@ export interface VerifiedNumberCreateParams {
   extension?: string;
 }
 
-export interface VerifiedNumberListParams extends DefaultFlatPaginationParams {}
-
 VerifiedNumbers.Actions = Actions;
 
 export declare namespace VerifiedNumbers {
@@ -132,8 +132,8 @@ export declare namespace VerifiedNumbers {
     type VerifiedNumberDataWrapper as VerifiedNumberDataWrapper,
     type VerifiedNumberCreateResponse as VerifiedNumberCreateResponse,
     type VerifiedNumbersDefaultFlatPagination as VerifiedNumbersDefaultFlatPagination,
-    type VerifiedNumberCreateParams as VerifiedNumberCreateParams,
     type VerifiedNumberListParams as VerifiedNumberListParams,
+    type VerifiedNumberCreateParams as VerifiedNumberCreateParams,
   };
 
   export {

@@ -13,6 +13,27 @@ import { path } from '../internal/utils/path';
  */
 export class FqdnConnections extends APIResource {
   /**
+   * Returns a list of your FQDN connections.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const fqdnConnection of client.fqdnConnections.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: FqdnConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FqdnConnectionsDefaultFlatPagination, FqdnConnection> {
+    return this._client.getAPIList('/fqdn_connections', DefaultFlatPagination<FqdnConnection>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a FQDN connection.
    *
    * @example
@@ -27,6 +48,20 @@ export class FqdnConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<FqdnConnectionCreateResponse> {
     return this._client.post('/fqdn_connections', { body, ...options });
+  }
+
+  /**
+   * Deletes an FQDN connection.
+   *
+   * @example
+   * ```ts
+   * const fqdnConnection = await client.fqdnConnections.delete(
+   *   '1293384261075731499',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<FqdnConnectionDeleteResponse> {
+    return this._client.delete(path`/fqdn_connections/${id}`, options);
   }
 
   /**
@@ -60,41 +95,6 @@ export class FqdnConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<FqdnConnectionUpdateResponse> {
     return this._client.patch(path`/fqdn_connections/${id}`, { body, ...options });
-  }
-
-  /**
-   * Returns a list of your FQDN connections.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const fqdnConnection of client.fqdnConnections.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: FqdnConnectionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FqdnConnectionsDefaultFlatPagination, FqdnConnection> {
-    return this._client.getAPIList('/fqdn_connections', DefaultFlatPagination<FqdnConnection>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Deletes an FQDN connection.
-   *
-   * @example
-   * ```ts
-   * const fqdnConnection = await client.fqdnConnections.delete(
-   *   '1293384261075731499',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<FqdnConnectionDeleteResponse> {
-    return this._client.delete(path`/fqdn_connections/${id}`, options);
   }
 }
 
@@ -544,6 +544,72 @@ export interface FqdnConnectionDeleteResponse {
   data?: FqdnConnection;
 }
 
+export interface FqdnConnectionListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
+   * filter[outbound.outbound_voice_profile_id]
+   */
+  filter?: FqdnConnectionListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'connection_name' | 'active';
+}
+
+export namespace FqdnConnectionListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
+   * filter[outbound.outbound_voice_profile_id]
+   */
+  export interface Filter {
+    /**
+     * Filter by connection_name using nested operations
+     */
+    connection_name?: Filter.ConnectionName;
+
+    /**
+     * If present, connections with an `fqdn` that equals the given value will be
+     * returned. Matching is case-sensitive, and the full string must match.
+     */
+    fqdn?: string;
+
+    /**
+     * Identifies the associated outbound voice profile.
+     */
+    outbound_voice_profile_id?: string;
+  }
+
+  export namespace Filter {
+    /**
+     * Filter by connection_name using nested operations
+     */
+    export interface ConnectionName {
+      /**
+       * If present, connections with <code>connection_name</code> containing the given
+       * value will be returned. Matching is not case-sensitive. Requires at least three
+       * characters.
+       */
+      contains?: string;
+    }
+  }
+}
+
 export interface FqdnConnectionCreateParams {
   /**
    * A user-assigned name to help manage the connection.
@@ -810,72 +876,6 @@ export interface FqdnConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface FqdnConnectionListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
-   * filter[outbound.outbound_voice_profile_id]
-   */
-  filter?: FqdnConnectionListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'connection_name' | 'active';
-}
-
-export namespace FqdnConnectionListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
-   * filter[outbound.outbound_voice_profile_id]
-   */
-  export interface Filter {
-    /**
-     * Filter by connection_name using nested operations
-     */
-    connection_name?: Filter.ConnectionName;
-
-    /**
-     * If present, connections with an `fqdn` that equals the given value will be
-     * returned. Matching is case-sensitive, and the full string must match.
-     */
-    fqdn?: string;
-
-    /**
-     * Identifies the associated outbound voice profile.
-     */
-    outbound_voice_profile_id?: string;
-  }
-
-  export namespace Filter {
-    /**
-     * Filter by connection_name using nested operations
-     */
-    export interface ConnectionName {
-      /**
-       * If present, connections with <code>connection_name</code> containing the given
-       * value will be returned. Matching is not case-sensitive. Requires at least three
-       * characters.
-       */
-      contains?: string;
-    }
-  }
-}
-
 export declare namespace FqdnConnections {
   export {
     type FqdnConnection as FqdnConnection,
@@ -888,8 +888,8 @@ export declare namespace FqdnConnections {
     type FqdnConnectionUpdateResponse as FqdnConnectionUpdateResponse,
     type FqdnConnectionDeleteResponse as FqdnConnectionDeleteResponse,
     type FqdnConnectionsDefaultFlatPagination as FqdnConnectionsDefaultFlatPagination,
+    type FqdnConnectionListParams as FqdnConnectionListParams,
     type FqdnConnectionCreateParams as FqdnConnectionCreateParams,
     type FqdnConnectionUpdateParams as FqdnConnectionUpdateParams,
-    type FqdnConnectionListParams as FqdnConnectionListParams,
   };
 }

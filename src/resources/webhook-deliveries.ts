@@ -11,14 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class WebhookDeliveries extends APIResource {
   /**
-   * Provides webhook_delivery debug data, such as timestamps, delivery status and
-   * attempts.
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<WebhookDeliveryRetrieveResponse> {
-    return this._client.get(path`/webhook_deliveries/${id}`, options);
-  }
-
-  /**
    * Lists webhook_deliveries for the authenticated user
    */
   list(
@@ -29,6 +21,14 @@ export class WebhookDeliveries extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Provides webhook_delivery debug data, such as timestamps, delivery status and
+   * attempts.
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<WebhookDeliveryRetrieveResponse> {
+    return this._client.get(path`/webhook_deliveries/${id}`, options);
   }
 }
 

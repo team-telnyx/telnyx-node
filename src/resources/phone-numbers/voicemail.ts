@@ -10,25 +10,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Voicemail extends APIResource {
   /**
-   * Create voicemail settings for a phone number
-   *
-   * @example
-   * ```ts
-   * const voicemail =
-   *   await client.phoneNumbers.voicemail.create(
-   *     '123455678900',
-   *   );
-   * ```
-   */
-  create(
-    phoneNumberID: string,
-    body: VoicemailCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<VoicemailCreateResponse> {
-    return this._client.post(path`/phone_numbers/${phoneNumberID}/voicemail`, { body, ...options });
-  }
-
-  /**
    * Returns the voicemail settings for a phone number
    *
    * @example
@@ -60,6 +41,25 @@ export class Voicemail extends APIResource {
     options?: RequestOptions,
   ): APIPromise<VoicemailUpdateResponse> {
     return this._client.patch(path`/phone_numbers/${phoneNumberID}/voicemail`, { body, ...options });
+  }
+
+  /**
+   * Create voicemail settings for a phone number
+   *
+   * @example
+   * ```ts
+   * const voicemail =
+   *   await client.phoneNumbers.voicemail.create(
+   *     '123455678900',
+   *   );
+   * ```
+   */
+  create(
+    phoneNumberID: string,
+    body: VoicemailCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<VoicemailCreateResponse> {
+    return this._client.post(path`/phone_numbers/${phoneNumberID}/voicemail`, { body, ...options });
   }
 }
 
@@ -99,7 +99,7 @@ export interface VoicemailUpdateResponse {
   data?: VoicemailPrefResponse;
 }
 
-export interface VoicemailCreateParams {
+export interface VoicemailUpdateParams {
   /**
    * Whether voicemail is enabled.
    */
@@ -111,7 +111,7 @@ export interface VoicemailCreateParams {
   pin?: string;
 }
 
-export interface VoicemailUpdateParams {
+export interface VoicemailCreateParams {
   /**
    * Whether voicemail is enabled.
    */
@@ -130,7 +130,7 @@ export declare namespace Voicemail {
     type VoicemailCreateResponse as VoicemailCreateResponse,
     type VoicemailRetrieveResponse as VoicemailRetrieveResponse,
     type VoicemailUpdateResponse as VoicemailUpdateResponse,
-    type VoicemailCreateParams as VoicemailCreateParams,
     type VoicemailUpdateParams as VoicemailUpdateParams,
+    type VoicemailCreateParams as VoicemailCreateParams,
   };
 }

@@ -7,6 +7,26 @@ import { path } from '../../../../internal/utils/path';
 
 export class Plan extends APIResource {
   /**
+   * Get the plan (all steps) for a run
+   *
+   * @example
+   * ```ts
+   * const plan = await client.ai.missions.runs.plan.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   * );
+   * ```
+   */
+  retrieve(
+    runID: string,
+    params: PlanRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<PlanRetrieveResponse> {
+    const { mission_id } = params;
+    return this._client.get(path`/ai/missions/${mission_id}/runs/${runID}/plan`, options);
+  }
+
+  /**
    * Create the initial plan for a run
    *
    * @example
@@ -37,23 +57,27 @@ export class Plan extends APIResource {
   }
 
   /**
-   * Get the plan (all steps) for a run
+   * Update the status of a plan step
    *
    * @example
    * ```ts
-   * const plan = await client.ai.missions.runs.plan.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   * );
+   * const planStepResponse =
+   *   await client.ai.missions.runs.plan.updateStep('step_id', {
+   *     mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     run_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   });
    * ```
    */
-  retrieve(
-    runID: string,
-    params: PlanRetrieveParams,
+  updateStep(
+    stepID: string,
+    params: PlanUpdateStepParams,
     options?: RequestOptions,
-  ): APIPromise<PlanRetrieveResponse> {
-    const { mission_id } = params;
-    return this._client.get(path`/ai/missions/${mission_id}/runs/${runID}/plan`, options);
+  ): APIPromise<PlanStepResponse> {
+    const { mission_id, run_id, ...body } = params;
+    return this._client.patch(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, {
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -109,30 +133,6 @@ export class Plan extends APIResource {
     const { mission_id, run_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, options);
   }
-
-  /**
-   * Update the status of a plan step
-   *
-   * @example
-   * ```ts
-   * const planStepResponse =
-   *   await client.ai.missions.runs.plan.updateStep('step_id', {
-   *     mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     run_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   });
-   * ```
-   */
-  updateStep(
-    stepID: string,
-    params: PlanUpdateStepParams,
-    options?: RequestOptions,
-  ): APIPromise<PlanStepResponse> {
-    const { mission_id, run_id, ...body } = params;
-    return this._client.patch(path`/ai/missions/${mission_id}/runs/${run_id}/plan/steps/${stepID}`, {
-      body,
-      ...options,
-    });
-  }
 }
 
 export interface CreatePlanStepRequest {
@@ -181,6 +181,13 @@ export interface PlanRetrieveResponse {
   data: Array<PlanStepData>;
 }
 
+export interface PlanRetrieveParams {
+  /**
+   * Unique identifier of the mission.
+   */
+  mission_id: string;
+}
+
 export interface PlanCreateParams {
   /**
    * Path param: Unique identifier of the mission.
@@ -193,11 +200,26 @@ export interface PlanCreateParams {
   steps: Array<CreatePlanStepRequest>;
 }
 
-export interface PlanRetrieveParams {
+export interface PlanUpdateStepParams {
   /**
-   * Unique identifier of the mission.
+   * Path param: Unique identifier of the mission.
    */
   mission_id: string;
+
+  /**
+   * Path param: Unique identifier of the run.
+   */
+  run_id: string;
+
+  /**
+   * Body param
+   */
+  metadata?: { [key: string]: unknown };
+
+  /**
+   * Body param
+   */
+  status?: StepStatus;
 }
 
 export interface PlanAddStepsToPlanParams {
@@ -224,28 +246,6 @@ export interface PlanGetStepDetailsParams {
   run_id: string;
 }
 
-export interface PlanUpdateStepParams {
-  /**
-   * Path param: Unique identifier of the mission.
-   */
-  mission_id: string;
-
-  /**
-   * Path param: Unique identifier of the run.
-   */
-  run_id: string;
-
-  /**
-   * Body param
-   */
-  metadata?: { [key: string]: unknown };
-
-  /**
-   * Body param
-   */
-  status?: StepStatus;
-}
-
 export declare namespace Plan {
   export {
     type CreatePlanStepRequest as CreatePlanStepRequest,
@@ -254,10 +254,10 @@ export declare namespace Plan {
     type PlanStepsCreatedResponse as PlanStepsCreatedResponse,
     type StepStatus as StepStatus,
     type PlanRetrieveResponse as PlanRetrieveResponse,
-    type PlanCreateParams as PlanCreateParams,
     type PlanRetrieveParams as PlanRetrieveParams,
+    type PlanCreateParams as PlanCreateParams,
+    type PlanUpdateStepParams as PlanUpdateStepParams,
     type PlanAddStepsToPlanParams as PlanAddStepsToPlanParams,
     type PlanGetStepDetailsParams as PlanGetStepDetailsParams,
-    type PlanUpdateStepParams as PlanUpdateStepParams,
   };
 }

@@ -15,20 +15,6 @@ export class Recordings extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Retrieves the details of an existing call recording.
-   *
-   * @example
-   * ```ts
-   * const recordingResponse = await client.recordings.retrieve(
-   *   'recording_id',
-   * );
-   * ```
-   */
-  retrieve(recordingID: string, options?: RequestOptions): APIPromise<RecordingResponse> {
-    return this._client.get(path`/recordings/${recordingID}`, options);
-  }
-
-  /**
    * Returns a list of your call recordings.
    *
    * @example
@@ -61,6 +47,20 @@ export class Recordings extends APIResource {
    */
   delete(recordingID: string, options?: RequestOptions): APIPromise<RecordingResponse> {
     return this._client.delete(path`/recordings/${recordingID}`, options);
+  }
+
+  /**
+   * Retrieves the details of an existing call recording.
+   *
+   * @example
+   * ```ts
+   * const recordingResponse = await client.recordings.retrieve(
+   *   'recording_id',
+   * );
+   * ```
+   */
+  retrieve(recordingID: string, options?: RequestOptions): APIPromise<RecordingResponse> {
+    return this._client.get(path`/recordings/${recordingID}`, options);
   }
 }
 

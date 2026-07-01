@@ -14,6 +14,6 @@ export {
   TermsOfService,
   type TermsOfServiceRetrieveInfoResponse,
   type TermsOfServiceRetrieveStatusResponse,
-  type TermsOfServiceRetrieveInfoParams,
   type TermsOfServiceRetrieveStatusParams,
+  type TermsOfServiceRetrieveInfoParams,
 } from './terms-of-service';

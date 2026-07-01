@@ -8,10 +8,10 @@ export {
   type CallRetrieveCallsResponse,
   type CallSiprecJsonResponse,
   type CallStreamsJsonResponse,
+  type CallRetrieveCallsParams,
+  type CallCallsParams,
   type CallRetrieveParams,
   type CallUpdateParams,
-  type CallCallsParams,
-  type CallRetrieveCallsParams,
   type CallSiprecJsonParams,
   type CallStreamsJsonParams,
 } from './calls';
@@ -22,8 +22,8 @@ export {
   type TexmlCreateCallRecordingResponseBody,
   type TexmlGetCallRecordingsResponseBody,
   type TwimlRecordingChannels,
-  type RecordingsJsonRecordingsJsonParams,
   type RecordingsJsonRetrieveRecordingsJsonParams,
+  type RecordingsJsonRecordingsJsonParams,
 } from './recordings-json';
 export { Siprec, type SiprecSiprecSidJsonResponse, type SiprecSiprecSidJsonParams } from './siprec';
 export { Streams, type StreamStreamingSidJsonResponse, type StreamStreamingSidJsonParams } from './streams';

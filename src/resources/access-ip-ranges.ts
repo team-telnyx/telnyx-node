@@ -12,13 +12,6 @@ import { path } from '../internal/utils/path';
  */
 export class AccessIPRanges extends APIResource {
   /**
-   * Create new Access IP Range
-   */
-  create(body: AccessIPRangeCreateParams, options?: RequestOptions): APIPromise<AccessIPRange> {
-    return this._client.post('/access_ip_ranges', { body, ...options });
-  }
-
-  /**
    * List all Access IP Ranges
    */
   list(
@@ -29,6 +22,13 @@ export class AccessIPRanges extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Create new Access IP Range
+   */
+  create(body: AccessIPRangeCreateParams, options?: RequestOptions): APIPromise<AccessIPRange> {
+    return this._client.post('/access_ip_ranges', { body, ...options });
   }
 
   /**
@@ -58,12 +58,6 @@ export interface AccessIPRange {
   description?: string;
 
   updated_at?: string;
-}
-
-export interface AccessIPRangeCreateParams {
-  cidr_block: string;
-
-  description?: string;
 }
 
 export interface AccessIPRangeListParams extends DefaultFlatPaginationParams {
@@ -145,11 +139,17 @@ export namespace AccessIPRangeListParams {
   }
 }
 
+export interface AccessIPRangeCreateParams {
+  cidr_block: string;
+
+  description?: string;
+}
+
 export declare namespace AccessIPRanges {
   export {
     type AccessIPRange as AccessIPRange,
     type AccessIPRangesDefaultFlatPagination as AccessIPRangesDefaultFlatPagination,
-    type AccessIPRangeCreateParams as AccessIPRangeCreateParams,
     type AccessIPRangeListParams as AccessIPRangeListParams,
+    type AccessIPRangeCreateParams as AccessIPRangeCreateParams,
   };
 }

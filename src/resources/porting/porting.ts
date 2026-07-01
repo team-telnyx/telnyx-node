@@ -138,8 +138,8 @@ export declare namespace Porting {
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
     type PortingReportsDefaultFlatPagination as PortingReportsDefaultFlatPagination,
-    type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
+    type ReportCreateParams as ReportCreateParams,
   };
 
   export {
@@ -149,10 +149,10 @@ export declare namespace Porting {
     type LoaConfigurationRetrieveResponse as LoaConfigurationRetrieveResponse,
     type LoaConfigurationUpdateResponse as LoaConfigurationUpdateResponse,
     type PortingLoaConfigurationsDefaultFlatPagination as PortingLoaConfigurationsDefaultFlatPagination,
+    type LoaConfigurationPreview0Params as LoaConfigurationPreview0Params,
+    type LoaConfigurationListParams as LoaConfigurationListParams,
     type LoaConfigurationCreateParams as LoaConfigurationCreateParams,
     type LoaConfigurationUpdateParams as LoaConfigurationUpdateParams,
-    type LoaConfigurationListParams as LoaConfigurationListParams,
     type LoaConfigurationPreviewParams as LoaConfigurationPreviewParams,
-    type LoaConfigurationPreview0Params as LoaConfigurationPreview0Params,
   };
 }

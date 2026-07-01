@@ -12,25 +12,6 @@ import { path } from '../../internal/utils/path';
  */
 export class AdditionalDocuments extends APIResource {
   /**
-   * Creates a list of additional documents for a porting order.
-   *
-   * @example
-   * ```ts
-   * const additionalDocument =
-   *   await client.portingOrders.additionalDocuments.create(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  create(
-    id: string,
-    body: AdditionalDocumentCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<AdditionalDocumentCreateResponse> {
-    return this._client.post(path`/porting_orders/${id}/additional_documents`, { body, ...options });
-  }
-
-  /**
    * Returns a list of additional documents for a porting order.
    *
    * @example
@@ -53,6 +34,25 @@ export class AdditionalDocuments extends APIResource {
       DefaultFlatPagination<PortingAdditionalDocument>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Creates a list of additional documents for a porting order.
+   *
+   * @example
+   * ```ts
+   * const additionalDocument =
+   *   await client.portingOrders.additionalDocuments.create(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  create(
+    id: string,
+    body: AdditionalDocumentCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<AdditionalDocumentCreateResponse> {
+    return this._client.post(path`/porting_orders/${id}/additional_documents`, { body, ...options });
   }
 
   /**
@@ -133,24 +133,6 @@ export interface AdditionalDocumentCreateResponse {
   data?: Array<PortingAdditionalDocument>;
 }
 
-export interface AdditionalDocumentCreateParams {
-  additional_documents?: Array<AdditionalDocumentCreateParams.AdditionalDocument>;
-}
-
-export namespace AdditionalDocumentCreateParams {
-  export interface AdditionalDocument {
-    /**
-     * The document identification
-     */
-    document_id?: string;
-
-    /**
-     * The type of document being created.
-     */
-    document_type?: 'loa' | 'invoice' | 'csr' | 'other';
-  }
-}
-
 export interface AdditionalDocumentListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -188,6 +170,24 @@ export namespace AdditionalDocumentListParams {
   }
 }
 
+export interface AdditionalDocumentCreateParams {
+  additional_documents?: Array<AdditionalDocumentCreateParams.AdditionalDocument>;
+}
+
+export namespace AdditionalDocumentCreateParams {
+  export interface AdditionalDocument {
+    /**
+     * The document identification
+     */
+    document_id?: string;
+
+    /**
+     * The type of document being created.
+     */
+    document_type?: 'loa' | 'invoice' | 'csr' | 'other';
+  }
+}
+
 export interface AdditionalDocumentDeleteParams {
   /**
    * Porting Order id
@@ -200,8 +200,8 @@ export declare namespace AdditionalDocuments {
     type PortingAdditionalDocument as PortingAdditionalDocument,
     type AdditionalDocumentCreateResponse as AdditionalDocumentCreateResponse,
     type PortingAdditionalDocumentsDefaultFlatPagination as PortingAdditionalDocumentsDefaultFlatPagination,
-    type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
     type AdditionalDocumentListParams as AdditionalDocumentListParams,
+    type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
     type AdditionalDocumentDeleteParams as AdditionalDocumentDeleteParams,
   };
 }

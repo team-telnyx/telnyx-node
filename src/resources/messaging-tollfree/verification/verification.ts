@@ -41,9 +41,9 @@ export declare namespace Verification {
     type Volume as Volume,
     type RequestRetrieveStatusHistoryResponse as RequestRetrieveStatusHistoryResponse,
     type VerificationRequestStatusesDefaultPaginationForMessagingTollfree as VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
+    type RequestListParams as RequestListParams,
     type RequestCreateParams as RequestCreateParams,
     type RequestUpdateParams as RequestUpdateParams,
-    type RequestListParams as RequestListParams,
     type RequestRetrieveStatusHistoryParams as RequestRetrieveStatusHistoryParams,
   };
 }

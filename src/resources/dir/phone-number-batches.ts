@@ -13,28 +13,6 @@ import { path } from '../../internal/utils/path';
  */
 export class PhoneNumberBatches extends APIResource {
   /**
-   * Get a single phone-number batch by id. The enterprise is resolved server-side
-   * from the DIR id.
-   *
-   * @example
-   * ```ts
-   * const phoneNumberBatch =
-   *   await client.dir.phoneNumberBatches.retrieve(
-   *     '0a4b1f5e-2f12-4c0c-9a98-9b3a7d8b8e62',
-   *     { dir_id: '16635d38-75a6-4481-82e8-69af60e05011' },
-   *   );
-   * ```
-   */
-  retrieve(
-    batchID: string,
-    params: PhoneNumberBatchRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberBatchRetrieveResponse> {
-    const { dir_id } = params;
-    return this._client.get(path`/dir/${dir_id}/phone_number_batches/${batchID}`, options);
-  }
-
-  /**
    * List the phone-number batches submitted under a DIR. The enterprise is resolved
    * server-side from the DIR id.
    *
@@ -58,6 +36,28 @@ export class PhoneNumberBatches extends APIResource {
       DefaultFlatPagination<PhoneNumberBatch>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Get a single phone-number batch by id. The enterprise is resolved server-side
+   * from the DIR id.
+   *
+   * @example
+   * ```ts
+   * const phoneNumberBatch =
+   *   await client.dir.phoneNumberBatches.retrieve(
+   *     '0a4b1f5e-2f12-4c0c-9a98-9b3a7d8b8e62',
+   *     { dir_id: '16635d38-75a6-4481-82e8-69af60e05011' },
+   *   );
+   * ```
+   */
+  retrieve(
+    batchID: string,
+    params: PhoneNumberBatchRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberBatchRetrieveResponse> {
+    const { dir_id } = params;
+    return this._client.get(path`/dir/${dir_id}/phone_number_batches/${batchID}`, options);
   }
 }
 
@@ -144,18 +144,18 @@ export interface PhoneNumberBatchRetrieveResponse {
   data: PhoneNumberBatch;
 }
 
-export interface PhoneNumberBatchRetrieveParams {
-  /**
-   * The DIR id. Lowercase UUID.
-   */
-  dir_id: string;
-}
-
 export interface PhoneNumberBatchListParams extends DefaultFlatPaginationParams {
   /**
    * Restrict to batches whose aggregate status equals this value.
    */
   'filter[status]'?: DirPhoneNumberStatus;
+}
+
+export interface PhoneNumberBatchRetrieveParams {
+  /**
+   * The DIR id. Lowercase UUID.
+   */
+  dir_id: string;
 }
 
 export declare namespace PhoneNumberBatches {
@@ -164,7 +164,7 @@ export declare namespace PhoneNumberBatches {
     type PhoneNumberBatch as PhoneNumberBatch,
     type PhoneNumberBatchRetrieveResponse as PhoneNumberBatchRetrieveResponse,
     type PhoneNumberBatchesDefaultFlatPagination as PhoneNumberBatchesDefaultFlatPagination,
-    type PhoneNumberBatchRetrieveParams as PhoneNumberBatchRetrieveParams,
     type PhoneNumberBatchListParams as PhoneNumberBatchListParams,
+    type PhoneNumberBatchRetrieveParams as PhoneNumberBatchRetrieveParams,
   };
 }

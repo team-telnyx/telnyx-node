@@ -10,6 +10,22 @@ import { path } from '../internal/utils/path';
  */
 export class RequirementGroups extends APIResource {
   /**
+   * List requirement groups
+   *
+   * @example
+   * ```ts
+   * const requirementGroups =
+   *   await client.requirementGroups.list();
+   * ```
+   */
+  list(
+    query: RequirementGroupListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RequirementGroupListResponse> {
+    return this._client.get('/requirement_groups', { query, ...options });
+  }
+
+  /**
    * Create a new requirement group
    *
    * @example
@@ -24,6 +40,19 @@ export class RequirementGroups extends APIResource {
    */
   create(body: RequirementGroupCreateParams, options?: RequestOptions): APIPromise<RequirementGroup> {
     return this._client.post('/requirement_groups', { body, ...options });
+  }
+
+  /**
+   * Delete a requirement group by ID
+   *
+   * @example
+   * ```ts
+   * const requirementGroup =
+   *   await client.requirementGroups.delete('id');
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<RequirementGroup> {
+    return this._client.delete(path`/requirement_groups/${id}`, options);
   }
 
   /**
@@ -54,35 +83,6 @@ export class RequirementGroups extends APIResource {
     options?: RequestOptions,
   ): APIPromise<RequirementGroup> {
     return this._client.patch(path`/requirement_groups/${id}`, { body, ...options });
-  }
-
-  /**
-   * List requirement groups
-   *
-   * @example
-   * ```ts
-   * const requirementGroups =
-   *   await client.requirementGroups.list();
-   * ```
-   */
-  list(
-    query: RequirementGroupListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<RequirementGroupListResponse> {
-    return this._client.get('/requirement_groups', { query, ...options });
-  }
-
-  /**
-   * Delete a requirement group by ID
-   *
-   * @example
-   * ```ts
-   * const requirementGroup =
-   *   await client.requirementGroups.delete('id');
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<RequirementGroup> {
-    return this._client.delete(path`/requirement_groups/${id}`, options);
   }
 
   /**
@@ -139,6 +139,49 @@ export interface UserRequirement {
 
 export type RequirementGroupListResponse = Array<RequirementGroup>;
 
+export interface RequirementGroupListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[country_code], filter[phone_number_type], filter[action], filter[status],
+   * filter[customer_reference]
+   */
+  filter?: RequirementGroupListParams.Filter;
+}
+
+export namespace RequirementGroupListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[country_code], filter[phone_number_type], filter[action], filter[status],
+   * filter[customer_reference]
+   */
+  export interface Filter {
+    /**
+     * Filter requirement groups by action type
+     */
+    action?: 'ordering' | 'porting' | 'action';
+
+    /**
+     * Filter requirement groups by country code (iso alpha 2)
+     */
+    country_code?: string;
+
+    /**
+     * Filter requirement groups by customer reference
+     */
+    customer_reference?: string;
+
+    /**
+     * Filter requirement groups by phone number type.
+     */
+    phone_number_type?: 'local' | 'toll_free' | 'mobile' | 'national' | 'shared_cost';
+
+    /**
+     * Filter requirement groups by status
+     */
+    status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined' | 'expired';
+  }
+}
+
 export interface RequirementGroupCreateParams {
   action: 'ordering' | 'porting';
 
@@ -185,56 +228,13 @@ export namespace RequirementGroupUpdateParams {
   }
 }
 
-export interface RequirementGroupListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[country_code], filter[phone_number_type], filter[action], filter[status],
-   * filter[customer_reference]
-   */
-  filter?: RequirementGroupListParams.Filter;
-}
-
-export namespace RequirementGroupListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[country_code], filter[phone_number_type], filter[action], filter[status],
-   * filter[customer_reference]
-   */
-  export interface Filter {
-    /**
-     * Filter requirement groups by action type
-     */
-    action?: 'ordering' | 'porting' | 'action';
-
-    /**
-     * Filter requirement groups by country code (iso alpha 2)
-     */
-    country_code?: string;
-
-    /**
-     * Filter requirement groups by customer reference
-     */
-    customer_reference?: string;
-
-    /**
-     * Filter requirement groups by phone number type.
-     */
-    phone_number_type?: 'local' | 'toll_free' | 'mobile' | 'national' | 'shared_cost';
-
-    /**
-     * Filter requirement groups by status
-     */
-    status?: 'approved' | 'unapproved' | 'pending-approval' | 'declined' | 'expired';
-  }
-}
-
 export declare namespace RequirementGroups {
   export {
     type RequirementGroup as RequirementGroup,
     type UserRequirement as UserRequirement,
     type RequirementGroupListResponse as RequirementGroupListResponse,
+    type RequirementGroupListParams as RequirementGroupListParams,
     type RequirementGroupCreateParams as RequirementGroupCreateParams,
     type RequirementGroupUpdateParams as RequirementGroupUpdateParams,
-    type RequirementGroupListParams as RequirementGroupListParams,
   };
 }

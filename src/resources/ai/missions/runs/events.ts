@@ -39,6 +39,27 @@ export class Events extends APIResource {
   }
 
   /**
+   * Log an event for a run
+   *
+   * @example
+   * ```ts
+   * const eventResponse =
+   *   await client.ai.missions.runs.events.log(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *       summary: 'summary',
+   *       type: 'status_change',
+   *     },
+   *   );
+   * ```
+   */
+  log(runID: string, params: EventLogParams, options?: RequestOptions): APIPromise<EventResponse> {
+    const { mission_id, ...body } = params;
+    return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/events`, { body, ...options });
+  }
+
+  /**
    * Get details of a specific event
    *
    * @example
@@ -60,27 +81,6 @@ export class Events extends APIResource {
   ): APIPromise<EventResponse> {
     const { mission_id, run_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/runs/${run_id}/events/${eventID}`, options);
-  }
-
-  /**
-   * Log an event for a run
-   *
-   * @example
-   * ```ts
-   * const eventResponse =
-   *   await client.ai.missions.runs.events.log(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     {
-   *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *       summary: 'summary',
-   *       type: 'status_change',
-   *     },
-   *   );
-   * ```
-   */
-  log(runID: string, params: EventLogParams, options?: RequestOptions): APIPromise<EventResponse> {
-    const { mission_id, ...body } = params;
-    return this._client.post(path`/ai/missions/${mission_id}/runs/${runID}/events`, { body, ...options });
   }
 }
 
@@ -143,18 +143,6 @@ export interface EventListParams extends DefaultFlatPaginationParams {
   type?: string;
 }
 
-export interface EventGetEventDetailsParams {
-  /**
-   * Unique identifier of the mission.
-   */
-  mission_id: string;
-
-  /**
-   * Unique identifier of the run.
-   */
-  run_id: string;
-}
-
 export interface EventLogParams {
   /**
    * Path param: Unique identifier of the mission.
@@ -192,6 +180,18 @@ export interface EventLogParams {
   step_id?: string;
 }
 
+export interface EventGetEventDetailsParams {
+  /**
+   * Unique identifier of the mission.
+   */
+  mission_id: string;
+
+  /**
+   * Unique identifier of the run.
+   */
+  run_id: string;
+}
+
 export declare namespace Events {
   export {
     type EventData as EventData,
@@ -199,7 +199,7 @@ export declare namespace Events {
     type EventType as EventType,
     type EventDataDefaultFlatPagination as EventDataDefaultFlatPagination,
     type EventListParams as EventListParams,
-    type EventGetEventDetailsParams as EventGetEventDetailsParams,
     type EventLogParams as EventLogParams,
+    type EventGetEventDetailsParams as EventGetEventDetailsParams,
   };
 }

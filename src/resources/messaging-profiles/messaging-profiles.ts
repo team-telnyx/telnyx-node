@@ -35,6 +35,27 @@ export class MessagingProfiles extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
+   * List messaging profiles
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const messagingProfile of client.messagingProfiles.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: MessagingProfileListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MessagingProfilesDefaultFlatPagination, MessagingProfile> {
+    return this._client.getAPIList('/messaging_profiles', DefaultFlatPagination<MessagingProfile>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a messaging profile
    *
    * @example
@@ -51,6 +72,21 @@ export class MessagingProfiles extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MessagingProfileCreateResponse> {
     return this._client.post('/messaging_profiles', { body, ...options });
+  }
+
+  /**
+   * Delete a messaging profile
+   *
+   * @example
+   * ```ts
+   * const messagingProfile =
+   *   await client.messagingProfiles.delete(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  delete(messagingProfileID: string, options?: RequestOptions): APIPromise<MessagingProfileDeleteResponse> {
+    return this._client.delete(path`/messaging_profiles/${messagingProfileID}`, options);
   }
 
   /**
@@ -88,67 +124,6 @@ export class MessagingProfiles extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MessagingProfileUpdateResponse> {
     return this._client.patch(path`/messaging_profiles/${messagingProfileID}`, { body, ...options });
-  }
-
-  /**
-   * List messaging profiles
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const messagingProfile of client.messagingProfiles.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: MessagingProfileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<MessagingProfilesDefaultFlatPagination, MessagingProfile> {
-    return this._client.getAPIList('/messaging_profiles', DefaultFlatPagination<MessagingProfile>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete a messaging profile
-   *
-   * @example
-   * ```ts
-   * const messagingProfile =
-   *   await client.messagingProfiles.delete(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  delete(messagingProfileID: string, options?: RequestOptions): APIPromise<MessagingProfileDeleteResponse> {
-    return this._client.delete(path`/messaging_profiles/${messagingProfileID}`, options);
-  }
-
-  /**
-   * List all alphanumeric sender IDs associated with a specific messaging profile.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const alphanumericSenderID of client.messagingProfiles.listAlphanumericSenderIDs(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  listAlphanumericSenderIDs(
-    id: string,
-    query: MessagingProfileListAlphanumericSenderIDsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AlphanumericSenderIDsDefaultFlatPagination, AlphanumericSenderIDsAPI.AlphanumericSenderID> {
-    return this._client.getAPIList(
-      path`/messaging_profiles/${id}/alphanumeric_sender_ids`,
-      DefaultFlatPagination<AlphanumericSenderIDsAPI.AlphanumericSenderID>,
-      { query, ...options },
-    );
   }
 
   /**
@@ -200,6 +175,31 @@ export class MessagingProfiles extends APIResource {
     return this._client.getAPIList(
       path`/messaging_profiles/${messagingProfileID}/short_codes`,
       DefaultFlatPagination<Shared.ShortCode>,
+      { query, ...options },
+    );
+  }
+
+  /**
+   * List all alphanumeric sender IDs associated with a specific messaging profile.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const alphanumericSenderID of client.messagingProfiles.listAlphanumericSenderIDs(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  listAlphanumericSenderIDs(
+    id: string,
+    query: MessagingProfileListAlphanumericSenderIDsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AlphanumericSenderIDsDefaultFlatPagination, AlphanumericSenderIDsAPI.AlphanumericSenderID> {
+    return this._client.getAPIList(
+      path`/messaging_profiles/${id}/alphanumeric_sender_ids`,
+      DefaultFlatPagination<AlphanumericSenderIDsAPI.AlphanumericSenderID>,
       { query, ...options },
     );
   }
@@ -486,6 +486,35 @@ export interface MessagingProfileRetrieveMetricsResponse {
   data?: { [key: string]: unknown };
 }
 
+export interface MessagingProfileListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[name]
+   */
+  filter?: MessagingProfileListParams.Filter;
+
+  /**
+   * Filter profiles by name containing the given string.
+   */
+  'filter[name][contains]'?: string;
+
+  /**
+   * Filter profiles by exact name match.
+   */
+  'filter[name][eq]'?: string;
+}
+
+export namespace MessagingProfileListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[name]
+   */
+  export interface Filter {
+    /**
+     * Filter by name
+     */
+    name?: string;
+  }
+}
+
 export interface MessagingProfileCreateParams {
   /**
    * A user friendly name for the messaging profile.
@@ -703,40 +732,11 @@ export interface MessagingProfileUpdateParams {
   whitelisted_destinations?: Array<string>;
 }
 
-export interface MessagingProfileListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[name]
-   */
-  filter?: MessagingProfileListParams.Filter;
-
-  /**
-   * Filter profiles by name containing the given string.
-   */
-  'filter[name][contains]'?: string;
-
-  /**
-   * Filter profiles by exact name match.
-   */
-  'filter[name][eq]'?: string;
-}
-
-export namespace MessagingProfileListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[name]
-   */
-  export interface Filter {
-    /**
-     * Filter by name
-     */
-    name?: string;
-  }
-}
-
-export interface MessagingProfileListAlphanumericSenderIDsParams extends DefaultFlatPaginationParams {}
-
 export interface MessagingProfileListPhoneNumbersParams extends DefaultFlatPaginationParams {}
 
 export interface MessagingProfileListShortCodesParams extends DefaultFlatPaginationParams {}
+
+export interface MessagingProfileListAlphanumericSenderIDsParams extends DefaultFlatPaginationParams {}
 
 export interface MessagingProfileRetrieveMetricsParams {
   /**
@@ -759,12 +759,12 @@ export declare namespace MessagingProfiles {
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
     type MessagingProfileRetrieveMetricsResponse as MessagingProfileRetrieveMetricsResponse,
     type MessagingProfilesDefaultFlatPagination as MessagingProfilesDefaultFlatPagination,
+    type MessagingProfileListParams as MessagingProfileListParams,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
-    type MessagingProfileListParams as MessagingProfileListParams,
-    type MessagingProfileListAlphanumericSenderIDsParams as MessagingProfileListAlphanumericSenderIDsParams,
     type MessagingProfileListPhoneNumbersParams as MessagingProfileListPhoneNumbersParams,
     type MessagingProfileListShortCodesParams as MessagingProfileListShortCodesParams,
+    type MessagingProfileListAlphanumericSenderIDsParams as MessagingProfileListAlphanumericSenderIDsParams,
     type MessagingProfileRetrieveMetricsParams as MessagingProfileRetrieveMetricsParams,
   };
 
@@ -775,18 +775,18 @@ export declare namespace MessagingProfiles {
     type AutoRespConfigResponse as AutoRespConfigResponse,
     type AutorespConfigListResponse as AutorespConfigListResponse,
     type AutorespConfigDeleteResponse as AutorespConfigDeleteResponse,
+    type AutorespConfigListParams as AutorespConfigListParams,
     type AutorespConfigCreateParams as AutorespConfigCreateParams,
+    type AutorespConfigDeleteParams as AutorespConfigDeleteParams,
     type AutorespConfigRetrieveParams as AutorespConfigRetrieveParams,
     type AutorespConfigUpdateParams as AutorespConfigUpdateParams,
-    type AutorespConfigListParams as AutorespConfigListParams,
-    type AutorespConfigDeleteParams as AutorespConfigDeleteParams,
   };
 
   export { Actions as Actions, type ActionRegenerateSecretResponse as ActionRegenerateSecretResponse };
 }
 
 export {
-  type AlphanumericSenderIDsDefaultFlatPagination,
   type PhoneNumberWithMessagingSettingsDefaultFlatPagination,
   type ShortCodesDefaultFlatPagination,
+  type AlphanumericSenderIDsDefaultFlatPagination,
 };

@@ -11,6 +11,28 @@ import { path } from '../internal/utils/path';
  */
 export class TrafficPolicyProfiles extends APIResource {
   /**
+   * Get all traffic policy profiles belonging to the user that match the given
+   * filters.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const trafficPolicyProfile of client.trafficPolicyProfiles.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: TrafficPolicyProfileListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TrafficPolicyProfilesDefaultFlatPagination, TrafficPolicyProfile> {
+    return this._client.getAPIList('/traffic_policy_profiles', DefaultFlatPagination<TrafficPolicyProfile>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a new traffic policy profile. At least one of `services`, `ip_ranges`, or
    * `domains` must be provided.
    *
@@ -27,6 +49,46 @@ export class TrafficPolicyProfiles extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TrafficPolicyProfileCreateResponse> {
     return this._client.post('/traffic_policy_profiles', { body, ...options });
+  }
+
+  /**
+   * Get all available PCEF services that can be used in traffic policy profiles.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const trafficPolicyProfileListServicesResponse of client.trafficPolicyProfiles.listServices()) {
+   *   // ...
+   * }
+   * ```
+   */
+  listServices(
+    query: TrafficPolicyProfileListServicesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<
+    TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
+    TrafficPolicyProfileListServicesResponse
+  > {
+    return this._client.getAPIList(
+      '/traffic_policy_profiles/services',
+      DefaultFlatPagination<TrafficPolicyProfileListServicesResponse>,
+      { query, ...options },
+    );
+  }
+
+  /**
+   * Deletes the traffic policy profile.
+   *
+   * @example
+   * ```ts
+   * const trafficPolicyProfile =
+   *   await client.trafficPolicyProfiles.delete(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<TrafficPolicyProfileDeleteResponse> {
+    return this._client.delete(path`/traffic_policy_profiles/${id}`, options);
   }
 
   /**
@@ -61,68 +123,6 @@ export class TrafficPolicyProfiles extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TrafficPolicyProfileUpdateResponse> {
     return this._client.patch(path`/traffic_policy_profiles/${id}`, { body, ...options });
-  }
-
-  /**
-   * Get all traffic policy profiles belonging to the user that match the given
-   * filters.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const trafficPolicyProfile of client.trafficPolicyProfiles.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: TrafficPolicyProfileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<TrafficPolicyProfilesDefaultFlatPagination, TrafficPolicyProfile> {
-    return this._client.getAPIList('/traffic_policy_profiles', DefaultFlatPagination<TrafficPolicyProfile>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Deletes the traffic policy profile.
-   *
-   * @example
-   * ```ts
-   * const trafficPolicyProfile =
-   *   await client.trafficPolicyProfiles.delete(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<TrafficPolicyProfileDeleteResponse> {
-    return this._client.delete(path`/traffic_policy_profiles/${id}`, options);
-  }
-
-  /**
-   * Get all available PCEF services that can be used in traffic policy profiles.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const trafficPolicyProfileListServicesResponse of client.trafficPolicyProfiles.listServices()) {
-   *   // ...
-   * }
-   * ```
-   */
-  listServices(
-    query: TrafficPolicyProfileListServicesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
-    TrafficPolicyProfileListServicesResponse
-  > {
-    return this._client.getAPIList(
-      '/traffic_policy_profiles/services',
-      DefaultFlatPagination<TrafficPolicyProfileListServicesResponse>,
-      { query, ...options },
-    );
   }
 }
 
@@ -219,6 +219,24 @@ export interface TrafficPolicyProfileListServicesResponse {
   resource_type?: string;
 }
 
+export interface TrafficPolicyProfileListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter by service ID.
+   */
+  'filter[service]'?: string;
+
+  /**
+   * Filter by traffic policy profile type.
+   */
+  'filter[type]'?: 'whitelist' | 'blacklist' | 'throttling';
+
+  /**
+   * Sorts traffic policy profiles by the given field. Defaults to ascending order
+   * unless field is prefixed with a minus sign.
+   */
+  sort?: 'service' | '-service' | 'type' | '-type';
+}
+
 export interface TrafficPolicyProfileCreateParams {
   /**
    * The type of the traffic policy profile.
@@ -244,6 +262,18 @@ export interface TrafficPolicyProfileCreateParams {
    * Array of PCEF service IDs to include in the profile.
    */
   services?: Array<string>;
+}
+
+export interface TrafficPolicyProfileListServicesParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter services by group.
+   */
+  'filter[group]'?: string;
+
+  /**
+   * Filter services by name.
+   */
+  'filter[name]'?: string;
 }
 
 export interface TrafficPolicyProfileUpdateParams {
@@ -273,36 +303,6 @@ export interface TrafficPolicyProfileUpdateParams {
   type?: 'whitelist' | 'blacklist' | 'throttling';
 }
 
-export interface TrafficPolicyProfileListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter by service ID.
-   */
-  'filter[service]'?: string;
-
-  /**
-   * Filter by traffic policy profile type.
-   */
-  'filter[type]'?: 'whitelist' | 'blacklist' | 'throttling';
-
-  /**
-   * Sorts traffic policy profiles by the given field. Defaults to ascending order
-   * unless field is prefixed with a minus sign.
-   */
-  sort?: 'service' | '-service' | 'type' | '-type';
-}
-
-export interface TrafficPolicyProfileListServicesParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter services by group.
-   */
-  'filter[group]'?: string;
-
-  /**
-   * Filter services by name.
-   */
-  'filter[name]'?: string;
-}
-
 export declare namespace TrafficPolicyProfiles {
   export {
     type TrafficPolicyProfile as TrafficPolicyProfile,
@@ -313,9 +313,9 @@ export declare namespace TrafficPolicyProfiles {
     type TrafficPolicyProfileListServicesResponse as TrafficPolicyProfileListServicesResponse,
     type TrafficPolicyProfilesDefaultFlatPagination as TrafficPolicyProfilesDefaultFlatPagination,
     type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination as TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
-    type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
-    type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
     type TrafficPolicyProfileListParams as TrafficPolicyProfileListParams,
+    type TrafficPolicyProfileCreateParams as TrafficPolicyProfileCreateParams,
     type TrafficPolicyProfileListServicesParams as TrafficPolicyProfileListServicesParams,
+    type TrafficPolicyProfileUpdateParams as TrafficPolicyProfileUpdateParams,
   };
 }

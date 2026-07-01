@@ -9,30 +9,6 @@ const client = new Telnyx({
 
 describe('resource dir', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.dir.retrieve('16635d38-75a6-4481-82e8-69af60e05011');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update', async () => {
-    const responsePromise = client.dir.update('16635d38-75a6-4481-82e8-69af60e05011', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.dir.list();
     const rawResponse = await responsePromise.asResponse();
@@ -66,6 +42,18 @@ describe('resource dir', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('listDocumentTypes', async () => {
+    const responsePromise = client.dir.listDocumentTypes();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.dir.delete('16635d38-75a6-4481-82e8-69af60e05011');
     const rawResponse = await responsePromise.asResponse();
@@ -78,8 +66,20 @@ describe('resource dir', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('listDocumentTypes', async () => {
-    const responsePromise = client.dir.listDocumentTypes();
+  test.skip('retrieve', async () => {
+    const responsePromise = client.dir.retrieve('16635d38-75a6-4481-82e8-69af60e05011');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('update', async () => {
+    const responsePromise = client.dir.update('16635d38-75a6-4481-82e8-69af60e05011', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -111,40 +111,6 @@ describe('resource dir', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('newLoa: required and optional params', async () => {
-    const response = await client.dir.newLoa('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      phone_numbers: ['+13125550000'],
-      agent: {
-        administrative_area: 'administrative_area',
-        city: 'city',
-        contact_email: 'dev@stainless.com',
-        contact_name: 'contact_name',
-        contact_phone: '+13125550000',
-        contact_title: 'contact_title',
-        country: 'US',
-        legal_name: 'legal_name',
-        postal_code: 'postal_code',
-        street_address: 'street_address',
-        dba: 'dba',
-        extended_address: 'extended_address',
-      },
-      signature: { image_base64: 'x', signer_name: 'signer_name' },
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('submit', async () => {
-    const responsePromise = client.dir.submit('16635d38-75a6-4481-82e8-69af60e05011');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled
@@ -185,6 +151,40 @@ describe('resource dir', () => {
         },
       ],
       logo_url: 'logo_url',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('submit', async () => {
+    const responsePromise = client.dir.submit('16635d38-75a6-4481-82e8-69af60e05011');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('newLoa: required and optional params', async () => {
+    const response = await client.dir.newLoa('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      phone_numbers: ['+13125550000'],
+      agent: {
+        administrative_area: 'administrative_area',
+        city: 'city',
+        contact_email: 'dev@stainless.com',
+        contact_name: 'contact_name',
+        contact_phone: '+13125550000',
+        contact_title: 'contact_title',
+        country: 'US',
+        legal_name: 'legal_name',
+        postal_code: 'postal_code',
+        street_address: 'street_address',
+        dba: 'dba',
+        extended_address: 'extended_address',
+      },
+      signature: { image_base64: 'x', signer_name: 'signer_name' },
     });
   });
 });

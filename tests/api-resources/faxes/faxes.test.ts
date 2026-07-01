@@ -9,55 +9,6 @@ const client = new Telnyx({
 
 describe('resource faxes', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.faxes.create({
-      connection_id: '234423',
-      from: '+13125790015',
-      to: '+13127367276',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.faxes.create({
-      connection_id: '234423',
-      from: '+13125790015',
-      to: '+13127367276',
-      black_threshold: 1,
-      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
-      from_display_name: 'Company Name',
-      media_name: 'my_media_uploaded_to_media_storage_api',
-      media_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
-      monochrome: true,
-      preview_format: 'pdf',
-      quality: 'high',
-      store_media: true,
-      store_preview: true,
-      t38_enabled: true,
-      webhook_url: 'https://www.example.com/server-b/',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.faxes.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.faxes.list();
     const rawResponse = await responsePromise.asResponse();
@@ -95,8 +46,57 @@ describe('resource faxes', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.faxes.create({
+      connection_id: '234423',
+      from: '+13125790015',
+      to: '+13127367276',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.faxes.create({
+      connection_id: '234423',
+      from: '+13125790015',
+      to: '+13127367276',
+      black_threshold: 1,
+      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+      from_display_name: 'Company Name',
+      media_name: 'my_media_uploaded_to_media_storage_api',
+      media_url: 'https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf',
+      monochrome: true,
+      preview_format: 'pdf',
+      quality: 'high',
+      store_media: true,
+      store_preview: true,
+      t38_enabled: true,
+      webhook_url: 'https://www.example.com/server-b/',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.faxes.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.faxes.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

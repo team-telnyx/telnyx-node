@@ -12,27 +12,6 @@ import { path } from '../internal/utils/path';
  */
 export class IntegrationSecrets extends APIResource {
   /**
-   * Create a new secret with an associated identifier that can be used to securely
-   * integrate with other services.
-   *
-   * @example
-   * ```ts
-   * const integrationSecret =
-   *   await client.integrationSecrets.create({
-   *     identifier: 'my_secret',
-   *     type: 'bearer',
-   *     token: 'my_secret_value',
-   *   });
-   * ```
-   */
-  create(
-    body: IntegrationSecretCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<IntegrationSecretCreateResponse> {
-    return this._client.post('/integration_secrets', { body, ...options });
-  }
-
-  /**
    * Retrieve a list of all integration secrets configured by the user.
    *
    * @example
@@ -51,6 +30,27 @@ export class IntegrationSecrets extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Create a new secret with an associated identifier that can be used to securely
+   * integrate with other services.
+   *
+   * @example
+   * ```ts
+   * const integrationSecret =
+   *   await client.integrationSecrets.create({
+   *     identifier: 'my_secret',
+   *     type: 'bearer',
+   *     token: 'my_secret_value',
+   *   });
+   * ```
+   */
+  create(
+    body: IntegrationSecretCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<IntegrationSecretCreateResponse> {
+    return this._client.post('/integration_secrets', { body, ...options });
   }
 
   /**
@@ -87,6 +87,22 @@ export interface IntegrationSecretCreateResponse {
   data: IntegrationSecret;
 }
 
+export interface IntegrationSecretListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[type]
+   */
+  filter?: IntegrationSecretListParams.Filter;
+}
+
+export namespace IntegrationSecretListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[type]
+   */
+  export interface Filter {
+    type?: 'bearer' | 'basic';
+  }
+}
+
 export interface IntegrationSecretCreateParams {
   /**
    * The unique identifier of the secret.
@@ -114,28 +130,12 @@ export interface IntegrationSecretCreateParams {
   username?: string;
 }
 
-export interface IntegrationSecretListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[type]
-   */
-  filter?: IntegrationSecretListParams.Filter;
-}
-
-export namespace IntegrationSecretListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[type]
-   */
-  export interface Filter {
-    type?: 'bearer' | 'basic';
-  }
-}
-
 export declare namespace IntegrationSecrets {
   export {
     type IntegrationSecret as IntegrationSecret,
     type IntegrationSecretCreateResponse as IntegrationSecretCreateResponse,
     type IntegrationSecretsDefaultFlatPagination as IntegrationSecretsDefaultFlatPagination,
-    type IntegrationSecretCreateParams as IntegrationSecretCreateParams,
     type IntegrationSecretListParams as IntegrationSecretListParams,
+    type IntegrationSecretCreateParams as IntegrationSecretCreateParams,
   };
 }

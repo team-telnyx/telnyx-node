@@ -25,13 +25,13 @@ export {
   type MessageSendShortCodeResponse,
   type MessageSendWhatsappResponse,
   type MessageSendWithAlphanumericSenderResponse,
-  type MessageScheduleParams,
   type MessageSendParams,
-  type MessageSendGroupMmsParams,
   type MessageSendLongCodeParams,
   type MessageSendNumberPoolParams,
   type MessageSendShortCodeParams,
+  type MessageSendGroupMmsParams,
   type MessageSendWhatsappParams,
+  type MessageScheduleParams,
   type MessageSendWithAlphanumericSenderParams,
 } from './messages';
 export {

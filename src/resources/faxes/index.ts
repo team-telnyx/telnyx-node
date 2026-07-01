@@ -7,7 +7,7 @@ export {
   type Quality,
   type FaxCreateResponse,
   type FaxRetrieveResponse,
-  type FaxCreateParams,
   type FaxListParams,
+  type FaxCreateParams,
   type FaxesDefaultFlatPagination,
 } from './faxes';

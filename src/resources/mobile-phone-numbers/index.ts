@@ -12,7 +12,7 @@ export {
   type MobilePhoneNumber,
   type MobilePhoneNumberRetrieveResponse,
   type MobilePhoneNumberUpdateResponse,
-  type MobilePhoneNumberUpdateParams,
   type MobilePhoneNumberListParams,
+  type MobilePhoneNumberUpdateParams,
   type MobilePhoneNumbersDefaultFlatPagination,
 } from './mobile-phone-numbers';

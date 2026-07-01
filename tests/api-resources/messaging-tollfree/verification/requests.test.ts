@@ -9,6 +9,31 @@ const client = new Telnyx({
 
 describe('resource requests', () => {
   // Mock server tests are disabled
+  test.skip('list: only required params', async () => {
+    const responsePromise = client.messagingTollfree.verification.requests.list({ page: 1, page_size: 1 });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: required and optional params', async () => {
+    const response = await client.messagingTollfree.verification.requests.list({
+      page: 1,
+      page_size: 1,
+      business_name: 'business_name',
+      date_end: '2019-12-27T18:11:19.117Z',
+      date_start: '2019-12-27T18:11:19.117Z',
+      phone_number: 'phone_number',
+      status: 'Verified',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.messagingTollfree.verification.requests.create({
       additionalInformation: 'additionalInformation',
@@ -86,6 +111,20 @@ describe('resource requests', () => {
       termsAndConditionURL: 'https://example.com/terms',
       webhookUrl: 'http://example-webhook.com',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.messagingTollfree.verification.requests.delete(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled
@@ -186,45 +225,6 @@ describe('resource requests', () => {
         webhookUrl: 'http://example-webhook.com',
       },
     );
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: only required params', async () => {
-    const responsePromise = client.messagingTollfree.verification.requests.list({ page: 1, page_size: 1 });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: required and optional params', async () => {
-    const response = await client.messagingTollfree.verification.requests.list({
-      page: 1,
-      page_size: 1,
-      business_name: 'business_name',
-      date_end: '2019-12-27T18:11:19.117Z',
-      date_start: '2019-12-27T18:11:19.117Z',
-      phone_number: 'phone_number',
-      status: 'Verified',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.messagingTollfree.verification.requests.delete(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    );
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled

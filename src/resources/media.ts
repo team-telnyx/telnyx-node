@@ -13,6 +13,50 @@ import { path } from '../internal/utils/path';
  */
 export class Media extends APIResource {
   /**
+   * Returns a list of stored media files.
+   *
+   * @example
+   * ```ts
+   * const media = await client.media.list();
+   * ```
+   */
+  list(
+    query: MediaListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<MediaListResponse> {
+    return this._client.get('/media', { query, ...options });
+  }
+
+  /**
+   * Upload media file to Telnyx so it can be used with other Telnyx services
+   *
+   * @example
+   * ```ts
+   * const response = await client.media.upload({
+   *   media_url: 'http://www.example.com/audio.mp3',
+   * });
+   * ```
+   */
+  upload(body: MediaUploadParams, options?: RequestOptions): APIPromise<MediaUploadResponse> {
+    return this._client.post('/media', maybeMultipartFormRequestOptions({ body, ...options }, this._client));
+  }
+
+  /**
+   * Deletes a stored media file.
+   *
+   * @example
+   * ```ts
+   * await client.media.delete('media_name');
+   * ```
+   */
+  delete(mediaName: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/media/${mediaName}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Returns the information about a stored media file.
    *
    * @example
@@ -44,36 +88,6 @@ export class Media extends APIResource {
   }
 
   /**
-   * Returns a list of stored media files.
-   *
-   * @example
-   * ```ts
-   * const media = await client.media.list();
-   * ```
-   */
-  list(
-    query: MediaListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<MediaListResponse> {
-    return this._client.get('/media', { query, ...options });
-  }
-
-  /**
-   * Deletes a stored media file.
-   *
-   * @example
-   * ```ts
-   * await client.media.delete('media_name');
-   * ```
-   */
-  delete(mediaName: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/media/${mediaName}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
    * Downloads a stored media file.
    *
    * @example
@@ -90,20 +104,6 @@ export class Media extends APIResource {
       headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
       __binaryResponse: true,
     });
-  }
-
-  /**
-   * Upload media file to Telnyx so it can be used with other Telnyx services
-   *
-   * @example
-   * ```ts
-   * const response = await client.media.upload({
-   *   media_url: 'http://www.example.com/audio.mp3',
-   * });
-   * ```
-   */
-  upload(body: MediaUploadParams, options?: RequestOptions): APIPromise<MediaUploadResponse> {
-    return this._client.post('/media', maybeMultipartFormRequestOptions({ body, ...options }, this._client));
   }
 }
 
@@ -152,20 +152,6 @@ export interface MediaUploadResponse {
   data?: MediaResource;
 }
 
-export interface MediaUpdateParams {
-  /**
-   * The URL where the media to be stored in Telnyx network is currently hosted. The
-   * maximum allowed size is 20 MB.
-   */
-  media_url?: string;
-
-  /**
-   * The number of seconds after which the media resource will be deleted, defaults
-   * to 2 days. The maximum allowed vale is 630720000, which translates to 20 years.
-   */
-  ttl_secs?: number;
-}
-
 export interface MediaListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -206,6 +192,20 @@ export interface MediaUploadParams {
   ttl_secs?: number;
 }
 
+export interface MediaUpdateParams {
+  /**
+   * The URL where the media to be stored in Telnyx network is currently hosted. The
+   * maximum allowed size is 20 MB.
+   */
+  media_url?: string;
+
+  /**
+   * The number of seconds after which the media resource will be deleted, defaults
+   * to 2 days. The maximum allowed vale is 630720000, which translates to 20 years.
+   */
+  ttl_secs?: number;
+}
+
 export declare namespace Media {
   export {
     type MediaResource as MediaResource,
@@ -213,8 +213,8 @@ export declare namespace Media {
     type MediaUpdateResponse as MediaUpdateResponse,
     type MediaListResponse as MediaListResponse,
     type MediaUploadResponse as MediaUploadResponse,
-    type MediaUpdateParams as MediaUpdateParams,
     type MediaListParams as MediaListParams,
     type MediaUploadParams as MediaUploadParams,
+    type MediaUpdateParams as MediaUpdateParams,
   };
 }

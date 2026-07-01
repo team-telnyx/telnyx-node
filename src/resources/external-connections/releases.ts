@@ -11,27 +11,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Releases extends APIResource {
   /**
-   * Return the details of a Release request and its phone numbers.
-   *
-   * @example
-   * ```ts
-   * const release =
-   *   await client.externalConnections.releases.retrieve(
-   *     '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
-   *     { id: '1293384261075731499' },
-   *   );
-   * ```
-   */
-  retrieve(
-    releaseID: string,
-    params: ReleaseRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ReleaseRetrieveResponse> {
-    const { id } = params;
-    return this._client.get(path`/external_connections/${id}/releases/${releaseID}`, options);
-  }
-
-  /**
    * Returns a list of your Releases for the given external connection. These are
    * automatically created when you change the `connection_id` of a phone number that
    * is currently on Microsoft Teams.
@@ -56,6 +35,27 @@ export class Releases extends APIResource {
       DefaultFlatPagination<Release>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Return the details of a Release request and its phone numbers.
+   *
+   * @example
+   * ```ts
+   * const release =
+   *   await client.externalConnections.releases.retrieve(
+   *     '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
+   *     { id: '1293384261075731499' },
+   *   );
+   * ```
+   */
+  retrieve(
+    releaseID: string,
+    params: ReleaseRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ReleaseRetrieveResponse> {
+    const { id } = params;
+    return this._client.get(path`/external_connections/${id}/releases/${releaseID}`, options);
   }
 }
 
@@ -101,13 +101,6 @@ export interface TnReleaseEntry {
 
 export interface ReleaseRetrieveResponse {
   data?: Release;
-}
-
-export interface ReleaseRetrieveParams {
-  /**
-   * Identifies the resource.
-   */
-  id: string;
 }
 
 export interface ReleaseListParams extends DefaultFlatPaginationParams {
@@ -179,13 +172,20 @@ export namespace ReleaseListParams {
   }
 }
 
+export interface ReleaseRetrieveParams {
+  /**
+   * Identifies the resource.
+   */
+  id: string;
+}
+
 export declare namespace Releases {
   export {
     type Release as Release,
     type TnReleaseEntry as TnReleaseEntry,
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
     type ReleasesDefaultFlatPagination as ReleasesDefaultFlatPagination,
-    type ReleaseRetrieveParams as ReleaseRetrieveParams,
     type ReleaseListParams as ReleaseListParams,
+    type ReleaseRetrieveParams as ReleaseRetrieveParams,
   };
 }

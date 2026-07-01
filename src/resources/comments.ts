@@ -12,6 +12,21 @@ import { path } from '../internal/utils/path';
  */
 export class Comments extends APIResource {
   /**
+   * Retrieve all comments
+   *
+   * @example
+   * ```ts
+   * const comments = await client.comments.list();
+   * ```
+   */
+  list(
+    query: CommentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<CommentListResponse> {
+    return this._client.get('/comments', { query, ...options });
+  }
+
+  /**
    * Create a comment
    *
    * @example
@@ -33,21 +48,6 @@ export class Comments extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<CommentRetrieveResponse> {
     return this._client.get(path`/comments/${id}`, options);
-  }
-
-  /**
-   * Retrieve all comments
-   *
-   * @example
-   * ```ts
-   * const comments = await client.comments.list();
-   * ```
-   */
-  list(
-    query: CommentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<CommentListResponse> {
-    return this._client.get('/comments', { query, ...options });
   }
 
   /**
@@ -122,14 +122,6 @@ export namespace CommentMarkAsReadResponse {
   export interface Data extends CommentsAPI.Comment {}
 }
 
-export interface CommentCreateParams {
-  body?: string;
-
-  comment_record_id?: string;
-
-  comment_record_type?: 'sub_number_order' | 'requirement_group';
-}
-
 export interface CommentListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -156,6 +148,14 @@ export namespace CommentListParams {
   }
 }
 
+export interface CommentCreateParams {
+  body?: string;
+
+  comment_record_id?: string;
+
+  comment_record_type?: 'sub_number_order' | 'requirement_group';
+}
+
 export declare namespace Comments {
   export {
     type Comment as Comment,
@@ -163,7 +163,7 @@ export declare namespace Comments {
     type CommentRetrieveResponse as CommentRetrieveResponse,
     type CommentListResponse as CommentListResponse,
     type CommentMarkAsReadResponse as CommentMarkAsReadResponse,
-    type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
+    type CommentCreateParams as CommentCreateParams,
   };
 }

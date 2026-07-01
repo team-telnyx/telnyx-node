@@ -11,42 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class DynamicEmergencyEndpoints extends APIResource {
   /**
-   * Creates a dynamic emergency endpoints.
-   *
-   * @example
-   * ```ts
-   * const dynamicEmergencyEndpoint =
-   *   await client.dynamicEmergencyEndpoints.create({
-   *     callback_number: '+13125550000',
-   *     caller_name: 'Jane Doe Desk Phone',
-   *     dynamic_emergency_address_id:
-   *       '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-   *   });
-   * ```
-   */
-  create(
-    body: DynamicEmergencyEndpointCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<DynamicEmergencyEndpointCreateResponse> {
-    return this._client.post('/dynamic_emergency_endpoints', { body, ...options });
-  }
-
-  /**
-   * Returns the dynamic emergency endpoint based on the ID provided
-   *
-   * @example
-   * ```ts
-   * const dynamicEmergencyEndpoint =
-   *   await client.dynamicEmergencyEndpoints.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<DynamicEmergencyEndpointRetrieveResponse> {
-    return this._client.get(path`/dynamic_emergency_endpoints/${id}`, options);
-  }
-
-  /**
    * Returns the dynamic emergency endpoints according to filters
    *
    * @example
@@ -69,6 +33,27 @@ export class DynamicEmergencyEndpoints extends APIResource {
   }
 
   /**
+   * Creates a dynamic emergency endpoints.
+   *
+   * @example
+   * ```ts
+   * const dynamicEmergencyEndpoint =
+   *   await client.dynamicEmergencyEndpoints.create({
+   *     callback_number: '+13125550000',
+   *     caller_name: 'Jane Doe Desk Phone',
+   *     dynamic_emergency_address_id:
+   *       '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+   *   });
+   * ```
+   */
+  create(
+    body: DynamicEmergencyEndpointCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<DynamicEmergencyEndpointCreateResponse> {
+    return this._client.post('/dynamic_emergency_endpoints', { body, ...options });
+  }
+
+  /**
    * Deletes the dynamic emergency endpoint based on the ID provided
    *
    * @example
@@ -81,6 +66,21 @@ export class DynamicEmergencyEndpoints extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<DynamicEmergencyEndpointDeleteResponse> {
     return this._client.delete(path`/dynamic_emergency_endpoints/${id}`, options);
+  }
+
+  /**
+   * Returns the dynamic emergency endpoint based on the ID provided
+   *
+   * @example
+   * ```ts
+   * const dynamicEmergencyEndpoint =
+   *   await client.dynamicEmergencyEndpoints.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<DynamicEmergencyEndpointRetrieveResponse> {
+    return this._client.get(path`/dynamic_emergency_endpoints/${id}`, options);
   }
 }
 
@@ -133,17 +133,6 @@ export interface DynamicEmergencyEndpointDeleteResponse {
   data?: DynamicEmergencyEndpoint;
 }
 
-export interface DynamicEmergencyEndpointCreateParams {
-  callback_number: string;
-
-  caller_name: string;
-
-  /**
-   * An id of a currently active dynamic emergency location.
-   */
-  dynamic_emergency_address_id: string;
-}
-
 export interface DynamicEmergencyEndpointListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
@@ -170,6 +159,17 @@ export namespace DynamicEmergencyEndpointListParams {
   }
 }
 
+export interface DynamicEmergencyEndpointCreateParams {
+  callback_number: string;
+
+  caller_name: string;
+
+  /**
+   * An id of a currently active dynamic emergency location.
+   */
+  dynamic_emergency_address_id: string;
+}
+
 export declare namespace DynamicEmergencyEndpoints {
   export {
     type DynamicEmergencyEndpoint as DynamicEmergencyEndpoint,
@@ -177,7 +177,7 @@ export declare namespace DynamicEmergencyEndpoints {
     type DynamicEmergencyEndpointRetrieveResponse as DynamicEmergencyEndpointRetrieveResponse,
     type DynamicEmergencyEndpointDeleteResponse as DynamicEmergencyEndpointDeleteResponse,
     type DynamicEmergencyEndpointsDefaultFlatPagination as DynamicEmergencyEndpointsDefaultFlatPagination,
-    type DynamicEmergencyEndpointCreateParams as DynamicEmergencyEndpointCreateParams,
     type DynamicEmergencyEndpointListParams as DynamicEmergencyEndpointListParams,
+    type DynamicEmergencyEndpointCreateParams as DynamicEmergencyEndpointCreateParams,
   };
 }

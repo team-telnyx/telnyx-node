@@ -28,6 +28,21 @@ export class SiprecConnectors extends APIResource {
   }
 
   /**
+   * Deletes a stored SIPREC connector.
+   *
+   * @example
+   * ```ts
+   * await client.siprecConnectors.delete('connector_name');
+   * ```
+   */
+  delete(connectorName: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/siprec_connectors/${connectorName}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Returns details of a stored SIPREC connector.
    *
    * @example
@@ -59,21 +74,6 @@ export class SiprecConnectors extends APIResource {
     options?: RequestOptions,
   ): APIPromise<SiprecConnectorResponse> {
     return this._client.put(path`/siprec_connectors/${connectorName}`, { body, ...options });
-  }
-
-  /**
-   * Deletes a stored SIPREC connector.
-   *
-   * @example
-   * ```ts
-   * await client.siprecConnectors.delete('connector_name');
-   * ```
-   */
-  delete(connectorName: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/siprec_connectors/${connectorName}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 

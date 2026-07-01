@@ -9,8 +9,20 @@ const client = new Telnyx({
 
 describe('resource actions', () => {
   // Mock server tests are disabled
-  test.skip('addAIAssistantMessages', async () => {
-    const responsePromise = client.calls.actions.addAIAssistantMessages('call_control_id', {});
+  test.skip('startAIAssistant', async () => {
+    const responsePromise = client.calls.actions.startAIAssistant('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('stopAIAssistant', async () => {
+    const responsePromise = client.calls.actions.stopAIAssistant('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -73,6 +85,27 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('updateClientState: only required params', async () => {
+    const responsePromise = client.calls.actions.updateClientState('call_control_id', {
+      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('updateClientState: required and optional params', async () => {
+    const response = await client.calls.actions.updateClientState('call_control_id', {
+      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('enqueue: only required params', async () => {
     const responsePromise = client.calls.actions.enqueue('call_control_id', { queue_name: 'support' });
     const rawResponse = await responsePromise.asResponse();
@@ -97,8 +130,44 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('startForking', async () => {
+    const responsePromise = client.calls.actions.startForking('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('stopForking', async () => {
+    const responsePromise = client.calls.actions.stopForking('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('gather', async () => {
     const responsePromise = client.calls.actions.gather('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('stopGather', async () => {
+    const responsePromise = client.calls.actions.stopGather('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -231,36 +300,6 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('joinAIAssistant: only required params', async () => {
-    const responsePromise = client.calls.actions.joinAIAssistant('call_control_id', {
-      conversation_id: 'v3:abc123',
-      participant: { id: 'v3:abc123def456', role: 'user' },
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('joinAIAssistant: required and optional params', async () => {
-    const response = await client.calls.actions.joinAIAssistant('call_control_id', {
-      conversation_id: 'v3:abc123',
-      participant: {
-        id: 'v3:abc123def456',
-        role: 'user',
-        name: 'John Doe',
-        on_hangup: 'continue_conversation',
-      },
-      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
-      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-    });
-  });
-
-  // Mock server tests are disabled
   test.skip('leaveQueue', async () => {
     const responsePromise = client.calls.actions.leaveQueue('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
@@ -273,8 +312,94 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('startPlayback', async () => {
+    const responsePromise = client.calls.actions.startPlayback('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('stopPlayback', async () => {
+    const responsePromise = client.calls.actions.stopPlayback('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('pauseRecording', async () => {
     const responsePromise = client.calls.actions.pauseRecording('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('resumeRecording', async () => {
+    const responsePromise = client.calls.actions.resumeRecording('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('startRecording: only required params', async () => {
+    const responsePromise = client.calls.actions.startRecording('call_control_id', {
+      channels: 'single',
+      format: 'wav',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('startRecording: required and optional params', async () => {
+    const response = await client.calls.actions.startRecording('call_control_id', {
+      channels: 'single',
+      format: 'wav',
+      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      custom_file_name: 'my_recording_file_name',
+      max_length: 0,
+      play_beep: true,
+      recording_track: 'outbound',
+      timeout_secs: 0,
+      transcription: true,
+      transcription_engine: 'B',
+      transcription_language: 'en',
+      transcription_max_speaker_count: 4,
+      transcription_min_speaker_count: 4,
+      transcription_profanity_filter: true,
+      transcription_speaker_diarization: true,
+      trim: 'trim-silence',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('stopRecording', async () => {
+    const responsePromise = client.calls.actions.stopRecording('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -336,18 +461,6 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('resumeRecording', async () => {
-    const responsePromise = client.calls.actions.resumeRecording('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('sendDtmf: only required params', async () => {
     const responsePromise = client.calls.actions.sendDtmf('call_control_id', { digits: '1www2WABCDw9' });
     const rawResponse = await responsePromise.asResponse();
@@ -395,6 +508,30 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('startSiprec', async () => {
+    const responsePromise = client.calls.actions.startSiprec('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('stopSiprec', async () => {
+    const responsePromise = client.calls.actions.stopSiprec('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('speak: only required params', async () => {
     const responsePromise = client.calls.actions.speak('call_control_id', {
       payload: 'Say this on the call',
@@ -427,226 +564,8 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('startAIAssistant', async () => {
-    const responsePromise = client.calls.actions.startAIAssistant('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('startConversationRelay', async () => {
-    const responsePromise = client.calls.actions.startConversationRelay('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('startForking', async () => {
-    const responsePromise = client.calls.actions.startForking('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('startNoiseSuppression', async () => {
-    const responsePromise = client.calls.actions.startNoiseSuppression('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('startPlayback', async () => {
-    const responsePromise = client.calls.actions.startPlayback('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('startRecording: only required params', async () => {
-    const responsePromise = client.calls.actions.startRecording('call_control_id', {
-      channels: 'single',
-      format: 'wav',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('startRecording: required and optional params', async () => {
-    const response = await client.calls.actions.startRecording('call_control_id', {
-      channels: 'single',
-      format: 'wav',
-      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
-      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-      custom_file_name: 'my_recording_file_name',
-      max_length: 0,
-      play_beep: true,
-      recording_track: 'outbound',
-      timeout_secs: 0,
-      transcription: true,
-      transcription_engine: 'B',
-      transcription_language: 'en',
-      transcription_max_speaker_count: 4,
-      transcription_min_speaker_count: 4,
-      transcription_profanity_filter: true,
-      transcription_speaker_diarization: true,
-      trim: 'trim-silence',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('startSiprec', async () => {
-    const responsePromise = client.calls.actions.startSiprec('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('startStreaming', async () => {
     const responsePromise = client.calls.actions.startStreaming('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('startTranscription', async () => {
-    const responsePromise = client.calls.actions.startTranscription('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('stopAIAssistant', async () => {
-    const responsePromise = client.calls.actions.stopAIAssistant('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('stopConversationRelay', async () => {
-    const responsePromise = client.calls.actions.stopConversationRelay('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('stopForking', async () => {
-    const responsePromise = client.calls.actions.stopForking('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('stopGather', async () => {
-    const responsePromise = client.calls.actions.stopGather('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('stopNoiseSuppression', async () => {
-    const responsePromise = client.calls.actions.stopNoiseSuppression('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('stopPlayback', async () => {
-    const responsePromise = client.calls.actions.stopPlayback('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('stopRecording', async () => {
-    const responsePromise = client.calls.actions.stopRecording('call_control_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('stopSiprec', async () => {
-    const responsePromise = client.calls.actions.stopSiprec('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -669,8 +588,20 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('stopTranscription', async () => {
-    const responsePromise = client.calls.actions.stopTranscription('call_control_id', {});
+  test.skip('startNoiseSuppression', async () => {
+    const responsePromise = client.calls.actions.startNoiseSuppression('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('stopNoiseSuppression', async () => {
+    const responsePromise = client.calls.actions.stopNoiseSuppression('call_control_id', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -695,6 +626,30 @@ describe('resource actions', () => {
   // Mock server tests are disabled
   test.skip('switchSupervisorRole: required and optional params', async () => {
     const response = await client.calls.actions.switchSupervisorRole('call_control_id', { role: 'barge' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('startTranscription', async () => {
+    const responsePromise = client.calls.actions.startTranscription('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('stopTranscription', async () => {
+    const responsePromise = client.calls.actions.stopTranscription('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled
@@ -779,9 +734,22 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('updateClientState: only required params', async () => {
-    const responsePromise = client.calls.actions.updateClientState('call_control_id', {
-      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+  test.skip('addAIAssistantMessages', async () => {
+    const responsePromise = client.calls.actions.addAIAssistantMessages('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('joinAIAssistant: only required params', async () => {
+    const responsePromise = client.calls.actions.joinAIAssistant('call_control_id', {
+      conversation_id: 'v3:abc123',
+      participant: { id: 'v3:abc123def456', role: 'user' },
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -793,9 +761,41 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('updateClientState: required and optional params', async () => {
-    const response = await client.calls.actions.updateClientState('call_control_id', {
+  test.skip('joinAIAssistant: required and optional params', async () => {
+    const response = await client.calls.actions.joinAIAssistant('call_control_id', {
+      conversation_id: 'v3:abc123',
+      participant: {
+        id: 'v3:abc123def456',
+        role: 'user',
+        name: 'John Doe',
+        on_hangup: 'continue_conversation',
+      },
       client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('startConversationRelay', async () => {
+    const responsePromise = client.calls.actions.startConversationRelay('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('stopConversationRelay', async () => {
+    const responsePromise = client.calls.actions.stopConversationRelay('call_control_id', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

@@ -17,20 +17,6 @@ export class Verifications extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Retrieve verification
-   *
-   * @example
-   * ```ts
-   * const verification = await client.verifications.retrieve(
-   *   '12ade33a-21c0-473b-b055-b3c836e1c292',
-   * );
-   * ```
-   */
-  retrieve(verificationID: string, options?: RequestOptions): APIPromise<VerificationRetrieveResponse> {
-    return this._client.get(path`/verifications/${verificationID}`, options);
-  }
-
-  /**
    * Trigger Call verification
    *
    * @example
@@ -88,6 +74,20 @@ export class Verifications extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CreateVerificationResponse> {
     return this._client.post('/verifications/sms', { body, ...options });
+  }
+
+  /**
+   * Retrieve verification
+   *
+   * @example
+   * ```ts
+   * const verification = await client.verifications.retrieve(
+   *   '12ade33a-21c0-473b-b055-b3c836e1c292',
+   * );
+   * ```
+   */
+  retrieve(verificationID: string, options?: RequestOptions): APIPromise<VerificationRetrieveResponse> {
+    return this._client.get(path`/verifications/${verificationID}`, options);
   }
 
   /**

@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource autoRechargePrefs', () => {
   // Mock server tests are disabled
-  test.skip('update', async () => {
-    const responsePromise = client.payment.autoRechargePrefs.update({});
+  test.skip('list', async () => {
+    const responsePromise = client.payment.autoRechargePrefs.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +21,8 @@ describe('resource autoRechargePrefs', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.payment.autoRechargePrefs.list();
+  test.skip('update', async () => {
+    const responsePromise = client.payment.autoRechargePrefs.update({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

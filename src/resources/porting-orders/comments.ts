@@ -11,20 +11,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Comments extends APIResource {
   /**
-   * Creates a new comment for a porting order.
-   *
-   * @example
-   * ```ts
-   * const comment = await client.portingOrders.comments.create(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  create(id: string, body: CommentCreateParams, options?: RequestOptions): APIPromise<CommentCreateResponse> {
-    return this._client.post(path`/porting_orders/${id}/comments`, { body, ...options });
-  }
-
-  /**
    * Returns a list of all comments of a porting order.
    *
    * @example
@@ -47,6 +33,20 @@ export class Comments extends APIResource {
       DefaultFlatPagination<PortingOrdersComment>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Creates a new comment for a porting order.
+   *
+   * @example
+   * ```ts
+   * const comment = await client.portingOrders.comments.create(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  create(id: string, body: CommentCreateParams, options?: RequestOptions): APIPromise<CommentCreateResponse> {
+    return this._client.post(path`/porting_orders/${id}/comments`, { body, ...options });
   }
 }
 
@@ -82,18 +82,18 @@ export interface CommentCreateResponse {
   data?: PortingOrdersComment;
 }
 
+export interface CommentListParams extends DefaultFlatPaginationParams {}
+
 export interface CommentCreateParams {
   body?: string;
 }
-
-export interface CommentListParams extends DefaultFlatPaginationParams {}
 
 export declare namespace Comments {
   export {
     type PortingOrdersComment as PortingOrdersComment,
     type CommentCreateResponse as CommentCreateResponse,
     type PortingOrdersCommentsDefaultFlatPagination as PortingOrdersCommentsDefaultFlatPagination,
-    type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
+    type CommentCreateParams as CommentCreateParams,
   };
 }

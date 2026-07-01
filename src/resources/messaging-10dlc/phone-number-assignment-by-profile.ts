@@ -37,26 +37,22 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
   }
 
   /**
-   * Check the status of the individual phone number/campaign assignments associated
-   * with the supplied `taskId`.
+   * Check the status of the task associated with assigning all phone numbers on a
+   * messaging profile to a campaign by `taskId`.
    *
    * @example
    * ```ts
    * const response =
-   *   await client.messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus(
+   *   await client.messaging10dlc.phoneNumberAssignmentByProfile.retrieveStatus(
    *     'taskId',
    *   );
    * ```
    */
-  listPhoneNumberStatus(
+  retrieveStatus(
     taskID: string,
-    query: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> {
-    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, {
-      query,
-      ...options,
-    });
+  ): APIPromise<PhoneNumberAssignmentByProfileRetrieveStatusResponse> {
+    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}`, options);
   }
 
   /**
@@ -83,22 +79,26 @@ export class PhoneNumberAssignmentByProfile extends APIResource {
   }
 
   /**
-   * Check the status of the task associated with assigning all phone numbers on a
-   * messaging profile to a campaign by `taskId`.
+   * Check the status of the individual phone number/campaign assignments associated
+   * with the supplied `taskId`.
    *
    * @example
    * ```ts
    * const response =
-   *   await client.messaging10dlc.phoneNumberAssignmentByProfile.retrieveStatus(
+   *   await client.messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus(
    *     'taskId',
    *   );
    * ```
    */
-  retrieveStatus(
+  listPhoneNumberStatus(
     taskID: string,
+    query: PhoneNumberAssignmentByProfileListPhoneNumberStatusParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<PhoneNumberAssignmentByProfileRetrieveStatusResponse> {
-    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}`, options);
+  ): APIPromise<PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse> {
+    return this._client.get(path`/10dlc/phoneNumberAssignmentByProfile/${taskID}/phoneNumbers`, {
+      query,
+      ...options,
+    });
   }
 }
 
@@ -187,7 +187,7 @@ export interface PhoneNumberAssignmentByProfileAssignParams {
   tcrCampaignId?: string;
 }
 
-export interface PhoneNumberAssignmentByProfileListPhoneNumberStatusParams {
+export interface PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams {
   /**
    * Page number to retrieve (1-based).
    */
@@ -199,7 +199,7 @@ export interface PhoneNumberAssignmentByProfileListPhoneNumberStatusParams {
   recordsPerPage?: number;
 }
 
-export interface PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams {
+export interface PhoneNumberAssignmentByProfileListPhoneNumberStatusParams {
   /**
    * Page number to retrieve (1-based).
    */
@@ -220,7 +220,7 @@ export declare namespace PhoneNumberAssignmentByProfile {
     type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
     type PhoneNumberAssignmentByProfileRetrieveStatusResponse as PhoneNumberAssignmentByProfileRetrieveStatusResponse,
     type PhoneNumberAssignmentByProfileAssignParams as PhoneNumberAssignmentByProfileAssignParams,
-    type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams as PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
     type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+    type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams as PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
   };
 }

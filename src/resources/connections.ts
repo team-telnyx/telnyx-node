@@ -9,14 +9,6 @@ import { path } from '../internal/utils/path';
 
 export class Connections extends APIResource {
   /**
-   * Retrieves the high-level details of an existing connection. To retrieve specific
-   * authentication information, use the endpoint for the specific connection type.
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<ConnectionRetrieveResponse> {
-    return this._client.get(path`/connections/${id}`, options);
-  }
-
-  /**
    * Returns a list of your connections irrespective of type.
    */
   list(
@@ -41,6 +33,14 @@ export class Connections extends APIResource {
       DefaultFlatPagination<ConnectionListActiveCallsResponse>,
       { query, ...options },
     );
+  }
+
+  /**
+   * Retrieves the high-level details of an existing connection. To retrieve specific
+   * authentication information, use the endpoint for the specific connection type.
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<ConnectionRetrieveResponse> {
+    return this._client.get(path`/connections/${id}`, options);
   }
 }
 

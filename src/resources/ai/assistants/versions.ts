@@ -12,6 +12,39 @@ import { path } from '../../../internal/utils/path';
  */
 export class Versions extends APIResource {
   /**
+   * Retrieves all versions of a specific assistant with complete configuration and
+   * metadata
+   *
+   * @example
+   * ```ts
+   * const assistantsList =
+   *   await client.ai.assistants.versions.list('assistant_id');
+   * ```
+   */
+  list(assistantID: string, options?: RequestOptions): APIPromise<AssistantsAPI.AssistantsList> {
+    return this._client.get(path`/ai/assistants/${assistantID}/versions`, options);
+  }
+
+  /**
+   * Permanently removes a specific version of an assistant. Can not delete main
+   * version
+   *
+   * @example
+   * ```ts
+   * await client.ai.assistants.versions.delete('version_id', {
+   *   assistant_id: 'assistant_id',
+   * });
+   * ```
+   */
+  delete(versionID: string, params: VersionDeleteParams, options?: RequestOptions): APIPromise<void> {
+    const { assistant_id } = params;
+    return this._client.delete(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Retrieves a specific version of an assistant by assistant_id and version_id
    *
    * @example
@@ -56,39 +89,6 @@ export class Versions extends APIResource {
     return this._client.post(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
       body,
       ...options,
-    });
-  }
-
-  /**
-   * Retrieves all versions of a specific assistant with complete configuration and
-   * metadata
-   *
-   * @example
-   * ```ts
-   * const assistantsList =
-   *   await client.ai.assistants.versions.list('assistant_id');
-   * ```
-   */
-  list(assistantID: string, options?: RequestOptions): APIPromise<AssistantsAPI.AssistantsList> {
-    return this._client.get(path`/ai/assistants/${assistantID}/versions`, options);
-  }
-
-  /**
-   * Permanently removes a specific version of an assistant. Can not delete main
-   * version
-   *
-   * @example
-   * ```ts
-   * await client.ai.assistants.versions.delete('version_id', {
-   *   assistant_id: 'assistant_id',
-   * });
-   * ```
-   */
-  delete(versionID: string, params: VersionDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { assistant_id } = params;
-    return this._client.delete(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
 
@@ -272,6 +272,13 @@ export interface UpdateAssistant {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: AssistantsAPI.WidgetSettings;
+}
+
+export interface VersionDeleteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
+  assistant_id: string;
 }
 
 export interface VersionRetrieveParams {
@@ -486,13 +493,6 @@ export interface VersionUpdateParams {
   widget_settings?: AssistantsAPI.WidgetSettings;
 }
 
-export interface VersionDeleteParams {
-  /**
-   * Unique identifier of the assistant.
-   */
-  assistant_id: string;
-}
-
 export interface VersionPromoteParams {
   /**
    * Unique identifier of the assistant.
@@ -503,9 +503,9 @@ export interface VersionPromoteParams {
 export declare namespace Versions {
   export {
     type UpdateAssistant as UpdateAssistant,
+    type VersionDeleteParams as VersionDeleteParams,
     type VersionRetrieveParams as VersionRetrieveParams,
     type VersionUpdateParams as VersionUpdateParams,
-    type VersionDeleteParams as VersionDeleteParams,
     type VersionPromoteParams as VersionPromoteParams,
   };
 }

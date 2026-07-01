@@ -33,6 +33,24 @@ export class Queues extends APIResource {
   }
 
   /**
+   * Delete a queue resource.
+   *
+   * @example
+   * ```ts
+   * await client.texml.accounts.queues.delete('queue_sid', {
+   *   account_sid: 'account_sid',
+   * });
+   * ```
+   */
+  delete(queueSid: string, params: QueueDeleteParams, options?: RequestOptions): APIPromise<void> {
+    const { account_sid } = params;
+    return this._client.delete(path`/texml/Accounts/${account_sid}/Queues/${queueSid}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Returns a queue resource.
    *
    * @example
@@ -95,24 +113,6 @@ export class Queues extends APIResource {
       DefaultPaginationForQueues<QueueResource>,
       { query, ...options },
     );
-  }
-
-  /**
-   * Delete a queue resource.
-   *
-   * @example
-   * ```ts
-   * await client.texml.accounts.queues.delete('queue_sid', {
-   *   account_sid: 'account_sid',
-   * });
-   * ```
-   */
-  delete(queueSid: string, params: QueueDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { account_sid } = params;
-    return this._client.delete(path`/texml/Accounts/${account_sid}/Queues/${queueSid}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 
@@ -177,6 +177,13 @@ export interface QueueCreateParams {
   MaxSize?: number;
 }
 
+export interface QueueDeleteParams {
+  /**
+   * The id of the account the resource belongs to.
+   */
+  account_sid: string;
+}
+
 export interface QueueRetrieveParams {
   /**
    * The id of the account the resource belongs to.
@@ -215,21 +222,14 @@ export interface QueueListParams extends DefaultPaginationForQueuesParams {
   PageToken?: string;
 }
 
-export interface QueueDeleteParams {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid: string;
-}
-
 export declare namespace Queues {
   export {
     type QueueResource as QueueResource,
     type QueueResourcesDefaultPaginationForQueues as QueueResourcesDefaultPaginationForQueues,
     type QueueCreateParams as QueueCreateParams,
+    type QueueDeleteParams as QueueDeleteParams,
     type QueueRetrieveParams as QueueRetrieveParams,
     type QueueUpdateParams as QueueUpdateParams,
     type QueueListParams as QueueListParams,
-    type QueueDeleteParams as QueueDeleteParams,
   };
 }

@@ -73,6 +73,30 @@ export class ExternalConnections extends APIResource {
   uploads: UploadsAPI.Uploads = new UploadsAPI.Uploads(this._client);
 
   /**
+   * This endpoint returns a list of your External Connections inside the 'data'
+   * attribute of the response. External Connections are used by Telnyx customers to
+   * seamless configure SIP trunking integrations with Telnyx Partners, through
+   * External Voice Integrations in Mission Control Portal.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const externalConnection of client.externalConnections.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: ExternalConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ExternalConnectionsDefaultFlatPagination, ExternalConnection> {
+    return this._client.getAPIList('/external_connections', DefaultFlatPagination<ExternalConnection>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a new External Connection based on the parameters sent in the request.
    * The external_sip_connection and outbound voice profile id are required. Once
    * created, you can assign phone numbers to your application using the
@@ -92,6 +116,24 @@ export class ExternalConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ExternalConnectionCreateResponse> {
     return this._client.post('/external_connections', { body, ...options });
+  }
+
+  /**
+   * Permanently deletes an External Connection. Deletion may be prevented if the
+   * application is in use by phone numbers, is active, or if it is an Operator
+   * Connect connection. To remove an Operator Connect integration please contact
+   * Telnyx support.
+   *
+   * @example
+   * ```ts
+   * const externalConnection =
+   *   await client.externalConnections.delete(
+   *     '1293384261075731499',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<ExternalConnectionDeleteResponse> {
+    return this._client.delete(path`/external_connections/${id}`, options);
   }
 
   /**
@@ -133,48 +175,6 @@ export class ExternalConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ExternalConnectionUpdateResponse> {
     return this._client.patch(path`/external_connections/${id}`, { body, ...options });
-  }
-
-  /**
-   * This endpoint returns a list of your External Connections inside the 'data'
-   * attribute of the response. External Connections are used by Telnyx customers to
-   * seamless configure SIP trunking integrations with Telnyx Partners, through
-   * External Voice Integrations in Mission Control Portal.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const externalConnection of client.externalConnections.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: ExternalConnectionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ExternalConnectionsDefaultFlatPagination, ExternalConnection> {
-    return this._client.getAPIList('/external_connections', DefaultFlatPagination<ExternalConnection>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Permanently deletes an External Connection. Deletion may be prevented if the
-   * application is in use by phone numbers, is active, or if it is an Operator
-   * Connect connection. To remove an Operator Connect integration please contact
-   * Telnyx support.
-   *
-   * @example
-   * ```ts
-   * const externalConnection =
-   *   await client.externalConnections.delete(
-   *     '1293384261075731499',
-   *   );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<ExternalConnectionDeleteResponse> {
-    return this._client.delete(path`/external_connections/${id}`, options);
   }
 
   /**
@@ -339,6 +339,71 @@ export namespace ExternalConnectionUpdateLocationResponse {
   }
 }
 
+export interface ExternalConnectionListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter parameter for external connections (deepObject style). Supports filtering
+   * by connection_name, external_sip_connection, id, created_at, and phone_number.
+   */
+  filter?: ExternalConnectionListParams.Filter;
+}
+
+export namespace ExternalConnectionListParams {
+  /**
+   * Filter parameter for external connections (deepObject style). Supports filtering
+   * by connection_name, external_sip_connection, id, created_at, and phone_number.
+   */
+  export interface Filter {
+    /**
+     * If present, connections with <code>id</code> matching the given value will be
+     * returned.
+     */
+    id?: string;
+
+    connection_name?: Filter.ConnectionName;
+
+    /**
+     * If present, connections with <code>created_at</code> date matching the given
+     * YYYY-MM-DD date will be returned.
+     */
+    created_at?: string;
+
+    /**
+     * If present, connections with <code>external_sip_connection</code> matching the
+     * given value will be returned.
+     */
+    external_sip_connection?: 'zoom' | 'operator_connect';
+
+    /**
+     * Phone number filter for connections. Note: Despite the 'contains' name, this
+     * requires a full E164 match per the original specification.
+     */
+    phone_number?: Filter.PhoneNumber;
+  }
+
+  export namespace Filter {
+    export interface ConnectionName {
+      /**
+       * If present, connections with <code>connection_name</code> containing the given
+       * value will be returned. Matching is not case-sensitive. Requires at least three
+       * characters.
+       */
+      contains?: string;
+    }
+
+    /**
+     * Phone number filter for connections. Note: Despite the 'contains' name, this
+     * requires a full E164 match per the original specification.
+     */
+    export interface PhoneNumber {
+      /**
+       * If present, connections associated with the given phone_number will be returned.
+       * A full match is necessary with a e164 format.
+       */
+      contains?: string;
+    }
+  }
+}
+
 export interface ExternalConnectionCreateParams {
   /**
    * The service that will be consuming this connection.
@@ -461,71 +526,6 @@ export namespace ExternalConnectionUpdateParams {
   }
 }
 
-export interface ExternalConnectionListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter parameter for external connections (deepObject style). Supports filtering
-   * by connection_name, external_sip_connection, id, created_at, and phone_number.
-   */
-  filter?: ExternalConnectionListParams.Filter;
-}
-
-export namespace ExternalConnectionListParams {
-  /**
-   * Filter parameter for external connections (deepObject style). Supports filtering
-   * by connection_name, external_sip_connection, id, created_at, and phone_number.
-   */
-  export interface Filter {
-    /**
-     * If present, connections with <code>id</code> matching the given value will be
-     * returned.
-     */
-    id?: string;
-
-    connection_name?: Filter.ConnectionName;
-
-    /**
-     * If present, connections with <code>created_at</code> date matching the given
-     * YYYY-MM-DD date will be returned.
-     */
-    created_at?: string;
-
-    /**
-     * If present, connections with <code>external_sip_connection</code> matching the
-     * given value will be returned.
-     */
-    external_sip_connection?: 'zoom' | 'operator_connect';
-
-    /**
-     * Phone number filter for connections. Note: Despite the 'contains' name, this
-     * requires a full E164 match per the original specification.
-     */
-    phone_number?: Filter.PhoneNumber;
-  }
-
-  export namespace Filter {
-    export interface ConnectionName {
-      /**
-       * If present, connections with <code>connection_name</code> containing the given
-       * value will be returned. Matching is not case-sensitive. Requires at least three
-       * characters.
-       */
-      contains?: string;
-    }
-
-    /**
-     * Phone number filter for connections. Note: Despite the 'contains' name, this
-     * requires a full E164 match per the original specification.
-     */
-    export interface PhoneNumber {
-      /**
-       * If present, connections associated with the given phone_number will be returned.
-       * A full match is necessary with a e164 format.
-       */
-      contains?: string;
-    }
-  }
-}
-
 export interface ExternalConnectionUpdateLocationParams {
   /**
    * Path param: The ID of the external connection
@@ -554,9 +554,9 @@ export declare namespace ExternalConnections {
     type ExternalConnectionDeleteResponse as ExternalConnectionDeleteResponse,
     type ExternalConnectionUpdateLocationResponse as ExternalConnectionUpdateLocationResponse,
     type ExternalConnectionsDefaultFlatPagination as ExternalConnectionsDefaultFlatPagination,
+    type ExternalConnectionListParams as ExternalConnectionListParams,
     type ExternalConnectionCreateParams as ExternalConnectionCreateParams,
     type ExternalConnectionUpdateParams as ExternalConnectionUpdateParams,
-    type ExternalConnectionListParams as ExternalConnectionListParams,
     type ExternalConnectionUpdateLocationParams as ExternalConnectionUpdateLocationParams,
   };
 
@@ -575,8 +575,8 @@ export declare namespace ExternalConnections {
     type Location as Location,
     type CivicAddressRetrieveResponse as CivicAddressRetrieveResponse,
     type CivicAddressListResponse as CivicAddressListResponse,
-    type CivicAddressRetrieveParams as CivicAddressRetrieveParams,
     type CivicAddressListParams as CivicAddressListParams,
+    type CivicAddressRetrieveParams as CivicAddressRetrieveParams,
   };
 
   export {
@@ -585,9 +585,9 @@ export declare namespace ExternalConnections {
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
     type ExternalConnectionPhoneNumbersDefaultFlatPagination as ExternalConnectionPhoneNumbersDefaultFlatPagination,
+    type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
-    type PhoneNumberListParams as PhoneNumberListParams,
   };
 
   export {
@@ -596,8 +596,8 @@ export declare namespace ExternalConnections {
     type TnReleaseEntry as TnReleaseEntry,
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
     type ReleasesDefaultFlatPagination as ReleasesDefaultFlatPagination,
-    type ReleaseRetrieveParams as ReleaseRetrieveParams,
     type ReleaseListParams as ReleaseListParams,
+    type ReleaseRetrieveParams as ReleaseRetrieveParams,
   };
 
   export {
@@ -610,9 +610,9 @@ export declare namespace ExternalConnections {
     type UploadRefreshStatusResponse as UploadRefreshStatusResponse,
     type UploadRetryResponse as UploadRetryResponse,
     type UploadsDefaultFlatPagination as UploadsDefaultFlatPagination,
+    type UploadListParams as UploadListParams,
     type UploadCreateParams as UploadCreateParams,
     type UploadRetrieveParams as UploadRetrieveParams,
-    type UploadListParams as UploadListParams,
     type UploadRetryParams as UploadRetryParams,
   };
 }

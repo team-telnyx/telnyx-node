@@ -11,20 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class ChannelZones extends APIResource {
   /**
-   * Update the number of Voice Channels for the Non-US Zones. This allows your
-   * account to handle multiple simultaneous inbound calls to Non-US numbers. Use
-   * this endpoint to increase or decrease your capacity based on expected call
-   * volume.
-   */
-  update(
-    channelZoneID: string,
-    body: ChannelZoneUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<GcbChannelZone> {
-    return this._client.put(path`/channel_zones/${channelZoneID}`, { body, ...options });
-  }
-
-  /**
    * Returns the non-US voice channels for your account. voice channels allow you to
    * use Channel Billing for calls to your Telnyx phone numbers. Please check the
    * <a href="https://support.telnyx.com/en/articles/8428806-global-channel-billing">Telnyx
@@ -39,6 +25,20 @@ export class ChannelZones extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Update the number of Voice Channels for the Non-US Zones. This allows your
+   * account to handle multiple simultaneous inbound calls to Non-US numbers. Use
+   * this endpoint to increase or decrease your capacity based on expected call
+   * volume.
+   */
+  update(
+    channelZoneID: string,
+    body: ChannelZoneUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<GcbChannelZone> {
+    return this._client.put(path`/channel_zones/${channelZoneID}`, { body, ...options });
   }
 }
 
@@ -70,6 +70,8 @@ export interface GcbChannelZone {
   updated_at?: string;
 }
 
+export interface ChannelZoneListParams extends DefaultFlatPaginationParams {}
+
 export interface ChannelZoneUpdateParams {
   /**
    * The number of reserved channels
@@ -77,13 +79,11 @@ export interface ChannelZoneUpdateParams {
   channels: number;
 }
 
-export interface ChannelZoneListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace ChannelZones {
   export {
     type GcbChannelZone as GcbChannelZone,
     type GcbChannelZonesDefaultFlatPagination as GcbChannelZonesDefaultFlatPagination,
-    type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
     type ChannelZoneListParams as ChannelZoneListParams,
+    type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
   };
 }

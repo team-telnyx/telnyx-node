@@ -11,16 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class RecordingTranscriptions extends APIResource {
   /**
-   * Retrieves the details of an existing recording transcription.
-   */
-  retrieve(
-    recordingTranscriptionID: string,
-    options?: RequestOptions,
-  ): APIPromise<RecordingTranscriptionRetrieveResponse> {
-    return this._client.get(path`/recording_transcriptions/${recordingTranscriptionID}`, options);
-  }
-
-  /**
    * Returns a list of your recording transcriptions.
    */
   list(
@@ -42,6 +32,16 @@ export class RecordingTranscriptions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<RecordingTranscriptionDeleteResponse> {
     return this._client.delete(path`/recording_transcriptions/${recordingTranscriptionID}`, options);
+  }
+
+  /**
+   * Retrieves the details of an existing recording transcription.
+   */
+  retrieve(
+    recordingTranscriptionID: string,
+    options?: RequestOptions,
+  ): APIPromise<RecordingTranscriptionRetrieveResponse> {
+    return this._client.get(path`/recording_transcriptions/${recordingTranscriptionID}`, options);
   }
 }
 

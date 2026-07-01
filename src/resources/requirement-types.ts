@@ -12,21 +12,6 @@ import { path } from '../internal/utils/path';
  */
 export class RequirementTypes extends APIResource {
   /**
-   * Retrieve a requirement type by id
-   *
-   * @example
-   * ```ts
-   * const requirementType =
-   *   await client.requirementTypes.retrieve(
-   *     'a38c217a-8019-48f8-bff6-0fdd9939075b',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<RequirementTypeRetrieveResponse> {
-    return this._client.get(path`/requirement_types/${id}`, options);
-  }
-
-  /**
    * List all requirement types ordered by created_at descending
    *
    * @example
@@ -40,6 +25,21 @@ export class RequirementTypes extends APIResource {
     options?: RequestOptions,
   ): APIPromise<RequirementTypeListResponse> {
     return this._client.get('/requirement_types', { query, ...options });
+  }
+
+  /**
+   * Retrieve a requirement type by id
+   *
+   * @example
+   * ```ts
+   * const requirementType =
+   *   await client.requirementTypes.retrieve(
+   *     'a38c217a-8019-48f8-bff6-0fdd9939075b',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<RequirementTypeRetrieveResponse> {
+    return this._client.get(path`/requirement_types/${id}`, options);
   }
 }
 

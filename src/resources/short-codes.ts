@@ -13,6 +13,27 @@ import { path } from '../internal/utils/path';
  */
 export class ShortCodes extends APIResource {
   /**
+   * List short codes
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const shortCode of client.shortCodes.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: ShortCodeListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ShortCodesDefaultFlatPagination, Shared.ShortCode> {
+    return this._client.getAPIList('/short_codes', DefaultFlatPagination<Shared.ShortCode>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Retrieve a short code
    *
    * @example
@@ -49,27 +70,6 @@ export class ShortCodes extends APIResource {
   ): APIPromise<ShortCodeUpdateResponse> {
     return this._client.patch(path`/short_codes/${id}`, { body, ...options });
   }
-
-  /**
-   * List short codes
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const shortCode of client.shortCodes.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: ShortCodeListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ShortCodesDefaultFlatPagination, Shared.ShortCode> {
-    return this._client.getAPIList('/short_codes', DefaultFlatPagination<Shared.ShortCode>, {
-      query,
-      ...options,
-    });
-  }
 }
 
 export interface ShortCodeRetrieveResponse {
@@ -78,15 +78,6 @@ export interface ShortCodeRetrieveResponse {
 
 export interface ShortCodeUpdateResponse {
   data?: Shared.ShortCode;
-}
-
-export interface ShortCodeUpdateParams {
-  /**
-   * Unique identifier for a messaging profile.
-   */
-  messaging_profile_id: string;
-
-  tags?: Array<string>;
 }
 
 export interface ShortCodeListParams extends DefaultFlatPaginationParams {
@@ -112,12 +103,21 @@ export namespace ShortCodeListParams {
   }
 }
 
+export interface ShortCodeUpdateParams {
+  /**
+   * Unique identifier for a messaging profile.
+   */
+  messaging_profile_id: string;
+
+  tags?: Array<string>;
+}
+
 export declare namespace ShortCodes {
   export {
     type ShortCodeRetrieveResponse as ShortCodeRetrieveResponse,
     type ShortCodeUpdateResponse as ShortCodeUpdateResponse,
-    type ShortCodeUpdateParams as ShortCodeUpdateParams,
     type ShortCodeListParams as ShortCodeListParams,
+    type ShortCodeUpdateParams as ShortCodeUpdateParams,
   };
 }
 

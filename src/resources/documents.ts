@@ -12,6 +12,78 @@ import { path } from '../internal/utils/path';
  */
 export class Documents extends APIResource {
   /**
+   * List all documents ordered by created_at descending.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const docServiceDocument of client.documents.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: DocumentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DocServiceDocumentsDefaultFlatPagination, DocServiceDocument> {
+    return this._client.getAPIList('/documents', DefaultFlatPagination<DocServiceDocument>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
+   * Upload a document.<br /><br />Uploaded files must be linked to a service within
+   * 30 minutes or they will be automatically deleted.
+   *
+   * @example
+   * ```ts
+   * const response = await client.documents.upload({
+   *   document: {},
+   * });
+   * ```
+   */
+  upload(params: DocumentUploadParams, options?: RequestOptions): APIPromise<DocumentUploadResponse> {
+    const { document } = params;
+    return this._client.post('/documents?content-type=multipart', { body: document, ...options });
+  }
+
+  /**
+   * Upload a document.<br /><br />Uploaded files must be linked to a service within
+   * 30 minutes or they will be automatically deleted.
+   *
+   * @example
+   * ```ts
+   * const response = await client.documents.uploadJson({
+   *   document: {},
+   * });
+   * ```
+   */
+  uploadJson(
+    params: DocumentUploadJsonParams,
+    options?: RequestOptions,
+  ): APIPromise<DocumentUploadJsonResponse> {
+    const { document } = params;
+    return this._client.post('/documents', { body: document, ...options });
+  }
+
+  /**
+   * Delete a document.<br /><br />A document can only be deleted if it's not linked
+   * to a service. If it is linked to a service, it must be unlinked prior to
+   * deleting.
+   *
+   * @example
+   * ```ts
+   * const document = await client.documents.delete(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<DocumentDeleteResponse> {
+    return this._client.delete(path`/documents/${id}`, options);
+  }
+
+  /**
    * Retrieve a document.
    *
    * @example
@@ -41,43 +113,6 @@ export class Documents extends APIResource {
     options?: RequestOptions,
   ): APIPromise<DocumentUpdateResponse> {
     return this._client.patch(path`/documents/${documentID}`, { body, ...options });
-  }
-
-  /**
-   * List all documents ordered by created_at descending.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const docServiceDocument of client.documents.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: DocumentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<DocServiceDocumentsDefaultFlatPagination, DocServiceDocument> {
-    return this._client.getAPIList('/documents', DefaultFlatPagination<DocServiceDocument>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete a document.<br /><br />A document can only be deleted if it's not linked
-   * to a service. If it is linked to a service, it must be unlinked prior to
-   * deleting.
-   *
-   * @example
-   * ```ts
-   * const document = await client.documents.delete(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<DocumentDeleteResponse> {
-    return this._client.delete(path`/documents/${id}`, options);
   }
 
   /**
@@ -118,41 +153,6 @@ export class Documents extends APIResource {
     options?: RequestOptions,
   ): APIPromise<DocumentGenerateDownloadLinkResponse> {
     return this._client.get(path`/documents/${id}/download_link`, options);
-  }
-
-  /**
-   * Upload a document.<br /><br />Uploaded files must be linked to a service within
-   * 30 minutes or they will be automatically deleted.
-   *
-   * @example
-   * ```ts
-   * const response = await client.documents.upload({
-   *   document: {},
-   * });
-   * ```
-   */
-  upload(params: DocumentUploadParams, options?: RequestOptions): APIPromise<DocumentUploadResponse> {
-    const { document } = params;
-    return this._client.post('/documents?content-type=multipart', { body: document, ...options });
-  }
-
-  /**
-   * Upload a document.<br /><br />Uploaded files must be linked to a service within
-   * 30 minutes or they will be automatically deleted.
-   *
-   * @example
-   * ```ts
-   * const response = await client.documents.uploadJson({
-   *   document: {},
-   * });
-   * ```
-   */
-  uploadJson(
-    params: DocumentUploadJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<DocumentUploadJsonResponse> {
-    const { document } = params;
-    return this._client.post('/documents', { body: document, ...options });
   }
 }
 
@@ -270,18 +270,6 @@ export interface DocumentUploadResponse {
 
 export interface DocumentUploadJsonResponse {
   data?: DocServiceDocument;
-}
-
-export interface DocumentUpdateParams {
-  /**
-   * Optional reference string for customer tracking.
-   */
-  customer_reference?: string;
-
-  /**
-   * The filename of the document.
-   */
-  filename?: string;
 }
 
 export interface DocumentListParams extends DefaultFlatPaginationParams {
@@ -406,6 +394,18 @@ export namespace DocumentUploadJsonParams {
   }
 }
 
+export interface DocumentUpdateParams {
+  /**
+   * Optional reference string for customer tracking.
+   */
+  customer_reference?: string;
+
+  /**
+   * The filename of the document.
+   */
+  filename?: string;
+}
+
 export declare namespace Documents {
   export {
     type DocServiceDocument as DocServiceDocument,
@@ -417,9 +417,9 @@ export declare namespace Documents {
     type DocumentUploadResponse as DocumentUploadResponse,
     type DocumentUploadJsonResponse as DocumentUploadJsonResponse,
     type DocServiceDocumentsDefaultFlatPagination as DocServiceDocumentsDefaultFlatPagination,
-    type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,
     type DocumentUploadParams as DocumentUploadParams,
     type DocumentUploadJsonParams as DocumentUploadJsonParams,
+    type DocumentUpdateParams as DocumentUpdateParams,
   };
 }

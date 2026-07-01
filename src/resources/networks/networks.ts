@@ -25,6 +25,24 @@ export class Networks extends APIResource {
   );
 
   /**
+   * List all Networks.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const network of client.networks.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: NetworkListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NetworksDefaultFlatPagination, Network> {
+    return this._client.getAPIList('/networks', DefaultFlatPagination<Network>, { query, ...options });
+  }
+
+  /**
    * Create a new Network.
    *
    * @example
@@ -37,6 +55,20 @@ export class Networks extends APIResource {
   create(params: NetworkCreateParams, options?: RequestOptions): APIPromise<NetworkCreateResponse> {
     const { network_create } = params;
     return this._client.post('/networks', { body: network_create, ...options });
+  }
+
+  /**
+   * Delete a Network.
+   *
+   * @example
+   * ```ts
+   * const network = await client.networks.delete(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<NetworkDeleteResponse> {
+    return this._client.delete(path`/networks/${id}`, options);
   }
 
   /**
@@ -71,38 +103,6 @@ export class Networks extends APIResource {
   ): APIPromise<NetworkUpdateResponse> {
     const { network_create } = params;
     return this._client.patch(path`/networks/${networkID}`, { body: network_create, ...options });
-  }
-
-  /**
-   * List all Networks.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const network of client.networks.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: NetworkListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NetworksDefaultFlatPagination, Network> {
-    return this._client.getAPIList('/networks', DefaultFlatPagination<Network>, { query, ...options });
-  }
-
-  /**
-   * Delete a Network.
-   *
-   * @example
-   * ```ts
-   * const network = await client.networks.delete(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<NetworkDeleteResponse> {
-    return this._client.delete(path`/networks/${id}`, options);
   }
 
   /**
@@ -234,14 +234,6 @@ export namespace NetworkListInterfacesResponse {
   }
 }
 
-export interface NetworkCreateParams {
-  network_create: NetworkCreate;
-}
-
-export interface NetworkUpdateParams {
-  network_create: NetworkCreate;
-}
-
 export interface NetworkListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[name]
@@ -259,6 +251,14 @@ export namespace NetworkListParams {
      */
     name?: string;
   }
+}
+
+export interface NetworkCreateParams {
+  network_create: NetworkCreate;
+}
+
+export interface NetworkUpdateParams {
+  network_create: NetworkCreate;
 }
 
 export interface NetworkListInterfacesParams extends DefaultFlatPaginationParams {
@@ -301,9 +301,9 @@ export declare namespace Networks {
     type NetworkListInterfacesResponse as NetworkListInterfacesResponse,
     type NetworksDefaultFlatPagination as NetworksDefaultFlatPagination,
     type NetworkListInterfacesResponsesDefaultFlatPagination as NetworkListInterfacesResponsesDefaultFlatPagination,
+    type NetworkListParams as NetworkListParams,
     type NetworkCreateParams as NetworkCreateParams,
     type NetworkUpdateParams as NetworkUpdateParams,
-    type NetworkListParams as NetworkListParams,
     type NetworkListInterfacesParams as NetworkListInterfacesParams,
   };
 

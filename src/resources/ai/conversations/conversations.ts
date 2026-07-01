@@ -43,6 +43,25 @@ export class Conversations extends APIResource {
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
 
   /**
+   * Retrieve a list of all AI conversations configured by the user. Supports
+   * [PostgREST-style query parameters](https://postgrest.org/en/stable/api.html#horizontal-filtering-rows)
+   * for filtering. Examples are included for the standard metadata fields, but you
+   * can filter on any field in the metadata JSON object. For example, to filter by a
+   * custom field `metadata->custom_field`, use `metadata->custom_field=eq.value`.
+   *
+   * @example
+   * ```ts
+   * const conversations = await client.ai.conversations.list();
+   * ```
+   */
+  list(
+    query: ConversationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConversationListResponse> {
+    return this._client.get('/ai/conversations', { query, ...options });
+  }
+
+  /**
    * Create a new AI Conversation.
    *
    * @example
@@ -52,6 +71,21 @@ export class Conversations extends APIResource {
    */
   create(body: ConversationCreateParams, options?: RequestOptions): APIPromise<Conversation> {
     return this._client.post('/ai/conversations', { body, ...options });
+  }
+
+  /**
+   * Delete a specific conversation by its ID.
+   *
+   * @example
+   * ```ts
+   * await client.ai.conversations.delete('conversation_id');
+   * ```
+   */
+  delete(conversationID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/conversations/${conversationID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -87,37 +121,21 @@ export class Conversations extends APIResource {
   }
 
   /**
-   * Retrieve a list of all AI conversations configured by the user. Supports
-   * [PostgREST-style query parameters](https://postgrest.org/en/stable/api.html#horizontal-filtering-rows)
-   * for filtering. Examples are included for the standard metadata fields, but you
-   * can filter on any field in the metadata JSON object. For example, to filter by a
-   * custom field `metadata->custom_field`, use `metadata->custom_field=eq.value`.
+   * Retrieve insights for a specific conversation
    *
    * @example
    * ```ts
-   * const conversations = await client.ai.conversations.list();
+   * const response =
+   *   await client.ai.conversations.retrieveConversationsInsights(
+   *     'conversation_id',
+   *   );
    * ```
    */
-  list(
-    query: ConversationListParams | null | undefined = {},
+  retrieveConversationsInsights(
+    conversationID: string,
     options?: RequestOptions,
-  ): APIPromise<ConversationListResponse> {
-    return this._client.get('/ai/conversations', { query, ...options });
-  }
-
-  /**
-   * Delete a specific conversation by its ID.
-   *
-   * @example
-   * ```ts
-   * await client.ai.conversations.delete('conversation_id');
-   * ```
-   */
-  delete(conversationID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/conversations/${conversationID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  ): APIPromise<ConversationRetrieveConversationsInsightsResponse> {
+    return this._client.get(path`/ai/conversations/${conversationID}/conversations-insights`, options);
   }
 
   /**
@@ -142,24 +160,6 @@ export class Conversations extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
-  }
-
-  /**
-   * Retrieve insights for a specific conversation
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.ai.conversations.retrieveConversationsInsights(
-   *     'conversation_id',
-   *   );
-   * ```
-   */
-  retrieveConversationsInsights(
-    conversationID: string,
-    options?: RequestOptions,
-  ): APIPromise<ConversationRetrieveConversationsInsightsResponse> {
-    return this._client.get(path`/ai/conversations/${conversationID}/conversations-insights`, options);
   }
 }
 
@@ -247,25 +247,6 @@ export namespace ConversationRetrieveConversationsInsightsResponse {
   }
 }
 
-export interface ConversationCreateParams {
-  /**
-   * Metadata associated with the conversation. Set `ai_disabled` to `true` to create
-   * the conversation with AI message responses disabled.
-   */
-  metadata?: { [key: string]: string };
-
-  name?: string;
-}
-
-export interface ConversationUpdateParams {
-  /**
-   * Metadata associated with the conversation. Set `ai_disabled` to `true` to stop
-   * AI from responding to messages (e.g., when a human agent takes over). Set to
-   * `false` to re-enable AI responses.
-   */
-  metadata?: { [key: string]: string };
-}
-
 export interface ConversationListParams {
   /**
    * Filter by conversation ID (e.g. id=eq.123)
@@ -333,6 +314,25 @@ export interface ConversationListParams {
   order?: string;
 }
 
+export interface ConversationCreateParams {
+  /**
+   * Metadata associated with the conversation. Set `ai_disabled` to `true` to create
+   * the conversation with AI message responses disabled.
+   */
+  metadata?: { [key: string]: string };
+
+  name?: string;
+}
+
+export interface ConversationUpdateParams {
+  /**
+   * Metadata associated with the conversation. Set `ai_disabled` to `true` to stop
+   * AI from responding to messages (e.g., when a human agent takes over). Set to
+   * `false` to re-enable AI responses.
+   */
+  metadata?: { [key: string]: string };
+}
+
 export interface ConversationAddMessageParams {
   role: string;
 
@@ -362,9 +362,9 @@ export declare namespace Conversations {
     type ConversationUpdateResponse as ConversationUpdateResponse,
     type ConversationListResponse as ConversationListResponse,
     type ConversationRetrieveConversationsInsightsResponse as ConversationRetrieveConversationsInsightsResponse,
+    type ConversationListParams as ConversationListParams,
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
-    type ConversationListParams as ConversationListParams,
     type ConversationAddMessageParams as ConversationAddMessageParams,
   };
 
@@ -373,9 +373,9 @@ export declare namespace Conversations {
     type InsightTemplateGroup as InsightTemplateGroup,
     type InsightTemplateGroupDetail as InsightTemplateGroupDetail,
     type InsightTemplateGroupsDefaultFlatPagination as InsightTemplateGroupsDefaultFlatPagination,
-    type InsightGroupUpdateParams as InsightGroupUpdateParams,
-    type InsightGroupInsightGroupsParams as InsightGroupInsightGroupsParams,
     type InsightGroupRetrieveInsightGroupsParams as InsightGroupRetrieveInsightGroupsParams,
+    type InsightGroupInsightGroupsParams as InsightGroupInsightGroupsParams,
+    type InsightGroupUpdateParams as InsightGroupUpdateParams,
   };
 
   export {
@@ -383,9 +383,9 @@ export declare namespace Conversations {
     type InsightTemplate as InsightTemplate,
     type InsightTemplateDetail as InsightTemplateDetail,
     type InsightTemplatesDefaultFlatPagination as InsightTemplatesDefaultFlatPagination,
+    type InsightListParams as InsightListParams,
     type InsightCreateParams as InsightCreateParams,
     type InsightUpdateParams as InsightUpdateParams,
-    type InsightListParams as InsightListParams,
   };
 
   export {

@@ -11,6 +11,24 @@ import { path } from '../internal/utils/path';
  */
 export class IPs extends APIResource {
   /**
+   * Get all IPs belonging to the user that match the given filters.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const ip of client.ips.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: IPListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<IPsDefaultFlatPagination, IP> {
+    return this._client.getAPIList('/ips', DefaultFlatPagination<IP>, { query, ...options });
+  }
+
+  /**
    * Create a new IP object.
    *
    * @example
@@ -22,6 +40,20 @@ export class IPs extends APIResource {
    */
   create(body: IPCreateParams, options?: RequestOptions): APIPromise<IPCreateResponse> {
     return this._client.post('/ips', { body, ...options });
+  }
+
+  /**
+   * Delete an IP.
+   *
+   * @example
+   * ```ts
+   * const ip = await client.ips.delete(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<IPDeleteResponse> {
+    return this._client.delete(path`/ips/${id}`, options);
   }
 
   /**
@@ -51,38 +83,6 @@ export class IPs extends APIResource {
    */
   update(id: string, body: IPUpdateParams, options?: RequestOptions): APIPromise<IPUpdateResponse> {
     return this._client.patch(path`/ips/${id}`, { body, ...options });
-  }
-
-  /**
-   * Get all IPs belonging to the user that match the given filters.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const ip of client.ips.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: IPListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<IPsDefaultFlatPagination, IP> {
-    return this._client.getAPIList('/ips', DefaultFlatPagination<IP>, { query, ...options });
-  }
-
-  /**
-   * Delete an IP.
-   *
-   * @example
-   * ```ts
-   * const ip = await client.ips.delete(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<IPDeleteResponse> {
-    return this._client.delete(path`/ips/${id}`, options);
   }
 }
 
@@ -141,6 +141,37 @@ export interface IPDeleteResponse {
   data?: IP;
 }
 
+export interface IPListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_id], filter[ip_address], filter[port]
+   */
+  filter?: IPListParams.Filter;
+}
+
+export namespace IPListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_id], filter[ip_address], filter[port]
+   */
+  export interface Filter {
+    /**
+     * ID of the IP Connection to which this IP should be attached.
+     */
+    connection_id?: string;
+
+    /**
+     * IP adddress represented by this resource.
+     */
+    ip_address?: string;
+
+    /**
+     * Port to use when connecting to this IP.
+     */
+    port?: number;
+  }
+}
+
 export interface IPCreateParams {
   /**
    * IP adddress represented by this resource.
@@ -175,37 +206,6 @@ export interface IPUpdateParams {
   port?: number;
 }
 
-export interface IPListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_id], filter[ip_address], filter[port]
-   */
-  filter?: IPListParams.Filter;
-}
-
-export namespace IPListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_id], filter[ip_address], filter[port]
-   */
-  export interface Filter {
-    /**
-     * ID of the IP Connection to which this IP should be attached.
-     */
-    connection_id?: string;
-
-    /**
-     * IP adddress represented by this resource.
-     */
-    ip_address?: string;
-
-    /**
-     * Port to use when connecting to this IP.
-     */
-    port?: number;
-  }
-}
-
 export declare namespace IPs {
   export {
     type IP as IP,
@@ -214,8 +214,8 @@ export declare namespace IPs {
     type IPUpdateResponse as IPUpdateResponse,
     type IPDeleteResponse as IPDeleteResponse,
     type IPsDefaultFlatPagination as IPsDefaultFlatPagination,
+    type IPListParams as IPListParams,
     type IPCreateParams as IPCreateParams,
     type IPUpdateParams as IPUpdateParams,
-    type IPListParams as IPListParams,
   };
 }

@@ -12,6 +12,19 @@ import { path } from '../internal/utils/path';
  */
 export class MobilePushCredentials extends APIResource {
   /**
+   * List mobile push credentials
+   */
+  list(
+    query: MobilePushCredentialListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PushCredentialsDefaultFlatPagination, PushCredential> {
+    return this._client.getAPIList('/mobile_push_credentials', DefaultFlatPagination<PushCredential>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a new mobile push credential
    */
   create(
@@ -26,26 +39,6 @@ export class MobilePushCredentials extends APIResource {
   }
 
   /**
-   * Retrieves mobile push credential based on the given `push_credential_id`
-   */
-  retrieve(pushCredentialID: string, options?: RequestOptions): APIPromise<PushCredentialResponse> {
-    return this._client.get(path`/mobile_push_credentials/${pushCredentialID}`, options);
-  }
-
-  /**
-   * List mobile push credentials
-   */
-  list(
-    query: MobilePushCredentialListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PushCredentialsDefaultFlatPagination, PushCredential> {
-    return this._client.getAPIList('/mobile_push_credentials', DefaultFlatPagination<PushCredential>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
    * Deletes a mobile push credential based on the given `push_credential_id`
    */
   delete(pushCredentialID: string, options?: RequestOptions): APIPromise<void> {
@@ -53,6 +46,13 @@ export class MobilePushCredentials extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * Retrieves mobile push credential based on the given `push_credential_id`
+   */
+  retrieve(pushCredentialID: string, options?: RequestOptions): APIPromise<PushCredentialResponse> {
+    return this._client.get(path`/mobile_push_credentials/${pushCredentialID}`, options);
   }
 }
 
@@ -110,6 +110,32 @@ export interface PushCredentialResponse {
   data?: PushCredential;
 }
 
+export interface MobilePushCredentialListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[type],
+   * filter[alias]
+   */
+  filter?: MobilePushCredentialListParams.Filter;
+}
+
+export namespace MobilePushCredentialListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[type],
+   * filter[alias]
+   */
+  export interface Filter {
+    /**
+     * Unique mobile push credential alias
+     */
+    alias?: string;
+
+    /**
+     * type of mobile push credentials
+     */
+    type?: 'ios' | 'android';
+  }
+}
+
 export interface MobilePushCredentialCreateParams {
   createMobilePushCredentialRequest:
     | MobilePushCredentialCreateParams.Ios
@@ -157,38 +183,12 @@ export namespace MobilePushCredentialCreateParams {
   }
 }
 
-export interface MobilePushCredentialListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[type],
-   * filter[alias]
-   */
-  filter?: MobilePushCredentialListParams.Filter;
-}
-
-export namespace MobilePushCredentialListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[type],
-   * filter[alias]
-   */
-  export interface Filter {
-    /**
-     * Unique mobile push credential alias
-     */
-    alias?: string;
-
-    /**
-     * type of mobile push credentials
-     */
-    type?: 'ios' | 'android';
-  }
-}
-
 export declare namespace MobilePushCredentials {
   export {
     type PushCredential as PushCredential,
     type PushCredentialResponse as PushCredentialResponse,
     type PushCredentialsDefaultFlatPagination as PushCredentialsDefaultFlatPagination,
-    type MobilePushCredentialCreateParams as MobilePushCredentialCreateParams,
     type MobilePushCredentialListParams as MobilePushCredentialListParams,
+    type MobilePushCredentialCreateParams as MobilePushCredentialCreateParams,
   };
 }

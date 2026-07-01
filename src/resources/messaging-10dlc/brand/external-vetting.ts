@@ -25,29 +25,6 @@ export class ExternalVettingResource extends APIResource {
   }
 
   /**
-   * This operation can be used to import an external vetting record from a
-   * TCR-approved vetting provider. If the vetting provider confirms validity of the
-   * record, it will be saved with the brand and will be considered for future
-   * campaign qualification.
-   *
-   * @example
-   * ```ts
-   * const externalVetting =
-   *   await client.messaging10dlc.brand.externalVetting.imports(
-   *     'brandId',
-   *     { evpId: 'evpId', vettingId: 'vettingId' },
-   *   );
-   * ```
-   */
-  imports(
-    brandID: string,
-    body: ExternalVettingImportsParams,
-    options?: RequestOptions,
-  ): APIPromise<ExternalVetting> {
-    return this._client.put(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
-  }
-
-  /**
    * Order new external vetting for a brand.
    *
    * Duplicate orders for the same `evpId` and `vettingClass` return `400` with code
@@ -69,6 +46,29 @@ export class ExternalVettingResource extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ExternalVetting> {
     return this._client.post(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
+  }
+
+  /**
+   * This operation can be used to import an external vetting record from a
+   * TCR-approved vetting provider. If the vetting provider confirms validity of the
+   * record, it will be saved with the brand and will be considered for future
+   * campaign qualification.
+   *
+   * @example
+   * ```ts
+   * const externalVetting =
+   *   await client.messaging10dlc.brand.externalVetting.imports(
+   *     'brandId',
+   *     { evpId: 'evpId', vettingId: 'vettingId' },
+   *   );
+   * ```
+   */
+  imports(
+    brandID: string,
+    body: ExternalVettingImportsParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalVetting> {
+    return this._client.put(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
   }
 }
 
@@ -115,6 +115,18 @@ export interface ExternalVetting {
 
 export type ExternalVettingListResponse = Array<ExternalVetting>;
 
+export interface ExternalVettingOrderParams {
+  /**
+   * External vetting provider ID for the brand.
+   */
+  evpId: string;
+
+  /**
+   * Identifies the vetting classification.
+   */
+  vettingClass: string;
+}
+
 export interface ExternalVettingImportsParams {
   /**
    * External vetting provider ID for the brand.
@@ -133,23 +145,11 @@ export interface ExternalVettingImportsParams {
   vettingToken?: string;
 }
 
-export interface ExternalVettingOrderParams {
-  /**
-   * External vetting provider ID for the brand.
-   */
-  evpId: string;
-
-  /**
-   * Identifies the vetting classification.
-   */
-  vettingClass: string;
-}
-
 export declare namespace ExternalVettingResource {
   export {
     type ExternalVetting as ExternalVetting,
     type ExternalVettingListResponse as ExternalVettingListResponse,
-    type ExternalVettingImportsParams as ExternalVettingImportsParams,
     type ExternalVettingOrderParams as ExternalVettingOrderParams,
+    type ExternalVettingImportsParams as ExternalVettingImportsParams,
   };
 }

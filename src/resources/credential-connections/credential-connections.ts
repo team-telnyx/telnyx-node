@@ -16,6 +16,27 @@ export class CredentialConnections extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
+   * Returns a list of your credential connections.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const credentialConnection of client.credentialConnections.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: CredentialConnectionListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CredentialConnectionsDefaultFlatPagination, CredentialConnection> {
+    return this._client.getAPIList('/credential_connections', DefaultFlatPagination<CredentialConnection>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a credential connection.
    *
    * @example
@@ -33,6 +54,19 @@ export class CredentialConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CredentialConnectionCreateResponse> {
     return this._client.post('/credential_connections', { body, ...options });
+  }
+
+  /**
+   * Deletes an existing credential connection.
+   *
+   * @example
+   * ```ts
+   * const credentialConnection =
+   *   await client.credentialConnections.delete('id');
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<CredentialConnectionDeleteResponse> {
+    return this._client.delete(path`/credential_connections/${id}`, options);
   }
 
   /**
@@ -63,40 +97,6 @@ export class CredentialConnections extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CredentialConnectionUpdateResponse> {
     return this._client.patch(path`/credential_connections/${id}`, { body, ...options });
-  }
-
-  /**
-   * Returns a list of your credential connections.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const credentialConnection of client.credentialConnections.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: CredentialConnectionListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<CredentialConnectionsDefaultFlatPagination, CredentialConnection> {
-    return this._client.getAPIList('/credential_connections', DefaultFlatPagination<CredentialConnection>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Deletes an existing credential connection.
-   *
-   * @example
-   * ```ts
-   * const credentialConnection =
-   *   await client.credentialConnections.delete('id');
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<CredentialConnectionDeleteResponse> {
-    return this._client.delete(path`/credential_connections/${id}`, options);
   }
 }
 
@@ -477,6 +477,72 @@ export interface CredentialConnectionDeleteResponse {
   data?: CredentialConnection;
 }
 
+export interface CredentialConnectionListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
+   * filter[outbound.outbound_voice_profile_id]
+   */
+  filter?: CredentialConnectionListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'connection_name' | 'active';
+}
+
+export namespace CredentialConnectionListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
+   * filter[outbound.outbound_voice_profile_id]
+   */
+  export interface Filter {
+    /**
+     * Filter by connection_name using nested operations
+     */
+    connection_name?: Filter.ConnectionName;
+
+    /**
+     * If present, connections with an `fqdn` that equals the given value will be
+     * returned. Matching is case-sensitive, and the full string must match.
+     */
+    fqdn?: string;
+
+    /**
+     * Identifies the associated outbound voice profile.
+     */
+    outbound_voice_profile_id?: string;
+  }
+
+  export namespace Filter {
+    /**
+     * Filter by connection_name using nested operations
+     */
+    export interface ConnectionName {
+      /**
+       * If present, connections with <code>connection_name</code> containing the given
+       * value will be returned. Matching is not case-sensitive. Requires at least three
+       * characters.
+       */
+      contains?: string;
+    }
+  }
+}
+
 export interface CredentialConnectionCreateParams {
   /**
    * A user-assigned name to help manage the connection.
@@ -769,72 +835,6 @@ export interface CredentialConnectionUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface CredentialConnectionListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
-   * filter[outbound.outbound_voice_profile_id]
-   */
-  filter?: CredentialConnectionListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'connection_name' | 'active';
-}
-
-export namespace CredentialConnectionListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[connection_name], filter[fqdn], filter[outbound_voice_profile_id],
-   * filter[outbound.outbound_voice_profile_id]
-   */
-  export interface Filter {
-    /**
-     * Filter by connection_name using nested operations
-     */
-    connection_name?: Filter.ConnectionName;
-
-    /**
-     * If present, connections with an `fqdn` that equals the given value will be
-     * returned. Matching is case-sensitive, and the full string must match.
-     */
-    fqdn?: string;
-
-    /**
-     * Identifies the associated outbound voice profile.
-     */
-    outbound_voice_profile_id?: string;
-  }
-
-  export namespace Filter {
-    /**
-     * Filter by connection_name using nested operations
-     */
-    export interface ConnectionName {
-      /**
-       * If present, connections with <code>connection_name</code> containing the given
-       * value will be returned. Matching is not case-sensitive. Requires at least three
-       * characters.
-       */
-      contains?: string;
-    }
-  }
-}
-
 CredentialConnections.Actions = Actions;
 
 export declare namespace CredentialConnections {
@@ -852,9 +852,9 @@ export declare namespace CredentialConnections {
     type CredentialConnectionUpdateResponse as CredentialConnectionUpdateResponse,
     type CredentialConnectionDeleteResponse as CredentialConnectionDeleteResponse,
     type CredentialConnectionsDefaultFlatPagination as CredentialConnectionsDefaultFlatPagination,
+    type CredentialConnectionListParams as CredentialConnectionListParams,
     type CredentialConnectionCreateParams as CredentialConnectionCreateParams,
     type CredentialConnectionUpdateParams as CredentialConnectionUpdateParams,
-    type CredentialConnectionListParams as CredentialConnectionListParams,
   };
 
   export {

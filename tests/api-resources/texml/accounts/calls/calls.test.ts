@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource calls', () => {
   // Mock server tests are disabled
-  test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.texml.accounts.calls.retrieve('call_sid', { account_sid: 'account_sid' });
+  test.skip('retrieveCalls', async () => {
+    const responsePromise = client.texml.accounts.calls.retrieveCalls('account_sid');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,35 +21,28 @@ describe('resource calls', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
-    const response = await client.texml.accounts.calls.retrieve('call_sid', { account_sid: 'account_sid' });
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: only required params', async () => {
-    const responsePromise = client.texml.accounts.calls.update('call_sid', { account_sid: 'account_sid' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: required and optional params', async () => {
-    const response = await client.texml.accounts.calls.update('call_sid', {
-      account_sid: 'account_sid',
-      FallbackMethod: 'GET',
-      FallbackUrl: 'https://www.example.com/intruction-c.xml',
-      Method: 'GET',
-      Status: 'completed',
-      StatusCallback: 'https://www.example.com/callback',
-      StatusCallbackMethod: 'GET',
-      Texml: '<?xml version="1.0" encoding="UTF-8"?><Response><Say>Hello</Say></Response>',
-      Url: 'https://www.example.com/intruction-b.xml',
-    });
+  test.skip('retrieveCalls: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.texml.accounts.calls.retrieveCalls(
+        'account_sid',
+        {
+          EndTime: 'EndTime',
+          EndTime_gt: 'EndTime_gt',
+          EndTime_lt: 'EndTime_lt',
+          From: 'From',
+          Page: 0,
+          PageSize: 0,
+          PageToken: 'PageToken',
+          StartTime: 'StartTime',
+          StartTime_gt: 'StartTime_gt',
+          StartTime_lt: 'StartTime_lt',
+          Status: 'canceled',
+          To: 'To',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -118,8 +111,8 @@ describe('resource calls', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieveCalls', async () => {
-    const responsePromise = client.texml.accounts.calls.retrieveCalls('account_sid');
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.texml.accounts.calls.retrieve('call_sid', { account_sid: 'account_sid' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -130,28 +123,35 @@ describe('resource calls', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieveCalls: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.texml.accounts.calls.retrieveCalls(
-        'account_sid',
-        {
-          EndTime: 'EndTime',
-          EndTime_gt: 'EndTime_gt',
-          EndTime_lt: 'EndTime_lt',
-          From: 'From',
-          Page: 0,
-          PageSize: 0,
-          PageToken: 'PageToken',
-          StartTime: 'StartTime',
-          StartTime_gt: 'StartTime_gt',
-          StartTime_lt: 'StartTime_lt',
-          Status: 'canceled',
-          To: 'To',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.texml.accounts.calls.retrieve('call_sid', { account_sid: 'account_sid' });
+  });
+
+  // Mock server tests are disabled
+  test.skip('update: only required params', async () => {
+    const responsePromise = client.texml.accounts.calls.update('call_sid', { account_sid: 'account_sid' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('update: required and optional params', async () => {
+    const response = await client.texml.accounts.calls.update('call_sid', {
+      account_sid: 'account_sid',
+      FallbackMethod: 'GET',
+      FallbackUrl: 'https://www.example.com/intruction-c.xml',
+      Method: 'GET',
+      Status: 'completed',
+      StatusCallback: 'https://www.example.com/callback',
+      StatusCallbackMethod: 'GET',
+      Texml: '<?xml version="1.0" encoding="UTF-8"?><Response><Say>Hello</Say></Response>',
+      Url: 'https://www.example.com/intruction-b.xml',
+    });
   });
 
   // Mock server tests are disabled

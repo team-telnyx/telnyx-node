@@ -72,8 +72,8 @@ export declare namespace Whatsapp {
     type WhatsappTemplateFooterComponent as WhatsappTemplateFooterComponent,
     type WhatsappTemplateHeaderComponent as WhatsappTemplateHeaderComponent,
     type TemplateCreateResponse as TemplateCreateResponse,
-    type TemplateCreateParams as TemplateCreateParams,
     type TemplateListParams as TemplateListParams,
+    type TemplateCreateParams as TemplateCreateParams,
   };
 
   export {
@@ -83,8 +83,8 @@ export declare namespace Whatsapp {
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
-    type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
+    type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
   };
 
   export {

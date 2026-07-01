@@ -32,6 +32,50 @@ export class Calls extends APIResource {
   streams: StreamsAPI.Streams = new StreamsAPI.Streams(this._client);
 
   /**
+   * Returns multiple call resouces for an account. This endpoint is eventually
+   * consistent.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.texml.accounts.calls.retrieveCalls(
+   *     'account_sid',
+   *   );
+   * ```
+   */
+  retrieveCalls(
+    accountSid: string,
+    query: CallRetrieveCallsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<CallRetrieveCallsResponse> {
+    return this._client.get(path`/texml/Accounts/${accountSid}/Calls`, { query, ...options });
+  }
+
+  /**
+   * Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request
+   * URL configured for the connection in the Mission Control Portal.
+   *
+   * @example
+   * ```ts
+   * const response = await client.texml.accounts.calls.calls(
+   *   'account_sid',
+   *   { Url: 'https://www.example.com/instructions.xml' },
+   * );
+   * ```
+   */
+  calls(
+    accountSid: string,
+    params: CallCallsParams,
+    options?: RequestOptions,
+  ): APIPromise<CallCallsResponse> {
+    const { timeout_seconds, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, {
+      body: { Timeout: timeout_seconds, ...body },
+      ...options,
+    });
+  }
+
+  /**
    * Returns an individual call identified by its CallSid. This endpoint is
    * eventually consistent.
    *
@@ -67,50 +111,6 @@ export class Calls extends APIResource {
       ...options,
       headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
     });
-  }
-
-  /**
-   * Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request
-   * URL configured for the connection in the Mission Control Portal.
-   *
-   * @example
-   * ```ts
-   * const response = await client.texml.accounts.calls.calls(
-   *   'account_sid',
-   *   { Url: 'https://www.example.com/instructions.xml' },
-   * );
-   * ```
-   */
-  calls(
-    accountSid: string,
-    params: CallCallsParams,
-    options?: RequestOptions,
-  ): APIPromise<CallCallsResponse> {
-    const { timeout_seconds, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, {
-      body: { Timeout: timeout_seconds, ...body },
-      ...options,
-    });
-  }
-
-  /**
-   * Returns multiple call resouces for an account. This endpoint is eventually
-   * consistent.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.texml.accounts.calls.retrieveCalls(
-   *     'account_sid',
-   *   );
-   * ```
-   */
-  retrieveCalls(
-    accountSid: string,
-    query: CallRetrieveCallsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<CallRetrieveCallsResponse> {
-    return this._client.get(path`/texml/Accounts/${accountSid}/Calls`, { query, ...options });
   }
 
   /**
@@ -430,62 +430,67 @@ export interface CallStreamsJsonResponse {
   uri?: string;
 }
 
-export interface CallRetrieveParams {
+export interface CallRetrieveCallsParams {
   /**
-   * The id of the account the resource belongs to.
+   * Filters calls by their end date. Expected format is YYYY-MM-DD
    */
-  account_sid: string;
-}
-
-export interface CallUpdateParams {
-  /**
-   * Path param: The id of the account the resource belongs to.
-   */
-  account_sid: string;
+  EndTime?: string;
 
   /**
-   * Body param: HTTP request type used for `FallbackUrl`.
+   * Filters calls by their end date (after). Expected format is YYYY-MM-DD
    */
-  FallbackMethod?: 'GET' | 'POST';
+  EndTime_gt?: string;
 
   /**
-   * Body param: A failover URL for which Telnyx will retrieve the TeXML call
-   * instructions if the Url is not responding.
+   * Filters calls by their end date (before). Expected format is YYYY-MM-DD
    */
-  FallbackUrl?: string;
+  EndTime_lt?: string;
 
   /**
-   * Body param: HTTP request type used for `Url`.
+   * Filters calls by the from number.
    */
-  Method?: 'GET' | 'POST';
+  From?: string;
 
   /**
-   * Body param: The value to set the call status to. Setting the status to completed
-   * ends the call.
+   * The number of the page to be displayed, zero-indexed, should be used in
+   * conjuction with PageToken.
    */
-  Status?: string;
+  Page?: number;
 
   /**
-   * Body param: URL destination for Telnyx to send status callback events to for the
-   * call.
+   * The number of records to be displayed on a page
    */
-  StatusCallback?: string;
+  PageSize?: number;
 
   /**
-   * Body param: HTTP request type used for `StatusCallback`.
+   * Used to request the next page of results.
    */
-  StatusCallbackMethod?: 'GET' | 'POST';
+  PageToken?: string;
 
   /**
-   * Body param: TeXML to replace the current one with.
+   * Filters calls by their start date. Expected format is YYYY-MM-DD.
    */
-  Texml?: string;
+  StartTime?: string;
 
   /**
-   * Body param: The URL where TeXML will make a request to retrieve a new set of
-   * TeXML instructions to continue the call flow.
+   * Filters calls by their start date (after). Expected format is YYYY-MM-DD
    */
-  Url?: string;
+  StartTime_gt?: string;
+
+  /**
+   * Filters calls by their start date (before). Expected format is YYYY-MM-DD
+   */
+  StartTime_lt?: string;
+
+  /**
+   * Filters calls by status.
+   */
+  Status?: 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
+
+  /**
+   * Filters calls by the to number.
+   */
+  To?: string;
 }
 
 export type CallCallsParams =
@@ -1318,67 +1323,62 @@ export declare namespace CallCallsParams {
   }
 }
 
-export interface CallRetrieveCallsParams {
+export interface CallRetrieveParams {
   /**
-   * Filters calls by their end date. Expected format is YYYY-MM-DD
+   * The id of the account the resource belongs to.
    */
-  EndTime?: string;
+  account_sid: string;
+}
+
+export interface CallUpdateParams {
+  /**
+   * Path param: The id of the account the resource belongs to.
+   */
+  account_sid: string;
 
   /**
-   * Filters calls by their end date (after). Expected format is YYYY-MM-DD
+   * Body param: HTTP request type used for `FallbackUrl`.
    */
-  EndTime_gt?: string;
+  FallbackMethod?: 'GET' | 'POST';
 
   /**
-   * Filters calls by their end date (before). Expected format is YYYY-MM-DD
+   * Body param: A failover URL for which Telnyx will retrieve the TeXML call
+   * instructions if the Url is not responding.
    */
-  EndTime_lt?: string;
+  FallbackUrl?: string;
 
   /**
-   * Filters calls by the from number.
+   * Body param: HTTP request type used for `Url`.
    */
-  From?: string;
+  Method?: 'GET' | 'POST';
 
   /**
-   * The number of the page to be displayed, zero-indexed, should be used in
-   * conjuction with PageToken.
+   * Body param: The value to set the call status to. Setting the status to completed
+   * ends the call.
    */
-  Page?: number;
+  Status?: string;
 
   /**
-   * The number of records to be displayed on a page
+   * Body param: URL destination for Telnyx to send status callback events to for the
+   * call.
    */
-  PageSize?: number;
+  StatusCallback?: string;
 
   /**
-   * Used to request the next page of results.
+   * Body param: HTTP request type used for `StatusCallback`.
    */
-  PageToken?: string;
+  StatusCallbackMethod?: 'GET' | 'POST';
 
   /**
-   * Filters calls by their start date. Expected format is YYYY-MM-DD.
+   * Body param: TeXML to replace the current one with.
    */
-  StartTime?: string;
+  Texml?: string;
 
   /**
-   * Filters calls by their start date (after). Expected format is YYYY-MM-DD
+   * Body param: The URL where TeXML will make a request to retrieve a new set of
+   * TeXML instructions to continue the call flow.
    */
-  StartTime_gt?: string;
-
-  /**
-   * Filters calls by their start date (before). Expected format is YYYY-MM-DD
-   */
-  StartTime_lt?: string;
-
-  /**
-   * Filters calls by status.
-   */
-  Status?: 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
-
-  /**
-   * Filters calls by the to number.
-   */
-  To?: string;
+  Url?: string;
 }
 
 export interface CallSiprecJsonParams {
@@ -1498,10 +1498,10 @@ export declare namespace Calls {
     type CallRetrieveCallsResponse as CallRetrieveCallsResponse,
     type CallSiprecJsonResponse as CallSiprecJsonResponse,
     type CallStreamsJsonResponse as CallStreamsJsonResponse,
+    type CallRetrieveCallsParams as CallRetrieveCallsParams,
+    type CallCallsParams as CallCallsParams,
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
-    type CallCallsParams as CallCallsParams,
-    type CallRetrieveCallsParams as CallRetrieveCallsParams,
     type CallSiprecJsonParams as CallSiprecJsonParams,
     type CallStreamsJsonParams as CallStreamsJsonParams,
   };
@@ -1512,8 +1512,8 @@ export declare namespace Calls {
     type TexmlCreateCallRecordingResponseBody as TexmlCreateCallRecordingResponseBody,
     type TexmlGetCallRecordingsResponseBody as TexmlGetCallRecordingsResponseBody,
     type TwimlRecordingChannels as TwimlRecordingChannels,
-    type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
     type RecordingsJsonRetrieveRecordingsJsonParams as RecordingsJsonRetrieveRecordingsJsonParams,
+    type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
   };
 
   export {

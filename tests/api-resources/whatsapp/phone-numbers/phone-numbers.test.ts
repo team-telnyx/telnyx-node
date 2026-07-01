@@ -56,6 +56,23 @@ describe('resource phoneNumbers', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('verify: only required params', async () => {
+    const responsePromise = client.whatsapp.phoneNumbers.verify('phone_number', { code: 'code' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('verify: required and optional params', async () => {
+    const response = await client.whatsapp.phoneNumbers.verify('phone_number', { code: 'code' });
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieveConversationWindow: only required params', async () => {
     const responsePromise = client.whatsapp.phoneNumbers.retrieveConversationWindow('phone_number', {
       destination_number: '+353894650851',
@@ -74,22 +91,5 @@ describe('resource phoneNumbers', () => {
     const response = await client.whatsapp.phoneNumbers.retrieveConversationWindow('phone_number', {
       destination_number: '+353894650851',
     });
-  });
-
-  // Mock server tests are disabled
-  test.skip('verify: only required params', async () => {
-    const responsePromise = client.whatsapp.phoneNumbers.verify('phone_number', { code: 'code' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('verify: required and optional params', async () => {
-    const response = await client.whatsapp.phoneNumbers.verify('phone_number', { code: 'code' });
   });
 });
