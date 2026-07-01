@@ -9,16 +9,6 @@ import { path } from '../internal/utils/path';
 
 export class NumberOrderPhoneNumbers extends APIResource {
   /**
-   * Get an existing phone number in number order.
-   */
-  retrieve(
-    numberOrderPhoneNumberID: string,
-    options?: RequestOptions,
-  ): APIPromise<NumberOrderPhoneNumberRetrieveResponse> {
-    return this._client.get(path`/number_order_phone_numbers/${numberOrderPhoneNumberID}`, options);
-  }
-
-  /**
    * Get a list of phone numbers associated to orders.
    */
   list(
@@ -37,6 +27,16 @@ export class NumberOrderPhoneNumbers extends APIResource {
     options?: RequestOptions,
   ): APIPromise<NumberOrderPhoneNumberUpdateRequirementGroupResponse> {
     return this._client.post(path`/number_order_phone_numbers/${id}/requirement_group`, { body, ...options });
+  }
+
+  /**
+   * Get an existing phone number in number order.
+   */
+  retrieve(
+    numberOrderPhoneNumberID: string,
+    options?: RequestOptions,
+  ): APIPromise<NumberOrderPhoneNumberRetrieveResponse> {
+    return this._client.get(path`/number_order_phone_numbers/${numberOrderPhoneNumberID}`, options);
   }
 
   /**

@@ -15,22 +15,6 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Runs extends APIResource {
   /**
-   * Retrieves detailed information about a specific test run execution
-   *
-   * @example
-   * ```ts
-   * const testRunResponse =
-   *   await client.ai.assistants.tests.runs.retrieve('run_id', {
-   *     test_id: 'test_id',
-   *   });
-   * ```
-   */
-  retrieve(runID: string, params: RunRetrieveParams, options?: RequestOptions): APIPromise<TestRunResponse> {
-    const { test_id } = params;
-    return this._client.get(path`/ai/assistants/tests/${test_id}/runs/${runID}`, options);
-  }
-
-  /**
    * Retrieves paginated execution history for a specific assistant test with
    * filtering options
    *
@@ -71,6 +55,22 @@ export class Runs extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TestRunResponse> {
     return this._client.post(path`/ai/assistants/tests/${testID}/runs`, { body, ...options });
+  }
+
+  /**
+   * Retrieves detailed information about a specific test run execution
+   *
+   * @example
+   * ```ts
+   * const testRunResponse =
+   *   await client.ai.assistants.tests.runs.retrieve('run_id', {
+   *     test_id: 'test_id',
+   *   });
+   * ```
+   */
+  retrieve(runID: string, params: RunRetrieveParams, options?: RequestOptions): APIPromise<TestRunResponse> {
+    const { test_id } = params;
+    return this._client.get(path`/ai/assistants/tests/${test_id}/runs/${runID}`, options);
   }
 }
 
@@ -181,13 +181,6 @@ export interface TestRunResponse {
  */
 export type TestStatus = 'pending' | 'starting' | 'running' | 'passed' | 'failed' | 'error';
 
-export interface RunRetrieveParams {
-  /**
-   * Unique identifier of the test.
-   */
-  test_id: string;
-}
-
 export interface RunListParams extends DefaultFlatPaginationParams {
   /**
    * Filter runs by execution status (pending, running, completed, failed, timeout)
@@ -204,14 +197,21 @@ export interface RunTriggerParams {
   destination_version_id?: string;
 }
 
+export interface RunRetrieveParams {
+  /**
+   * Unique identifier of the test.
+   */
+  test_id: string;
+}
+
 export declare namespace Runs {
   export {
     type TestRunDetailResult as TestRunDetailResult,
     type TestRunResponse as TestRunResponse,
     type TestStatus as TestStatus,
     type TestRunResponsesDefaultFlatPagination as TestRunResponsesDefaultFlatPagination,
-    type RunRetrieveParams as RunRetrieveParams,
     type RunListParams as RunListParams,
     type RunTriggerParams as RunTriggerParams,
+    type RunRetrieveParams as RunRetrieveParams,
   };
 }

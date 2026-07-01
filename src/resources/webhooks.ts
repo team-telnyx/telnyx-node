@@ -8,10 +8,6 @@ import * as MessagesAPI from './messages/messages';
 import { Webhook } from 'standardwebhooks';
 
 export class Webhooks extends APIResource {
-  unsafeUnwrap(body: string): UnsafeUnwrapWebhookEvent {
-    return JSON.parse(body) as UnsafeUnwrapWebhookEvent;
-  }
-
   unwrap(
     body: string,
     { headers, key }: { headers: Record<string, string>; key?: string },
@@ -23,6 +19,10 @@ export class Webhooks extends APIResource {
       wh.verify(body, headers);
     }
     return JSON.parse(body) as UnwrapWebhookEvent;
+  }
+
+  unsafeUnwrap(body: string): UnsafeUnwrapWebhookEvent {
+    return JSON.parse(body) as UnsafeUnwrapWebhookEvent;
   }
 }
 

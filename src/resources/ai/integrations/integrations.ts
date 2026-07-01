@@ -16,6 +16,18 @@ export class Integrations extends APIResource {
   connections: ConnectionsAPI.Connections = new ConnectionsAPI.Connections(this._client);
 
   /**
+   * List all available integrations.
+   *
+   * @example
+   * ```ts
+   * const integrations = await client.ai.integrations.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<IntegrationListResponse> {
+    return this._client.get('/ai/integrations', options);
+  }
+
+  /**
    * Retrieve integration details
    *
    * @example
@@ -27,18 +39,6 @@ export class Integrations extends APIResource {
    */
   retrieve(integrationID: string, options?: RequestOptions): APIPromise<Integration> {
     return this._client.get(path`/ai/integrations/${integrationID}`, options);
-  }
-
-  /**
-   * List all available integrations.
-   *
-   * @example
-   * ```ts
-   * const integrations = await client.ai.integrations.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<IntegrationListResponse> {
-    return this._client.get('/ai/integrations', options);
   }
 }
 

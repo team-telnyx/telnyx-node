@@ -9,6 +9,40 @@ const client = new Telnyx({
 
 describe('resource dir', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.enterprises.dir.list('4a6192a4-573d-446d-b3ce-aff9117272a6');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.enterprises.dir.list(
+        '4a6192a4-573d-446d-b3ce-aff9117272a6',
+        {
+          'filter[call_reason][contains]': 'filter[call_reason][contains]',
+          'filter[display_name][contains]': 'filter[display_name][contains]',
+          'filter[expiring_at][gte]': '2019-12-27T18:11:19.117Z',
+          'filter[expiring_at][lte]': '2019-12-27T18:11:19.117Z',
+          'filter[expiring_within_days]': 1,
+          'filter[status]': 'draft',
+          'page[number]': 1,
+          'page[size]': 20,
+          sort: 'created_at',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.enterprises.dir.create('4a6192a4-573d-446d-b3ce-aff9117272a6', {
       authorizer_email: 'sam@acmeplumbing.example.com',
@@ -47,39 +81,5 @@ describe('resource dir', () => {
       logo_url: 'https://acmeplumbing.example.com/logo-256.bmp',
       reselling: false,
     });
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.enterprises.dir.list('4a6192a4-573d-446d-b3ce-aff9117272a6');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.enterprises.dir.list(
-        '4a6192a4-573d-446d-b3ce-aff9117272a6',
-        {
-          'filter[call_reason][contains]': 'filter[call_reason][contains]',
-          'filter[display_name][contains]': 'filter[display_name][contains]',
-          'filter[expiring_at][gte]': '2019-12-27T18:11:19.117Z',
-          'filter[expiring_at][lte]': '2019-12-27T18:11:19.117Z',
-          'filter[expiring_within_days]': 1,
-          'filter[status]': 'draft',
-          'page[number]': 1,
-          'page[size]': 20,
-          sort: 'created_at',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

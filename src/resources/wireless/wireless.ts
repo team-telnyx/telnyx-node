@@ -91,7 +91,7 @@ export declare namespace Wireless {
     type DetailRecordsReportRetrieveResponse as DetailRecordsReportRetrieveResponse,
     type DetailRecordsReportListResponse as DetailRecordsReportListResponse,
     type DetailRecordsReportDeleteResponse as DetailRecordsReportDeleteResponse,
-    type DetailRecordsReportCreateParams as DetailRecordsReportCreateParams,
     type DetailRecordsReportListParams as DetailRecordsReportListParams,
+    type DetailRecordsReportCreateParams as DetailRecordsReportCreateParams,
   };
 }

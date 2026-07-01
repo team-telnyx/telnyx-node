@@ -13,7 +13,7 @@ Reputation.Numbers = Numbers;
 export declare namespace Reputation {
   export {
     Numbers as Numbers,
-    type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
+    type NumberRetrieveParams as NumberRetrieveParams,
   };
 }

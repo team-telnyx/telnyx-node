@@ -11,31 +11,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Comments extends APIResource {
   /**
-   * Post a customer comment on a DIR (for example, to respond to reviewer notes).
-   * Send only `content` (1–5000 chars) and an optional `parent_comment_id`; the
-   * server sets the comment type, visibility, and author automatically. The
-   * enterprise is resolved server-side from the DIR id.
-   *
-   * @example
-   * ```ts
-   * const comment = await client.dir.comments.create(
-   *   '16635d38-75a6-4481-82e8-69af60e05011',
-   *   {
-   *     content:
-   *       'Re-uploaded the certificate. New document_id: 89450109-ee35-411c-b5bb-14f1d806fca2.',
-   *   },
-   * );
-   * ```
-   */
-  create(
-    dirID: string,
-    body: CommentCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<CommentCreateResponse> {
-    return this._client.post(path`/dir/${dirID}/comments`, { body, ...options });
-  }
-
-  /**
    * List the comments on a DIR. The enterprise is resolved server-side from the DIR
    * id.
    *
@@ -58,6 +33,31 @@ export class Comments extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Post a customer comment on a DIR (for example, to respond to reviewer notes).
+   * Send only `content` (1–5000 chars) and an optional `parent_comment_id`; the
+   * server sets the comment type, visibility, and author automatically. The
+   * enterprise is resolved server-side from the DIR id.
+   *
+   * @example
+   * ```ts
+   * const comment = await client.dir.comments.create(
+   *   '16635d38-75a6-4481-82e8-69af60e05011',
+   *   {
+   *     content:
+   *       'Re-uploaded the certificate. New document_id: 89450109-ee35-411c-b5bb-14f1d806fca2.',
+   *   },
+   * );
+   * ```
+   */
+  create(
+    dirID: string,
+    body: CommentCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<CommentCreateResponse> {
+    return this._client.post(path`/dir/${dirID}/comments`, { body, ...options });
   }
 }
 
@@ -116,6 +116,14 @@ export interface CommentCreateResponse {
   data: DirComment;
 }
 
+export interface CommentListParams extends DefaultFlatPaginationParams {
+  /**
+   * Restrict to comments of this category. Customer-visible categories only:
+   * internal-only comments are filtered out regardless of this filter.
+   */
+  comment_type?: CommentType;
+}
+
 export interface CommentCreateParams {
   /**
    * Comment body. 1–5000 characters.
@@ -128,21 +136,13 @@ export interface CommentCreateParams {
   parent_comment_id?: string;
 }
 
-export interface CommentListParams extends DefaultFlatPaginationParams {
-  /**
-   * Restrict to comments of this category. Customer-visible categories only:
-   * internal-only comments are filtered out regardless of this filter.
-   */
-  comment_type?: CommentType;
-}
-
 export declare namespace Comments {
   export {
     type CommentType as CommentType,
     type DirComment as DirComment,
     type CommentCreateResponse as CommentCreateResponse,
     type DirCommentsDefaultFlatPagination as DirCommentsDefaultFlatPagination,
-    type CommentCreateParams as CommentCreateParams,
     type CommentListParams as CommentListParams,
+    type CommentCreateParams as CommentCreateParams,
   };
 }

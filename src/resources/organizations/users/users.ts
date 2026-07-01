@@ -21,17 +21,6 @@ export class Users extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Returns a user in your organization.
-   */
-  retrieve(
-    id: string,
-    query: UserRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UserRetrieveResponse> {
-    return this._client.get(path`/organizations/users/${id}`, { query, ...options });
-  }
-
-  /**
    * Returns a list of the users in your organization.
    */
   list(
@@ -62,6 +51,17 @@ export class Users extends APIResource {
         options?.headers,
       ]),
     });
+  }
+
+  /**
+   * Returns a user in your organization.
+   */
+  retrieve(
+    id: string,
+    query: UserRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<UserRetrieveResponse> {
+    return this._client.get(path`/organizations/users/${id}`, { query, ...options });
   }
 }
 
@@ -186,15 +186,6 @@ export namespace UserGetGroupsReportResponse {
   }
 }
 
-export interface UserRetrieveParams {
-  /**
-   * When set to true, includes the groups array for each user in the response. The
-   * groups array contains objects with id and name for each group the user belongs
-   * to.
-   */
-  include_groups?: boolean;
-}
-
 export interface UserListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by email address (partial match)
@@ -222,6 +213,15 @@ export interface UserGetGroupsReportParams {
   Accept?: 'application/json' | 'text/csv';
 }
 
+export interface UserRetrieveParams {
+  /**
+   * When set to true, includes the groups array for each user in the response. The
+   * groups array contains objects with id and name for each group the user belongs
+   * to.
+   */
+  include_groups?: boolean;
+}
+
 Users.Actions = Actions;
 
 export declare namespace Users {
@@ -231,9 +231,9 @@ export declare namespace Users {
     type UserRetrieveResponse as UserRetrieveResponse,
     type UserGetGroupsReportResponse as UserGetGroupsReportResponse,
     type OrganizationUsersDefaultFlatPagination as OrganizationUsersDefaultFlatPagination,
-    type UserRetrieveParams as UserRetrieveParams,
     type UserListParams as UserListParams,
     type UserGetGroupsReportParams as UserGetGroupsReportParams,
+    type UserRetrieveParams as UserRetrieveParams,
   };
 
   export { Actions as Actions, type ActionRemoveResponse as ActionRemoveResponse };

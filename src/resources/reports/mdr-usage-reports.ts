@@ -12,6 +12,28 @@ import { path } from '../../internal/utils/path';
  */
 export class MdrUsageReports extends APIResource {
   /**
+   * Fetch all messaging usage reports. Usage reports are aggregated messaging data
+   * for specified time period and breakdown
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const mdrUsageReport of client.reports.mdrUsageReports.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: MdrUsageReportListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<MdrUsageReportsDefaultFlatPagination, MdrUsageReport> {
+    return this._client.getAPIList('/reports/mdr_usage_reports', DefaultFlatPagination<MdrUsageReport>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Submit request for new new messaging usage report. This endpoint will pull and
    * aggregate messaging data in specified time period.
    *
@@ -37,40 +59,23 @@ export class MdrUsageReports extends APIResource {
   }
 
   /**
-   * Fetch a single messaging usage report by id
+   * Generate and fetch messaging usage report synchronously. This endpoint will both
+   * generate and fetch the messaging report over a specified time period. No polling
+   * is necessary but the response may take up to a couple of minutes.
    *
    * @example
    * ```ts
-   * const mdrUsageReport =
-   *   await client.reports.mdrUsageReports.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * const response =
+   *   await client.reports.mdrUsageReports.fetchSync({
+   *     aggregation_type: 'PROFILE',
+   *   });
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<MdrUsageReportRetrieveResponse> {
-    return this._client.get(path`/reports/mdr_usage_reports/${id}`, options);
-  }
-
-  /**
-   * Fetch all messaging usage reports. Usage reports are aggregated messaging data
-   * for specified time period and breakdown
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const mdrUsageReport of client.reports.mdrUsageReports.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: MdrUsageReportListParams | null | undefined = {},
+  fetchSync(
+    query: MdrUsageReportFetchSyncParams,
     options?: RequestOptions,
-  ): PagePromise<MdrUsageReportsDefaultFlatPagination, MdrUsageReport> {
-    return this._client.getAPIList('/reports/mdr_usage_reports', DefaultFlatPagination<MdrUsageReport>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<MdrUsageReportFetchSyncResponse> {
+    return this._client.get('/reports/mdr_usage_reports/sync', { query, ...options });
   }
 
   /**
@@ -89,23 +94,18 @@ export class MdrUsageReports extends APIResource {
   }
 
   /**
-   * Generate and fetch messaging usage report synchronously. This endpoint will both
-   * generate and fetch the messaging report over a specified time period. No polling
-   * is necessary but the response may take up to a couple of minutes.
+   * Fetch a single messaging usage report by id
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.reports.mdrUsageReports.fetchSync({
-   *     aggregation_type: 'PROFILE',
-   *   });
+   * const mdrUsageReport =
+   *   await client.reports.mdrUsageReports.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
-  fetchSync(
-    query: MdrUsageReportFetchSyncParams,
-    options?: RequestOptions,
-  ): APIPromise<MdrUsageReportFetchSyncResponse> {
-    return this._client.get('/reports/mdr_usage_reports/sync', { query, ...options });
+  retrieve(id: string, options?: RequestOptions): APIPromise<MdrUsageReportRetrieveResponse> {
+    return this._client.get(path`/reports/mdr_usage_reports/${id}`, options);
   }
 }
 
@@ -198,6 +198,8 @@ export interface MdrUsageReportFetchSyncResponse {
   data?: MdrUsageReport;
 }
 
+export interface MdrUsageReportListParams extends DefaultFlatPaginationParams {}
+
 export interface MdrUsageReportCreateParams {
   aggregation_type: 'NO_AGGREGATION' | 'PROFILE' | 'TAGS';
 
@@ -207,8 +209,6 @@ export interface MdrUsageReportCreateParams {
 
   profiles?: string;
 }
-
-export interface MdrUsageReportListParams extends DefaultFlatPaginationParams {}
 
 export interface MdrUsageReportFetchSyncParams {
   /**
@@ -241,8 +241,8 @@ export declare namespace MdrUsageReports {
     type MdrUsageReportDeleteResponse as MdrUsageReportDeleteResponse,
     type MdrUsageReportFetchSyncResponse as MdrUsageReportFetchSyncResponse,
     type MdrUsageReportsDefaultFlatPagination as MdrUsageReportsDefaultFlatPagination,
-    type MdrUsageReportCreateParams as MdrUsageReportCreateParams,
     type MdrUsageReportListParams as MdrUsageReportListParams,
+    type MdrUsageReportCreateParams as MdrUsageReportCreateParams,
     type MdrUsageReportFetchSyncParams as MdrUsageReportFetchSyncParams,
   };
 }

@@ -15,6 +15,18 @@ export class Migrations extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
+   * List all Migrations
+   *
+   * @example
+   * ```ts
+   * const migrations = await client.storage.migrations.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<MigrationListResponse> {
+    return this._client.get('/storage/migrations', options);
+  }
+
+  /**
    * Initiate a migration of data from an external provider into Telnyx Cloud
    * Storage. Currently, only S3 is supported.
    *
@@ -43,18 +55,6 @@ export class Migrations extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MigrationRetrieveResponse> {
     return this._client.get(path`/storage/migrations/${id}`, options);
-  }
-
-  /**
-   * List all Migrations
-   *
-   * @example
-   * ```ts
-   * const migrations = await client.storage.migrations.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<MigrationListResponse> {
-    return this._client.get('/storage/migrations', options);
   }
 }
 

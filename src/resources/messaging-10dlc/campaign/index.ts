@@ -11,8 +11,8 @@ export {
   type CampaignGetOperationStatusResponse,
   type CampaignGetSharingStatusResponse,
   type CampaignSubmitAppealResponse,
-  type CampaignUpdateParams,
   type CampaignListParams,
+  type CampaignUpdateParams,
   type CampaignSubmitAppealParams,
   type CampaignListResponsesPerPagePaginationV2,
 } from './campaign';

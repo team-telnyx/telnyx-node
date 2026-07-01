@@ -10,6 +10,22 @@ import { path } from '../../internal/utils/path';
  */
 export class DetailRecordsReports extends APIResource {
   /**
+   * Returns the WDR Reports that match the given parameters.
+   *
+   * @example
+   * ```ts
+   * const detailRecordsReports =
+   *   await client.wireless.detailRecordsReports.list();
+   * ```
+   */
+  list(
+    query: DetailRecordsReportListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<DetailRecordsReportListResponse> {
+    return this._client.get('/wireless/detail_records_reports', { query, ...options });
+  }
+
+  /**
    * Asynchronously create a report containing Wireless Detail Records (WDRs) for the
    * SIM cards that consumed wireless data in the given time period.
    *
@@ -27,37 +43,6 @@ export class DetailRecordsReports extends APIResource {
   }
 
   /**
-   * Returns one specific WDR report
-   *
-   * @example
-   * ```ts
-   * const detailRecordsReport =
-   *   await client.wireless.detailRecordsReports.retrieve(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<DetailRecordsReportRetrieveResponse> {
-    return this._client.get(path`/wireless/detail_records_reports/${id}`, options);
-  }
-
-  /**
-   * Returns the WDR Reports that match the given parameters.
-   *
-   * @example
-   * ```ts
-   * const detailRecordsReports =
-   *   await client.wireless.detailRecordsReports.list();
-   * ```
-   */
-  list(
-    query: DetailRecordsReportListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<DetailRecordsReportListResponse> {
-    return this._client.get('/wireless/detail_records_reports', { query, ...options });
-  }
-
-  /**
    * Deletes one specific WDR report.
    *
    * @example
@@ -70,6 +55,21 @@ export class DetailRecordsReports extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<DetailRecordsReportDeleteResponse> {
     return this._client.delete(path`/wireless/detail_records_reports/${id}`, options);
+  }
+
+  /**
+   * Returns one specific WDR report
+   *
+   * @example
+   * ```ts
+   * const detailRecordsReport =
+   *   await client.wireless.detailRecordsReports.retrieve(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<DetailRecordsReportRetrieveResponse> {
+    return this._client.get(path`/wireless/detail_records_reports/${id}`, options);
   }
 }
 
@@ -128,18 +128,6 @@ export interface DetailRecordsReportDeleteResponse {
   data?: WdrReport;
 }
 
-export interface DetailRecordsReportCreateParams {
-  /**
-   * ISO 8601 formatted date-time indicating the end time.
-   */
-  end_time?: string;
-
-  /**
-   * ISO 8601 formatted date-time indicating the start time.
-   */
-  start_time?: string;
-}
-
 export interface DetailRecordsReportListParams {
   /**
    * The page number to load.
@@ -152,6 +140,18 @@ export interface DetailRecordsReportListParams {
   'page[size]'?: number;
 }
 
+export interface DetailRecordsReportCreateParams {
+  /**
+   * ISO 8601 formatted date-time indicating the end time.
+   */
+  end_time?: string;
+
+  /**
+   * ISO 8601 formatted date-time indicating the start time.
+   */
+  start_time?: string;
+}
+
 export declare namespace DetailRecordsReports {
   export {
     type WdrReport as WdrReport,
@@ -159,7 +159,7 @@ export declare namespace DetailRecordsReports {
     type DetailRecordsReportRetrieveResponse as DetailRecordsReportRetrieveResponse,
     type DetailRecordsReportListResponse as DetailRecordsReportListResponse,
     type DetailRecordsReportDeleteResponse as DetailRecordsReportDeleteResponse,
-    type DetailRecordsReportCreateParams as DetailRecordsReportCreateParams,
     type DetailRecordsReportListParams as DetailRecordsReportListParams,
+    type DetailRecordsReportCreateParams as DetailRecordsReportCreateParams,
   };
 }

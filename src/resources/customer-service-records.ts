@@ -11,42 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class CustomerServiceRecords extends APIResource {
   /**
-   * Create a new customer service record for the provided phone number.
-   *
-   * @example
-   * ```ts
-   * const customerServiceRecord =
-   *   await client.customerServiceRecords.create({
-   *     phone_number: '+13035553000',
-   *   });
-   * ```
-   */
-  create(
-    body: CustomerServiceRecordCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<CustomerServiceRecordCreateResponse> {
-    return this._client.post('/customer_service_records', { body, ...options });
-  }
-
-  /**
-   * Get a specific customer service record.
-   *
-   * @example
-   * ```ts
-   * const customerServiceRecord =
-   *   await client.customerServiceRecords.retrieve(
-   *     'customer_service_record_id',
-   *   );
-   * ```
-   */
-  retrieve(
-    customerServiceRecordID: string,
-    options?: RequestOptions,
-  ): APIPromise<CustomerServiceRecordRetrieveResponse> {
-    return this._client.get(path`/customer_service_records/${customerServiceRecordID}`, options);
-  }
-
-  /**
    * List customer service records.
    *
    * @example
@@ -69,6 +33,24 @@ export class CustomerServiceRecords extends APIResource {
   }
 
   /**
+   * Create a new customer service record for the provided phone number.
+   *
+   * @example
+   * ```ts
+   * const customerServiceRecord =
+   *   await client.customerServiceRecords.create({
+   *     phone_number: '+13035553000',
+   *   });
+   * ```
+   */
+  create(
+    body: CustomerServiceRecordCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<CustomerServiceRecordCreateResponse> {
+    return this._client.post('/customer_service_records', { body, ...options });
+  }
+
+  /**
    * Verify the coverage for a list of phone numbers.
    *
    * @example
@@ -84,6 +66,24 @@ export class CustomerServiceRecords extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CustomerServiceRecordVerifyPhoneNumberCoverageResponse> {
     return this._client.post('/customer_service_records/phone_number_coverages', { body, ...options });
+  }
+
+  /**
+   * Get a specific customer service record.
+   *
+   * @example
+   * ```ts
+   * const customerServiceRecord =
+   *   await client.customerServiceRecords.retrieve(
+   *     'customer_service_record_id',
+   *   );
+   * ```
+   */
+  retrieve(
+    customerServiceRecordID: string,
+    options?: RequestOptions,
+  ): APIPromise<CustomerServiceRecordRetrieveResponse> {
+    return this._client.get(path`/customer_service_records/${customerServiceRecordID}`, options);
   }
 }
 
@@ -277,74 +277,6 @@ export namespace CustomerServiceRecordVerifyPhoneNumberCoverageResponse {
   }
 }
 
-export interface CustomerServiceRecordCreateParams {
-  /**
-   * A valid US phone number in E164 format.
-   */
-  phone_number: string;
-
-  additional_data?: CustomerServiceRecordCreateParams.AdditionalData;
-
-  /**
-   * Callback URL to receive webhook notifications.
-   */
-  webhook_url?: string;
-}
-
-export namespace CustomerServiceRecordCreateParams {
-  export interface AdditionalData {
-    /**
-     * The account number of the customer service record.
-     */
-    account_number?: string;
-
-    /**
-     * The first line of the address of the customer service record.
-     */
-    address_line_1?: string;
-
-    /**
-     * The name of the authorized person.
-     */
-    authorized_person_name?: string;
-
-    /**
-     * The billing phone number of the customer service record.
-     */
-    billing_phone_number?: string;
-
-    /**
-     * The city of the customer service record.
-     */
-    city?: string;
-
-    /**
-     * The customer code of the customer service record.
-     */
-    customer_code?: string;
-
-    /**
-     * The name of the administrator of CSR.
-     */
-    name?: string;
-
-    /**
-     * The PIN of the customer service record.
-     */
-    pin?: string;
-
-    /**
-     * The state of the customer service record.
-     */
-    state?: string;
-
-    /**
-     * The zip code of the customer service record.
-     */
-    zip_code?: string;
-  }
-}
-
 export interface CustomerServiceRecordListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -423,6 +355,74 @@ export namespace CustomerServiceRecordListParams {
   }
 }
 
+export interface CustomerServiceRecordCreateParams {
+  /**
+   * A valid US phone number in E164 format.
+   */
+  phone_number: string;
+
+  additional_data?: CustomerServiceRecordCreateParams.AdditionalData;
+
+  /**
+   * Callback URL to receive webhook notifications.
+   */
+  webhook_url?: string;
+}
+
+export namespace CustomerServiceRecordCreateParams {
+  export interface AdditionalData {
+    /**
+     * The account number of the customer service record.
+     */
+    account_number?: string;
+
+    /**
+     * The first line of the address of the customer service record.
+     */
+    address_line_1?: string;
+
+    /**
+     * The name of the authorized person.
+     */
+    authorized_person_name?: string;
+
+    /**
+     * The billing phone number of the customer service record.
+     */
+    billing_phone_number?: string;
+
+    /**
+     * The city of the customer service record.
+     */
+    city?: string;
+
+    /**
+     * The customer code of the customer service record.
+     */
+    customer_code?: string;
+
+    /**
+     * The name of the administrator of CSR.
+     */
+    name?: string;
+
+    /**
+     * The PIN of the customer service record.
+     */
+    pin?: string;
+
+    /**
+     * The state of the customer service record.
+     */
+    state?: string;
+
+    /**
+     * The zip code of the customer service record.
+     */
+    zip_code?: string;
+  }
+}
+
 export interface CustomerServiceRecordVerifyPhoneNumberCoverageParams {
   /**
    * The phone numbers list to be verified.
@@ -437,8 +437,8 @@ export declare namespace CustomerServiceRecords {
     type CustomerServiceRecordRetrieveResponse as CustomerServiceRecordRetrieveResponse,
     type CustomerServiceRecordVerifyPhoneNumberCoverageResponse as CustomerServiceRecordVerifyPhoneNumberCoverageResponse,
     type CustomerServiceRecordsDefaultFlatPagination as CustomerServiceRecordsDefaultFlatPagination,
-    type CustomerServiceRecordCreateParams as CustomerServiceRecordCreateParams,
     type CustomerServiceRecordListParams as CustomerServiceRecordListParams,
+    type CustomerServiceRecordCreateParams as CustomerServiceRecordCreateParams,
     type CustomerServiceRecordVerifyPhoneNumberCoverageParams as CustomerServiceRecordVerifyPhoneNumberCoverageParams,
   };
 }

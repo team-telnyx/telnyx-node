@@ -13,20 +13,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Events extends APIResource {
   /**
-   * Show a specific porting event.
-   *
-   * @example
-   * ```ts
-   * const event = await client.porting.events.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<EventRetrieveResponse> {
-    return this._client.get(path`/porting/events/${id}`, options);
-  }
-
-  /**
    * Returns a list of all porting events.
    *
    * @example
@@ -45,6 +31,20 @@ export class Events extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Show a specific porting event.
+   *
+   * @example
+   * ```ts
+   * const event = await client.porting.events.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<EventRetrieveResponse> {
+    return this._client.get(path`/porting/events/${id}`, options);
   }
 
   /**

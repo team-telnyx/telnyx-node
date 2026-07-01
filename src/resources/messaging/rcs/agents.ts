@@ -17,6 +17,27 @@ import { path } from '../../../internal/utils/path';
  */
 export class Agents extends APIResource {
   /**
+   * List all RCS agents
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const rcsAgent of client.messaging.rcs.agents.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: AgentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RcsAgentsDefaultFlatPagination, RcsAgentsAPI.RcsAgent> {
+    return this._client.getAPIList('/messaging/rcs/agents', DefaultFlatPagination<RcsAgentsAPI.RcsAgent>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Retrieve an RCS agent
    *
    * @example
@@ -45,28 +66,9 @@ export class Agents extends APIResource {
   ): APIPromise<RcsAgentsAPI.RcsAgentResponse> {
     return this._client.patch(path`/messaging/rcs/agents/${id}`, { body, ...options });
   }
-
-  /**
-   * List all RCS agents
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const rcsAgent of client.messaging.rcs.agents.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: AgentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RcsAgentsDefaultFlatPagination, RcsAgentsAPI.RcsAgent> {
-    return this._client.getAPIList('/messaging/rcs/agents', DefaultFlatPagination<RcsAgentsAPI.RcsAgent>, {
-      query,
-      ...options,
-    });
-  }
 }
+
+export interface AgentListParams extends DefaultFlatPaginationParams {}
 
 export interface AgentUpdateParams {
   /**
@@ -85,10 +87,8 @@ export interface AgentUpdateParams {
   webhook_url?: string | null;
 }
 
-export interface AgentListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace Agents {
-  export { type AgentUpdateParams as AgentUpdateParams, type AgentListParams as AgentListParams };
+  export { type AgentListParams as AgentListParams, type AgentUpdateParams as AgentUpdateParams };
 }
 
 export { type RcsAgentsDefaultFlatPagination };

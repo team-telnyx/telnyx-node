@@ -13,6 +13,27 @@ import { path } from '../../internal/utils/path';
 
 export class McpServers extends APIResource {
   /**
+   * Retrieve a list of MCP servers.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const mcpServer of client.ai.mcpServers.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: McpServerListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<McpServersDefaultFlatPaginationTopLevelArray, McpServer> {
+    return this._client.getAPIList('/ai/mcp_servers', DefaultFlatPaginationTopLevelArray<McpServer>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a new MCP server.
    *
    * @example
@@ -26,6 +47,21 @@ export class McpServers extends APIResource {
    */
   create(body: McpServerCreateParams, options?: RequestOptions): APIPromise<McpServer> {
     return this._client.post('/ai/mcp_servers', { body, ...options });
+  }
+
+  /**
+   * Delete a specific MCP server.
+   *
+   * @example
+   * ```ts
+   * await client.ai.mcpServers.delete('mcp_server_id');
+   * ```
+   */
+  delete(mcpServerID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/mcp_servers/${mcpServerID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -55,42 +91,6 @@ export class McpServers extends APIResource {
   update(mcpServerID: string, body: McpServerUpdateParams, options?: RequestOptions): APIPromise<McpServer> {
     return this._client.put(path`/ai/mcp_servers/${mcpServerID}`, { body, ...options });
   }
-
-  /**
-   * Retrieve a list of MCP servers.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const mcpServer of client.ai.mcpServers.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: McpServerListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<McpServersDefaultFlatPaginationTopLevelArray, McpServer> {
-    return this._client.getAPIList('/ai/mcp_servers', DefaultFlatPaginationTopLevelArray<McpServer>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete a specific MCP server.
-   *
-   * @example
-   * ```ts
-   * await client.ai.mcpServers.delete('mcp_server_id');
-   * ```
-   */
-  delete(mcpServerID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/mcp_servers/${mcpServerID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
 }
 
 export type McpServersDefaultFlatPaginationTopLevelArray = DefaultFlatPaginationTopLevelArray<McpServer>;
@@ -109,6 +109,18 @@ export interface McpServer {
   allowed_tools?: Array<string> | null;
 
   api_key_ref?: string | null;
+}
+
+export interface McpServerListParams extends DefaultFlatPaginationTopLevelArrayParams {
+  /**
+   * Filter results by type.
+   */
+  type?: string;
+
+  /**
+   * Filter results by url.
+   */
+  url?: string;
 }
 
 export interface McpServerCreateParams {
@@ -139,24 +151,12 @@ export interface McpServerUpdateParams {
   url?: string;
 }
 
-export interface McpServerListParams extends DefaultFlatPaginationTopLevelArrayParams {
-  /**
-   * Filter results by type.
-   */
-  type?: string;
-
-  /**
-   * Filter results by url.
-   */
-  url?: string;
-}
-
 export declare namespace McpServers {
   export {
     type McpServer as McpServer,
     type McpServersDefaultFlatPaginationTopLevelArray as McpServersDefaultFlatPaginationTopLevelArray,
+    type McpServerListParams as McpServerListParams,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
-    type McpServerListParams as McpServerListParams,
   };
 }

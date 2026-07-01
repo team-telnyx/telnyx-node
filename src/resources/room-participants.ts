@@ -13,13 +13,6 @@ import { path } from '../internal/utils/path';
  */
 export class RoomParticipants extends APIResource {
   /**
-   * View a room participant.
-   */
-  retrieve(roomParticipantID: string, options?: RequestOptions): APIPromise<RoomParticipantRetrieveResponse> {
-    return this._client.get(path`/room_participants/${roomParticipantID}`, options);
-  }
-
-  /**
    * View a list of room participants.
    */
   list(
@@ -30,6 +23,13 @@ export class RoomParticipants extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * View a room participant.
+   */
+  retrieve(roomParticipantID: string, options?: RequestOptions): APIPromise<RoomParticipantRetrieveResponse> {
+    return this._client.get(path`/room_participants/${roomParticipantID}`, options);
   }
 }
 

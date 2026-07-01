@@ -83,6 +83,18 @@ export class Assistants extends APIResource {
   instructions: InstructionsAPI.Instructions = new InstructionsAPI.Instructions(this._client);
 
   /**
+   * Retrieve a list of all AI Assistants configured by the user.
+   *
+   * @example
+   * ```ts
+   * const assistantsList = await client.ai.assistants.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<AssistantsList> {
+    return this._client.get('/ai/assistants', options);
+  }
+
+  /**
    * Create a new AI Assistant.
    *
    * @example
@@ -96,6 +108,37 @@ export class Assistants extends APIResource {
    */
   create(body: AssistantCreateParams, options?: RequestOptions): APIPromise<InferenceEmbedding> {
     return this._client.post('/ai/assistants', { body, ...options });
+  }
+
+  /**
+   * Import assistants from external providers. Any assistant that has already been
+   * imported will be overwritten with its latest version from the importing
+   * provider.
+   *
+   * @example
+   * ```ts
+   * const assistantsList = await client.ai.assistants.imports({
+   *   api_key_ref: 'api_key_ref',
+   *   provider: 'elevenlabs',
+   * });
+   * ```
+   */
+  imports(body: AssistantImportsParams, options?: RequestOptions): APIPromise<AssistantsList> {
+    return this._client.post('/ai/assistants/import', { body, ...options });
+  }
+
+  /**
+   * Delete an AI Assistant by `assistant_id`.
+   *
+   * @example
+   * ```ts
+   * const assistant = await client.ai.assistants.delete(
+   *   'assistant_id',
+   * );
+   * ```
+   */
+  delete(assistantID: string, options?: RequestOptions): APIPromise<AssistantDeleteResponse> {
+    return this._client.delete(path`/ai/assistants/${assistantID}`, options);
   }
 
   /**
@@ -130,32 +173,6 @@ export class Assistants extends APIResource {
     options?: RequestOptions,
   ): APIPromise<InferenceEmbedding> {
     return this._client.post(path`/ai/assistants/${assistantID}`, { body, ...options });
-  }
-
-  /**
-   * Retrieve a list of all AI Assistants configured by the user.
-   *
-   * @example
-   * ```ts
-   * const assistantsList = await client.ai.assistants.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<AssistantsList> {
-    return this._client.get('/ai/assistants', options);
-  }
-
-  /**
-   * Delete an AI Assistant by `assistant_id`.
-   *
-   * @example
-   * ```ts
-   * const assistant = await client.ai.assistants.delete(
-   *   'assistant_id',
-   * );
-   * ```
-   */
-  delete(assistantID: string, options?: RequestOptions): APIPromise<AssistantDeleteResponse> {
-    return this._client.delete(path`/ai/assistants/${assistantID}`, options);
   }
 
   /**
@@ -213,23 +230,6 @@ export class Assistants extends APIResource {
    */
   getTexml(assistantID: string, options?: RequestOptions): APIPromise<string> {
     return this._client.get(path`/ai/assistants/${assistantID}/texml`, options);
-  }
-
-  /**
-   * Import assistants from external providers. Any assistant that has already been
-   * imported will be overwritten with its latest version from the importing
-   * provider.
-   *
-   * @example
-   * ```ts
-   * const assistantsList = await client.ai.assistants.imports({
-   *   api_key_ref: 'api_key_ref',
-   *   provider: 'elevenlabs',
-   * });
-   * ```
-   */
-  imports(body: AssistantImportsParams, options?: RequestOptions): APIPromise<AssistantsList> {
-    return this._client.post('/ai/assistants/import', { body, ...options });
   }
 
   /**
@@ -3146,6 +3146,26 @@ export interface AssistantCreateParams {
   widget_settings?: WidgetSettings;
 }
 
+export interface AssistantImportsParams {
+  /**
+   * Integration secret pointer that refers to the API key for the external provider.
+   * This should be an identifier for an integration secret created via
+   * /v2/integration_secrets.
+   */
+  api_key_ref: string;
+
+  /**
+   * The external provider to import assistants from.
+   */
+  provider: 'elevenlabs' | 'vapi' | 'retell';
+
+  /**
+   * Optional list of assistant IDs to import from the external provider. If not
+   * provided, all assistants will be imported.
+   */
+  import_ids?: Array<string>;
+}
+
 export interface AssistantRetrieveParams {
   /**
    * Filter results by call control id.
@@ -3349,26 +3369,6 @@ export interface AssistantChatParams {
   name?: string;
 }
 
-export interface AssistantImportsParams {
-  /**
-   * Integration secret pointer that refers to the API key for the external provider.
-   * This should be an identifier for an integration secret created via
-   * /v2/integration_secrets.
-   */
-  api_key_ref: string;
-
-  /**
-   * The external provider to import assistants from.
-   */
-  provider: 'elevenlabs' | 'vapi' | 'retell';
-
-  /**
-   * Optional list of assistant IDs to import from the external provider. If not
-   * provided, all assistants will be imported.
-   */
-  import_ids?: Array<string>;
-}
-
 export interface AssistantSendSMSParams {
   from: string;
 
@@ -3440,10 +3440,10 @@ export declare namespace Assistants {
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
     type AssistantSendSMSResponse as AssistantSendSMSResponse,
     type AssistantCreateParams as AssistantCreateParams,
+    type AssistantImportsParams as AssistantImportsParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
-    type AssistantImportsParams as AssistantImportsParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
   };
 
@@ -3452,9 +3452,9 @@ export declare namespace Assistants {
     type AssistantTest as AssistantTest,
     type TelnyxConversationChannel as TelnyxConversationChannel,
     type AssistantTestsDefaultFlatPagination as AssistantTestsDefaultFlatPagination,
+    type TestListParams as TestListParams,
     type TestCreateParams as TestCreateParams,
     type TestUpdateParams as TestUpdateParams,
-    type TestListParams as TestListParams,
   };
 
   export {
@@ -3480,10 +3480,10 @@ export declare namespace Assistants {
     type ScheduledSMSEventResponse as ScheduledSMSEventResponse,
     type ScheduledEventListResponse as ScheduledEventListResponse,
     type ScheduledEventListResponsesDefaultFlatPagination as ScheduledEventListResponsesDefaultFlatPagination,
-    type ScheduledEventCreateParams as ScheduledEventCreateParams,
-    type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
     type ScheduledEventListParams as ScheduledEventListParams,
+    type ScheduledEventCreateParams as ScheduledEventCreateParams,
     type ScheduledEventDeleteParams as ScheduledEventDeleteParams,
+    type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
   };
 
   export {
@@ -3491,17 +3491,17 @@ export declare namespace Assistants {
     type ToolAddResponse as ToolAddResponse,
     type ToolRemoveResponse as ToolRemoveResponse,
     type ToolTestResponse as ToolTestResponse,
-    type ToolAddParams as ToolAddParams,
-    type ToolRemoveParams as ToolRemoveParams,
     type ToolTestParams as ToolTestParams,
+    type ToolRemoveParams as ToolRemoveParams,
+    type ToolAddParams as ToolAddParams,
   };
 
   export {
     Versions as Versions,
     type UpdateAssistant as UpdateAssistant,
+    type VersionDeleteParams as VersionDeleteParams,
     type VersionRetrieveParams as VersionRetrieveParams,
     type VersionUpdateParams as VersionUpdateParams,
-    type VersionDeleteParams as VersionDeleteParams,
     type VersionPromoteParams as VersionPromoteParams,
   };
 

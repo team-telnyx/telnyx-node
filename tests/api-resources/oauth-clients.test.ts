@@ -9,62 +9,6 @@ const client = new Telnyx({
 
 describe('resource oauthClients', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.oauthClients.create({
-      allowed_grant_types: ['client_credentials'],
-      allowed_scopes: ['admin'],
-      client_type: 'public',
-      name: 'My OAuth client',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.oauthClients.create({
-      allowed_grant_types: ['client_credentials'],
-      allowed_scopes: ['admin'],
-      client_type: 'public',
-      name: 'My OAuth client',
-      logo_uri: 'https://example.com',
-      policy_uri: 'https://example.com',
-      redirect_uris: ['https://example.com'],
-      require_pkce: true,
-      tos_uri: 'https://example.com',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.oauthClients.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update', async () => {
-    const responsePromise = client.oauthClients.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.oauthClients.list();
     const rawResponse = await responsePromise.asResponse();
@@ -97,8 +41,64 @@ describe('resource oauthClients', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.oauthClients.create({
+      allowed_grant_types: ['client_credentials'],
+      allowed_scopes: ['admin'],
+      client_type: 'public',
+      name: 'My OAuth client',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.oauthClients.create({
+      allowed_grant_types: ['client_credentials'],
+      allowed_scopes: ['admin'],
+      client_type: 'public',
+      name: 'My OAuth client',
+      logo_uri: 'https://example.com',
+      policy_uri: 'https://example.com',
+      redirect_uris: ['https://example.com'],
+      require_pkce: true,
+      tos_uri: 'https://example.com',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('delete', async () => {
     const responsePromise = client.oauthClients.delete('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.oauthClients.retrieve('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('update', async () => {
+    const responsePromise = client.oauthClients.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

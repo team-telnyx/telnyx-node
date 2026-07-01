@@ -5,9 +5,9 @@ export {
   type ConferenceResource,
   type ConferenceRetrieveConferencesResponse,
   type ConferenceRetrieveRecordingsResponse,
+  type ConferenceRetrieveConferencesParams,
   type ConferenceRetrieveParams,
   type ConferenceUpdateParams,
-  type ConferenceRetrieveConferencesParams,
   type ConferenceRetrieveRecordingsParams,
   type ConferenceRetrieveRecordingsJsonParams,
 } from './conferences';
@@ -16,9 +16,9 @@ export {
   type ParticipantResource,
   type ParticipantParticipantsResponse,
   type ParticipantRetrieveParticipantsResponse,
+  type ParticipantRetrieveParticipantsParams,
+  type ParticipantParticipantsParams,
+  type ParticipantDeleteParams,
   type ParticipantRetrieveParams,
   type ParticipantUpdateParams,
-  type ParticipantDeleteParams,
-  type ParticipantParticipantsParams,
-  type ParticipantRetrieveParticipantsParams,
 } from './participants';

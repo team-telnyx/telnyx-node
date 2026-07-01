@@ -16,6 +16,34 @@ import { path } from '../../../internal/utils/path';
  */
 export class Remediation extends APIResource {
   /**
+   * Paginated list of remediation requests for this enterprise. List items omit
+   * per-number results and webhook URLs to keep the response small; call GET by id
+   * for full detail. Supports JSON:API pagination and optional filters on status and
+   * created-at range.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const remediationListResponse of client.enterprises.reputation.remediation.list(
+   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    enterpriseID: string,
+    query: RemediationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RemediationListResponsesDefaultFlatPagination, RemediationListResponse> {
+    return this._client.getAPIList(
+      path`/enterprises/${enterpriseID}/reputation/remediation`,
+      DefaultFlatPagination<RemediationListResponse>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Submit a batch of phone numbers belonging to this enterprise for reputation
    * remediation. The request is accepted asynchronously: this endpoint returns `202`
    * with the persisted request id, then the request transitions through processing
@@ -73,34 +101,6 @@ export class Remediation extends APIResource {
     return this._client.get(
       path`/enterprises/${enterprise_id}/reputation/remediation/${remediationID}`,
       options,
-    );
-  }
-
-  /**
-   * Paginated list of remediation requests for this enterprise. List items omit
-   * per-number results and webhook URLs to keep the response small; call GET by id
-   * for full detail. Supports JSON:API pagination and optional filters on status and
-   * created-at range.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const remediationListResponse of client.enterprises.reputation.remediation.list(
-   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    enterpriseID: string,
-    query: RemediationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RemediationListResponsesDefaultFlatPagination, RemediationListResponse> {
-    return this._client.getAPIList(
-      path`/enterprises/${enterpriseID}/reputation/remediation`,
-      DefaultFlatPagination<RemediationListResponse>,
-      { query, ...options },
     );
   }
 }
@@ -213,6 +213,23 @@ export interface RemediationListResponse {
   tier2_completed_at?: string | null;
 }
 
+export interface RemediationListParams extends DefaultFlatPaginationParams {
+  /**
+   * Only requests created on or after this timestamp (ISO 8601).
+   */
+  'filter[created_at][gte]'?: string;
+
+  /**
+   * Only requests created on or before this timestamp (ISO 8601).
+   */
+  'filter[created_at][lte]'?: string;
+
+  /**
+   * Filter by customer-facing status.
+   */
+  'filter[status]'?: RemediationStatus;
+}
+
 export interface RemediationCreateParams {
   /**
    * How the numbers are used (free text).
@@ -243,31 +260,14 @@ export interface RemediationRetrieveParams {
   enterprise_id: string;
 }
 
-export interface RemediationListParams extends DefaultFlatPaginationParams {
-  /**
-   * Only requests created on or after this timestamp (ISO 8601).
-   */
-  'filter[created_at][gte]'?: string;
-
-  /**
-   * Only requests created on or before this timestamp (ISO 8601).
-   */
-  'filter[created_at][lte]'?: string;
-
-  /**
-   * Filter by customer-facing status.
-   */
-  'filter[status]'?: RemediationStatus;
-}
-
 export declare namespace Remediation {
   export {
     type RemediationRequestWrapped as RemediationRequestWrapped,
     type RemediationStatus as RemediationStatus,
     type RemediationListResponse as RemediationListResponse,
     type RemediationListResponsesDefaultFlatPagination as RemediationListResponsesDefaultFlatPagination,
+    type RemediationListParams as RemediationListParams,
     type RemediationCreateParams as RemediationCreateParams,
     type RemediationRetrieveParams as RemediationRetrieveParams,
-    type RemediationListParams as RemediationListParams,
   };
 }

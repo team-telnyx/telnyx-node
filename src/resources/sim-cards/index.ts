@@ -15,11 +15,11 @@ export {
   type ActionSetStandbyResponse,
   type ActionValidateRegistrationCodesResponse,
   type ActionListParams,
+  type ActionBulkSetPublicIPsParams,
+  type ActionValidateRegistrationCodesParams,
+  type ActionSetPublicIPParams,
   type ActionBulkDisableVoiceParams,
   type ActionBulkEnableVoiceParams,
-  type ActionBulkSetPublicIPsParams,
-  type ActionSetPublicIPParams,
-  type ActionValidateRegistrationCodesParams,
   type SimCardActionsDefaultFlatPagination,
 } from './actions';
 export {
@@ -32,10 +32,10 @@ export {
   type SimCardGetDeviceDetailsResponse,
   type SimCardGetPublicIPResponse,
   type SimCardListWirelessConnectivityLogsResponse,
-  type SimCardRetrieveParams,
-  type SimCardUpdateParams,
   type SimCardListParams,
   type SimCardDeleteParams,
+  type SimCardRetrieveParams,
+  type SimCardUpdateParams,
   type SimCardListWirelessConnectivityLogsParams,
   type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
 } from './sim-cards';

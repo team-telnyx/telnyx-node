@@ -252,10 +252,10 @@ export declare namespace Accounts {
     type CallRetrieveCallsResponse as CallRetrieveCallsResponse,
     type CallSiprecJsonResponse as CallSiprecJsonResponse,
     type CallStreamsJsonResponse as CallStreamsJsonResponse,
+    type CallRetrieveCallsParams as CallRetrieveCallsParams,
+    type CallCallsParams as CallCallsParams,
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
-    type CallCallsParams as CallCallsParams,
-    type CallRetrieveCallsParams as CallRetrieveCallsParams,
     type CallSiprecJsonParams as CallSiprecJsonParams,
     type CallStreamsJsonParams as CallStreamsJsonParams,
   };
@@ -265,9 +265,9 @@ export declare namespace Accounts {
     type ConferenceResource as ConferenceResource,
     type ConferenceRetrieveConferencesResponse as ConferenceRetrieveConferencesResponse,
     type ConferenceRetrieveRecordingsResponse as ConferenceRetrieveRecordingsResponse,
+    type ConferenceRetrieveConferencesParams as ConferenceRetrieveConferencesParams,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceUpdateParams as ConferenceUpdateParams,
-    type ConferenceRetrieveConferencesParams as ConferenceRetrieveConferencesParams,
     type ConferenceRetrieveRecordingsParams as ConferenceRetrieveRecordingsParams,
     type ConferenceRetrieveRecordingsJsonParams as ConferenceRetrieveRecordingsJsonParams,
   };
@@ -281,9 +281,9 @@ export declare namespace Accounts {
     type QueueResource as QueueResource,
     type QueueResourcesDefaultPaginationForQueues as QueueResourcesDefaultPaginationForQueues,
     type QueueCreateParams as QueueCreateParams,
+    type QueueDeleteParams as QueueDeleteParams,
     type QueueRetrieveParams as QueueRetrieveParams,
     type QueueUpdateParams as QueueUpdateParams,
     type QueueListParams as QueueListParams,
-    type QueueDeleteParams as QueueDeleteParams,
   };
 }

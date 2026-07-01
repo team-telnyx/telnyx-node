@@ -9,6 +9,18 @@ const client = new Telnyx({
 
 describe('resource tools', () => {
   // Mock server tests are disabled
+  test.skip('listTools', async () => {
+    const responsePromise = client.ai.missions.tools.listTools('mission_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('createTool', async () => {
     const responsePromise = client.ai.missions.tools.createTool('mission_id');
     const rawResponse = await responsePromise.asResponse();
@@ -52,18 +64,6 @@ describe('resource tools', () => {
   // Mock server tests are disabled
   test.skip('getTool: required and optional params', async () => {
     const response = await client.ai.missions.tools.getTool('tool_id', { mission_id: 'mission_id' });
-  });
-
-  // Mock server tests are disabled
-  test.skip('listTools', async () => {
-    const responsePromise = client.ai.missions.tools.listTools('mission_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled

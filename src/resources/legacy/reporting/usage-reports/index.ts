@@ -7,8 +7,8 @@ export {
   type MessagingCreateResponse,
   type MessagingRetrieveResponse,
   type MessagingDeleteResponse,
-  type MessagingCreateParams,
   type MessagingListParams,
+  type MessagingCreateParams,
   type MdrUsageReportResponseLegaciesPerPagePagination,
 } from './messaging';
 export {
@@ -32,7 +32,7 @@ export {
   type VoiceCreateResponse,
   type VoiceRetrieveResponse,
   type VoiceDeleteResponse,
-  type VoiceCreateParams,
   type VoiceListParams,
+  type VoiceCreateParams,
   type CdrUsageReportResponseLegaciesPerPagePagination,
 } from './voice';

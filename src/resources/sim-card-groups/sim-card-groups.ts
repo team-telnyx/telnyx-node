@@ -27,6 +27,27 @@ export class SimCardGroups extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
+   * Get all SIM card groups belonging to the user that match the given filters.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const simCardGroupListResponse of client.simCardGroups.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: SimCardGroupListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SimCardGroupListResponsesDefaultFlatPagination, SimCardGroupListResponse> {
+    return this._client.getAPIList('/sim_card_groups', DefaultFlatPagination<SimCardGroupListResponse>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a new SIM card group object
    *
    * @example
@@ -38,6 +59,20 @@ export class SimCardGroups extends APIResource {
    */
   create(body: SimCardGroupCreateParams, options?: RequestOptions): APIPromise<SimCardGroupCreateResponse> {
     return this._client.post('/sim_card_groups', { body, ...options });
+  }
+
+  /**
+   * Permanently deletes a SIM card group
+   *
+   * @example
+   * ```ts
+   * const simCardGroup = await client.simCardGroups.delete(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<SimCardGroupDeleteResponse> {
+    return this._client.delete(path`/sim_card_groups/${id}`, options);
   }
 
   /**
@@ -74,41 +109,6 @@ export class SimCardGroups extends APIResource {
     options?: RequestOptions,
   ): APIPromise<SimCardGroupUpdateResponse> {
     return this._client.patch(path`/sim_card_groups/${id}`, { body, ...options });
-  }
-
-  /**
-   * Get all SIM card groups belonging to the user that match the given filters.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const simCardGroupListResponse of client.simCardGroups.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: SimCardGroupListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<SimCardGroupListResponsesDefaultFlatPagination, SimCardGroupListResponse> {
-    return this._client.getAPIList('/sim_card_groups', DefaultFlatPagination<SimCardGroupListResponse>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Permanently deletes a SIM card group
-   *
-   * @example
-   * ```ts
-   * const simCardGroup = await client.simCardGroups.delete(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<SimCardGroupDeleteResponse> {
-    return this._client.delete(path`/sim_card_groups/${id}`, options);
   }
 }
 
@@ -272,6 +272,23 @@ export interface SimCardGroupDeleteResponse {
   data?: SimCardGroup;
 }
 
+export interface SimCardGroupListParams extends DefaultFlatPaginationParams {
+  /**
+   * A valid SIM card group name.
+   */
+  'filter[name]'?: string;
+
+  /**
+   * A Private Wireless Gateway ID associated with the group.
+   */
+  'filter[private_wireless_gateway_id]'?: string;
+
+  /**
+   * A Wireless Blocklist ID associated with the group.
+   */
+  'filter[wireless_blocklist_id]'?: string;
+}
+
 export interface SimCardGroupCreateParams {
   /**
    * A user friendly name for the SIM card group.
@@ -325,23 +342,6 @@ export namespace SimCardGroupUpdateParams {
   }
 }
 
-export interface SimCardGroupListParams extends DefaultFlatPaginationParams {
-  /**
-   * A valid SIM card group name.
-   */
-  'filter[name]'?: string;
-
-  /**
-   * A Private Wireless Gateway ID associated with the group.
-   */
-  'filter[private_wireless_gateway_id]'?: string;
-
-  /**
-   * A Wireless Blocklist ID associated with the group.
-   */
-  'filter[wireless_blocklist_id]'?: string;
-}
-
 SimCardGroups.Actions = Actions;
 
 export declare namespace SimCardGroups {
@@ -354,10 +354,10 @@ export declare namespace SimCardGroups {
     type SimCardGroupListResponse as SimCardGroupListResponse,
     type SimCardGroupDeleteResponse as SimCardGroupDeleteResponse,
     type SimCardGroupListResponsesDefaultFlatPagination as SimCardGroupListResponsesDefaultFlatPagination,
+    type SimCardGroupListParams as SimCardGroupListParams,
     type SimCardGroupCreateParams as SimCardGroupCreateParams,
     type SimCardGroupRetrieveParams as SimCardGroupRetrieveParams,
     type SimCardGroupUpdateParams as SimCardGroupUpdateParams,
-    type SimCardGroupListParams as SimCardGroupListParams,
   };
 
   export {

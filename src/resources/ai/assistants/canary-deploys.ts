@@ -11,6 +11,43 @@ import { path } from '../../../internal/utils/path';
  */
 export class CanaryDeploys extends APIResource {
   /**
+   * Endpoint to delete a canary deploy configuration for an assistant.
+   *
+   * Removes all canary deploy configurations for the specified assistant.
+   *
+   * @example
+   * ```ts
+   * await client.ai.assistants.canaryDeploys.delete(
+   *   'assistant_id',
+   * );
+   * ```
+   */
+  delete(assistantID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/assistants/${assistantID}/canary-deploys`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Endpoint to get a canary deploy configuration for an assistant.
+   *
+   * Retrieves the current canary deploy configuration with all version IDs and their
+   * traffic percentages for the specified assistant.
+   *
+   * @example
+   * ```ts
+   * const canaryDeployResponse =
+   *   await client.ai.assistants.canaryDeploys.retrieve(
+   *     'assistant_id',
+   *   );
+   * ```
+   */
+  retrieve(assistantID: string, options?: RequestOptions): APIPromise<CanaryDeployResponse> {
+    return this._client.get(path`/ai/assistants/${assistantID}/canary-deploys`, options);
+  }
+
+  /**
    * Endpoint to create a canary deploy configuration for an assistant.
    *
    * Creates a new canary deploy configuration with multiple version IDs and their
@@ -30,24 +67,6 @@ export class CanaryDeploys extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CanaryDeployResponse> {
     return this._client.post(path`/ai/assistants/${assistantID}/canary-deploys`, { body, ...options });
-  }
-
-  /**
-   * Endpoint to get a canary deploy configuration for an assistant.
-   *
-   * Retrieves the current canary deploy configuration with all version IDs and their
-   * traffic percentages for the specified assistant.
-   *
-   * @example
-   * ```ts
-   * const canaryDeployResponse =
-   *   await client.ai.assistants.canaryDeploys.retrieve(
-   *     'assistant_id',
-   *   );
-   * ```
-   */
-  retrieve(assistantID: string, options?: RequestOptions): APIPromise<CanaryDeployResponse> {
-    return this._client.get(path`/ai/assistants/${assistantID}/canary-deploys`, options);
   }
 
   /**
@@ -71,25 +90,6 @@ export class CanaryDeploys extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CanaryDeployResponse> {
     return this._client.put(path`/ai/assistants/${assistantID}/canary-deploys`, { body, ...options });
-  }
-
-  /**
-   * Endpoint to delete a canary deploy configuration for an assistant.
-   *
-   * Removes all canary deploy configurations for the specified assistant.
-   *
-   * @example
-   * ```ts
-   * await client.ai.assistants.canaryDeploys.delete(
-   *   'assistant_id',
-   * );
-   * ```
-   */
-  delete(assistantID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/assistants/${assistantID}/canary-deploys`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 

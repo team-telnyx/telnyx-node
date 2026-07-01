@@ -28,8 +28,8 @@ export declare namespace Organizations {
     type UserRetrieveResponse as UserRetrieveResponse,
     type UserGetGroupsReportResponse as UserGetGroupsReportResponse,
     type OrganizationUsersDefaultFlatPagination as OrganizationUsersDefaultFlatPagination,
-    type UserRetrieveParams as UserRetrieveParams,
     type UserListParams as UserListParams,
     type UserGetGroupsReportParams as UserGetGroupsReportParams,
+    type UserRetrieveParams as UserRetrieveParams,
   };
 }

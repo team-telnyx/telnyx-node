@@ -34,8 +34,8 @@ export {
   type PortoutReport,
   type ReportCreateResponse,
   type ReportRetrieveResponse,
-  type ReportCreateParams,
   type ReportListParams,
+  type ReportCreateParams,
   type PortoutReportsDefaultFlatPagination,
 } from './reports';
 export {

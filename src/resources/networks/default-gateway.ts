@@ -13,22 +13,18 @@ import { path } from '../../internal/utils/path';
  */
 export class DefaultGatewayResource extends APIResource {
   /**
-   * Create Default Gateway.
+   * Delete Default Gateway.
    *
    * @example
    * ```ts
    * const defaultGateway =
-   *   await client.networks.defaultGateway.create(
+   *   await client.networks.defaultGateway.delete(
    *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
    *   );
    * ```
    */
-  create(
-    networkIdentifier: string,
-    body: DefaultGatewayCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<DefaultGatewayCreateResponse> {
-    return this._client.post(path`/networks/${networkIdentifier}/default_gateway`, { body, ...options });
+  delete(id: string, options?: RequestOptions): APIPromise<DefaultGatewayDeleteResponse> {
+    return this._client.delete(path`/networks/${id}/default_gateway`, options);
   }
 
   /**
@@ -47,18 +43,22 @@ export class DefaultGatewayResource extends APIResource {
   }
 
   /**
-   * Delete Default Gateway.
+   * Create Default Gateway.
    *
    * @example
    * ```ts
    * const defaultGateway =
-   *   await client.networks.defaultGateway.delete(
+   *   await client.networks.defaultGateway.create(
    *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
    *   );
    * ```
    */
-  delete(id: string, options?: RequestOptions): APIPromise<DefaultGatewayDeleteResponse> {
-    return this._client.delete(path`/networks/${id}/default_gateway`, options);
+  create(
+    networkIdentifier: string,
+    body: DefaultGatewayCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<DefaultGatewayCreateResponse> {
+    return this._client.post(path`/networks/${networkIdentifier}/default_gateway`, { body, ...options });
   }
 }
 

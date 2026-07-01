@@ -9,6 +9,33 @@ const client = new Telnyx({
 
 describe('resource verifyProfiles', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.verifyProfiles.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.verifyProfiles.list(
+        {
+          filter: { name: 'name' },
+          'page[number]': 0,
+          'page[size]': 0,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.verifyProfiles.create({ name: 'Test Profile' });
     const rawResponse = await responsePromise.asResponse();
@@ -60,6 +87,30 @@ describe('resource verifyProfiles', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('retrieveTemplates', async () => {
+    const responsePromise = client.verifyProfiles.retrieveTemplates();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.verifyProfiles.delete('12ade33a-21c0-473b-b055-b3c836e1c292');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.verifyProfiles.retrieve('12ade33a-21c0-473b-b055-b3c836e1c292');
     const rawResponse = await responsePromise.asResponse();
@@ -74,45 +125,6 @@ describe('resource verifyProfiles', () => {
   // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.verifyProfiles.update('12ade33a-21c0-473b-b055-b3c836e1c292', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.verifyProfiles.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.verifyProfiles.list(
-        {
-          filter: { name: 'name' },
-          'page[number]': 0,
-          'page[size]': 0,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.verifyProfiles.delete('12ade33a-21c0-473b-b055-b3c836e1c292');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -141,18 +153,6 @@ describe('resource verifyProfiles', () => {
     const response = await client.verifyProfiles.createTemplate({
       text: 'Your {{app_name}} verification code is: {{code}}.',
     });
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieveTemplates', async () => {
-    const responsePromise = client.verifyProfiles.retrieveTemplates();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled

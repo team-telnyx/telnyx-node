@@ -13,6 +13,28 @@ import { path } from '../internal/utils/path';
  */
 export class PronunciationDicts extends APIResource {
   /**
+   * List all pronunciation dictionaries for the authenticated organization. Results
+   * are paginated using offset-based pagination.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const pronunciationDictData of client.pronunciationDicts.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: PronunciationDictListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PronunciationDictDataDefaultFlatPagination, PronunciationDictData> {
+    return this._client.getAPIList('/pronunciation_dicts', DefaultFlatPagination<PronunciationDictData>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a new pronunciation dictionary for the authenticated organization. Each
    * dictionary contains a list of items that control how specific words are spoken.
    * Items can be alias type (text replacement) or phoneme type (IPA pronunciation
@@ -58,6 +80,23 @@ export class PronunciationDicts extends APIResource {
   }
 
   /**
+   * Permanently delete a pronunciation dictionary.
+   *
+   * @example
+   * ```ts
+   * await client.pronunciationDicts.delete(
+   *   'c215a3e1-be41-4701-97e8-1d3c22f9a5b7',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/pronunciation_dicts/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Retrieve a single pronunciation dictionary by ID.
    *
    * @example
@@ -91,45 +130,6 @@ export class PronunciationDicts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PronunciationDictResponse> {
     return this._client.patch(path`/pronunciation_dicts/${id}`, { body, ...options });
-  }
-
-  /**
-   * List all pronunciation dictionaries for the authenticated organization. Results
-   * are paginated using offset-based pagination.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const pronunciationDictData of client.pronunciationDicts.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: PronunciationDictListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PronunciationDictDataDefaultFlatPagination, PronunciationDictData> {
-    return this._client.getAPIList('/pronunciation_dicts', DefaultFlatPagination<PronunciationDictData>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Permanently delete a pronunciation dictionary.
-   *
-   * @example
-   * ```ts
-   * await client.pronunciationDicts.delete(
-   *   'c215a3e1-be41-4701-97e8-1d3c22f9a5b7',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/pronunciation_dicts/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 
@@ -242,6 +242,8 @@ export interface PronunciationDictResponse {
   data?: PronunciationDictData;
 }
 
+export interface PronunciationDictListParams extends DefaultFlatPaginationParams {}
+
 export interface PronunciationDictCreateParams {
   /**
    * List of pronunciation items (alias or phoneme type). At least one item is
@@ -267,8 +269,6 @@ export interface PronunciationDictUpdateParams {
   name?: string;
 }
 
-export interface PronunciationDictListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace PronunciationDicts {
   export {
     type PronunciationDictAliasItem as PronunciationDictAliasItem,
@@ -277,8 +277,8 @@ export declare namespace PronunciationDicts {
     type PronunciationDictPhonemeItem as PronunciationDictPhonemeItem,
     type PronunciationDictResponse as PronunciationDictResponse,
     type PronunciationDictDataDefaultFlatPagination as PronunciationDictDataDefaultFlatPagination,
+    type PronunciationDictListParams as PronunciationDictListParams,
     type PronunciationDictCreateParams as PronunciationDictCreateParams,
     type PronunciationDictUpdateParams as PronunciationDictUpdateParams,
-    type PronunciationDictListParams as PronunciationDictListParams,
   };
 }

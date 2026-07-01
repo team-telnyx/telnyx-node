@@ -14,6 +14,27 @@ import { path } from '../internal/utils/path';
  */
 export class WireguardPeers extends APIResource {
   /**
+   * List all WireGuard peers.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const wireguardPeer of client.wireguardPeers.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: WireguardPeerListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<WireguardPeersDefaultFlatPagination, WireguardPeer> {
+    return this._client.getAPIList('/wireguard_peers', DefaultFlatPagination<WireguardPeer>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a new WireGuard Peer. Current limitation of 5 peers per interface can be
    * created.
    *
@@ -30,6 +51,20 @@ export class WireguardPeers extends APIResource {
   ): APIPromise<WireguardPeerCreateResponse> {
     const { body } = params;
     return this._client.post('/wireguard_peers', { body: body, ...options });
+  }
+
+  /**
+   * Delete the WireGuard peer.
+   *
+   * @example
+   * ```ts
+   * const wireguardPeer = await client.wireguardPeers.delete(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<WireguardPeerDeleteResponse> {
+    return this._client.delete(path`/wireguard_peers/${id}`, options);
   }
 
   /**
@@ -62,41 +97,6 @@ export class WireguardPeers extends APIResource {
     options?: RequestOptions,
   ): APIPromise<WireguardPeerUpdateResponse> {
     return this._client.patch(path`/wireguard_peers/${id}`, { body, ...options });
-  }
-
-  /**
-   * List all WireGuard peers.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const wireguardPeer of client.wireguardPeers.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: WireguardPeerListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<WireguardPeersDefaultFlatPagination, WireguardPeer> {
-    return this._client.getAPIList('/wireguard_peers', DefaultFlatPagination<WireguardPeer>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete the WireGuard peer.
-   *
-   * @example
-   * ```ts
-   * const wireguardPeer = await client.wireguardPeers.delete(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<WireguardPeerDeleteResponse> {
-    return this._client.delete(path`/wireguard_peers/${id}`, options);
   }
 
   /**
@@ -166,22 +166,6 @@ export interface WireguardPeerDeleteResponse {
 
 export type WireguardPeerRetrieveConfigResponse = string;
 
-export interface WireguardPeerCreateParams {
-  body: WireguardPeerCreateParams.Body;
-}
-
-export namespace WireguardPeerCreateParams {
-  export interface Body extends WireguardPeersAPI.WireguardPeer {}
-}
-
-export interface WireguardPeerUpdateParams {
-  /**
-   * The WireGuard `PublicKey`.<br /><br />If you do not provide a Public Key, a new
-   * Public and Private key pair will be generated for you.
-   */
-  public_key?: string;
-}
-
 export interface WireguardPeerListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -203,6 +187,22 @@ export namespace WireguardPeerListParams {
   }
 }
 
+export interface WireguardPeerCreateParams {
+  body: WireguardPeerCreateParams.Body;
+}
+
+export namespace WireguardPeerCreateParams {
+  export interface Body extends WireguardPeersAPI.WireguardPeer {}
+}
+
+export interface WireguardPeerUpdateParams {
+  /**
+   * The WireGuard `PublicKey`.<br /><br />If you do not provide a Public Key, a new
+   * Public and Private key pair will be generated for you.
+   */
+  public_key?: string;
+}
+
 export declare namespace WireguardPeers {
   export {
     type WireguardPeer as WireguardPeer,
@@ -213,8 +213,8 @@ export declare namespace WireguardPeers {
     type WireguardPeerDeleteResponse as WireguardPeerDeleteResponse,
     type WireguardPeerRetrieveConfigResponse as WireguardPeerRetrieveConfigResponse,
     type WireguardPeersDefaultFlatPagination as WireguardPeersDefaultFlatPagination,
+    type WireguardPeerListParams as WireguardPeerListParams,
     type WireguardPeerCreateParams as WireguardPeerCreateParams,
     type WireguardPeerUpdateParams as WireguardPeerUpdateParams,
-    type WireguardPeerListParams as WireguardPeerListParams,
   };
 }

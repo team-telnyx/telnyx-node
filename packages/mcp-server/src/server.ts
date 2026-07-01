@@ -10,9 +10,6 @@ import {
 import { ClientOptions } from 'telnyx';
 import Telnyx from 'telnyx';
 import { codeTool } from './code-tool';
-import docsSearchTool from './docs-search-tool';
-import { setLocalSearch } from './docs-search-tool';
-import { LocalDocsSearch } from './local-docs-search';
 import { getInstructions } from './instructions';
 import { McpOptions } from './options';
 import { blockedMethodsForCodeTool } from './methods';
@@ -28,7 +25,7 @@ export const newMcpServer = async ({
   new McpServer(
     {
       name: 'telnyx_api',
-      version: '6.74.2',
+      version: '7.2.0',
     },
     {
       instructions: await getInstructions({ stainlessApiKey, customInstructionsPath }),
@@ -65,12 +62,6 @@ export async function initMcpServer(params: {
     warn: logAtLevel('warning'),
     error: logAtLevel('error'),
   };
-
-  if (params.mcpOptions?.docsSearchMode === 'local') {
-    const docsDir = params.mcpOptions?.docsDir;
-    const localSearch = await LocalDocsSearch.create(docsDir ? { docsDir } : undefined);
-    setLocalSearch(localSearch);
-  }
 
   let _client: Telnyx | undefined;
   let _clientError: Error | undefined;
@@ -182,13 +173,11 @@ export function selectTools(options?: McpOptions): McpTool[] {
     includedTools.push(
       codeTool({
         blockedMethods: blockedMethodsForCodeTool(options),
-        codeExecutionMode: options?.codeExecutionMode ?? 'stainless-sandbox',
+        codeExecutionMode: options?.codeExecutionMode ?? 'local',
       }),
     );
   }
-  if (options?.includeDocsTools ?? true) {
-    includedTools.push(docsSearchTool);
-  }
+
   return includedTools;
 }
 

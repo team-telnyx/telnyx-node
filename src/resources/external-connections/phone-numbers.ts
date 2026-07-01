@@ -11,6 +11,32 @@ import { path } from '../../internal/utils/path';
  */
 export class PhoneNumbers extends APIResource {
   /**
+   * Returns a list of all active phone numbers associated with the given external
+   * connection.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const externalConnectionPhoneNumber of client.externalConnections.phoneNumbers.list(
+   *   '1293384261075731499',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    id: string,
+    query: PhoneNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ExternalConnectionPhoneNumbersDefaultFlatPagination, ExternalConnectionPhoneNumber> {
+    return this._client.getAPIList(
+      path`/external_connections/${id}/phone_numbers`,
+      DefaultFlatPagination<ExternalConnectionPhoneNumber>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Return the details of a phone number associated with the given external
    * connection.
    *
@@ -55,32 +81,6 @@ export class PhoneNumbers extends APIResource {
       body,
       ...options,
     });
-  }
-
-  /**
-   * Returns a list of all active phone numbers associated with the given external
-   * connection.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const externalConnectionPhoneNumber of client.externalConnections.phoneNumbers.list(
-   *   '1293384261075731499',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    id: string,
-    query: PhoneNumberListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ExternalConnectionPhoneNumbersDefaultFlatPagination, ExternalConnectionPhoneNumber> {
-    return this._client.getAPIList(
-      path`/external_connections/${id}/phone_numbers`,
-      DefaultFlatPagination<ExternalConnectionPhoneNumber>,
-      { query, ...options },
-    );
   }
 }
 
@@ -130,25 +130,6 @@ export interface PhoneNumberRetrieveResponse {
 
 export interface PhoneNumberUpdateResponse {
   data?: ExternalConnectionPhoneNumber;
-}
-
-export interface PhoneNumberRetrieveParams {
-  /**
-   * Identifies the resource.
-   */
-  id: string;
-}
-
-export interface PhoneNumberUpdateParams {
-  /**
-   * Path param: Identifies the resource.
-   */
-  id: string;
-
-  /**
-   * Body param: Identifies the location to assign the phone number to.
-   */
-  location_id?: string;
 }
 
 export interface PhoneNumberListParams extends DefaultFlatPaginationParams {
@@ -201,14 +182,33 @@ export namespace PhoneNumberListParams {
   }
 }
 
+export interface PhoneNumberRetrieveParams {
+  /**
+   * Identifies the resource.
+   */
+  id: string;
+}
+
+export interface PhoneNumberUpdateParams {
+  /**
+   * Path param: Identifies the resource.
+   */
+  id: string;
+
+  /**
+   * Body param: Identifies the location to assign the phone number to.
+   */
+  location_id?: string;
+}
+
 export declare namespace PhoneNumbers {
   export {
     type ExternalConnectionPhoneNumber as ExternalConnectionPhoneNumber,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
     type ExternalConnectionPhoneNumbersDefaultFlatPagination as ExternalConnectionPhoneNumbersDefaultFlatPagination,
+    type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberRetrieveParams as PhoneNumberRetrieveParams,
     type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
-    type PhoneNumberListParams as PhoneNumberListParams,
   };
 }

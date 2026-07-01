@@ -26,6 +26,28 @@ export class Enterprises extends APIResource {
   dir: DirAPI.Dir = new DirAPI.Dir(this._client);
 
   /**
+   * Return the enterprises you own, paginated. The default page size is 20; the
+   * maximum is 250.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const enterprisePublic of client.enterprises.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: EnterpriseListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<EnterprisePublicsDefaultFlatPagination, EnterprisePublic> {
+    return this._client.getAPIList('/enterprises', DefaultFlatPagination<EnterprisePublic>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create the legal entity (enterprise) that represents your business on the Telnyx
    * platform.
    *
@@ -86,6 +108,32 @@ export class Enterprises extends APIResource {
    */
   create(body: EnterpriseCreateParams, options?: RequestOptions): APIPromise<EnterprisePublicWrapped> {
     return this._client.post('/enterprises', { body, ...options });
+  }
+
+  /**
+   * Soft-delete an enterprise.
+   *
+   * Failure modes:
+   *
+   * - `400` - the enterprise still has dependent resources in a non-deletable state.
+   *   Remove those first; the response `detail` identifies what is blocking the
+   *   delete.
+   * - `409` - the enterprise has a dependent resource with an unresolved claim.
+   *   Resolve it before deleting.
+   * - `404` - the enterprise does not exist or does not belong to your account.
+   *
+   * @example
+   * ```ts
+   * await client.enterprises.delete(
+   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   * );
+   * ```
+   */
+  delete(enterpriseID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/enterprises/${enterpriseID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -162,54 +210,6 @@ export class Enterprises extends APIResource {
     options?: RequestOptions,
   ): APIPromise<EnterprisePublicWrapped> {
     return this._client.put(path`/enterprises/${enterpriseID}`, { body, ...options });
-  }
-
-  /**
-   * Return the enterprises you own, paginated. The default page size is 20; the
-   * maximum is 250.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const enterprisePublic of client.enterprises.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: EnterpriseListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<EnterprisePublicsDefaultFlatPagination, EnterprisePublic> {
-    return this._client.getAPIList('/enterprises', DefaultFlatPagination<EnterprisePublic>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Soft-delete an enterprise.
-   *
-   * Failure modes:
-   *
-   * - `400` - the enterprise still has dependent resources in a non-deletable state.
-   *   Remove those first; the response `detail` identifies what is blocking the
-   *   delete.
-   * - `409` - the enterprise has a dependent resource with an unresolved claim.
-   *   Resolve it before deleting.
-   * - `404` - the enterprise does not exist or does not belong to your account.
-   *
-   * @example
-   * ```ts
-   * await client.enterprises.delete(
-   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
-   * );
-   * ```
-   */
-  delete(enterpriseID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/enterprises/${enterpriseID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 
   /**
@@ -420,6 +420,18 @@ export interface PhysicalAddress {
   street_address: string;
 
   extended_address?: string | null;
+}
+
+export interface EnterpriseListParams extends DefaultFlatPaginationParams {
+  /**
+   * Case-insensitive partial match on legal name.
+   */
+  'filter[legal_name][contains]'?: string;
+
+  /**
+   * Filter by legal name (partial match).
+   */
+  legal_name?: string;
 }
 
 export interface EnterpriseCreateParams {
@@ -648,18 +660,6 @@ export interface EnterpriseUpdateParams {
   website?: string;
 }
 
-export interface EnterpriseListParams extends DefaultFlatPaginationParams {
-  /**
-   * Case-insensitive partial match on legal name.
-   */
-  'filter[legal_name][contains]'?: string;
-
-  /**
-   * Filter by legal name (partial match).
-   */
-  legal_name?: string;
-}
-
 Enterprises.Reputation = Reputation;
 Enterprises.Dir = Dir;
 
@@ -673,9 +673,9 @@ export declare namespace Enterprises {
     type OrganizationContact as OrganizationContact,
     type PhysicalAddress as PhysicalAddress,
     type EnterprisePublicsDefaultFlatPagination as EnterprisePublicsDefaultFlatPagination,
+    type EnterpriseListParams as EnterpriseListParams,
     type EnterpriseCreateParams as EnterpriseCreateParams,
     type EnterpriseUpdateParams as EnterpriseUpdateParams,
-    type EnterpriseListParams as EnterpriseListParams,
   };
 
   export {
@@ -687,5 +687,5 @@ export declare namespace Enterprises {
     type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
   };
 
-  export { Dir as Dir, type DirCreateParams as DirCreateParams, type DirListParams as DirListParams };
+  export { Dir as Dir, type DirListParams as DirListParams, type DirCreateParams as DirCreateParams };
 }

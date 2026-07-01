@@ -11,14 +11,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Agreements extends APIResource {
   /**
-   * Retrieve a single ToS agreement record. Returns `404` if the agreement does not
-   * exist or does not belong to the authenticated user.
-   */
-  retrieve(agreementID: string, options?: RequestOptions): APIPromise<TosAgreementWrapped> {
-    return this._client.get(path`/terms_of_service/agreements/${agreementID}`, options);
-  }
-
-  /**
    * Returns the Terms of Service agreements the authenticated user has on file. Each
    * entry records the version agreed to and when. Most users only have one agreement
    * per product, but if the ToS is updated and the user re-agrees a new entry is
@@ -38,6 +30,14 @@ export class Agreements extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Retrieve a single ToS agreement record. Returns `404` if the agreement does not
+   * exist or does not belong to the authenticated user.
+   */
+  retrieve(agreementID: string, options?: RequestOptions): APIPromise<TosAgreementWrapped> {
+    return this._client.get(path`/terms_of_service/agreements/${agreementID}`, options);
   }
 }
 

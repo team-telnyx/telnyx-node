@@ -8,6 +8,21 @@ import { path } from '../../../internal/utils/path';
 
 export class KnowledgeBases extends APIResource {
   /**
+   * List all knowledge bases for a mission
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.ai.missions.knowledgeBases.listKnowledgeBases(
+   *     'mission_id',
+   *   );
+   * ```
+   */
+  listKnowledgeBases(missionID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.get(path`/ai/missions/${missionID}/knowledge-bases`, options);
+  }
+
+  /**
    * Create a new knowledge base for a mission
    *
    * @example
@@ -64,21 +79,6 @@ export class KnowledgeBases extends APIResource {
   ): APIPromise<unknown> {
     const { mission_id } = params;
     return this._client.get(path`/ai/missions/${mission_id}/knowledge-bases/${knowledgeBaseID}`, options);
-  }
-
-  /**
-   * List all knowledge bases for a mission
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.ai.missions.knowledgeBases.listKnowledgeBases(
-   *     'mission_id',
-   *   );
-   * ```
-   */
-  listKnowledgeBases(missionID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.get(path`/ai/missions/${missionID}/knowledge-bases`, options);
   }
 
   /**

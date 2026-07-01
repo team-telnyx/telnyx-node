@@ -11,42 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class PrivateWirelessGateways extends APIResource {
   /**
-   * Asynchronously create a Private Wireless Gateway for SIM cards for a previously
-   * created network. This operation may take several minutes so you can check the
-   * Private Wireless Gateway status at the section Get a Private Wireless Gateway.
-   *
-   * @example
-   * ```ts
-   * const privateWirelessGateway =
-   *   await client.privateWirelessGateways.create({
-   *     name: 'My private wireless gateway',
-   *     network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   });
-   * ```
-   */
-  create(
-    body: PrivateWirelessGatewayCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<PrivateWirelessGatewayCreateResponse> {
-    return this._client.post('/private_wireless_gateways', { body, ...options });
-  }
-
-  /**
-   * Retrieve information about a Private Wireless Gateway.
-   *
-   * @example
-   * ```ts
-   * const privateWirelessGateway =
-   *   await client.privateWirelessGateways.retrieve(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<PrivateWirelessGatewayRetrieveResponse> {
-    return this._client.get(path`/private_wireless_gateways/${id}`, options);
-  }
-
-  /**
    * Get all Private Wireless Gateways belonging to the user.
    *
    * @example
@@ -69,6 +33,27 @@ export class PrivateWirelessGateways extends APIResource {
   }
 
   /**
+   * Asynchronously create a Private Wireless Gateway for SIM cards for a previously
+   * created network. This operation may take several minutes so you can check the
+   * Private Wireless Gateway status at the section Get a Private Wireless Gateway.
+   *
+   * @example
+   * ```ts
+   * const privateWirelessGateway =
+   *   await client.privateWirelessGateways.create({
+   *     name: 'My private wireless gateway',
+   *     network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   });
+   * ```
+   */
+  create(
+    body: PrivateWirelessGatewayCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PrivateWirelessGatewayCreateResponse> {
+    return this._client.post('/private_wireless_gateways', { body, ...options });
+  }
+
+  /**
    * Deletes the Private Wireless Gateway.
    *
    * @example
@@ -81,6 +66,21 @@ export class PrivateWirelessGateways extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<PrivateWirelessGatewayDeleteResponse> {
     return this._client.delete(path`/private_wireless_gateways/${id}`, options);
+  }
+
+  /**
+   * Retrieve information about a Private Wireless Gateway.
+   *
+   * @example
+   * ```ts
+   * const privateWirelessGateway =
+   *   await client.privateWirelessGateways.retrieve(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<PrivateWirelessGatewayRetrieveResponse> {
+    return this._client.get(path`/private_wireless_gateways/${id}`, options);
   }
 }
 
@@ -192,24 +192,6 @@ export interface PrivateWirelessGatewayDeleteResponse {
   data?: PrivateWirelessGateway;
 }
 
-export interface PrivateWirelessGatewayCreateParams {
-  /**
-   * The private wireless gateway name.
-   */
-  name: string;
-
-  /**
-   * The identification of the related network resource.
-   */
-  network_id: string;
-
-  /**
-   * The code of the region where the private wireless gateway will be assigned. A
-   * list of available regions can be found at the regions endpoint
-   */
-  region_code?: string;
-}
-
 export interface PrivateWirelessGatewayListParams extends DefaultFlatPaginationParams {
   /**
    * Private Wireless Gateway resource creation date.
@@ -237,6 +219,24 @@ export interface PrivateWirelessGatewayListParams extends DefaultFlatPaginationP
   'filter[updated_at]'?: string;
 }
 
+export interface PrivateWirelessGatewayCreateParams {
+  /**
+   * The private wireless gateway name.
+   */
+  name: string;
+
+  /**
+   * The identification of the related network resource.
+   */
+  network_id: string;
+
+  /**
+   * The code of the region where the private wireless gateway will be assigned. A
+   * list of available regions can be found at the regions endpoint
+   */
+  region_code?: string;
+}
+
 export declare namespace PrivateWirelessGateways {
   export {
     type PrivateWirelessGateway as PrivateWirelessGateway,
@@ -246,7 +246,7 @@ export declare namespace PrivateWirelessGateways {
     type PrivateWirelessGatewayRetrieveResponse as PrivateWirelessGatewayRetrieveResponse,
     type PrivateWirelessGatewayDeleteResponse as PrivateWirelessGatewayDeleteResponse,
     type PrivateWirelessGatewaysDefaultFlatPagination as PrivateWirelessGatewaysDefaultFlatPagination,
-    type PrivateWirelessGatewayCreateParams as PrivateWirelessGatewayCreateParams,
     type PrivateWirelessGatewayListParams as PrivateWirelessGatewayListParams,
+    type PrivateWirelessGatewayCreateParams as PrivateWirelessGatewayCreateParams,
   };
 }

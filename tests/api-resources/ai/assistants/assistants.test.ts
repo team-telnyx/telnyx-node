@@ -9,6 +9,18 @@ const client = new Telnyx({
 
 describe('resource assistants', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.ai.assistants.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.ai.assistants.create({ instructions: 'instructions', name: 'name' });
     const rawResponse = await responsePromise.asResponse();
@@ -340,6 +352,42 @@ describe('resource assistants', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('imports: only required params', async () => {
+    const responsePromise = client.ai.assistants.imports({
+      api_key_ref: 'api_key_ref',
+      provider: 'elevenlabs',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('imports: required and optional params', async () => {
+    const response = await client.ai.assistants.imports({
+      api_key_ref: 'api_key_ref',
+      provider: 'elevenlabs',
+      import_ids: ['string'],
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.ai.assistants.delete('assistant_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.ai.assistants.retrieve('assistant_id');
     const rawResponse = await responsePromise.asResponse();
@@ -371,30 +419,6 @@ describe('resource assistants', () => {
   // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.ai.assistants.update('assistant_id', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.ai.assistants.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.ai.assistants.delete('assistant_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -450,30 +474,6 @@ describe('resource assistants', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('imports: only required params', async () => {
-    const responsePromise = client.ai.assistants.imports({
-      api_key_ref: 'api_key_ref',
-      provider: 'elevenlabs',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('imports: required and optional params', async () => {
-    const response = await client.ai.assistants.imports({
-      api_key_ref: 'api_key_ref',
-      provider: 'elevenlabs',
-      import_ids: ['string'],
-    });
   });
 
   // Mock server tests are disabled

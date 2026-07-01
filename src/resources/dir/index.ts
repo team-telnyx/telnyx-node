@@ -5,8 +5,8 @@ export {
   type CommentType,
   type DirComment,
   type CommentCreateResponse,
-  type CommentCreateParams,
   type CommentListParams,
+  type CommentCreateParams,
   type DirCommentsDefaultFlatPagination,
 } from './comments';
 export {
@@ -17,11 +17,11 @@ export {
   type DirWrapped,
   type Document,
   type DirListDocumentTypesResponse,
-  type DirUpdateParams,
   type DirListParams,
+  type DirUpdateParams,
   type DirListInfringementClaimsParams,
-  type DirNewLoaParams,
   type DirUpdateInfringementParams,
+  type DirNewLoaParams,
   type DirsDefaultFlatPagination,
 } from './dir';
 export {
@@ -29,8 +29,8 @@ export {
   type DirPhoneNumberStatus,
   type PhoneNumberBatch,
   type PhoneNumberBatchRetrieveResponse,
-  type PhoneNumberBatchRetrieveParams,
   type PhoneNumberBatchListParams,
+  type PhoneNumberBatchRetrieveParams,
   type PhoneNumberBatchesDefaultFlatPagination,
 } from './phone-number-batches';
 export {
@@ -39,9 +39,9 @@ export {
   type RejectionReason,
   type PhoneNumberAddResponse,
   type PhoneNumberRemoveResponse,
+  type PhoneNumberRemoveParams,
   type PhoneNumberListParams,
   type PhoneNumberAddParams,
-  type PhoneNumberRemoveParams,
   type DirPhoneNumbersDefaultFlatPagination,
 } from './phone-numbers';
 export {

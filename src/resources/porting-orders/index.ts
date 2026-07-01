@@ -20,16 +20,16 @@ export {
   ActivationJobs,
   type ActivationJobRetrieveResponse,
   type ActivationJobUpdateResponse,
+  type ActivationJobListParams,
   type ActivationJobRetrieveParams,
   type ActivationJobUpdateParams,
-  type ActivationJobListParams,
 } from './activation-jobs';
 export {
   AdditionalDocuments,
   type PortingAdditionalDocument,
   type AdditionalDocumentCreateResponse,
-  type AdditionalDocumentCreateParams,
   type AdditionalDocumentListParams,
+  type AdditionalDocumentCreateParams,
   type AdditionalDocumentDeleteParams,
   type PortingAdditionalDocumentsDefaultFlatPagination,
 } from './additional-documents';
@@ -38,8 +38,8 @@ export {
   type PortingAssociatedPhoneNumber,
   type AssociatedPhoneNumberCreateResponse,
   type AssociatedPhoneNumberDeleteResponse,
-  type AssociatedPhoneNumberCreateParams,
   type AssociatedPhoneNumberListParams,
+  type AssociatedPhoneNumberCreateParams,
   type AssociatedPhoneNumberDeleteParams,
   type PortingAssociatedPhoneNumbersDefaultFlatPagination,
 } from './associated-phone-numbers';
@@ -47,8 +47,8 @@ export {
   Comments,
   type PortingOrdersComment,
   type CommentCreateResponse,
-  type CommentCreateParams,
   type CommentListParams,
+  type CommentCreateParams,
   type PortingOrdersCommentsDefaultFlatPagination,
 } from './comments';
 export {
@@ -56,8 +56,8 @@ export {
   type PortingPhoneNumberBlock,
   type PhoneNumberBlockCreateResponse,
   type PhoneNumberBlockDeleteResponse,
-  type PhoneNumberBlockCreateParams,
   type PhoneNumberBlockListParams,
+  type PhoneNumberBlockCreateParams,
   type PhoneNumberBlockDeleteParams,
   type PortingPhoneNumberBlocksDefaultFlatPagination,
 } from './phone-number-blocks';
@@ -65,8 +65,8 @@ export {
   PhoneNumberConfigurations,
   type PortingPhoneNumberConfiguration,
   type PhoneNumberConfigurationCreateResponse,
-  type PhoneNumberConfigurationCreateParams,
   type PhoneNumberConfigurationListParams,
+  type PhoneNumberConfigurationCreateParams,
   type PortingPhoneNumberConfigurationsDefaultFlatPagination,
 } from './phone-number-configurations';
 export {
@@ -74,8 +74,8 @@ export {
   type PortingPhoneNumberExtension,
   type PhoneNumberExtensionCreateResponse,
   type PhoneNumberExtensionDeleteResponse,
-  type PhoneNumberExtensionCreateParams,
   type PhoneNumberExtensionListParams,
+  type PhoneNumberExtensionCreateParams,
   type PhoneNumberExtensionDeleteParams,
   type PortingPhoneNumberExtensionsDefaultFlatPagination,
 } from './phone-number-extensions';
@@ -101,10 +101,10 @@ export {
   type PortingOrderRetrieveExceptionTypesResponse,
   type PortingOrderRetrieveRequirementsResponse,
   type PortingOrderRetrieveSubRequestResponse,
+  type PortingOrderListParams,
   type PortingOrderCreateParams,
   type PortingOrderRetrieveParams,
   type PortingOrderUpdateParams,
-  type PortingOrderListParams,
   type PortingOrderRetrieveLoaTemplateParams,
   type PortingOrderRetrieveRequirementsParams,
   type PortingOrdersActivationJobsDefaultFlatPagination,

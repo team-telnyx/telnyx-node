@@ -11,6 +11,81 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Participants extends APIResource {
   /**
+   * Lists conference participants
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.texml.accounts.conferences.participants.retrieveParticipants(
+   *     'conference_sid',
+   *     { account_sid: 'account_sid' },
+   *   );
+   * ```
+   */
+  retrieveParticipants(
+    conferenceSid: string,
+    params: ParticipantRetrieveParticipantsParams,
+    options?: RequestOptions,
+  ): APIPromise<ParticipantRetrieveParticipantsResponse> {
+    const { account_sid } = params;
+    return this._client.get(
+      path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`,
+      options,
+    );
+  }
+
+  /**
+   * Dials a new conference participant
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.texml.accounts.conferences.participants.participants(
+   *     'conference_sid',
+   *     { account_sid: 'account_sid' },
+   *   );
+   * ```
+   */
+  participants(
+    conferenceSid: string,
+    params: ParticipantParticipantsParams,
+    options?: RequestOptions,
+  ): APIPromise<ParticipantParticipantsResponse> {
+    const { account_sid, timeout_seconds, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`, {
+      body: { Timeout: timeout_seconds, ...body },
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Deletes a conference participant
+   *
+   * @example
+   * ```ts
+   * await client.texml.accounts.conferences.participants.delete(
+   *   'call_sid_or_participant_label',
+   *   {
+   *     account_sid: 'account_sid',
+   *     conference_sid: 'conference_sid',
+   *   },
+   * );
+   * ```
+   */
+  delete(
+    callSidOrParticipantLabel: string,
+    params: ParticipantDeleteParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { account_sid, conference_sid } = params;
+    return this._client.delete(
+      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
+      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
+    );
+  }
+
+  /**
    * Gets conference participant resource
    *
    * @example
@@ -65,81 +140,6 @@ export class Participants extends APIResource {
         ...options,
         headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
       },
-    );
-  }
-
-  /**
-   * Deletes a conference participant
-   *
-   * @example
-   * ```ts
-   * await client.texml.accounts.conferences.participants.delete(
-   *   'call_sid_or_participant_label',
-   *   {
-   *     account_sid: 'account_sid',
-   *     conference_sid: 'conference_sid',
-   *   },
-   * );
-   * ```
-   */
-  delete(
-    callSidOrParticipantLabel: string,
-    params: ParticipantDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { account_sid, conference_sid } = params;
-    return this._client.delete(
-      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
-      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
-    );
-  }
-
-  /**
-   * Dials a new conference participant
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.texml.accounts.conferences.participants.participants(
-   *     'conference_sid',
-   *     { account_sid: 'account_sid' },
-   *   );
-   * ```
-   */
-  participants(
-    conferenceSid: string,
-    params: ParticipantParticipantsParams,
-    options?: RequestOptions,
-  ): APIPromise<ParticipantParticipantsResponse> {
-    const { account_sid, timeout_seconds, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`, {
-      body: { Timeout: timeout_seconds, ...body },
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Lists conference participants
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.texml.accounts.conferences.participants.retrieveParticipants(
-   *     'conference_sid',
-   *     { account_sid: 'account_sid' },
-   *   );
-   * ```
-   */
-  retrieveParticipants(
-    conferenceSid: string,
-    params: ParticipantRetrieveParticipantsParams,
-    options?: RequestOptions,
-  ): APIPromise<ParticipantRetrieveParticipantsResponse> {
-    const { account_sid } = params;
-    return this._client.get(
-      path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`,
-      options,
     );
   }
 }
@@ -312,105 +312,11 @@ export interface ParticipantRetrieveParticipantsResponse {
   uri?: string;
 }
 
-export interface ParticipantRetrieveParams {
+export interface ParticipantRetrieveParticipantsParams {
   /**
    * The id of the account the resource belongs to.
    */
   account_sid: string;
-
-  /**
-   * The ConferenceSid that uniquely identifies a conference.
-   */
-  conference_sid: string;
-}
-
-export interface ParticipantUpdateParams {
-  /**
-   * Path param: The id of the account the resource belongs to.
-   */
-  account_sid: string;
-
-  /**
-   * Path param: The ConferenceSid that uniquely identifies a conference.
-   */
-  conference_sid: string;
-
-  /**
-   * Body param: The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
-   */
-  AnnounceMethod?: 'GET' | 'POST';
-
-  /**
-   * Body param: The URL to call to announce something to the participant. The URL
-   * may return an MP3 fileo a WAV file, or a TwiML document that contains `<Play>`,
-   * `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-   */
-  AnnounceUrl?: string;
-
-  /**
-   * Body param: Whether to play a notification beep to the conference when the
-   * participant exits.
-   */
-  BeepOnExit?: boolean;
-
-  /**
-   * Body param: The SID of the participant who is being coached. The participant
-   * being coached is the only participant who can hear the participant who is
-   * coaching.
-   */
-  CallSidToCoach?: string;
-
-  /**
-   * Body param: Whether the participant is coaching another call. When `true`,
-   * `CallSidToCoach` has to be given.
-   */
-  Coaching?: boolean;
-
-  /**
-   * Body param: Whether to end the conference when the participant leaves.
-   */
-  EndConferenceOnExit?: boolean;
-
-  /**
-   * Body param: Whether the participant should be on hold.
-   */
-  Hold?: boolean;
-
-  /**
-   * Body param: The HTTP method to use when calling the `HoldUrl`.
-   */
-  HoldMethod?: 'GET' | 'POST';
-
-  /**
-   * Body param: The URL to be called using the `HoldMethod` for music that plays
-   * when the participant is on hold. The URL may return an MP3 file, a WAV file, or
-   * a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>`
-   * verbs.
-   */
-  HoldUrl?: string;
-
-  /**
-   * Body param: Whether the participant should be muted.
-   */
-  Muted?: boolean;
-
-  /**
-   * Body param: The URL to call for an audio file to play while the participant is
-   * waiting for the conference to start.
-   */
-  WaitUrl?: string;
-}
-
-export interface ParticipantDeleteParams {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid: string;
-
-  /**
-   * The ConferenceSid that uniquely identifies a conference.
-   */
-  conference_sid: string;
 }
 
 export interface ParticipantParticipantsParams {
@@ -727,11 +633,105 @@ export namespace ParticipantParticipantsParams {
   }
 }
 
-export interface ParticipantRetrieveParticipantsParams {
+export interface ParticipantDeleteParams {
   /**
    * The id of the account the resource belongs to.
    */
   account_sid: string;
+
+  /**
+   * The ConferenceSid that uniquely identifies a conference.
+   */
+  conference_sid: string;
+}
+
+export interface ParticipantRetrieveParams {
+  /**
+   * The id of the account the resource belongs to.
+   */
+  account_sid: string;
+
+  /**
+   * The ConferenceSid that uniquely identifies a conference.
+   */
+  conference_sid: string;
+}
+
+export interface ParticipantUpdateParams {
+  /**
+   * Path param: The id of the account the resource belongs to.
+   */
+  account_sid: string;
+
+  /**
+   * Path param: The ConferenceSid that uniquely identifies a conference.
+   */
+  conference_sid: string;
+
+  /**
+   * Body param: The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
+   */
+  AnnounceMethod?: 'GET' | 'POST';
+
+  /**
+   * Body param: The URL to call to announce something to the participant. The URL
+   * may return an MP3 fileo a WAV file, or a TwiML document that contains `<Play>`,
+   * `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+   */
+  AnnounceUrl?: string;
+
+  /**
+   * Body param: Whether to play a notification beep to the conference when the
+   * participant exits.
+   */
+  BeepOnExit?: boolean;
+
+  /**
+   * Body param: The SID of the participant who is being coached. The participant
+   * being coached is the only participant who can hear the participant who is
+   * coaching.
+   */
+  CallSidToCoach?: string;
+
+  /**
+   * Body param: Whether the participant is coaching another call. When `true`,
+   * `CallSidToCoach` has to be given.
+   */
+  Coaching?: boolean;
+
+  /**
+   * Body param: Whether to end the conference when the participant leaves.
+   */
+  EndConferenceOnExit?: boolean;
+
+  /**
+   * Body param: Whether the participant should be on hold.
+   */
+  Hold?: boolean;
+
+  /**
+   * Body param: The HTTP method to use when calling the `HoldUrl`.
+   */
+  HoldMethod?: 'GET' | 'POST';
+
+  /**
+   * Body param: The URL to be called using the `HoldMethod` for music that plays
+   * when the participant is on hold. The URL may return an MP3 file, a WAV file, or
+   * a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>`
+   * verbs.
+   */
+  HoldUrl?: string;
+
+  /**
+   * Body param: Whether the participant should be muted.
+   */
+  Muted?: boolean;
+
+  /**
+   * Body param: The URL to call for an audio file to play while the participant is
+   * waiting for the conference to start.
+   */
+  WaitUrl?: string;
 }
 
 export declare namespace Participants {
@@ -739,10 +739,10 @@ export declare namespace Participants {
     type ParticipantResource as ParticipantResource,
     type ParticipantParticipantsResponse as ParticipantParticipantsResponse,
     type ParticipantRetrieveParticipantsResponse as ParticipantRetrieveParticipantsResponse,
+    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
+    type ParticipantParticipantsParams as ParticipantParticipantsParams,
+    type ParticipantDeleteParams as ParticipantDeleteParams,
     type ParticipantRetrieveParams as ParticipantRetrieveParams,
     type ParticipantUpdateParams as ParticipantUpdateParams,
-    type ParticipantDeleteParams as ParticipantDeleteParams,
-    type ParticipantParticipantsParams as ParticipantParticipantsParams,
-    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
   };
 }

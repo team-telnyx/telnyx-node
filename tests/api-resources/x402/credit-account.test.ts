@@ -9,23 +9,6 @@ const client = new Telnyx({
 
 describe('resource creditAccount', () => {
   // Mock server tests are disabled
-  test.skip('createQuote: only required params', async () => {
-    const responsePromise = client.x402.creditAccount.createQuote({ amount_usd: '50.00' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('createQuote: required and optional params', async () => {
-    const response = await client.x402.creditAccount.createQuote({ amount_usd: '50.00' });
-  });
-
-  // Mock server tests are disabled
   test.skip('settle: only required params', async () => {
     const responsePromise = client.x402.creditAccount.settle({ id: 'quote_abc123' });
     const rawResponse = await responsePromise.asResponse();
@@ -44,5 +27,22 @@ describe('resource creditAccount', () => {
       payment_signature: '0xabc123...',
       header_payment_signature: 'PAYMENT-SIGNATURE',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('createQuote: only required params', async () => {
+    const responsePromise = client.x402.creditAccount.createQuote({ amount_usd: '50.00' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('createQuote: required and optional params', async () => {
+    const response = await client.x402.creditAccount.createQuote({ amount_usd: '50.00' });
   });
 });

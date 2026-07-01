@@ -43,6 +43,25 @@ export class Reputation extends APIResource {
   remediation: RemediationAPI.Remediation = new RemediationAPI.Remediation(this._client);
 
   /**
+   * Disable Phone Number Reputation. All registered numbers are de-registered as a
+   * cascade. The enterprise itself is unaffected. Returns `204` on success, `404` if
+   * reputation is not enabled for this enterprise.
+   *
+   * @example
+   * ```ts
+   * await client.enterprises.reputation.disable(
+   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   * );
+   * ```
+   */
+  disable(enterpriseID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/enterprises/${enterpriseID}/reputation`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Phone Number Reputation tracks how your outbound caller-IDs are perceived (spam
    * risk, engagement, etc.) across the call-screening ecosystem. This endpoint reads
    * the enterprise-level settings: whether the product is enabled, the refresh
@@ -60,25 +79,6 @@ export class Reputation extends APIResource {
    */
   retrieve(enterpriseID: string, options?: RequestOptions): APIPromise<EnterpriseReputationPublicWrapped> {
     return this._client.get(path`/enterprises/${enterpriseID}/reputation`, options);
-  }
-
-  /**
-   * Disable Phone Number Reputation. All registered numbers are de-registered as a
-   * cascade. The enterprise itself is unaffected. Returns `204` on success, `404` if
-   * reputation is not enabled for this enterprise.
-   *
-   * @example
-   * ```ts
-   * await client.enterprises.reputation.disable(
-   *   '4a6192a4-573d-446d-b3ce-aff9117272a6',
-   * );
-   * ```
-   */
-  disable(enterpriseID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/enterprises/${enterpriseID}/reputation`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 
   /**
@@ -242,10 +242,10 @@ export declare namespace Reputation {
     type ReputationPhoneNumberWithReputation as ReputationPhoneNumberWithReputation,
     type NumberRefreshResponse as NumberRefreshResponse,
     type ReputationPhoneNumbersDefaultFlatPagination as ReputationPhoneNumbersDefaultFlatPagination,
-    type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
     type NumberAssociateParams as NumberAssociateParams,
     type NumberDisassociateParams as NumberDisassociateParams,
+    type NumberRetrieveParams as NumberRetrieveParams,
     type NumberRefreshParams as NumberRefreshParams,
   };
 
@@ -262,8 +262,8 @@ export declare namespace Reputation {
     type RemediationStatus as RemediationStatus,
     type RemediationListResponse as RemediationListResponse,
     type RemediationListResponsesDefaultFlatPagination as RemediationListResponsesDefaultFlatPagination,
+    type RemediationListParams as RemediationListParams,
     type RemediationCreateParams as RemediationCreateParams,
     type RemediationRetrieveParams as RemediationRetrieveParams,
-    type RemediationListParams as RemediationListParams,
   };
 }

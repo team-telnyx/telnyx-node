@@ -11,6 +11,27 @@ import { path } from '../internal/utils/path';
  */
 export class NotificationChannels extends APIResource {
   /**
+   * List notification channels.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const notificationChannel of client.notificationChannels.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: NotificationChannelListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NotificationChannelsDefaultFlatPagination, NotificationChannel> {
+    return this._client.getAPIList('/notification_channels', DefaultFlatPagination<NotificationChannel>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a notification channel.
    *
    * @example
@@ -24,6 +45,21 @@ export class NotificationChannels extends APIResource {
     options?: RequestOptions,
   ): APIPromise<NotificationChannelCreateResponse> {
     return this._client.post('/notification_channels', { body, ...options });
+  }
+
+  /**
+   * Delete a notification channel.
+   *
+   * @example
+   * ```ts
+   * const notificationChannel =
+   *   await client.notificationChannels.delete(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<NotificationChannelDeleteResponse> {
+    return this._client.delete(path`/notification_channels/${id}`, options);
   }
 
   /**
@@ -58,42 +94,6 @@ export class NotificationChannels extends APIResource {
     options?: RequestOptions,
   ): APIPromise<NotificationChannelUpdateResponse> {
     return this._client.patch(path`/notification_channels/${notificationChannelID}`, { body, ...options });
-  }
-
-  /**
-   * List notification channels.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const notificationChannel of client.notificationChannels.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: NotificationChannelListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NotificationChannelsDefaultFlatPagination, NotificationChannel> {
-    return this._client.getAPIList('/notification_channels', DefaultFlatPagination<NotificationChannel>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete a notification channel.
-   *
-   * @example
-   * ```ts
-   * const notificationChannel =
-   *   await client.notificationChannels.delete(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<NotificationChannelDeleteResponse> {
-    return this._client.delete(path`/notification_channels/${id}`, options);
   }
 }
 
@@ -160,40 +160,6 @@ export interface NotificationChannelDeleteResponse {
    * A Notification Channel
    */
   data?: NotificationChannel;
-}
-
-export interface NotificationChannelCreateParams {
-  /**
-   * The destination associated with the channel type.
-   */
-  channel_destination?: string;
-
-  /**
-   * A Channel Type ID
-   */
-  channel_type_id?: 'sms' | 'voice' | 'email' | 'webhook';
-
-  /**
-   * A UUID reference to the associated Notification Profile.
-   */
-  notification_profile_id?: string;
-}
-
-export interface NotificationChannelUpdateParams {
-  /**
-   * The destination associated with the channel type.
-   */
-  channel_destination?: string;
-
-  /**
-   * A Channel Type ID
-   */
-  channel_type_id?: 'sms' | 'voice' | 'email' | 'webhook';
-
-  /**
-   * A UUID reference to the associated Notification Profile.
-   */
-  notification_profile_id?: string;
 }
 
 export interface NotificationChannelListParams extends DefaultFlatPaginationParams {
@@ -280,6 +246,40 @@ export namespace NotificationChannelListParams {
   }
 }
 
+export interface NotificationChannelCreateParams {
+  /**
+   * The destination associated with the channel type.
+   */
+  channel_destination?: string;
+
+  /**
+   * A Channel Type ID
+   */
+  channel_type_id?: 'sms' | 'voice' | 'email' | 'webhook';
+
+  /**
+   * A UUID reference to the associated Notification Profile.
+   */
+  notification_profile_id?: string;
+}
+
+export interface NotificationChannelUpdateParams {
+  /**
+   * The destination associated with the channel type.
+   */
+  channel_destination?: string;
+
+  /**
+   * A Channel Type ID
+   */
+  channel_type_id?: 'sms' | 'voice' | 'email' | 'webhook';
+
+  /**
+   * A UUID reference to the associated Notification Profile.
+   */
+  notification_profile_id?: string;
+}
+
 export declare namespace NotificationChannels {
   export {
     type NotificationChannel as NotificationChannel,
@@ -288,8 +288,8 @@ export declare namespace NotificationChannels {
     type NotificationChannelUpdateResponse as NotificationChannelUpdateResponse,
     type NotificationChannelDeleteResponse as NotificationChannelDeleteResponse,
     type NotificationChannelsDefaultFlatPagination as NotificationChannelsDefaultFlatPagination,
+    type NotificationChannelListParams as NotificationChannelListParams,
     type NotificationChannelCreateParams as NotificationChannelCreateParams,
     type NotificationChannelUpdateParams as NotificationChannelUpdateParams,
-    type NotificationChannelListParams as NotificationChannelListParams,
   };
 }

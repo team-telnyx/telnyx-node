@@ -35,6 +35,18 @@ describe('resource siprecConnectors', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.siprecConnectors.delete('connector_name');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.siprecConnectors.retrieve('connector_name');
     const rawResponse = await responsePromise.asResponse();
@@ -70,17 +82,5 @@ describe('resource siprecConnectors', () => {
       port: 5060,
       app_subdomain: 'my-app',
     });
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.siprecConnectors.delete('connector_name');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

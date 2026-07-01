@@ -6,8 +6,8 @@ export {
   type Location,
   type CivicAddressRetrieveResponse,
   type CivicAddressListResponse,
-  type CivicAddressRetrieveParams,
   type CivicAddressListParams,
+  type CivicAddressRetrieveParams,
 } from './civic-addresses';
 export {
   ExternalConnections,
@@ -18,9 +18,9 @@ export {
   type ExternalConnectionUpdateResponse,
   type ExternalConnectionDeleteResponse,
   type ExternalConnectionUpdateLocationResponse,
+  type ExternalConnectionListParams,
   type ExternalConnectionCreateParams,
   type ExternalConnectionUpdateParams,
-  type ExternalConnectionListParams,
   type ExternalConnectionUpdateLocationParams,
   type ExternalConnectionsDefaultFlatPagination,
 } from './external-connections';
@@ -37,9 +37,9 @@ export {
   type ExternalConnectionPhoneNumber,
   type PhoneNumberRetrieveResponse,
   type PhoneNumberUpdateResponse,
+  type PhoneNumberListParams,
   type PhoneNumberRetrieveParams,
   type PhoneNumberUpdateParams,
-  type PhoneNumberListParams,
   type ExternalConnectionPhoneNumbersDefaultFlatPagination,
 } from './phone-numbers';
 export {
@@ -47,8 +47,8 @@ export {
   type Release,
   type TnReleaseEntry,
   type ReleaseRetrieveResponse,
-  type ReleaseRetrieveParams,
   type ReleaseListParams,
+  type ReleaseRetrieveParams,
   type ReleasesDefaultFlatPagination,
 } from './releases';
 export {
@@ -60,9 +60,9 @@ export {
   type UploadPendingCountResponse,
   type UploadRefreshStatusResponse,
   type UploadRetryResponse,
+  type UploadListParams,
   type UploadCreateParams,
   type UploadRetrieveParams,
-  type UploadListParams,
   type UploadRetryParams,
   type UploadsDefaultFlatPagination,
 } from './uploads';

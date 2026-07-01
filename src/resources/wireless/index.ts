@@ -7,8 +7,8 @@ export {
   type DetailRecordsReportRetrieveResponse,
   type DetailRecordsReportListResponse,
   type DetailRecordsReportDeleteResponse,
-  type DetailRecordsReportCreateParams,
   type DetailRecordsReportListParams,
+  type DetailRecordsReportCreateParams,
 } from './detail-records-reports';
 export {
   Wireless,

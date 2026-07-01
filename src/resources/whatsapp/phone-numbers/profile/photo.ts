@@ -14,21 +14,6 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Photo extends APIResource {
   /**
-   * Get Whatsapp profile photo
-   *
-   * @example
-   * ```ts
-   * const photo =
-   *   await client.whatsapp.phoneNumbers.profile.photo.retrieve(
-   *     'phone_number',
-   *   );
-   * ```
-   */
-  retrieve(phoneNumber: string, options?: RequestOptions): APIPromise<PhotoRetrieveResponse> {
-    return this._client.get(path`/v2/whatsapp/phone_numbers/${phoneNumber}/profile/photo`, options);
-  }
-
-  /**
    * Delete Whatsapp profile photo
    *
    * @example
@@ -66,6 +51,21 @@ export class Photo extends APIResource {
       path`/v2/whatsapp/phone_numbers/${phoneNumber}/profile/photo`,
       multipartFormRequestOptions({ body, ...options }, this._client),
     );
+  }
+
+  /**
+   * Get Whatsapp profile photo
+   *
+   * @example
+   * ```ts
+   * const photo =
+   *   await client.whatsapp.phoneNumbers.profile.photo.retrieve(
+   *     'phone_number',
+   *   );
+   * ```
+   */
+  retrieve(phoneNumber: string, options?: RequestOptions): APIPromise<PhotoRetrieveResponse> {
+    return this._client.get(path`/v2/whatsapp/phone_numbers/${phoneNumber}/profile/photo`, options);
   }
 }
 

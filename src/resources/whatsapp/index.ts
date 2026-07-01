@@ -15,6 +15,7 @@ export {
   type PhoneNumberResendVerificationParams,
   type PhoneNumberRetrieveConversationWindowParams,
   type PhoneNumberVerifyParams,
+  type PhoneNumberRetrieveConversationWindowParams,
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers/index';
 export {
@@ -25,8 +26,8 @@ export {
   type WhatsappTemplateFooterComponent,
   type WhatsappTemplateHeaderComponent,
   type TemplateCreateResponse,
-  type TemplateCreateParams,
   type TemplateListParams,
+  type TemplateCreateParams,
 } from './templates';
 export {
   UserData,

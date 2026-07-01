@@ -51,10 +51,10 @@ export {
   type AssistantGetTexmlResponse,
   type AssistantSendSMSResponse,
   type AssistantCreateParams,
+  type AssistantImportsParams,
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
-  type AssistantImportsParams,
   type AssistantSendSMSParams,
 } from './assistants';
 export {
@@ -79,10 +79,10 @@ export {
   type ScheduledPhoneCallEventResponse,
   type ScheduledSMSEventResponse,
   type ScheduledEventListResponse,
-  type ScheduledEventCreateParams,
-  type ScheduledEventRetrieveParams,
   type ScheduledEventListParams,
+  type ScheduledEventCreateParams,
   type ScheduledEventDeleteParams,
+  type ScheduledEventRetrieveParams,
   type ScheduledEventListResponsesDefaultFlatPagination,
 } from './scheduled-events';
 export { Tags, type TagsResponse, type TagAddParams, type TagRemoveParams } from './tags';
@@ -90,9 +90,9 @@ export {
   Tests,
   type AssistantTest,
   type TelnyxConversationChannel,
+  type TestListParams,
   type TestCreateParams,
   type TestUpdateParams,
-  type TestListParams,
   type AssistantTestsDefaultFlatPagination,
 } from './tests/index';
 export {
@@ -100,15 +100,15 @@ export {
   type ToolAddResponse,
   type ToolRemoveResponse,
   type ToolTestResponse,
-  type ToolAddParams,
-  type ToolRemoveParams,
   type ToolTestParams,
+  type ToolRemoveParams,
+  type ToolAddParams,
 } from './tools';
 export {
   Versions,
   type UpdateAssistant,
+  type VersionDeleteParams,
   type VersionRetrieveParams,
   type VersionUpdateParams,
-  type VersionDeleteParams,
   type VersionPromoteParams,
 } from './versions';

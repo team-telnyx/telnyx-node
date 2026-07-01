@@ -19,11 +19,11 @@ export {
   type LoaConfigurationCreateResponse,
   type LoaConfigurationRetrieveResponse,
   type LoaConfigurationUpdateResponse,
+  type LoaConfigurationPreview0Params,
+  type LoaConfigurationListParams,
   type LoaConfigurationCreateParams,
   type LoaConfigurationUpdateParams,
-  type LoaConfigurationListParams,
   type LoaConfigurationPreviewParams,
-  type LoaConfigurationPreview0Params,
   type PortingLoaConfigurationsDefaultFlatPagination,
 } from './loa-configurations';
 export { Porting, type PortingListUkCarriersResponse } from './porting';
@@ -33,7 +33,7 @@ export {
   type PortingReport,
   type ReportCreateResponse,
   type ReportRetrieveResponse,
-  type ReportCreateParams,
   type ReportListParams,
+  type ReportCreateParams,
   type PortingReportsDefaultFlatPagination,
 } from './reports';

@@ -4,8 +4,8 @@ export {
   Actions,
   type ActionAcceptSuggestionsResponse,
   type ActionValidateResponse,
-  type ActionAcceptSuggestionsParams,
   type ActionValidateParams,
+  type ActionAcceptSuggestionsParams,
 } from './actions';
 export {
   Addresses,
@@ -13,7 +13,7 @@ export {
   type AddressCreateResponse,
   type AddressRetrieveResponse,
   type AddressDeleteResponse,
-  type AddressCreateParams,
   type AddressListParams,
+  type AddressCreateParams,
   type AddressesDefaultFlatPagination,
 } from './addresses';

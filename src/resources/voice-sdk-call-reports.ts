@@ -12,15 +12,6 @@ import { path } from '../internal/utils/path';
  */
 export class VoiceSDKCallReports extends APIResource {
   /**
-   * Returns raw call report stats JSON payloads stored for the authenticated user
-   * and `call_id`. The user is derived from Telnyx authentication, not from request
-   * parameters.
-   */
-  retrieve(callID: string, options?: RequestOptions): APIPromise<VoiceSDKCallReportRetrieveResponse> {
-    return this._client.get(path`/voice_sdk_call_reports/${callID}`, options);
-  }
-
-  /**
    * Returns paginated raw call report stats JSON payloads stored for the
    * authenticated user. The user is derived from Telnyx authentication, not from
    * request parameters.
@@ -33,6 +24,15 @@ export class VoiceSDKCallReports extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Returns raw call report stats JSON payloads stored for the authenticated user
+   * and `call_id`. The user is derived from Telnyx authentication, not from request
+   * parameters.
+   */
+  retrieve(callID: string, options?: RequestOptions): APIPromise<VoiceSDKCallReportRetrieveResponse> {
+    return this._client.get(path`/voice_sdk_call_reports/${callID}`, options);
   }
 }
 

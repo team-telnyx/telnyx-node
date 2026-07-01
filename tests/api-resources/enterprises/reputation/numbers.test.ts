@@ -9,28 +9,6 @@ const client = new Telnyx({
 
 describe('resource numbers', () => {
   // Mock server tests are disabled
-  test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.enterprises.reputation.numbers.retrieve('+19493253498', {
-      enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
-    const response = await client.enterprises.reputation.numbers.retrieve('+19493253498', {
-      enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
-      fresh: true,
-    });
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.enterprises.reputation.numbers.list(
       '4a6192a4-573d-446d-b3ce-aff9117272a6',
@@ -102,6 +80,28 @@ describe('resource numbers', () => {
   test.skip('disassociate: required and optional params', async () => {
     const response = await client.enterprises.reputation.numbers.disassociate('+19493253498', {
       enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.enterprises.reputation.numbers.retrieve('+19493253498', {
+      enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.enterprises.reputation.numbers.retrieve('+19493253498', {
+      enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+      fresh: true,
     });
   });
 

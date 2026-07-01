@@ -21,7 +21,7 @@ export declare namespace X402 {
     CreditAccount as CreditAccount,
     type CreditAccountCreateQuoteResponse as CreditAccountCreateQuoteResponse,
     type CreditAccountSettleResponse as CreditAccountSettleResponse,
-    type CreditAccountCreateQuoteParams as CreditAccountCreateQuoteParams,
     type CreditAccountSettleParams as CreditAccountSettleParams,
+    type CreditAccountCreateQuoteParams as CreditAccountCreateQuoteParams,
   };
 }

@@ -9,6 +9,34 @@ const client = new Telnyx({
 
 describe('resource enterprises', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.enterprises.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.enterprises.list(
+        {
+          'filter[legal_name][contains]': 'Acme',
+          legal_name: 'Acme',
+          'page[number]': 1,
+          'page[size]': 10,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.enterprises.create({
       billing_address: {
@@ -110,6 +138,18 @@ describe('resource enterprises', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.enterprises.delete('4a6192a4-573d-446d-b3ce-aff9117272a6');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.enterprises.retrieve('4a6192a4-573d-446d-b3ce-aff9117272a6');
     const rawResponse = await responsePromise.asResponse();
@@ -124,46 +164,6 @@ describe('resource enterprises', () => {
   // Mock server tests are disabled
   test.skip('update', async () => {
     const responsePromise = client.enterprises.update('4a6192a4-573d-446d-b3ce-aff9117272a6', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.enterprises.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.enterprises.list(
-        {
-          'filter[legal_name][contains]': 'Acme',
-          legal_name: 'Acme',
-          'page[number]': 1,
-          'page[size]': 10,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.enterprises.delete('4a6192a4-573d-446d-b3ce-aff9117272a6');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

@@ -9,6 +9,39 @@ const client = new Telnyx({
 
 describe('resource versions', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.ai.assistants.versions.list('assistant_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: only required params', async () => {
+    const responsePromise = client.ai.assistants.versions.delete('version_id', {
+      assistant_id: 'assistant_id',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: required and optional params', async () => {
+    const response = await client.ai.assistants.versions.delete('version_id', {
+      assistant_id: 'assistant_id',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.ai.assistants.versions.retrieve('version_id', {
       assistant_id: 'assistant_id',
@@ -362,39 +395,6 @@ describe('resource versions', () => {
         theme: 'light',
         view_history_url: 'view_history_url',
       },
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.ai.assistants.versions.list('assistant_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete: only required params', async () => {
-    const responsePromise = client.ai.assistants.versions.delete('version_id', {
-      assistant_id: 'assistant_id',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete: required and optional params', async () => {
-    const response = await client.ai.assistants.versions.delete('version_id', {
-      assistant_id: 'assistant_id',
     });
   });
 

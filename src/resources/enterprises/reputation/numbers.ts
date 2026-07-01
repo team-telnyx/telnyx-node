@@ -18,34 +18,6 @@ import { path } from '../../../internal/utils/path';
  */
 export class Numbers extends APIResource {
   /**
-   * Retrieve one registered number with its latest reputation snapshot. The
-   * `phone_number` path parameter is in E.164 format and must be URL-encoded (e.g.
-   * `%2B19493253498`).
-   *
-   * @example
-   * ```ts
-   * const reputationPhoneNumberWithReputation =
-   *   await client.enterprises.reputation.numbers.retrieve(
-   *     '+19493253498',
-   *     {
-   *       enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
-   *     },
-   *   );
-   * ```
-   */
-  retrieve(
-    phoneNumber: string,
-    params: NumberRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ReputationPhoneNumberWithReputation> {
-    const { enterprise_id, ...query } = params;
-    return this._client.get(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
    * Paginated list of phone numbers registered for reputation monitoring under this
    * enterprise. The response includes the latest reputation snapshot per number
    * where one has been collected.
@@ -121,6 +93,34 @@ export class Numbers extends APIResource {
     return this._client.delete(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Retrieve one registered number with its latest reputation snapshot. The
+   * `phone_number` path parameter is in E.164 format and must be URL-encoded (e.g.
+   * `%2B19493253498`).
+   *
+   * @example
+   * ```ts
+   * const reputationPhoneNumberWithReputation =
+   *   await client.enterprises.reputation.numbers.retrieve(
+   *     '+19493253498',
+   *     {
+   *       enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *     },
+   *   );
+   * ```
+   */
+  retrieve(
+    phoneNumber: string,
+    params: NumberRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ReputationPhoneNumberWithReputation> {
+    const { enterprise_id, ...query } = params;
+    return this._client.get(path`/enterprises/${enterprise_id}/reputation/numbers/${phoneNumber}`, {
+      query,
+      ...options,
     });
   }
 
@@ -240,19 +240,6 @@ export namespace NumberRefreshResponse {
   }
 }
 
-export interface NumberRetrieveParams {
-  /**
-   * Path param: The enterprise id. Lowercase UUID.
-   */
-  enterprise_id: string;
-
-  /**
-   * Query param: When true, fetches fresh reputation data (incurs API cost). When
-   * false (default), returns cached data.
-   */
-  fresh?: boolean;
-}
-
 export interface NumberListParams extends DefaultFlatPaginationParams {
   /**
    * Partial match on phone number. Must contain at least 5 digits.
@@ -279,6 +266,19 @@ export interface NumberDisassociateParams {
   enterprise_id: string;
 }
 
+export interface NumberRetrieveParams {
+  /**
+   * Path param: The enterprise id. Lowercase UUID.
+   */
+  enterprise_id: string;
+
+  /**
+   * Query param: When true, fetches fresh reputation data (incurs API cost). When
+   * false (default), returns cached data.
+   */
+  fresh?: boolean;
+}
+
 export interface NumberRefreshParams {
   /**
    * Phone numbers to refresh reputation data for. 1–100 numbers per request, each in
@@ -295,10 +295,10 @@ export declare namespace Numbers {
     type ReputationPhoneNumberWithReputation as ReputationPhoneNumberWithReputation,
     type NumberRefreshResponse as NumberRefreshResponse,
     type ReputationPhoneNumbersDefaultFlatPagination as ReputationPhoneNumbersDefaultFlatPagination,
-    type NumberRetrieveParams as NumberRetrieveParams,
     type NumberListParams as NumberListParams,
     type NumberAssociateParams as NumberAssociateParams,
     type NumberDisassociateParams as NumberDisassociateParams,
+    type NumberRetrieveParams as NumberRetrieveParams,
     type NumberRefreshParams as NumberRefreshParams,
   };
 }

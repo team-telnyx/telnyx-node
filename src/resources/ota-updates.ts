@@ -11,13 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class OtaUpdates extends APIResource {
   /**
-   * This API returns the details of an Over the Air (OTA) update.
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<OtaUpdateRetrieveResponse> {
-    return this._client.get(path`/ota_updates/${id}`, options);
-  }
-
-  /**
    * List OTA updates
    */
   list(
@@ -28,6 +21,13 @@ export class OtaUpdates extends APIResource {
       query,
       ...options,
     });
+  }
+
+  /**
+   * This API returns the details of an Over the Air (OTA) update.
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<OtaUpdateRetrieveResponse> {
+    return this._client.get(path`/ota_updates/${id}`, options);
   }
 }
 

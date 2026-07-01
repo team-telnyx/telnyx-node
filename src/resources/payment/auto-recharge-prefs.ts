@@ -9,6 +9,19 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class AutoRechargePrefs extends APIResource {
   /**
+   * Returns the payment auto recharge preferences.
+   *
+   * @example
+   * ```ts
+   * const autoRechargePrefs =
+   *   await client.payment.autoRechargePrefs.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<AutoRechargePrefListResponse> {
+    return this._client.get('/payment/auto_recharge_prefs', options);
+  }
+
+  /**
    * Update payment auto recharge preferences.
    *
    * @example
@@ -22,19 +35,6 @@ export class AutoRechargePrefs extends APIResource {
     options?: RequestOptions,
   ): APIPromise<AutoRechargePrefUpdateResponse> {
     return this._client.patch('/payment/auto_recharge_prefs', { body, ...options });
-  }
-
-  /**
-   * Returns the payment auto recharge preferences.
-   *
-   * @example
-   * ```ts
-   * const autoRechargePrefs =
-   *   await client.payment.autoRechargePrefs.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<AutoRechargePrefListResponse> {
-    return this._client.get('/payment/auto_recharge_prefs', options);
   }
 }
 

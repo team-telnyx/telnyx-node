@@ -11,6 +11,29 @@ import { path } from '../internal/utils/path';
  */
 export class SimCardDataUsageNotifications extends APIResource {
   /**
+   * Lists a paginated collection of SIM card data usage notifications. It enables
+   * exploring the collection using specific filters.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const simCardDataUsageNotification of client.simCardDataUsageNotifications.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: SimCardDataUsageNotificationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SimCardDataUsageNotificationsDefaultFlatPagination, SimCardDataUsageNotification> {
+    return this._client.getAPIList(
+      '/sim_card_data_usage_notifications',
+      DefaultFlatPagination<SimCardDataUsageNotification>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Creates a new SIM card data usage notification.
    *
    * @example
@@ -27,6 +50,21 @@ export class SimCardDataUsageNotifications extends APIResource {
     options?: RequestOptions,
   ): APIPromise<SimCardDataUsageNotificationCreateResponse> {
     return this._client.post('/sim_card_data_usage_notifications', { body, ...options });
+  }
+
+  /**
+   * Delete the SIM Card Data Usage Notification.
+   *
+   * @example
+   * ```ts
+   * const simCardDataUsageNotification =
+   *   await client.simCardDataUsageNotifications.delete(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<SimCardDataUsageNotificationDeleteResponse> {
+    return this._client.delete(path`/sim_card_data_usage_notifications/${id}`, options);
   }
 
   /**
@@ -64,44 +102,6 @@ export class SimCardDataUsageNotifications extends APIResource {
       body,
       ...options,
     });
-  }
-
-  /**
-   * Lists a paginated collection of SIM card data usage notifications. It enables
-   * exploring the collection using specific filters.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const simCardDataUsageNotification of client.simCardDataUsageNotifications.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: SimCardDataUsageNotificationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<SimCardDataUsageNotificationsDefaultFlatPagination, SimCardDataUsageNotification> {
-    return this._client.getAPIList(
-      '/sim_card_data_usage_notifications',
-      DefaultFlatPagination<SimCardDataUsageNotification>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * Delete the SIM Card Data Usage Notification.
-   *
-   * @example
-   * ```ts
-   * const simCardDataUsageNotification =
-   *   await client.simCardDataUsageNotifications.delete(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<SimCardDataUsageNotificationDeleteResponse> {
-    return this._client.delete(path`/sim_card_data_usage_notifications/${id}`, options);
   }
 }
 
@@ -179,6 +179,13 @@ export interface SimCardDataUsageNotificationDeleteResponse {
   data?: SimCardDataUsageNotification;
 }
 
+export interface SimCardDataUsageNotificationListParams extends DefaultFlatPaginationParams {
+  /**
+   * A valid SIM card ID.
+   */
+  'filter[sim_card_id]'?: string;
+}
+
 export interface SimCardDataUsageNotificationCreateParams {
   /**
    * The identification UUID of the related SIM card resource.
@@ -225,13 +232,6 @@ export namespace SimCardDataUsageNotificationUpdateParams {
   }
 }
 
-export interface SimCardDataUsageNotificationListParams extends DefaultFlatPaginationParams {
-  /**
-   * A valid SIM card ID.
-   */
-  'filter[sim_card_id]'?: string;
-}
-
 export declare namespace SimCardDataUsageNotifications {
   export {
     type SimCardDataUsageNotification as SimCardDataUsageNotification,
@@ -240,8 +240,8 @@ export declare namespace SimCardDataUsageNotifications {
     type SimCardDataUsageNotificationUpdateResponse as SimCardDataUsageNotificationUpdateResponse,
     type SimCardDataUsageNotificationDeleteResponse as SimCardDataUsageNotificationDeleteResponse,
     type SimCardDataUsageNotificationsDefaultFlatPagination as SimCardDataUsageNotificationsDefaultFlatPagination,
+    type SimCardDataUsageNotificationListParams as SimCardDataUsageNotificationListParams,
     type SimCardDataUsageNotificationCreateParams as SimCardDataUsageNotificationCreateParams,
     type SimCardDataUsageNotificationUpdateParams as SimCardDataUsageNotificationUpdateParams,
-    type SimCardDataUsageNotificationListParams as SimCardDataUsageNotificationListParams,
   };
 }

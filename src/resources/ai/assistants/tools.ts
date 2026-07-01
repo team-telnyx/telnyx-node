@@ -10,19 +10,19 @@ import { path } from '../../../internal/utils/path';
  */
 export class Tools extends APIResource {
   /**
-   * Add Assistant Tool
+   * Test a webhook tool for an assistant
    *
    * @example
    * ```ts
-   * const response = await client.ai.assistants.tools.add(
+   * const response = await client.ai.assistants.tools.test(
    *   'tool_id',
    *   { assistant_id: 'assistant_id' },
    * );
    * ```
    */
-  add(toolID: string, params: ToolAddParams, options?: RequestOptions): APIPromise<unknown> {
-    const { assistant_id } = params;
-    return this._client.put(path`/ai/assistants/${assistant_id}/tools/${toolID}`, options);
+  test(toolID: string, params: ToolTestParams, options?: RequestOptions): APIPromise<ToolTestResponse> {
+    const { assistant_id, ...body } = params;
+    return this._client.post(path`/ai/assistants/${assistant_id}/tools/${toolID}/test`, { body, ...options });
   }
 
   /**
@@ -42,19 +42,19 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Test a webhook tool for an assistant
+   * Add Assistant Tool
    *
    * @example
    * ```ts
-   * const response = await client.ai.assistants.tools.test(
+   * const response = await client.ai.assistants.tools.add(
    *   'tool_id',
    *   { assistant_id: 'assistant_id' },
    * );
    * ```
    */
-  test(toolID: string, params: ToolTestParams, options?: RequestOptions): APIPromise<ToolTestResponse> {
-    const { assistant_id, ...body } = params;
-    return this._client.post(path`/ai/assistants/${assistant_id}/tools/${toolID}/test`, { body, ...options });
+  add(toolID: string, params: ToolAddParams, options?: RequestOptions): APIPromise<unknown> {
+    const { assistant_id } = params;
+    return this._client.put(path`/ai/assistants/${assistant_id}/tools/${toolID}`, options);
   }
 }
 
@@ -89,20 +89,6 @@ export namespace ToolTestResponse {
   }
 }
 
-export interface ToolAddParams {
-  /**
-   * Unique identifier of the assistant.
-   */
-  assistant_id: string;
-}
-
-export interface ToolRemoveParams {
-  /**
-   * Unique identifier of the assistant.
-   */
-  assistant_id: string;
-}
-
 export interface ToolTestParams {
   /**
    * Path param: Unique identifier of the assistant.
@@ -120,13 +106,27 @@ export interface ToolTestParams {
   dynamic_variables?: { [key: string]: unknown };
 }
 
+export interface ToolRemoveParams {
+  /**
+   * Unique identifier of the assistant.
+   */
+  assistant_id: string;
+}
+
+export interface ToolAddParams {
+  /**
+   * Unique identifier of the assistant.
+   */
+  assistant_id: string;
+}
+
 export declare namespace Tools {
   export {
     type ToolAddResponse as ToolAddResponse,
     type ToolRemoveResponse as ToolRemoveResponse,
     type ToolTestResponse as ToolTestResponse,
-    type ToolAddParams as ToolAddParams,
-    type ToolRemoveParams as ToolRemoveParams,
     type ToolTestParams as ToolTestParams,
+    type ToolRemoveParams as ToolRemoveParams,
+    type ToolAddParams as ToolAddParams,
   };
 }

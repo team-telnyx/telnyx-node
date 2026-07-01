@@ -12,38 +12,6 @@ import { path } from '../internal/utils/path';
  */
 export class Documents extends APIResource {
   /**
-   * Retrieve a document.
-   *
-   * @example
-   * ```ts
-   * const document = await client.documents.retrieve(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<DocumentRetrieveResponse> {
-    return this._client.get(path`/documents/${id}`, options);
-  }
-
-  /**
-   * Update a document.
-   *
-   * @example
-   * ```ts
-   * const document = await client.documents.update(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  update(
-    documentID: string,
-    body: DocumentUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<DocumentUpdateResponse> {
-    return this._client.patch(path`/documents/${documentID}`, { body, ...options });
-  }
-
-  /**
    * List all documents ordered by created_at descending.
    *
    * @example
@@ -153,6 +121,94 @@ export class Documents extends APIResource {
   ): APIPromise<DocumentUploadJsonResponse> {
     const { document } = params;
     return this._client.post('/documents', { body: document, ...options });
+  }
+
+  /**
+   * Delete a document.<br /><br />A document can only be deleted if it's not linked
+   * to a service. If it is linked to a service, it must be unlinked prior to
+   * deleting.
+   *
+   * @example
+   * ```ts
+   * const document = await client.documents.delete(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<DocumentDeleteResponse> {
+    return this._client.delete(path`/documents/${id}`, options);
+  }
+
+  /**
+   * Retrieve a document.
+   *
+   * @example
+   * ```ts
+   * const document = await client.documents.retrieve(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<DocumentRetrieveResponse> {
+    return this._client.get(path`/documents/${id}`, options);
+  }
+
+  /**
+   * Update a document.
+   *
+   * @example
+   * ```ts
+   * const document = await client.documents.update(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  update(
+    documentID: string,
+    body: DocumentUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<DocumentUpdateResponse> {
+    return this._client.patch(path`/documents/${documentID}`, { body, ...options });
+  }
+
+  /**
+   * Download a document.
+   *
+   * @example
+   * ```ts
+   * const response = await client.documents.download(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   *
+   * const content = await response.blob();
+   * console.log(content);
+   * ```
+   */
+  download(id: string, options?: RequestOptions): APIPromise<Response> {
+    return this._client.get(path`/documents/${id}/download`, {
+      ...options,
+      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
+      __binaryResponse: true,
+    });
+  }
+
+  /**
+   * Generates a temporary pre-signed URL that can be used to download the document
+   * directly from the storage backend without authentication.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.documents.generateDownloadLink(
+   *     '550e8400-e29b-41d4-a716-446655440000',
+   *   );
+   * ```
+   */
+  generateDownloadLink(
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<DocumentGenerateDownloadLinkResponse> {
+    return this._client.get(path`/documents/${id}/download_link`, options);
   }
 }
 
@@ -270,18 +326,6 @@ export interface DocumentUploadResponse {
 
 export interface DocumentUploadJsonResponse {
   data?: DocServiceDocument;
-}
-
-export interface DocumentUpdateParams {
-  /**
-   * Optional reference string for customer tracking.
-   */
-  customer_reference?: string;
-
-  /**
-   * The filename of the document.
-   */
-  filename?: string;
 }
 
 export interface DocumentListParams extends DefaultFlatPaginationParams {
@@ -406,6 +450,18 @@ export namespace DocumentUploadJsonParams {
   }
 }
 
+export interface DocumentUpdateParams {
+  /**
+   * Optional reference string for customer tracking.
+   */
+  customer_reference?: string;
+
+  /**
+   * The filename of the document.
+   */
+  filename?: string;
+}
+
 export declare namespace Documents {
   export {
     type DocServiceDocument as DocServiceDocument,
@@ -417,9 +473,9 @@ export declare namespace Documents {
     type DocumentUploadResponse as DocumentUploadResponse,
     type DocumentUploadJsonResponse as DocumentUploadJsonResponse,
     type DocServiceDocumentsDefaultFlatPagination as DocServiceDocumentsDefaultFlatPagination,
-    type DocumentUpdateParams as DocumentUpdateParams,
     type DocumentListParams as DocumentListParams,
     type DocumentUploadParams as DocumentUploadParams,
     type DocumentUploadJsonParams as DocumentUploadJsonParams,
+    type DocumentUpdateParams as DocumentUpdateParams,
   };
 }

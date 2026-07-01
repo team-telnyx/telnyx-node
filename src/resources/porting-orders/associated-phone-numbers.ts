@@ -11,6 +11,33 @@ import { path } from '../../internal/utils/path';
  */
 export class AssociatedPhoneNumbers extends APIResource {
   /**
+   * Returns a list of all associated phone numbers for a porting order. Associated
+   * phone numbers are used for partial porting in GB to specify which phone numbers
+   * should be kept or disconnected.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const portingAssociatedPhoneNumber of client.portingOrders.associatedPhoneNumbers.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    portingOrderID: string,
+    query: AssociatedPhoneNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortingAssociatedPhoneNumbersDefaultFlatPagination, PortingAssociatedPhoneNumber> {
+    return this._client.getAPIList(
+      path`/porting_orders/${portingOrderID}/associated_phone_numbers`,
+      DefaultFlatPagination<PortingAssociatedPhoneNumber>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Creates a new associated phone number for a porting order. This is used for
    * partial porting in GB to specify which phone numbers should be kept or
    * disconnected.
@@ -36,33 +63,6 @@ export class AssociatedPhoneNumbers extends APIResource {
       body,
       ...options,
     });
-  }
-
-  /**
-   * Returns a list of all associated phone numbers for a porting order. Associated
-   * phone numbers are used for partial porting in GB to specify which phone numbers
-   * should be kept or disconnected.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const portingAssociatedPhoneNumber of client.portingOrders.associatedPhoneNumbers.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    portingOrderID: string,
-    query: AssociatedPhoneNumberListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PortingAssociatedPhoneNumbersDefaultFlatPagination, PortingAssociatedPhoneNumber> {
-    return this._client.getAPIList(
-      path`/porting_orders/${portingOrderID}/associated_phone_numbers`,
-      DefaultFlatPagination<PortingAssociatedPhoneNumber>,
-      { query, ...options },
-    );
   }
 
   /**
@@ -169,29 +169,6 @@ export interface AssociatedPhoneNumberDeleteResponse {
   data?: PortingAssociatedPhoneNumber;
 }
 
-export interface AssociatedPhoneNumberCreateParams {
-  /**
-   * Specifies the action to take with this phone number during partial porting.
-   */
-  action: 'keep' | 'disconnect';
-
-  phone_number_range: AssociatedPhoneNumberCreateParams.PhoneNumberRange;
-}
-
-export namespace AssociatedPhoneNumberCreateParams {
-  export interface PhoneNumberRange {
-    /**
-     * Specifies the end of the phone number range for this associated phone number.
-     */
-    end_at?: string;
-
-    /**
-     * Specifies the start of the phone number range for this associated phone number.
-     */
-    start_at?: string;
-  }
-}
-
 export interface AssociatedPhoneNumberListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -234,6 +211,29 @@ export namespace AssociatedPhoneNumberListParams {
   }
 }
 
+export interface AssociatedPhoneNumberCreateParams {
+  /**
+   * Specifies the action to take with this phone number during partial porting.
+   */
+  action: 'keep' | 'disconnect';
+
+  phone_number_range: AssociatedPhoneNumberCreateParams.PhoneNumberRange;
+}
+
+export namespace AssociatedPhoneNumberCreateParams {
+  export interface PhoneNumberRange {
+    /**
+     * Specifies the end of the phone number range for this associated phone number.
+     */
+    end_at?: string;
+
+    /**
+     * Specifies the start of the phone number range for this associated phone number.
+     */
+    start_at?: string;
+  }
+}
+
 export interface AssociatedPhoneNumberDeleteParams {
   /**
    * Identifies the Porting Order associated with the phone number
@@ -247,8 +247,8 @@ export declare namespace AssociatedPhoneNumbers {
     type AssociatedPhoneNumberCreateResponse as AssociatedPhoneNumberCreateResponse,
     type AssociatedPhoneNumberDeleteResponse as AssociatedPhoneNumberDeleteResponse,
     type PortingAssociatedPhoneNumbersDefaultFlatPagination as PortingAssociatedPhoneNumbersDefaultFlatPagination,
-    type AssociatedPhoneNumberCreateParams as AssociatedPhoneNumberCreateParams,
     type AssociatedPhoneNumberListParams as AssociatedPhoneNumberListParams,
+    type AssociatedPhoneNumberCreateParams as AssociatedPhoneNumberCreateParams,
     type AssociatedPhoneNumberDeleteParams as AssociatedPhoneNumberDeleteParams,
   };
 }

@@ -10,6 +10,20 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class TextToSpeech extends APIResource {
   /**
+   * Retrieve a list of available voices from one or all TTS providers. When
+   * `provider` is specified, returns voices for that provider only. Otherwise,
+   * returns voices from all providers.
+   *
+   * Some providers (ElevenLabs, Resemble) require an API key to list voices.
+   */
+  listVoices(
+    query: TextToSpeechListVoicesParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<TextToSpeechListVoicesResponse> {
+    return this._client.get('/text-to-speech/voices', { query, ...options });
+  }
+
+  /**
    * Generate synthesized speech audio from text input. Returns audio in the
    * requested format (binary audio stream, base64-encoded JSON, or an audio URL for
    * later retrieval).
@@ -34,20 +48,6 @@ export class TextToSpeech extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TextToSpeechGenerateSpeechResponse> {
     return this._client.post('/text-to-speech/speech', { body, ...options });
-  }
-
-  /**
-   * Retrieve a list of available voices from one or all TTS providers. When
-   * `provider` is specified, returns voices for that provider only. Otherwise,
-   * returns voices from all providers.
-   *
-   * Some providers (ElevenLabs, Resemble) require an API key to list voices.
-   */
-  listVoices(
-    query: TextToSpeechListVoicesParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<TextToSpeechListVoicesResponse> {
-    return this._client.get('/text-to-speech/voices', { query, ...options });
   }
 
   /**
@@ -253,6 +253,18 @@ export namespace StreamServerEvent {
      */
     type?: 'error';
   }
+}
+
+export interface TextToSpeechListVoicesParams {
+  /**
+   * API key for providers that require one to list voices (e.g. ElevenLabs).
+   */
+  api_key?: string;
+
+  /**
+   * Filter voices by provider. If omitted, voices from all providers are returned.
+   */
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai';
 }
 
 export interface TextToSpeechGenerateSpeechParams {
@@ -581,18 +593,6 @@ export namespace TextToSpeechGenerateSpeechParams {
   }
 }
 
-export interface TextToSpeechListVoicesParams {
-  /**
-   * API key for providers that require one to list voices (e.g. ElevenLabs).
-   */
-  api_key?: string;
-
-  /**
-   * Filter voices by provider. If omitted, voices from all providers are returned.
-   */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai';
-}
-
 export interface TextToSpeechRetrieveSpeechParams {
   /**
    * Audio output format override. Supported for Telnyx models. `pcm` and `wav` are
@@ -646,8 +646,8 @@ export declare namespace TextToSpeech {
     type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
-    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
+    type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechRetrieveSpeechParams as TextToSpeechRetrieveSpeechParams,
   };
 }

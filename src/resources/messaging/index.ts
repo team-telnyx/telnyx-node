@@ -7,7 +7,7 @@ export {
   type RcInviteTestNumberResponse,
   type RcListBulkCapabilitiesResponse,
   type RcRetrieveCapabilitiesResponse,
-  type RcInviteTestNumberParams,
   type RcListBulkCapabilitiesParams,
   type RcRetrieveCapabilitiesParams,
+  type RcInviteTestNumberParams,
 } from './rcs/index';

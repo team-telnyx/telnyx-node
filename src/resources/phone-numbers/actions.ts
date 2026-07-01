@@ -12,6 +12,25 @@ import { path } from '../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
+   * Verifies ownership of the provided phone numbers and returns a mapping of
+   * numbers to their IDs, plus a list of numbers not found in the account.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.phoneNumbers.actions.verifyOwnership({
+   *     phone_numbers: ['+15551234567'],
+   *   });
+   * ```
+   */
+  verifyOwnership(
+    body: ActionVerifyOwnershipParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionVerifyOwnershipResponse> {
+    return this._client.post('/phone_numbers/actions/verify_ownership', { body, ...options });
+  }
+
+  /**
    * Change the bundle status for a phone number (set to being in a bundle or remove
    * from a bundle)
    *
@@ -53,25 +72,6 @@ export class Actions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ActionEnableEmergencyResponse> {
     return this._client.post(path`/phone_numbers/${id}/actions/enable_emergency`, { body, ...options });
-  }
-
-  /**
-   * Verifies ownership of the provided phone numbers and returns a mapping of
-   * numbers to their IDs, plus a list of numbers not found in the account.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.phoneNumbers.actions.verifyOwnership({
-   *     phone_numbers: ['+15551234567'],
-   *   });
-   * ```
-   */
-  verifyOwnership(
-    body: ActionVerifyOwnershipParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionVerifyOwnershipResponse> {
-    return this._client.post('/phone_numbers/actions/verify_ownership', { body, ...options });
   }
 }
 
@@ -223,6 +223,13 @@ export namespace ActionVerifyOwnershipResponse {
   }
 }
 
+export interface ActionVerifyOwnershipParams {
+  /**
+   * Array of phone numbers to verify ownership for
+   */
+  phone_numbers: Array<string>;
+}
+
 export interface ActionChangeBundleStatusParams {
   /**
    * The new bundle_id setting for the number. If you are assigning the number to a
@@ -246,21 +253,14 @@ export interface ActionEnableEmergencyParams {
   emergency_enabled: boolean;
 }
 
-export interface ActionVerifyOwnershipParams {
-  /**
-   * Array of phone numbers to verify ownership for
-   */
-  phone_numbers: Array<string>;
-}
-
 export declare namespace Actions {
   export {
     type PhoneNumberWithVoiceSettings as PhoneNumberWithVoiceSettings,
     type ActionChangeBundleStatusResponse as ActionChangeBundleStatusResponse,
     type ActionEnableEmergencyResponse as ActionEnableEmergencyResponse,
     type ActionVerifyOwnershipResponse as ActionVerifyOwnershipResponse,
+    type ActionVerifyOwnershipParams as ActionVerifyOwnershipParams,
     type ActionChangeBundleStatusParams as ActionChangeBundleStatusParams,
     type ActionEnableEmergencyParams as ActionEnableEmergencyParams,
-    type ActionVerifyOwnershipParams as ActionVerifyOwnershipParams,
   };
 }
