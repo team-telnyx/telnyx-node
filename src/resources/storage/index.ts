@@ -6,6 +6,14 @@ export {
   type BucketCreatePresignedURLParams,
 } from './buckets/index';
 export {
+  Kvs,
+  type KvNamespace,
+  type KvNamespaceResponseWrapper,
+  type KvListParams,
+  type KvCreateParams,
+  type KvNamespacesDefaultFlatPagination,
+} from './kvs/index';
+export {
   MigrationSources,
   type MigrationSourceParams,
   type MigrationSourceCreateResponse,
