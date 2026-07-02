@@ -154,7 +154,6 @@ export class Documents extends APIResource {
   ): APIPromise<DocumentUpdateResponse> {
     return this._client.patch(path`/documents/${documentID}`, { body, ...options });
   }
-
 }
 
 export type DocServiceDocumentsDefaultFlatPagination = DefaultFlatPagination<DocServiceDocument>;

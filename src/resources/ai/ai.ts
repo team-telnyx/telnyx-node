@@ -291,7 +291,6 @@ export class AI extends APIResource {
   summarize(body: AISummarizeParams, options?: RequestOptions): APIPromise<AISummarizeResponse> {
     return this._client.post('/ai/summarize', { body, ...options });
   }
-
 }
 
 /**

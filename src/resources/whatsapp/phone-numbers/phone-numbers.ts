@@ -135,7 +135,6 @@ export class PhoneNumbers extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
-
 }
 
 export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>;
@@ -223,7 +222,6 @@ export interface PhoneNumberRetrieveConversationWindowParams {
 export interface PhoneNumberVerifyParams {
   code: string;
 }
-
 
 PhoneNumbers.CallingSettings = CallingSettings;
 PhoneNumbers.Profile = Profile;
