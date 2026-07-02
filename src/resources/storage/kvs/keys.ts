@@ -1,0 +1,193 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
+import { APIResource } from '../../../core/resource';
+import { APIPromise } from '../../../core/api-promise';
+import { type Uploadable } from '../../../core/uploads';
+import { buildHeaders } from '../../../internal/headers';
+import { RequestOptions } from '../../../internal/request-options';
+import { path } from '../../../internal/utils/path';
+
+/**
+ * Read and write keys within a KV namespace
+ */
+export class Keys extends APIResource {
+  /**
+   * Lists the keys in a namespace. Returns key names and metadata only, never
+   * values. Results are paginated with `limit` and an opaque `cursor`.
+   *
+   * @example
+   * ```ts
+   * const keys = await client.storage.kvs.keys.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  list(
+    id: string,
+    query: KeyListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<KeyListResponse> {
+    return this._client.get(path`/storage/kvs/${id}/keys`, { query, ...options });
+  }
+
+  /**
+   * Deletes a key. Idempotent: deleting a key that does not exist still succeeds.
+   * The namespace itself must exist and be provisioned.
+   *
+   * @example
+   * ```ts
+   * await client.storage.kvs.keys.delete('key', {
+   *   id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
+   * ```
+   */
+  delete(key: string, params: KeyDeleteParams, options?: RequestOptions): APIPromise<void> {
+    const { id } = params;
+    return this._client.delete(path`/storage/kvs/${id}/keys/${key}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
+   * Returns the raw stored value for a key. The response body is the value exactly
+   * as it was written; the `Content-Type` header echoes the value's stored content
+   * type (defaults to `application/octet-stream`).
+   *
+   * @example
+   * ```ts
+   * const key = await client.storage.kvs.keys.retrieve('key', {
+   *   id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * });
+   *
+   * const content = await key.blob();
+   * console.log(content);
+   * ```
+   */
+  retrieve(key: string, params: KeyRetrieveParams, options?: RequestOptions): APIPromise<Response> {
+    const { id } = params;
+    return this._client.get(path`/storage/kvs/${id}/keys/${key}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+      __binaryResponse: true,
+    });
+  }
+
+  /**
+   * Creates or replaces the value for a key. The request body is stored verbatim as
+   * the value — no base64, no JSON envelope — up to 1 MiB. The request's
+   * `Content-Type` header is stored with the value and echoed back on retrieval.
+   * Returns `201` when the key is created and `200` when an existing key is updated.
+   *
+   * @example
+   * ```ts
+   * await client.storage.kvs.keys.update('key', {
+   *   id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   body: fs.createReadStream('path/to/file'),
+   * });
+   * ```
+   */
+  update(key: string, params: KeyUpdateParams, options?: RequestOptions): APIPromise<void> {
+    const { id, body, ttl_secs } = params;
+    return this._client.put(path`/storage/kvs/${id}/keys/${key}`, {
+      query: { ttl_secs },
+      body: body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': '*/*', Accept: '*/*' }, options?.headers]),
+    });
+  }
+}
+
+export interface KeyListResponse {
+  data?: Array<KeyListResponse.Data>;
+
+  meta?: KeyListResponse.Meta;
+
+  record_type?: string;
+}
+
+export namespace KeyListResponse {
+  export interface Data {
+    key?: string;
+
+    /**
+     * Size of the stored value in bytes.
+     */
+    size_bytes?: number;
+
+    updated_at?: string;
+  }
+
+  export interface Meta {
+    /**
+     * Opaque cursor for the next page; pass it back as the `cursor` query parameter.
+     * Omitted when there are no further results.
+     */
+    cursor?: string;
+
+    /**
+     * Whether more results are available on a following page.
+     */
+    has_more?: boolean;
+  }
+}
+
+export interface KeyListParams {
+  /**
+   * Opaque pagination cursor from a previous response's `meta.cursor`.
+   */
+  cursor?: string;
+
+  /**
+   * Maximum number of keys to return. Values above 1000 are treated as 1000.
+   */
+  limit?: number;
+
+  /**
+   * Return only keys that start with this prefix.
+   */
+  prefix?: string;
+}
+
+export interface KeyDeleteParams {
+  /**
+   * KV namespace ID
+   */
+  id: string;
+}
+
+export interface KeyRetrieveParams {
+  /**
+   * KV namespace ID
+   */
+  id: string;
+}
+
+export interface KeyUpdateParams {
+  /**
+   * Path param: KV namespace ID
+   */
+  id: string;
+
+  /**
+   * Body param: Raw value bytes, stored verbatim.
+   */
+  body: Uploadable;
+
+  /**
+   * Query param: Time-to-live in seconds. When set, the key expires and is deleted
+   * after this duration. Requires a namespace provisioned with TTL support;
+   * namespaces without it return a `409`.
+   */
+  ttl_secs?: number;
+}
+
+export declare namespace Keys {
+  export {
+    type KeyListResponse as KeyListResponse,
+    type KeyListParams as KeyListParams,
+    type KeyDeleteParams as KeyDeleteParams,
+    type KeyRetrieveParams as KeyRetrieveParams,
+    type KeyUpdateParams as KeyUpdateParams,
+  };
+}

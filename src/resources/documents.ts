@@ -33,6 +33,41 @@ export class Documents extends APIResource {
   }
 
   /**
+   * Upload a document.<br /><br />Uploaded files must be linked to a service within
+   * 30 minutes or they will be automatically deleted.
+   *
+   * @example
+   * ```ts
+   * const response = await client.documents.upload({
+   *   document: {},
+   * });
+   * ```
+   */
+  upload(params: DocumentUploadParams, options?: RequestOptions): APIPromise<DocumentUploadResponse> {
+    const { document } = params;
+    return this._client.post('/documents?content-type=multipart', { body: document, ...options });
+  }
+
+  /**
+   * Upload a document.<br /><br />Uploaded files must be linked to a service within
+   * 30 minutes or they will be automatically deleted.
+   *
+   * @example
+   * ```ts
+   * const response = await client.documents.uploadJson({
+   *   document: {},
+   * });
+   * ```
+   */
+  uploadJson(
+    params: DocumentUploadJsonParams,
+    options?: RequestOptions,
+  ): APIPromise<DocumentUploadJsonResponse> {
+    const { document } = params;
+    return this._client.post('/documents', { body: document, ...options });
+  }
+
+  /**
    * Delete a document.<br /><br />A document can only be deleted if it's not linked
    * to a service. If it is linked to a service, it must be unlinked prior to
    * deleting.
@@ -46,6 +81,38 @@ export class Documents extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<DocumentDeleteResponse> {
     return this._client.delete(path`/documents/${id}`, options);
+  }
+
+  /**
+   * Retrieve a document.
+   *
+   * @example
+   * ```ts
+   * const document = await client.documents.retrieve(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<DocumentRetrieveResponse> {
+    return this._client.get(path`/documents/${id}`, options);
+  }
+
+  /**
+   * Update a document.
+   *
+   * @example
+   * ```ts
+   * const document = await client.documents.update(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  update(
+    documentID: string,
+    body: DocumentUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<DocumentUpdateResponse> {
+    return this._client.patch(path`/documents/${documentID}`, { body, ...options });
   }
 
   /**
@@ -86,73 +153,6 @@ export class Documents extends APIResource {
     options?: RequestOptions,
   ): APIPromise<DocumentGenerateDownloadLinkResponse> {
     return this._client.get(path`/documents/${id}/download_link`, options);
-  }
-
-  /**
-   * Upload a document.<br /><br />Uploaded files must be linked to a service within
-   * 30 minutes or they will be automatically deleted.
-   *
-   * @example
-   * ```ts
-   * const response = await client.documents.upload({
-   *   document: {},
-   * });
-   * ```
-   */
-  upload(params: DocumentUploadParams, options?: RequestOptions): APIPromise<DocumentUploadResponse> {
-    const { document } = params;
-    return this._client.post('/documents?content-type=multipart', { body: document, ...options });
-  }
-
-  /**
-   * Upload a document.<br /><br />Uploaded files must be linked to a service within
-   * 30 minutes or they will be automatically deleted.
-   *
-   * @example
-   * ```ts
-   * const response = await client.documents.uploadJson({
-   *   document: {},
-   * });
-   * ```
-   */
-  uploadJson(
-    params: DocumentUploadJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<DocumentUploadJsonResponse> {
-    const { document } = params;
-    return this._client.post('/documents', { body: document, ...options });
-  }
-
-  /**
-   * Retrieve a document.
-   *
-   * @example
-   * ```ts
-   * const document = await client.documents.retrieve(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<DocumentRetrieveResponse> {
-    return this._client.get(path`/documents/${id}`, options);
-  }
-
-  /**
-   * Update a document.
-   *
-   * @example
-   * ```ts
-   * const document = await client.documents.update(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  update(
-    documentID: string,
-    body: DocumentUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<DocumentUpdateResponse> {
-    return this._client.patch(path`/documents/${documentID}`, { body, ...options });
   }
 }
 

@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource verifyEmail', () => {
   // Mock server tests are disabled
-  test.skip('create', async () => {
-    const responsePromise = client.dir.verifyEmail.create('16635d38-75a6-4481-82e8-69af60e05011');
+  test.skip('list', async () => {
+    const responsePromise = client.dir.verifyEmail.list('16635d38-75a6-4481-82e8-69af60e05011');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +21,8 @@ describe('resource verifyEmail', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.dir.verifyEmail.list('16635d38-75a6-4481-82e8-69af60e05011');
+  test.skip('create', async () => {
+    const responsePromise = client.dir.verifyEmail.create('16635d38-75a6-4481-82e8-69af60e05011');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

@@ -94,6 +94,24 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
+   * Submit verification code for a phone number
+   *
+   * @example
+   * ```ts
+   * await client.whatsapp.phoneNumbers.verify('phone_number', {
+   *   code: 'code',
+   * });
+   * ```
+   */
+  verify(phoneNumber: string, body: PhoneNumberVerifyParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.post(path`/v2/whatsapp/phone_numbers/${phoneNumber}/verify`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Returns whether the 24-hour conversation window is currently open for a given
    * source/destination pair. If window_active is false, only template messages may
    * be sent.
@@ -115,24 +133,6 @@ export class PhoneNumbers extends APIResource {
     return this._client.get(path`/v2/whatsapp/phone_numbers/${phoneNumber}/conversation_window`, {
       query,
       ...options,
-    });
-  }
-
-  /**
-   * Submit verification code for a phone number
-   *
-   * @example
-   * ```ts
-   * await client.whatsapp.phoneNumbers.verify('phone_number', {
-   *   code: 'code',
-   * });
-   * ```
-   */
-  verify(phoneNumber: string, body: PhoneNumberVerifyParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.post(path`/v2/whatsapp/phone_numbers/${phoneNumber}/verify`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
 }
@@ -212,15 +212,15 @@ export interface PhoneNumberResendVerificationParams {
   verification_method?: 'sms' | 'voice';
 }
 
+export interface PhoneNumberVerifyParams {
+  code: string;
+}
+
 export interface PhoneNumberRetrieveConversationWindowParams {
   /**
    * Destination phone number in E.164 format
    */
   destination_number: string;
-}
-
-export interface PhoneNumberVerifyParams {
-  code: string;
 }
 
 PhoneNumbers.CallingSettings = CallingSettings;
@@ -233,8 +233,8 @@ export declare namespace PhoneNumbers {
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
-    type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
+    type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
   };
 
   export {

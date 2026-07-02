@@ -3785,6 +3785,33 @@ Methods:
 
 - <code title="post /storage/migrations/{id}/actions/stop">client.storage.migrations.actions.<a href="./src/resources/storage/migrations/actions.ts">stop</a>(id) -> ActionStopResponse</code>
 
+## Kvs
+
+Types:
+
+- <code><a href="./src/resources/storage/kvs/kvs.ts">KvNamespace</a></code>
+- <code><a href="./src/resources/storage/kvs/kvs.ts">KvNamespaceResponseWrapper</a></code>
+
+Methods:
+
+- <code title="get /storage/kvs">client.storage.kvs.<a href="./src/resources/storage/kvs/kvs.ts">list</a>({ ...params }) -> KvNamespacesDefaultFlatPagination</code>
+- <code title="post /storage/kvs">client.storage.kvs.<a href="./src/resources/storage/kvs/kvs.ts">create</a>({ ...params }) -> KvNamespaceResponseWrapper</code>
+- <code title="delete /storage/kvs/{id}">client.storage.kvs.<a href="./src/resources/storage/kvs/kvs.ts">delete</a>(id) -> KvNamespaceResponseWrapper</code>
+- <code title="get /storage/kvs/{id}">client.storage.kvs.<a href="./src/resources/storage/kvs/kvs.ts">retrieve</a>(id) -> KvNamespaceResponseWrapper</code>
+
+### Keys
+
+Types:
+
+- <code><a href="./src/resources/storage/kvs/keys.ts">KeyListResponse</a></code>
+
+Methods:
+
+- <code title="get /storage/kvs/{id}/keys">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">list</a>(id, { ...params }) -> KeyListResponse</code>
+- <code title="delete /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">delete</a>(key, { ...params }) -> void</code>
+- <code title="get /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">retrieve</a>(key, { ...params }) -> Response</code>
+- <code title="put /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">update</a>(key, { ...params }) -> void</code>
+
 # SubNumberOrders
 
 Types:

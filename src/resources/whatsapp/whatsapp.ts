@@ -80,11 +80,11 @@ export declare namespace Whatsapp {
     PhoneNumbers as PhoneNumbers,
     type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberRetrieveConversationWindowResponse as PhoneNumberRetrieveConversationWindowResponse,
-    type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
+    type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
   };
 
   export {
