@@ -79,14 +79,14 @@ export class Dir extends APIResource {
    *   {
    *     authorizer_email: 'sam@acmeplumbing.example.com',
    *     authorizer_name: 'Sam Owner',
-   *     certify_brand_is_accurate: true,
-   *     certify_ip_ownership: true,
-   *     certify_no_shaft_content: true,
-   *     display_name: 'Acme Plumbing',
    *     call_reasons: [
    *       'Appointment reminders',
    *       'Billing inquiries',
    *     ],
+   *     certify_brand_is_accurate: true,
+   *     certify_ip_ownership: true,
+   *     certify_no_shaft_content: true,
+   *     display_name: 'Acme Plumbing',
    *   },
    * );
    * ```
