@@ -163,7 +163,11 @@ jobs:
           done
 
           # Replace entire working tree from next (exact tree, no merge)
+          # git rm handles deletions (files removed in next but still in this branch)
+          # git clean removes untracked files (node_modules created by npx release-please)
+          git rm -rf . 2>/dev/null || true
           git checkout origin/next -- .
+          git clean -fdx
           git add -A
 
           # Restore version-bump files from the release PR branch
