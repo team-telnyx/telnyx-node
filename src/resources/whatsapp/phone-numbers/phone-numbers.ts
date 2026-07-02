@@ -136,30 +136,6 @@ export class PhoneNumbers extends APIResource {
     });
   }
 
-  /**
-   * Returns whether the 24-hour conversation window is currently open for a given
-   * source/destination pair. If window_active is false, only template messages may
-   * be sent.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.whatsapp.phoneNumbers.retrieveConversationWindow(
-   *     'phone_number',
-   *     { destination_number: '+353894650851' },
-   *   );
-   * ```
-   */
-  retrieveConversationWindow(
-    phoneNumber: string,
-    query: PhoneNumberRetrieveConversationWindowParams,
-    options?: RequestOptions,
-  ): APIPromise<PhoneNumberRetrieveConversationWindowResponse> {
-    return this._client.get(path`/v2/whatsapp/phone_numbers/${phoneNumber}/conversation_window`, {
-      query,
-      ...options,
-    });
-  }
 }
 
 export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>;
@@ -248,12 +224,6 @@ export interface PhoneNumberVerifyParams {
   code: string;
 }
 
-export interface PhoneNumberRetrieveConversationWindowParams {
-  /**
-   * Destination phone number in E.164 format
-   */
-  destination_number: string;
-}
 
 PhoneNumbers.CallingSettings = CallingSettings;
 PhoneNumbers.Profile = Profile;
@@ -267,7 +237,6 @@ export declare namespace PhoneNumbers {
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
     type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
-    type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
   };
 
   export {

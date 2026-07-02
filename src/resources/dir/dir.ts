@@ -660,22 +660,6 @@ export declare namespace DirResource {
     type EmailVerificationStatusWrapped as EmailVerificationStatusWrapped,
     type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
   };
-
-  export {
-    References as References,
-    type Reference as Reference,
-    type ReferenceInput as ReferenceInput,
-    type ReferenceList as ReferenceList,
-    type ReferenceUpdateResponse as ReferenceUpdateResponse,
-    type ReferenceCreateParams as ReferenceCreateParams,
-    type ReferenceUpdateParams as ReferenceUpdateParams,
-  };
-
-  export {
-    VerifyEmail as VerifyEmail,
-    type EmailVerificationStatusWrapped as EmailVerificationStatusWrapped,
-    type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
-  };
 }
 
 export { type InfringementClaimsDefaultFlatPagination };
