@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.5.0](https://github.com/team-telnyx/telnyx-node/compare/v7.4.0...v7.5.0) (2026-07-02)
+
+
+### Bug Fixes
+
+* remove leaked promote-to-prod.yml from prod ([#464](https://github.com/team-telnyx/telnyx-node/issues/464)) ([c0a99b0](https://github.com/team-telnyx/telnyx-node/commit/c0a99b030c39c3e1a3ce5c7abe31027800b16733))
+
 ## [7.4.0](https://github.com/team-telnyx/telnyx-node/compare/v7.3.0...v7.4.0) (2026-07-01)
 
 
