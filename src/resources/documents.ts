@@ -124,22 +124,6 @@ export class Documents extends APIResource {
   }
 
   /**
-   * Delete a document.<br /><br />A document can only be deleted if it's not linked
-   * to a service. If it is linked to a service, it must be unlinked prior to
-   * deleting.
-   *
-   * @example
-   * ```ts
-   * const document = await client.documents.delete(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<DocumentDeleteResponse> {
-    return this._client.delete(path`/documents/${id}`, options);
-  }
-
-  /**
    * Retrieve a document.
    *
    * @example
@@ -169,46 +153,6 @@ export class Documents extends APIResource {
     options?: RequestOptions,
   ): APIPromise<DocumentUpdateResponse> {
     return this._client.patch(path`/documents/${documentID}`, { body, ...options });
-  }
-
-  /**
-   * Download a document.
-   *
-   * @example
-   * ```ts
-   * const response = await client.documents.download(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   *
-   * const content = await response.blob();
-   * console.log(content);
-   * ```
-   */
-  download(id: string, options?: RequestOptions): APIPromise<Response> {
-    return this._client.get(path`/documents/${id}/download`, {
-      ...options,
-      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
-      __binaryResponse: true,
-    });
-  }
-
-  /**
-   * Generates a temporary pre-signed URL that can be used to download the document
-   * directly from the storage backend without authentication.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.documents.generateDownloadLink(
-   *     '550e8400-e29b-41d4-a716-446655440000',
-   *   );
-   * ```
-   */
-  generateDownloadLink(
-    id: string,
-    options?: RequestOptions,
-  ): APIPromise<DocumentGenerateDownloadLinkResponse> {
-    return this._client.get(path`/documents/${id}/download_link`, options);
   }
 }
 
