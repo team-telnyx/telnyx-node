@@ -106,6 +106,27 @@ jobs:
             echo "prs_created=false" >> "$GITHUB_OUTPUT"
           fi
 
+      - name: Ensure release PR carries autorelease label (self-heal)
+        if: github.ref == 'refs/heads/next'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          # release-please applies `autorelease: pending` in a separate API call
+          # AFTER opening the PR; a failure between the two is swallowed by the
+          # `|| true` above and leaves the PR unlabeled. The label is how the
+          # sync fallback, the auto-merge fallback, AND github-release (after
+          # merge) find release PRs — an unlabeled one merges but never tags
+          # (ghost release). Re-assert the label on any open release-please PR.
+          for pr in $(gh pr list --repo "$REPO" --state open --json number,headRefName,labels \
+              --jq '.[] | select(.headRefName | startswith("release-please--"))
+                        | select(([.labels[].name] | index("autorelease: pending")) | not)
+                        | .number'); do
+            gh pr edit "$pr" --repo "$REPO" --add-label "autorelease: pending" \
+              && echo "Re-added missing autorelease label to PR #$pr" \
+              || echo "::warning::Failed to add autorelease label to PR #$pr"
+          done
+
       - name: Sync next code into release PR (tree replacement, not merge)
         if: github.ref == 'refs/heads/next'
         env:
@@ -197,6 +218,27 @@ jobs:
             --config-file release-please-config.json \
             --manifest-file .release-please-manifest.json \
             2>&1
+
+      - name: Verify release commit produced a tag (ghost-release guard)
+        if: github.ref == 'refs/heads/master'
+        run: |
+          # `github-release` exits 0 even when it finds nothing to release ([]).
+          # If the commit that triggered this run is a merged `release: X.Y.Z`
+          # commit, a missing vX.Y.Z tag here means it silently no-opped —
+          # usually a merged release PR that lost its `autorelease: pending`
+          # label. Fail loud instead of ghosting the release.
+          MSG=$(git log -1 --format=%s "$GITHUB_SHA")
+          VER=$(echo "$MSG" | grep -oP '^release:\s*\K[0-9][0-9.]*' || true)
+          if [ -z "$VER" ]; then
+            echo "Not a release commit; nothing to verify"
+            exit 0
+          fi
+          if git ls-remote --exit-code --tags origin "v$VER" >/dev/null 2>&1; then
+            echo "Tag v$VER exists - release verified"
+          else
+            echo "::error::Merged release commit for $VER but no v$VER tag exists. github-release silently no-opped (merged release PR likely missing the autorelease pending label). Add the label to the merged PR and re-run this workflow."
+            exit 1
+          fi
 
       - name: Enable auto-merge on release PRs
         if: github.ref == 'refs/heads/next' && steps.release-pr.outputs.prs_created == 'true'
