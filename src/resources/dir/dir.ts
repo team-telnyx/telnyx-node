@@ -65,6 +65,65 @@ export class DirResource extends APIResource {
   verifyEmail: VerifyEmailAPI.VerifyEmail = new VerifyEmailAPI.VerifyEmail(this._client);
 
   /**
+   * Returns every DIR (Display Identity Record) you own, across all of your
+   * enterprises, as a single list. Pagination is JSON:API style (`page[number]`,
+   * `page[size]`, max 250). Supports `filter[]` query params:
+   * `filter[enterprise_id]`, `filter[status]`, `filter[display_name][contains]`,
+   * `filter[call_reason][contains]`, plus the renewal-window filters
+   * `filter[expiring_at][gte]` / `filter[expiring_at][lte]`. Sortable by
+   * `created_at`, `updated_at`, `display_name`, `status` (prefix `-` for descending;
+   * default `-created_at`).
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const dir of client.dir.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: DirListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DirsDefaultFlatPagination, Dir> {
+    return this._client.getAPIList('/dir', DefaultFlatPagination<Dir>, { query, ...options });
+  }
+
+  /**
+   * Reference list of `document_type` values accepted by
+   * `DirCreateRequest.documents[].document_type` and the infringement-contest
+   * endpoint. Each entry has a stable `short_name` (used in API calls) and a
+   * customer-facing description.
+   *
+   * @example
+   * ```ts
+   * const response = await client.dir.listDocumentTypes();
+   * ```
+   */
+  listDocumentTypes(options?: RequestOptions): APIPromise<DirListDocumentTypesResponse> {
+    return this._client.get('/dir/document_types', options);
+  }
+
+  /**
+   * Delete a DIR. Failure modes: `400` if a child phone number is in a non-deletable
+   * status, `409` if the DIR has an unresolved infringement claim, `404` if the DIR
+   * is not yours.
+   *
+   * @example
+   * ```ts
+   * await client.dir.delete(
+   *   '16635d38-75a6-4481-82e8-69af60e05011',
+   * );
+   * ```
+   */
+  delete(dirID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/dir/${dirID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Returns a single DIR by id. The enterprise is resolved server-side from the DIR
    * id. Returns `404` if the DIR does not exist or is not yours.
    *
@@ -540,7 +599,8 @@ export interface DirUpdateInfringementParams {
   display_name?: string | null;
 
   /**
-   * Append-only supporting documents.
+   * Append-only supporting documents to attach while resolving the claim (e.g.
+   * authorization or licensing proof).
    */
   documents?: Array<Document> | null;
 

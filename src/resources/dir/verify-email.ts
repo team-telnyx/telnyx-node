@@ -10,6 +10,21 @@ import { path } from '../../internal/utils/path';
  */
 export class VerifyEmail extends APIResource {
   /**
+   * Whether the DIR's current authorizer email has been verified.
+   *
+   * @example
+   * ```ts
+   * const emailVerificationStatusWrapped =
+   *   await client.dir.verifyEmail.list(
+   *     '16635d38-75a6-4481-82e8-69af60e05011',
+   *   );
+   * ```
+   */
+  list(dirID: string, options?: RequestOptions): APIPromise<EmailVerificationStatusWrapped> {
+    return this._client.get(path`/dir/${dirID}/verify_email`, options);
+  }
+
+  /**
    * Email a 6-digit code to the DIR's authorizer email to confirm ownership of that
    * address.
    *
@@ -27,21 +42,6 @@ export class VerifyEmail extends APIResource {
    */
   create(dirID: string, options?: RequestOptions): APIPromise<EmailVerificationStatusWrapped> {
     return this._client.post(path`/dir/${dirID}/verify_email`, options);
-  }
-
-  /**
-   * Whether the DIR's current authorizer email has been verified.
-   *
-   * @example
-   * ```ts
-   * const emailVerificationStatusWrapped =
-   *   await client.dir.verifyEmail.list(
-   *     '16635d38-75a6-4481-82e8-69af60e05011',
-   *   );
-   * ```
-   */
-  list(dirID: string, options?: RequestOptions): APIPromise<EmailVerificationStatusWrapped> {
-    return this._client.get(path`/dir/${dirID}/verify_email`, options);
   }
 
   /**

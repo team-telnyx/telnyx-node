@@ -165,6 +165,48 @@ export class AI extends APIResource {
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
 
   /**
+   * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
+   *
+   * Returns the same `ModelsResponse` payload as the OpenAI-compatible endpoint —
+   * open-source LLMs hosted on Telnyx (e.g. `moonshotai/Kimi-K2.6`,
+   * `zai-org/GLM-5.1-FP8`, `MiniMaxAI/MiniMax-M2.7`), embedding models, and
+   * fine-tuned models — kept around for backwards compatibility. New integrations
+   * should use `/v2/ai/openai/models`.
+   *
+   * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
+   *
+   * @deprecated
+   */
+  retrieveModels(options?: RequestOptions): APIPromise<ModelsResponse> {
+    return this._client.get('/ai/models', options);
+  }
+
+  /**
+   * Generate a summary of a file's contents.
+   *
+   * Supports the following text formats:
+   *
+   * - PDF, HTML, txt, json, csv
+   *
+   * Supports the following media formats (billed for both the transcription and
+   * summary):
+   *
+   * - flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm
+   * - Up to 100 MB
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.summarize({
+   *   bucket: 'bucket',
+   *   filename: 'filename',
+   * });
+   * ```
+   */
+  summarize(body: AISummarizeParams, options?: RequestOptions): APIPromise<AISummarizeResponse> {
+    return this._client.post('/ai/summarize', { body, ...options });
+  }
+
+  /**
    * **Deprecated**: Use `POST /v2/ai/openai/responses` instead. This endpoint is
    * compatible with the
    * [OpenAI Responses API](https://developers.openai.com/api/reference/responses/overview)
@@ -248,48 +290,6 @@ export class AI extends APIResource {
     options?: RequestOptions,
   ): APIPromise<AIRetrieveConversationHistoriesResponse> {
     return this._client.get('/ai/conversation_histories', { query, ...options });
-  }
-
-  /**
-   * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
-   *
-   * Returns the same `ModelsResponse` payload as the OpenAI-compatible endpoint —
-   * open-source LLMs hosted on Telnyx (e.g. `moonshotai/Kimi-K2.6`,
-   * `zai-org/GLM-5.1-FP8`, `MiniMaxAI/MiniMax-M2.7`), embedding models, and
-   * fine-tuned models — kept around for backwards compatibility. New integrations
-   * should use `/v2/ai/openai/models`.
-   *
-   * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
-   *
-   * @deprecated
-   */
-  retrieveModels(options?: RequestOptions): APIPromise<ModelsResponse> {
-    return this._client.get('/ai/models', options);
-  }
-
-  /**
-   * Generate a summary of a file's contents.
-   *
-   * Supports the following text formats:
-   *
-   * - PDF, HTML, txt, json, csv
-   *
-   * Supports the following media formats (billed for both the transcription and
-   * summary):
-   *
-   * - flac, mp3, mp4, mpeg, mpga, m4a, ogg, wav, or webm
-   * - Up to 100 MB
-   *
-   * @example
-   * ```ts
-   * const response = await client.ai.summarize({
-   *   bucket: 'bucket',
-   *   filename: 'filename',
-   * });
-   * ```
-   */
-  summarize(body: AISummarizeParams, options?: RequestOptions): APIPromise<AISummarizeResponse> {
-    return this._client.post('/ai/summarize', { body, ...options });
   }
 }
 
@@ -648,23 +648,6 @@ export interface AIRetrieveConversationHistoriesParams {
    * parallel (fan-out) and results are merged by similarity score.
    */
   region?: 'USA' | 'DEU' | 'AUS' | 'UAE';
-}
-
-export interface AISummarizeParams {
-  /**
-   * The name of the bucket that contains the file to be summarized.
-   */
-  bucket: string;
-
-  /**
-   * The name of the file to be summarized.
-   */
-  filename: string;
-
-  /**
-   * A system prompt to guide the summary generation.
-   */
-  system_prompt?: string;
 }
 
 AI.Assistants = Assistants;

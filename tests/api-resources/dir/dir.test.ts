@@ -9,6 +9,63 @@ const client = new Telnyx({
 
 describe('resource dir', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.dir.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.dir.list(
+        {
+          'filter[call_reason][contains]': 'filter[call_reason][contains]',
+          'filter[display_name][contains]': 'filter[display_name][contains]',
+          'filter[enterprise_id]': '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          'filter[expiring_at][gte]': '2019-12-27T18:11:19.117Z',
+          'filter[expiring_at][lte]': '2019-12-27T18:11:19.117Z',
+          'filter[status]': 'draft',
+          'page[number]': 1,
+          'page[size]': 20,
+          sort: 'created_at',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('listDocumentTypes', async () => {
+    const responsePromise = client.dir.listDocumentTypes();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.dir.delete('16635d38-75a6-4481-82e8-69af60e05011');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.dir.retrieve('16635d38-75a6-4481-82e8-69af60e05011');
     const rawResponse = await responsePromise.asResponse();

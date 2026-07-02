@@ -13,8 +13,8 @@ export {
   type PhoneNumberRetrieveConversationWindowResponse,
   type PhoneNumberListParams,
   type PhoneNumberResendVerificationParams,
-  type PhoneNumberRetrieveConversationWindowParams,
   type PhoneNumberVerifyParams,
+  type PhoneNumberRetrieveConversationWindowParams,
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers/index';
 export {
