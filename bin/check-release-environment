@@ -3,7 +3,7 @@
 errors=()
 
 if [ -z "${SDK_WRITE_TOKEN}" ]; then
-  errors+=("The SDK_WRITE_TOKEN secret has not been set. Add it as a repository secret so release-please can open release PRs and create releases.")
+  errors+=("The SDK_WRITE_TOKEN secret has not been set. Add it as a repository secret.")
 fi
 
 lenErrors=${#errors[@]}
