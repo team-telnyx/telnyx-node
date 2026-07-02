@@ -79,14 +79,14 @@ export class Dir extends APIResource {
    *   {
    *     authorizer_email: 'sam@acmeplumbing.example.com',
    *     authorizer_name: 'Sam Owner',
-   *     certify_brand_is_accurate: true,
-   *     certify_ip_ownership: true,
-   *     certify_no_shaft_content: true,
-   *     display_name: 'Acme Plumbing',
    *     call_reasons: [
    *       'Appointment reminders',
    *       'Billing inquiries',
    *     ],
+   *     certify_brand_is_accurate: true,
+   *     certify_ip_ownership: true,
+   *     certify_no_shaft_content: true,
+   *     display_name: 'Acme Plumbing',
    *   },
    * );
    * ```
@@ -170,6 +170,12 @@ export interface DirCreateParams {
   authorizer_name: string;
 
   /**
+   * 1–10 reasons your business calls customers. Validate phrasing against
+   * `POST /call_reasons/validate`.
+   */
+  call_reasons: Array<string>;
+
+  /**
    * Must be `true`.
    */
   certify_brand_is_accurate: true;
@@ -189,12 +195,6 @@ export interface DirCreateParams {
    * Name shown to call recipients. No emoji; not whitespace-only.
    */
   display_name: string;
-
-  /**
-   * 1–10 reasons your business calls customers. Validate phrasing against
-   * `POST /call_reasons/validate`.
-   */
-  call_reasons?: Array<string>;
 
   /**
    * Supporting documents. Each `document_id` may appear at most once on a DIR.

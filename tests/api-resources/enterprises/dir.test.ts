@@ -47,6 +47,7 @@ describe('resource dir', () => {
     const responsePromise = client.enterprises.dir.create('4a6192a4-573d-446d-b3ce-aff9117272a6', {
       authorizer_email: 'sam@acmeplumbing.example.com',
       authorizer_name: 'Sam Owner',
+      call_reasons: ['Appointment reminders', 'Billing inquiries'],
       certify_brand_is_accurate: true,
       certify_ip_ownership: true,
       certify_no_shaft_content: true,
@@ -66,11 +67,11 @@ describe('resource dir', () => {
     const response = await client.enterprises.dir.create('4a6192a4-573d-446d-b3ce-aff9117272a6', {
       authorizer_email: 'sam@acmeplumbing.example.com',
       authorizer_name: 'Sam Owner',
+      call_reasons: ['Appointment reminders', 'Billing inquiries'],
       certify_brand_is_accurate: true,
       certify_ip_ownership: true,
       certify_no_shaft_content: true,
       display_name: 'Acme Plumbing',
-      call_reasons: ['Appointment reminders', 'Billing inquiries'],
       documents: [
         {
           document_id: '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',

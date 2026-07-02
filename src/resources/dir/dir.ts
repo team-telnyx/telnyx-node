@@ -599,7 +599,8 @@ export interface DirUpdateInfringementParams {
   display_name?: string | null;
 
   /**
-   * Append-only supporting documents.
+   * Append-only supporting documents to attach while resolving the claim (e.g.
+   * authorization or licensing proof).
    */
   documents?: Array<Document> | null;
 
