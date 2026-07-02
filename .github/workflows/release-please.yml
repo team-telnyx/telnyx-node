@@ -97,7 +97,7 @@ jobs:
           echo "$OUTPUT"
 
           # Parse PR number from output if a PR was created
-          PR_URL=$(echo "$OUTPUT" | grep -oP 'https://github\.com/[^/]+/[^/]+/pull/\d+' | head -1)
+          PR_URL=$(echo "$OUTPUT" | grep -oP 'https://(?:api\.)?github\.com/(?:repos/[^/]+/[^/]+/)?pulls?/\d+' | head -1)
           if [ -n "$PR_URL" ]; then
             PR_NUM=$(echo "$PR_URL" | grep -oP '\d+$')
             echo "pr_number=$PR_NUM" >> "$GITHUB_OUTPUT"
@@ -162,13 +162,12 @@ jobs:
             fi
           done
 
-          # Replace entire working tree from next (exact tree, no merge)
-          # git rm handles deletions (files removed in next but still in this branch)
+          # Replace entire working tree from next (exact tree, no merge).
+          # git reset --hard atomically replaces both index and working tree
+          # with origin/next (handles deletions and additions in one step).
           # git clean removes untracked files (node_modules created by npx release-please)
-          git rm -rf . 2>/dev/null || true
-          git checkout origin/next -- .
+          git reset --hard origin/next
           git clean -fdx
-          git add -A
 
           # Restore version-bump files from the release PR branch
           for f in CHANGELOG.md package.json src/version.ts api.md .release-please-manifest.json; do
@@ -185,7 +184,7 @@ jobs:
             echo "No changes after syncing next code"
           else
             git commit -m "chore: sync code from next into release PR"
-            git push origin "$PR_BRANCH"
+            git push --force origin "$PR_BRANCH"
             echo "Successfully synced next code into release PR branch (tree replacement)"
           fi
 
