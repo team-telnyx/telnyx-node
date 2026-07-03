@@ -43,7 +43,7 @@ export class SpeechToText extends APIResource {
    * `Authorization: Bearer <API_KEY>` header.
    *
    * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`,
-   * `Speechmatics`, `Soniox`.
+   * `Speechmatics`, `Soniox`, `Parakeet`.
    *
    * **Connection flow:**
    *
@@ -213,6 +213,7 @@ export interface SpeechToTextListProvidersParams {
     | 'assemblyai'
     | 'xai'
     | 'soniox'
+    | 'parakeet'
     | 'azure'
     | 'openai'
     | 'google'
@@ -238,7 +239,15 @@ export interface SpeechToTextRetrieveTranscriptionParams {
   /**
    * The transcription engine to use for processing the audio stream.
    */
-  transcription_engine: 'Azure' | 'Deepgram' | 'Google' | 'Telnyx' | 'xAI' | 'Speechmatics' | 'Soniox';
+  transcription_engine:
+    | 'Azure'
+    | 'Deepgram'
+    | 'Google'
+    | 'Telnyx'
+    | 'xAI'
+    | 'Speechmatics'
+    | 'Soniox'
+    | 'Parakeet';
 
   /**
    * Silence duration (in milliseconds) that triggers end-of-speech detection. When
@@ -290,7 +299,8 @@ export interface SpeechToTextRetrieveTranscriptionParams {
     | 'openai/whisper-large-v3-turbo'
     | 'xai/grok-stt'
     | 'speechmatics/standard'
-    | 'soniox/stt-rt-v4';
+    | 'soniox/stt-rt-v4'
+    | 'parakeet/tdt-0.6b-v3';
 
   /**
    * Enable redaction of sensitive information (e.g., PCI data, SSN) from

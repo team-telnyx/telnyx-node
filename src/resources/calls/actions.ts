@@ -1604,6 +1604,8 @@ export interface TranscriptionConfig {
    * - `xai/grok-stt` for live streaming transcription.
    * - `soniox/stt-rt-v4` for live streaming multilingual transcription with
    *   automatic language detection.
+   * - `parakeet/tdt-0.6b-v3` for multilingual transcription with automatic language
+   *   detection.
    * - `azure/fast` and `azure/realtime`; Azure models require `region`, and
    *   unsupported regions require `api_key_ref`.
    * - `google/latest_long` for non-streaming multilingual transcription.
@@ -1622,6 +1624,7 @@ export interface TranscriptionConfig {
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
     | 'soniox/stt-rt-v4'
+    | 'parakeet/tdt-0.6b-v3'
     | 'azure/fast'
     | 'azure/realtime'
     | 'google/latest_long'

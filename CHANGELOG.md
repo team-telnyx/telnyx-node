@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.7.0](https://github.com/team-telnyx/telnyx-node/compare/v7.6.0...v7.7.0) (2026-07-03)
+
+
+### Bug Fixes
+
+* **release:** take first Release-As match (multiline output broke GITHUB_OUTPUT) ([#477](https://github.com/team-telnyx/telnyx-node/issues/477)) ([50435f7](https://github.com/team-telnyx/telnyx-node/commit/50435f74401ea251ef89b6a4f6a68886632bd549))
+
 ## [7.6.0](https://github.com/team-telnyx/telnyx-node/compare/v7.5.0...v7.6.0) (2026-07-03)
 
 
