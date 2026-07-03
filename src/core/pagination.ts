@@ -544,3 +544,63 @@ export class PerPagePaginationV2<Item>
     };
   }
 }
+
+export interface CursorFlatPaginationResponse<Item> {
+  data: Array<Item>;
+
+  meta: CursorFlatPaginationResponse.Meta;
+}
+
+export namespace CursorFlatPaginationResponse {
+  export interface Meta {
+    cursor?: string;
+
+    has_more?: boolean;
+  }
+}
+
+export interface CursorFlatPaginationParams {
+  cursor?: string;
+
+  limit?: number;
+}
+
+export class CursorFlatPagination<Item>
+  extends AbstractPage<Item>
+  implements CursorFlatPaginationResponse<Item>
+{
+  data: Array<Item>;
+
+  meta: CursorFlatPaginationResponse.Meta;
+
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: CursorFlatPaginationResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.data = body.data || [];
+    this.meta = body.meta || {};
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.data ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.meta?.cursor;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        cursor,
+      },
+    };
+  }
+}

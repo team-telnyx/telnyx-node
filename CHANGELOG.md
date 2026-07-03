@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.6.0](https://github.com/team-telnyx/telnyx-node/compare/v7.5.0...v7.6.0) (2026-07-03)
+
+
+### Bug Fixes
+
+* use git reset --hard for tree replacement, force-push, and fix PR URL regex in release-please.yml ([#473](https://github.com/team-telnyx/telnyx-node/issues/473)) ([4713518](https://github.com/team-telnyx/telnyx-node/commit/4713518a53910804e45a2d73f295cc5c34b2b3cc))
+
 ## [7.5.0](https://github.com/team-telnyx/telnyx-node/compare/v7.4.0...v7.5.0) (2026-07-02)
 
 

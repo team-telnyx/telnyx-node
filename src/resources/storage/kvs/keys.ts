@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
-import { type Uploadable } from '../../../core/uploads';
+import { CursorFlatPagination, type CursorFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -17,17 +17,23 @@ export class Keys extends APIResource {
    *
    * @example
    * ```ts
-   * const keys = await client.storage.kvs.keys.list(
+   * // Automatically fetches more pages as needed.
+   * for await (const keyListResponse of client.storage.kvs.keys.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     id: string,
     query: KeyListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<KeyListResponse> {
-    return this._client.get(path`/storage/kvs/${id}/keys`, { query, ...options });
+  ): PagePromise<KeyListResponsesCursorFlatPagination, KeyListResponse> {
+    return this._client.getAPIList(path`/storage/kvs/${id}/keys`, CursorFlatPagination<KeyListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -68,7 +74,7 @@ export class Keys extends APIResource {
     const { id } = params;
     return this._client.get(path`/storage/kvs/${id}/keys/${key}`, {
       ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
       __binaryResponse: true,
     });
   }
@@ -81,68 +87,46 @@ export class Keys extends APIResource {
    *
    * @example
    * ```ts
-   * await client.storage.kvs.keys.update('key', {
-   *   id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   body: fs.createReadStream('path/to/file'),
-   * });
+   * await client.storage.kvs.keys.update(
+   *   'key',
+   *   fs.createReadStream('path/to/file'),
+   *   { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   * );
    * ```
    */
-  update(key: string, params: KeyUpdateParams, options?: RequestOptions): APIPromise<void> {
-    const { id, body, ttl_secs } = params;
+  update(
+    key: string,
+    body: string | ArrayBuffer | ArrayBufferView | Blob | DataView,
+    params: KeyUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { id, ttl_secs } = params;
     return this._client.put(path`/storage/kvs/${id}/keys/${key}`, {
-      query: { ttl_secs },
       body: body,
+      query: { ttl_secs },
       ...options,
-      headers: buildHeaders([{ 'Content-Type': '*/*', Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([
+        { 'Content-Type': 'application/octet-stream', Accept: '*/*' },
+        options?.headers,
+      ]),
     });
   }
 }
 
+export type KeyListResponsesCursorFlatPagination = CursorFlatPagination<KeyListResponse>;
+
 export interface KeyListResponse {
-  data?: Array<KeyListResponse.Data>;
-
-  meta?: KeyListResponse.Meta;
-
-  record_type?: string;
-}
-
-export namespace KeyListResponse {
-  export interface Data {
-    key?: string;
-
-    /**
-     * Size of the stored value in bytes.
-     */
-    size_bytes?: number;
-
-    updated_at?: string;
-  }
-
-  export interface Meta {
-    /**
-     * Opaque cursor for the next page; pass it back as the `cursor` query parameter.
-     * Omitted when there are no further results.
-     */
-    cursor?: string;
-
-    /**
-     * Whether more results are available on a following page.
-     */
-    has_more?: boolean;
-  }
-}
-
-export interface KeyListParams {
-  /**
-   * Opaque pagination cursor from a previous response's `meta.cursor`.
-   */
-  cursor?: string;
+  key?: string;
 
   /**
-   * Maximum number of keys to return. Values above 1000 are treated as 1000.
+   * Size of the stored value in bytes.
    */
-  limit?: number;
+  size_bytes?: number;
 
+  updated_at?: string;
+}
+
+export interface KeyListParams extends CursorFlatPaginationParams {
   /**
    * Return only keys that start with this prefix.
    */
@@ -170,11 +154,6 @@ export interface KeyUpdateParams {
   id: string;
 
   /**
-   * Body param: Raw value bytes, stored verbatim.
-   */
-  body: Uploadable;
-
-  /**
    * Query param: Time-to-live in seconds. When set, the key expires and is deleted
    * after this duration. Requires a namespace provisioned with TTL support;
    * namespaces without it return a `409`.
@@ -185,6 +164,7 @@ export interface KeyUpdateParams {
 export declare namespace Keys {
   export {
     type KeyListResponse as KeyListResponse,
+    type KeyListResponsesCursorFlatPagination as KeyListResponsesCursorFlatPagination,
     type KeyListParams as KeyListParams,
     type KeyDeleteParams as KeyDeleteParams,
     type KeyRetrieveParams as KeyRetrieveParams,

@@ -23,7 +23,7 @@ PKG_JSON_PATH=../../packages/mcp-server/package.json node ../../scripts/utils/ma
 node scripts/postprocess-dist-package-json.cjs
 
 # build to .js/.mjs/.d.ts files
-../../node_modules/.bin/tsc-multi
+./node_modules/.bin/tsc-multi
 
 cp tsconfig.dist-src.json dist/src/tsconfig.json
 

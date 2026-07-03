@@ -436,6 +436,12 @@ export interface UacInbound {
   sip_compact_headers_enabled?: boolean;
 
   /**
+   * Selects which `sip_region` to receive inbound calls from. If null, the default
+   * region (US) will be used.
+   */
+  sip_region?: 'US' | 'Europe' | 'Australia';
+
+  /**
    * The Telnyx-generated SIP subdomain for this UAC connection.
    */
   sip_subdomain?: string;
@@ -523,6 +529,12 @@ export interface UacInboundRequest {
    * Defaults to true.
    */
   sip_compact_headers_enabled?: boolean;
+
+  /**
+   * Selects which `sip_region` to receive inbound calls from. If null, the default
+   * region (US) will be used.
+   */
+  sip_region?: 'US' | 'Europe' | 'Australia';
 
   /**
    * Time(sec) before aborting if connection is not made.
