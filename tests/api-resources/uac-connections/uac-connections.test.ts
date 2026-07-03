@@ -86,6 +86,7 @@ describe('resource uacConnections', () => {
         shaken_stir_enabled: true,
         simultaneous_ringing: 'disabled',
         sip_compact_headers_enabled: true,
+        sip_region: 'US',
         timeout_1xx_secs: 10,
         timeout_2xx_secs: 20,
       },
