@@ -93,6 +93,16 @@ jobs:
             ARGS+=(--release-as "${{ steps.version.outputs.version }}")
           fi
 
+          # Widen the --local commit scan to next's promote commits: release-pr
+          # collects commits since the last release on the TARGET branch (master),
+          # so with only hidden ci:-typed commits on master it silently skips
+          # (releases previously depended on coincidental fix-typed hotfixes).
+          # next always contains master (the promote enforces ancestry), so
+          # pointing the local refs at HEAD only widens the scan; the PR is
+          # still created against master via the API.
+          git branch -f master HEAD 2>/dev/null || true
+          git update-ref refs/remotes/origin/master HEAD
+
           OUTPUT=$(npx release-please "${ARGS[@]}" 2>&1) || true
           echo "$OUTPUT"
 
