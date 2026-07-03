@@ -3807,10 +3807,10 @@ Types:
 
 Methods:
 
-- <code title="get /storage/kvs/{id}/keys">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">list</a>(id, { ...params }) -> KeyListResponsesCursorFlatPagination</code>
+- <code title="get /storage/kvs/{id}/keys">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">list</a>(id, { ...params }) -> KeyListResponse</code>
 - <code title="delete /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">delete</a>(key, { ...params }) -> void</code>
 - <code title="get /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">retrieve</a>(key, { ...params }) -> Response</code>
-- <code title="put /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">update</a>(key, body, { ...params }) -> void</code>
+- <code title="put /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">update</a>(key, { ...params }) -> void</code>
 
 # SubNumberOrders
 
@@ -4696,6 +4696,7 @@ Methods:
 - <code title="get /v2/whatsapp/phone_numbers">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">list</a>({ ...params }) -> PhoneNumberListResponsesDefaultFlatPagination</code>
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/resend_verification">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">resendVerification</a>(phoneNumber, { ...params }) -> void</code>
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversation_window">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">retrieveConversationWindow</a>(phoneNumber, { ...params }) -> PhoneNumberRetrieveConversationWindowResponse</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/verify">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">verify</a>(phoneNumber, { ...params }) -> void</code>
 - <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversation_window">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">retrieveConversationWindow</a>(phoneNumber, { ...params }) -> PhoneNumberRetrieveConversationWindowResponse</code>
 
@@ -5143,6 +5144,33 @@ Methods:
 
 - <code title="get /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">list</a>(dirID) -> EmailVerificationStatusWrapped</code>
 - <code title="post /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">create</a>(dirID) -> EmailVerificationStatusWrapped</code>
+- <code title="post /dir/{dir_id}/verify_email/confirm">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">confirm</a>(dirID, { ...params }) -> EmailVerificationStatusWrapped</code>
+
+## References
+
+Types:
+
+- <code><a href="./src/resources/dir/references.ts">Reference</a></code>
+- <code><a href="./src/resources/dir/references.ts">ReferenceInput</a></code>
+- <code><a href="./src/resources/dir/references.ts">ReferenceList</a></code>
+- <code><a href="./src/resources/dir/references.ts">ReferenceUpdateResponse</a></code>
+
+Methods:
+
+- <code title="post /dir/{dir_id}/references">client.dir.references.<a href="./src/resources/dir/references.ts">create</a>(dirID, { ...params }) -> ReferenceList</code>
+- <code title="patch /dir/{dir_id}/references/{ref_type}/{slot}">client.dir.references.<a href="./src/resources/dir/references.ts">update</a>(slot, { ...params }) -> ReferenceUpdateResponse</code>
+- <code title="get /dir/{dir_id}/references">client.dir.references.<a href="./src/resources/dir/references.ts">list</a>(dirID) -> ReferenceList</code>
+
+## VerifyEmail
+
+Types:
+
+- <code><a href="./src/resources/dir/verify-email.ts">EmailVerificationStatusWrapped</a></code>
+
+Methods:
+
+- <code title="post /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">create</a>(dirID) -> EmailVerificationStatusWrapped</code>
+- <code title="get /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">list</a>(dirID) -> EmailVerificationStatusWrapped</code>
 - <code title="post /dir/{dir_id}/verify_email/confirm">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">confirm</a>(dirID, { ...params }) -> EmailVerificationStatusWrapped</code>
 
 # InfringementClaims

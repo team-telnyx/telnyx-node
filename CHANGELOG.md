@@ -1,6 +1,293 @@
 # Changelog
 
-## [6.83.0](https://github.com/team-telnyx/telnyx-typescript-staging/compare/v6.82.0...v6.83.0) (2026-06-16)
+## [7.6.0](https://github.com/team-telnyx/telnyx-node/compare/v7.5.0...v7.6.0) (2026-07-03)
+
+
+### Bug Fixes
+
+* use git reset --hard for tree replacement, force-push, and fix PR URL regex in release-please.yml ([#473](https://github.com/team-telnyx/telnyx-node/issues/473)) ([4713518](https://github.com/team-telnyx/telnyx-node/commit/4713518a53910804e45a2d73f295cc5c34b2b3cc))
+
+## [7.5.0](https://github.com/team-telnyx/telnyx-node/compare/v7.4.0...v7.5.0) (2026-07-02)
+
+
+### Bug Fixes
+
+* remove leaked promote-to-prod.yml from prod ([#464](https://github.com/team-telnyx/telnyx-node/issues/464)) ([c0a99b0](https://github.com/team-telnyx/telnyx-node/commit/c0a99b030c39c3e1a3ce5c7abe31027800b16733))
+
+## [7.4.0](https://github.com/team-telnyx/telnyx-node/compare/v7.3.0...v7.4.0) (2026-07-01)
+
+
+### Bug Fixes
+
+* remove --target-branch from release-pr so it scans next for commits ([#462](https://github.com/team-telnyx/telnyx-node/issues/462)) ([e8f2742](https://github.com/team-telnyx/telnyx-node/commit/e8f2742c47bb38f1f942f32ce022b0310732c2d3))
+
+## [7.3.0](https://github.com/team-telnyx/telnyx-node/compare/v7.2.0...v7.3.0) (2026-07-01)
+
+
+### Bug Fixes
+
+* add --local flag so release-please scans next branch for commits ([#456](https://github.com/team-telnyx/telnyx-node/issues/456)) ([f1432e4](https://github.com/team-telnyx/telnyx-node/commit/f1432e4518383fea98c96dd206ed34347e88d1c4))
+
+
+### Chores
+
+* remove leaked staging-only promote-to-prod.yml from prod ([#458](https://github.com/team-telnyx/telnyx-node/issues/458)) ([3626e67](https://github.com/team-telnyx/telnyx-node/commit/3626e678bcd3dcf0c6af362d981e5e3133816fd3))
+
+## [7.2.0](https://github.com/team-telnyx/telnyx-node/compare/v7.2.0...v7.2.0) (2026-06-24)
+
+
+### ⚠ BREAKING CHANGES
+
+* `webhooks.unwrap()` and `TelnyxWebhook.verify()` are now async
+* Webhooks.unwrap() method now accepts optional headers parameter for signature verification. Backward compatible when no headers provided.
+
+### release
+
+* 4.0.0 ([#243](https://github.com/team-telnyx/telnyx-node/issues/243)) ([8215e40](https://github.com/team-telnyx/telnyx-node/commit/8215e404abde1bc93ae0105d248679a112a7046d))
+* 6.0.0 ([#326](https://github.com/team-telnyx/telnyx-node/issues/326)) ([b33593b](https://github.com/team-telnyx/telnyx-node/commit/b33593b06144cbf349d619061c345a3390dee936))
+
+
+### Features
+
+* add self-hosted release-please with two-phase trigger ([#435](https://github.com/team-telnyx/telnyx-node/issues/435)) ([a3edd39](https://github.com/team-telnyx/telnyx-node/commit/a3edd39d84139a4a39d0513dae3eeb250a5a6491))
+* **api:** update OpenAPI spec or Stainless config ([78c2f50](https://github.com/team-telnyx/telnyx-node/commit/78c2f507046232d6741c4377324c66f5404f8ef4))
+* **examples:** Add inbound call control webhook examples ([#17](https://github.com/team-telnyx/telnyx-node/issues/17)) ([4667342](https://github.com/team-telnyx/telnyx-node/commit/4667342381ed4200efcc0b8fe80fd545d0d14bb1))
+* **resources:** add Connections Resource ([#24](https://github.com/team-telnyx/telnyx-node/issues/24)) ([477c701](https://github.com/team-telnyx/telnyx-node/commit/477c701bc04ba5b254efde24bdc46b89a368cd24))
+* **resources:** add Ips and Fqdns Resources ([#25](https://github.com/team-telnyx/telnyx-node/issues/25)) ([92b4ee0](https://github.com/team-telnyx/telnyx-node/commit/92b4ee0ca0cb1db202d193389ce4f8d93b133f02))
+* **resources:** add Mobile Operator Networks Resource ([#39](https://github.com/team-telnyx/telnyx-node/issues/39)) ([039f86c](https://github.com/team-telnyx/telnyx-node/commit/039f86cc121f4f9378cd5b4dcddd44c6a7198a95))
+* **resources:** Addresses ([#34](https://github.com/team-telnyx/telnyx-node/issues/34)) ([eea89a7](https://github.com/team-telnyx/telnyx-node/commit/eea89a77c35ccd7459dba6d63dc58aec090e666d))
+* **resources:** alphanumeric sender ids ([#4](https://github.com/team-telnyx/telnyx-node/issues/4)) ([cb5d21b](https://github.com/team-telnyx/telnyx-node/commit/cb5d21b6db8f3720a1363fa048f0769d7b88a69d))
+* **resources:** Balance ([#35](https://github.com/team-telnyx/telnyx-node/issues/35)) ([46f89f9](https://github.com/team-telnyx/telnyx-node/commit/46f89f9c5bc4f1d09da1efbbb1bada2f51a2198b))
+* **resources:** Billing Groups ([#18](https://github.com/team-telnyx/telnyx-node/issues/18)) ([1df78d4](https://github.com/team-telnyx/telnyx-node/commit/1df78d409d7c922c613316f15f4ebdc7cd067608))
+* **resources:** Credential Connections ([#21](https://github.com/team-telnyx/telnyx-node/issues/21)) ([a6cfae5](https://github.com/team-telnyx/telnyx-node/commit/a6cfae5958252ca8af068782c2216b10bb05b8de))
+* **resources:** empty constructors ([#5](https://github.com/team-telnyx/telnyx-node/issues/5)) ([5da3047](https://github.com/team-telnyx/telnyx-node/commit/5da3047b009301de3693ee2313354f153d1f92ca))
+* **resources:** Fax Applications ([#57](https://github.com/team-telnyx/telnyx-node/issues/57)) ([06e55cf](https://github.com/team-telnyx/telnyx-node/commit/06e55cf4d65614ef5682173154e214dc8bb75585))
+* **resources:** Faxes ([#37](https://github.com/team-telnyx/telnyx-node/issues/37)) ([d826a17](https://github.com/team-telnyx/telnyx-node/commit/d826a179cecc5d6abd56fcecc4dff003ada80fa8))
+* **resources:** FQDN Connections ([#20](https://github.com/team-telnyx/telnyx-node/issues/20)) ([7e03173](https://github.com/team-telnyx/telnyx-node/commit/7e031736d434bc60097c2fb9c0b6a11036d9f4db))
+* **resources:** IP Connections ([#19](https://github.com/team-telnyx/telnyx-node/issues/19)) ([ceff8f7](https://github.com/team-telnyx/telnyx-node/commit/ceff8f7d0e9b96517c82022bb2aee455fb222114))
+* **resources:** Messaging Profile Metrics and Short Codes ([#43](https://github.com/team-telnyx/telnyx-node/issues/43)) ([e4097e3](https://github.com/team-telnyx/telnyx-node/commit/e4097e34f17e99cb76cb67e65afd3b4650691813))
+* **resources:** Number Lookup ([#36](https://github.com/team-telnyx/telnyx-node/issues/36)) ([3d4b955](https://github.com/team-telnyx/telnyx-node/commit/3d4b955877ac6fac080160b9fd1fd7c166360f7e))
+* **resources:** Number Order Regulatory Requirements and Number Order Documents ([#22](https://github.com/team-telnyx/telnyx-node/issues/22)) ([b4b6000](https://github.com/team-telnyx/telnyx-node/commit/b4b6000ac66f0688e88fdba993c69185ddfd02e0))
+* **resources:** OTA Updates ([#40](https://github.com/team-telnyx/telnyx-node/issues/40)) ([993b770](https://github.com/team-telnyx/telnyx-node/commit/993b77008fafe40ea2462fdcc855f729e7f1032c))
+* **resources:** Phone Numbers Resource ([#15](https://github.com/team-telnyx/telnyx-node/issues/15)) ([e63b496](https://github.com/team-telnyx/telnyx-node/commit/e63b496491259821af5979a8cca53c78cf36cdd1))
+* **resources:** Sim Card Enable/Disable ([#42](https://github.com/team-telnyx/telnyx-node/issues/42)) ([372f63a](https://github.com/team-telnyx/telnyx-node/commit/372f63a6320433ca85014b904875e799b806bce2))
+* **resources:** SIM Card Groups Resource ([#38](https://github.com/team-telnyx/telnyx-node/issues/38)) ([2f06b8a](https://github.com/team-telnyx/telnyx-node/commit/2f06b8a98436157147c39aaea234a8949cf7adaa))
+* **resources:** SIM Card Network Preferences Methods ([#41](https://github.com/team-telnyx/telnyx-node/issues/41)) ([a43c54b](https://github.com/team-telnyx/telnyx-node/commit/a43c54b8fd9cde27aeb3f4f24398afcc41d302ab))
+* **resources:** SIM Cards Resource ([#16](https://github.com/team-telnyx/telnyx-node/issues/16)) ([1db136f](https://github.com/team-telnyx/telnyx-node/commit/1db136fa5a0c3a25510f9a664c6ceecda73f6c78))
+* **resources:** Verifications ([#52](https://github.com/team-telnyx/telnyx-node/issues/52)) ([54a963b](https://github.com/team-telnyx/telnyx-node/commit/54a963b36daf93b0b75ab78d46cd7e9ea59672e4))
+* **resources:** Verify Profiles ([#51](https://github.com/team-telnyx/telnyx-node/issues/51)) ([b111f82](https://github.com/team-telnyx/telnyx-node/commit/b111f828ca8e185ba9e7fc2426ad74c81d53f7e2))
+* **WEBRTC-215:** add ondemand credential resource ([#48](https://github.com/team-telnyx/telnyx-node/issues/48)) ([bf34fa1](https://github.com/team-telnyx/telnyx-node/commit/bf34fa10ac3e010590eef8703943833b1f25b756))
+
+
+### Bug Fixes
+
+* bump release-please manifest to 7.2.0 and dedupe CHANGELOG ([#452](https://github.com/team-telnyx/telnyx-node/issues/452)) ([9285f92](https://github.com/team-telnyx/telnyx-node/commit/9285f92d47d87f42f85a0d64f2ea26f636331ae8))
+* **error-handling:** prevent `undefined` on error handling ([#3](https://github.com/team-telnyx/telnyx-node/issues/3)) ([c3ac08f](https://github.com/team-telnyx/telnyx-node/commit/c3ac08f9383de9eb4067e4aefd501dd7a54b2757))
+* merge next into release PR to carry code changes to master ([#437](https://github.com/team-telnyx/telnyx-node/issues/437)) ([b59468a](https://github.com/team-telnyx/telnyx-node/commit/b59468a7a2f05330238b6191207609a6537102a0))
+* **query-string:** use arrayFormat of brackets ([#13](https://github.com/team-telnyx/telnyx-node/issues/13)) ([5428da4](https://github.com/team-telnyx/telnyx-node/commit/5428da450a455740aa0fc13a4318b5185d0d5f5e))
+* remove `|| true` from github-release step ([#444](https://github.com/team-telnyx/telnyx-node/issues/444)) ([82a062d](https://github.com/team-telnyx/telnyx-node/commit/82a062d58a5e82c0bdecf8d701e3cc4f8184ac79))
+* remove prerelease config and broken promote-to-prod.yml ([#441](https://github.com/team-telnyx/telnyx-node/issues/441)) ([0c26247](https://github.com/team-telnyx/telnyx-node/commit/0c262478ffc1db19aa48933a70aacc1c465ac72a))
+* rename whatsapp.message_templates to whatsapp.templates to avoid conflict ([9a091ba](https://github.com/team-telnyx/telnyx-node/commit/9a091bae20ea86a6ac8a9f5c897d1207a8d41d58))
+* resolve race condition in release-please code-carry merge ([#440](https://github.com/team-telnyx/telnyx-node/issues/440)) ([08694ba](https://github.com/team-telnyx/telnyx-node/commit/08694baa16128007db94bdd54fa41e784c07f5fb))
+* **resources:** add Phone Numbers Retrieve method ([#47](https://github.com/team-telnyx/telnyx-node/issues/47)) ([ce2b0ac](https://github.com/team-telnyx/telnyx-node/commit/ce2b0ac7ef8019cecb0a4c94e7cbb2f484c911a7))
+* **resources:** fix content-length header calculation on requestData ([ae2a4c3](https://github.com/team-telnyx/telnyx-node/commit/ae2a4c320be0d2d7fb7e3c22d67736ca8ad7e628))
+* **resources:** leave resource previous method spec paramValues intact ([#27](https://github.com/team-telnyx/telnyx-node/issues/27)) ([42a4b6d](https://github.com/team-telnyx/telnyx-node/commit/42a4b6de68fb3225250287ef4612c9708ad1e476))
+* **resources:** outdated specs ([#33](https://github.com/team-telnyx/telnyx-node/issues/33)) ([bf6da65](https://github.com/team-telnyx/telnyx-node/commit/bf6da65afe0a07ecf9de58391ca523e33b0d267d))
+* **resources:** recreate resources on constructor call ([#44](https://github.com/team-telnyx/telnyx-node/issues/44)) ([364be00](https://github.com/team-telnyx/telnyx-node/commit/364be00fb978da4d7048c5695b2924664321045b))
+* **resources:** update Calls and Messaging specs ([#45](https://github.com/team-telnyx/telnyx-node/issues/45)) ([ec3a4d0](https://github.com/team-telnyx/telnyx-node/commit/ec3a4d0dda8794d3509d29a9fa8e8cd958c08441))
+* **resources:** update CredentialConnections Create specs ([#50](https://github.com/team-telnyx/telnyx-node/issues/50)) ([d89df0e](https://github.com/team-telnyx/telnyx-node/commit/d89df0ef29e26d82666f95bb62727066724ca444))
+* restore MCP server source files from v6.83.0 ([#450](https://github.com/team-telnyx/telnyx-node/issues/450)) ([98036ce](https://github.com/team-telnyx/telnyx-node/commit/98036ce9f6333c59cd6afbe8b6f89cff63f0d505))
+* restore release trigger in publish-npm.yml ([#449](https://github.com/team-telnyx/telnyx-node/issues/449)) ([dfbef53](https://github.com/team-telnyx/telnyx-node/commit/dfbef5388468a38ab6b440c5ce064c46c530f173))
+* use --no-save for release-please install to avoid dirty worktree ([#446](https://github.com/team-telnyx/telnyx-node/issues/446)) ([517bc3c](https://github.com/team-telnyx/telnyx-node/commit/517bc3ccb93524f10fb86c8d11d48d06578a1879))
+* **webhooks:** replace c compiled ed25519 package with native one ([#8](https://github.com/team-telnyx/telnyx-node/issues/8)) ([9e6364f](https://github.com/team-telnyx/telnyx-node/commit/9e6364f9c56323927f84e2e32c9f2194f98cd424))
+* **webhooks:** signature verification for Tweetnacl ([#10](https://github.com/team-telnyx/telnyx-node/issues/10)) ([a6f0e4b](https://github.com/team-telnyx/telnyx-node/commit/a6f0e4b1d499c507443fd2584a7d36599c619fbd))
+
+
+### Reverts
+
+* restore stainless.yml SDK generation fixes ([739ab97](https://github.com/team-telnyx/telnyx-node/commit/739ab97776a06b15d25c350106786e63a89bcef3))
+
+
+### Documentation
+
+* **webhooks:** keep eslint config ([24fef8e](https://github.com/team-telnyx/telnyx-node/commit/24fef8e2b9d3f01f35a4a29f52270ea381f14818))
+* **webhooks:** Signing Example cleanup ([#11](https://github.com/team-telnyx/telnyx-node/issues/11)) ([7fb614e](https://github.com/team-telnyx/telnyx-node/commit/7fb614e07bbcbbdfd86ef8f143d4097916a9fa7a))
+* **webhooks:** update lock and eslint ([3441b40](https://github.com/team-telnyx/telnyx-node/commit/3441b404421428a4eb25017f590f15633b9f530d))
+* **webhooks:** update telnyx package version in example ([9c874b1](https://github.com/team-telnyx/telnyx-node/commit/9c874b1be77abd1f819bef5bab6bb4186a171f78))
+* **webhooks:** use telnyx package v1.7 in example ([19b30f2](https://github.com/team-telnyx/telnyx-node/commit/19b30f2b1d0fac8927b534940d94b793e0665ef8))
+
+## [7.1.0](https://github.com/team-telnyx/telnyx-node/compare/v7.0.0...v7.1.0) (2026-06-24)
+
+
+### Bug Fixes
+
+* restore release trigger in publish-npm.yml ([#449](https://github.com/team-telnyx/telnyx-node/issues/449)) ([dfbef53](https://github.com/team-telnyx/telnyx-node/commit/dfbef5388468a38ab6b440c5ce064c46c530f173))
+* remove `|| true` from github-release step ([#444](https://github.com/team-telnyx/telnyx-node/issues/444)) ([82a062d](https://github.com/team-telnyx/telnyx-node/commit/82a062d58a5e82c0bdecf8d701e3cc4f8184ac79))
+* remove prerelease config and broken promote-to-prod.yml ([#441](https://github.com/team-telnyx/telnyx-node/issues/441)) ([0c26247](https://github.com/team-telnyx/telnyx-node/commit/0c262478ffc1db19aa48933a70aacc1c465ac72a))
+* use --no-save for release-please install to avoid dirty worktree ([#446](https://github.com/team-telnyx/telnyx-node/issues/446)) ([517bc3c](https://github.com/team-telnyx/telnyx-node/commit/517bc3ccb93524f10fb86c8d11d48d06578a1879))
+
+## [7.0.0](https://github.com/team-telnyx/telnyx-node/compare/v7.0.0...v7.1.0) (2026-06-23)
+
+
+### Bug Fixes
+
+* remove `|| true` from github-release step ([#444](https://github.com/team-telnyx/telnyx-node/issues/444)) ([82a062d](https://github.com/team-telnyx/telnyx-node/commit/82a062d58a5e82c0bdecf8d701e3cc4f8184ac79))
+* remove prerelease config and broken promote-to-prod.yml ([#441](https://github.com/team-telnyx/telnyx-node/issues/441)) ([0c26247](https://github.com/team-telnyx/telnyx-node/commit/0c262478ffc1db19aa48933a70aacc1c465ac72a))
+* use --no-save for release-please install to avoid dirty worktree ([#446](https://github.com/team-telnyx/telnyx-node/issues/446)) ([517bc3c](https://github.com/team-telnyx/telnyx-node/commit/517bc3ccb93524f10fb86c8d11d48d06578a1879))
+
+## [7.0.0](https://github.com/team-telnyx/telnyx-node/compare/v6.83.0...v7.0.0) (2026-06-18)
+
+
+### Bug Fixes
+
+* merge next into release PR to carry code changes to master ([#437](https://github.com/team-telnyx/telnyx-node/issues/437)) ([b59468a](https://github.com/team-telnyx/telnyx-node/commit/b59468a7a2f05330238b6191207609a6537102a0))
+
+## [6.83.0](https://github.com/team-telnyx/telnyx-node/compare/v6.74.2...v6.83.0) (2026-06-18)
+
+
+### Features
+
+* add self-hosted release-please with two-phase trigger ([#435](https://github.com/team-telnyx/telnyx-node/issues/435)) ([a3edd39](https://github.com/team-telnyx/telnyx-node/commit/a3edd39d84139a4a39d0513dae3eeb250a5a6491))
+
+## 6.74.2 (2026-06-02)
+
+Full Changelog: [v6.74.1...v6.74.2](https://github.com/team-telnyx/telnyx-node/compare/v6.74.1...v6.74.2)
+
+### Bug Fixes
+
+* **sip-registration-status:** move operation under UAC Connections tag ([f72bbcc](https://github.com/team-telnyx/telnyx-node/commit/f72bbcc70a071b03d82475fc6eeaec2f640fc72b))
+
+
+### Documentation
+
+* **sip-registration-status:** rename operation summary to SIP Registration Status ([b774012](https://github.com/team-telnyx/telnyx-node/commit/b7740127ffd3f6f772d95b29dfed9505949a284f))
+
+## 6.74.1 (2026-06-02)
+
+Full Changelog: [v6.74.0...v6.74.1](https://github.com/team-telnyx/telnyx-node/compare/v6.74.0...v6.74.1)
+
+### Bug Fixes
+
+* **sip-registration-status:** rename detail field to sip_uri_user_host ([bda8022](https://github.com/team-telnyx/telnyx-node/commit/bda802223c3dffd3727623ef4bbaf2d2cedb98a2))
+
+## 6.74.0 (2026-06-02)
+
+Full Changelog: [v6.73.2...v6.74.0](https://github.com/team-telnyx/telnyx-node/compare/v6.73.2...v6.74.0)
+
+### Features
+
+* **sip-registration-status:** finalize phase 1 response shape with status mapping ([398af83](https://github.com/team-telnyx/telnyx-node/commit/398af83d69ab8fb3c5ac5f516d47c6ea4415b553))
+
+## 6.73.2 (2026-06-02)
+
+Full Changelog: [v6.73.1...v6.73.2](https://github.com/team-telnyx/telnyx-node/compare/v6.73.1...v6.73.2)
+
+### Bug Fixes
+
+* **sip-registration-status:** drop user_id query param ([09fddf4](https://github.com/team-telnyx/telnyx-node/commit/09fddf4ccc135f4aabb59712c3766f3bc491eee4))
+
+## 6.73.1 (2026-06-01)
+
+Full Changelog: [v6.73.0...v6.73.1](https://github.com/team-telnyx/telnyx-node/compare/v6.73.0...v6.73.1)
+
+### Bug Fixes
+
+* **sip-registration-status:** scope to phase 1 uac_third-party_credential ([3f0bbd3](https://github.com/team-telnyx/telnyx-node/commit/3f0bbd3524732240ad56df1a7cfd41a83e73f960))
+
+## 6.73.0 (2026-05-29)
+
+Full Changelog: [v6.72.0...v6.73.0](https://github.com/team-telnyx/telnyx-node/compare/v6.72.0...v6.73.0)
+
+### Features
+
+* **sip-registration-status:** add OpenAPI spec for /v2/sip_registration_status ([9806972](https://github.com/team-telnyx/telnyx-node/commit/9806972ed28853a837b9e5b52200383192c82b81))
+
+## 6.72.0 (2026-05-28)
+
+Full Changelog: [v6.71.0...v6.72.0](https://github.com/team-telnyx/telnyx-node/compare/v6.71.0...v6.72.0)
+
+### Features
+
+* **api:** manual updates ([324e108](https://github.com/team-telnyx/telnyx-node/commit/324e108808b6dbb0b5db92a755293f8161792579))
+
+## 6.71.0 (2026-05-28)
+
+Full Changelog: [v6.70.0...v6.71.0](https://github.com/team-telnyx/telnyx-node/compare/v6.70.0...v6.71.0)
+
+### Features
+
+* **api:** manual updates ([b6879f5](https://github.com/team-telnyx/telnyx-node/commit/b6879f529f446f7dae688e7e09fb1b623a394c35))
+* **api:** manual updates ([e1a3739](https://github.com/team-telnyx/telnyx-node/commit/e1a3739fc72ea8e1f9cf0c3b2a0d2a838e70c363))
+* TELAPPS-406: document GET /speech-to-text/providers endpoint ([7455bd7](https://github.com/team-telnyx/telnyx-node/commit/7455bd75c0b02a4551a4f7b672b2fd8c159ed9c7))
+* TELAPPS-5698 document conversation relay API shape ([8b3ff44](https://github.com/team-telnyx/telnyx-node/commit/8b3ff440b7d7bde70d663e950b4d4015ec4d222f))
+
+## 6.70.0 (2026-05-27)
+
+Full Changelog: [v6.69.0...v6.70.0](https://github.com/team-telnyx/telnyx-node/compare/v6.69.0...v6.70.0)
+
+### Features
+
+* TELAPPS-531: document Rime ArcanaV3 and Coda voice models ([435f15b](https://github.com/team-telnyx/telnyx-node/commit/435f15be68359b8af6ec4298945059c4f4cdd877))
+
+
+### Documentation
+
+* add voice sdk debug call report spec ([b3b90b6](https://github.com/team-telnyx/telnyx-node/commit/b3b90b62effc8300afd4942c9564b21a90abece2))
+
+## 6.69.0 (2026-05-26)
+
+Full Changelog: [v6.68.0...v6.69.0](https://github.com/team-telnyx/telnyx-node/compare/v6.68.0...v6.69.0)
+
+### Features
+
+* TELAPPS-523: document stop_on_conversation_end on assistant recording_settings ([acd10aa](https://github.com/team-telnyx/telnyx-node/commit/acd10aa1cde1eb47256172895345b2256e2bce4c))
+
+## 6.68.0 (2026-05-22)
+
+Full Changelog: [v6.67.0...v6.68.0](https://github.com/team-telnyx/telnyx-node/compare/v6.67.0...v6.68.0)
+
+### Features
+
+* MSG-919: documentation for Whatsapp user data ([27d326e](https://github.com/team-telnyx/telnyx-node/commit/27d326e7ac2b4b0a94d6a5182d44d7f28ad63619))
+* TELAPPS-72: document send_digits_on_answer on Dial + Transfer ([4f599c8](https://github.com/team-telnyx/telnyx-node/commit/4f599c826e6b71018fe349f3126ae1af2ac1826b))
+
+## 6.67.0 (2026-05-20)
+
+Full Changelog: [v6.66.2...v6.67.0](https://github.com/team-telnyx/telnyx-node/compare/v6.66.2...v6.67.0)
+
+### Features
+
+* TELAPPS-483: Add async webhook timeout to OpenAPI ([9ac3a15](https://github.com/team-telnyx/telnyx-node/commit/9ac3a15e23cc61eae57ccf9b9217fbe53de150ca))
+
+## 6.66.2 (2026-05-18)
+
+Full Changelog: [v6.66.1...v6.66.2](https://github.com/team-telnyx/telnyx-node/compare/v6.66.1...v6.66.2)
+
+### Bug Fixes
+
+* fix nullable total pages accessor ([d2c7032](https://github.com/team-telnyx/telnyx-node/commit/d2c703205d22625fe6ad3688698a730483b99dae))
+
+## 6.66.1 (2026-05-18)
+
+Full Changelog: [v6.66.0...v6.66.1](https://github.com/team-telnyx/telnyx-node/compare/v6.66.0...v6.66.1)
+
+### Bug Fixes
+
+* **typescript:** upgrade tsc-multi so that it works with Node 26 ([a5fde72](https://github.com/team-telnyx/telnyx-node/commit/a5fde72b866db8e0565b3f8f8f10d123193242c7))
+
+## 6.66.0 (2026-05-18)
+
+Full Changelog: [v6.65.0...v6.66.0](https://github.com/team-telnyx/telnyx-node/compare/v6.65.0...v6.66.0)
+
+### Features
+
+* Add assistant background audio volume to OpenAPI spec ([b542225](https://github.com/team-telnyx/telnyx-node/commit/b542225fe521b222767001843d5468ac0742fa1f))
+* Add Speechmatics transcription engine to Call Control API ([dc59199](https://github.com/team-telnyx/telnyx-node/commit/dc591995e1c5599313a6942e0916fd13b8744a04))
+* **api:** manual updates ([4871dfd](https://github.com/team-telnyx/telnyx-node/commit/4871dfda110260347b14c361165577417cebf60a))
+* Document PremiumCallScreening detection mode ([fb59634](https://github.com/team-telnyx/telnyx-node/commit/fb596349c3e017adde07904c452668f5d9e2e38f))
+* Fix Conversation Relay expected webhook ([c0b5b52](https://github.com/team-telnyx/telnyx-node/commit/c0b5b52b7e78d8866b718452ffcbb3d85b1ab796))
+* Telapps 101 soniox spec ([0dfb87c](https://github.com/team-telnyx/telnyx-node/commit/0dfb87cc92379b3767b76018e0cc37be99077a2a))
+* Update Conversation Relay start parameters ([0092538](https://github.com/team-telnyx/telnyx-node/commit/00925389db75c99037542dfa73e9cd24f7ff867c))
 
 
 ### Chores
