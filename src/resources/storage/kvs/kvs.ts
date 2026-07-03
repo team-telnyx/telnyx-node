@@ -6,6 +6,7 @@ import {
   KeyDeleteParams,
   KeyListParams,
   KeyListResponse,
+  KeyListResponsesCursorFlatPagination,
   KeyRetrieveParams,
   KeyUpdateParams,
   Keys,
@@ -139,6 +140,7 @@ export declare namespace Kvs {
   export {
     Keys as Keys,
     type KeyListResponse as KeyListResponse,
+    type KeyListResponsesCursorFlatPagination as KeyListResponsesCursorFlatPagination,
     type KeyListParams as KeyListParams,
     type KeyDeleteParams as KeyDeleteParams,
     type KeyRetrieveParams as KeyRetrieveParams,

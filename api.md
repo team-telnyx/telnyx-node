@@ -3807,7 +3807,7 @@ Types:
 
 Methods:
 
-- <code title="get /storage/kvs/{id}/keys">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">list</a>(id, { ...params }) -> KeyListResponse</code>
+- <code title="get /storage/kvs/{id}/keys">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">list</a>(id, { ...params }) -> KeyListResponsesCursorFlatPagination</code>
 - <code title="delete /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">delete</a>(key, { ...params }) -> void</code>
 - <code title="get /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">retrieve</a>(key, { ...params }) -> Response</code>
 - <code title="put /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">update</a>(key, body, { ...params }) -> void</code>

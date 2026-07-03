@@ -17,6 +17,8 @@ import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
 import {
   AbstractPage,
+  type CursorFlatPaginationParams,
+  CursorFlatPaginationResponse,
   type DefaultFlatPaginationForInexplicitNumberOrdersParams,
   DefaultFlatPaginationForInexplicitNumberOrdersResponse,
   type DefaultFlatPaginationParams,
@@ -3279,6 +3281,12 @@ export declare namespace Telnyx {
   export {
     type PerPagePaginationV2Params as PerPagePaginationV2Params,
     type PerPagePaginationV2Response as PerPagePaginationV2Response,
+  };
+
+  export import CursorFlatPagination = Pagination.CursorFlatPagination;
+  export {
+    type CursorFlatPaginationParams as CursorFlatPaginationParams,
+    type CursorFlatPaginationResponse as CursorFlatPaginationResponse,
   };
 
   export { Legacy as Legacy };

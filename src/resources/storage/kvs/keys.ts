@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
+import { CursorFlatPagination, type CursorFlatPaginationParams, PagePromise } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -16,17 +17,23 @@ export class Keys extends APIResource {
    *
    * @example
    * ```ts
-   * const keys = await client.storage.kvs.keys.list(
+   * // Automatically fetches more pages as needed.
+   * for await (const keyListResponse of client.storage.kvs.keys.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     id: string,
     query: KeyListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<KeyListResponse> {
-    return this._client.get(path`/storage/kvs/${id}/keys`, { query, ...options });
+  ): PagePromise<KeyListResponsesCursorFlatPagination, KeyListResponse> {
+    return this._client.getAPIList(path`/storage/kvs/${id}/keys`, CursorFlatPagination<KeyListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -106,51 +113,20 @@ export class Keys extends APIResource {
   }
 }
 
+export type KeyListResponsesCursorFlatPagination = CursorFlatPagination<KeyListResponse>;
+
 export interface KeyListResponse {
-  data?: Array<KeyListResponse.Data>;
-
-  meta?: KeyListResponse.Meta;
-
-  record_type?: string;
-}
-
-export namespace KeyListResponse {
-  export interface Data {
-    key?: string;
-
-    /**
-     * Size of the stored value in bytes.
-     */
-    size_bytes?: number;
-
-    updated_at?: string;
-  }
-
-  export interface Meta {
-    /**
-     * Opaque cursor for the next page; pass it back as the `cursor` query parameter.
-     * Omitted when there are no further results.
-     */
-    cursor?: string;
-
-    /**
-     * Whether more results are available on a following page.
-     */
-    has_more?: boolean;
-  }
-}
-
-export interface KeyListParams {
-  /**
-   * Opaque pagination cursor from a previous response's `meta.cursor`.
-   */
-  cursor?: string;
+  key?: string;
 
   /**
-   * Maximum number of keys to return. Values above 1000 are treated as 1000.
+   * Size of the stored value in bytes.
    */
-  limit?: number;
+  size_bytes?: number;
 
+  updated_at?: string;
+}
+
+export interface KeyListParams extends CursorFlatPaginationParams {
   /**
    * Return only keys that start with this prefix.
    */
@@ -188,6 +164,7 @@ export interface KeyUpdateParams {
 export declare namespace Keys {
   export {
     type KeyListResponse as KeyListResponse,
+    type KeyListResponsesCursorFlatPagination as KeyListResponsesCursorFlatPagination,
     type KeyListParams as KeyListParams,
     type KeyDeleteParams as KeyDeleteParams,
     type KeyRetrieveParams as KeyRetrieveParams,

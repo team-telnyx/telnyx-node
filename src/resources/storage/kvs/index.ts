@@ -7,6 +7,7 @@ export {
   type KeyDeleteParams,
   type KeyRetrieveParams,
   type KeyUpdateParams,
+  type KeyListResponsesCursorFlatPagination,
 } from './keys';
 export {
   Kvs,
