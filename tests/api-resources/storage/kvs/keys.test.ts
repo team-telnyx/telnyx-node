@@ -66,10 +66,11 @@ describe('resource keys', () => {
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.storage.kvs.keys.update('key', {
-      id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      body: await toFile(Buffer.from('Example data'), 'README.md'),
-    });
+    const responsePromise = client.storage.kvs.keys.update(
+      'key',
+      await toFile(Buffer.from('Example data'), 'README.md'),
+      { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -81,10 +82,10 @@ describe('resource keys', () => {
 
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.storage.kvs.keys.update('key', {
-      id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      body: await toFile(Buffer.from('Example data'), 'README.md'),
-      ttl_secs: 1,
-    });
+    const response = await client.storage.kvs.keys.update(
+      'key',
+      await toFile(Buffer.from('Example data'), 'README.md'),
+      { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', ttl_secs: 1 },
+    );
   });
 });

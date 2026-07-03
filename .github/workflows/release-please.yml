@@ -97,7 +97,7 @@ jobs:
           echo "$OUTPUT"
 
           # Parse PR number from output if a PR was created
-          PR_URL=$(echo "$OUTPUT" | grep -oP 'https://github\.com/[^/]+/[^/]+/pull/\d+' | head -1)
+          PR_URL=$(echo "$OUTPUT" | grep -oP 'https://(?:api\.)?github\.com/(?:repos/[^/]+/[^/]+/)?pulls?/\d+' | head -1)
           if [ -n "$PR_URL" ]; then
             PR_NUM=$(echo "$PR_URL" | grep -oP '\d+$')
             echo "pr_number=$PR_NUM" >> "$GITHUB_OUTPUT"
@@ -106,7 +106,28 @@ jobs:
             echo "prs_created=false" >> "$GITHUB_OUTPUT"
           fi
 
-      - name: Merge next code into release PR
+      - name: Ensure release PR carries autorelease label (self-heal)
+        if: github.ref == 'refs/heads/next'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          # release-please applies `autorelease: pending` in a separate API call
+          # AFTER opening the PR; a failure between the two is swallowed by the
+          # `|| true` above and leaves the PR unlabeled. The label is how the
+          # sync fallback, the auto-merge fallback, AND github-release (after
+          # merge) find release PRs — an unlabeled one merges but never tags
+          # (ghost release). Re-assert the label on any open release-please PR.
+          for pr in $(gh pr list --repo "$REPO" --state open --json number,headRefName,labels \
+              --jq '.[] | select(.headRefName | startswith("release-please--"))
+                        | select(([.labels[].name] | index("autorelease: pending")) | not)
+                        | .number'); do
+            gh pr edit "$pr" --repo "$REPO" --add-label "autorelease: pending" \
+              && echo "Re-added missing autorelease label to PR #$pr" \
+              || echo "::warning::Failed to add autorelease label to PR #$pr"
+          done
+
+      - name: Sync next code into release PR (tree replacement, not merge)
         if: github.ref == 'refs/heads/next'
         env:
           GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
@@ -114,24 +135,24 @@ jobs:
           PR_NUM: ${{ steps.release-pr.outputs.pr_number }}
         run: |
           # release-please creates a PR with only version bumps (CHANGELOG,
-          # package.json, version.ts, etc). The actual SDK code changes are
-          # on `next` but NOT included in the release PR. This step merges
-          # `next` into the release PR branch so the PR carries both code
-          # and version bumps to master.
+          # package.json, version.ts, api.md, .release-please-manifest.json).
+          # The actual SDK code changes are on `next` but NOT included in the
+          # release PR. This step syncs `next` code into the release PR branch.
           #
-          # Without this, master gets version bumps only — the published
-          # npm package has the new version number but old code.
+          # CRITICAL: We use tree replacement (checkout + restore version files)
+          # instead of git merge. A 3-way merge produces duplicate method
+          # implementations when staging and prod have different method ordering
+          # (git sees them as non-conflicting additions and keeps both copies).
+          # Tree replacement avoids this entirely — the code tree comes from
+          # `next` as-is, and only the version-bump files from release-please
+          # are preserved on top.
 
-          # Use the PR number from the release-please step directly (avoids
-          # GitHub API eventual-consistency race where gh pr list doesn't see
-          # a PR that was created milliseconds ago).
           PR_BRANCH=""
           if [ -n "$PR_NUM" ]; then
             sleep 3  # brief propagation delay
             PR_BRANCH=$(gh pr view "$PR_NUM" --repo "$REPO" --json headRefName --jq '.headRefName' 2>/dev/null || true)
           fi
 
-          # Fallback: query by label with retry
           if [ -z "$PR_BRANCH" ]; then
             for i in 1 2 3; do
               PR_BRANCH=$(gh pr list --repo "$REPO" --state open --label "autorelease: pending" --json headRefName --jq '.[0].headRefName' 2>/dev/null || true)
@@ -142,7 +163,7 @@ jobs:
           fi
 
           if [ -z "$PR_BRANCH" ]; then
-            echo "::warning::No open release PR found after retries, skipping merge"
+            echo "::warning::No open release PR found after retries, skipping sync"
             exit 0
           fi
 
@@ -153,16 +174,38 @@ jobs:
           git fetch origin "$PR_BRANCH" next
           git checkout -B "$PR_BRANCH" "origin/$PR_BRANCH"
 
-          # -X ours: on conflicts, prefer the release-please branch's version
-          # bumps (canonical version + changelog). Non-conflicting code changes
-          # from next are included normally.
-          if git merge origin/next --no-edit -X ours; then
-            git push origin "$PR_BRANCH"
-            echo "Successfully merged next into release PR branch"
+          # Save version-bump files from the release PR branch (release-please output)
+          STASH_DIR=$(mktemp -d)
+          for f in CHANGELOG.md package.json src/version.ts api.md .release-please-manifest.json; do
+            if [ -f "$f" ]; then
+              mkdir -p "$STASH_DIR/$(dirname "$f")"
+              cp "$f" "$STASH_DIR/$f"
+            fi
+          done
+
+          # Replace entire working tree from next (exact tree, no merge)
+          # git rm handles deletions (files removed in next but still in this branch)
+          # git clean removes untracked files (node_modules created by npx release-please)
+          git reset --hard origin/next
+          git clean -fdx
+
+          # Restore version-bump files from the release PR branch
+          for f in CHANGELOG.md package.json src/version.ts api.md .release-please-manifest.json; do
+            if [ -f "$STASH_DIR/$f" ]; then
+              mkdir -p "$(dirname "$f")"
+              cp "$STASH_DIR/$f" "$f"
+              git add "$f"
+            fi
+          done
+          rm -rf "$STASH_DIR"
+
+          # Commit if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes after syncing next code"
           else
-            echo "::error::Failed to merge next into release PR"
-            git merge --abort
-            exit 1
+            git commit -m "chore: sync code from next into release PR"
+            git push --force origin "$PR_BRANCH"
+            echo "Successfully synced next code into release PR branch (tree replacement)"
           fi
 
       - name: Run release-please (github-release)
@@ -176,6 +219,27 @@ jobs:
             --manifest-file .release-please-manifest.json \
             2>&1
 
+      - name: Verify release commit produced a tag (ghost-release guard)
+        if: github.ref == 'refs/heads/master'
+        run: |
+          # `github-release` exits 0 even when it finds nothing to release ([]).
+          # If the commit that triggered this run is a merged `release: X.Y.Z`
+          # commit, a missing vX.Y.Z tag here means it silently no-opped —
+          # usually a merged release PR that lost its `autorelease: pending`
+          # label. Fail loud instead of ghosting the release.
+          MSG=$(git log -1 --format=%s "$GITHUB_SHA")
+          VER=$(echo "$MSG" | grep -oP '^release:\s*\K[0-9][0-9.]*' || true)
+          if [ -z "$VER" ]; then
+            echo "Not a release commit; nothing to verify"
+            exit 0
+          fi
+          if git ls-remote --exit-code --tags origin "v$VER" >/dev/null 2>&1; then
+            echo "Tag v$VER exists - release verified"
+          else
+            echo "::error::Merged release commit for $VER but no v$VER tag exists. github-release silently no-opped (merged release PR likely missing the autorelease pending label). Add the label to the merged PR and re-run this workflow."
+            exit 1
+          fi
+
       - name: Enable auto-merge on release PRs
         if: github.ref == 'refs/heads/next' && steps.release-pr.outputs.prs_created == 'true'
         env:
@@ -184,11 +248,11 @@ jobs:
           PR_NUM: ${{ steps.release-pr.outputs.pr_number }}
         run: |
           if [ -n "$PR_NUM" ]; then
-            gh pr merge "$PR_NUM" --auto --merge --repo "$REPO" 2>/dev/null || echo "Auto-merge already enabled or PR #$PR_NUM not mergeable"
+            gh pr merge "$PR_NUM" --auto --squash --repo "$REPO" 2>/dev/null || echo "Auto-merge already enabled or PR #$PR_NUM not mergeable"
           fi
           sleep 3
           # Fallback: enable auto-merge on any open release PRs
           prs=$(gh pr list --repo "$REPO" --state open --label "autorelease: pending" --json number --jq '.[].number')
           for pr in $prs; do
-            gh pr merge "$pr" --auto --merge --repo "$REPO" 2>/dev/null || true
+            gh pr merge "$pr" --auto --squash --repo "$REPO" 2>/dev/null || true
           done

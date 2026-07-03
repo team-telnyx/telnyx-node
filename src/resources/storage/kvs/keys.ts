@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
-import { type Uploadable } from '../../../core/uploads';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -68,7 +67,7 @@ export class Keys extends APIResource {
     const { id } = params;
     return this._client.get(path`/storage/kvs/${id}/keys/${key}`, {
       ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([{ Accept: 'application/octet-stream' }, options?.headers]),
       __binaryResponse: true,
     });
   }
@@ -81,19 +80,28 @@ export class Keys extends APIResource {
    *
    * @example
    * ```ts
-   * await client.storage.kvs.keys.update('key', {
-   *   id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   body: fs.createReadStream('path/to/file'),
-   * });
+   * await client.storage.kvs.keys.update(
+   *   'key',
+   *   fs.createReadStream('path/to/file'),
+   *   { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   * );
    * ```
    */
-  update(key: string, params: KeyUpdateParams, options?: RequestOptions): APIPromise<void> {
-    const { id, body, ttl_secs } = params;
+  update(
+    key: string,
+    body: string | ArrayBuffer | ArrayBufferView | Blob | DataView,
+    params: KeyUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { id, ttl_secs } = params;
     return this._client.put(path`/storage/kvs/${id}/keys/${key}`, {
-      query: { ttl_secs },
       body: body,
+      query: { ttl_secs },
       ...options,
-      headers: buildHeaders([{ 'Content-Type': '*/*', Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([
+        { 'Content-Type': 'application/octet-stream', Accept: '*/*' },
+        options?.headers,
+      ]),
     });
   }
 }
@@ -168,11 +176,6 @@ export interface KeyUpdateParams {
    * Path param: KV namespace ID
    */
   id: string;
-
-  /**
-   * Body param: Raw value bytes, stored verbatim.
-   */
-  body: Uploadable;
 
   /**
    * Query param: Time-to-live in seconds. When set, the key expires and is deleted
