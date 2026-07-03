@@ -60,7 +60,7 @@ jobs:
           # into the promote commit. Find the latest one in next history.
           for commit in $(git rev-list HEAD --max-count=50); do
             BODY=$(git log -1 --format=%b "$commit")
-            RA=$(echo "$BODY" | grep -oP 'Release-As:\s*\K[\d.]+' || true)
+            RA=$(echo "$BODY" | grep -oP 'Release-As:\s*\K[\d.]+' | head -1 || true)
             if [ -n "$RA" ]; then
               VERSION="$RA"
               break
