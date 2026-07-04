@@ -1546,7 +1546,8 @@ export interface TelnyxVoiceSettings {
 
   /**
    * The voice speed to be used for the voice. The voice speed must be between 0.1
-   * and 2.0. Default value is 1.0.
+   * and 2.0. Default value is 1.0. Not supported for `Telnyx.Bayan.*` or
+   * `Telnyx.Sukhan.*` voices.
    */
   voice_speed?: number;
 }
@@ -3279,6 +3280,9 @@ export interface ActionGatherUsingSpeakParams {
    *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
    * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`).
    *   Use `voice_settings` to configure voice_speed and other synthesis parameters.
+   *   `Bayan` provides Arabic (multiple dialects) and English voices (e.g.,
+   *   `Telnyx.Bayan.Ahmed`, `Telnyx.Bayan.Amanda`). `Sukhan` provides Urdu voices
+   *   (e.g., `Telnyx.Sukhan.urdu-professor`); `voice_speed` is not supported.
    * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
    *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
@@ -4162,6 +4166,9 @@ export interface ActionSpeakParams {
    *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
    * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>` (e.g., `Telnyx.KokoroTTS.af`).
    *   Use `voice_settings` to configure voice_speed and other synthesis parameters.
+   *   `Bayan` provides Arabic (multiple dialects) and English voices (e.g.,
+   *   `Telnyx.Bayan.Ahmed`, `Telnyx.Bayan.Amanda`). `Sukhan` provides Urdu voices
+   *   (e.g., `Telnyx.Sukhan.urdu-professor`); `voice_speed` is not supported.
    * - **Minimax:** Use `Minimax.<ModelId>.<VoiceId>` (e.g.,
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
    *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
