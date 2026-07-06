@@ -513,15 +513,12 @@ Types:
 
 - <code><a href="./src/resources/ai/ai.ts">ModelMetadata</a></code>
 - <code><a href="./src/resources/ai/ai.ts">ModelsResponse</a></code>
-- <code><a href="./src/resources/ai/ai.ts">AICreateResponseDeprecatedResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AIRetrieveConversationHistoriesResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AISummarizeResponse</a></code>
 
 Methods:
 
-- <code title="get /ai/models">client.ai.<a href="./src/resources/ai/ai.ts">retrieveModels</a>() -> ModelsResponse</code>
 - <code title="post /ai/summarize">client.ai.<a href="./src/resources/ai/ai.ts">summarize</a>({ ...params }) -> AISummarizeResponse</code>
-- <code title="post /ai/responses">client.ai.<a href="./src/resources/ai/ai.ts">createResponseDeprecated</a>({ ...params }) -> AICreateResponseDeprecatedResponse</code>
 - <code title="get /ai/conversation_histories">client.ai.<a href="./src/resources/ai/ai.ts">retrieveConversationHistories</a>({ ...params }) -> AIRetrieveConversationHistoriesResponse</code>
 
 ## Assistants
@@ -746,11 +743,6 @@ Types:
 
 - <code><a href="./src/resources/ai/chat.ts">BucketIDs</a></code>
 - <code><a href="./src/resources/ai/chat.ts">ChatCompletionRequest</a></code>
-- <code><a href="./src/resources/ai/chat.ts">ChatCreateCompletionResponse</a></code>
-
-Methods:
-
-- <code title="post /ai/chat/completions">client.ai.chat.<a href="./src/resources/ai/chat.ts">createCompletion</a>({ ...params }) -> ChatCreateCompletionResponse</code>
 
 ## Clusters
 
@@ -2201,7 +2193,6 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">MessageSendLongCodeResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendNumberPoolResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendShortCodeResponse</a></code>
-- <code><a href="./src/resources/messages/messages.ts">MessageSendWhatsappResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendWithAlphanumericSenderResponse</a></code>
 
 Methods:
@@ -2211,7 +2202,6 @@ Methods:
 - <code title="post /messages/number_pool">client.messages.<a href="./src/resources/messages/messages.ts">sendNumberPool</a>({ ...params }) -> MessageSendNumberPoolResponse</code>
 - <code title="post /messages/short_code">client.messages.<a href="./src/resources/messages/messages.ts">sendShortCode</a>({ ...params }) -> MessageSendShortCodeResponse</code>
 - <code title="post /messages/group_mms">client.messages.<a href="./src/resources/messages/messages.ts">sendGroupMms</a>({ ...params }) -> MessageSendGroupMmsResponse</code>
-- <code title="post /messages/whatsapp">client.messages.<a href="./src/resources/messages/messages.ts">sendWhatsapp</a>({ ...params }) -> MessageSendWhatsappResponse</code>
 - <code title="post /messages/schedule">client.messages.<a href="./src/resources/messages/messages.ts">schedule</a>({ ...params }) -> MessageScheduleResponse</code>
 - <code title="delete /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">cancelScheduled</a>(id) -> MessageCancelScheduledResponse</code>
 - <code title="get /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieve</a>(id) -> MessageRetrieveResponse</code>

@@ -4,11 +4,9 @@ export {
   AI,
   type ModelMetadata,
   type ModelsResponse,
-  type AICreateResponseDeprecatedResponse,
   type AIRetrieveConversationHistoriesResponse,
   type AISummarizeResponse,
   type AISummarizeParams,
-  type AICreateResponseDeprecatedParams,
   type AIRetrieveConversationHistoriesParams,
 } from './ai';
 export {
@@ -69,13 +67,7 @@ export {
   type AssistantSendSMSParams,
 } from './assistants/index';
 export { Audio, type AudioTranscribeResponse, type AudioTranscribeParams } from './audio';
-export {
-  Chat,
-  type BucketIDs,
-  type ChatCompletionRequest,
-  type ChatCreateCompletionResponse,
-  type ChatCreateCompletionParams,
-} from './chat';
+export { Chat, type BucketIDs, type ChatCompletionRequest } from './chat';
 export {
   Clusters,
   type RecursiveCluster,

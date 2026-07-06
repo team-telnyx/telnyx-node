@@ -5,11 +5,9 @@ export {
   AI,
   type ModelMetadata,
   type ModelsResponse,
-  type AICreateResponseDeprecatedResponse,
   type AIRetrieveConversationHistoriesResponse,
   type AISummarizeResponse,
   type AISummarizeParams,
-  type AICreateResponseDeprecatedParams,
   type AIRetrieveConversationHistoriesParams,
 } from './ai/ai';
 export {
@@ -593,14 +591,12 @@ export {
   type MessageSendLongCodeResponse,
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
-  type MessageSendWhatsappResponse,
   type MessageSendWithAlphanumericSenderResponse,
   type MessageSendParams,
   type MessageSendLongCodeParams,
   type MessageSendNumberPoolParams,
   type MessageSendShortCodeParams,
   type MessageSendGroupMmsParams,
-  type MessageSendWhatsappParams,
   type MessageScheduleParams,
   type MessageSendWithAlphanumericSenderParams,
 } from './messages/messages';

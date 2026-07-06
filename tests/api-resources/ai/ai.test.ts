@@ -9,18 +9,6 @@ const client = new Telnyx({
 
 describe('resource ai', () => {
   // Mock server tests are disabled
-  test.skip('retrieveModels', async () => {
-    const responsePromise = client.ai.retrieveModels();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('summarize: only required params', async () => {
     const responsePromise = client.ai.summarize({ bucket: 'bucket', filename: 'filename' });
     const rawResponse = await responsePromise.asResponse();
@@ -38,27 +26,6 @@ describe('resource ai', () => {
       bucket: 'bucket',
       filename: 'filename',
       system_prompt: 'system_prompt',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('createResponseDeprecated: only required params', async () => {
-    const responsePromise = client.ai.createResponseDeprecated({
-      response_request: { model: 'bar', input: 'bar' },
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('createResponseDeprecated: required and optional params', async () => {
-    const response = await client.ai.createResponseDeprecated({
-      response_request: { model: 'bar', input: 'bar' },
     });
   });
 

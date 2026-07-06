@@ -1182,8 +1182,6 @@ import {
 } from './resources/addresses/addresses';
 import {
   AI,
-  AICreateResponseDeprecatedParams,
-  AICreateResponseDeprecatedResponse,
   AIRetrieveConversationHistoriesParams,
   AIRetrieveConversationHistoriesResponse,
   AISummarizeParams,
@@ -1334,8 +1332,6 @@ import {
   MessageSendResponse,
   MessageSendShortCodeParams,
   MessageSendShortCodeResponse,
-  MessageSendWhatsappParams,
-  MessageSendWhatsappResponse,
   MessageSendWithAlphanumericSenderParams,
   MessageSendWithAlphanumericSenderResponse,
   Messages,
@@ -2703,6 +2699,9 @@ export class Telnyx {
    * Media Storage operations
    */
   media: API.Media = new API.Media(this);
+  /**
+   * Messages
+   */
   messages: API.Messages = new API.Messages(this);
   messaging: API.Messaging = new API.Messaging(this);
   /**
@@ -3496,11 +3495,9 @@ export declare namespace Telnyx {
     AI as AI,
     type ModelMetadata as ModelMetadata,
     type ModelsResponse as ModelsResponse,
-    type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveConversationHistoriesResponse as AIRetrieveConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
     type AISummarizeParams as AISummarizeParams,
-    type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
     type AIRetrieveConversationHistoriesParams as AIRetrieveConversationHistoriesParams,
   };
 
@@ -4047,14 +4044,12 @@ export declare namespace Telnyx {
     type MessageSendLongCodeResponse as MessageSendLongCodeResponse,
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
-    type MessageSendWhatsappResponse as MessageSendWhatsappResponse,
     type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
     type MessageSendParams as MessageSendParams,
     type MessageSendLongCodeParams as MessageSendLongCodeParams,
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
-    type MessageSendWhatsappParams as MessageSendWhatsappParams,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
   };

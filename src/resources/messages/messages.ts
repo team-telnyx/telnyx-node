@@ -15,6 +15,9 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Messages
+ */
 export class Messages extends APIResource {
   rcs: RcsAPI.Rcs = new RcsAPI.Rcs(this._client);
 
@@ -108,25 +111,6 @@ export class Messages extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MessageSendGroupMmsResponse> {
     return this._client.post('/messages/group_mms', { body, ...options });
-  }
-
-  /**
-   * Send a Whatsapp message
-   *
-   * @example
-   * ```ts
-   * const response = await client.messages.sendWhatsapp({
-   *   from: '+13125551234',
-   *   to: '+13125551234',
-   *   whatsapp_message: {},
-   * });
-   * ```
-   */
-  sendWhatsapp(
-    body: MessageSendWhatsappParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageSendWhatsappResponse> {
-    return this._client.post('/messages/whatsapp', { body, ...options });
   }
 
   /**
@@ -1560,68 +1544,6 @@ export interface MessageSendShortCodeResponse {
   data?: OutboundMessagePayload;
 }
 
-export interface MessageSendWhatsappResponse {
-  data?: MessageSendWhatsappResponse.Data;
-}
-
-export namespace MessageSendWhatsappResponse {
-  export interface Data {
-    /**
-     * message ID
-     */
-    id?: string;
-
-    body?: MessagesAPI.WhatsappMessageContent;
-
-    direction?: string;
-
-    encoding?: string;
-
-    from?: Data.From;
-
-    messaging_profile_id?: string;
-
-    organization_id?: string;
-
-    received_at?: string;
-
-    record_type?: string;
-
-    to?: Array<MessagesAPI.RcsToItem>;
-
-    type?: string;
-
-    /**
-     * Seconds the message is queued due to rate limiting before being sent to the
-     * carrier. Represents the maximum wait across all applicable rate limits (account,
-     * carrier, campaign). 0.0 = no queuing delay.
-     */
-    wait_seconds?: number | null;
-  }
-
-  export namespace Data {
-    export interface From {
-      /**
-       * The carrier of the sender.
-       */
-      carrier?: string;
-
-      /**
-       * The line-type of the sender.
-       */
-      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-      /**
-       * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-       * code).
-       */
-      phone_number?: string;
-
-      status?: 'received' | 'delivered';
-    }
-  }
-}
-
 export interface MessageSendWithAlphanumericSenderResponse {
   data?: OutboundMessagePayload;
 }
@@ -1964,35 +1886,6 @@ export interface MessageSendGroupMmsParams {
   webhook_url?: string;
 }
 
-export interface MessageSendWhatsappParams {
-  /**
-   * Phone number in +E.164 format associated with Whatsapp account
-   */
-  from: string;
-
-  /**
-   * Phone number in +E.164 format
-   */
-  to: string;
-
-  whatsapp_message: WhatsappMessageContent;
-
-  /**
-   * Messaging profile ID - required if the 'from' number is not SMS-enabled
-   */
-  messaging_profile_id?: string;
-
-  /**
-   * Message type - must be set to "WHATSAPP"
-   */
-  type?: 'WHATSAPP';
-
-  /**
-   * The URL where webhooks related to this message will be sent.
-   */
-  webhook_url?: string;
-}
-
 export interface MessageScheduleParams {
   /**
    * Receiving address (+E.164 formatted phone number or short code).
@@ -2132,14 +2025,12 @@ export declare namespace Messages {
     type MessageSendLongCodeResponse as MessageSendLongCodeResponse,
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
-    type MessageSendWhatsappResponse as MessageSendWhatsappResponse,
     type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
     type MessageSendParams as MessageSendParams,
     type MessageSendLongCodeParams as MessageSendLongCodeParams,
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
-    type MessageSendWhatsappParams as MessageSendWhatsappParams,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
   };
