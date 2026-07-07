@@ -265,6 +265,14 @@ export interface PhoneNumberDetailed {
   tags: Array<string>;
 
   /**
+   * ISO 8601 formatted date indicating when the phone number was first activated
+   * (transitioned from purchase-pending or port-pending to active). Will be null for
+   * numbers that have not yet been activated, or for legacy numbers activated before
+   * this field was tracked.
+   */
+  activated_at?: string | null;
+
+  /**
    * Identifies the billing group associated with the phone number.
    */
   billing_group_id?: string | null;
@@ -383,6 +391,14 @@ export namespace PhoneNumberDeleteResponse {
      * Identifies the resource.
      */
     id?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the phone number was first activated
+     * (transitioned from purchase-pending or port-pending to active). Will be null for
+     * numbers that have not yet been activated, or for legacy numbers activated before
+     * this field was tracked.
+     */
+    activated_at?: string | null;
 
     /**
      * Identifies the billing group associated with the phone number.
@@ -529,6 +545,14 @@ export interface PhoneNumberSlimListResponse {
    * Identifies the resource.
    */
   id?: string;
+
+  /**
+   * ISO 8601 formatted date indicating when the phone number was first activated
+   * (transitioned from purchase-pending or port-pending to active). Will be null for
+   * numbers that have not yet been activated, or for legacy numbers activated before
+   * this field was tracked.
+   */
+  activated_at?: string | null;
 
   /**
    * Identifies the billing group associated with the phone number.
