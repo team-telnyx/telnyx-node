@@ -122,6 +122,8 @@ export interface ToolCreateParams {
 
   type: string;
 
+  client_side_tool?: { [key: string]: unknown };
+
   function?: { [key: string]: unknown };
 
   handoff?: { [key: string]: unknown };
@@ -138,6 +140,8 @@ export interface ToolCreateParams {
 }
 
 export interface ToolUpdateParams {
+  client_side_tool?: { [key: string]: unknown };
+
   display_name?: string;
 
   function?: { [key: string]: unknown };

@@ -53,6 +53,7 @@ describe('resource tools', () => {
     const response = await client.ai.tools.create({
       display_name: 'display_name',
       type: 'type',
+      client_side_tool: { foo: 'bar' },
       function: { foo: 'bar' },
       handoff: { foo: 'bar' },
       invite: { foo: 'bar' },
