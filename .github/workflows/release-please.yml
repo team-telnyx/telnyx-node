@@ -102,6 +102,13 @@ jobs:
           # still created against master via the API.
           git branch -f master HEAD 2>/dev/null || true
           git update-ref refs/remotes/origin/master HEAD
+          # --local mode clones from --repo-url — a FRESH GitHub clone whose
+          # refs ignore the repoint above (it only rewrites this workspace), so
+          # the scan saw 0 commits on a quiet master and silently skipped the
+          # release PR (2026-07-09). Rewrite the URL to this workspace so the
+          # CLI clones the repointed refs; API PR-creation still parses
+          # owner/repo from the URL string.
+          git config --global url."file://${GITHUB_WORKSPACE}".insteadOf "${{ github.repositoryUrl }}"
 
           OUTPUT=$(npx release-please "${ARGS[@]}" 2>&1) || true
           echo "$OUTPUT"
