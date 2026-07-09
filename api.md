@@ -828,6 +828,16 @@ Methods:
 
 - <code title="get /ai/conversations/{conversation_id}/messages">client.ai.conversations.messages.<a href="./src/resources/ai/conversations/messages.ts">list</a>(conversationID, { ...params }) -> MessageListResponsesDefaultFlatPagination</code>
 
+### ConversationInsights
+
+Types:
+
+- <code><a href="./src/resources/ai/conversations/conversation-insights.ts">ConversationInsightRetrieveAggregatesResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/conversations/conversation-insights/aggregates">client.ai.conversations.conversationInsights.<a href="./src/resources/ai/conversations/conversation-insights.ts">retrieveAggregates</a>({ ...params }) -> ConversationInsightRetrieveAggregatesResponse</code>
+
 ## Embeddings
 
 Types:

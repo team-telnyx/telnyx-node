@@ -239,6 +239,7 @@ const fuse = new Fuse(
     'client.ai.conversations.insights.retrieve',
     'client.ai.conversations.insights.update',
     'client.ai.conversations.messages.list',
+    'client.ai.conversations.conversationInsights.retrieveAggregates',
     'client.ai.embeddings.create',
     'client.ai.embeddings.list',
     'client.ai.embeddings.retrieve',

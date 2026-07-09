@@ -1,6 +1,12 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as ConversationInsightsAPI from './conversation-insights';
+import {
+  ConversationInsightRetrieveAggregatesParams,
+  ConversationInsightRetrieveAggregatesResponse,
+  ConversationInsights,
+} from './conversation-insights';
 import * as InsightsAPI from './insights';
 import {
   InsightCreateParams,
@@ -41,6 +47,8 @@ export class Conversations extends APIResource {
   insightGroups: InsightGroupsAPI.InsightGroups = new InsightGroupsAPI.InsightGroups(this._client);
   insights: InsightsAPI.Insights = new InsightsAPI.Insights(this._client);
   messages: MessagesAPI.Messages = new MessagesAPI.Messages(this._client);
+  conversationInsights: ConversationInsightsAPI.ConversationInsights =
+    new ConversationInsightsAPI.ConversationInsights(this._client);
 
   /**
    * Retrieve a list of all AI conversations configured by the user. Supports
@@ -354,6 +362,7 @@ export interface ConversationAddMessageParams {
 Conversations.InsightGroups = InsightGroups;
 Conversations.Insights = Insights;
 Conversations.Messages = Messages;
+Conversations.ConversationInsights = ConversationInsights;
 
 export declare namespace Conversations {
   export {
@@ -393,5 +402,11 @@ export declare namespace Conversations {
     type MessageListResponse as MessageListResponse,
     type MessageListResponsesDefaultFlatPagination as MessageListResponsesDefaultFlatPagination,
     type MessageListParams as MessageListParams,
+  };
+
+  export {
+    ConversationInsights as ConversationInsights,
+    type ConversationInsightRetrieveAggregatesResponse as ConversationInsightRetrieveAggregatesResponse,
+    type ConversationInsightRetrieveAggregatesParams as ConversationInsightRetrieveAggregatesParams,
   };
 }

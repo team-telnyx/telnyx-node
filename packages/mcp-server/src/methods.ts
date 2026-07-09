@@ -787,6 +787,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/conversations/{conversation_id}/messages',
   },
   {
+    clientCallName: 'client.ai.conversations.conversationInsights.retrieveAggregates',
+    fullyQualifiedName: 'ai.conversations.conversationInsights.retrieveAggregates',
+    httpMethod: 'get',
+    httpPath: '/ai/conversations/conversation-insights/aggregates',
+  },
+  {
     clientCallName: 'client.ai.embeddings.list',
     fullyQualifiedName: 'ai.embeddings.list',
     httpMethod: 'get',
