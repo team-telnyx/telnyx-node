@@ -373,22 +373,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/advanced_orders/{advanced-order-id}/requirement_group',
   },
   {
-    clientCallName: 'client.ai.retrieveModels',
-    fullyQualifiedName: 'ai.retrieveModels',
-    httpMethod: 'get',
-    httpPath: '/ai/models',
-  },
-  {
     clientCallName: 'client.ai.summarize',
     fullyQualifiedName: 'ai.summarize',
     httpMethod: 'post',
     httpPath: '/ai/summarize',
-  },
-  {
-    clientCallName: 'client.ai.createResponseDeprecated',
-    fullyQualifiedName: 'ai.createResponseDeprecated',
-    httpMethod: 'post',
-    httpPath: '/ai/responses',
   },
   {
     clientCallName: 'client.ai.retrieveConversationHistories',
@@ -647,12 +635,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.audio.transcribe',
     httpMethod: 'post',
     httpPath: '/ai/audio/transcriptions',
-  },
-  {
-    clientCallName: 'client.ai.chat.createCompletion',
-    fullyQualifiedName: 'ai.chat.createCompletion',
-    httpMethod: 'post',
-    httpPath: '/ai/chat/completions',
   },
   {
     clientCallName: 'client.ai.clusters.list',
@@ -2729,12 +2711,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'messages.sendGroupMms',
     httpMethod: 'post',
     httpPath: '/messages/group_mms',
-  },
-  {
-    clientCallName: 'client.messages.sendWhatsapp',
-    fullyQualifiedName: 'messages.sendWhatsapp',
-    httpMethod: 'post',
-    httpPath: '/messages/whatsapp',
   },
   {
     clientCallName: 'client.messages.schedule',

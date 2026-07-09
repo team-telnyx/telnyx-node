@@ -4,13 +4,7 @@ import { APIResource } from '../../core/resource';
 import * as AudioAPI from './audio';
 import { Audio, AudioTranscribeParams, AudioTranscribeResponse } from './audio';
 import * as ChatAPI from './chat';
-import {
-  BucketIDs,
-  Chat,
-  ChatCompletionRequest,
-  ChatCreateCompletionParams,
-  ChatCreateCompletionResponse,
-} from './chat';
+import { BucketIDs, Chat, ChatCompletionRequest } from './chat';
 import * as ClustersAPI from './clusters';
 import {
   ClusterComputeParams,
@@ -165,23 +159,6 @@ export class AI extends APIResource {
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
 
   /**
-   * **Deprecated**: Use `GET /v2/ai/openai/models` instead.
-   *
-   * Returns the same `ModelsResponse` payload as the OpenAI-compatible endpoint —
-   * open-source LLMs hosted on Telnyx (e.g. `moonshotai/Kimi-K2.6`,
-   * `zai-org/GLM-5.1-FP8`, `MiniMaxAI/MiniMax-M2.7`), embedding models, and
-   * fine-tuned models — kept around for backwards compatibility. New integrations
-   * should use `/v2/ai/openai/models`.
-   *
-   * Model ids follow the `{organization}/{model_name}` convention from Hugging Face.
-   *
-   * @deprecated
-   */
-  retrieveModels(options?: RequestOptions): APIPromise<ModelsResponse> {
-    return this._client.get('/ai/models', options);
-  }
-
-  /**
    * Generate a summary of a file's contents.
    *
    * Supports the following text formats:
@@ -204,24 +181,6 @@ export class AI extends APIResource {
    */
   summarize(body: AISummarizeParams, options?: RequestOptions): APIPromise<AISummarizeResponse> {
     return this._client.post('/ai/summarize', { body, ...options });
-  }
-
-  /**
-   * **Deprecated**: Use `POST /v2/ai/openai/responses` instead. This endpoint is
-   * compatible with the
-   * [OpenAI Responses API](https://developers.openai.com/api/reference/responses/overview)
-   * and may be used with the OpenAI JS or Python SDK. Response id parameter is not
-   * supported at the moment. Use the `conversation` parameter with a Telnyx
-   * Conversation ID to leverage persistent conversations.
-   *
-   * @deprecated
-   */
-  createResponseDeprecated(
-    params: AICreateResponseDeprecatedParams,
-    options?: RequestOptions,
-  ): APIPromise<AICreateResponseDeprecatedResponse> {
-    const { response_request } = params;
-    return this._client.post('/ai/responses', { body: response_request, ...options });
   }
 
   /**
@@ -427,8 +386,6 @@ export interface ModelsResponse {
   object?: string;
 }
 
-export type AICreateResponseDeprecatedResponse = { [key: string]: unknown };
-
 /**
  * Search response following the standard Telnyx V2 API format.
  */
@@ -569,10 +526,6 @@ export interface AISummarizeParams {
   system_prompt?: string;
 }
 
-export interface AICreateResponseDeprecatedParams {
-  response_request: { [key: string]: unknown };
-}
-
 export interface AIRetrieveConversationHistoriesParams {
   /**
    * Natural language search query. The text is embedded into a 1024-dimensional
@@ -667,11 +620,9 @@ export declare namespace AI {
   export {
     type ModelMetadata as ModelMetadata,
     type ModelsResponse as ModelsResponse,
-    type AICreateResponseDeprecatedResponse as AICreateResponseDeprecatedResponse,
     type AIRetrieveConversationHistoriesResponse as AIRetrieveConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
     type AISummarizeParams as AISummarizeParams,
-    type AICreateResponseDeprecatedParams as AICreateResponseDeprecatedParams,
     type AIRetrieveConversationHistoriesParams as AIRetrieveConversationHistoriesParams,
   };
 
@@ -739,13 +690,7 @@ export declare namespace AI {
     type AudioTranscribeParams as AudioTranscribeParams,
   };
 
-  export {
-    Chat as Chat,
-    type BucketIDs as BucketIDs,
-    type ChatCompletionRequest as ChatCompletionRequest,
-    type ChatCreateCompletionResponse as ChatCreateCompletionResponse,
-    type ChatCreateCompletionParams as ChatCreateCompletionParams,
-  };
+  export { Chat as Chat, type BucketIDs as BucketIDs, type ChatCompletionRequest as ChatCompletionRequest };
 
   export {
     Clusters as Clusters,

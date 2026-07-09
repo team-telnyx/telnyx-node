@@ -1,5 +1,14 @@
 # Changelog
 
+## [7.8.0](https://github.com/team-telnyx/telnyx-node/compare/v7.7.0...v7.8.0) (2026-07-09)
+
+
+### Bug Fixes
+
+* **release:** ghost guard also verifies the GitHub Release exists ([#481](https://github.com/team-telnyx/telnyx-node/issues/481)) ([cbddc22](https://github.com/team-telnyx/telnyx-node/commit/cbddc22611fad85d4154e99fbf88eb6c5d3a2e34))
+* **release:** scan next's commits in release-pr (stop depending on master hotfixes) ([#480](https://github.com/team-telnyx/telnyx-node/issues/480)) ([37abc8b](https://github.com/team-telnyx/telnyx-node/commit/37abc8b38b1f5cbdf259bd7f7d8bb2832c2badb6))
+* restore SDK_WRITE_TOKEN check in release doctor (staging variant leaked via 7.6.0) ([#485](https://github.com/team-telnyx/telnyx-node/issues/485)) ([65567d7](https://github.com/team-telnyx/telnyx-node/commit/65567d756cb7e5168baf4f33453bb1f678b38b1d))
+
 ## [7.7.0](https://github.com/team-telnyx/telnyx-node/compare/v7.6.0...v7.7.0) (2026-07-03)
 
 

@@ -322,7 +322,9 @@ export interface TextToSpeechGenerateSpeechParams {
   /**
    * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
    * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`,
-   * `volume`, and `emotion`.
+   * `volume`, and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`,
+   * or `emotion`, and don't support `voice_speed`. `Sukhan`'s `response_format` is
+   * restricted to `mp3` or `pcm` (no `wav`).
    */
   telnyx?: TextToSpeechGenerateSpeechParams.Telnyx;
 
@@ -339,10 +341,10 @@ export interface TextToSpeechGenerateSpeechParams {
   /**
    * Voice identifier in the format `provider.model_id.voice_id` or
    * `provider.voice_id`. Examples: `telnyx.NaturalHD.Alloy`,
-   * `Telnyx.Ultra.<voice_id>`, `azure.en-US-AvaMultilingualNeural`,
-   * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and
-   * `voice_id` are extracted automatically and take precedence over individual
-   * parameters.
+   * `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`, `Telnyx.Sukhan.urdu-professor`,
+   * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When
+   * provided, `provider`, `model_id`, and `voice_id` are extracted automatically and
+   * take precedence over individual parameters.
    */
   voice?: string;
 
@@ -532,7 +534,9 @@ export namespace TextToSpeechGenerateSpeechParams {
   /**
    * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
    * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`,
-   * `volume`, and `emotion`.
+   * `volume`, and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`,
+   * or `emotion`, and don't support `voice_speed`. `Sukhan`'s `response_format` is
+   * restricted to `mp3` or `pcm` (no `wav`).
    */
   export interface Telnyx {
     /**
@@ -557,7 +561,8 @@ export namespace TextToSpeechGenerateSpeechParams {
     temperature?: number;
 
     /**
-     * Voice speed multiplier. Applies to all models. Range: 0.5 to 2.0.
+     * Voice speed multiplier. Applies to all models except `Bayan` and `Sukhan`, which
+     * don't support it. Range: 0.5 to 2.0.
      */
     voice_speed?: number;
 
@@ -627,10 +632,10 @@ export interface TextToSpeechRetrieveSpeechParams {
   /**
    * Voice identifier in the format `provider.model_id.voice_id` or
    * `provider.voice_id` (e.g. `telnyx.NaturalHD.Telnyx_Alloy`,
-   * `Telnyx.Ultra.<voice_id>`, or `azure.en-US-AvaMultilingualNeural`). When
-   * provided, the `provider`, `model_id`, and `voice_id` are extracted
-   * automatically. Takes precedence over individual `provider`/`model_id`/`voice_id`
-   * parameters.
+   * `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`, `Telnyx.Sukhan.urdu-professor`,
+   * or `azure.en-US-AvaMultilingualNeural`). When provided, the `provider`,
+   * `model_id`, and `voice_id` are extracted automatically. Takes precedence over
+   * individual `provider`/`model_id`/`voice_id` parameters.
    */
   voice?: string;
 

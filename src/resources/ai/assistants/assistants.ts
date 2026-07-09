@@ -375,6 +375,7 @@ export interface AssistantMcpServer {
  */
 export type AssistantTool =
   | InferenceEmbeddingWebhookToolParams
+  | AssistantTool.ClientSideTool
   | RetrievalTool
   | AssistantTool.Handoff
   | HangupTool
@@ -386,6 +387,54 @@ export type AssistantTool =
   | AssistantTool.SkipTurn;
 
 export namespace AssistantTool {
+  export interface ClientSideTool {
+    client_side_tool: ClientSideTool.ClientSideTool;
+
+    type: 'client_side_tool';
+  }
+
+  export namespace ClientSideTool {
+    export interface ClientSideTool {
+      /**
+       * The description of the tool.
+       */
+      description: string;
+
+      /**
+       * The name of the tool.
+       */
+      name: string;
+
+      /**
+       * The parameters the tool accepts, described as a JSON Schema object. See the
+       * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+       * documentation about the format
+       */
+      parameters: ClientSideTool.Parameters;
+    }
+
+    export namespace ClientSideTool {
+      /**
+       * The parameters the tool accepts, described as a JSON Schema object. See the
+       * [JSON Schema reference](https://json-schema.org/understanding-json-schema) for
+       * documentation about the format
+       */
+      export interface Parameters {
+        /**
+         * The properties of the parameters.
+         */
+        properties?: { [key: string]: unknown };
+
+        /**
+         * The required properties of the parameters.
+         */
+        required?: Array<string>;
+
+        type?: 'object';
+      }
+    }
+  }
+
   /**
    * The handoff tool allows the assistant to hand off control of the conversation to
    * another AI assistant. By default, this will happen transparently to the end
