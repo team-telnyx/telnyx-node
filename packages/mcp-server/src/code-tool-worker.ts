@@ -313,6 +313,7 @@ const fuse = new Fuse(
     'client.ai.tools.list',
     'client.ai.tools.retrieve',
     'client.ai.tools.update',
+    'client.ai.anthropic.v1.messages',
     'client.auditEvents.list',
     'client.authenticationProviders.create',
     'client.authenticationProviders.delete',

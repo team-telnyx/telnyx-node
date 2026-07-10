@@ -9,6 +9,7 @@ export {
   type AISummarizeParams,
   type AIRetrieveConversationHistoriesParams,
 } from './ai';
+export { Anthropic } from './anthropic/index';
 export {
   Assistants,
   type ArithmeticExpression,

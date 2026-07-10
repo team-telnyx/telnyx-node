@@ -37,6 +37,8 @@ import {
   ToolUpdateParams,
   Tools,
 } from './tools';
+import * as AnthropicAPI from './anthropic/anthropic';
+import { Anthropic } from './anthropic/anthropic';
 import * as AssistantsAPI from './assistants/assistants';
 import {
   ArithmeticExpression,
@@ -157,6 +159,7 @@ export class AI extends APIResource {
   missions: MissionsAPI.Missions = new MissionsAPI.Missions(this._client);
   openai: OpenAIAPI.OpenAI = new OpenAIAPI.OpenAI(this._client);
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
+  anthropic: AnthropicAPI.Anthropic = new AnthropicAPI.Anthropic(this._client);
 
   /**
    * Generate a summary of a file's contents.
@@ -615,6 +618,7 @@ AI.McpServers = McpServers;
 AI.Missions = Missions;
 AI.OpenAI = OpenAI;
 AI.Tools = Tools;
+AI.Anthropic = Anthropic;
 
 export declare namespace AI {
   export {
@@ -777,4 +781,6 @@ export declare namespace AI {
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
   };
+
+  export { Anthropic as Anthropic };
 }

@@ -1111,6 +1111,18 @@ Methods:
 - <code title="get /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">retrieve</a>(toolID) -> SharedToolResponse</code>
 - <code title="patch /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">update</a>(toolID, { ...params }) -> SharedToolResponse</code>
 
+## Anthropic
+
+### V1
+
+Types:
+
+- <code><a href="./src/resources/ai/anthropic/v1.ts">V1MessagesResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/anthropic/v1/messages">client.ai.anthropic.v1.<a href="./src/resources/ai/anthropic/v1.ts">messages</a>({ ...params }) -> V1MessagesResponse</code>
+
 # AuditEvents
 
 Types:

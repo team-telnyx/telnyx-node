@@ -1231,6 +1231,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/tools/{tool_id}',
   },
   {
+    clientCallName: 'client.ai.anthropic.v1.messages',
+    fullyQualifiedName: 'ai.anthropic.v1.messages',
+    httpMethod: 'post',
+    httpPath: '/ai/anthropic/v1/messages',
+  },
+  {
     clientCallName: 'client.auditEvents.list',
     fullyQualifiedName: 'auditEvents.list',
     httpMethod: 'get',

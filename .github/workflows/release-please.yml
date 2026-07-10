@@ -225,6 +225,45 @@ jobs:
             echo "Successfully synced next code into release PR branch (tree replacement)"
           fi
 
+      - name: Assert release PR exists for unreleased commits (fail loud)
+        if: github.ref == 'refs/heads/next'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          # The release-pr CLI above is wrapped in `|| true`, so an API error
+          # or scan regression leaves the run green with no PR — exactly how
+          # the 2026-07-09 silent skip hid for weeks. Fail loud instead: if
+          # next has user-facing (feat/fix) or Release-As commits since the
+          # latest release and no open release PR exists, this run is broken.
+          latest_tag=$(gh release view --repo "$REPO" --json tagName --jq '.tagName' 2>/dev/null || echo "")
+          if [ -z "$latest_tag" ]; then
+            echo "No releases yet; skipping assertion."
+            exit 0
+          fi
+          if ! git rev-parse -q --verify "refs/tags/${latest_tag}" >/dev/null; then
+            echo "::warning::Tag ${latest_tag} not in local clone; skipping assertion."
+            exit 0
+          fi
+          unreleased=$(git log --format='%s' "${latest_tag}..HEAD" | grep -cE '^(feat|fix)(\(|!|:)' || true)
+          releaseas=$(git log --format='%B' "${latest_tag}..HEAD" | grep -c '^Release-As:' || true)
+          if [ "$unreleased" -eq 0 ] && [ "$releaseas" -eq 0 ]; then
+            echo "No user-facing commits since ${latest_tag}; no release PR expected."
+            exit 0
+          fi
+          open_prs=0
+          for attempt in 1 2 3; do
+            open_prs=$(gh pr list --repo "$REPO" --state open --json headRefName \
+              --jq '[.[] | select(.headRefName | startswith("release-please--"))] | length')
+            [ "$open_prs" -gt 0 ] && break
+            sleep 10
+          done
+          if [ "$open_prs" -eq 0 ]; then
+            echo "::error::${unreleased} user-facing + ${releaseas} Release-As commit(s) since ${latest_tag} on next, but no open release PR — release-pr failed silently. Inspect the release-pr step output above."
+            exit 1
+          fi
+          echo "Release PR present for unreleased commits — OK."
+
       - name: Run release-please (github-release)
         if: github.ref == 'refs/heads/master'
         run: |
