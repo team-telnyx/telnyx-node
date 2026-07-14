@@ -34,6 +34,7 @@ describe('resource requirements', () => {
           'page[number]': 0,
           'page[size]': 0,
           sort: ['country_code'],
+          version: 0,
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -50,5 +51,17 @@ describe('resource requirements', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.requirements.retrieve(
+        'a9dad8d5-fdbd-49d7-aa23-39bb08a5ebaa',
+        { version: 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

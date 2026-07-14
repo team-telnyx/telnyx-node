@@ -1072,6 +1072,7 @@ export {
   type DocReqsRequirement,
   type RequirementRetrieveResponse,
   type RequirementListParams,
+  type RequirementRetrieveParams,
   type DocReqsRequirementsDefaultFlatPagination,
 } from './requirements';
 export {

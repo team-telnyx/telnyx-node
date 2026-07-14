@@ -42,8 +42,12 @@ export class Requirements extends APIResource {
    * );
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<RequirementRetrieveResponse> {
-    return this._client.get(path`/requirements/${id}`, options);
+  retrieve(
+    id: string,
+    query: RequirementRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<RequirementRetrieveResponse> {
+    return this._client.get(path`/requirements/${id}`, { query, ...options });
   }
 }
 
@@ -72,6 +76,17 @@ export interface DocReqsRequirement {
   created_at?: string;
 
   /**
+   * When this version was superseded. NULL means this is the active or pending
+   * version.
+   */
+  effective_end_at?: string | null;
+
+  /**
+   * When this version became (or will become) active.
+   */
+  effective_start_at?: string | null;
+
+  /**
    * The locality where this requirement applies
    */
   locality?: string;
@@ -90,12 +105,17 @@ export interface DocReqsRequirement {
   /**
    * Lists the requirement types necessary to fulfill this requirement
    */
-  requirements_types?: Array<Shared.DocReqsRequirementType>;
+  requirement_types?: Array<Shared.DocReqsRequirementType>;
 
   /**
    * ISO 8601 formatted date-time indicating when the resource was last updated.
    */
   updated_at?: string;
+
+  /**
+   * Version number. Increments with each new version. Defaults to 1.
+   */
+  version?: number;
 }
 
 export interface RequirementRetrieveResponse {
@@ -123,6 +143,12 @@ export interface RequirementListParams extends DefaultFlatPaginationParams {
     | '-country_code'
     | '-phone_number_type'
   >;
+
+  /**
+   * Filter by requirement version number. When omitted, returns the currently-active
+   * version.
+   */
+  version?: number;
 }
 
 export namespace RequirementListParams {
@@ -149,11 +175,20 @@ export namespace RequirementListParams {
   }
 }
 
+export interface RequirementRetrieveParams {
+  /**
+   * Filter by requirement version number. When omitted, returns the currently-active
+   * version.
+   */
+  version?: number;
+}
+
 export declare namespace Requirements {
   export {
     type DocReqsRequirement as DocReqsRequirement,
     type RequirementRetrieveResponse as RequirementRetrieveResponse,
     type DocReqsRequirementsDefaultFlatPagination as DocReqsRequirementsDefaultFlatPagination,
     type RequirementListParams as RequirementListParams,
+    type RequirementRetrieveParams as RequirementRetrieveParams,
   };
 }

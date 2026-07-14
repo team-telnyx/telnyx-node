@@ -3430,7 +3430,7 @@ Types:
 Methods:
 
 - <code title="get /requirements">client.requirements.<a href="./src/resources/requirements.ts">list</a>({ ...params }) -> DocReqsRequirementsDefaultFlatPagination</code>
-- <code title="get /requirements/{id}">client.requirements.<a href="./src/resources/requirements.ts">retrieve</a>(id) -> RequirementRetrieveResponse</code>
+- <code title="get /requirements/{id}">client.requirements.<a href="./src/resources/requirements.ts">retrieve</a>(id, { ...params }) -> RequirementRetrieveResponse</code>
 
 # RoomCompositions
 

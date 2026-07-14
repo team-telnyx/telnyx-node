@@ -760,6 +760,7 @@ import {
   DocReqsRequirement,
   DocReqsRequirementsDefaultFlatPagination,
   RequirementListParams,
+  RequirementRetrieveParams,
   RequirementRetrieveResponse,
   Requirements,
 } from './resources/requirements';
@@ -4501,6 +4502,7 @@ export declare namespace Telnyx {
     type RequirementRetrieveResponse as RequirementRetrieveResponse,
     type DocReqsRequirementsDefaultFlatPagination as DocReqsRequirementsDefaultFlatPagination,
     type RequirementListParams as RequirementListParams,
+    type RequirementRetrieveParams as RequirementRetrieveParams,
   };
 
   export {
