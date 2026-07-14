@@ -1589,7 +1589,11 @@ export interface TranscriptionConfig {
    * controls the language hint), `multi` (no language hint), and language-specific
    * hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For
    * `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect;
-   * ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language.
+   * ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language. For
+   * `assemblyai/universal-streaming`, `auto` (or unset) enables native multilingual
+   * code-switching; ISO 639-1 codes (`en`, `es`, `de`, `fr`, `pt`, `it`, `tr`, `nl`,
+   * `sv`, `no`, `da`, `fi`, `hi`, `vi`, `ar`, `he`, `ja`, `zh`) bias the session to
+   * that language.
    */
   language?: string;
 
