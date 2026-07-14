@@ -1109,6 +1109,15 @@ export interface CallDialParams {
   record_trim?: 'trim-silence';
 
   /**
+   * Whether to keep trying the remaining routing paths (e.g. alternate
+   * providers/gateways) for the same destination after `timeout_secs` is reached for
+   * the current attempt. When set to `false`, reaching `timeout_secs` aborts the
+   * entire dial attempt and the `call.hangup` webhook reports a `hangup_cause` of
+   * `no_answer` instead of `timeout`.
+   */
+  retry_on_timeout?: boolean;
+
+  /**
    * DTMF digits to send automatically after the called party answers. Useful for
    * reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once the
    * called party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W`
