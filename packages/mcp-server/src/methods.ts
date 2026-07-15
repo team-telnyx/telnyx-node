@@ -4814,6 +4814,42 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/storage/kvs/{id}/keys/{key}',
   },
   {
+    clientCallName: 'client.storage.cloudfs.list',
+    fullyQualifiedName: 'storage.cloudfs.list',
+    httpMethod: 'get',
+    httpPath: '/storage/cloudfs',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.create',
+    fullyQualifiedName: 'storage.cloudfs.create',
+    httpMethod: 'post',
+    httpPath: '/storage/cloudfs',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.delete',
+    fullyQualifiedName: 'storage.cloudfs.delete',
+    httpMethod: 'delete',
+    httpPath: '/storage/cloudfs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.retrieve',
+    fullyQualifiedName: 'storage.cloudfs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/storage/cloudfs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.update',
+    fullyQualifiedName: 'storage.cloudfs.update',
+    httpMethod: 'patch',
+    httpPath: '/storage/cloudfs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.actions.rotateMetaToken',
+    fullyQualifiedName: 'storage.cloudfs.actions.rotateMetaToken',
+    httpMethod: 'post',
+    httpPath: '/storage/cloudfs/{id}/actions/rotate-meta-token',
+  },
+  {
     clientCallName: 'client.subNumberOrders.list',
     fullyQualifiedName: 'subNumberOrders.list',
     httpMethod: 'get',

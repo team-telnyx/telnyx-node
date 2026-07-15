@@ -3824,6 +3824,29 @@ Methods:
 - <code title="get /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">retrieve</a>(key, { ...params }) -> Response</code>
 - <code title="put /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">update</a>(key, body, { ...params }) -> void</code>
 
+## Cloudfs
+
+Types:
+
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemDetailResponseWrapper</a></code>
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemResponseWrapper</a></code>
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemStatus</a></code>
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfListResponse</a></code>
+
+Methods:
+
+- <code title="get /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">list</a>({ ...params }) -> CloudfListResponse</code>
+- <code title="post /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">create</a>({ ...params }) -> CloudfsFilesystemResponseWrapper</code>
+- <code title="delete /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">delete</a>(id) -> CloudfsFilesystemDetailResponseWrapper</code>
+- <code title="get /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">retrieve</a>(id) -> CloudfsFilesystemDetailResponseWrapper</code>
+- <code title="patch /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">update</a>(id, { ...params }) -> CloudfsFilesystemDetailResponseWrapper</code>
+
+### Actions
+
+Methods:
+
+- <code title="post /storage/cloudfs/{id}/actions/rotate-meta-token">client.storage.cloudfs.actions.<a href="./src/resources/storage/cloudfs/actions.ts">rotateMetaToken</a>(id, { ...params }) -> CloudfsFilesystemResponseWrapper</code>
+
 # SubNumberOrders
 
 Types:

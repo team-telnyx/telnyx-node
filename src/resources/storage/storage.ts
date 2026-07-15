@@ -14,6 +14,17 @@ import {
 import * as BucketsAPI from './buckets/buckets';
 import { BucketCreatePresignedURLParams, BucketCreatePresignedURLResponse, Buckets } from './buckets/buckets';
 import * as UsageAPI from './buckets/usage';
+import * as CloudfsAPI from './cloudfs/cloudfs';
+import {
+  CloudfCreateParams,
+  CloudfListParams,
+  CloudfListResponse,
+  CloudfUpdateParams,
+  Cloudfs,
+  CloudfsFilesystemDetailResponseWrapper,
+  CloudfsFilesystemResponseWrapper,
+  CloudfsFilesystemStatus,
+} from './cloudfs/cloudfs';
 import * as KvsAPI from './kvs/kvs';
 import {
   KvCreateParams,
@@ -45,6 +56,7 @@ export class Storage extends APIResource {
   );
   migrations: MigrationsAPI.Migrations = new MigrationsAPI.Migrations(this._client);
   kvs: KvsAPI.Kvs = new KvsAPI.Kvs(this._client);
+  cloudfs: CloudfsAPI.Cloudfs = new CloudfsAPI.Cloudfs(this._client);
 
   /**
    * List Migration Source coverage
@@ -86,6 +98,7 @@ Storage.Buckets = Buckets;
 Storage.MigrationSources = MigrationSources;
 Storage.Migrations = Migrations;
 Storage.Kvs = Kvs;
+Storage.Cloudfs = Cloudfs;
 
 export declare namespace Storage {
   export { type StorageListMigrationSourceCoverageResponse as StorageListMigrationSourceCoverageResponse };
@@ -122,5 +135,16 @@ export declare namespace Storage {
     type KvNamespacesDefaultFlatPagination as KvNamespacesDefaultFlatPagination,
     type KvListParams as KvListParams,
     type KvCreateParams as KvCreateParams,
+  };
+
+  export {
+    Cloudfs as Cloudfs,
+    type CloudfsFilesystemDetailResponseWrapper as CloudfsFilesystemDetailResponseWrapper,
+    type CloudfsFilesystemResponseWrapper as CloudfsFilesystemResponseWrapper,
+    type CloudfsFilesystemStatus as CloudfsFilesystemStatus,
+    type CloudfListResponse as CloudfListResponse,
+    type CloudfListParams as CloudfListParams,
+    type CloudfCreateParams as CloudfCreateParams,
+    type CloudfUpdateParams as CloudfUpdateParams,
   };
 }
