@@ -4298,27 +4298,116 @@ export namespace FaxSendingStarted {
 }
 
 export interface InboundMessage {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  id: string;
+
+  attachments: Array<{ [key: string]: unknown }>;
+
+  bcc: Array<InboundMessage.Bcc>;
+
+  cc: Array<InboundMessage.Cc>;
+
+  created_at: string;
+
+  direction: 'inbound';
+
+  from: InboundMessage.From;
 
   /**
-   * The type of event being delivered.
+   * Whether conservative plain-text extraction detected a quoted tail. False does
+   * not prove that the source contains no quoted content.
    */
-  event_type?: 'message.received';
+  has_quoted_text: boolean;
+
+  headers: { [key: string]: unknown };
 
   /**
-   * ISO 8601 formatted date indicating when the resource was created.
+   * URL for an offloaded HTML body. Null means the body is not offloaded to a URL;
+   * an inline HTML body may still exist but is not returned on list reads.
+   * `reply_text` and `has_quoted_text` are computed from the inline plain-text body
+   * when present.
    */
-  occurred_at?: string;
+  html_body_url: string | null;
 
-  payload?: Shared.InboundMessagePayload;
+  in_reply_to: string | null;
+
+  inbox_id: string;
+
+  inline_files: Array<{ [key: string]: unknown }>;
 
   /**
-   * Identifies the type of the resource.
+   * RFC Message-ID header.
    */
-  record_type?: 'event';
+  message_id: string;
+
+  read_at: string | null;
+
+  received_at: string;
+
+  record_type: 'email_message';
+
+  /**
+   * Ordered RFC Message-ID values from the References header.
+   */
+  references: Array<string>;
+
+  /**
+   * Conservatively extracted new-reply content from the available plain-text body.
+   * Null means no plain-text body was available because it was absent or offloaded;
+   * HTML bodies are not parsed.
+   */
+  reply_text: string | null;
+
+  reply_to: Array<InboundMessage.ReplyTo>;
+
+  status: 'received';
+
+  subject: string | null;
+
+  /**
+   * URL for an offloaded plain-text body. Null means the body is not offloaded to a
+   * URL; an inline plain-text body may still exist but is not returned on list
+   * reads. `reply_text` and `has_quoted_text` are computed from the inline
+   * plain-text body when present.
+   */
+  text_body_url: string | null;
+
+  thread_id: string;
+
+  to: Array<InboundMessage.To>;
+
+  updated_at: string;
+}
+
+export namespace InboundMessage {
+  export interface Bcc {
+    email: string;
+
+    name?: string;
+  }
+
+  export interface Cc {
+    email: string;
+
+    name?: string;
+  }
+
+  export interface From {
+    email: string;
+
+    name?: string;
+  }
+
+  export interface ReplyTo {
+    email: string;
+
+    name?: string;
+  }
+
+  export interface To {
+    email: string;
+
+    name?: string;
+  }
 }
 
 export interface NumberOrderStatusUpdate {
@@ -5253,7 +5342,33 @@ export namespace HostedNumberOrderEventWebhookEvent {
 }
 
 export interface InboundMessageWebhookEvent {
-  data?: InboundMessage;
+  data?: InboundMessageWebhookEvent.Data;
+}
+
+export namespace InboundMessageWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'message.received';
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    occurred_at?: string;
+
+    payload?: Shared.InboundMessagePayload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
 }
 
 export interface ReplacedLinkClickWebhookEvent {
@@ -6017,7 +6132,33 @@ export namespace HostedNumberOrderEventWebhookEvent {
 }
 
 export interface InboundMessageWebhookEvent {
-  data?: InboundMessage;
+  data?: InboundMessageWebhookEvent.Data;
+}
+
+export namespace InboundMessageWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'message.received';
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    occurred_at?: string;
+
+    payload?: Shared.InboundMessagePayload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
 }
 
 export interface ReplacedLinkClickWebhookEvent {
