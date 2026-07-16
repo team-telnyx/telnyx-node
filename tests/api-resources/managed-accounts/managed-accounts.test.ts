@@ -29,6 +29,7 @@ describe('resource managedAccounts', () => {
           filter: {
             email: { contains: 'john', eq: 'eq' },
             organization_name: { contains: 'contains', eq: 'Example Company LLC' },
+            status: { eq: 'enabled' },
           },
           include_cancelled_accounts: true,
           'page[number]': 0,

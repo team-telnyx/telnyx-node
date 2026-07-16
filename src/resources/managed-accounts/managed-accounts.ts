@@ -374,7 +374,7 @@ export interface ManagedAccountListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[email][contains], filter[email][eq], filter[organization_name][contains],
-   * filter[organization_name][eq]
+   * filter[organization_name][eq], filter[status][eq]
    */
   filter?: ManagedAccountListParams.Filter;
 
@@ -406,12 +406,14 @@ export namespace ManagedAccountListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
    * filter[email][contains], filter[email][eq], filter[organization_name][contains],
-   * filter[organization_name][eq]
+   * filter[organization_name][eq], filter[status][eq]
    */
   export interface Filter {
     email?: Filter.Email;
 
     organization_name?: Filter.OrganizationName;
+
+    status?: Filter.Status;
   }
 
   export namespace Filter {
@@ -442,6 +444,15 @@ export namespace ManagedAccountListParams {
        * matching exactly the value given.
        */
       eq?: string;
+    }
+
+    export interface Status {
+      /**
+       * If present, only returns managed accounts with the <code>status</code> matching
+       * exactly the value given. Use <code>enabled</code> or <code>disabled</code> to
+       * filter accounts by whether they are currently able to use Telnyx services.
+       */
+      eq?: 'all' | 'active' | 'enabled' | 'cancelled' | 'disabled' | 'blocked';
     }
   }
 }
