@@ -29,6 +29,7 @@ import {
 } from './mcp-servers';
 import * as ToolsAPI from './tools';
 import {
+  PayToolParams,
   SharedToolResponse,
   SharedToolResponsesDefaultFlatPagination,
   ToolCreateParams,
@@ -774,6 +775,7 @@ export declare namespace AI {
 
   export {
     Tools as Tools,
+    type PayToolParams as PayToolParams,
     type SharedToolResponse as SharedToolResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,

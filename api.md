@@ -1100,6 +1100,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/tools.ts">PayToolParams</a></code>
 - <code><a href="./src/resources/ai/tools.ts">SharedToolResponse</a></code>
 - <code><a href="./src/resources/ai/tools.ts">ToolDeleteResponse</a></code>
 

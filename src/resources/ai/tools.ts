@@ -89,6 +89,29 @@ export class Tools extends APIResource {
 
 export type SharedToolResponsesDefaultFlatPagination = DefaultFlatPagination<SharedToolResponse>;
 
+export interface PayToolParams {
+  /**
+   * The name of the pay connector configured in the Telnyx API. Must reference an
+   * existing pay connector for this organization.
+   */
+  connector_name: string;
+
+  /**
+   * Default currency for payments processed by this tool.
+   */
+  currency?: string;
+
+  /**
+   * Optional description of the pay tool that will be passed to the assistant.
+   */
+  description?: string | null;
+
+  /**
+   * Default payment method for payments processed by this tool.
+   */
+  payment_method?: string;
+}
+
 export interface SharedToolResponse {
   id: string;
 
@@ -130,6 +153,8 @@ export interface ToolCreateParams {
 
   invite?: { [key: string]: unknown };
 
+  pay?: PayToolParams;
+
   retrieval?: { [key: string]: unknown };
 
   timeout_ms?: number;
@@ -150,6 +175,8 @@ export interface ToolUpdateParams {
 
   invite?: { [key: string]: unknown };
 
+  pay?: PayToolParams;
+
   retrieval?: { [key: string]: unknown };
 
   timeout_ms?: number;
@@ -163,6 +190,7 @@ export interface ToolUpdateParams {
 
 export declare namespace Tools {
   export {
+    type PayToolParams as PayToolParams,
     type SharedToolResponse as SharedToolResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,

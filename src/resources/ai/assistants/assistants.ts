@@ -4,6 +4,7 @@ import { APIResource } from '../../../core/resource';
 import * as AssistantsAPI from './assistants';
 import * as Shared from '../../shared';
 import * as ChatAPI from '../chat';
+import * as ToolsAPI from '../tools';
 import * as CanaryDeploysAPI from './canary-deploys';
 import {
   CanaryDeploy,
@@ -37,7 +38,7 @@ import {
 } from './scheduled-events';
 import * as TagsAPI from './tags';
 import { TagAddParams, TagRemoveParams, Tags, TagsResponse } from './tags';
-import * as ToolsAPI from './tools';
+import * as AssistantsToolsAPI from './tools';
 import {
   ToolAddParams,
   ToolAddResponse,
@@ -77,7 +78,7 @@ export class Assistants extends APIResource {
   tests: TestsAPI.Tests = new TestsAPI.Tests(this._client);
   canaryDeploys: CanaryDeploysAPI.CanaryDeploys = new CanaryDeploysAPI.CanaryDeploys(this._client);
   scheduledEvents: ScheduledEventsAPI.ScheduledEvents = new ScheduledEventsAPI.ScheduledEvents(this._client);
-  tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
+  tools: AssistantsToolsAPI.Tools = new AssistantsToolsAPI.Tools(this._client);
   versions: VersionsAPI.Versions = new VersionsAPI.Versions(this._client);
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
   instructions: InstructionsAPI.Instructions = new InstructionsAPI.Instructions(this._client);
@@ -384,7 +385,8 @@ export type AssistantTool =
   | AssistantTool.Refer
   | AssistantTool.SendDtmf
   | AssistantTool.SendMessage
-  | AssistantTool.SkipTurn;
+  | AssistantTool.SkipTurn
+  | AssistantTool.Pay;
 
 export namespace AssistantTool {
   export interface ClientSideTool {
@@ -898,6 +900,18 @@ export namespace AssistantTool {
        */
       description?: string;
     }
+  }
+
+  /**
+   * The pay tool allows the assistant to collect card payments from the caller via
+   * DTMF during the conversation. Recording is automatically paused while the pay
+   * tool is active and resumes when the payment flow completes. The connector_name
+   * must reference a pay connector configured in the Telnyx API.
+   */
+  export interface Pay {
+    pay: ToolsAPI.PayToolParams;
+
+    type: 'pay';
   }
 }
 
