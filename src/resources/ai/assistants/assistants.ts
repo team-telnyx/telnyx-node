@@ -903,10 +903,10 @@ export namespace AssistantTool {
   }
 
   /**
-   * The pay tool allows the assistant to collect card payments from the caller via
-   * DTMF during the conversation. Recording is automatically paused while the pay
-   * tool is active and resumes when the payment flow completes. The connector_name
-   * must reference a pay connector configured in the Telnyx API.
+   * (BETA) The pay tool allows the assistant to collect card payments from the
+   * caller via DTMF during the conversation. Recording is automatically paused while
+   * the pay tool is active and resumes when the payment flow completes. The
+   * connector_name must reference a pay connector configured in the Telnyx API.
    */
   export interface Pay {
     pay: ToolsAPI.PayToolParams;
