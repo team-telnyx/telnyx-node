@@ -57,6 +57,12 @@ describe('resource tools', () => {
       function: { foo: 'bar' },
       handoff: { foo: 'bar' },
       invite: { foo: 'bar' },
+      pay: {
+        connector_name: 'connector_name',
+        currency: 'currency',
+        description: 'description',
+        payment_method: 'payment_method',
+      },
       retrieval: { foo: 'bar' },
       timeout_ms: 0,
       webhook: { foo: 'bar' },

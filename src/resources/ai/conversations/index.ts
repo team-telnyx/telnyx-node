@@ -1,6 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  ConversationInsights,
+  type ConversationInsightRetrieveAggregatesResponse,
+  type ConversationInsightRetrieveAggregatesParams,
+} from './conversation-insights';
+export {
   Conversations,
   type Conversation,
   type ConversationRetrieveResponse,

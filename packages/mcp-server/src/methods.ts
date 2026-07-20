@@ -787,6 +787,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/conversations/{conversation_id}/messages',
   },
   {
+    clientCallName: 'client.ai.conversations.conversationInsights.retrieveAggregates',
+    fullyQualifiedName: 'ai.conversations.conversationInsights.retrieveAggregates',
+    httpMethod: 'get',
+    httpPath: '/ai/conversations/conversation-insights/aggregates',
+  },
+  {
     clientCallName: 'client.ai.embeddings.list',
     fullyQualifiedName: 'ai.embeddings.list',
     httpMethod: 'get',
@@ -1223,6 +1229,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.tools.update',
     httpMethod: 'patch',
     httpPath: '/ai/tools/{tool_id}',
+  },
+  {
+    clientCallName: 'client.ai.anthropic.v1.messages',
+    fullyQualifiedName: 'ai.anthropic.v1.messages',
+    httpMethod: 'post',
+    httpPath: '/ai/anthropic/v1/messages',
   },
   {
     clientCallName: 'client.auditEvents.list',
@@ -4800,6 +4812,42 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'storage.kvs.keys.update',
     httpMethod: 'put',
     httpPath: '/storage/kvs/{id}/keys/{key}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.list',
+    fullyQualifiedName: 'storage.cloudfs.list',
+    httpMethod: 'get',
+    httpPath: '/storage/cloudfs',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.create',
+    fullyQualifiedName: 'storage.cloudfs.create',
+    httpMethod: 'post',
+    httpPath: '/storage/cloudfs',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.delete',
+    fullyQualifiedName: 'storage.cloudfs.delete',
+    httpMethod: 'delete',
+    httpPath: '/storage/cloudfs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.retrieve',
+    fullyQualifiedName: 'storage.cloudfs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/storage/cloudfs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.update',
+    fullyQualifiedName: 'storage.cloudfs.update',
+    httpMethod: 'patch',
+    httpPath: '/storage/cloudfs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.actions.rotateMetaToken',
+    fullyQualifiedName: 'storage.cloudfs.actions.rotateMetaToken',
+    httpMethod: 'post',
+    httpPath: '/storage/cloudfs/{id}/actions/rotate-meta-token',
   },
   {
     clientCallName: 'client.subNumberOrders.list',

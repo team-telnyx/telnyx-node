@@ -1,5 +1,13 @@
 # Changelog
 
+## [7.9.0](https://github.com/team-telnyx/telnyx-node/compare/v7.8.0...v7.9.0) (2026-07-20)
+
+
+### Bug Fixes
+
+* **release:** assert a release PR exists for unreleased commits ([#488](https://github.com/team-telnyx/telnyx-node/issues/488)) ([a14b72a](https://github.com/team-telnyx/telnyx-node/commit/a14b72ad565bbd3174268ff4f996e0902f3484bd))
+* **release:** make the --local scan clone see the repointed release branch ([#486](https://github.com/team-telnyx/telnyx-node/issues/486)) ([85e07c4](https://github.com/team-telnyx/telnyx-node/commit/85e07c4a61ecca4ad8cde56008ab2c1d766a7580))
+
 ## [7.8.0](https://github.com/team-telnyx/telnyx-node/compare/v7.7.0...v7.8.0) (2026-07-09)
 
 

@@ -300,7 +300,7 @@ export interface SpeechToTextRetrieveTranscriptionParams {
     | 'xai/grok-stt'
     | 'speechmatics/standard'
     | 'soniox/stt-rt-v4'
-    | 'parakeet/tdt-0.6b-v3';
+    | 'nvidia/parakeet-v3';
 
   /**
    * Enable redaction of sensitive information (e.g., PCI data, SSN) from

@@ -9,6 +9,7 @@ export {
   type AISummarizeParams,
   type AIRetrieveConversationHistoriesParams,
 } from './ai';
+export { Anthropic } from './anthropic/index';
 export {
   Assistants,
   type ArithmeticExpression,
@@ -130,6 +131,7 @@ export {
 export { OpenAI, type OpenAICreateResponseResponse, type OpenAICreateResponseParams } from './openai/index';
 export {
   Tools,
+  type PayToolParams,
   type SharedToolResponse,
   type ToolDeleteResponse,
   type ToolListParams,

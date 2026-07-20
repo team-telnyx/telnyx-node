@@ -324,7 +324,7 @@ export namespace VerifyProfile {
     sender_phone_number?: string | null;
 
     /**
-     * Customer pre-approved authentication template name registered on Meta
+     * Customer pre-approved authentication template ID registered on Meta
      */
     template_id?: string | null;
 
@@ -533,7 +533,7 @@ export namespace VerifyProfileCreateParams {
     sender_phone_number?: string | null;
 
     /**
-     * Customer pre-approved authentication template name registered on Meta
+     * Customer pre-approved authentication template ID registered on Meta
      */
     template_id?: string | null;
 
@@ -677,7 +677,7 @@ export namespace VerifyProfileUpdateParams {
     sender_phone_number?: string | null;
 
     /**
-     * Customer pre-approved authentication template name registered on Meta
+     * Customer pre-approved authentication template ID registered on Meta
      */
     template_id?: string | null;
 

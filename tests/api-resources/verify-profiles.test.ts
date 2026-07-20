@@ -79,7 +79,7 @@ describe('resource verifyProfiles', () => {
       whatsapp: {
         default_verification_timeout_secs: 300,
         sender_phone_number: '+13035551234',
-        template_id: 'authentication_template_name',
+        template_id: 'authentication_template_id',
         waba_id: '1234567890',
         whitelisted_destinations: ['US', 'CA'],
       },
