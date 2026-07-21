@@ -1,5 +1,19 @@
 # Changelog
 
+## [7.10.0](https://github.com/team-telnyx/telnyx-node/compare/v7.9.0...v7.10.0) (2026-07-21)
+
+
+### Features
+
+* promote from staging 48b8f37 ([470ebcc](https://github.com/team-telnyx/telnyx-node/commit/470ebcc5a6304978cf01607434e74490c306d506))
+
+
+### Bug Fixes
+
+* **release:** configure identity before synthetic commit ([#493](https://github.com/team-telnyx/telnyx-node/issues/493)) ([09cb0b3](https://github.com/team-telnyx/telnyx-node/commit/09cb0b30f996a0c5b424bed234cf89b3154ae64f))
+* **release:** keep release PR history on production base ([#491](https://github.com/team-telnyx/telnyx-node/issues/491)) ([9657ec3](https://github.com/team-telnyx/telnyx-node/commit/9657ec307e860a8a336d927955af54760b7000ad))
+* scan next commits when creating release PR ([#489](https://github.com/team-telnyx/telnyx-node/issues/489)) ([cdab850](https://github.com/team-telnyx/telnyx-node/commit/cdab8509dbe7fa180dcb07da99a0924a1adf6c4a))
+
 ## [7.9.0](https://github.com/team-telnyx/telnyx-node/compare/v7.8.0...v7.9.0) (2026-07-20)
 
 
