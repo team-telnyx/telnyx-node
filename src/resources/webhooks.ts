@@ -361,7 +361,7 @@ export namespace CallAnswered {
     /**
      * User-to-User and Diversion headers from sip invite.
      */
-    sip_headers?: Array<CallsAPI.SipHeader>;
+    sip_headers?: Array<Payload.SipHeader>;
 
     /**
      * ISO 8601 datetime of when the call started.
@@ -382,6 +382,20 @@ export namespace CallAnswered {
      * Destination number or SIP URI of the call.
      */
     to?: string;
+  }
+
+  export namespace Payload {
+    export interface SipHeader {
+      /**
+       * The name of the header received from the SIP INVITE.
+       */
+      name: 'User-to-User' | 'Diversion';
+
+      /**
+       * The value of the header.
+       */
+      value: string;
+    }
   }
 }
 
@@ -1088,7 +1102,7 @@ export namespace CallHangup {
     /**
      * User-to-User and Diversion headers from sip invite.
      */
-    sip_headers?: Array<CallsAPI.SipHeader>;
+    sip_headers?: Array<Payload.SipHeader>;
 
     /**
      * ISO 8601 datetime of when the call started.
@@ -1174,6 +1188,18 @@ export namespace CallHangup {
          */
         skip_packet_count?: string;
       }
+    }
+
+    export interface SipHeader {
+      /**
+       * The name of the header received from the SIP INVITE.
+       */
+      name: 'User-to-User' | 'Diversion';
+
+      /**
+       * The value of the header.
+       */
+      value: string;
     }
   }
 }
@@ -1279,7 +1305,7 @@ export namespace CallInitiated {
     /**
      * User-to-User and Diversion headers from sip invite.
      */
-    sip_headers?: Array<CallsAPI.SipHeader>;
+    sip_headers?: Array<Payload.SipHeader>;
 
     /**
      * ISO 8601 datetime of when the call started.
@@ -1300,6 +1326,20 @@ export namespace CallInitiated {
      * Destination number or SIP URI of the call.
      */
     to?: string;
+  }
+
+  export namespace Payload {
+    export interface SipHeader {
+      /**
+       * The name of the header received from the SIP INVITE.
+       */
+      name: 'User-to-User' | 'Diversion';
+
+      /**
+       * The value of the header.
+       */
+      value: string;
+    }
   }
 }
 
