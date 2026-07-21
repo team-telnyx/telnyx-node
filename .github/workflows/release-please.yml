@@ -101,6 +101,11 @@ jobs:
           BASE_BRANCH="${{ github.event.repository.default_branch }}"
           git fetch origin "$BASE_BRANCH:refs/remotes/origin/release-base" next
           RELEASE_BASE=$(git rev-parse refs/remotes/origin/release-base)
+
+          # git commit-tree needs an explicit identity on fresh Actions runners.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
           RELEASE_FILES=("CHANGELOG.md" "package.json" "src/version.ts" ".release-please-manifest.json")
           git restore --source=refs/remotes/origin/release-base --staged --worktree -- "${RELEASE_FILES[@]}"
           SCAN_TREE=$(git write-tree)
@@ -201,8 +206,6 @@ jobs:
           fi
 
           echo "Found release PR branch: $PR_BRANCH"
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
 
           BASE_BRANCH="${{ github.event.repository.default_branch }}"
           git fetch origin "$PR_BRANCH" next "$BASE_BRANCH:refs/remotes/origin/release-base"
