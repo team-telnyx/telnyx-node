@@ -1,7 +1,7 @@
 {
   "name": "telnyx",
-  "version": "7.9.0",
-  "description": "Telnyx API SDK for global Voice, SMS, MMS, WhatsApp, Fax, Wireless IoT, SIP Trunking, and Call Control.",
+  "version": "7.10.0",
+  "description": "The official TypeScript library for the Telnyx API",
   "author": "Telnyx <support@telnyx.com>",
   "types": "dist/index.d.ts",
   "main": "dist/index.js",

@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.10.0](https://github.com/team-telnyx/telnyx-node/compare/v7.9.0...v7.10.0) (2026-07-21)
+
+
+### Features
+
+* promote from staging 48b8f37 ([b8e7c2e](https://github.com/team-telnyx/telnyx-node/commit/b8e7c2e826048fb4f5f81c69625d18ec6fb0290c))
+
+
+### Bug Fixes
+
+* scan next commits when creating release PR ([#489](https://github.com/team-telnyx/telnyx-node/issues/489)) ([cdab850](https://github.com/team-telnyx/telnyx-node/commit/cdab8509dbe7fa180dcb07da99a0924a1adf6c4a))
+
 ## [7.9.0](https://github.com/team-telnyx/telnyx-node/compare/v7.8.0...v7.9.0) (2026-07-20)
 
 
