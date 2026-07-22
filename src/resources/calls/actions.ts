@@ -1593,7 +1593,10 @@ export interface TranscriptionConfig {
    * `assemblyai/universal-streaming`, `auto` (or unset) enables native multilingual
    * code-switching; ISO 639-1 codes (`en`, `es`, `de`, `fr`, `pt`, `it`, `tr`, `nl`,
    * `sv`, `no`, `da`, `fi`, `hi`, `vi`, `ar`, `he`, `ja`, `zh`) bias the session to
-   * that language.
+   * that language. For `humain/realtime`, supported values are `ar`, `en`,
+   * `codeswitch` (Arabic/English code-switching), and `auto` (resolves server-side
+   * to code-switching). Unlike other models, `humain/realtime` does not fall back to
+   * `auto` when `language` is omitted — omitting it applies `en` instead.
    */
   language?: string;
 
@@ -1611,6 +1614,8 @@ export interface TranscriptionConfig {
    *   automatic language detection.
    * - `nvidia/parakeet-v3` for multilingual transcription with automatic language
    *   detection.
+   * - `humain/realtime` for live streaming transcription with native Arabic and
+   *   Arabic/English code-switching support.
    * - `azure/fast` and `azure/realtime`; Azure models require `region`, and
    *   unsupported regions require `api_key_ref`.
    * - `google/latest_long` for non-streaming multilingual transcription.
@@ -1630,6 +1635,7 @@ export interface TranscriptionConfig {
     | 'xai/grok-stt'
     | 'soniox/stt-rt-v4'
     | 'nvidia/parakeet-v3'
+    | 'humain/realtime'
     | 'azure/fast'
     | 'azure/realtime'
     | 'google/latest_long'
@@ -2114,6 +2120,7 @@ export interface TranscriptionStartRequest {
     | 'Speechmatics'
     | 'Soniox'
     | 'Parakeet'
+    | 'Humain'
     | 'A'
     | 'B';
 
@@ -2126,6 +2133,7 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
+    | TranscriptionStartRequest.TranscriptionEngineHumainConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -2137,6 +2145,26 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace TranscriptionStartRequest {
+  export interface TranscriptionEngineHumainConfig {
+    /**
+     * The language of the audio to be transcribed. `codeswitch` enables Arabic/English
+     * code-switching. `auto` resolves server-side to code-switching.
+     */
+    language?: 'ar' | 'en' | 'codeswitch' | 'auto';
+
+    /**
+     * Engine identifier for Humain transcription service
+     */
+    transcription_engine?: 'Humain';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'humain/realtime';
+  }
 }
 
 /**
@@ -4550,6 +4578,7 @@ export interface ActionStartTranscriptionParams {
     | 'Speechmatics'
     | 'Soniox'
     | 'Parakeet'
+    | 'Humain'
     | 'A'
     | 'B';
 
@@ -4562,6 +4591,7 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineHumainConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4573,6 +4603,26 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace ActionStartTranscriptionParams {
+  export interface TranscriptionEngineHumainConfig {
+    /**
+     * The language of the audio to be transcribed. `codeswitch` enables Arabic/English
+     * code-switching. `auto` resolves server-side to code-switching.
+     */
+    language?: 'ar' | 'en' | 'codeswitch' | 'auto';
+
+    /**
+     * Engine identifier for Humain transcription service
+     */
+    transcription_engine?: 'Humain';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'humain/realtime';
+  }
 }
 
 export interface ActionStopTranscriptionParams {
