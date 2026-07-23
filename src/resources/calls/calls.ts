@@ -1118,6 +1118,16 @@ export interface CallDialParams {
   retry_on_timeout?: boolean;
 
   /**
+   * When set to true, routes the call directly to the mobile device associated with
+   * the destination Telnyx Mobile number, bypassing Inbound Calls Interception
+   * configured in the Telnyx Portal under Mobile Numbers → select the number → Voice
+   * → Call Interception. Use this when transferring an intercepted call to the
+   * mobile device to prevent the call from being intercepted again. Defaults to
+   * false.
+   */
+  route_to_mobile?: boolean;
+
+  /**
    * DTMF digits to send automatically after the called party answers. Useful for
    * reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once the
    * called party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause), `W`
