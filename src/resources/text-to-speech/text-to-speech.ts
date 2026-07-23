@@ -37,7 +37,7 @@ export class TextToSpeech extends APIResource {
    * with provider-specific parameters.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`,
-   * `resemble`, `xai`.
+   * `resemble`, `xai`, `humain`.
    *
    * The Telnyx `Ultra` model supports 44 languages with emotion control, speed
    * adjustment, and volume control. Use the `telnyx` provider-specific parameters to
@@ -57,7 +57,7 @@ export class TextToSpeech extends APIResource {
    * synthesize; receive JSON frames containing base64-encoded audio chunks.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `rime`,
-   * `resemble`, `elevenlabs`, `xai`.
+   * `resemble`, `elevenlabs`, `xai`, `humain`.
    *
    * **Connection flow:**
    *
@@ -264,7 +264,7 @@ export interface TextToSpeechListVoicesParams {
   /**
    * Filter voices by provider. If omitted, voices from all providers are returned.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai' | 'humain';
 }
 
 export interface TextToSpeechGenerateSpeechParams {
@@ -289,6 +289,13 @@ export interface TextToSpeechGenerateSpeechParams {
   elevenlabs?: TextToSpeechGenerateSpeechParams.Elevenlabs;
 
   /**
+   * Humain provider-specific parameters. Unlike other providers, Humain has no
+   * format/sample-rate negotiation (output is always PCM16 24kHz mono) and no
+   * language parameter — language is fixed per voice.
+   */
+  humain?: TextToSpeechGenerateSpeechParams.Humain;
+
+  /**
    * Language code (e.g. `en-US`). Usage varies by provider.
    */
   language?: string;
@@ -307,7 +314,7 @@ export interface TextToSpeechGenerateSpeechParams {
   /**
    * TTS provider. Required unless `voice` is provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai' | 'humain';
 
   /**
    * Resemble AI provider-specific parameters.
@@ -454,6 +461,23 @@ export namespace TextToSpeechGenerateSpeechParams {
      * ElevenLabs voice settings (stability, similarity_boost, etc.).
      */
     voice_settings?: { [key: string]: unknown };
+  }
+
+  /**
+   * Humain provider-specific parameters. Unlike other providers, Humain has no
+   * format/sample-rate negotiation (output is always PCM16 24kHz mono) and no
+   * language parameter — language is fixed per voice.
+   */
+  export interface Humain {
+    /**
+     * Humain voice identifier.
+     */
+    voice_id: 'sara-en' | 'abdulaziz-en' | 'sara-ar' | 'abdulaziz-ar' | 'nourah-ar' | 'abdullah-ar';
+
+    /**
+     * Time-to-first-byte eagerness, trading synthesis latency for quality.
+     */
+    ttfb_eagerness?: number;
   }
 
   /**
@@ -621,7 +645,17 @@ export interface TextToSpeechRetrieveSpeechParams {
    * TTS provider. Defaults to `telnyx` if not specified. Ignored when `voice` is
    * provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'murfai' | 'rime' | 'resemble' | 'xai';
+  provider?:
+    | 'aws'
+    | 'telnyx'
+    | 'azure'
+    | 'elevenlabs'
+    | 'minimax'
+    | 'murfai'
+    | 'rime'
+    | 'resemble'
+    | 'xai'
+    | 'humain';
 
   /**
    * Client-provided socket identifier for tracking. If not provided, one is
