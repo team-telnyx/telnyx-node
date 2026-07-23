@@ -18,8 +18,9 @@ export {
   type TelcoDataUsageReportResponse,
   type NumberLookupCreateResponse,
   type NumberLookupRetrieveResponse,
-  type NumberLookupListResponse,
+  type NumberLookupListParams,
   type NumberLookupCreateParams,
+  type TelcoDataUsageReportResponsesPerPagePagination,
 } from './number-lookup';
 export {
   UsageReports,
