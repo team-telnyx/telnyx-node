@@ -530,6 +530,10 @@ export interface ConversationRelayEmbeddedConfig {
    *   `s1`. `VoiceId` is a Fish Voice-Library reference ID.
    * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
    *   `ara`, `rex`, `sal`, `leo`.
+   * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices:
+   *   `sara-en`, `abdulaziz-en`, `sara-ar`, `abdulaziz-ar`, `nourah-ar`,
+   *   `abdullah-ar`. Native Arabic (Saudi dialect) and English voices only — no
+   *   `ModelId` segment.
    */
   voice?: string;
 
@@ -1116,6 +1120,16 @@ export interface CallDialParams {
    * `no_answer` instead of `timeout`.
    */
   retry_on_timeout?: boolean;
+
+  /**
+   * When set to true, routes the call directly to the mobile device associated with
+   * the destination Telnyx Mobile number, bypassing Inbound Calls Interception
+   * configured in the Telnyx Portal under Mobile Numbers → select the number → Voice
+   * → Call Interception. Use this when transferring an intercepted call to the
+   * mobile device to prevent the call from being intercepted again. Defaults to
+   * false.
+   */
+  route_to_mobile?: boolean;
 
   /**
    * DTMF digits to send automatically after the called party answers. Useful for

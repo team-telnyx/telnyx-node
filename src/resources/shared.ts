@@ -1173,6 +1173,9 @@ export interface ShortCode {
    */
   short_code?: string;
 
+  /**
+   * Tags associated with the resource.
+   */
   tags?: Array<string>;
 
   /**

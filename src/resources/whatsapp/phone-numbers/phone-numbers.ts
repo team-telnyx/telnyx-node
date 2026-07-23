@@ -197,7 +197,7 @@ export namespace PhoneNumberRetrieveConversationWindowResponse {
     /**
      * When the window closes. Null if no active window.
      */
-    window_expires_at?: string;
+    window_expires_at?: string | null;
 
     /**
      * Window type. Currently always 24h when present.
