@@ -145,11 +145,10 @@ Types:
 - <code><a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">TelcoDataUsageReportResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">NumberLookupCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">NumberLookupRetrieveResponse</a></code>
-- <code><a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">NumberLookupListResponse</a></code>
 
 Methods:
 
-- <code title="get /legacy/reporting/usage_reports/number_lookup">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">list</a>() -> NumberLookupListResponse</code>
+- <code title="get /legacy/reporting/usage_reports/number_lookup">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">list</a>({ ...params }) -> TelcoDataUsageReportResponsesPerPagePagination</code>
 - <code title="post /legacy/reporting/usage_reports/number_lookup">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">create</a>({ ...params }) -> NumberLookupCreateResponse</code>
 - <code title="delete /legacy/reporting/usage_reports/number_lookup/{id}">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">delete</a>(id) -> void</code>
 - <code title="get /legacy/reporting/usage_reports/number_lookup/{id}">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">retrieve</a>(id) -> NumberLookupRetrieveResponse</code>
