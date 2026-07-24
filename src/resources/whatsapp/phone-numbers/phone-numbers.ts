@@ -9,6 +9,13 @@ import {
   CallingSettings,
   WhatsappCallingSettingsData,
 } from './calling-settings';
+import * as ConversationalComponentsAPI from './conversational-components';
+import {
+  ConversationalComponentListResponse,
+  ConversationalComponentPatchAllParams,
+  ConversationalComponentPatchAllResponse,
+  ConversationalComponents,
+} from './conversational-components';
 import * as ProfileAPI from './profile/profile';
 import {
   Profile,
@@ -33,6 +40,8 @@ import { path } from '../../../internal/utils/path';
 export class PhoneNumbers extends APIResource {
   callingSettings: CallingSettingsAPI.CallingSettings = new CallingSettingsAPI.CallingSettings(this._client);
   profile: ProfileAPI.Profile = new ProfileAPI.Profile(this._client);
+  conversationalComponents: ConversationalComponentsAPI.ConversationalComponents =
+    new ConversationalComponentsAPI.ConversationalComponents(this._client);
 
   /**
    * List Whatsapp phone numbers
@@ -225,6 +234,7 @@ export interface PhoneNumberRetrieveConversationWindowParams {
 
 PhoneNumbers.CallingSettings = CallingSettings;
 PhoneNumbers.Profile = Profile;
+PhoneNumbers.ConversationalComponents = ConversationalComponents;
 
 export declare namespace PhoneNumbers {
   export {
@@ -251,5 +261,12 @@ export declare namespace PhoneNumbers {
     type ProfileRetrieveResponse as ProfileRetrieveResponse,
     type ProfileUpdateResponse as ProfileUpdateResponse,
     type ProfileUpdateParams as ProfileUpdateParams,
+  };
+
+  export {
+    ConversationalComponents as ConversationalComponents,
+    type ConversationalComponentListResponse as ConversationalComponentListResponse,
+    type ConversationalComponentPatchAllResponse as ConversationalComponentPatchAllResponse,
+    type ConversationalComponentPatchAllParams as ConversationalComponentPatchAllParams,
   };
 }

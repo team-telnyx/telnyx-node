@@ -4773,6 +4773,18 @@ Methods:
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">upload</a>(phoneNumber, { ...params }) -> PhotoUploadResponse</code>
 - <code title="get /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">retrieve</a>(phoneNumber) -> PhotoRetrieveResponse</code>
 
+### ConversationalComponents
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">ConversationalComponentListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">ConversationalComponentPatchAllResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversational_components">client.whatsapp.phoneNumbers.conversationalComponents.<a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">list</a>(phoneNumber) -> ConversationalComponentListResponse</code>
+- <code title="patch /v2/whatsapp/phone_numbers/{phone_number}/conversational_components">client.whatsapp.phoneNumbers.conversationalComponents.<a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">patchAll</a>(phoneNumber, { ...params }) -> ConversationalComponentPatchAllResponse</code>
+
 ## UserData
 
 Types:

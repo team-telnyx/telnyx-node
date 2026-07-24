@@ -8,6 +8,12 @@ export {
   type CallingSettingUpdateParams,
 } from './calling-settings';
 export {
+  ConversationalComponents,
+  type ConversationalComponentListResponse,
+  type ConversationalComponentPatchAllResponse,
+  type ConversationalComponentPatchAllParams,
+} from './conversational-components';
+export {
   PhoneNumbers,
   type PhoneNumberListResponse,
   type PhoneNumberRetrieveConversationWindowResponse,
