@@ -3952,9 +3952,10 @@ export namespace FaxFailed {
       direction?: 'inbound' | 'outbound';
 
       /**
-       * Cause of the sending failure
+       * Customer-facing cause of the fax failure. Mapped from the more granular
+       * `internal_failure_reason`.
        */
-      failure_reason?: 'rejected';
+      failure_reason?: string;
 
       /**
        * Identifies the fax.
@@ -3965,6 +3966,12 @@ export namespace FaxFailed {
        * The phone number, in E.164 format, the fax will be sent from.
        */
       from?: string;
+
+      /**
+       * Internal, more granular cause of the fax failure. Useful for deeper debugging
+       * beyond the customer-facing `failure_reason`.
+       */
+      internal_failure_reason?: string;
 
       /**
        * The media_name used for the fax's media. Must point to a file previously

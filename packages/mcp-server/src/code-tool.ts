@@ -122,6 +122,34 @@ export function codeTool({
   return { metadata, tool, handler };
 }
 
+export const buildCodeWorkerEnvironment = ({
+  serverEnv,
+  clientEnv,
+  allowedClientEnvNames,
+}: {
+  serverEnv: NodeJS.ProcessEnv;
+  clientEnv: Record<string, unknown> | undefined;
+  allowedClientEnvNames: readonly string[];
+}): { env: Record<string, string>; readableClientEnvNames: string[] } => {
+  const runtimeEnvKeys = ['PATH', 'HOME', 'TMPDIR', 'TEMP', 'TMP', 'DENO_DIR'] as const;
+  const runtimeEnv = Object.fromEntries(
+    runtimeEnvKeys.flatMap((key) => {
+      const value = serverEnv[key];
+      return value === undefined ? [] : [[key, value]];
+    }),
+  );
+  const allowedNames = new Set(allowedClientEnvNames);
+  const safeClientEnv = Object.fromEntries(
+    Object.entries(clientEnv ?? {}).filter(
+      (entry): entry is [string, string] => allowedNames.has(entry[0]) && typeof entry[1] === 'string',
+    ),
+  );
+  return {
+    env: { ...runtimeEnv, ...safeClientEnv },
+    readableClientEnvNames: Object.keys(safeClientEnv),
+  };
+};
+
 const localDenoHandler = async ({
   reqContext,
   args,
@@ -148,8 +176,7 @@ const localDenoHandler = async ({
   // Check if deno is in PATH
   const { execSync } = await import('node:child_process');
   try {
-    execSync('command -v deno', { stdio: 'ignore' });
-    denoPath = 'deno';
+    denoPath = execSync('command -v deno', { encoding: 'utf8' }).trim();
   } catch {
     try {
       // Use deno binary in node_modules if it's found
@@ -184,22 +211,32 @@ const localDenoHandler = async ({
 
   const allowRead = allowReadPaths.join(',');
 
+  const { env: workerEnv, readableClientEnvNames } = buildCodeWorkerEnvironment({
+    serverEnv: process.env,
+    clientEnv: reqContext.upstreamClientEnvs,
+    allowedClientEnvNames: [
+      'TELNYX_API_KEY',
+      'TELNYX_PUBLIC_KEY',
+      'TELNYX_CLIENT_ID',
+      'TELNYX_CLIENT_SECRET',
+      'TELNYX_BASE_URL',
+    ],
+  });
+
   const worker = await newDenoHTTPWorker(url.pathToFileURL(workerPath), {
     denoExecutable: denoPath,
     runFlags: [
       `--node-modules-dir=manual`,
       `--allow-read=${allowRead}`,
       `--allow-net=${baseURLHostname}`,
-      // Allow environment variables because instantiating the client will try to read from them,
-      // even though they are not set.
-      '--allow-env',
+      ...(readableClientEnvNames.length > 0 ? [`--allow-env=${readableClientEnvNames.join(',')}`] : []),
     ],
     printOutput: true,
     spawnOptions: {
       cwd: path.dirname(workerPath),
-      // Merge any upstream client envs into the Deno subprocess environment,
-      // with the upstream env vars taking precedence.
-      env: { ...process.env, ...reqContext.upstreamClientEnvs },
+      // Do not expose the MCP server's inherited environment to executed code.
+      // Only non-secret runtime variables and client-provided variables are forwarded.
+      env: workerEnv,
     },
   });
 

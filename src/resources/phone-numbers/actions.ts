@@ -238,7 +238,7 @@ export interface ActionChangeBundleStatusParams {
    * bundle to another directly. You must first remove it from a bundle, and then
    * assign it to a new bundle.
    */
-  bundle_id: string;
+  bundle_id: string | null;
 }
 
 export interface ActionEnableEmergencyParams {

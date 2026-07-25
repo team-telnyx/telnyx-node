@@ -1,5 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+import { timingSafeEqual } from 'node:crypto';
 import { IncomingMessage } from 'node:http';
 import { ClientOptions } from 'telnyx';
 import { McpOptions } from './options';
@@ -25,6 +26,21 @@ export const parseClientAuthHeaders = (req: IncomingMessage, required?: boolean)
       req.headers['x-telnyx-api-key'][0]
     : req.headers['x-telnyx-api-key'];
   return { apiKey };
+};
+
+export const isMcpServerRequestAuthorized = (
+  req: IncomingMessage,
+  expectedApiKey: string | undefined,
+): boolean => {
+  if (!expectedApiKey) return false;
+
+  const rawHeader = req.headers['x-mcp-server-api-key'];
+  const providedApiKey = Array.isArray(rawHeader) ? rawHeader[0] : rawHeader;
+  if (typeof providedApiKey !== 'string') return false;
+
+  const provided = Buffer.from(providedApiKey);
+  const expected = Buffer.from(expectedApiKey);
+  return provided.length === expected.length && timingSafeEqual(provided, expected);
 };
 
 export const getStainlessApiKey = (req: IncomingMessage, mcpOptions: McpOptions): string | undefined => {

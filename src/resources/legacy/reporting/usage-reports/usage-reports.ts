@@ -18,11 +18,12 @@ import {
   NumberLookup,
   NumberLookupCreateParams,
   NumberLookupCreateResponse,
-  NumberLookupListResponse,
+  NumberLookupListParams,
   NumberLookupRetrieveResponse,
   TelcoDataAggregation,
   TelcoDataUsageRecord,
   TelcoDataUsageReportResponse,
+  TelcoDataUsageReportResponsesPerPagePagination,
 } from './number-lookup';
 import * as VoiceAPI from './voice';
 import {
@@ -109,7 +110,8 @@ export declare namespace UsageReports {
     type TelcoDataUsageReportResponse as TelcoDataUsageReportResponse,
     type NumberLookupCreateResponse as NumberLookupCreateResponse,
     type NumberLookupRetrieveResponse as NumberLookupRetrieveResponse,
-    type NumberLookupListResponse as NumberLookupListResponse,
+    type TelcoDataUsageReportResponsesPerPagePagination as TelcoDataUsageReportResponsesPerPagePagination,
+    type NumberLookupListParams as NumberLookupListParams,
     type NumberLookupCreateParams as NumberLookupCreateParams,
   };
 
