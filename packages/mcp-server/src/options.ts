@@ -10,6 +10,7 @@ export type CLIOptions = McpOptions & {
   debug: boolean;
   logFormat: 'json' | 'pretty';
   transport: 'stdio' | 'http';
+  host: string;
   port: number | undefined;
   socket: string | undefined;
 };
@@ -17,6 +18,7 @@ export type CLIOptions = McpOptions & {
 export type McpOptions = {
   includeCodeTool?: boolean | undefined;
   stainlessApiKey?: string | undefined;
+  serverApiKey?: string | undefined;
   codeAllowHttpGets?: boolean | undefined;
   codeAllowedMethods?: string[] | undefined;
   codeBlockedMethods?: string[] | undefined;
@@ -57,6 +59,12 @@ export function parseCLIOptions(): CLIOptions {
       description: 'Path to custom instructions for the MCP server',
     })
     .option('debug', { type: 'boolean', description: 'Enable debug logging' })
+    .option('host', {
+      type: 'string',
+      default: '127.0.0.1',
+      description:
+        'Host interface to bind when using HTTP transport. Set explicitly to 0.0.0.0 or :: to accept remote connections.',
+    })
     .option('log-format', {
       type: 'string',
       choices: ['json', 'pretty'],
@@ -72,6 +80,11 @@ export function parseCLIOptions(): CLIOptions {
       type: 'number',
       default: 3000,
       description: 'Port to serve on if using http transport',
+    })
+    .option('server-api-key', {
+      type: 'string',
+      default: readEnv('MCP_SERVER_API_KEY'),
+      description: 'Pre-shared key required in the x-mcp-server-api-key header for HTTP transport.',
     })
     .option('socket', { type: 'string', description: 'Unix socket to serve on if using http transport' })
     .option('stainless-api-key', {
@@ -97,15 +110,16 @@ export function parseCLIOptions(): CLIOptions {
     .help();
 
   const argv = opts.parseSync();
+  const transport = argv.transport as 'stdio' | 'http';
 
   const shouldIncludeToolType = (toolType: 'code') =>
     argv.noTools?.includes(toolType) ? false
     : argv.tools?.includes(toolType) ? true
     : undefined;
 
-  const includeCodeTool = shouldIncludeToolType('code');
+  const includeCodeTool =
+    transport === 'http' && !argv.tools?.includes('code') ? false : shouldIncludeToolType('code');
 
-  const transport = argv.transport as 'stdio' | 'http';
   const logFormat =
     argv.logFormat ? (argv.logFormat as 'json' | 'pretty')
     : process.stderr.isTTY ? 'pretty'
@@ -115,6 +129,7 @@ export function parseCLIOptions(): CLIOptions {
     ...(includeCodeTool !== undefined && { includeCodeTool }),
     debug: !!argv.debug,
     stainlessApiKey: argv.stainlessApiKey,
+    serverApiKey: argv.serverApiKey,
 
     codeAllowHttpGets: argv.codeAllowHttpGets,
     codeAllowedMethods: argv.codeAllowedMethods,
@@ -122,6 +137,7 @@ export function parseCLIOptions(): CLIOptions {
     codeExecutionMode: argv.codeExecutionMode as McpCodeExecutionMode,
     customInstructionsPath: argv.customInstructionsPath,
     transport,
+    host: argv.host,
     logFormat,
     port: argv.port,
     socket: argv.socket,
@@ -148,12 +164,13 @@ export function parseQueryOptions(defaultOptions: McpOptions, query: unknown): M
   const queryOptions = QueryOptions.parse(queryObject);
 
   let codeTool: boolean | undefined =
-    queryOptions.no_tools && queryOptions.no_tools?.includes('code') ? false
+    defaultOptions.includeCodeTool === false ? false
+    : queryOptions.no_tools && queryOptions.no_tools?.includes('code') ? false
     : queryOptions.tools?.includes('code') ? true
     : defaultOptions.includeCodeTool;
 
   return {
+    ...defaultOptions,
     ...(codeTool !== undefined && { includeCodeTool: codeTool }),
-    codeExecutionMode: defaultOptions.codeExecutionMode,
   };
 }

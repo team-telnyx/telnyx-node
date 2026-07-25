@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as MessagingAPI from './messaging';
 import { APIPromise } from '../../../../core/api-promise';
+import { PagePromise, PerPagePagination, type PerPagePaginationParams } from '../../../../core/pagination';
 import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
@@ -16,12 +16,21 @@ export class NumberLookup extends APIResource {
    *
    * @example
    * ```ts
-   * const numberLookups =
-   *   await client.legacy.reporting.usageReports.numberLookup.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const telcoDataUsageReportResponse of client.legacy.reporting.usageReports.numberLookup.list()) {
+   *   // ...
+   * }
    * ```
    */
-  list(options?: RequestOptions): APIPromise<NumberLookupListResponse> {
-    return this._client.get('/legacy/reporting/usage_reports/number_lookup', options);
+  list(
+    query: NumberLookupListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<TelcoDataUsageReportResponsesPerPagePagination, TelcoDataUsageReportResponse> {
+    return this._client.getAPIList(
+      '/legacy/reporting/usage_reports/number_lookup',
+      PerPagePagination<TelcoDataUsageReportResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -73,6 +82,8 @@ export class NumberLookup extends APIResource {
     return this._client.get(path`/legacy/reporting/usage_reports/number_lookup/${id}`, options);
   }
 }
+
+export type TelcoDataUsageReportResponsesPerPagePagination = PerPagePagination<TelcoDataUsageReportResponse>;
 
 export interface TelcoDataAggregation {
   /**
@@ -187,11 +198,7 @@ export interface NumberLookupRetrieveResponse {
   data?: TelcoDataUsageReportResponse;
 }
 
-export interface NumberLookupListResponse {
-  data?: Array<TelcoDataUsageReportResponse>;
-
-  meta?: MessagingAPI.StandardPaginationMeta;
-}
+export interface NumberLookupListParams extends PerPagePaginationParams {}
 
 export interface NumberLookupCreateParams {
   /**
@@ -222,7 +229,8 @@ export declare namespace NumberLookup {
     type TelcoDataUsageReportResponse as TelcoDataUsageReportResponse,
     type NumberLookupCreateResponse as NumberLookupCreateResponse,
     type NumberLookupRetrieveResponse as NumberLookupRetrieveResponse,
-    type NumberLookupListResponse as NumberLookupListResponse,
+    type TelcoDataUsageReportResponsesPerPagePagination as TelcoDataUsageReportResponsesPerPagePagination,
+    type NumberLookupListParams as NumberLookupListParams,
     type NumberLookupCreateParams as NumberLookupCreateParams,
   };
 }

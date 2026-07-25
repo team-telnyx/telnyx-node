@@ -140,6 +140,11 @@ export interface PhoneNumberCampaign {
   failureReasons?: string;
 
   /**
+   * The assignment status of the number towards other carriers.
+   */
+  nonTmobileNumberMappingStatus?: string;
+
+  /**
    * TCR's alphanumeric ID for the brand.
    */
   tcrBrandId?: string;
@@ -153,6 +158,11 @@ export interface PhoneNumberCampaign {
    * Campaign ID. Empty if the number is associated to a shared campaign.
    */
   telnyxCampaignId?: string;
+
+  /**
+   * The T-Mobile assignment status of the number.
+   */
+  tmobileNumberMappingStatus?: string;
 }
 
 export interface PhoneNumberCampaignCreate {

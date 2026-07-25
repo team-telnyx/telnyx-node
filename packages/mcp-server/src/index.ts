@@ -28,6 +28,7 @@ async function main() {
     case 'http':
       await launchStreamableHTTPServer({
         mcpOptions: options,
+        host: options.host,
         port: options.socket ?? options.port,
       });
       break;

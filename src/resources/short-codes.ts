@@ -109,6 +109,9 @@ export interface ShortCodeUpdateParams {
    */
   messaging_profile_id: string;
 
+  /**
+   * Tags associated with the resource.
+   */
   tags?: Array<string>;
 }
 

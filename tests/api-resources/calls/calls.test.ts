@@ -179,6 +179,7 @@ describe('resource calls', () => {
       record_track: 'outbound',
       record_trim: 'trim-silence',
       retry_on_timeout: true,
+      route_to_mobile: true,
       send_digits_on_answer: 'wwww200',
       send_silence_when_idle: true,
       sip_auth_password: 'password',
