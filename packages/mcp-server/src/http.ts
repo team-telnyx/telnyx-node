@@ -4,6 +4,7 @@ import { McpServer } from '@modelcontextprotocol/sdk/server/mcp';
 import { StreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/streamableHttp.js';
 import { ClientOptions } from 'telnyx';
 import express from 'express';
+import rateLimit from 'express-rate-limit';
 import pino from 'pino';
 import pinoHttp from 'pino-http';
 import { getStainlessApiKey, isMcpServerRequestAuthorized, parseClientAuthHeaders } from './auth';
@@ -170,6 +171,22 @@ export const streamableHTTPApp = ({
 
   const app = express();
   app.set('query parser', 'extended');
+  app.use(
+    rateLimit({
+      windowMs: 60 * 1000,
+      limit: 60,
+      standardHeaders: true,
+      legacyHeaders: false,
+      skip: (req) => req.path !== '/',
+      skipSuccessfulRequests: true,
+      handler: (_req, res) => {
+        res.status(429).json({
+          jsonrpc: '2.0',
+          error: { code: -32000, message: 'Too many requests' },
+        });
+      },
+    }),
+  );
   app.use(requireMcpServerApiKey(mcpOptions));
   app.use(express.json());
   app.use((req: express.Request, res: express.Response, next: express.NextFunction) => {
