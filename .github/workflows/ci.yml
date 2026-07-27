@@ -75,4 +75,6 @@ jobs:
         run: ./scripts/test-package-imports
 
       - name: Check MCP Deno execute
+        env:
+          MCP_SERVER_PATH: ${{ github.workspace }}/packages/mcp-server/dist/index.js
         run: pnpm --dir packages/mcp-server test:deno-execute
