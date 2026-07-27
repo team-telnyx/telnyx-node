@@ -1,5 +1,22 @@
 # Changelog
 
+## [7.12.0](https://github.com/team-telnyx/telnyx-node/compare/v7.11.0...v7.12.0) (2026-07-27)
+
+
+### Features
+
+* promote from staging 852fb1f ([532ccf8](https://github.com/team-telnyx/telnyx-node/commit/532ccf8c9feefeaea4d4341bd5862e90807478b0))
+
+
+### Bug Fixes
+
+* **release:** publish MCP npm package ([#498](https://github.com/team-telnyx/telnyx-node/issues/498)) ([915f71a](https://github.com/team-telnyx/telnyx-node/commit/915f71aee98786402d6908749769540d1d053e11))
+
+
+### Chores
+
+* add repository code owner ([#500](https://github.com/team-telnyx/telnyx-node/issues/500)) ([8f266a2](https://github.com/team-telnyx/telnyx-node/commit/8f266a2019874077b99be5985e83565bb50a3732))
+
 ## [7.11.0](https://github.com/team-telnyx/telnyx-node/compare/v7.10.0...v7.11.0) (2026-07-25)
 
 
