@@ -32,3 +32,15 @@ jobs:
       - name: Publish to NPM
         run: |
           bash ./bin/publish-npm
+
+          # The generated MCP package has an independent manifest version.
+          # Publish it under the release tag's SDK version so both artifacts
+          # are immutable products of the same release commit.
+          ROOT_VERSION="$(jq -r -e '.version' package.json)"
+          jq --arg version "$ROOT_VERSION" '.version = $version' \
+            packages/mcp-server/package.json > packages/mcp-server/package.json.tmp
+          mv packages/mcp-server/package.json.tmp packages/mcp-server/package.json
+          (
+            cd packages/mcp-server
+            bash ../../bin/publish-npm
+          )
