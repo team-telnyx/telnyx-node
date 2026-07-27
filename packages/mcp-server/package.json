@@ -20,7 +20,6 @@
   },
   "scripts": {
     "test": "jest",
-    "test:deno-execute": "node scripts/test-deno-execute.mjs",
     "build": "bash ./build",
     "prepack": "echo 'to pack, run pnpm build && (cd dist; pnpm pack)' && exit 1",
     "prepublishOnly": "echo 'to publish, run pnpm build && (cd dist; pnpm publish)' && exit 1",
