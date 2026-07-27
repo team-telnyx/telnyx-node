@@ -9,29 +9,6 @@ const client = new Telnyx({
 
 describe('resource civicAddresses', () => {
   // Mock server tests are disabled
-  test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.externalConnections.civicAddresses.retrieve(
-      '318fb664-d341-44d2-8405-e6bfb9ced6d9',
-      { id: '1293384261075731499' },
-    );
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
-    const response = await client.externalConnections.civicAddresses.retrieve(
-      '318fb664-d341-44d2-8405-e6bfb9ced6d9',
-      { id: '1293384261075731499' },
-    );
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.externalConnections.civicAddresses.list('1293384261075731499');
     const rawResponse = await responsePromise.asResponse();
@@ -53,5 +30,28 @@ describe('resource civicAddresses', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.externalConnections.civicAddresses.retrieve(
+      '318fb664-d341-44d2-8405-e6bfb9ced6d9',
+      { id: '1293384261075731499' },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.externalConnections.civicAddresses.retrieve(
+      '318fb664-d341-44d2-8405-e6bfb9ced6d9',
+      { id: '1293384261075731499' },
+    );
   });
 });

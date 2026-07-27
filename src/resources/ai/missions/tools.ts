@@ -8,6 +8,20 @@ import { path } from '../../../internal/utils/path';
 
 export class Tools extends APIResource {
   /**
+   * List all tools for a mission
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.missions.tools.listTools(
+   *   'mission_id',
+   * );
+   * ```
+   */
+  listTools(missionID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.get(path`/ai/missions/${missionID}/tools`, options);
+  }
+
+  /**
    * Create a new tool for a mission
    *
    * @example
@@ -56,20 +70,6 @@ export class Tools extends APIResource {
   }
 
   /**
-   * List all tools for a mission
-   *
-   * @example
-   * ```ts
-   * const response = await client.ai.missions.tools.listTools(
-   *   'mission_id',
-   * );
-   * ```
-   */
-  listTools(missionID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.get(path`/ai/missions/${missionID}/tools`, options);
-  }
-
-  /**
    * Update a tool definition
    *
    * @example
@@ -95,14 +95,23 @@ export type ToolListToolsResponse = unknown;
 export type ToolUpdateToolResponse = unknown;
 
 export interface ToolDeleteToolParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface ToolGetToolParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface ToolUpdateToolParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 

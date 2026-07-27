@@ -8,21 +8,6 @@ import { path } from '../../../internal/utils/path';
 
 export class Connections extends APIResource {
   /**
-   * Get user setup integrations
-   *
-   * @example
-   * ```ts
-   * const connection =
-   *   await client.ai.integrations.connections.retrieve(
-   *     'user_connection_id',
-   *   );
-   * ```
-   */
-  retrieve(userConnectionID: string, options?: RequestOptions): APIPromise<ConnectionRetrieveResponse> {
-    return this._client.get(path`/ai/integrations/connections/${userConnectionID}`, options);
-  }
-
-  /**
    * List user setup integrations
    *
    * @example
@@ -50,6 +35,21 @@ export class Connections extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * Get user setup integrations
+   *
+   * @example
+   * ```ts
+   * const connection =
+   *   await client.ai.integrations.connections.retrieve(
+   *     'user_connection_id',
+   *   );
+   * ```
+   */
+  retrieve(userConnectionID: string, options?: RequestOptions): APIPromise<ConnectionRetrieveResponse> {
+    return this._client.get(path`/ai/integrations/connections/${userConnectionID}`, options);
   }
 }
 

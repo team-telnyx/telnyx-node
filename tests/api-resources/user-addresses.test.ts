@@ -9,6 +9,37 @@ const client = new Telnyx({
 
 describe('resource userAddresses', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.userAddresses.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.userAddresses.list(
+        {
+          filter: {
+            customer_reference: { contains: 'contains', eq: 'eq' },
+            street_address: { contains: 'contains' },
+          },
+          'page[number]': 0,
+          'page[size]': 0,
+          sort: 'street_address',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.userAddresses.create({
       business_name: "Toy-O'Kon",
@@ -57,36 +88,5 @@ describe('resource userAddresses', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.userAddresses.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.userAddresses.list(
-        {
-          filter: {
-            customer_reference: { contains: 'contains', eq: 'eq' },
-            street_address: { contains: 'contains' },
-          },
-          'page[number]': 0,
-          'page[size]': 0,
-          sort: 'street_address',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

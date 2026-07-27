@@ -1,0 +1,340 @@
+name: Release Please
+
+# Self-hosted release-please for team-telnyx/telnyx-node.
+#
+# Two-phase trigger:
+#   1. Push to `next` → create/update release PR targeting `master`
+#   2. Push to `master` (release PR merged) → create GitHub release + tag
+#
+# The promote-to-prod workflow pushes generated SDK code to the `next` branch
+# with a `Release-As: X.Y.Z` footer. This workflow runs release-please when
+# `next` receives new commits, which:
+#   1. Reads the Release-As version from the commit footer
+#   2. Opens a release PR targeting `master` with --release-as
+#   3. Merges `next` into the release PR branch so code changes are included
+#   4. On merge, push to `master` triggers this workflow again
+#   5. github-release creates vX.Y.Z tag and GitHub Release
+#   6. publish-npm.yml picks up the release event and publishes to npm
+#
+# Uses the official Google release-please from npm (not the Stainless fork,
+# which has broken TypeScript compilation on newer Node versions).
+
+on:
+  push:
+    branches:
+      - next # Phase 1: create release PR
+      - master # Phase 2: create GitHub release + tag
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: release-please-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  release-please:
+    if: github.repository == 'team-telnyx/telnyx-node'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.SDK_WRITE_TOKEN }}
+
+      - name: Set up Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install release-please
+        run: npm install --no-save release-please@17
+
+      - name: Read Release-As version from next branch
+        if: github.ref == 'refs/heads/next'
+        id: version
+        run: |
+          VERSION=""
+          # The promote-to-prod workflow injects a "Release-As: X.Y.Z" footer
+          # into the promote commit. Find the latest one in next history.
+          for commit in $(git rev-list HEAD --max-count=50); do
+            BODY=$(git log -1 --format=%b "$commit")
+            RA=$(echo "$BODY" | grep -oP 'Release-As:\s*\K[\d.]+' | head -1 || true)
+            if [ -n "$RA" ]; then
+              VERSION="$RA"
+              break
+            fi
+          done
+
+          if [ -z "$VERSION" ]; then
+            echo "::warning::No Release-As found; release-please will use semantic versioning"
+            echo "has_version=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+            echo "has_version=true" >> "$GITHUB_OUTPUT"
+            echo "Release-As version: $VERSION"
+          fi
+
+      - name: Run release-please (release-pr)
+        if: github.ref == 'refs/heads/next'
+        id: release-pr
+        run: |
+          ARGS=(
+            release-pr
+            --repo-url "${{ github.repositoryUrl }}"
+            --token "${{ secrets.SDK_WRITE_TOKEN }}"
+            --config-file release-please-config.json
+            --manifest-file .release-please-manifest.json
+            --local
+          )
+
+          if [ "${{ steps.version.outputs.has_version }}" = "true" ]; then
+            ARGS+=(--release-as "${{ steps.version.outputs.version }}")
+          fi
+
+          # Build a one-commit local scan ref on the real production base. `next`
+          # accumulates promote commits because release PRs are squash-merged; scanning
+          # it directly makes old commits reappear and starts CHANGELOG from staging's
+          # stale copy. The synthetic commit keeps next's code tree, restores release
+          # metadata from the production base, and has exactly one parent: that base.
+          BASE_BRANCH="${{ github.event.repository.default_branch }}"
+          git fetch origin "$BASE_BRANCH:refs/remotes/origin/release-base" next
+          RELEASE_BASE=$(git rev-parse refs/remotes/origin/release-base)
+
+          # git commit-tree needs an explicit identity on fresh Actions runners.
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+          RELEASE_FILES=("CHANGELOG.md" "package.json" "src/version.ts" ".release-please-manifest.json")
+          git restore --source=refs/remotes/origin/release-base --staged --worktree -- "${RELEASE_FILES[@]}"
+          SCAN_TREE=$(git write-tree)
+          PROMOTE_SUBJECT=$(git log --format=%s --max-count=50 HEAD \
+            | grep -m1 -E '^(feat|fix|chore)(\([^)]*\))?!?: promote from staging ' || true)
+          if [ -z "$PROMOTE_SUBJECT" ]; then
+            PROMOTE_SUBJECT="feat: promote generated SDK changes"
+          fi
+          if [ "${{ steps.version.outputs.has_version }}" = "true" ]; then
+            SCAN_COMMIT=$(printf '%s\n\nRelease-As: %s\n' \
+              "$PROMOTE_SUBJECT" "${{ steps.version.outputs.version }}" \
+              | git commit-tree "$SCAN_TREE" -p "$RELEASE_BASE")
+          else
+            SCAN_COMMIT=$(printf '%s\n' "$PROMOTE_SUBJECT" \
+              | git commit-tree "$SCAN_TREE" -p "$RELEASE_BASE")
+          fi
+          git branch -f "$BASE_BRANCH" "$SCAN_COMMIT"
+          git update-ref "refs/remotes/origin/$BASE_BRANCH" "$SCAN_COMMIT"
+
+          # --local normalizes --repo-url to HTTPS before cloning. Rewrite that URL
+          # to this workspace so release-please sees the synthetic scan ref while
+          # API operations still target the real repository.
+          git config --global protocol.file.allow always
+          git config --global url."file://${GITHUB_WORKSPACE}".insteadOf "https://github.com/${{ github.repository }}.git"
+
+          OUTPUT=$(npx release-please "${ARGS[@]}" 2>&1) || true
+          echo "$OUTPUT"
+
+          # Parse PR number from output if a PR was created
+          PR_URL=$(echo "$OUTPUT" | grep -oP 'https://(?:api\.)?github\.com/(?:repos/[^/]+/[^/]+/)?pulls?/\d+' | head -1)
+          if [ -n "$PR_URL" ]; then
+            PR_NUM=$(echo "$PR_URL" | grep -oP '\d+$')
+            echo "pr_number=$PR_NUM" >> "$GITHUB_OUTPUT"
+            echo "prs_created=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "prs_created=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Ensure release PR carries autorelease label (self-heal)
+        if: github.ref == 'refs/heads/next'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          # release-please applies `autorelease: pending` in a separate API call
+          # AFTER opening the PR; a failure between the two is swallowed by the
+          # `|| true` above and leaves the PR unlabeled. The label is how the
+          # sync fallback, the auto-merge fallback, AND github-release (after
+          # merge) find release PRs — an unlabeled one merges but never tags
+          # (ghost release). Re-assert the label on any open release-please PR.
+          for pr in $(gh pr list --repo "$REPO" --state open --json number,headRefName,labels \
+              --jq '.[] | select(.headRefName | startswith("release-please--"))
+                        | select(([.labels[].name] | index("autorelease: pending")) | not)
+                        | .number'); do
+            gh pr edit "$pr" --repo "$REPO" --add-label "autorelease: pending" \
+              && echo "Re-added missing autorelease label to PR #$pr" \
+              || echo "::warning::Failed to add autorelease label to PR #$pr"
+          done
+
+      - name: Sync next code into release PR (tree replacement, not merge)
+        if: github.ref == 'refs/heads/next'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUM: ${{ steps.release-pr.outputs.pr_number }}
+        run: |
+          # release-please creates a PR with only version bumps (CHANGELOG,
+          # package.json, version.ts, .release-please-manifest.json).
+          # The actual SDK code changes are on `next` but NOT included in the
+          # release PR. This step syncs `next` code into the release PR branch.
+          #
+          # CRITICAL: We use tree replacement on a clean production base
+          # instead of git merge. A 3-way merge produces duplicate method
+          # implementations when staging and prod have different method ordering
+          # (git sees them as non-conflicting additions and keeps both copies).
+          # Tree replacement avoids this entirely — the code tree comes from
+          # `next` as-is, and only the version-bump files from release-please
+          # are preserved on top.
+
+          PR_BRANCH=""
+          if [ -n "$PR_NUM" ]; then
+            sleep 3  # brief propagation delay
+            PR_BRANCH=$(gh pr view "$PR_NUM" --repo "$REPO" --json headRefName --jq '.headRefName' 2>/dev/null || true)
+          fi
+
+          if [ -z "$PR_BRANCH" ]; then
+            for i in 1 2 3; do
+              PR_BRANCH=$(gh pr list --repo "$REPO" --state open --label "autorelease: pending" --json headRefName --jq '.[0].headRefName' 2>/dev/null || true)
+              if [ -n "$PR_BRANCH" ]; then break; fi
+              echo "PR not found yet, retrying in 5s (attempt $i)..."
+              sleep 5
+            done
+          fi
+
+          if [ -z "$PR_BRANCH" ]; then
+            echo "::warning::No open release PR found after retries, skipping sync"
+            exit 0
+          fi
+
+          echo "Found release PR branch: $PR_BRANCH"
+
+          BASE_BRANCH="${{ github.event.repository.default_branch }}"
+          git fetch origin "$PR_BRANCH" next "$BASE_BRANCH:refs/remotes/origin/release-base"
+          git checkout -f -B "$PR_BRANCH" "origin/$PR_BRANCH"
+
+          # Save version-bump files from the release PR branch (release-please output)
+          STASH_DIR=$(mktemp -d)
+          for f in CHANGELOG.md package.json src/version.ts .release-please-manifest.json; do
+            if [ -f "$f" ]; then
+              mkdir -p "$STASH_DIR/$(dirname "$f")"
+              cp "$f" "$STASH_DIR/$f"
+            fi
+          done
+
+          # Rebase the release branch onto the real production base, then replace
+          # only its index/worktree with next's exact tree. `git read-tree` preserves
+          # clean master ancestry while still handling additions and deletions
+          # atomically (unlike the old `git reset --hard origin/next`).
+          git checkout -B "$PR_BRANCH" refs/remotes/origin/release-base
+          git read-tree --reset -u origin/next
+          git clean -fdx
+
+          # Restore version-bump files from the release PR branch
+          for f in CHANGELOG.md package.json src/version.ts .release-please-manifest.json; do
+            if [ -f "$STASH_DIR/$f" ]; then
+              mkdir -p "$(dirname "$f")"
+              cp "$STASH_DIR/$f" "$f"
+              git add "$f"
+            fi
+          done
+          rm -rf "$STASH_DIR"
+
+          # Commit if there are changes
+          if git diff --cached --quiet; then
+            echo "No changes after syncing next code"
+          else
+            git commit -m "chore: sync code from next into release PR"
+
+            # Regression guards: the PR must be exactly one commit on the real base,
+            # and every previously released CHANGELOG section must still exist.
+            COMMIT_COUNT=$(git rev-list --count refs/remotes/origin/release-base..HEAD)
+            if [ "$COMMIT_COUNT" -ne 1 ]; then
+              echo "::error::Release PR has $COMMIT_COUNT commits above production base; expected exactly 1"
+              exit 1
+            fi
+            while IFS= read -r heading; do
+              if ! grep -Fqx -- "$heading" CHANGELOG.md; then
+                echo "::error::Release PR dropped existing CHANGELOG section: $heading"
+                exit 1
+              fi
+            done < <(git show refs/remotes/origin/release-base:CHANGELOG.md | grep '^## ' || true)
+
+            git push --force origin "$PR_BRANCH"
+            echo "Successfully synced next code into a clean production-based release PR"
+          fi
+
+      - name: Assert release PR exists for unreleased commits (fail loud)
+        if: github.ref == 'refs/heads/next'
+        env:
+          GH_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
+          REPO: ${{ github.repository }}
+        run: |
+          # The release-pr CLI above is wrapped in `|| true`, so an API error
+          # or scan regression leaves the run green with no PR — exactly how
+          # the 2026-07-09 silent skip hid for weeks. Fail loud instead: if
+          # next has user-facing (feat/fix) or Release-As commits since the
+          # latest release and no open release PR exists, this run is broken.
+          latest_tag=$(gh release view --repo "$REPO" --json tagName --jq '.tagName' 2>/dev/null || echo "")
+          if [ -z "$latest_tag" ]; then
+            echo "No releases yet; skipping assertion."
+            exit 0
+          fi
+          if ! git rev-parse -q --verify "refs/tags/${latest_tag}" >/dev/null; then
+            echo "::warning::Tag ${latest_tag} not in local clone; skipping assertion."
+            exit 0
+          fi
+          unreleased=$(git log --format='%s' "${latest_tag}..HEAD" | grep -cE '^(feat|fix)(\(|!|:)' || true)
+          releaseas=$(git log --format='%B' "${latest_tag}..HEAD" | grep -c '^Release-As:' || true)
+          if [ "$unreleased" -eq 0 ] && [ "$releaseas" -eq 0 ]; then
+            echo "No user-facing commits since ${latest_tag}; no release PR expected."
+            exit 0
+          fi
+          open_prs=0
+          for attempt in 1 2 3; do
+            open_prs=$(gh pr list --repo "$REPO" --state open --json headRefName \
+              --jq '[.[] | select(.headRefName | startswith("release-please--"))] | length')
+            [ "$open_prs" -gt 0 ] && break
+            sleep 10
+          done
+          if [ "$open_prs" -eq 0 ]; then
+            echo "::error::${unreleased} user-facing + ${releaseas} Release-As commit(s) since ${latest_tag} on next, but no open release PR — release-pr failed silently. Inspect the release-pr step output above."
+            exit 1
+          fi
+          echo "Release PR present for unreleased commits — OK."
+
+      - name: Run release-please (github-release)
+        if: github.ref == 'refs/heads/master'
+        run: |
+          npx release-please github-release \
+            --repo-url "${{ github.repositoryUrl }}" \
+            --token "${{ secrets.SDK_WRITE_TOKEN }}" \
+            --target-branch master \
+            --config-file release-please-config.json \
+            --manifest-file .release-please-manifest.json \
+            2>&1
+
+      - name: Verify release commit produced a tag (ghost-release guard)
+        if: github.ref == 'refs/heads/master'
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          # `github-release` exits 0 even when it finds nothing to release ([]).
+          # If the commit that triggered this run is a merged `release: X.Y.Z`
+          # commit, a missing vX.Y.Z tag here means it silently no-opped —
+          # usually a merged release PR that lost its `autorelease: pending`
+          # label. Fail loud instead of ghosting the release.
+          MSG=$(git log -1 --format=%s "$GITHUB_SHA")
+          VER=$(echo "$MSG" | grep -oP '^release:\s*\K[0-9][0-9.]*' || true)
+          if [ -z "$VER" ]; then
+            echo "Not a release commit; nothing to verify"
+            exit 0
+          fi
+          if git ls-remote --exit-code --tags origin "v$VER" >/dev/null 2>&1; then
+            if ! gh api "repos/${{ github.repository }}/releases/tags/v$VER" >/dev/null 2>&1; then
+              echo "::error::Tag v$VER exists but there is no GitHub Release for it - the publish workflow (release: published) will never fire. Create it: gh release create v$VER --generate-notes"
+              exit 1
+            fi
+            echo "Tag v$VER and its GitHub Release exist - release verified"
+          else
+            echo "::error::Merged release commit for $VER but no v$VER tag exists. github-release silently no-opped (merged release PR likely missing the autorelease pending label). Add the label to the merged PR and re-run this workflow."
+            exit 1
+          fi

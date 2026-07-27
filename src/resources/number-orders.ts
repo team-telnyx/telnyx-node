@@ -13,6 +13,27 @@ import { path } from '../internal/utils/path';
  */
 export class NumberOrders extends APIResource {
   /**
+   * Get a paginated list of number orders.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const numberOrderListResponse of client.numberOrders.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: NumberOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NumberOrderListResponsesDefaultFlatPagination, NumberOrderListResponse> {
+    return this._client.getAPIList('/number_orders', DefaultFlatPagination<NumberOrderListResponse>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a phone number order.
    *
    * @example
@@ -54,27 +75,6 @@ export class NumberOrders extends APIResource {
     options?: RequestOptions,
   ): APIPromise<NumberOrderUpdateResponse> {
     return this._client.patch(path`/number_orders/${numberOrderID}`, { body, ...options });
-  }
-
-  /**
-   * Get a paginated list of number orders.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const numberOrderListResponse of client.numberOrders.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: NumberOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NumberOrderListResponsesDefaultFlatPagination, NumberOrderListResponse> {
-    return this._client.getAPIList('/number_orders', DefaultFlatPagination<NumberOrderListResponse>, {
-      query,
-      ...options,
-    });
   }
 }
 
@@ -251,58 +251,6 @@ export interface NumberOrderListResponse {
   updated_at?: string;
 }
 
-export interface NumberOrderCreateParams {
-  /**
-   * Identifies the billing group associated with the phone number.
-   */
-  billing_group_id?: string;
-
-  /**
-   * Identifies the connection associated with this phone number.
-   */
-  connection_id?: string;
-
-  /**
-   * A customer reference string for customer look ups.
-   */
-  customer_reference?: string;
-
-  /**
-   * Identifies the messaging profile associated with the phone number.
-   */
-  messaging_profile_id?: string;
-
-  phone_numbers?: Array<NumberOrderCreateParams.PhoneNumber>;
-}
-
-export namespace NumberOrderCreateParams {
-  export interface PhoneNumber {
-    /**
-     * e164_phone_number
-     */
-    phone_number: string;
-
-    /**
-     * ID of bundle to associate the number to
-     */
-    bundle_id?: string;
-
-    /**
-     * ID of requirement group to use to satisfy number requirements
-     */
-    requirement_group_id?: string;
-  }
-}
-
-export interface NumberOrderUpdateParams {
-  /**
-   * A customer reference string for customer look ups.
-   */
-  customer_reference?: string;
-
-  regulatory_requirements?: Array<NumberOrderPhoneNumbersAPI.UpdateRegulatoryRequirement>;
-}
-
 export interface NumberOrderListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
@@ -363,6 +311,58 @@ export namespace NumberOrderListParams {
   }
 }
 
+export interface NumberOrderCreateParams {
+  /**
+   * Identifies the billing group associated with the phone number.
+   */
+  billing_group_id?: string;
+
+  /**
+   * Identifies the connection associated with this phone number.
+   */
+  connection_id?: string;
+
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string;
+
+  /**
+   * Identifies the messaging profile associated with the phone number.
+   */
+  messaging_profile_id?: string;
+
+  phone_numbers?: Array<NumberOrderCreateParams.PhoneNumber>;
+}
+
+export namespace NumberOrderCreateParams {
+  export interface PhoneNumber {
+    /**
+     * e164_phone_number
+     */
+    phone_number: string;
+
+    /**
+     * ID of bundle to associate the number to
+     */
+    bundle_id?: string;
+
+    /**
+     * ID of requirement group to use to satisfy number requirements
+     */
+    requirement_group_id?: string;
+  }
+}
+
+export interface NumberOrderUpdateParams {
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string;
+
+  regulatory_requirements?: Array<NumberOrderPhoneNumbersAPI.UpdateRegulatoryRequirement>;
+}
+
 export declare namespace NumberOrders {
   export {
     type NumberOrderWithPhoneNumbers as NumberOrderWithPhoneNumbers,
@@ -372,8 +372,8 @@ export declare namespace NumberOrders {
     type NumberOrderUpdateResponse as NumberOrderUpdateResponse,
     type NumberOrderListResponse as NumberOrderListResponse,
     type NumberOrderListResponsesDefaultFlatPagination as NumberOrderListResponsesDefaultFlatPagination,
+    type NumberOrderListParams as NumberOrderListParams,
     type NumberOrderCreateParams as NumberOrderCreateParams,
     type NumberOrderUpdateParams as NumberOrderUpdateParams,
-    type NumberOrderListParams as NumberOrderListParams,
   };
 }

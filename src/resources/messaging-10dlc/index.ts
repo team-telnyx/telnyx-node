@@ -5,6 +5,7 @@ export {
   type AltBusinessIDType,
   type BrandIdentityStatus,
   type BrandOptionalAttributes,
+  type BrandSMSOtpStatus,
   type EntityType,
   type StockExchange,
   type TelnyxBrand,
@@ -12,15 +13,13 @@ export {
   type BrandRetrieveResponse,
   type BrandListResponse,
   type BrandGetFeedbackResponse,
-  type BrandGetSMSOtpByReferenceResponse,
-  type BrandRetrieveSMSOtpStatusResponse,
   type BrandTriggerSMSOtpResponse,
+  type BrandListParams,
   type BrandCreateParams,
   type BrandUpdateParams,
-  type BrandListParams,
-  type BrandGetSMSOtpByReferenceParams,
   type BrandTriggerSMSOtpParams,
   type BrandVerifySMSOtpParams,
+  type BrandGetSMSOtpByReferenceParams,
   type BrandListResponsesPerPagePaginationV2,
 } from './brand/index';
 export {
@@ -34,8 +33,8 @@ export {
   type CampaignGetOperationStatusResponse,
   type CampaignGetSharingStatusResponse,
   type CampaignSubmitAppealResponse,
-  type CampaignUpdateParams,
   type CampaignListParams,
+  type CampaignUpdateParams,
   type CampaignSubmitAppealParams,
   type CampaignListResponsesPerPagePaginationV2,
 } from './campaign/index';
@@ -46,11 +45,11 @@ export {
   type TelnyxDownstreamCampaign,
   type PartnerCampaignListSharedByMeResponse,
   type PartnerCampaignRetrieveSharingStatusResponse,
-  type PartnerCampaignUpdateParams,
-  type PartnerCampaignListParams,
   type PartnerCampaignListSharedByMeParams,
-  type TelnyxDownstreamCampaignsPerPagePaginationV2,
+  type PartnerCampaignListParams,
+  type PartnerCampaignUpdateParams,
   type PartnerCampaignListSharedByMeResponsesPerPagePaginationV2,
+  type TelnyxDownstreamCampaignsPerPagePaginationV2,
 } from './partner-campaigns';
 export {
   PhoneNumberAssignmentByProfile,
@@ -61,15 +60,15 @@ export {
   type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
   type PhoneNumberAssignmentByProfileRetrieveStatusResponse,
   type PhoneNumberAssignmentByProfileAssignParams,
-  type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
   type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+  type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
 } from './phone-number-assignment-by-profile';
 export {
   PhoneNumberCampaigns,
   type PhoneNumberCampaign,
   type PhoneNumberCampaignCreate,
+  type PhoneNumberCampaignListParams,
   type PhoneNumberCampaignCreateParams,
   type PhoneNumberCampaignUpdateParams,
-  type PhoneNumberCampaignListParams,
   type PhoneNumberCampaignsPerPagePaginationV2,
 } from './phone-number-campaigns';

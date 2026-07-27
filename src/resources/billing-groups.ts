@@ -11,6 +11,27 @@ import { path } from '../internal/utils/path';
  */
 export class BillingGroups extends APIResource {
   /**
+   * List all billing groups
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const billingGroup of client.billingGroups.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: BillingGroupListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<BillingGroupsDefaultFlatPagination, BillingGroup> {
+    return this._client.getAPIList('/billing_groups', DefaultFlatPagination<BillingGroup>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a billing group
    *
    * @example
@@ -22,6 +43,20 @@ export class BillingGroups extends APIResource {
    */
   create(body: BillingGroupCreateParams, options?: RequestOptions): APIPromise<BillingGroupCreateResponse> {
     return this._client.post('/billing_groups', { body, ...options });
+  }
+
+  /**
+   * Delete a billing group
+   *
+   * @example
+   * ```ts
+   * const billingGroup = await client.billingGroups.delete(
+   *   'f5586561-8ff0-4291-a0ac-84fe544797bd',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<BillingGroupDeleteResponse> {
+    return this._client.delete(path`/billing_groups/${id}`, options);
   }
 
   /**
@@ -55,41 +90,6 @@ export class BillingGroups extends APIResource {
     options?: RequestOptions,
   ): APIPromise<BillingGroupUpdateResponse> {
     return this._client.patch(path`/billing_groups/${id}`, { body, ...options });
-  }
-
-  /**
-   * List all billing groups
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const billingGroup of client.billingGroups.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: BillingGroupListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<BillingGroupsDefaultFlatPagination, BillingGroup> {
-    return this._client.getAPIList('/billing_groups', DefaultFlatPagination<BillingGroup>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete a billing group
-   *
-   * @example
-   * ```ts
-   * const billingGroup = await client.billingGroups.delete(
-   *   'f5586561-8ff0-4291-a0ac-84fe544797bd',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<BillingGroupDeleteResponse> {
-    return this._client.delete(path`/billing_groups/${id}`, options);
   }
 }
 
@@ -148,6 +148,8 @@ export interface BillingGroupDeleteResponse {
   data?: BillingGroup;
 }
 
+export interface BillingGroupListParams extends DefaultFlatPaginationParams {}
+
 export interface BillingGroupCreateParams {
   /**
    * A name for the billing group
@@ -162,8 +164,6 @@ export interface BillingGroupUpdateParams {
   name?: string;
 }
 
-export interface BillingGroupListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace BillingGroups {
   export {
     type BillingGroup as BillingGroup,
@@ -172,8 +172,8 @@ export declare namespace BillingGroups {
     type BillingGroupUpdateResponse as BillingGroupUpdateResponse,
     type BillingGroupDeleteResponse as BillingGroupDeleteResponse,
     type BillingGroupsDefaultFlatPagination as BillingGroupsDefaultFlatPagination,
+    type BillingGroupListParams as BillingGroupListParams,
     type BillingGroupCreateParams as BillingGroupCreateParams,
     type BillingGroupUpdateParams as BillingGroupUpdateParams,
-    type BillingGroupListParams as BillingGroupListParams,
   };
 }

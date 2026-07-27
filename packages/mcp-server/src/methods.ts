@@ -11,21 +11,15 @@ export type SdkMethod = {
 
 export const sdkMethods: SdkMethod[] = [
   {
-    clientCallName: 'client.legacy.reporting.batchDetailRecords.messaging.create',
-    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.messaging.create',
-    httpMethod: 'post',
-    httpPath: '/legacy/reporting/batch_detail_records/messaging',
-  },
-  {
-    clientCallName: 'client.legacy.reporting.batchDetailRecords.messaging.retrieve',
-    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.messaging.retrieve',
-    httpMethod: 'get',
-    httpPath: '/legacy/reporting/batch_detail_records/messaging/{id}',
-  },
-  {
     clientCallName: 'client.legacy.reporting.batchDetailRecords.messaging.list',
     fullyQualifiedName: 'legacy.reporting.batchDetailRecords.messaging.list',
     httpMethod: 'get',
+    httpPath: '/legacy/reporting/batch_detail_records/messaging',
+  },
+  {
+    clientCallName: 'client.legacy.reporting.batchDetailRecords.messaging.create',
+    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.messaging.create',
+    httpMethod: 'post',
     httpPath: '/legacy/reporting/batch_detail_records/messaging',
   },
   {
@@ -35,21 +29,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/legacy/reporting/batch_detail_records/messaging/{id}',
   },
   {
-    clientCallName: 'client.legacy.reporting.batchDetailRecords.speechToText.create',
-    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.speechToText.create',
-    httpMethod: 'post',
-    httpPath: '/legacy/reporting/batch_detail_records/speech_to_text',
-  },
-  {
-    clientCallName: 'client.legacy.reporting.batchDetailRecords.speechToText.retrieve',
-    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.speechToText.retrieve',
+    clientCallName: 'client.legacy.reporting.batchDetailRecords.messaging.retrieve',
+    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.messaging.retrieve',
     httpMethod: 'get',
-    httpPath: '/legacy/reporting/batch_detail_records/speech_to_text/{id}',
+    httpPath: '/legacy/reporting/batch_detail_records/messaging/{id}',
   },
   {
     clientCallName: 'client.legacy.reporting.batchDetailRecords.speechToText.list',
     fullyQualifiedName: 'legacy.reporting.batchDetailRecords.speechToText.list',
     httpMethod: 'get',
+    httpPath: '/legacy/reporting/batch_detail_records/speech_to_text',
+  },
+  {
+    clientCallName: 'client.legacy.reporting.batchDetailRecords.speechToText.create',
+    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.speechToText.create',
+    httpMethod: 'post',
     httpPath: '/legacy/reporting/batch_detail_records/speech_to_text',
   },
   {
@@ -59,16 +53,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/legacy/reporting/batch_detail_records/speech_to_text/{id}',
   },
   {
-    clientCallName: 'client.legacy.reporting.batchDetailRecords.voice.create',
-    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.voice.create',
-    httpMethod: 'post',
-    httpPath: '/legacy/reporting/batch_detail_records/voice',
-  },
-  {
-    clientCallName: 'client.legacy.reporting.batchDetailRecords.voice.retrieve',
-    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.voice.retrieve',
+    clientCallName: 'client.legacy.reporting.batchDetailRecords.speechToText.retrieve',
+    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.speechToText.retrieve',
     httpMethod: 'get',
-    httpPath: '/legacy/reporting/batch_detail_records/voice/{id}',
+    httpPath: '/legacy/reporting/batch_detail_records/speech_to_text/{id}',
   },
   {
     clientCallName: 'client.legacy.reporting.batchDetailRecords.voice.list',
@@ -77,10 +65,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/legacy/reporting/batch_detail_records/voice',
   },
   {
-    clientCallName: 'client.legacy.reporting.batchDetailRecords.voice.delete',
-    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.voice.delete',
-    httpMethod: 'delete',
-    httpPath: '/legacy/reporting/batch_detail_records/voice/{id}',
+    clientCallName: 'client.legacy.reporting.batchDetailRecords.voice.create',
+    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.voice.create',
+    httpMethod: 'post',
+    httpPath: '/legacy/reporting/batch_detail_records/voice',
   },
   {
     clientCallName: 'client.legacy.reporting.batchDetailRecords.voice.retrieveFields',
@@ -89,27 +77,33 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/legacy/reporting/batch_detail_records/voice/fields',
   },
   {
+    clientCallName: 'client.legacy.reporting.batchDetailRecords.voice.delete',
+    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.voice.delete',
+    httpMethod: 'delete',
+    httpPath: '/legacy/reporting/batch_detail_records/voice/{id}',
+  },
+  {
+    clientCallName: 'client.legacy.reporting.batchDetailRecords.voice.retrieve',
+    fullyQualifiedName: 'legacy.reporting.batchDetailRecords.voice.retrieve',
+    httpMethod: 'get',
+    httpPath: '/legacy/reporting/batch_detail_records/voice/{id}',
+  },
+  {
     clientCallName: 'client.legacy.reporting.usageReports.retrieveSpeechToText',
     fullyQualifiedName: 'legacy.reporting.usageReports.retrieveSpeechToText',
     httpMethod: 'get',
     httpPath: '/legacy/reporting/usage_reports/speech_to_text',
   },
   {
-    clientCallName: 'client.legacy.reporting.usageReports.messaging.create',
-    fullyQualifiedName: 'legacy.reporting.usageReports.messaging.create',
-    httpMethod: 'post',
-    httpPath: '/legacy/reporting/usage_reports/messaging',
-  },
-  {
-    clientCallName: 'client.legacy.reporting.usageReports.messaging.retrieve',
-    fullyQualifiedName: 'legacy.reporting.usageReports.messaging.retrieve',
-    httpMethod: 'get',
-    httpPath: '/legacy/reporting/usage_reports/messaging/{id}',
-  },
-  {
     clientCallName: 'client.legacy.reporting.usageReports.messaging.list',
     fullyQualifiedName: 'legacy.reporting.usageReports.messaging.list',
     httpMethod: 'get',
+    httpPath: '/legacy/reporting/usage_reports/messaging',
+  },
+  {
+    clientCallName: 'client.legacy.reporting.usageReports.messaging.create',
+    fullyQualifiedName: 'legacy.reporting.usageReports.messaging.create',
+    httpMethod: 'post',
     httpPath: '/legacy/reporting/usage_reports/messaging',
   },
   {
@@ -119,21 +113,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/legacy/reporting/usage_reports/messaging/{id}',
   },
   {
-    clientCallName: 'client.legacy.reporting.usageReports.numberLookup.create',
-    fullyQualifiedName: 'legacy.reporting.usageReports.numberLookup.create',
-    httpMethod: 'post',
-    httpPath: '/legacy/reporting/usage_reports/number_lookup',
-  },
-  {
-    clientCallName: 'client.legacy.reporting.usageReports.numberLookup.retrieve',
-    fullyQualifiedName: 'legacy.reporting.usageReports.numberLookup.retrieve',
+    clientCallName: 'client.legacy.reporting.usageReports.messaging.retrieve',
+    fullyQualifiedName: 'legacy.reporting.usageReports.messaging.retrieve',
     httpMethod: 'get',
-    httpPath: '/legacy/reporting/usage_reports/number_lookup/{id}',
+    httpPath: '/legacy/reporting/usage_reports/messaging/{id}',
   },
   {
     clientCallName: 'client.legacy.reporting.usageReports.numberLookup.list',
     fullyQualifiedName: 'legacy.reporting.usageReports.numberLookup.list',
     httpMethod: 'get',
+    httpPath: '/legacy/reporting/usage_reports/number_lookup',
+  },
+  {
+    clientCallName: 'client.legacy.reporting.usageReports.numberLookup.create',
+    fullyQualifiedName: 'legacy.reporting.usageReports.numberLookup.create',
+    httpMethod: 'post',
     httpPath: '/legacy/reporting/usage_reports/number_lookup',
   },
   {
@@ -143,16 +137,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/legacy/reporting/usage_reports/number_lookup/{id}',
   },
   {
-    clientCallName: 'client.legacy.reporting.usageReports.voice.create',
-    fullyQualifiedName: 'legacy.reporting.usageReports.voice.create',
-    httpMethod: 'post',
-    httpPath: '/legacy/reporting/usage_reports/voice',
-  },
-  {
-    clientCallName: 'client.legacy.reporting.usageReports.voice.retrieve',
-    fullyQualifiedName: 'legacy.reporting.usageReports.voice.retrieve',
+    clientCallName: 'client.legacy.reporting.usageReports.numberLookup.retrieve',
+    fullyQualifiedName: 'legacy.reporting.usageReports.numberLookup.retrieve',
     httpMethod: 'get',
-    httpPath: '/legacy/reporting/usage_reports/voice/{id}',
+    httpPath: '/legacy/reporting/usage_reports/number_lookup/{id}',
   },
   {
     clientCallName: 'client.legacy.reporting.usageReports.voice.list',
@@ -161,10 +149,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/legacy/reporting/usage_reports/voice',
   },
   {
+    clientCallName: 'client.legacy.reporting.usageReports.voice.create',
+    fullyQualifiedName: 'legacy.reporting.usageReports.voice.create',
+    httpMethod: 'post',
+    httpPath: '/legacy/reporting/usage_reports/voice',
+  },
+  {
     clientCallName: 'client.legacy.reporting.usageReports.voice.delete',
     fullyQualifiedName: 'legacy.reporting.usageReports.voice.delete',
     httpMethod: 'delete',
     httpPath: '/legacy/reporting/usage_reports/voice/{id}',
+  },
+  {
+    clientCallName: 'client.legacy.reporting.usageReports.voice.retrieve',
+    fullyQualifiedName: 'legacy.reporting.usageReports.voice.retrieve',
+    httpMethod: 'get',
+    httpPath: '/legacy/reporting/usage_reports/voice/{id}',
+  },
+  {
+    clientCallName: 'client.oauth.retrieveAuthorize',
+    fullyQualifiedName: 'oauth.retrieveAuthorize',
+    httpMethod: 'get',
+    httpPath: '/oauth/authorize',
   },
   {
     clientCallName: 'client.oauth.retrieve',
@@ -185,22 +191,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/oauth/introspect',
   },
   {
-    clientCallName: 'client.oauth.register',
-    fullyQualifiedName: 'oauth.register',
-    httpMethod: 'post',
-    httpPath: '/oauth/register',
-  },
-  {
-    clientCallName: 'client.oauth.retrieveAuthorize',
-    fullyQualifiedName: 'oauth.retrieveAuthorize',
-    httpMethod: 'get',
-    httpPath: '/oauth/authorize',
-  },
-  {
     clientCallName: 'client.oauth.retrieveJwks',
     fullyQualifiedName: 'oauth.retrieveJwks',
     httpMethod: 'get',
     httpPath: '/oauth/jwks',
+  },
+  {
+    clientCallName: 'client.oauth.register',
+    fullyQualifiedName: 'oauth.register',
+    httpMethod: 'post',
+    httpPath: '/oauth/register',
   },
   {
     clientCallName: 'client.oauth.token',
@@ -209,10 +209,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/oauth/token',
   },
   {
+    clientCallName: 'client.oauthClients.list',
+    fullyQualifiedName: 'oauthClients.list',
+    httpMethod: 'get',
+    httpPath: '/oauth_clients',
+  },
+  {
     clientCallName: 'client.oauthClients.create',
     fullyQualifiedName: 'oauthClients.create',
     httpMethod: 'post',
     httpPath: '/oauth_clients',
+  },
+  {
+    clientCallName: 'client.oauthClients.delete',
+    fullyQualifiedName: 'oauthClients.delete',
+    httpMethod: 'delete',
+    httpPath: '/oauth_clients/{id}',
   },
   {
     clientCallName: 'client.oauthClients.retrieve',
@@ -227,24 +239,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/oauth_clients/{id}',
   },
   {
-    clientCallName: 'client.oauthClients.list',
-    fullyQualifiedName: 'oauthClients.list',
-    httpMethod: 'get',
-    httpPath: '/oauth_clients',
-  },
-  {
-    clientCallName: 'client.oauthClients.delete',
-    fullyQualifiedName: 'oauthClients.delete',
-    httpMethod: 'delete',
-    httpPath: '/oauth_clients/{id}',
-  },
-  {
-    clientCallName: 'client.oauthGrants.retrieve',
-    fullyQualifiedName: 'oauthGrants.retrieve',
-    httpMethod: 'get',
-    httpPath: '/oauth_grants/{id}',
-  },
-  {
     clientCallName: 'client.oauthGrants.list',
     fullyQualifiedName: 'oauthGrants.list',
     httpMethod: 'get',
@@ -256,24 +250,24 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'delete',
     httpPath: '/oauth_grants/{id}',
   },
-  { clientCallName: 'client.webhooks.unsafeUnwrap', fullyQualifiedName: 'webhooks.unsafeUnwrap' },
-  { clientCallName: 'client.webhooks.unwrap', fullyQualifiedName: 'webhooks.unwrap' },
   {
-    clientCallName: 'client.accessIPAddress.create',
-    fullyQualifiedName: 'accessIPAddress.create',
-    httpMethod: 'post',
-    httpPath: '/access_ip_address',
-  },
-  {
-    clientCallName: 'client.accessIPAddress.retrieve',
-    fullyQualifiedName: 'accessIPAddress.retrieve',
+    clientCallName: 'client.oauthGrants.retrieve',
+    fullyQualifiedName: 'oauthGrants.retrieve',
     httpMethod: 'get',
-    httpPath: '/access_ip_address/{access_ip_address_id}',
+    httpPath: '/oauth_grants/{id}',
   },
+  { clientCallName: 'client.webhooks.unwrap', fullyQualifiedName: 'webhooks.unwrap' },
+  { clientCallName: 'client.webhooks.unsafeUnwrap', fullyQualifiedName: 'webhooks.unsafeUnwrap' },
   {
     clientCallName: 'client.accessIPAddress.list',
     fullyQualifiedName: 'accessIPAddress.list',
     httpMethod: 'get',
+    httpPath: '/access_ip_address',
+  },
+  {
+    clientCallName: 'client.accessIPAddress.create',
+    fullyQualifiedName: 'accessIPAddress.create',
+    httpMethod: 'post',
     httpPath: '/access_ip_address',
   },
   {
@@ -283,15 +277,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/access_ip_address/{access_ip_address_id}',
   },
   {
-    clientCallName: 'client.accessIPRanges.create',
-    fullyQualifiedName: 'accessIPRanges.create',
-    httpMethod: 'post',
-    httpPath: '/access_ip_ranges',
+    clientCallName: 'client.accessIPAddress.retrieve',
+    fullyQualifiedName: 'accessIPAddress.retrieve',
+    httpMethod: 'get',
+    httpPath: '/access_ip_address/{access_ip_address_id}',
   },
   {
     clientCallName: 'client.accessIPRanges.list',
     fullyQualifiedName: 'accessIPRanges.list',
     httpMethod: 'get',
+    httpPath: '/access_ip_ranges',
+  },
+  {
+    clientCallName: 'client.accessIPRanges.create',
+    fullyQualifiedName: 'accessIPRanges.create',
+    httpMethod: 'post',
     httpPath: '/access_ip_ranges',
   },
   {
@@ -313,21 +313,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/actions/register/sim_cards',
   },
   {
-    clientCallName: 'client.addresses.create',
-    fullyQualifiedName: 'addresses.create',
-    httpMethod: 'post',
-    httpPath: '/addresses',
-  },
-  {
-    clientCallName: 'client.addresses.retrieve',
-    fullyQualifiedName: 'addresses.retrieve',
-    httpMethod: 'get',
-    httpPath: '/addresses/{id}',
-  },
-  {
     clientCallName: 'client.addresses.list',
     fullyQualifiedName: 'addresses.list',
     httpMethod: 'get',
+    httpPath: '/addresses',
+  },
+  {
+    clientCallName: 'client.addresses.create',
+    fullyQualifiedName: 'addresses.create',
+    httpMethod: 'post',
     httpPath: '/addresses',
   },
   {
@@ -337,16 +331,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/addresses/{id}',
   },
   {
-    clientCallName: 'client.addresses.actions.acceptSuggestions',
-    fullyQualifiedName: 'addresses.actions.acceptSuggestions',
-    httpMethod: 'post',
-    httpPath: '/addresses/{id}/actions/accept_suggestions',
+    clientCallName: 'client.addresses.retrieve',
+    fullyQualifiedName: 'addresses.retrieve',
+    httpMethod: 'get',
+    httpPath: '/addresses/{id}',
   },
   {
     clientCallName: 'client.addresses.actions.validate',
     fullyQualifiedName: 'addresses.actions.validate',
     httpMethod: 'post',
     httpPath: '/addresses/actions/validate',
+  },
+  {
+    clientCallName: 'client.addresses.actions.acceptSuggestions',
+    fullyQualifiedName: 'addresses.actions.acceptSuggestions',
+    httpMethod: 'post',
+    httpPath: '/addresses/{id}/actions/accept_suggestions',
+  },
+  {
+    clientCallName: 'client.advancedOrders.list',
+    fullyQualifiedName: 'advancedOrders.list',
+    httpMethod: 'get',
+    httpPath: '/advanced_orders',
   },
   {
     clientCallName: 'client.advancedOrders.create',
@@ -361,22 +367,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/advanced_orders/{order_id}',
   },
   {
-    clientCallName: 'client.advancedOrders.list',
-    fullyQualifiedName: 'advancedOrders.list',
-    httpMethod: 'get',
-    httpPath: '/advanced_orders',
-  },
-  {
     clientCallName: 'client.advancedOrders.updateRequirementGroup',
     fullyQualifiedName: 'advancedOrders.updateRequirementGroup',
     httpMethod: 'patch',
     httpPath: '/advanced_orders/{advanced-order-id}/requirement_group',
-  },
-  {
-    clientCallName: 'client.ai.retrieveModels',
-    fullyQualifiedName: 'ai.retrieveModels',
-    httpMethod: 'get',
-    httpPath: '/ai/models',
   },
   {
     clientCallName: 'client.ai.summarize',
@@ -385,10 +379,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/summarize',
   },
   {
+    clientCallName: 'client.ai.retrieveConversationHistories',
+    fullyQualifiedName: 'ai.retrieveConversationHistories',
+    httpMethod: 'get',
+    httpPath: '/ai/conversation_histories',
+  },
+  {
+    clientCallName: 'client.ai.assistants.list',
+    fullyQualifiedName: 'ai.assistants.list',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants',
+  },
+  {
     clientCallName: 'client.ai.assistants.create',
     fullyQualifiedName: 'ai.assistants.create',
     httpMethod: 'post',
     httpPath: '/ai/assistants',
+  },
+  {
+    clientCallName: 'client.ai.assistants.imports',
+    fullyQualifiedName: 'ai.assistants.imports',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/import',
+  },
+  {
+    clientCallName: 'client.ai.assistants.delete',
+    fullyQualifiedName: 'ai.assistants.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/assistants/{assistant_id}',
   },
   {
     clientCallName: 'client.ai.assistants.retrieve',
@@ -400,18 +418,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.ai.assistants.update',
     fullyQualifiedName: 'ai.assistants.update',
     httpMethod: 'post',
-    httpPath: '/ai/assistants/{assistant_id}',
-  },
-  {
-    clientCallName: 'client.ai.assistants.list',
-    fullyQualifiedName: 'ai.assistants.list',
-    httpMethod: 'get',
-    httpPath: '/ai/assistants',
-  },
-  {
-    clientCallName: 'client.ai.assistants.delete',
-    fullyQualifiedName: 'ai.assistants.delete',
-    httpMethod: 'delete',
     httpPath: '/ai/assistants/{assistant_id}',
   },
   {
@@ -433,22 +439,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/texml',
   },
   {
-    clientCallName: 'client.ai.assistants.imports',
-    fullyQualifiedName: 'ai.assistants.imports',
-    httpMethod: 'post',
-    httpPath: '/ai/assistants/import',
-  },
-  {
     clientCallName: 'client.ai.assistants.sendSMS',
     fullyQualifiedName: 'ai.assistants.sendSMS',
     httpMethod: 'post',
     httpPath: '/ai/assistants/{assistant_id}/chat/sms',
   },
   {
+    clientCallName: 'client.ai.assistants.tests.list',
+    fullyQualifiedName: 'ai.assistants.tests.list',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/tests',
+  },
+  {
     clientCallName: 'client.ai.assistants.tests.create',
     fullyQualifiedName: 'ai.assistants.tests.create',
     httpMethod: 'post',
     httpPath: '/ai/assistants/tests',
+  },
+  {
+    clientCallName: 'client.ai.assistants.tests.delete',
+    fullyQualifiedName: 'ai.assistants.tests.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/assistants/tests/{test_id}',
   },
   {
     clientCallName: 'client.ai.assistants.tests.retrieve',
@@ -460,18 +472,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.ai.assistants.tests.update',
     fullyQualifiedName: 'ai.assistants.tests.update',
     httpMethod: 'put',
-    httpPath: '/ai/assistants/tests/{test_id}',
-  },
-  {
-    clientCallName: 'client.ai.assistants.tests.list',
-    fullyQualifiedName: 'ai.assistants.tests.list',
-    httpMethod: 'get',
-    httpPath: '/ai/assistants/tests',
-  },
-  {
-    clientCallName: 'client.ai.assistants.tests.delete',
-    fullyQualifiedName: 'ai.assistants.tests.delete',
-    httpMethod: 'delete',
     httpPath: '/ai/assistants/tests/{test_id}',
   },
   {
@@ -493,12 +493,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/tests/test-suites/{suite_name}/runs',
   },
   {
-    clientCallName: 'client.ai.assistants.tests.runs.retrieve',
-    fullyQualifiedName: 'ai.assistants.tests.runs.retrieve',
-    httpMethod: 'get',
-    httpPath: '/ai/assistants/tests/{test_id}/runs/{run_id}',
-  },
-  {
     clientCallName: 'client.ai.assistants.tests.runs.list',
     fullyQualifiedName: 'ai.assistants.tests.runs.list',
     httpMethod: 'get',
@@ -511,9 +505,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/tests/{test_id}/runs',
   },
   {
-    clientCallName: 'client.ai.assistants.canaryDeploys.create',
-    fullyQualifiedName: 'ai.assistants.canaryDeploys.create',
-    httpMethod: 'post',
+    clientCallName: 'client.ai.assistants.tests.runs.retrieve',
+    fullyQualifiedName: 'ai.assistants.tests.runs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/tests/{test_id}/runs/{run_id}',
+  },
+  {
+    clientCallName: 'client.ai.assistants.canaryDeploys.delete',
+    fullyQualifiedName: 'ai.assistants.canaryDeploys.delete',
+    httpMethod: 'delete',
     httpPath: '/ai/assistants/{assistant_id}/canary-deploys',
   },
   {
@@ -523,33 +523,27 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/canary-deploys',
   },
   {
+    clientCallName: 'client.ai.assistants.canaryDeploys.create',
+    fullyQualifiedName: 'ai.assistants.canaryDeploys.create',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/{assistant_id}/canary-deploys',
+  },
+  {
     clientCallName: 'client.ai.assistants.canaryDeploys.update',
     fullyQualifiedName: 'ai.assistants.canaryDeploys.update',
     httpMethod: 'put',
     httpPath: '/ai/assistants/{assistant_id}/canary-deploys',
   },
   {
-    clientCallName: 'client.ai.assistants.canaryDeploys.delete',
-    fullyQualifiedName: 'ai.assistants.canaryDeploys.delete',
-    httpMethod: 'delete',
-    httpPath: '/ai/assistants/{assistant_id}/canary-deploys',
+    clientCallName: 'client.ai.assistants.scheduledEvents.list',
+    fullyQualifiedName: 'ai.assistants.scheduledEvents.list',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/{assistant_id}/scheduled_events',
   },
   {
     clientCallName: 'client.ai.assistants.scheduledEvents.create',
     fullyQualifiedName: 'ai.assistants.scheduledEvents.create',
     httpMethod: 'post',
-    httpPath: '/ai/assistants/{assistant_id}/scheduled_events',
-  },
-  {
-    clientCallName: 'client.ai.assistants.scheduledEvents.retrieve',
-    fullyQualifiedName: 'ai.assistants.scheduledEvents.retrieve',
-    httpMethod: 'get',
-    httpPath: '/ai/assistants/{assistant_id}/scheduled_events/{event_id}',
-  },
-  {
-    clientCallName: 'client.ai.assistants.scheduledEvents.list',
-    fullyQualifiedName: 'ai.assistants.scheduledEvents.list',
-    httpMethod: 'get',
     httpPath: '/ai/assistants/{assistant_id}/scheduled_events',
   },
   {
@@ -559,16 +553,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/scheduled_events/{event_id}',
   },
   {
-    clientCallName: 'client.ai.assistants.tools.add',
-    fullyQualifiedName: 'ai.assistants.tools.add',
-    httpMethod: 'put',
-    httpPath: '/ai/assistants/{assistant_id}/tools/{tool_id}',
-  },
-  {
-    clientCallName: 'client.ai.assistants.tools.remove',
-    fullyQualifiedName: 'ai.assistants.tools.remove',
-    httpMethod: 'delete',
-    httpPath: '/ai/assistants/{assistant_id}/tools/{tool_id}',
+    clientCallName: 'client.ai.assistants.scheduledEvents.retrieve',
+    fullyQualifiedName: 'ai.assistants.scheduledEvents.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/{assistant_id}/scheduled_events/{event_id}',
   },
   {
     clientCallName: 'client.ai.assistants.tools.test',
@@ -577,16 +565,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/tools/{tool_id}/test',
   },
   {
-    clientCallName: 'client.ai.assistants.versions.retrieve',
-    fullyQualifiedName: 'ai.assistants.versions.retrieve',
-    httpMethod: 'get',
-    httpPath: '/ai/assistants/{assistant_id}/versions/{version_id}',
+    clientCallName: 'client.ai.assistants.tools.remove',
+    fullyQualifiedName: 'ai.assistants.tools.remove',
+    httpMethod: 'delete',
+    httpPath: '/ai/assistants/{assistant_id}/tools/{tool_id}',
   },
   {
-    clientCallName: 'client.ai.assistants.versions.update',
-    fullyQualifiedName: 'ai.assistants.versions.update',
-    httpMethod: 'post',
-    httpPath: '/ai/assistants/{assistant_id}/versions/{version_id}',
+    clientCallName: 'client.ai.assistants.tools.add',
+    fullyQualifiedName: 'ai.assistants.tools.add',
+    httpMethod: 'put',
+    httpPath: '/ai/assistants/{assistant_id}/tools/{tool_id}',
   },
   {
     clientCallName: 'client.ai.assistants.versions.list',
@@ -598,6 +586,18 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.ai.assistants.versions.delete',
     fullyQualifiedName: 'ai.assistants.versions.delete',
     httpMethod: 'delete',
+    httpPath: '/ai/assistants/{assistant_id}/versions/{version_id}',
+  },
+  {
+    clientCallName: 'client.ai.assistants.versions.retrieve',
+    fullyQualifiedName: 'ai.assistants.versions.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/{assistant_id}/versions/{version_id}',
+  },
+  {
+    clientCallName: 'client.ai.assistants.versions.update',
+    fullyQualifiedName: 'ai.assistants.versions.update',
+    httpMethod: 'post',
     httpPath: '/ai/assistants/{assistant_id}/versions/{version_id}',
   },
   {
@@ -625,27 +625,27 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/tags/{tag}',
   },
   {
+    clientCallName: 'client.ai.assistants.instructions.enhance',
+    fullyQualifiedName: 'ai.assistants.instructions.enhance',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/{assistant_id}/instructions/enhance',
+  },
+  {
     clientCallName: 'client.ai.audio.transcribe',
     fullyQualifiedName: 'ai.audio.transcribe',
     httpMethod: 'post',
     httpPath: '/ai/audio/transcriptions',
   },
   {
-    clientCallName: 'client.ai.chat.createCompletion',
-    fullyQualifiedName: 'ai.chat.createCompletion',
-    httpMethod: 'post',
-    httpPath: '/ai/chat/completions',
-  },
-  {
-    clientCallName: 'client.ai.clusters.retrieve',
-    fullyQualifiedName: 'ai.clusters.retrieve',
-    httpMethod: 'get',
-    httpPath: '/ai/clusters/{task_id}',
-  },
-  {
     clientCallName: 'client.ai.clusters.list',
     fullyQualifiedName: 'ai.clusters.list',
     httpMethod: 'get',
+    httpPath: '/ai/clusters',
+  },
+  {
+    clientCallName: 'client.ai.clusters.compute',
+    fullyQualifiedName: 'ai.clusters.compute',
+    httpMethod: 'post',
     httpPath: '/ai/clusters',
   },
   {
@@ -655,10 +655,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/clusters/{task_id}',
   },
   {
-    clientCallName: 'client.ai.clusters.compute',
-    fullyQualifiedName: 'ai.clusters.compute',
-    httpMethod: 'post',
-    httpPath: '/ai/clusters',
+    clientCallName: 'client.ai.clusters.retrieve',
+    fullyQualifiedName: 'ai.clusters.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/clusters/{task_id}',
   },
   {
     clientCallName: 'client.ai.clusters.fetchGraph',
@@ -667,10 +667,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/clusters/{task_id}/graph',
   },
   {
+    clientCallName: 'client.ai.conversations.list',
+    fullyQualifiedName: 'ai.conversations.list',
+    httpMethod: 'get',
+    httpPath: '/ai/conversations',
+  },
+  {
     clientCallName: 'client.ai.conversations.create',
     fullyQualifiedName: 'ai.conversations.create',
     httpMethod: 'post',
     httpPath: '/ai/conversations',
+  },
+  {
+    clientCallName: 'client.ai.conversations.delete',
+    fullyQualifiedName: 'ai.conversations.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/conversations/{conversation_id}',
   },
   {
     clientCallName: 'client.ai.conversations.retrieve',
@@ -685,16 +697,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/conversations/{conversation_id}',
   },
   {
-    clientCallName: 'client.ai.conversations.list',
-    fullyQualifiedName: 'ai.conversations.list',
+    clientCallName: 'client.ai.conversations.retrieveConversationsInsights',
+    fullyQualifiedName: 'ai.conversations.retrieveConversationsInsights',
     httpMethod: 'get',
-    httpPath: '/ai/conversations',
-  },
-  {
-    clientCallName: 'client.ai.conversations.delete',
-    fullyQualifiedName: 'ai.conversations.delete',
-    httpMethod: 'delete',
-    httpPath: '/ai/conversations/{conversation_id}',
+    httpPath: '/ai/conversations/{conversation_id}/conversations-insights',
   },
   {
     clientCallName: 'client.ai.conversations.addMessage',
@@ -703,10 +709,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/conversations/{conversation_id}/message',
   },
   {
-    clientCallName: 'client.ai.conversations.retrieveConversationsInsights',
-    fullyQualifiedName: 'ai.conversations.retrieveConversationsInsights',
+    clientCallName: 'client.ai.conversations.insightGroups.retrieveInsightGroups',
+    fullyQualifiedName: 'ai.conversations.insightGroups.retrieveInsightGroups',
     httpMethod: 'get',
-    httpPath: '/ai/conversations/{conversation_id}/conversations-insights',
+    httpPath: '/ai/conversations/insight-groups',
+  },
+  {
+    clientCallName: 'client.ai.conversations.insightGroups.insightGroups',
+    fullyQualifiedName: 'ai.conversations.insightGroups.insightGroups',
+    httpMethod: 'post',
+    httpPath: '/ai/conversations/insight-groups',
+  },
+  {
+    clientCallName: 'client.ai.conversations.insightGroups.delete',
+    fullyQualifiedName: 'ai.conversations.insightGroups.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/conversations/insight-groups/{group_id}',
   },
   {
     clientCallName: 'client.ai.conversations.insightGroups.retrieve',
@@ -721,24 +739,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/conversations/insight-groups/{group_id}',
   },
   {
-    clientCallName: 'client.ai.conversations.insightGroups.delete',
-    fullyQualifiedName: 'ai.conversations.insightGroups.delete',
-    httpMethod: 'delete',
-    httpPath: '/ai/conversations/insight-groups/{group_id}',
-  },
-  {
-    clientCallName: 'client.ai.conversations.insightGroups.insightGroups',
-    fullyQualifiedName: 'ai.conversations.insightGroups.insightGroups',
-    httpMethod: 'post',
-    httpPath: '/ai/conversations/insight-groups',
-  },
-  {
-    clientCallName: 'client.ai.conversations.insightGroups.retrieveInsightGroups',
-    fullyQualifiedName: 'ai.conversations.insightGroups.retrieveInsightGroups',
-    httpMethod: 'get',
-    httpPath: '/ai/conversations/insight-groups',
-  },
-  {
     clientCallName: 'client.ai.conversations.insightGroups.insights.assign',
     fullyQualifiedName: 'ai.conversations.insightGroups.insights.assign',
     httpMethod: 'post',
@@ -751,10 +751,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/conversations/insight-groups/{group_id}/insights/{insight_id}/unassign',
   },
   {
+    clientCallName: 'client.ai.conversations.insights.list',
+    fullyQualifiedName: 'ai.conversations.insights.list',
+    httpMethod: 'get',
+    httpPath: '/ai/conversations/insights',
+  },
+  {
     clientCallName: 'client.ai.conversations.insights.create',
     fullyQualifiedName: 'ai.conversations.insights.create',
     httpMethod: 'post',
     httpPath: '/ai/conversations/insights',
+  },
+  {
+    clientCallName: 'client.ai.conversations.insights.delete',
+    fullyQualifiedName: 'ai.conversations.insights.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/conversations/insights/{insight_id}',
   },
   {
     clientCallName: 'client.ai.conversations.insights.retrieve',
@@ -769,39 +781,27 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/conversations/insights/{insight_id}',
   },
   {
-    clientCallName: 'client.ai.conversations.insights.list',
-    fullyQualifiedName: 'ai.conversations.insights.list',
-    httpMethod: 'get',
-    httpPath: '/ai/conversations/insights',
-  },
-  {
-    clientCallName: 'client.ai.conversations.insights.delete',
-    fullyQualifiedName: 'ai.conversations.insights.delete',
-    httpMethod: 'delete',
-    httpPath: '/ai/conversations/insights/{insight_id}',
-  },
-  {
     clientCallName: 'client.ai.conversations.messages.list',
     fullyQualifiedName: 'ai.conversations.messages.list',
     httpMethod: 'get',
     httpPath: '/ai/conversations/{conversation_id}/messages',
   },
   {
-    clientCallName: 'client.ai.embeddings.create',
-    fullyQualifiedName: 'ai.embeddings.create',
-    httpMethod: 'post',
-    httpPath: '/ai/embeddings',
-  },
-  {
-    clientCallName: 'client.ai.embeddings.retrieve',
-    fullyQualifiedName: 'ai.embeddings.retrieve',
+    clientCallName: 'client.ai.conversations.conversationInsights.retrieveAggregates',
+    fullyQualifiedName: 'ai.conversations.conversationInsights.retrieveAggregates',
     httpMethod: 'get',
-    httpPath: '/ai/embeddings/{task_id}',
+    httpPath: '/ai/conversations/conversation-insights/aggregates',
   },
   {
     clientCallName: 'client.ai.embeddings.list',
     fullyQualifiedName: 'ai.embeddings.list',
     httpMethod: 'get',
+    httpPath: '/ai/embeddings',
+  },
+  {
+    clientCallName: 'client.ai.embeddings.create',
+    fullyQualifiedName: 'ai.embeddings.create',
+    httpMethod: 'post',
     httpPath: '/ai/embeddings',
   },
   {
@@ -817,10 +817,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/embeddings/url',
   },
   {
-    clientCallName: 'client.ai.embeddings.buckets.retrieve',
-    fullyQualifiedName: 'ai.embeddings.buckets.retrieve',
+    clientCallName: 'client.ai.embeddings.retrieve',
+    fullyQualifiedName: 'ai.embeddings.retrieve',
     httpMethod: 'get',
-    httpPath: '/ai/embeddings/buckets/{bucket_name}',
+    httpPath: '/ai/embeddings/{task_id}',
   },
   {
     clientCallName: 'client.ai.embeddings.buckets.list',
@@ -835,6 +835,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/embeddings/buckets/{bucket_name}',
   },
   {
+    clientCallName: 'client.ai.embeddings.buckets.retrieve',
+    fullyQualifiedName: 'ai.embeddings.buckets.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/embeddings/buckets/{bucket_name}',
+  },
+  {
+    clientCallName: 'client.ai.fineTuning.jobs.list',
+    fullyQualifiedName: 'ai.fineTuning.jobs.list',
+    httpMethod: 'get',
+    httpPath: '/ai/fine_tuning/jobs',
+  },
+  {
     clientCallName: 'client.ai.fineTuning.jobs.create',
     fullyQualifiedName: 'ai.fineTuning.jobs.create',
     httpMethod: 'post',
@@ -847,22 +859,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/fine_tuning/jobs/{job_id}',
   },
   {
-    clientCallName: 'client.ai.fineTuning.jobs.list',
-    fullyQualifiedName: 'ai.fineTuning.jobs.list',
-    httpMethod: 'get',
-    httpPath: '/ai/fine_tuning/jobs',
-  },
-  {
     clientCallName: 'client.ai.fineTuning.jobs.cancel',
     fullyQualifiedName: 'ai.fineTuning.jobs.cancel',
     httpMethod: 'post',
     httpPath: '/ai/fine_tuning/jobs/{job_id}/cancel',
-  },
-  {
-    clientCallName: 'client.ai.integrations.retrieve',
-    fullyQualifiedName: 'ai.integrations.retrieve',
-    httpMethod: 'get',
-    httpPath: '/ai/integrations/{integration_id}',
   },
   {
     clientCallName: 'client.ai.integrations.list',
@@ -871,10 +871,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/integrations',
   },
   {
-    clientCallName: 'client.ai.integrations.connections.retrieve',
-    fullyQualifiedName: 'ai.integrations.connections.retrieve',
+    clientCallName: 'client.ai.integrations.retrieve',
+    fullyQualifiedName: 'ai.integrations.retrieve',
     httpMethod: 'get',
-    httpPath: '/ai/integrations/connections/{user_connection_id}',
+    httpPath: '/ai/integrations/{integration_id}',
   },
   {
     clientCallName: 'client.ai.integrations.connections.list',
@@ -889,10 +889,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/integrations/connections/{user_connection_id}',
   },
   {
+    clientCallName: 'client.ai.integrations.connections.retrieve',
+    fullyQualifiedName: 'ai.integrations.connections.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/integrations/connections/{user_connection_id}',
+  },
+  {
+    clientCallName: 'client.ai.mcpServers.list',
+    fullyQualifiedName: 'ai.mcpServers.list',
+    httpMethod: 'get',
+    httpPath: '/ai/mcp_servers',
+  },
+  {
     clientCallName: 'client.ai.mcpServers.create',
     fullyQualifiedName: 'ai.mcpServers.create',
     httpMethod: 'post',
     httpPath: '/ai/mcp_servers',
+  },
+  {
+    clientCallName: 'client.ai.mcpServers.delete',
+    fullyQualifiedName: 'ai.mcpServers.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/mcp_servers/{mcp_server_id}',
   },
   {
     clientCallName: 'client.ai.mcpServers.retrieve',
@@ -907,16 +925,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/mcp_servers/{mcp_server_id}',
   },
   {
-    clientCallName: 'client.ai.mcpServers.list',
-    fullyQualifiedName: 'ai.mcpServers.list',
+    clientCallName: 'client.ai.missions.list',
+    fullyQualifiedName: 'ai.missions.list',
     httpMethod: 'get',
-    httpPath: '/ai/mcp_servers',
-  },
-  {
-    clientCallName: 'client.ai.mcpServers.delete',
-    fullyQualifiedName: 'ai.mcpServers.delete',
-    httpMethod: 'delete',
-    httpPath: '/ai/mcp_servers/{mcp_server_id}',
+    httpPath: '/ai/missions',
   },
   {
     clientCallName: 'client.ai.missions.create',
@@ -931,16 +943,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}',
   },
   {
-    clientCallName: 'client.ai.missions.list',
-    fullyQualifiedName: 'ai.missions.list',
+    clientCallName: 'client.ai.missions.listEvents',
+    fullyQualifiedName: 'ai.missions.listEvents',
     httpMethod: 'get',
-    httpPath: '/ai/missions',
-  },
-  {
-    clientCallName: 'client.ai.missions.cloneMission',
-    fullyQualifiedName: 'ai.missions.cloneMission',
-    httpMethod: 'post',
-    httpPath: '/ai/missions/{mission_id}/clone',
+    httpPath: '/ai/missions/events',
   },
   {
     clientCallName: 'client.ai.missions.deleteMission',
@@ -949,16 +955,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}',
   },
   {
-    clientCallName: 'client.ai.missions.listEvents',
-    fullyQualifiedName: 'ai.missions.listEvents',
-    httpMethod: 'get',
-    httpPath: '/ai/missions/events',
-  },
-  {
     clientCallName: 'client.ai.missions.updateMission',
     fullyQualifiedName: 'ai.missions.updateMission',
     httpMethod: 'put',
     httpPath: '/ai/missions/{mission_id}',
+  },
+  {
+    clientCallName: 'client.ai.missions.cloneMission',
+    fullyQualifiedName: 'ai.missions.cloneMission',
+    httpMethod: 'post',
+    httpPath: '/ai/missions/{mission_id}/clone',
+  },
+  {
+    clientCallName: 'client.ai.missions.runs.list',
+    fullyQualifiedName: 'ai.missions.runs.list',
+    httpMethod: 'get',
+    httpPath: '/ai/missions/{mission_id}/runs',
   },
   {
     clientCallName: 'client.ai.missions.runs.create',
@@ -979,22 +991,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}/runs/{run_id}',
   },
   {
-    clientCallName: 'client.ai.missions.runs.list',
-    fullyQualifiedName: 'ai.missions.runs.list',
+    clientCallName: 'client.ai.missions.runs.listRuns',
+    fullyQualifiedName: 'ai.missions.runs.listRuns',
     httpMethod: 'get',
-    httpPath: '/ai/missions/{mission_id}/runs',
+    httpPath: '/ai/missions/runs',
   },
   {
     clientCallName: 'client.ai.missions.runs.cancelRun',
     fullyQualifiedName: 'ai.missions.runs.cancelRun',
     httpMethod: 'post',
     httpPath: '/ai/missions/{mission_id}/runs/{run_id}/cancel',
-  },
-  {
-    clientCallName: 'client.ai.missions.runs.listRuns',
-    fullyQualifiedName: 'ai.missions.runs.listRuns',
-    httpMethod: 'get',
-    httpPath: '/ai/missions/runs',
   },
   {
     clientCallName: 'client.ai.missions.runs.pauseRun',
@@ -1015,16 +1021,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}/runs/{run_id}/events',
   },
   {
+    clientCallName: 'client.ai.missions.runs.events.log',
+    fullyQualifiedName: 'ai.missions.runs.events.log',
+    httpMethod: 'post',
+    httpPath: '/ai/missions/{mission_id}/runs/{run_id}/events',
+  },
+  {
     clientCallName: 'client.ai.missions.runs.events.getEventDetails',
     fullyQualifiedName: 'ai.missions.runs.events.getEventDetails',
     httpMethod: 'get',
     httpPath: '/ai/missions/{mission_id}/runs/{run_id}/events/{event_id}',
   },
   {
-    clientCallName: 'client.ai.missions.runs.events.log',
-    fullyQualifiedName: 'ai.missions.runs.events.log',
-    httpMethod: 'post',
-    httpPath: '/ai/missions/{mission_id}/runs/{run_id}/events',
+    clientCallName: 'client.ai.missions.runs.plan.retrieve',
+    fullyQualifiedName: 'ai.missions.runs.plan.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/missions/{mission_id}/runs/{run_id}/plan',
   },
   {
     clientCallName: 'client.ai.missions.runs.plan.create',
@@ -1033,10 +1045,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}/runs/{run_id}/plan',
   },
   {
-    clientCallName: 'client.ai.missions.runs.plan.retrieve',
-    fullyQualifiedName: 'ai.missions.runs.plan.retrieve',
-    httpMethod: 'get',
-    httpPath: '/ai/missions/{mission_id}/runs/{run_id}/plan',
+    clientCallName: 'client.ai.missions.runs.plan.updateStep',
+    fullyQualifiedName: 'ai.missions.runs.plan.updateStep',
+    httpMethod: 'patch',
+    httpPath: '/ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}',
   },
   {
     clientCallName: 'client.ai.missions.runs.plan.addStepsToPlan',
@@ -1048,12 +1060,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.ai.missions.runs.plan.getStepDetails',
     fullyQualifiedName: 'ai.missions.runs.plan.getStepDetails',
     httpMethod: 'get',
-    httpPath: '/ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}',
-  },
-  {
-    clientCallName: 'client.ai.missions.runs.plan.updateStep',
-    fullyQualifiedName: 'ai.missions.runs.plan.updateStep',
-    httpMethod: 'patch',
     httpPath: '/ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}',
   },
   {
@@ -1075,6 +1081,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}/runs/{run_id}/telnyx-agents/{telnyx_agent_id}',
   },
   {
+    clientCallName: 'client.ai.missions.knowledgeBases.listKnowledgeBases',
+    fullyQualifiedName: 'ai.missions.knowledgeBases.listKnowledgeBases',
+    httpMethod: 'get',
+    httpPath: '/ai/missions/{mission_id}/knowledge-bases',
+  },
+  {
     clientCallName: 'client.ai.missions.knowledgeBases.createKnowledgeBase',
     fullyQualifiedName: 'ai.missions.knowledgeBases.createKnowledgeBase',
     httpMethod: 'post',
@@ -1093,16 +1105,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}',
   },
   {
-    clientCallName: 'client.ai.missions.knowledgeBases.listKnowledgeBases',
-    fullyQualifiedName: 'ai.missions.knowledgeBases.listKnowledgeBases',
-    httpMethod: 'get',
-    httpPath: '/ai/missions/{mission_id}/knowledge-bases',
-  },
-  {
     clientCallName: 'client.ai.missions.knowledgeBases.updateKnowledgeBase',
     fullyQualifiedName: 'ai.missions.knowledgeBases.updateKnowledgeBase',
     httpMethod: 'put',
     httpPath: '/ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}',
+  },
+  {
+    clientCallName: 'client.ai.missions.mcpServers.listMcpServers',
+    fullyQualifiedName: 'ai.missions.mcpServers.listMcpServers',
+    httpMethod: 'get',
+    httpPath: '/ai/missions/{mission_id}/mcp-servers',
   },
   {
     clientCallName: 'client.ai.missions.mcpServers.createMcpServer',
@@ -1123,16 +1135,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}/mcp-servers/{mcp_server_id}',
   },
   {
-    clientCallName: 'client.ai.missions.mcpServers.listMcpServers',
-    fullyQualifiedName: 'ai.missions.mcpServers.listMcpServers',
-    httpMethod: 'get',
-    httpPath: '/ai/missions/{mission_id}/mcp-servers',
-  },
-  {
     clientCallName: 'client.ai.missions.mcpServers.updateMcpServer',
     fullyQualifiedName: 'ai.missions.mcpServers.updateMcpServer',
     httpMethod: 'put',
     httpPath: '/ai/missions/{mission_id}/mcp-servers/{mcp_server_id}',
+  },
+  {
+    clientCallName: 'client.ai.missions.tools.listTools',
+    fullyQualifiedName: 'ai.missions.tools.listTools',
+    httpMethod: 'get',
+    httpPath: '/ai/missions/{mission_id}/tools',
   },
   {
     clientCallName: 'client.ai.missions.tools.createTool',
@@ -1153,12 +1165,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/missions/{mission_id}/tools/{tool_id}',
   },
   {
-    clientCallName: 'client.ai.missions.tools.listTools',
-    fullyQualifiedName: 'ai.missions.tools.listTools',
-    httpMethod: 'get',
-    httpPath: '/ai/missions/{mission_id}/tools',
-  },
-  {
     clientCallName: 'client.ai.missions.tools.updateTool',
     fullyQualifiedName: 'ai.missions.tools.updateTool',
     httpMethod: 'put',
@@ -1169,6 +1175,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.openai.listModels',
     httpMethod: 'get',
     httpPath: '/ai/openai/models',
+  },
+  {
+    clientCallName: 'client.ai.openai.createResponse',
+    fullyQualifiedName: 'ai.openai.createResponse',
+    httpMethod: 'post',
+    httpPath: '/ai/openai/responses',
   },
   {
     clientCallName: 'client.ai.openai.embeddings.createEmbeddings',
@@ -1189,10 +1201,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/openai/chat/completions',
   },
   {
+    clientCallName: 'client.ai.tools.list',
+    fullyQualifiedName: 'ai.tools.list',
+    httpMethod: 'get',
+    httpPath: '/ai/tools',
+  },
+  {
     clientCallName: 'client.ai.tools.create',
     fullyQualifiedName: 'ai.tools.create',
     httpMethod: 'post',
     httpPath: '/ai/tools',
+  },
+  {
+    clientCallName: 'client.ai.tools.delete',
+    fullyQualifiedName: 'ai.tools.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/tools/{tool_id}',
   },
   {
     clientCallName: 'client.ai.tools.retrieve',
@@ -1207,16 +1231,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/tools/{tool_id}',
   },
   {
-    clientCallName: 'client.ai.tools.list',
-    fullyQualifiedName: 'ai.tools.list',
-    httpMethod: 'get',
-    httpPath: '/ai/tools',
-  },
-  {
-    clientCallName: 'client.ai.tools.delete',
-    fullyQualifiedName: 'ai.tools.delete',
-    httpMethod: 'delete',
-    httpPath: '/ai/tools/{tool_id}',
+    clientCallName: 'client.ai.anthropic.v1.messages',
+    fullyQualifiedName: 'ai.anthropic.v1.messages',
+    httpMethod: 'post',
+    httpPath: '/ai/anthropic/v1/messages',
   },
   {
     clientCallName: 'client.auditEvents.list',
@@ -1225,10 +1243,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/audit_events',
   },
   {
+    clientCallName: 'client.authenticationProviders.list',
+    fullyQualifiedName: 'authenticationProviders.list',
+    httpMethod: 'get',
+    httpPath: '/authentication_providers',
+  },
+  {
     clientCallName: 'client.authenticationProviders.create',
     fullyQualifiedName: 'authenticationProviders.create',
     httpMethod: 'post',
     httpPath: '/authentication_providers',
+  },
+  {
+    clientCallName: 'client.authenticationProviders.delete',
+    fullyQualifiedName: 'authenticationProviders.delete',
+    httpMethod: 'delete',
+    httpPath: '/authentication_providers/{id}',
   },
   {
     clientCallName: 'client.authenticationProviders.retrieve',
@@ -1240,18 +1270,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.authenticationProviders.update',
     fullyQualifiedName: 'authenticationProviders.update',
     httpMethod: 'patch',
-    httpPath: '/authentication_providers/{id}',
-  },
-  {
-    clientCallName: 'client.authenticationProviders.list',
-    fullyQualifiedName: 'authenticationProviders.list',
-    httpMethod: 'get',
-    httpPath: '/authentication_providers',
-  },
-  {
-    clientCallName: 'client.authenticationProviders.delete',
-    fullyQualifiedName: 'authenticationProviders.delete',
-    httpMethod: 'delete',
     httpPath: '/authentication_providers/{id}',
   },
   {
@@ -1273,10 +1291,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/balance',
   },
   {
+    clientCallName: 'client.billingGroups.list',
+    fullyQualifiedName: 'billingGroups.list',
+    httpMethod: 'get',
+    httpPath: '/billing_groups',
+  },
+  {
     clientCallName: 'client.billingGroups.create',
     fullyQualifiedName: 'billingGroups.create',
     httpMethod: 'post',
     httpPath: '/billing_groups',
+  },
+  {
+    clientCallName: 'client.billingGroups.delete',
+    fullyQualifiedName: 'billingGroups.delete',
+    httpMethod: 'delete',
+    httpPath: '/billing_groups/{id}',
   },
   {
     clientCallName: 'client.billingGroups.retrieve',
@@ -1291,16 +1321,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/billing_groups/{id}',
   },
   {
-    clientCallName: 'client.billingGroups.list',
-    fullyQualifiedName: 'billingGroups.list',
+    clientCallName: 'client.bulkSimCardActions.list',
+    fullyQualifiedName: 'bulkSimCardActions.list',
     httpMethod: 'get',
-    httpPath: '/billing_groups',
-  },
-  {
-    clientCallName: 'client.billingGroups.delete',
-    fullyQualifiedName: 'billingGroups.delete',
-    httpMethod: 'delete',
-    httpPath: '/billing_groups/{id}',
+    httpPath: '/bulk_sim_card_actions',
   },
   {
     clientCallName: 'client.bulkSimCardActions.retrieve',
@@ -1309,10 +1333,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/bulk_sim_card_actions/{id}',
   },
   {
-    clientCallName: 'client.bulkSimCardActions.list',
-    fullyQualifiedName: 'bulkSimCardActions.list',
+    clientCallName: 'client.bundlePricing.billingBundles.list',
+    fullyQualifiedName: 'bundlePricing.billingBundles.list',
     httpMethod: 'get',
-    httpPath: '/bulk_sim_card_actions',
+    httpPath: '/bundle_pricing/billing_bundles',
   },
   {
     clientCallName: 'client.bundlePricing.billingBundles.retrieve',
@@ -1321,10 +1345,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/bundle_pricing/billing_bundles/{bundle_id}',
   },
   {
-    clientCallName: 'client.bundlePricing.billingBundles.list',
-    fullyQualifiedName: 'bundlePricing.billingBundles.list',
+    clientCallName: 'client.bundlePricing.userBundles.list',
+    fullyQualifiedName: 'bundlePricing.userBundles.list',
     httpMethod: 'get',
-    httpPath: '/bundle_pricing/billing_bundles',
+    httpPath: '/bundle_pricing/user_bundles',
   },
   {
     clientCallName: 'client.bundlePricing.userBundles.create',
@@ -1333,21 +1357,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/bundle_pricing/user_bundles/bulk',
   },
   {
-    clientCallName: 'client.bundlePricing.userBundles.retrieve',
-    fullyQualifiedName: 'bundlePricing.userBundles.retrieve',
+    clientCallName: 'client.bundlePricing.userBundles.listUnused',
+    fullyQualifiedName: 'bundlePricing.userBundles.listUnused',
     httpMethod: 'get',
-    httpPath: '/bundle_pricing/user_bundles/{user_bundle_id}',
-  },
-  {
-    clientCallName: 'client.bundlePricing.userBundles.list',
-    fullyQualifiedName: 'bundlePricing.userBundles.list',
-    httpMethod: 'get',
-    httpPath: '/bundle_pricing/user_bundles',
+    httpPath: '/bundle_pricing/user_bundles/unused',
   },
   {
     clientCallName: 'client.bundlePricing.userBundles.deactivate',
     fullyQualifiedName: 'bundlePricing.userBundles.deactivate',
     httpMethod: 'delete',
+    httpPath: '/bundle_pricing/user_bundles/{user_bundle_id}',
+  },
+  {
+    clientCallName: 'client.bundlePricing.userBundles.retrieve',
+    fullyQualifiedName: 'bundlePricing.userBundles.retrieve',
+    httpMethod: 'get',
     httpPath: '/bundle_pricing/user_bundles/{user_bundle_id}',
   },
   {
@@ -1357,16 +1381,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/bundle_pricing/user_bundles/{user_bundle_id}/resources',
   },
   {
-    clientCallName: 'client.bundlePricing.userBundles.listUnused',
-    fullyQualifiedName: 'bundlePricing.userBundles.listUnused',
+    clientCallName: 'client.callControlApplications.list',
+    fullyQualifiedName: 'callControlApplications.list',
     httpMethod: 'get',
-    httpPath: '/bundle_pricing/user_bundles/unused',
+    httpPath: '/call_control_applications',
   },
   {
     clientCallName: 'client.callControlApplications.create',
     fullyQualifiedName: 'callControlApplications.create',
     httpMethod: 'post',
     httpPath: '/call_control_applications',
+  },
+  {
+    clientCallName: 'client.callControlApplications.delete',
+    fullyQualifiedName: 'callControlApplications.delete',
+    httpMethod: 'delete',
+    httpPath: '/call_control_applications/{id}',
   },
   {
     clientCallName: 'client.callControlApplications.retrieve',
@@ -1378,18 +1408,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.callControlApplications.update',
     fullyQualifiedName: 'callControlApplications.update',
     httpMethod: 'patch',
-    httpPath: '/call_control_applications/{id}',
-  },
-  {
-    clientCallName: 'client.callControlApplications.list',
-    fullyQualifiedName: 'callControlApplications.list',
-    httpMethod: 'get',
-    httpPath: '/call_control_applications',
-  },
-  {
-    clientCallName: 'client.callControlApplications.delete',
-    fullyQualifiedName: 'callControlApplications.delete',
-    httpMethod: 'delete',
     httpPath: '/call_control_applications/{id}',
   },
   {
@@ -1411,10 +1429,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}',
   },
   {
-    clientCallName: 'client.calls.actions.addAIAssistantMessages',
-    fullyQualifiedName: 'calls.actions.addAIAssistantMessages',
+    clientCallName: 'client.calls.actions.startAIAssistant',
+    fullyQualifiedName: 'calls.actions.startAIAssistant',
     httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/ai_assistant_add_messages',
+    httpPath: '/calls/{call_control_id}/actions/ai_assistant_start',
+  },
+  {
+    clientCallName: 'client.calls.actions.stopAIAssistant',
+    fullyQualifiedName: 'calls.actions.stopAIAssistant',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/ai_assistant_stop',
   },
   {
     clientCallName: 'client.calls.actions.answer',
@@ -1429,16 +1453,40 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}/actions/bridge',
   },
   {
+    clientCallName: 'client.calls.actions.updateClientState',
+    fullyQualifiedName: 'calls.actions.updateClientState',
+    httpMethod: 'put',
+    httpPath: '/calls/{call_control_id}/actions/client_state_update',
+  },
+  {
     clientCallName: 'client.calls.actions.enqueue',
     fullyQualifiedName: 'calls.actions.enqueue',
     httpMethod: 'post',
     httpPath: '/calls/{call_control_id}/actions/enqueue',
   },
   {
+    clientCallName: 'client.calls.actions.startForking',
+    fullyQualifiedName: 'calls.actions.startForking',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/fork_start',
+  },
+  {
+    clientCallName: 'client.calls.actions.stopForking',
+    fullyQualifiedName: 'calls.actions.stopForking',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/fork_stop',
+  },
+  {
     clientCallName: 'client.calls.actions.gather',
     fullyQualifiedName: 'calls.actions.gather',
     httpMethod: 'post',
     httpPath: '/calls/{call_control_id}/actions/gather',
+  },
+  {
+    clientCallName: 'client.calls.actions.stopGather',
+    fullyQualifiedName: 'calls.actions.stopGather',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/gather_stop',
   },
   {
     clientCallName: 'client.calls.actions.gatherUsingAI',
@@ -1465,22 +1513,46 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}/actions/hangup',
   },
   {
-    clientCallName: 'client.calls.actions.joinAIAssistant',
-    fullyQualifiedName: 'calls.actions.joinAIAssistant',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/ai_assistant_join',
-  },
-  {
     clientCallName: 'client.calls.actions.leaveQueue',
     fullyQualifiedName: 'calls.actions.leaveQueue',
     httpMethod: 'post',
     httpPath: '/calls/{call_control_id}/actions/leave_queue',
   },
   {
+    clientCallName: 'client.calls.actions.startPlayback',
+    fullyQualifiedName: 'calls.actions.startPlayback',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/playback_start',
+  },
+  {
+    clientCallName: 'client.calls.actions.stopPlayback',
+    fullyQualifiedName: 'calls.actions.stopPlayback',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/playback_stop',
+  },
+  {
     clientCallName: 'client.calls.actions.pauseRecording',
     fullyQualifiedName: 'calls.actions.pauseRecording',
     httpMethod: 'post',
     httpPath: '/calls/{call_control_id}/actions/record_pause',
+  },
+  {
+    clientCallName: 'client.calls.actions.resumeRecording',
+    fullyQualifiedName: 'calls.actions.resumeRecording',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/record_resume',
+  },
+  {
+    clientCallName: 'client.calls.actions.startRecording',
+    fullyQualifiedName: 'calls.actions.startRecording',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/record_start',
+  },
+  {
+    clientCallName: 'client.calls.actions.stopRecording',
+    fullyQualifiedName: 'calls.actions.stopRecording',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/record_stop',
   },
   {
     clientCallName: 'client.calls.actions.refer',
@@ -1495,12 +1567,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}/actions/reject',
   },
   {
-    clientCallName: 'client.calls.actions.resumeRecording',
-    fullyQualifiedName: 'calls.actions.resumeRecording',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/record_resume',
-  },
-  {
     clientCallName: 'client.calls.actions.sendDtmf',
     fullyQualifiedName: 'calls.actions.sendDtmf',
     httpMethod: 'post',
@@ -1513,94 +1579,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}/actions/send_sip_info',
   },
   {
-    clientCallName: 'client.calls.actions.speak',
-    fullyQualifiedName: 'calls.actions.speak',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/speak',
-  },
-  {
-    clientCallName: 'client.calls.actions.startAIAssistant',
-    fullyQualifiedName: 'calls.actions.startAIAssistant',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/ai_assistant_start',
-  },
-  {
-    clientCallName: 'client.calls.actions.startForking',
-    fullyQualifiedName: 'calls.actions.startForking',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/fork_start',
-  },
-  {
-    clientCallName: 'client.calls.actions.startNoiseSuppression',
-    fullyQualifiedName: 'calls.actions.startNoiseSuppression',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/suppression_start',
-  },
-  {
-    clientCallName: 'client.calls.actions.startPlayback',
-    fullyQualifiedName: 'calls.actions.startPlayback',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/playback_start',
-  },
-  {
-    clientCallName: 'client.calls.actions.startRecording',
-    fullyQualifiedName: 'calls.actions.startRecording',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/record_start',
-  },
-  {
     clientCallName: 'client.calls.actions.startSiprec',
     fullyQualifiedName: 'calls.actions.startSiprec',
     httpMethod: 'post',
     httpPath: '/calls/{call_control_id}/actions/siprec_start',
-  },
-  {
-    clientCallName: 'client.calls.actions.startStreaming',
-    fullyQualifiedName: 'calls.actions.startStreaming',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/streaming_start',
-  },
-  {
-    clientCallName: 'client.calls.actions.startTranscription',
-    fullyQualifiedName: 'calls.actions.startTranscription',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/transcription_start',
-  },
-  {
-    clientCallName: 'client.calls.actions.stopAIAssistant',
-    fullyQualifiedName: 'calls.actions.stopAIAssistant',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/ai_assistant_stop',
-  },
-  {
-    clientCallName: 'client.calls.actions.stopForking',
-    fullyQualifiedName: 'calls.actions.stopForking',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/fork_stop',
-  },
-  {
-    clientCallName: 'client.calls.actions.stopGather',
-    fullyQualifiedName: 'calls.actions.stopGather',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/gather_stop',
-  },
-  {
-    clientCallName: 'client.calls.actions.stopNoiseSuppression',
-    fullyQualifiedName: 'calls.actions.stopNoiseSuppression',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/suppression_stop',
-  },
-  {
-    clientCallName: 'client.calls.actions.stopPlayback',
-    fullyQualifiedName: 'calls.actions.stopPlayback',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/playback_stop',
-  },
-  {
-    clientCallName: 'client.calls.actions.stopRecording',
-    fullyQualifiedName: 'calls.actions.stopRecording',
-    httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/record_stop',
   },
   {
     clientCallName: 'client.calls.actions.stopSiprec',
@@ -1609,16 +1591,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}/actions/siprec_stop',
   },
   {
+    clientCallName: 'client.calls.actions.speak',
+    fullyQualifiedName: 'calls.actions.speak',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/speak',
+  },
+  {
+    clientCallName: 'client.calls.actions.startStreaming',
+    fullyQualifiedName: 'calls.actions.startStreaming',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/streaming_start',
+  },
+  {
     clientCallName: 'client.calls.actions.stopStreaming',
     fullyQualifiedName: 'calls.actions.stopStreaming',
     httpMethod: 'post',
     httpPath: '/calls/{call_control_id}/actions/streaming_stop',
   },
   {
-    clientCallName: 'client.calls.actions.stopTranscription',
-    fullyQualifiedName: 'calls.actions.stopTranscription',
+    clientCallName: 'client.calls.actions.startNoiseSuppression',
+    fullyQualifiedName: 'calls.actions.startNoiseSuppression',
     httpMethod: 'post',
-    httpPath: '/calls/{call_control_id}/actions/transcription_stop',
+    httpPath: '/calls/{call_control_id}/actions/suppression_start',
+  },
+  {
+    clientCallName: 'client.calls.actions.stopNoiseSuppression',
+    fullyQualifiedName: 'calls.actions.stopNoiseSuppression',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/suppression_stop',
   },
   {
     clientCallName: 'client.calls.actions.switchSupervisorRole',
@@ -1627,28 +1627,58 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}/actions/switch_supervisor_role',
   },
   {
+    clientCallName: 'client.calls.actions.startTranscription',
+    fullyQualifiedName: 'calls.actions.startTranscription',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/transcription_start',
+  },
+  {
+    clientCallName: 'client.calls.actions.stopTranscription',
+    fullyQualifiedName: 'calls.actions.stopTranscription',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/transcription_stop',
+  },
+  {
     clientCallName: 'client.calls.actions.transfer',
     fullyQualifiedName: 'calls.actions.transfer',
     httpMethod: 'post',
     httpPath: '/calls/{call_control_id}/actions/transfer',
   },
   {
-    clientCallName: 'client.calls.actions.updateClientState',
-    fullyQualifiedName: 'calls.actions.updateClientState',
-    httpMethod: 'put',
-    httpPath: '/calls/{call_control_id}/actions/client_state_update',
+    clientCallName: 'client.calls.actions.addAIAssistantMessages',
+    fullyQualifiedName: 'calls.actions.addAIAssistantMessages',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/ai_assistant_add_messages',
   },
   {
-    clientCallName: 'client.channelZones.update',
-    fullyQualifiedName: 'channelZones.update',
-    httpMethod: 'put',
-    httpPath: '/channel_zones/{channel_zone_id}',
+    clientCallName: 'client.calls.actions.joinAIAssistant',
+    fullyQualifiedName: 'calls.actions.joinAIAssistant',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/ai_assistant_join',
+  },
+  {
+    clientCallName: 'client.calls.actions.startConversationRelay',
+    fullyQualifiedName: 'calls.actions.startConversationRelay',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/conversation_relay_start',
+  },
+  {
+    clientCallName: 'client.calls.actions.stopConversationRelay',
+    fullyQualifiedName: 'calls.actions.stopConversationRelay',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/conversation_relay_stop',
   },
   {
     clientCallName: 'client.channelZones.list',
     fullyQualifiedName: 'channelZones.list',
     httpMethod: 'get',
     httpPath: '/channel_zones',
+  },
+  {
+    clientCallName: 'client.channelZones.update',
+    fullyQualifiedName: 'channelZones.update',
+    httpMethod: 'put',
+    httpPath: '/channel_zones/{channel_zone_id}',
   },
   {
     clientCallName: 'client.chargesBreakdown.retrieve',
@@ -1663,6 +1693,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/charges_summary',
   },
   {
+    clientCallName: 'client.comments.list',
+    fullyQualifiedName: 'comments.list',
+    httpMethod: 'get',
+    httpPath: '/comments',
+  },
+  {
     clientCallName: 'client.comments.create',
     fullyQualifiedName: 'comments.create',
     httpMethod: 'post',
@@ -1675,28 +1711,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/comments/{id}',
   },
   {
-    clientCallName: 'client.comments.list',
-    fullyQualifiedName: 'comments.list',
-    httpMethod: 'get',
-    httpPath: '/comments',
-  },
-  {
     clientCallName: 'client.comments.markAsRead',
     fullyQualifiedName: 'comments.markAsRead',
     httpMethod: 'patch',
     httpPath: '/comments/{id}/read',
-  },
-  {
-    clientCallName: 'client.conferences.create',
-    fullyQualifiedName: 'conferences.create',
-    httpMethod: 'post',
-    httpPath: '/conferences',
-  },
-  {
-    clientCallName: 'client.conferences.retrieve',
-    fullyQualifiedName: 'conferences.retrieve',
-    httpMethod: 'get',
-    httpPath: '/conferences/{id}',
   },
   {
     clientCallName: 'client.conferences.list',
@@ -1705,10 +1723,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/conferences',
   },
   {
+    clientCallName: 'client.conferences.create',
+    fullyQualifiedName: 'conferences.create',
+    httpMethod: 'post',
+    httpPath: '/conferences',
+  },
+  {
     clientCallName: 'client.conferences.listParticipants',
     fullyQualifiedName: 'conferences.listParticipants',
     httpMethod: 'get',
     httpPath: '/conferences/{conference_id}/participants',
+  },
+  {
+    clientCallName: 'client.conferences.retrieve',
+    fullyQualifiedName: 'conferences.retrieve',
+    httpMethod: 'get',
+    httpPath: '/conferences/{id}',
   },
   {
     clientCallName: 'client.conferences.retrieveParticipant',
@@ -1721,24 +1751,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'conferences.updateParticipant',
     httpMethod: 'patch',
     httpPath: '/conferences/{id}/participants/{participant_id}',
-  },
-  {
-    clientCallName: 'client.conferences.actions.update',
-    fullyQualifiedName: 'conferences.actions.update',
-    httpMethod: 'post',
-    httpPath: '/conferences/{id}/actions/update',
-  },
-  {
-    clientCallName: 'client.conferences.actions.endConference',
-    fullyQualifiedName: 'conferences.actions.endConference',
-    httpMethod: 'post',
-    httpPath: '/conferences/{id}/actions/end',
-  },
-  {
-    clientCallName: 'client.conferences.actions.gatherDtmfAudio',
-    fullyQualifiedName: 'conferences.actions.gatherDtmfAudio',
-    httpMethod: 'post',
-    httpPath: '/conferences/{id}/actions/gather_using_audio',
   },
   {
     clientCallName: 'client.conferences.actions.hold',
@@ -1795,12 +1807,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/conferences/{id}/actions/record_stop',
   },
   {
-    clientCallName: 'client.conferences.actions.sendDtmf',
-    fullyQualifiedName: 'conferences.actions.sendDtmf',
-    httpMethod: 'post',
-    httpPath: '/conferences/{id}/actions/send_dtmf',
-  },
-  {
     clientCallName: 'client.conferences.actions.speak',
     fullyQualifiedName: 'conferences.actions.speak',
     httpMethod: 'post',
@@ -1825,10 +1831,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/conferences/{id}/actions/unmute',
   },
   {
-    clientCallName: 'client.connections.retrieve',
-    fullyQualifiedName: 'connections.retrieve',
-    httpMethod: 'get',
-    httpPath: '/connections/{id}',
+    clientCallName: 'client.conferences.actions.update',
+    fullyQualifiedName: 'conferences.actions.update',
+    httpMethod: 'post',
+    httpPath: '/conferences/{id}/actions/update',
+  },
+  {
+    clientCallName: 'client.conferences.actions.endConference',
+    fullyQualifiedName: 'conferences.actions.endConference',
+    httpMethod: 'post',
+    httpPath: '/conferences/{id}/actions/end',
+  },
+  {
+    clientCallName: 'client.conferences.actions.gatherDtmfAudio',
+    fullyQualifiedName: 'conferences.actions.gatherDtmfAudio',
+    httpMethod: 'post',
+    httpPath: '/conferences/{id}/actions/gather_using_audio',
+  },
+  {
+    clientCallName: 'client.conferences.actions.sendDtmf',
+    fullyQualifiedName: 'conferences.actions.sendDtmf',
+    httpMethod: 'post',
+    httpPath: '/conferences/{id}/actions/send_dtmf',
   },
   {
     clientCallName: 'client.connections.list',
@@ -1843,6 +1867,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/connections/{connection_id}/active_calls',
   },
   {
+    clientCallName: 'client.connections.retrieve',
+    fullyQualifiedName: 'connections.retrieve',
+    httpMethod: 'get',
+    httpPath: '/connections/{id}',
+  },
+  {
     clientCallName: 'client.countryCoverage.retrieve',
     fullyQualifiedName: 'countryCoverage.retrieve',
     httpMethod: 'get',
@@ -1855,10 +1885,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/country_coverage/countries/{country_code}',
   },
   {
+    clientCallName: 'client.credentialConnections.list',
+    fullyQualifiedName: 'credentialConnections.list',
+    httpMethod: 'get',
+    httpPath: '/credential_connections',
+  },
+  {
     clientCallName: 'client.credentialConnections.create',
     fullyQualifiedName: 'credentialConnections.create',
     httpMethod: 'post',
     httpPath: '/credential_connections',
+  },
+  {
+    clientCallName: 'client.credentialConnections.delete',
+    fullyQualifiedName: 'credentialConnections.delete',
+    httpMethod: 'delete',
+    httpPath: '/credential_connections/{id}',
   },
   {
     clientCallName: 'client.credentialConnections.retrieve',
@@ -1873,27 +1915,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/credential_connections/{id}',
   },
   {
-    clientCallName: 'client.credentialConnections.list',
-    fullyQualifiedName: 'credentialConnections.list',
-    httpMethod: 'get',
-    httpPath: '/credential_connections',
-  },
-  {
-    clientCallName: 'client.credentialConnections.delete',
-    fullyQualifiedName: 'credentialConnections.delete',
-    httpMethod: 'delete',
-    httpPath: '/credential_connections/{id}',
-  },
-  {
     clientCallName: 'client.credentialConnections.actions.checkRegistrationStatus',
     fullyQualifiedName: 'credentialConnections.actions.checkRegistrationStatus',
     httpMethod: 'post',
     httpPath: '/credential_connections/{id}/actions/check_registration_status',
   },
   {
-    clientCallName: 'client.customStorageCredentials.create',
-    fullyQualifiedName: 'customStorageCredentials.create',
-    httpMethod: 'post',
+    clientCallName: 'client.customStorageCredentials.delete',
+    fullyQualifiedName: 'customStorageCredentials.delete',
+    httpMethod: 'delete',
     httpPath: '/custom_storage_credentials/{connection_id}',
   },
   {
@@ -1903,33 +1933,27 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/custom_storage_credentials/{connection_id}',
   },
   {
+    clientCallName: 'client.customStorageCredentials.create',
+    fullyQualifiedName: 'customStorageCredentials.create',
+    httpMethod: 'post',
+    httpPath: '/custom_storage_credentials/{connection_id}',
+  },
+  {
     clientCallName: 'client.customStorageCredentials.update',
     fullyQualifiedName: 'customStorageCredentials.update',
     httpMethod: 'put',
     httpPath: '/custom_storage_credentials/{connection_id}',
   },
   {
-    clientCallName: 'client.customStorageCredentials.delete',
-    fullyQualifiedName: 'customStorageCredentials.delete',
-    httpMethod: 'delete',
-    httpPath: '/custom_storage_credentials/{connection_id}',
+    clientCallName: 'client.customerServiceRecords.list',
+    fullyQualifiedName: 'customerServiceRecords.list',
+    httpMethod: 'get',
+    httpPath: '/customer_service_records',
   },
   {
     clientCallName: 'client.customerServiceRecords.create',
     fullyQualifiedName: 'customerServiceRecords.create',
     httpMethod: 'post',
-    httpPath: '/customer_service_records',
-  },
-  {
-    clientCallName: 'client.customerServiceRecords.retrieve',
-    fullyQualifiedName: 'customerServiceRecords.retrieve',
-    httpMethod: 'get',
-    httpPath: '/customer_service_records/{customer_service_record_id}',
-  },
-  {
-    clientCallName: 'client.customerServiceRecords.list',
-    fullyQualifiedName: 'customerServiceRecords.list',
-    httpMethod: 'get',
     httpPath: '/customer_service_records',
   },
   {
@@ -1939,15 +1963,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/customer_service_records/phone_number_coverages',
   },
   {
+    clientCallName: 'client.customerServiceRecords.retrieve',
+    fullyQualifiedName: 'customerServiceRecords.retrieve',
+    httpMethod: 'get',
+    httpPath: '/customer_service_records/{customer_service_record_id}',
+  },
+  {
     clientCallName: 'client.detailRecords.list',
     fullyQualifiedName: 'detailRecords.list',
     httpMethod: 'get',
     httpPath: '/detail_records',
   },
   {
-    clientCallName: 'client.dialogflowConnections.create',
-    fullyQualifiedName: 'dialogflowConnections.create',
-    httpMethod: 'post',
+    clientCallName: 'client.dialogflowConnections.delete',
+    fullyQualifiedName: 'dialogflowConnections.delete',
+    httpMethod: 'delete',
     httpPath: '/dialogflow_connections/{connection_id}',
   },
   {
@@ -1957,15 +1987,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/dialogflow_connections/{connection_id}',
   },
   {
-    clientCallName: 'client.dialogflowConnections.update',
-    fullyQualifiedName: 'dialogflowConnections.update',
-    httpMethod: 'put',
+    clientCallName: 'client.dialogflowConnections.create',
+    fullyQualifiedName: 'dialogflowConnections.create',
+    httpMethod: 'post',
     httpPath: '/dialogflow_connections/{connection_id}',
   },
   {
-    clientCallName: 'client.dialogflowConnections.delete',
-    fullyQualifiedName: 'dialogflowConnections.delete',
-    httpMethod: 'delete',
+    clientCallName: 'client.dialogflowConnections.update',
+    fullyQualifiedName: 'dialogflowConnections.update',
+    httpMethod: 'put',
     httpPath: '/dialogflow_connections/{connection_id}',
   },
   {
@@ -1973,6 +2003,30 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'documentLinks.list',
     httpMethod: 'get',
     httpPath: '/document_links',
+  },
+  {
+    clientCallName: 'client.documents.list',
+    fullyQualifiedName: 'documents.list',
+    httpMethod: 'get',
+    httpPath: '/documents',
+  },
+  {
+    clientCallName: 'client.documents.upload',
+    fullyQualifiedName: 'documents.upload',
+    httpMethod: 'post',
+    httpPath: '/documents?content-type=multipart',
+  },
+  {
+    clientCallName: 'client.documents.uploadJson',
+    fullyQualifiedName: 'documents.uploadJson',
+    httpMethod: 'post',
+    httpPath: '/documents',
+  },
+  {
+    clientCallName: 'client.documents.delete',
+    fullyQualifiedName: 'documents.delete',
+    httpMethod: 'delete',
+    httpPath: '/documents/{id}',
   },
   {
     clientCallName: 'client.documents.retrieve',
@@ -1984,18 +2038,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.documents.update',
     fullyQualifiedName: 'documents.update',
     httpMethod: 'patch',
-    httpPath: '/documents/{id}',
-  },
-  {
-    clientCallName: 'client.documents.list',
-    fullyQualifiedName: 'documents.list',
-    httpMethod: 'get',
-    httpPath: '/documents',
-  },
-  {
-    clientCallName: 'client.documents.delete',
-    fullyQualifiedName: 'documents.delete',
-    httpMethod: 'delete',
     httpPath: '/documents/{id}',
   },
   {
@@ -2011,33 +2053,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/documents/{id}/download_link',
   },
   {
-    clientCallName: 'client.documents.upload',
-    fullyQualifiedName: 'documents.upload',
-    httpMethod: 'post',
-    httpPath: '/documents?content-type=multipart',
-  },
-  {
-    clientCallName: 'client.documents.uploadJson',
-    fullyQualifiedName: 'documents.uploadJson',
-    httpMethod: 'post',
-    httpPath: '/documents',
+    clientCallName: 'client.dynamicEmergencyAddresses.list',
+    fullyQualifiedName: 'dynamicEmergencyAddresses.list',
+    httpMethod: 'get',
+    httpPath: '/dynamic_emergency_addresses',
   },
   {
     clientCallName: 'client.dynamicEmergencyAddresses.create',
     fullyQualifiedName: 'dynamicEmergencyAddresses.create',
     httpMethod: 'post',
-    httpPath: '/dynamic_emergency_addresses',
-  },
-  {
-    clientCallName: 'client.dynamicEmergencyAddresses.retrieve',
-    fullyQualifiedName: 'dynamicEmergencyAddresses.retrieve',
-    httpMethod: 'get',
-    httpPath: '/dynamic_emergency_addresses/{id}',
-  },
-  {
-    clientCallName: 'client.dynamicEmergencyAddresses.list',
-    fullyQualifiedName: 'dynamicEmergencyAddresses.list',
-    httpMethod: 'get',
     httpPath: '/dynamic_emergency_addresses',
   },
   {
@@ -2047,21 +2071,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/dynamic_emergency_addresses/{id}',
   },
   {
-    clientCallName: 'client.dynamicEmergencyEndpoints.create',
-    fullyQualifiedName: 'dynamicEmergencyEndpoints.create',
-    httpMethod: 'post',
-    httpPath: '/dynamic_emergency_endpoints',
-  },
-  {
-    clientCallName: 'client.dynamicEmergencyEndpoints.retrieve',
-    fullyQualifiedName: 'dynamicEmergencyEndpoints.retrieve',
+    clientCallName: 'client.dynamicEmergencyAddresses.retrieve',
+    fullyQualifiedName: 'dynamicEmergencyAddresses.retrieve',
     httpMethod: 'get',
-    httpPath: '/dynamic_emergency_endpoints/{id}',
+    httpPath: '/dynamic_emergency_addresses/{id}',
   },
   {
     clientCallName: 'client.dynamicEmergencyEndpoints.list',
     fullyQualifiedName: 'dynamicEmergencyEndpoints.list',
     httpMethod: 'get',
+    httpPath: '/dynamic_emergency_endpoints',
+  },
+  {
+    clientCallName: 'client.dynamicEmergencyEndpoints.create',
+    fullyQualifiedName: 'dynamicEmergencyEndpoints.create',
+    httpMethod: 'post',
     httpPath: '/dynamic_emergency_endpoints',
   },
   {
@@ -2071,10 +2095,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/dynamic_emergency_endpoints/{id}',
   },
   {
+    clientCallName: 'client.dynamicEmergencyEndpoints.retrieve',
+    fullyQualifiedName: 'dynamicEmergencyEndpoints.retrieve',
+    httpMethod: 'get',
+    httpPath: '/dynamic_emergency_endpoints/{id}',
+  },
+  {
+    clientCallName: 'client.externalConnections.list',
+    fullyQualifiedName: 'externalConnections.list',
+    httpMethod: 'get',
+    httpPath: '/external_connections',
+  },
+  {
     clientCallName: 'client.externalConnections.create',
     fullyQualifiedName: 'externalConnections.create',
     httpMethod: 'post',
     httpPath: '/external_connections',
+  },
+  {
+    clientCallName: 'client.externalConnections.delete',
+    fullyQualifiedName: 'externalConnections.delete',
+    httpMethod: 'delete',
+    httpPath: '/external_connections/{id}',
   },
   {
     clientCallName: 'client.externalConnections.retrieve',
@@ -2089,28 +2131,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/external_connections/{id}',
   },
   {
-    clientCallName: 'client.externalConnections.list',
-    fullyQualifiedName: 'externalConnections.list',
-    httpMethod: 'get',
-    httpPath: '/external_connections',
-  },
-  {
-    clientCallName: 'client.externalConnections.delete',
-    fullyQualifiedName: 'externalConnections.delete',
-    httpMethod: 'delete',
-    httpPath: '/external_connections/{id}',
-  },
-  {
     clientCallName: 'client.externalConnections.updateLocation',
     fullyQualifiedName: 'externalConnections.updateLocation',
     httpMethod: 'patch',
     httpPath: '/external_connections/{id}/locations/{location_id}',
-  },
-  {
-    clientCallName: 'client.externalConnections.logMessages.retrieve',
-    fullyQualifiedName: 'externalConnections.logMessages.retrieve',
-    httpMethod: 'get',
-    httpPath: '/external_connections/log_messages/{id}',
   },
   {
     clientCallName: 'client.externalConnections.logMessages.list',
@@ -2125,16 +2149,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/external_connections/log_messages/{id}',
   },
   {
-    clientCallName: 'client.externalConnections.civicAddresses.retrieve',
-    fullyQualifiedName: 'externalConnections.civicAddresses.retrieve',
+    clientCallName: 'client.externalConnections.logMessages.retrieve',
+    fullyQualifiedName: 'externalConnections.logMessages.retrieve',
     httpMethod: 'get',
-    httpPath: '/external_connections/{id}/civic_addresses/{address_id}',
+    httpPath: '/external_connections/log_messages/{id}',
   },
   {
     clientCallName: 'client.externalConnections.civicAddresses.list',
     fullyQualifiedName: 'externalConnections.civicAddresses.list',
     httpMethod: 'get',
     httpPath: '/external_connections/{id}/civic_addresses',
+  },
+  {
+    clientCallName: 'client.externalConnections.civicAddresses.retrieve',
+    fullyQualifiedName: 'externalConnections.civicAddresses.retrieve',
+    httpMethod: 'get',
+    httpPath: '/external_connections/{id}/civic_addresses/{address_id}',
+  },
+  {
+    clientCallName: 'client.externalConnections.phoneNumbers.list',
+    fullyQualifiedName: 'externalConnections.phoneNumbers.list',
+    httpMethod: 'get',
+    httpPath: '/external_connections/{id}/phone_numbers',
   },
   {
     clientCallName: 'client.externalConnections.phoneNumbers.retrieve',
@@ -2149,10 +2185,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/external_connections/{id}/phone_numbers/{phone_number_id}',
   },
   {
-    clientCallName: 'client.externalConnections.phoneNumbers.list',
-    fullyQualifiedName: 'externalConnections.phoneNumbers.list',
+    clientCallName: 'client.externalConnections.releases.list',
+    fullyQualifiedName: 'externalConnections.releases.list',
     httpMethod: 'get',
-    httpPath: '/external_connections/{id}/phone_numbers',
+    httpPath: '/external_connections/{id}/releases',
   },
   {
     clientCallName: 'client.externalConnections.releases.retrieve',
@@ -2161,10 +2197,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/external_connections/{id}/releases/{release_id}',
   },
   {
-    clientCallName: 'client.externalConnections.releases.list',
-    fullyQualifiedName: 'externalConnections.releases.list',
+    clientCallName: 'client.externalConnections.uploads.list',
+    fullyQualifiedName: 'externalConnections.uploads.list',
     httpMethod: 'get',
-    httpPath: '/external_connections/{id}/releases',
+    httpPath: '/external_connections/{id}/uploads',
   },
   {
     clientCallName: 'client.externalConnections.uploads.create',
@@ -2173,16 +2209,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/external_connections/{id}/uploads',
   },
   {
-    clientCallName: 'client.externalConnections.uploads.retrieve',
-    fullyQualifiedName: 'externalConnections.uploads.retrieve',
-    httpMethod: 'get',
-    httpPath: '/external_connections/{id}/uploads/{ticket_id}',
-  },
-  {
-    clientCallName: 'client.externalConnections.uploads.list',
-    fullyQualifiedName: 'externalConnections.uploads.list',
-    httpMethod: 'get',
-    httpPath: '/external_connections/{id}/uploads',
+    clientCallName: 'client.externalConnections.uploads.refreshStatus',
+    fullyQualifiedName: 'externalConnections.uploads.refreshStatus',
+    httpMethod: 'post',
+    httpPath: '/external_connections/{id}/uploads/refresh',
   },
   {
     clientCallName: 'client.externalConnections.uploads.pendingCount',
@@ -2191,10 +2221,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/external_connections/{id}/uploads/status',
   },
   {
-    clientCallName: 'client.externalConnections.uploads.refreshStatus',
-    fullyQualifiedName: 'externalConnections.uploads.refreshStatus',
-    httpMethod: 'post',
-    httpPath: '/external_connections/{id}/uploads/refresh',
+    clientCallName: 'client.externalConnections.uploads.retrieve',
+    fullyQualifiedName: 'externalConnections.uploads.retrieve',
+    httpMethod: 'get',
+    httpPath: '/external_connections/{id}/uploads/{ticket_id}',
   },
   {
     clientCallName: 'client.externalConnections.uploads.retry',
@@ -2203,10 +2233,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/external_connections/{id}/uploads/{ticket_id}/retry',
   },
   {
+    clientCallName: 'client.faxApplications.list',
+    fullyQualifiedName: 'faxApplications.list',
+    httpMethod: 'get',
+    httpPath: '/fax_applications',
+  },
+  {
     clientCallName: 'client.faxApplications.create',
     fullyQualifiedName: 'faxApplications.create',
     httpMethod: 'post',
     httpPath: '/fax_applications',
+  },
+  {
+    clientCallName: 'client.faxApplications.delete',
+    fullyQualifiedName: 'faxApplications.delete',
+    httpMethod: 'delete',
+    httpPath: '/fax_applications/{id}',
   },
   {
     clientCallName: 'client.faxApplications.retrieve',
@@ -2221,16 +2263,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/fax_applications/{id}',
   },
   {
-    clientCallName: 'client.faxApplications.list',
-    fullyQualifiedName: 'faxApplications.list',
+    clientCallName: 'client.faxes.list',
+    fullyQualifiedName: 'faxes.list',
     httpMethod: 'get',
-    httpPath: '/fax_applications',
-  },
-  {
-    clientCallName: 'client.faxApplications.delete',
-    fullyQualifiedName: 'faxApplications.delete',
-    httpMethod: 'delete',
-    httpPath: '/fax_applications/{id}',
+    httpPath: '/faxes',
   },
   {
     clientCallName: 'client.faxes.create',
@@ -2239,21 +2275,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/faxes',
   },
   {
-    clientCallName: 'client.faxes.retrieve',
-    fullyQualifiedName: 'faxes.retrieve',
-    httpMethod: 'get',
-    httpPath: '/faxes/{id}',
-  },
-  {
-    clientCallName: 'client.faxes.list',
-    fullyQualifiedName: 'faxes.list',
-    httpMethod: 'get',
-    httpPath: '/faxes',
-  },
-  {
     clientCallName: 'client.faxes.delete',
     fullyQualifiedName: 'faxes.delete',
     httpMethod: 'delete',
+    httpPath: '/faxes/{id}',
+  },
+  {
+    clientCallName: 'client.faxes.retrieve',
+    fullyQualifiedName: 'faxes.retrieve',
+    httpMethod: 'get',
     httpPath: '/faxes/{id}',
   },
   {
@@ -2269,10 +2299,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/faxes/{id}/actions/refresh',
   },
   {
+    clientCallName: 'client.fqdnConnections.list',
+    fullyQualifiedName: 'fqdnConnections.list',
+    httpMethod: 'get',
+    httpPath: '/fqdn_connections',
+  },
+  {
     clientCallName: 'client.fqdnConnections.create',
     fullyQualifiedName: 'fqdnConnections.create',
     httpMethod: 'post',
     httpPath: '/fqdn_connections',
+  },
+  {
+    clientCallName: 'client.fqdnConnections.delete',
+    fullyQualifiedName: 'fqdnConnections.delete',
+    httpMethod: 'delete',
+    httpPath: '/fqdn_connections/{id}',
   },
   {
     clientCallName: 'client.fqdnConnections.retrieve',
@@ -2287,22 +2329,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/fqdn_connections/{id}',
   },
   {
-    clientCallName: 'client.fqdnConnections.list',
-    fullyQualifiedName: 'fqdnConnections.list',
+    clientCallName: 'client.fqdns.list',
+    fullyQualifiedName: 'fqdns.list',
     httpMethod: 'get',
-    httpPath: '/fqdn_connections',
-  },
-  {
-    clientCallName: 'client.fqdnConnections.delete',
-    fullyQualifiedName: 'fqdnConnections.delete',
-    httpMethod: 'delete',
-    httpPath: '/fqdn_connections/{id}',
+    httpPath: '/fqdns',
   },
   {
     clientCallName: 'client.fqdns.create',
     fullyQualifiedName: 'fqdns.create',
     httpMethod: 'post',
     httpPath: '/fqdns',
+  },
+  {
+    clientCallName: 'client.fqdns.delete',
+    fullyQualifiedName: 'fqdns.delete',
+    httpMethod: 'delete',
+    httpPath: '/fqdns/{id}',
   },
   {
     clientCallName: 'client.fqdns.retrieve',
@@ -2314,18 +2356,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.fqdns.update',
     fullyQualifiedName: 'fqdns.update',
     httpMethod: 'patch',
-    httpPath: '/fqdns/{id}',
-  },
-  {
-    clientCallName: 'client.fqdns.list',
-    fullyQualifiedName: 'fqdns.list',
-    httpMethod: 'get',
-    httpPath: '/fqdns',
-  },
-  {
-    clientCallName: 'client.fqdns.delete',
-    fullyQualifiedName: 'fqdns.delete',
-    httpMethod: 'delete',
     httpPath: '/fqdns/{id}',
   },
   {
@@ -2341,10 +2371,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/global_ip_assignment_health',
   },
   {
+    clientCallName: 'client.globalIPAssignments.list',
+    fullyQualifiedName: 'globalIPAssignments.list',
+    httpMethod: 'get',
+    httpPath: '/global_ip_assignments',
+  },
+  {
     clientCallName: 'client.globalIPAssignments.create',
     fullyQualifiedName: 'globalIPAssignments.create',
     httpMethod: 'post',
     httpPath: '/global_ip_assignments',
+  },
+  {
+    clientCallName: 'client.globalIPAssignments.delete',
+    fullyQualifiedName: 'globalIPAssignments.delete',
+    httpMethod: 'delete',
+    httpPath: '/global_ip_assignments/{id}',
   },
   {
     clientCallName: 'client.globalIPAssignments.retrieve',
@@ -2356,18 +2398,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.globalIPAssignments.update',
     fullyQualifiedName: 'globalIPAssignments.update',
     httpMethod: 'patch',
-    httpPath: '/global_ip_assignments/{id}',
-  },
-  {
-    clientCallName: 'client.globalIPAssignments.list',
-    fullyQualifiedName: 'globalIPAssignments.list',
-    httpMethod: 'get',
-    httpPath: '/global_ip_assignments',
-  },
-  {
-    clientCallName: 'client.globalIPAssignments.delete',
-    fullyQualifiedName: 'globalIPAssignments.delete',
-    httpMethod: 'delete',
     httpPath: '/global_ip_assignments/{id}',
   },
   {
@@ -2383,27 +2413,27 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/global_ip_health_check_types',
   },
   {
-    clientCallName: 'client.globalIPHealthChecks.create',
-    fullyQualifiedName: 'globalIPHealthChecks.create',
-    httpMethod: 'post',
-    httpPath: '/global_ip_health_checks',
-  },
-  {
-    clientCallName: 'client.globalIPHealthChecks.retrieve',
-    fullyQualifiedName: 'globalIPHealthChecks.retrieve',
-    httpMethod: 'get',
-    httpPath: '/global_ip_health_checks/{id}',
-  },
-  {
     clientCallName: 'client.globalIPHealthChecks.list',
     fullyQualifiedName: 'globalIPHealthChecks.list',
     httpMethod: 'get',
     httpPath: '/global_ip_health_checks',
   },
   {
+    clientCallName: 'client.globalIPHealthChecks.create',
+    fullyQualifiedName: 'globalIPHealthChecks.create',
+    httpMethod: 'post',
+    httpPath: '/global_ip_health_checks',
+  },
+  {
     clientCallName: 'client.globalIPHealthChecks.delete',
     fullyQualifiedName: 'globalIPHealthChecks.delete',
     httpMethod: 'delete',
+    httpPath: '/global_ip_health_checks/{id}',
+  },
+  {
+    clientCallName: 'client.globalIPHealthChecks.retrieve',
+    fullyQualifiedName: 'globalIPHealthChecks.retrieve',
+    httpMethod: 'get',
     httpPath: '/global_ip_health_checks/{id}',
   },
   {
@@ -2425,21 +2455,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/global_ip_usage',
   },
   {
-    clientCallName: 'client.globalIPs.create',
-    fullyQualifiedName: 'globalIPs.create',
-    httpMethod: 'post',
-    httpPath: '/global_ips',
-  },
-  {
-    clientCallName: 'client.globalIPs.retrieve',
-    fullyQualifiedName: 'globalIPs.retrieve',
-    httpMethod: 'get',
-    httpPath: '/global_ips/{id}',
-  },
-  {
     clientCallName: 'client.globalIPs.list',
     fullyQualifiedName: 'globalIPs.list',
     httpMethod: 'get',
+    httpPath: '/global_ips',
+  },
+  {
+    clientCallName: 'client.globalIPs.create',
+    fullyQualifiedName: 'globalIPs.create',
+    httpMethod: 'post',
     httpPath: '/global_ips',
   },
   {
@@ -2449,10 +2473,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/global_ips/{id}',
   },
   {
-    clientCallName: 'client.inboundChannels.update',
-    fullyQualifiedName: 'inboundChannels.update',
-    httpMethod: 'patch',
-    httpPath: '/inbound_channels',
+    clientCallName: 'client.globalIPs.retrieve',
+    fullyQualifiedName: 'globalIPs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/global_ips/{id}',
   },
   {
     clientCallName: 'client.inboundChannels.list',
@@ -2461,15 +2485,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/inbound_channels',
   },
   {
-    clientCallName: 'client.integrationSecrets.create',
-    fullyQualifiedName: 'integrationSecrets.create',
-    httpMethod: 'post',
-    httpPath: '/integration_secrets',
+    clientCallName: 'client.inboundChannels.update',
+    fullyQualifiedName: 'inboundChannels.update',
+    httpMethod: 'patch',
+    httpPath: '/inbound_channels',
   },
   {
     clientCallName: 'client.integrationSecrets.list',
     fullyQualifiedName: 'integrationSecrets.list',
     httpMethod: 'get',
+    httpPath: '/integration_secrets',
+  },
+  {
+    clientCallName: 'client.integrationSecrets.create',
+    fullyQualifiedName: 'integrationSecrets.create',
+    httpMethod: 'post',
     httpPath: '/integration_secrets',
   },
   {
@@ -2485,22 +2515,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/inventory_coverage',
   },
   {
-    clientCallName: 'client.invoices.retrieve',
-    fullyQualifiedName: 'invoices.retrieve',
-    httpMethod: 'get',
-    httpPath: '/invoices/{id}',
-  },
-  {
     clientCallName: 'client.invoices.list',
     fullyQualifiedName: 'invoices.list',
     httpMethod: 'get',
     httpPath: '/invoices',
   },
   {
+    clientCallName: 'client.invoices.retrieve',
+    fullyQualifiedName: 'invoices.retrieve',
+    httpMethod: 'get',
+    httpPath: '/invoices/{id}',
+  },
+  {
+    clientCallName: 'client.ipConnections.list',
+    fullyQualifiedName: 'ipConnections.list',
+    httpMethod: 'get',
+    httpPath: '/ip_connections',
+  },
+  {
     clientCallName: 'client.ipConnections.create',
     fullyQualifiedName: 'ipConnections.create',
     httpMethod: 'post',
     httpPath: '/ip_connections',
+  },
+  {
+    clientCallName: 'client.ipConnections.delete',
+    fullyQualifiedName: 'ipConnections.delete',
+    httpMethod: 'delete',
+    httpPath: '/ip_connections/{id}',
   },
   {
     clientCallName: 'client.ipConnections.retrieve',
@@ -2515,22 +2557,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ip_connections/{id}',
   },
   {
-    clientCallName: 'client.ipConnections.list',
-    fullyQualifiedName: 'ipConnections.list',
+    clientCallName: 'client.ips.list',
+    fullyQualifiedName: 'ips.list',
     httpMethod: 'get',
-    httpPath: '/ip_connections',
-  },
-  {
-    clientCallName: 'client.ipConnections.delete',
-    fullyQualifiedName: 'ipConnections.delete',
-    httpMethod: 'delete',
-    httpPath: '/ip_connections/{id}',
+    httpPath: '/ips',
   },
   {
     clientCallName: 'client.ips.create',
     fullyQualifiedName: 'ips.create',
     httpMethod: 'post',
     httpPath: '/ips',
+  },
+  {
+    clientCallName: 'client.ips.delete',
+    fullyQualifiedName: 'ips.delete',
+    httpMethod: 'delete',
+    httpPath: '/ips/{id}',
   },
   {
     clientCallName: 'client.ips.retrieve',
@@ -2542,18 +2584,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.ips.update',
     fullyQualifiedName: 'ips.update',
     httpMethod: 'patch',
-    httpPath: '/ips/{id}',
-  },
-  {
-    clientCallName: 'client.ips.list',
-    fullyQualifiedName: 'ips.list',
-    httpMethod: 'get',
-    httpPath: '/ips',
-  },
-  {
-    clientCallName: 'client.ips.delete',
-    fullyQualifiedName: 'ips.delete',
-    httpMethod: 'delete',
     httpPath: '/ips/{id}',
   },
   {
@@ -2581,10 +2611,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/list/{channel_zone_id}',
   },
   {
+    clientCallName: 'client.managedAccounts.list',
+    fullyQualifiedName: 'managedAccounts.list',
+    httpMethod: 'get',
+    httpPath: '/managed_accounts',
+  },
+  {
     clientCallName: 'client.managedAccounts.create',
     fullyQualifiedName: 'managedAccounts.create',
     httpMethod: 'post',
     httpPath: '/managed_accounts',
+  },
+  {
+    clientCallName: 'client.managedAccounts.getAllocatableGlobalOutboundChannels',
+    fullyQualifiedName: 'managedAccounts.getAllocatableGlobalOutboundChannels',
+    httpMethod: 'get',
+    httpPath: '/managed_accounts/allocatable_global_outbound_channels',
   },
   {
     clientCallName: 'client.managedAccounts.retrieve',
@@ -2597,18 +2639,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'managedAccounts.update',
     httpMethod: 'patch',
     httpPath: '/managed_accounts/{id}',
-  },
-  {
-    clientCallName: 'client.managedAccounts.list',
-    fullyQualifiedName: 'managedAccounts.list',
-    httpMethod: 'get',
-    httpPath: '/managed_accounts',
-  },
-  {
-    clientCallName: 'client.managedAccounts.getAllocatableGlobalOutboundChannels',
-    fullyQualifiedName: 'managedAccounts.getAllocatableGlobalOutboundChannels',
-    httpMethod: 'get',
-    httpPath: '/managed_accounts/allocatable_global_outbound_channels',
   },
   {
     clientCallName: 'client.managedAccounts.updateGlobalChannelLimit',
@@ -2629,6 +2659,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/managed_accounts/{id}/actions/enable',
   },
   {
+    clientCallName: 'client.media.list',
+    fullyQualifiedName: 'media.list',
+    httpMethod: 'get',
+    httpPath: '/media',
+  },
+  {
+    clientCallName: 'client.media.upload',
+    fullyQualifiedName: 'media.upload',
+    httpMethod: 'post',
+    httpPath: '/media',
+  },
+  {
+    clientCallName: 'client.media.delete',
+    fullyQualifiedName: 'media.delete',
+    httpMethod: 'delete',
+    httpPath: '/media/{media_name}',
+  },
+  {
     clientCallName: 'client.media.retrieve',
     fullyQualifiedName: 'media.retrieve',
     httpMethod: 'get',
@@ -2641,64 +2689,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/media/{media_name}',
   },
   {
-    clientCallName: 'client.media.list',
-    fullyQualifiedName: 'media.list',
-    httpMethod: 'get',
-    httpPath: '/media',
-  },
-  {
-    clientCallName: 'client.media.delete',
-    fullyQualifiedName: 'media.delete',
-    httpMethod: 'delete',
-    httpPath: '/media/{media_name}',
-  },
-  {
     clientCallName: 'client.media.download',
     fullyQualifiedName: 'media.download',
     httpMethod: 'get',
     httpPath: '/media/{media_name}/download',
   },
   {
-    clientCallName: 'client.media.upload',
-    fullyQualifiedName: 'media.upload',
-    httpMethod: 'post',
-    httpPath: '/media',
-  },
-  {
-    clientCallName: 'client.messages.retrieve',
-    fullyQualifiedName: 'messages.retrieve',
-    httpMethod: 'get',
-    httpPath: '/messages/{id}',
-  },
-  {
-    clientCallName: 'client.messages.cancelScheduled',
-    fullyQualifiedName: 'messages.cancelScheduled',
-    httpMethod: 'delete',
-    httpPath: '/messages/{id}',
-  },
-  {
-    clientCallName: 'client.messages.retrieveGroupMessages',
-    fullyQualifiedName: 'messages.retrieveGroupMessages',
-    httpMethod: 'get',
-    httpPath: '/messages/group/{message_id}',
-  },
-  {
-    clientCallName: 'client.messages.schedule',
-    fullyQualifiedName: 'messages.schedule',
-    httpMethod: 'post',
-    httpPath: '/messages/schedule',
-  },
-  {
     clientCallName: 'client.messages.send',
     fullyQualifiedName: 'messages.send',
     httpMethod: 'post',
     httpPath: '/messages',
-  },
-  {
-    clientCallName: 'client.messages.sendGroupMms',
-    fullyQualifiedName: 'messages.sendGroupMms',
-    httpMethod: 'post',
-    httpPath: '/messages/group_mms',
   },
   {
     clientCallName: 'client.messages.sendLongCode',
@@ -2719,16 +2719,40 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messages/short_code',
   },
   {
-    clientCallName: 'client.messages.sendWhatsapp',
-    fullyQualifiedName: 'messages.sendWhatsapp',
+    clientCallName: 'client.messages.sendGroupMms',
+    fullyQualifiedName: 'messages.sendGroupMms',
     httpMethod: 'post',
-    httpPath: '/messages/whatsapp',
+    httpPath: '/messages/group_mms',
+  },
+  {
+    clientCallName: 'client.messages.schedule',
+    fullyQualifiedName: 'messages.schedule',
+    httpMethod: 'post',
+    httpPath: '/messages/schedule',
+  },
+  {
+    clientCallName: 'client.messages.cancelScheduled',
+    fullyQualifiedName: 'messages.cancelScheduled',
+    httpMethod: 'delete',
+    httpPath: '/messages/{id}',
+  },
+  {
+    clientCallName: 'client.messages.retrieve',
+    fullyQualifiedName: 'messages.retrieve',
+    httpMethod: 'get',
+    httpPath: '/messages/{id}',
   },
   {
     clientCallName: 'client.messages.sendWithAlphanumericSender',
     fullyQualifiedName: 'messages.sendWithAlphanumericSender',
     httpMethod: 'post',
     httpPath: '/messages/alphanumeric_sender_id',
+  },
+  {
+    clientCallName: 'client.messages.retrieveGroupMessages',
+    fullyQualifiedName: 'messages.retrieveGroupMessages',
+    httpMethod: 'get',
+    httpPath: '/messages/group/{message_id}',
   },
   {
     clientCallName: 'client.messages.rcs.generateDeeplink',
@@ -2743,12 +2767,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messages/rcs',
   },
   {
-    clientCallName: 'client.messaging.rcs.inviteTestNumber',
-    fullyQualifiedName: 'messaging.rcs.inviteTestNumber',
-    httpMethod: 'put',
-    httpPath: '/messaging/rcs/test_number_invite/{id}/{phone_number}',
-  },
-  {
     clientCallName: 'client.messaging.rcs.listBulkCapabilities',
     fullyQualifiedName: 'messaging.rcs.listBulkCapabilities',
     httpMethod: 'post',
@@ -2759,6 +2777,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'messaging.rcs.retrieveCapabilities',
     httpMethod: 'get',
     httpPath: '/messaging/rcs/capabilities/{agent_id}/{phone_number}',
+  },
+  {
+    clientCallName: 'client.messaging.rcs.inviteTestNumber',
+    fullyQualifiedName: 'messaging.rcs.inviteTestNumber',
+    httpMethod: 'put',
+    httpPath: '/messaging/rcs/test_number_invite/{id}/{phone_number}',
+  },
+  {
+    clientCallName: 'client.messaging.rcs.agents.list',
+    fullyQualifiedName: 'messaging.rcs.agents.list',
+    httpMethod: 'get',
+    httpPath: '/messaging/rcs/agents',
   },
   {
     clientCallName: 'client.messaging.rcs.agents.retrieve',
@@ -2773,10 +2803,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging/rcs/agents/{id}',
   },
   {
-    clientCallName: 'client.messaging.rcs.agents.list',
-    fullyQualifiedName: 'messaging.rcs.agents.list',
+    clientCallName: 'client.messagingHostedNumberOrders.list',
+    fullyQualifiedName: 'messagingHostedNumberOrders.list',
     httpMethod: 'get',
-    httpPath: '/messaging/rcs/agents',
+    httpPath: '/messaging_hosted_number_orders',
   },
   {
     clientCallName: 'client.messagingHostedNumberOrders.create',
@@ -2785,16 +2815,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_hosted_number_orders',
   },
   {
-    clientCallName: 'client.messagingHostedNumberOrders.retrieve',
-    fullyQualifiedName: 'messagingHostedNumberOrders.retrieve',
-    httpMethod: 'get',
-    httpPath: '/messaging_hosted_number_orders/{id}',
-  },
-  {
-    clientCallName: 'client.messagingHostedNumberOrders.list',
-    fullyQualifiedName: 'messagingHostedNumberOrders.list',
-    httpMethod: 'get',
-    httpPath: '/messaging_hosted_number_orders',
+    clientCallName: 'client.messagingHostedNumberOrders.checkEligibility',
+    fullyQualifiedName: 'messagingHostedNumberOrders.checkEligibility',
+    httpMethod: 'post',
+    httpPath: '/messaging_hosted_number_orders/eligibility_numbers_check',
   },
   {
     clientCallName: 'client.messagingHostedNumberOrders.delete',
@@ -2803,16 +2827,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_hosted_number_orders/{id}',
   },
   {
-    clientCallName: 'client.messagingHostedNumberOrders.checkEligibility',
-    fullyQualifiedName: 'messagingHostedNumberOrders.checkEligibility',
-    httpMethod: 'post',
-    httpPath: '/messaging_hosted_number_orders/eligibility_numbers_check',
-  },
-  {
-    clientCallName: 'client.messagingHostedNumberOrders.createVerificationCodes',
-    fullyQualifiedName: 'messagingHostedNumberOrders.createVerificationCodes',
-    httpMethod: 'post',
-    httpPath: '/messaging_hosted_number_orders/{id}/verification_codes',
+    clientCallName: 'client.messagingHostedNumberOrders.retrieve',
+    fullyQualifiedName: 'messagingHostedNumberOrders.retrieve',
+    httpMethod: 'get',
+    httpPath: '/messaging_hosted_number_orders/{id}',
   },
   {
     clientCallName: 'client.messagingHostedNumberOrders.validateCodes',
@@ -2821,10 +2839,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_hosted_number_orders/{id}/validation_codes',
   },
   {
+    clientCallName: 'client.messagingHostedNumberOrders.createVerificationCodes',
+    fullyQualifiedName: 'messagingHostedNumberOrders.createVerificationCodes',
+    httpMethod: 'post',
+    httpPath: '/messaging_hosted_number_orders/{id}/verification_codes',
+  },
+  {
     clientCallName: 'client.messagingHostedNumberOrders.actions.uploadFile',
     fullyQualifiedName: 'messagingHostedNumberOrders.actions.uploadFile',
     httpMethod: 'post',
     httpPath: '/messaging_hosted_number_orders/{id}/actions/file_upload',
+  },
+  {
+    clientCallName: 'client.messagingHostedNumbers.delete',
+    fullyQualifiedName: 'messagingHostedNumbers.delete',
+    httpMethod: 'delete',
+    httpPath: '/messaging_hosted_numbers/{id}',
+  },
+  {
+    clientCallName: 'client.messagingHostedNumbers.list',
+    fullyQualifiedName: 'messagingHostedNumbers.list',
+    httpMethod: 'get',
+    httpPath: '/messaging_hosted_numbers',
   },
   {
     clientCallName: 'client.messagingHostedNumbers.retrieve',
@@ -2836,18 +2872,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.messagingHostedNumbers.update',
     fullyQualifiedName: 'messagingHostedNumbers.update',
     httpMethod: 'patch',
-    httpPath: '/messaging_hosted_numbers/{id}',
-  },
-  {
-    clientCallName: 'client.messagingHostedNumbers.list',
-    fullyQualifiedName: 'messagingHostedNumbers.list',
-    httpMethod: 'get',
-    httpPath: '/messaging_hosted_numbers',
-  },
-  {
-    clientCallName: 'client.messagingHostedNumbers.delete',
-    fullyQualifiedName: 'messagingHostedNumbers.delete',
-    httpMethod: 'delete',
     httpPath: '/messaging_hosted_numbers/{id}',
   },
   {
@@ -2869,10 +2893,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_optouts',
   },
   {
+    clientCallName: 'client.messagingProfiles.list',
+    fullyQualifiedName: 'messagingProfiles.list',
+    httpMethod: 'get',
+    httpPath: '/messaging_profiles',
+  },
+  {
     clientCallName: 'client.messagingProfiles.create',
     fullyQualifiedName: 'messagingProfiles.create',
     httpMethod: 'post',
     httpPath: '/messaging_profiles',
+  },
+  {
+    clientCallName: 'client.messagingProfiles.delete',
+    fullyQualifiedName: 'messagingProfiles.delete',
+    httpMethod: 'delete',
+    httpPath: '/messaging_profiles/{id}',
   },
   {
     clientCallName: 'client.messagingProfiles.retrieve',
@@ -2887,24 +2923,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_profiles/{id}',
   },
   {
-    clientCallName: 'client.messagingProfiles.list',
-    fullyQualifiedName: 'messagingProfiles.list',
-    httpMethod: 'get',
-    httpPath: '/messaging_profiles',
-  },
-  {
-    clientCallName: 'client.messagingProfiles.delete',
-    fullyQualifiedName: 'messagingProfiles.delete',
-    httpMethod: 'delete',
-    httpPath: '/messaging_profiles/{id}',
-  },
-  {
-    clientCallName: 'client.messagingProfiles.listAlphanumericSenderIDs',
-    fullyQualifiedName: 'messagingProfiles.listAlphanumericSenderIDs',
-    httpMethod: 'get',
-    httpPath: '/messaging_profiles/{id}/alphanumeric_sender_ids',
-  },
-  {
     clientCallName: 'client.messagingProfiles.listPhoneNumbers',
     fullyQualifiedName: 'messagingProfiles.listPhoneNumbers',
     httpMethod: 'get',
@@ -2917,16 +2935,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_profiles/{id}/short_codes',
   },
   {
+    clientCallName: 'client.messagingProfiles.listAlphanumericSenderIDs',
+    fullyQualifiedName: 'messagingProfiles.listAlphanumericSenderIDs',
+    httpMethod: 'get',
+    httpPath: '/messaging_profiles/{id}/alphanumeric_sender_ids',
+  },
+  {
     clientCallName: 'client.messagingProfiles.retrieveMetrics',
     fullyQualifiedName: 'messagingProfiles.retrieveMetrics',
     httpMethod: 'get',
     httpPath: '/messaging_profiles/{id}/metrics',
   },
   {
+    clientCallName: 'client.messagingProfiles.autorespConfigs.list',
+    fullyQualifiedName: 'messagingProfiles.autorespConfigs.list',
+    httpMethod: 'get',
+    httpPath: '/messaging_profiles/{profile_id}/autoresp_configs',
+  },
+  {
     clientCallName: 'client.messagingProfiles.autorespConfigs.create',
     fullyQualifiedName: 'messagingProfiles.autorespConfigs.create',
     httpMethod: 'post',
     httpPath: '/messaging_profiles/{profile_id}/autoresp_configs',
+  },
+  {
+    clientCallName: 'client.messagingProfiles.autorespConfigs.delete',
+    fullyQualifiedName: 'messagingProfiles.autorespConfigs.delete',
+    httpMethod: 'delete',
+    httpPath: '/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}',
   },
   {
     clientCallName: 'client.messagingProfiles.autorespConfigs.retrieve',
@@ -2941,28 +2977,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}',
   },
   {
-    clientCallName: 'client.messagingProfiles.autorespConfigs.list',
-    fullyQualifiedName: 'messagingProfiles.autorespConfigs.list',
-    httpMethod: 'get',
-    httpPath: '/messaging_profiles/{profile_id}/autoresp_configs',
-  },
-  {
-    clientCallName: 'client.messagingProfiles.autorespConfigs.delete',
-    fullyQualifiedName: 'messagingProfiles.autorespConfigs.delete',
-    httpMethod: 'delete',
-    httpPath: '/messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}',
-  },
-  {
     clientCallName: 'client.messagingProfiles.actions.regenerateSecret',
     fullyQualifiedName: 'messagingProfiles.actions.regenerateSecret',
     httpMethod: 'post',
     httpPath: '/messaging_profiles/{id}/actions/regenerate_secret',
   },
   {
+    clientCallName: 'client.messagingTollfree.verification.requests.list',
+    fullyQualifiedName: 'messagingTollfree.verification.requests.list',
+    httpMethod: 'get',
+    httpPath: '/messaging_tollfree/verification/requests',
+  },
+  {
     clientCallName: 'client.messagingTollfree.verification.requests.create',
     fullyQualifiedName: 'messagingTollfree.verification.requests.create',
     httpMethod: 'post',
     httpPath: '/messaging_tollfree/verification/requests',
+  },
+  {
+    clientCallName: 'client.messagingTollfree.verification.requests.delete',
+    fullyQualifiedName: 'messagingTollfree.verification.requests.delete',
+    httpMethod: 'delete',
+    httpPath: '/messaging_tollfree/verification/requests/{id}',
   },
   {
     clientCallName: 'client.messagingTollfree.verification.requests.retrieve',
@@ -2974,18 +3010,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.messagingTollfree.verification.requests.update',
     fullyQualifiedName: 'messagingTollfree.verification.requests.update',
     httpMethod: 'patch',
-    httpPath: '/messaging_tollfree/verification/requests/{id}',
-  },
-  {
-    clientCallName: 'client.messagingTollfree.verification.requests.list',
-    fullyQualifiedName: 'messagingTollfree.verification.requests.list',
-    httpMethod: 'get',
-    httpPath: '/messaging_tollfree/verification/requests',
-  },
-  {
-    clientCallName: 'client.messagingTollfree.verification.requests.delete',
-    fullyQualifiedName: 'messagingTollfree.verification.requests.delete',
-    httpMethod: 'delete',
     httpPath: '/messaging_tollfree/verification/requests/{id}',
   },
   {
@@ -3007,21 +3031,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/mobile_network_operators',
   },
   {
-    clientCallName: 'client.mobilePushCredentials.create',
-    fullyQualifiedName: 'mobilePushCredentials.create',
-    httpMethod: 'post',
-    httpPath: '/mobile_push_credentials',
-  },
-  {
-    clientCallName: 'client.mobilePushCredentials.retrieve',
-    fullyQualifiedName: 'mobilePushCredentials.retrieve',
-    httpMethod: 'get',
-    httpPath: '/mobile_push_credentials/{push_credential_id}',
-  },
-  {
     clientCallName: 'client.mobilePushCredentials.list',
     fullyQualifiedName: 'mobilePushCredentials.list',
     httpMethod: 'get',
+    httpPath: '/mobile_push_credentials',
+  },
+  {
+    clientCallName: 'client.mobilePushCredentials.create',
+    fullyQualifiedName: 'mobilePushCredentials.create',
+    httpMethod: 'post',
     httpPath: '/mobile_push_credentials',
   },
   {
@@ -3031,16 +3049,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/mobile_push_credentials/{push_credential_id}',
   },
   {
+    clientCallName: 'client.mobilePushCredentials.retrieve',
+    fullyQualifiedName: 'mobilePushCredentials.retrieve',
+    httpMethod: 'get',
+    httpPath: '/mobile_push_credentials/{push_credential_id}',
+  },
+  {
     clientCallName: 'client.networkCoverage.list',
     fullyQualifiedName: 'networkCoverage.list',
     httpMethod: 'get',
     httpPath: '/network_coverage',
   },
   {
+    clientCallName: 'client.networks.list',
+    fullyQualifiedName: 'networks.list',
+    httpMethod: 'get',
+    httpPath: '/networks',
+  },
+  {
     clientCallName: 'client.networks.create',
     fullyQualifiedName: 'networks.create',
     httpMethod: 'post',
     httpPath: '/networks',
+  },
+  {
+    clientCallName: 'client.networks.delete',
+    fullyQualifiedName: 'networks.delete',
+    httpMethod: 'delete',
+    httpPath: '/networks/{id}',
   },
   {
     clientCallName: 'client.networks.retrieve',
@@ -3055,27 +3091,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/networks/{id}',
   },
   {
-    clientCallName: 'client.networks.list',
-    fullyQualifiedName: 'networks.list',
-    httpMethod: 'get',
-    httpPath: '/networks',
-  },
-  {
-    clientCallName: 'client.networks.delete',
-    fullyQualifiedName: 'networks.delete',
-    httpMethod: 'delete',
-    httpPath: '/networks/{id}',
-  },
-  {
     clientCallName: 'client.networks.listInterfaces',
     fullyQualifiedName: 'networks.listInterfaces',
     httpMethod: 'get',
     httpPath: '/networks/{id}/network_interfaces',
   },
   {
-    clientCallName: 'client.networks.defaultGateway.create',
-    fullyQualifiedName: 'networks.defaultGateway.create',
-    httpMethod: 'post',
+    clientCallName: 'client.networks.defaultGateway.delete',
+    fullyQualifiedName: 'networks.defaultGateway.delete',
+    httpMethod: 'delete',
     httpPath: '/networks/{id}/default_gateway',
   },
   {
@@ -3085,16 +3109,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/networks/{id}/default_gateway',
   },
   {
-    clientCallName: 'client.networks.defaultGateway.delete',
-    fullyQualifiedName: 'networks.defaultGateway.delete',
-    httpMethod: 'delete',
+    clientCallName: 'client.networks.defaultGateway.create',
+    fullyQualifiedName: 'networks.defaultGateway.create',
+    httpMethod: 'post',
     httpPath: '/networks/{id}/default_gateway',
+  },
+  {
+    clientCallName: 'client.notificationChannels.list',
+    fullyQualifiedName: 'notificationChannels.list',
+    httpMethod: 'get',
+    httpPath: '/notification_channels',
   },
   {
     clientCallName: 'client.notificationChannels.create',
     fullyQualifiedName: 'notificationChannels.create',
     httpMethod: 'post',
     httpPath: '/notification_channels',
+  },
+  {
+    clientCallName: 'client.notificationChannels.delete',
+    fullyQualifiedName: 'notificationChannels.delete',
+    httpMethod: 'delete',
+    httpPath: '/notification_channels/{id}',
   },
   {
     clientCallName: 'client.notificationChannels.retrieve',
@@ -3106,18 +3142,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.notificationChannels.update',
     fullyQualifiedName: 'notificationChannels.update',
     httpMethod: 'patch',
-    httpPath: '/notification_channels/{id}',
-  },
-  {
-    clientCallName: 'client.notificationChannels.list',
-    fullyQualifiedName: 'notificationChannels.list',
-    httpMethod: 'get',
-    httpPath: '/notification_channels',
-  },
-  {
-    clientCallName: 'client.notificationChannels.delete',
-    fullyQualifiedName: 'notificationChannels.delete',
-    httpMethod: 'delete',
     httpPath: '/notification_channels/{id}',
   },
   {
@@ -3133,10 +3157,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/notification_events',
   },
   {
+    clientCallName: 'client.notificationProfiles.list',
+    fullyQualifiedName: 'notificationProfiles.list',
+    httpMethod: 'get',
+    httpPath: '/notification_profiles',
+  },
+  {
     clientCallName: 'client.notificationProfiles.create',
     fullyQualifiedName: 'notificationProfiles.create',
     httpMethod: 'post',
     httpPath: '/notification_profiles',
+  },
+  {
+    clientCallName: 'client.notificationProfiles.delete',
+    fullyQualifiedName: 'notificationProfiles.delete',
+    httpMethod: 'delete',
+    httpPath: '/notification_profiles/{id}',
   },
   {
     clientCallName: 'client.notificationProfiles.retrieve',
@@ -3151,16 +3187,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/notification_profiles/{id}',
   },
   {
-    clientCallName: 'client.notificationProfiles.list',
-    fullyQualifiedName: 'notificationProfiles.list',
+    clientCallName: 'client.notificationSettings.list',
+    fullyQualifiedName: 'notificationSettings.list',
     httpMethod: 'get',
-    httpPath: '/notification_profiles',
-  },
-  {
-    clientCallName: 'client.notificationProfiles.delete',
-    fullyQualifiedName: 'notificationProfiles.delete',
-    httpMethod: 'delete',
-    httpPath: '/notification_profiles/{id}',
+    httpPath: '/notification_settings',
   },
   {
     clientCallName: 'client.notificationSettings.create',
@@ -3169,22 +3199,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/notification_settings',
   },
   {
+    clientCallName: 'client.notificationSettings.delete',
+    fullyQualifiedName: 'notificationSettings.delete',
+    httpMethod: 'delete',
+    httpPath: '/notification_settings/{id}',
+  },
+  {
     clientCallName: 'client.notificationSettings.retrieve',
     fullyQualifiedName: 'notificationSettings.retrieve',
     httpMethod: 'get',
     httpPath: '/notification_settings/{id}',
   },
   {
-    clientCallName: 'client.notificationSettings.list',
-    fullyQualifiedName: 'notificationSettings.list',
+    clientCallName: 'client.numberBlockOrders.list',
+    fullyQualifiedName: 'numberBlockOrders.list',
     httpMethod: 'get',
-    httpPath: '/notification_settings',
-  },
-  {
-    clientCallName: 'client.notificationSettings.delete',
-    fullyQualifiedName: 'notificationSettings.delete',
-    httpMethod: 'delete',
-    httpPath: '/notification_settings/{id}',
+    httpPath: '/number_block_orders',
   },
   {
     clientCallName: 'client.numberBlockOrders.create',
@@ -3199,22 +3229,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/number_block_orders/{number_block_order_id}',
   },
   {
-    clientCallName: 'client.numberBlockOrders.list',
-    fullyQualifiedName: 'numberBlockOrders.list',
-    httpMethod: 'get',
-    httpPath: '/number_block_orders',
-  },
-  {
     clientCallName: 'client.numberLookup.retrieve',
     fullyQualifiedName: 'numberLookup.retrieve',
     httpMethod: 'get',
     httpPath: '/number_lookup/{phone_number}',
-  },
-  {
-    clientCallName: 'client.numberOrderPhoneNumbers.retrieve',
-    fullyQualifiedName: 'numberOrderPhoneNumbers.retrieve',
-    httpMethod: 'get',
-    httpPath: '/number_order_phone_numbers/{number_order_phone_number_id}',
   },
   {
     clientCallName: 'client.numberOrderPhoneNumbers.list',
@@ -3229,10 +3247,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/number_order_phone_numbers/{id}/requirement_group',
   },
   {
+    clientCallName: 'client.numberOrderPhoneNumbers.retrieve',
+    fullyQualifiedName: 'numberOrderPhoneNumbers.retrieve',
+    httpMethod: 'get',
+    httpPath: '/number_order_phone_numbers/{number_order_phone_number_id}',
+  },
+  {
     clientCallName: 'client.numberOrderPhoneNumbers.updateRequirements',
     fullyQualifiedName: 'numberOrderPhoneNumbers.updateRequirements',
     httpMethod: 'patch',
     httpPath: '/number_order_phone_numbers/{number_order_phone_number_id}',
+  },
+  {
+    clientCallName: 'client.numberOrders.list',
+    fullyQualifiedName: 'numberOrders.list',
+    httpMethod: 'get',
+    httpPath: '/number_orders',
   },
   {
     clientCallName: 'client.numberOrders.create',
@@ -3253,10 +3283,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/number_orders/{number_order_id}',
   },
   {
-    clientCallName: 'client.numberOrders.list',
-    fullyQualifiedName: 'numberOrders.list',
+    clientCallName: 'client.numberReservations.list',
+    fullyQualifiedName: 'numberReservations.list',
     httpMethod: 'get',
-    httpPath: '/number_orders',
+    httpPath: '/number_reservations',
   },
   {
     clientCallName: 'client.numberReservations.create',
@@ -3269,12 +3299,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'numberReservations.retrieve',
     httpMethod: 'get',
     httpPath: '/number_reservations/{number_reservation_id}',
-  },
-  {
-    clientCallName: 'client.numberReservations.list',
-    fullyQualifiedName: 'numberReservations.list',
-    httpMethod: 'get',
-    httpPath: '/number_reservations',
   },
   {
     clientCallName: 'client.numberReservations.actions.extend',
@@ -3295,22 +3319,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/operator_connect/actions/refresh',
   },
   {
-    clientCallName: 'client.otaUpdates.retrieve',
-    fullyQualifiedName: 'otaUpdates.retrieve',
-    httpMethod: 'get',
-    httpPath: '/ota_updates/{id}',
-  },
-  {
     clientCallName: 'client.otaUpdates.list',
     fullyQualifiedName: 'otaUpdates.list',
     httpMethod: 'get',
     httpPath: '/ota_updates',
   },
   {
+    clientCallName: 'client.otaUpdates.retrieve',
+    fullyQualifiedName: 'otaUpdates.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ota_updates/{id}',
+  },
+  {
+    clientCallName: 'client.outboundVoiceProfiles.list',
+    fullyQualifiedName: 'outboundVoiceProfiles.list',
+    httpMethod: 'get',
+    httpPath: '/outbound_voice_profiles',
+  },
+  {
     clientCallName: 'client.outboundVoiceProfiles.create',
     fullyQualifiedName: 'outboundVoiceProfiles.create',
     httpMethod: 'post',
     httpPath: '/outbound_voice_profiles',
+  },
+  {
+    clientCallName: 'client.outboundVoiceProfiles.delete',
+    fullyQualifiedName: 'outboundVoiceProfiles.delete',
+    httpMethod: 'delete',
+    httpPath: '/outbound_voice_profiles/{id}',
   },
   {
     clientCallName: 'client.outboundVoiceProfiles.retrieve',
@@ -3325,28 +3361,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/outbound_voice_profiles/{id}',
   },
   {
-    clientCallName: 'client.outboundVoiceProfiles.list',
-    fullyQualifiedName: 'outboundVoiceProfiles.list',
-    httpMethod: 'get',
-    httpPath: '/outbound_voice_profiles',
-  },
-  {
-    clientCallName: 'client.outboundVoiceProfiles.delete',
-    fullyQualifiedName: 'outboundVoiceProfiles.delete',
-    httpMethod: 'delete',
-    httpPath: '/outbound_voice_profiles/{id}',
-  },
-  {
     clientCallName: 'client.payment.createStoredPaymentTransaction',
     fullyQualifiedName: 'payment.createStoredPaymentTransaction',
     httpMethod: 'post',
     httpPath: '/v2/payment/stored_payment_transactions',
-  },
-  {
-    clientCallName: 'client.payment.autoRechargePrefs.update',
-    fullyQualifiedName: 'payment.autoRechargePrefs.update',
-    httpMethod: 'patch',
-    httpPath: '/payment/auto_recharge_prefs',
   },
   {
     clientCallName: 'client.payment.autoRechargePrefs.list',
@@ -3355,10 +3373,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/payment/auto_recharge_prefs',
   },
   {
-    clientCallName: 'client.phoneNumberBlocks.jobs.retrieve',
-    fullyQualifiedName: 'phoneNumberBlocks.jobs.retrieve',
-    httpMethod: 'get',
-    httpPath: '/phone_number_blocks/jobs/{id}',
+    clientCallName: 'client.payment.autoRechargePrefs.update',
+    fullyQualifiedName: 'payment.autoRechargePrefs.update',
+    httpMethod: 'patch',
+    httpPath: '/payment/auto_recharge_prefs',
   },
   {
     clientCallName: 'client.phoneNumberBlocks.jobs.list',
@@ -3373,6 +3391,30 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/phone_number_blocks/jobs/delete_phone_number_block',
   },
   {
+    clientCallName: 'client.phoneNumberBlocks.jobs.retrieve',
+    fullyQualifiedName: 'phoneNumberBlocks.jobs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/phone_number_blocks/jobs/{id}',
+  },
+  {
+    clientCallName: 'client.phoneNumbers.list',
+    fullyQualifiedName: 'phoneNumbers.list',
+    httpMethod: 'get',
+    httpPath: '/phone_numbers',
+  },
+  {
+    clientCallName: 'client.phoneNumbers.slimList',
+    fullyQualifiedName: 'phoneNumbers.slimList',
+    httpMethod: 'get',
+    httpPath: '/phone_numbers/slim',
+  },
+  {
+    clientCallName: 'client.phoneNumbers.delete',
+    fullyQualifiedName: 'phoneNumbers.delete',
+    httpMethod: 'delete',
+    httpPath: '/phone_numbers/{id}',
+  },
+  {
     clientCallName: 'client.phoneNumbers.retrieve',
     fullyQualifiedName: 'phoneNumbers.retrieve',
     httpMethod: 'get',
@@ -3385,22 +3427,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/phone_numbers/{id}',
   },
   {
-    clientCallName: 'client.phoneNumbers.list',
-    fullyQualifiedName: 'phoneNumbers.list',
-    httpMethod: 'get',
-    httpPath: '/phone_numbers',
-  },
-  {
-    clientCallName: 'client.phoneNumbers.delete',
-    fullyQualifiedName: 'phoneNumbers.delete',
-    httpMethod: 'delete',
-    httpPath: '/phone_numbers/{id}',
-  },
-  {
-    clientCallName: 'client.phoneNumbers.slimList',
-    fullyQualifiedName: 'phoneNumbers.slimList',
-    httpMethod: 'get',
-    httpPath: '/phone_numbers/slim',
+    clientCallName: 'client.phoneNumbers.actions.verifyOwnership',
+    fullyQualifiedName: 'phoneNumbers.actions.verifyOwnership',
+    httpMethod: 'post',
+    httpPath: '/phone_numbers/actions/verify_ownership',
   },
   {
     clientCallName: 'client.phoneNumbers.actions.changeBundleStatus',
@@ -3415,10 +3445,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/phone_numbers/{id}/actions/enable_emergency',
   },
   {
-    clientCallName: 'client.phoneNumbers.actions.verifyOwnership',
-    fullyQualifiedName: 'phoneNumbers.actions.verifyOwnership',
-    httpMethod: 'post',
-    httpPath: '/phone_numbers/actions/verify_ownership',
+    clientCallName: 'client.phoneNumbers.csvDownloads.list',
+    fullyQualifiedName: 'phoneNumbers.csvDownloads.list',
+    httpMethod: 'get',
+    httpPath: '/phone_numbers/csv_downloads',
   },
   {
     clientCallName: 'client.phoneNumbers.csvDownloads.create',
@@ -3433,18 +3463,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/phone_numbers/csv_downloads/{id}',
   },
   {
-    clientCallName: 'client.phoneNumbers.csvDownloads.list',
-    fullyQualifiedName: 'phoneNumbers.csvDownloads.list',
-    httpMethod: 'get',
-    httpPath: '/phone_numbers/csv_downloads',
-  },
-  {
-    clientCallName: 'client.phoneNumbers.jobs.retrieve',
-    fullyQualifiedName: 'phoneNumbers.jobs.retrieve',
-    httpMethod: 'get',
-    httpPath: '/phone_numbers/jobs/{id}',
-  },
-  {
     clientCallName: 'client.phoneNumbers.jobs.list',
     fullyQualifiedName: 'phoneNumbers.jobs.list',
     httpMethod: 'get',
@@ -3457,16 +3475,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/phone_numbers/jobs/delete_phone_numbers',
   },
   {
+    clientCallName: 'client.phoneNumbers.jobs.updateEmergencySettingsBatch',
+    fullyQualifiedName: 'phoneNumbers.jobs.updateEmergencySettingsBatch',
+    httpMethod: 'post',
+    httpPath: '/phone_numbers/jobs/update_emergency_settings',
+  },
+  {
     clientCallName: 'client.phoneNumbers.jobs.updateBatch',
     fullyQualifiedName: 'phoneNumbers.jobs.updateBatch',
     httpMethod: 'post',
     httpPath: '/phone_numbers/jobs/update_phone_numbers',
   },
   {
-    clientCallName: 'client.phoneNumbers.jobs.updateEmergencySettingsBatch',
-    fullyQualifiedName: 'phoneNumbers.jobs.updateEmergencySettingsBatch',
-    httpMethod: 'post',
-    httpPath: '/phone_numbers/jobs/update_emergency_settings',
+    clientCallName: 'client.phoneNumbers.jobs.retrieve',
+    fullyQualifiedName: 'phoneNumbers.jobs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/phone_numbers/jobs/{id}',
+  },
+  {
+    clientCallName: 'client.phoneNumbers.messaging.list',
+    fullyQualifiedName: 'phoneNumbers.messaging.list',
+    httpMethod: 'get',
+    httpPath: '/phone_numbers/messaging',
   },
   {
     clientCallName: 'client.phoneNumbers.messaging.retrieve',
@@ -3481,10 +3511,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/phone_numbers/{id}/messaging',
   },
   {
-    clientCallName: 'client.phoneNumbers.messaging.list',
-    fullyQualifiedName: 'phoneNumbers.messaging.list',
+    clientCallName: 'client.phoneNumbers.voice.list',
+    fullyQualifiedName: 'phoneNumbers.voice.list',
     httpMethod: 'get',
-    httpPath: '/phone_numbers/messaging',
+    httpPath: '/phone_numbers/voice',
   },
   {
     clientCallName: 'client.phoneNumbers.voice.retrieve',
@@ -3499,18 +3529,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/phone_numbers/{id}/voice',
   },
   {
-    clientCallName: 'client.phoneNumbers.voice.list',
-    fullyQualifiedName: 'phoneNumbers.voice.list',
-    httpMethod: 'get',
-    httpPath: '/phone_numbers/voice',
-  },
-  {
-    clientCallName: 'client.phoneNumbers.voicemail.create',
-    fullyQualifiedName: 'phoneNumbers.voicemail.create',
-    httpMethod: 'post',
-    httpPath: '/phone_numbers/{phone_number_id}/voicemail',
-  },
-  {
     clientCallName: 'client.phoneNumbers.voicemail.retrieve',
     fullyQualifiedName: 'phoneNumbers.voicemail.retrieve',
     httpMethod: 'get',
@@ -3520,6 +3538,12 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.phoneNumbers.voicemail.update',
     fullyQualifiedName: 'phoneNumbers.voicemail.update',
     httpMethod: 'patch',
+    httpPath: '/phone_numbers/{phone_number_id}/voicemail',
+  },
+  {
+    clientCallName: 'client.phoneNumbers.voicemail.create',
+    fullyQualifiedName: 'phoneNumbers.voicemail.create',
+    httpMethod: 'post',
     httpPath: '/phone_numbers/{phone_number_id}/voicemail',
   },
   {
@@ -3541,22 +3565,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting/uk_carriers',
   },
   {
-    clientCallName: 'client.porting.events.retrieve',
-    fullyQualifiedName: 'porting.events.retrieve',
-    httpMethod: 'get',
-    httpPath: '/porting/events/{id}',
-  },
-  {
     clientCallName: 'client.porting.events.list',
     fullyQualifiedName: 'porting.events.list',
     httpMethod: 'get',
     httpPath: '/porting/events',
   },
   {
+    clientCallName: 'client.porting.events.retrieve',
+    fullyQualifiedName: 'porting.events.retrieve',
+    httpMethod: 'get',
+    httpPath: '/porting/events/{id}',
+  },
+  {
     clientCallName: 'client.porting.events.republish',
     fullyQualifiedName: 'porting.events.republish',
     httpMethod: 'post',
     httpPath: '/porting/events/{id}/republish',
+  },
+  {
+    clientCallName: 'client.porting.reports.list',
+    fullyQualifiedName: 'porting.reports.list',
+    httpMethod: 'get',
+    httpPath: '/porting/reports',
   },
   {
     clientCallName: 'client.porting.reports.create',
@@ -3571,16 +3601,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting/reports/{id}',
   },
   {
-    clientCallName: 'client.porting.reports.list',
-    fullyQualifiedName: 'porting.reports.list',
+    clientCallName: 'client.porting.loaConfigurations.preview0',
+    fullyQualifiedName: 'porting.loaConfigurations.preview0',
+    httpMethod: 'post',
+    httpPath: '/porting/loa_configurations/preview',
+  },
+  {
+    clientCallName: 'client.porting.loaConfigurations.preview1',
+    fullyQualifiedName: 'porting.loaConfigurations.preview1',
     httpMethod: 'get',
-    httpPath: '/porting/reports',
+    httpPath: '/porting/loa_configurations/{id}/preview',
+  },
+  {
+    clientCallName: 'client.porting.loaConfigurations.list',
+    fullyQualifiedName: 'porting.loaConfigurations.list',
+    httpMethod: 'get',
+    httpPath: '/porting/loa_configurations',
   },
   {
     clientCallName: 'client.porting.loaConfigurations.create',
     fullyQualifiedName: 'porting.loaConfigurations.create',
     httpMethod: 'post',
     httpPath: '/porting/loa_configurations',
+  },
+  {
+    clientCallName: 'client.porting.loaConfigurations.delete',
+    fullyQualifiedName: 'porting.loaConfigurations.delete',
+    httpMethod: 'delete',
+    httpPath: '/porting/loa_configurations/{id}',
   },
   {
     clientCallName: 'client.porting.loaConfigurations.retrieve',
@@ -3595,40 +3643,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting/loa_configurations/{id}',
   },
   {
-    clientCallName: 'client.porting.loaConfigurations.list',
-    fullyQualifiedName: 'porting.loaConfigurations.list',
-    httpMethod: 'get',
-    httpPath: '/porting/loa_configurations',
-  },
-  {
-    clientCallName: 'client.porting.loaConfigurations.delete',
-    fullyQualifiedName: 'porting.loaConfigurations.delete',
-    httpMethod: 'delete',
-    httpPath: '/porting/loa_configurations/{id}',
-  },
-  {
     clientCallName: 'client.porting.loaConfigurations.preview',
     fullyQualifiedName: 'porting.loaConfigurations.preview',
     httpMethod: 'post',
     httpPath: '/porting/loa_configurations/preview',
   },
   {
-    clientCallName: 'client.porting.loaConfigurations.preview0',
-    fullyQualifiedName: 'porting.loaConfigurations.preview0',
-    httpMethod: 'post',
-    httpPath: '/porting/loa_configurations/preview',
-  },
-  {
-    clientCallName: 'client.porting.loaConfigurations.preview1',
-    fullyQualifiedName: 'porting.loaConfigurations.preview1',
+    clientCallName: 'client.portingOrders.list',
+    fullyQualifiedName: 'portingOrders.list',
     httpMethod: 'get',
-    httpPath: '/porting/loa_configurations/{id}/preview',
+    httpPath: '/porting_orders',
   },
   {
     clientCallName: 'client.portingOrders.create',
     fullyQualifiedName: 'portingOrders.create',
     httpMethod: 'post',
     httpPath: '/porting_orders',
+  },
+  {
+    clientCallName: 'client.portingOrders.retrieveExceptionTypes',
+    fullyQualifiedName: 'portingOrders.retrieveExceptionTypes',
+    httpMethod: 'get',
+    httpPath: '/porting_orders/exception_types',
+  },
+  {
+    clientCallName: 'client.portingOrders.delete',
+    fullyQualifiedName: 'portingOrders.delete',
+    httpMethod: 'delete',
+    httpPath: '/porting_orders/{id}',
   },
   {
     clientCallName: 'client.portingOrders.retrieve',
@@ -3643,28 +3685,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting_orders/{id}',
   },
   {
-    clientCallName: 'client.portingOrders.list',
-    fullyQualifiedName: 'portingOrders.list',
-    httpMethod: 'get',
-    httpPath: '/porting_orders',
-  },
-  {
-    clientCallName: 'client.portingOrders.delete',
-    fullyQualifiedName: 'portingOrders.delete',
-    httpMethod: 'delete',
-    httpPath: '/porting_orders/{id}',
-  },
-  {
     clientCallName: 'client.portingOrders.retrieveAllowedFocWindows',
     fullyQualifiedName: 'portingOrders.retrieveAllowedFocWindows',
     httpMethod: 'get',
     httpPath: '/porting_orders/{id}/allowed_foc_windows',
-  },
-  {
-    clientCallName: 'client.portingOrders.retrieveExceptionTypes',
-    fullyQualifiedName: 'portingOrders.retrieveExceptionTypes',
-    httpMethod: 'get',
-    httpPath: '/porting_orders/exception_types',
   },
   {
     clientCallName: 'client.portingOrders.retrieveLoaTemplate',
@@ -3685,15 +3709,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting_orders/{id}/sub_request',
   },
   {
-    clientCallName: 'client.portingOrders.phoneNumberConfigurations.create',
-    fullyQualifiedName: 'portingOrders.phoneNumberConfigurations.create',
-    httpMethod: 'post',
-    httpPath: '/porting_orders/phone_number_configurations',
-  },
-  {
     clientCallName: 'client.portingOrders.phoneNumberConfigurations.list',
     fullyQualifiedName: 'portingOrders.phoneNumberConfigurations.list',
     httpMethod: 'get',
+    httpPath: '/porting_orders/phone_number_configurations',
+  },
+  {
+    clientCallName: 'client.portingOrders.phoneNumberConfigurations.create',
+    fullyQualifiedName: 'portingOrders.phoneNumberConfigurations.create',
+    httpMethod: 'post',
     httpPath: '/porting_orders/phone_number_configurations',
   },
   {
@@ -3721,6 +3745,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting_orders/{id}/actions/share',
   },
   {
+    clientCallName: 'client.portingOrders.activationJobs.list',
+    fullyQualifiedName: 'portingOrders.activationJobs.list',
+    httpMethod: 'get',
+    httpPath: '/porting_orders/{id}/activation_jobs',
+  },
+  {
     clientCallName: 'client.portingOrders.activationJobs.retrieve',
     fullyQualifiedName: 'portingOrders.activationJobs.retrieve',
     httpMethod: 'get',
@@ -3733,21 +3763,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting_orders/{id}/activation_jobs/{activationJobId}',
   },
   {
-    clientCallName: 'client.portingOrders.activationJobs.list',
-    fullyQualifiedName: 'portingOrders.activationJobs.list',
+    clientCallName: 'client.portingOrders.additionalDocuments.list',
+    fullyQualifiedName: 'portingOrders.additionalDocuments.list',
     httpMethod: 'get',
-    httpPath: '/porting_orders/{id}/activation_jobs',
+    httpPath: '/porting_orders/{id}/additional_documents',
   },
   {
     clientCallName: 'client.portingOrders.additionalDocuments.create',
     fullyQualifiedName: 'portingOrders.additionalDocuments.create',
     httpMethod: 'post',
-    httpPath: '/porting_orders/{id}/additional_documents',
-  },
-  {
-    clientCallName: 'client.portingOrders.additionalDocuments.list',
-    fullyQualifiedName: 'portingOrders.additionalDocuments.list',
-    httpMethod: 'get',
     httpPath: '/porting_orders/{id}/additional_documents',
   },
   {
@@ -3757,15 +3781,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting_orders/{id}/additional_documents/{additional_document_id}',
   },
   {
-    clientCallName: 'client.portingOrders.comments.create',
-    fullyQualifiedName: 'portingOrders.comments.create',
-    httpMethod: 'post',
-    httpPath: '/porting_orders/{id}/comments',
-  },
-  {
     clientCallName: 'client.portingOrders.comments.list',
     fullyQualifiedName: 'portingOrders.comments.list',
     httpMethod: 'get',
+    httpPath: '/porting_orders/{id}/comments',
+  },
+  {
+    clientCallName: 'client.portingOrders.comments.create',
+    fullyQualifiedName: 'portingOrders.comments.create',
+    httpMethod: 'post',
     httpPath: '/porting_orders/{id}/comments',
   },
   {
@@ -3799,15 +3823,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting_orders/{porting_order_id}/action_requirements/{id}/initiate',
   },
   {
-    clientCallName: 'client.portingOrders.associatedPhoneNumbers.create',
-    fullyQualifiedName: 'portingOrders.associatedPhoneNumbers.create',
-    httpMethod: 'post',
-    httpPath: '/porting_orders/{porting_order_id}/associated_phone_numbers',
-  },
-  {
     clientCallName: 'client.portingOrders.associatedPhoneNumbers.list',
     fullyQualifiedName: 'portingOrders.associatedPhoneNumbers.list',
     httpMethod: 'get',
+    httpPath: '/porting_orders/{porting_order_id}/associated_phone_numbers',
+  },
+  {
+    clientCallName: 'client.portingOrders.associatedPhoneNumbers.create',
+    fullyQualifiedName: 'portingOrders.associatedPhoneNumbers.create',
+    httpMethod: 'post',
     httpPath: '/porting_orders/{porting_order_id}/associated_phone_numbers',
   },
   {
@@ -3817,15 +3841,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting_orders/{porting_order_id}/associated_phone_numbers/{id}',
   },
   {
-    clientCallName: 'client.portingOrders.phoneNumberBlocks.create',
-    fullyQualifiedName: 'portingOrders.phoneNumberBlocks.create',
-    httpMethod: 'post',
-    httpPath: '/porting_orders/{porting_order_id}/phone_number_blocks',
-  },
-  {
     clientCallName: 'client.portingOrders.phoneNumberBlocks.list',
     fullyQualifiedName: 'portingOrders.phoneNumberBlocks.list',
     httpMethod: 'get',
+    httpPath: '/porting_orders/{porting_order_id}/phone_number_blocks',
+  },
+  {
+    clientCallName: 'client.portingOrders.phoneNumberBlocks.create',
+    fullyQualifiedName: 'portingOrders.phoneNumberBlocks.create',
+    httpMethod: 'post',
     httpPath: '/porting_orders/{porting_order_id}/phone_number_blocks',
   },
   {
@@ -3835,15 +3859,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting_orders/{porting_order_id}/phone_number_blocks/{id}',
   },
   {
-    clientCallName: 'client.portingOrders.phoneNumberExtensions.create',
-    fullyQualifiedName: 'portingOrders.phoneNumberExtensions.create',
-    httpMethod: 'post',
-    httpPath: '/porting_orders/{porting_order_id}/phone_number_extensions',
-  },
-  {
     clientCallName: 'client.portingOrders.phoneNumberExtensions.list',
     fullyQualifiedName: 'portingOrders.phoneNumberExtensions.list',
     httpMethod: 'get',
+    httpPath: '/porting_orders/{porting_order_id}/phone_number_extensions',
+  },
+  {
+    clientCallName: 'client.portingOrders.phoneNumberExtensions.create',
+    fullyQualifiedName: 'portingOrders.phoneNumberExtensions.create',
+    httpMethod: 'post',
     httpPath: '/porting_orders/{porting_order_id}/phone_number_extensions',
   },
   {
@@ -3859,12 +3883,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/porting_phone_numbers',
   },
   {
-    clientCallName: 'client.portouts.retrieve',
-    fullyQualifiedName: 'portouts.retrieve',
-    httpMethod: 'get',
-    httpPath: '/portouts/{id}',
-  },
-  {
     clientCallName: 'client.portouts.list',
     fullyQualifiedName: 'portouts.list',
     httpMethod: 'get',
@@ -3877,16 +3895,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/portouts/rejections/{portout_id}',
   },
   {
+    clientCallName: 'client.portouts.retrieve',
+    fullyQualifiedName: 'portouts.retrieve',
+    httpMethod: 'get',
+    httpPath: '/portouts/{id}',
+  },
+  {
     clientCallName: 'client.portouts.updateStatus',
     fullyQualifiedName: 'portouts.updateStatus',
     httpMethod: 'patch',
     httpPath: '/portouts/{id}/{status}',
-  },
-  {
-    clientCallName: 'client.portouts.events.retrieve',
-    fullyQualifiedName: 'portouts.events.retrieve',
-    httpMethod: 'get',
-    httpPath: '/portouts/events/{id}',
   },
   {
     clientCallName: 'client.portouts.events.list',
@@ -3895,10 +3913,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/portouts/events',
   },
   {
+    clientCallName: 'client.portouts.events.retrieve',
+    fullyQualifiedName: 'portouts.events.retrieve',
+    httpMethod: 'get',
+    httpPath: '/portouts/events/{id}',
+  },
+  {
     clientCallName: 'client.portouts.events.republish',
     fullyQualifiedName: 'portouts.events.republish',
     httpMethod: 'post',
     httpPath: '/portouts/events/{id}/republish',
+  },
+  {
+    clientCallName: 'client.portouts.reports.list',
+    fullyQualifiedName: 'portouts.reports.list',
+    httpMethod: 'get',
+    httpPath: '/portouts/reports',
   },
   {
     clientCallName: 'client.portouts.reports.create',
@@ -3913,10 +3943,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/portouts/reports/{id}',
   },
   {
-    clientCallName: 'client.portouts.reports.list',
-    fullyQualifiedName: 'portouts.reports.list',
+    clientCallName: 'client.portouts.comments.list',
+    fullyQualifiedName: 'portouts.comments.list',
     httpMethod: 'get',
-    httpPath: '/portouts/reports',
+    httpPath: '/portouts/{id}/comments',
   },
   {
     clientCallName: 'client.portouts.comments.create',
@@ -3925,10 +3955,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/portouts/{id}/comments',
   },
   {
-    clientCallName: 'client.portouts.comments.list',
-    fullyQualifiedName: 'portouts.comments.list',
+    clientCallName: 'client.portouts.supportingDocuments.list',
+    fullyQualifiedName: 'portouts.supportingDocuments.list',
     httpMethod: 'get',
-    httpPath: '/portouts/{id}/comments',
+    httpPath: '/portouts/{id}/supporting_documents',
   },
   {
     clientCallName: 'client.portouts.supportingDocuments.create',
@@ -3937,27 +3967,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/portouts/{id}/supporting_documents',
   },
   {
-    clientCallName: 'client.portouts.supportingDocuments.list',
-    fullyQualifiedName: 'portouts.supportingDocuments.list',
+    clientCallName: 'client.privateWirelessGateways.list',
+    fullyQualifiedName: 'privateWirelessGateways.list',
     httpMethod: 'get',
-    httpPath: '/portouts/{id}/supporting_documents',
+    httpPath: '/private_wireless_gateways',
   },
   {
     clientCallName: 'client.privateWirelessGateways.create',
     fullyQualifiedName: 'privateWirelessGateways.create',
     httpMethod: 'post',
-    httpPath: '/private_wireless_gateways',
-  },
-  {
-    clientCallName: 'client.privateWirelessGateways.retrieve',
-    fullyQualifiedName: 'privateWirelessGateways.retrieve',
-    httpMethod: 'get',
-    httpPath: '/private_wireless_gateways/{id}',
-  },
-  {
-    clientCallName: 'client.privateWirelessGateways.list',
-    fullyQualifiedName: 'privateWirelessGateways.list',
-    httpMethod: 'get',
     httpPath: '/private_wireless_gateways',
   },
   {
@@ -3967,21 +3985,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/private_wireless_gateways/{id}',
   },
   {
-    clientCallName: 'client.publicInternetGateways.create',
-    fullyQualifiedName: 'publicInternetGateways.create',
-    httpMethod: 'post',
-    httpPath: '/public_internet_gateways',
-  },
-  {
-    clientCallName: 'client.publicInternetGateways.retrieve',
-    fullyQualifiedName: 'publicInternetGateways.retrieve',
+    clientCallName: 'client.privateWirelessGateways.retrieve',
+    fullyQualifiedName: 'privateWirelessGateways.retrieve',
     httpMethod: 'get',
-    httpPath: '/public_internet_gateways/{id}',
+    httpPath: '/private_wireless_gateways/{id}',
   },
   {
     clientCallName: 'client.publicInternetGateways.list',
     fullyQualifiedName: 'publicInternetGateways.list',
     httpMethod: 'get',
+    httpPath: '/public_internet_gateways',
+  },
+  {
+    clientCallName: 'client.publicInternetGateways.create',
+    fullyQualifiedName: 'publicInternetGateways.create',
+    httpMethod: 'post',
     httpPath: '/public_internet_gateways',
   },
   {
@@ -3991,21 +4009,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/public_internet_gateways/{id}',
   },
   {
-    clientCallName: 'client.queues.create',
-    fullyQualifiedName: 'queues.create',
-    httpMethod: 'post',
-    httpPath: '/queues',
+    clientCallName: 'client.publicInternetGateways.retrieve',
+    fullyQualifiedName: 'publicInternetGateways.retrieve',
+    httpMethod: 'get',
+    httpPath: '/public_internet_gateways/{id}',
   },
   {
     clientCallName: 'client.queues.retrieve',
     fullyQualifiedName: 'queues.retrieve',
     httpMethod: 'get',
-    httpPath: '/queues/{queue_name}',
-  },
-  {
-    clientCallName: 'client.queues.update',
-    fullyQualifiedName: 'queues.update',
-    httpMethod: 'post',
     httpPath: '/queues/{queue_name}',
   },
   {
@@ -4015,22 +4027,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/queues',
   },
   {
+    clientCallName: 'client.queues.create',
+    fullyQualifiedName: 'queues.create',
+    httpMethod: 'post',
+    httpPath: '/queues',
+  },
+  {
     clientCallName: 'client.queues.delete',
     fullyQualifiedName: 'queues.delete',
     httpMethod: 'delete',
     httpPath: '/queues/{queue_name}',
   },
   {
-    clientCallName: 'client.queues.calls.retrieve',
-    fullyQualifiedName: 'queues.calls.retrieve',
-    httpMethod: 'get',
-    httpPath: '/queues/{queue_name}/calls/{call_control_id}',
-  },
-  {
-    clientCallName: 'client.queues.calls.update',
-    fullyQualifiedName: 'queues.calls.update',
-    httpMethod: 'patch',
-    httpPath: '/queues/{queue_name}/calls/{call_control_id}',
+    clientCallName: 'client.queues.update',
+    fullyQualifiedName: 'queues.update',
+    httpMethod: 'post',
+    httpPath: '/queues/{queue_name}',
   },
   {
     clientCallName: 'client.queues.calls.list',
@@ -4039,16 +4051,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/queues/{queue_name}/calls',
   },
   {
+    clientCallName: 'client.queues.calls.retrieve',
+    fullyQualifiedName: 'queues.calls.retrieve',
+    httpMethod: 'get',
+    httpPath: '/queues/{queue_name}/calls/{call_control_id}',
+  },
+  {
     clientCallName: 'client.queues.calls.remove',
     fullyQualifiedName: 'queues.calls.remove',
     httpMethod: 'delete',
     httpPath: '/queues/{queue_name}/calls/{call_control_id}',
   },
   {
-    clientCallName: 'client.recordingTranscriptions.retrieve',
-    fullyQualifiedName: 'recordingTranscriptions.retrieve',
-    httpMethod: 'get',
-    httpPath: '/recording_transcriptions/{recording_transcription_id}',
+    clientCallName: 'client.queues.calls.update',
+    fullyQualifiedName: 'queues.calls.update',
+    httpMethod: 'patch',
+    httpPath: '/queues/{queue_name}/calls/{call_control_id}',
   },
   {
     clientCallName: 'client.recordingTranscriptions.list',
@@ -4063,10 +4081,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/recording_transcriptions/{recording_transcription_id}',
   },
   {
-    clientCallName: 'client.recordings.retrieve',
-    fullyQualifiedName: 'recordings.retrieve',
+    clientCallName: 'client.recordingTranscriptions.retrieve',
+    fullyQualifiedName: 'recordingTranscriptions.retrieve',
     httpMethod: 'get',
-    httpPath: '/recordings/{recording_id}',
+    httpPath: '/recording_transcriptions/{recording_transcription_id}',
   },
   {
     clientCallName: 'client.recordings.list',
@@ -4078,6 +4096,12 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.recordings.delete',
     fullyQualifiedName: 'recordings.delete',
     httpMethod: 'delete',
+    httpPath: '/recordings/{recording_id}',
+  },
+  {
+    clientCallName: 'client.recordings.retrieve',
+    fullyQualifiedName: 'recordings.retrieve',
+    httpMethod: 'get',
     httpPath: '/recordings/{recording_id}',
   },
   {
@@ -4117,28 +4141,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/reports/cdr_usage_reports/sync',
   },
   {
-    clientCallName: 'client.reports.mdrUsageReports.create',
-    fullyQualifiedName: 'reports.mdrUsageReports.create',
-    httpMethod: 'post',
-    httpPath: '/reports/mdr_usage_reports',
-  },
-  {
-    clientCallName: 'client.reports.mdrUsageReports.retrieve',
-    fullyQualifiedName: 'reports.mdrUsageReports.retrieve',
-    httpMethod: 'get',
-    httpPath: '/reports/mdr_usage_reports/{id}',
-  },
-  {
     clientCallName: 'client.reports.mdrUsageReports.list',
     fullyQualifiedName: 'reports.mdrUsageReports.list',
     httpMethod: 'get',
     httpPath: '/reports/mdr_usage_reports',
   },
   {
-    clientCallName: 'client.reports.mdrUsageReports.delete',
-    fullyQualifiedName: 'reports.mdrUsageReports.delete',
-    httpMethod: 'delete',
-    httpPath: '/reports/mdr_usage_reports/{id}',
+    clientCallName: 'client.reports.mdrUsageReports.create',
+    fullyQualifiedName: 'reports.mdrUsageReports.create',
+    httpMethod: 'post',
+    httpPath: '/reports/mdr_usage_reports',
   },
   {
     clientCallName: 'client.reports.mdrUsageReports.fetchSync',
@@ -4147,10 +4159,47 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/reports/mdr_usage_reports/sync',
   },
   {
+    clientCallName: 'client.reports.mdrUsageReports.delete',
+    fullyQualifiedName: 'reports.mdrUsageReports.delete',
+    httpMethod: 'delete',
+    httpPath: '/reports/mdr_usage_reports/{id}',
+  },
+  {
+    clientCallName: 'client.reports.mdrUsageReports.retrieve',
+    fullyQualifiedName: 'reports.mdrUsageReports.retrieve',
+    httpMethod: 'get',
+    httpPath: '/reports/mdr_usage_reports/{id}',
+  },
+  {
+    clientCallName: 'client.speechToText.listProviders',
+    fullyQualifiedName: 'speechToText.listProviders',
+    httpMethod: 'get',
+    httpPath: '/speech-to-text/providers',
+  },
+  { clientCallName: 'client.speechToText.transcribe', fullyQualifiedName: 'speechToText.transcribe' },
+  {
+    clientCallName: 'client.speechToText.retrieveTranscription',
+    fullyQualifiedName: 'speechToText.retrieveTranscription',
+    httpMethod: 'get',
+    httpPath: '/speech-to-text/transcription',
+  },
+  {
+    clientCallName: 'client.requirementGroups.list',
+    fullyQualifiedName: 'requirementGroups.list',
+    httpMethod: 'get',
+    httpPath: '/requirement_groups',
+  },
+  {
     clientCallName: 'client.requirementGroups.create',
     fullyQualifiedName: 'requirementGroups.create',
     httpMethod: 'post',
     httpPath: '/requirement_groups',
+  },
+  {
+    clientCallName: 'client.requirementGroups.delete',
+    fullyQualifiedName: 'requirementGroups.delete',
+    httpMethod: 'delete',
+    httpPath: '/requirement_groups/{id}',
   },
   {
     clientCallName: 'client.requirementGroups.retrieve',
@@ -4165,28 +4214,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/requirement_groups/{id}',
   },
   {
-    clientCallName: 'client.requirementGroups.list',
-    fullyQualifiedName: 'requirementGroups.list',
-    httpMethod: 'get',
-    httpPath: '/requirement_groups',
-  },
-  {
-    clientCallName: 'client.requirementGroups.delete',
-    fullyQualifiedName: 'requirementGroups.delete',
-    httpMethod: 'delete',
-    httpPath: '/requirement_groups/{id}',
-  },
-  {
     clientCallName: 'client.requirementGroups.submitForApproval',
     fullyQualifiedName: 'requirementGroups.submitForApproval',
     httpMethod: 'post',
     httpPath: '/requirement_groups/{id}/submit_for_approval',
-  },
-  {
-    clientCallName: 'client.requirementTypes.retrieve',
-    fullyQualifiedName: 'requirementTypes.retrieve',
-    httpMethod: 'get',
-    httpPath: '/requirement_types/{id}',
   },
   {
     clientCallName: 'client.requirementTypes.list',
@@ -4195,10 +4226,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/requirement_types',
   },
   {
-    clientCallName: 'client.requirements.retrieve',
-    fullyQualifiedName: 'requirements.retrieve',
+    clientCallName: 'client.requirementTypes.retrieve',
+    fullyQualifiedName: 'requirementTypes.retrieve',
     httpMethod: 'get',
-    httpPath: '/requirements/{id}',
+    httpPath: '/requirement_types/{id}',
   },
   {
     clientCallName: 'client.requirements.list',
@@ -4207,21 +4238,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/requirements',
   },
   {
-    clientCallName: 'client.roomCompositions.create',
-    fullyQualifiedName: 'roomCompositions.create',
-    httpMethod: 'post',
-    httpPath: '/room_compositions',
-  },
-  {
-    clientCallName: 'client.roomCompositions.retrieve',
-    fullyQualifiedName: 'roomCompositions.retrieve',
+    clientCallName: 'client.requirements.retrieve',
+    fullyQualifiedName: 'requirements.retrieve',
     httpMethod: 'get',
-    httpPath: '/room_compositions/{room_composition_id}',
+    httpPath: '/requirements/{id}',
   },
   {
     clientCallName: 'client.roomCompositions.list',
     fullyQualifiedName: 'roomCompositions.list',
     httpMethod: 'get',
+    httpPath: '/room_compositions',
+  },
+  {
+    clientCallName: 'client.roomCompositions.create',
+    fullyQualifiedName: 'roomCompositions.create',
+    httpMethod: 'post',
     httpPath: '/room_compositions',
   },
   {
@@ -4231,10 +4262,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/room_compositions/{room_composition_id}',
   },
   {
-    clientCallName: 'client.roomParticipants.retrieve',
-    fullyQualifiedName: 'roomParticipants.retrieve',
+    clientCallName: 'client.roomCompositions.retrieve',
+    fullyQualifiedName: 'roomCompositions.retrieve',
     httpMethod: 'get',
-    httpPath: '/room_participants/{room_participant_id}',
+    httpPath: '/room_compositions/{room_composition_id}',
   },
   {
     clientCallName: 'client.roomParticipants.list',
@@ -4243,10 +4274,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/room_participants',
   },
   {
-    clientCallName: 'client.roomRecordings.retrieve',
-    fullyQualifiedName: 'roomRecordings.retrieve',
+    clientCallName: 'client.roomParticipants.retrieve',
+    fullyQualifiedName: 'roomParticipants.retrieve',
     httpMethod: 'get',
-    httpPath: '/room_recordings/{room_recording_id}',
+    httpPath: '/room_participants/{room_participant_id}',
+  },
+  {
+    clientCallName: 'client.roomRecordings.deleteBulk',
+    fullyQualifiedName: 'roomRecordings.deleteBulk',
+    httpMethod: 'delete',
+    httpPath: '/room_recordings',
   },
   {
     clientCallName: 'client.roomRecordings.list',
@@ -4261,16 +4298,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/room_recordings/{room_recording_id}',
   },
   {
-    clientCallName: 'client.roomRecordings.deleteBulk',
-    fullyQualifiedName: 'roomRecordings.deleteBulk',
-    httpMethod: 'delete',
-    httpPath: '/room_recordings',
+    clientCallName: 'client.roomRecordings.retrieve',
+    fullyQualifiedName: 'roomRecordings.retrieve',
+    httpMethod: 'get',
+    httpPath: '/room_recordings/{room_recording_id}',
+  },
+  {
+    clientCallName: 'client.rooms.list',
+    fullyQualifiedName: 'rooms.list',
+    httpMethod: 'get',
+    httpPath: '/rooms',
   },
   {
     clientCallName: 'client.rooms.create',
     fullyQualifiedName: 'rooms.create',
     httpMethod: 'post',
     httpPath: '/rooms',
+  },
+  {
+    clientCallName: 'client.rooms.delete',
+    fullyQualifiedName: 'rooms.delete',
+    httpMethod: 'delete',
+    httpPath: '/rooms/{room_id}',
   },
   {
     clientCallName: 'client.rooms.retrieve',
@@ -4282,18 +4331,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.rooms.update',
     fullyQualifiedName: 'rooms.update',
     httpMethod: 'patch',
-    httpPath: '/rooms/{room_id}',
-  },
-  {
-    clientCallName: 'client.rooms.list',
-    fullyQualifiedName: 'rooms.list',
-    httpMethod: 'get',
-    httpPath: '/rooms',
-  },
-  {
-    clientCallName: 'client.rooms.delete',
-    fullyQualifiedName: 'rooms.delete',
-    httpMethod: 'delete',
     httpPath: '/rooms/{room_id}',
   },
   {
@@ -4309,12 +4346,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/rooms/{room_id}/actions/refresh_client_token',
   },
   {
-    clientCallName: 'client.rooms.sessions.retrieve',
-    fullyQualifiedName: 'rooms.sessions.retrieve',
-    httpMethod: 'get',
-    httpPath: '/room_sessions/{room_session_id}',
-  },
-  {
     clientCallName: 'client.rooms.sessions.list0',
     fullyQualifiedName: 'rooms.sessions.list0',
     httpMethod: 'get',
@@ -4325,6 +4356,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'rooms.sessions.list1',
     httpMethod: 'get',
     httpPath: '/rooms/{room_id}/sessions',
+  },
+  {
+    clientCallName: 'client.rooms.sessions.retrieve',
+    fullyQualifiedName: 'rooms.sessions.retrieve',
+    httpMethod: 'get',
+    httpPath: '/room_sessions/{room_session_id}',
   },
   {
     clientCallName: 'client.rooms.sessions.retrieveParticipants',
@@ -4363,6 +4400,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/seti/black_box_test_results',
   },
   {
+    clientCallName: 'client.shortCodes.list',
+    fullyQualifiedName: 'shortCodes.list',
+    httpMethod: 'get',
+    httpPath: '/short_codes',
+  },
+  {
     clientCallName: 'client.shortCodes.retrieve',
     fullyQualifiedName: 'shortCodes.retrieve',
     httpMethod: 'get',
@@ -4375,16 +4418,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/short_codes/{id}',
   },
   {
-    clientCallName: 'client.shortCodes.list',
-    fullyQualifiedName: 'shortCodes.list',
+    clientCallName: 'client.simCardDataUsageNotifications.list',
+    fullyQualifiedName: 'simCardDataUsageNotifications.list',
     httpMethod: 'get',
-    httpPath: '/short_codes',
+    httpPath: '/sim_card_data_usage_notifications',
   },
   {
     clientCallName: 'client.simCardDataUsageNotifications.create',
     fullyQualifiedName: 'simCardDataUsageNotifications.create',
     httpMethod: 'post',
     httpPath: '/sim_card_data_usage_notifications',
+  },
+  {
+    clientCallName: 'client.simCardDataUsageNotifications.delete',
+    fullyQualifiedName: 'simCardDataUsageNotifications.delete',
+    httpMethod: 'delete',
+    httpPath: '/sim_card_data_usage_notifications/{id}',
   },
   {
     clientCallName: 'client.simCardDataUsageNotifications.retrieve',
@@ -4399,22 +4448,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sim_card_data_usage_notifications/{id}',
   },
   {
-    clientCallName: 'client.simCardDataUsageNotifications.list',
-    fullyQualifiedName: 'simCardDataUsageNotifications.list',
+    clientCallName: 'client.simCardGroups.list',
+    fullyQualifiedName: 'simCardGroups.list',
     httpMethod: 'get',
-    httpPath: '/sim_card_data_usage_notifications',
-  },
-  {
-    clientCallName: 'client.simCardDataUsageNotifications.delete',
-    fullyQualifiedName: 'simCardDataUsageNotifications.delete',
-    httpMethod: 'delete',
-    httpPath: '/sim_card_data_usage_notifications/{id}',
+    httpPath: '/sim_card_groups',
   },
   {
     clientCallName: 'client.simCardGroups.create',
     fullyQualifiedName: 'simCardGroups.create',
     httpMethod: 'post',
     httpPath: '/sim_card_groups',
+  },
+  {
+    clientCallName: 'client.simCardGroups.delete',
+    fullyQualifiedName: 'simCardGroups.delete',
+    httpMethod: 'delete',
+    httpPath: '/sim_card_groups/{id}',
   },
   {
     clientCallName: 'client.simCardGroups.retrieve',
@@ -4429,28 +4478,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sim_card_groups/{id}',
   },
   {
-    clientCallName: 'client.simCardGroups.list',
-    fullyQualifiedName: 'simCardGroups.list',
+    clientCallName: 'client.simCardGroups.actions.list',
+    fullyQualifiedName: 'simCardGroups.actions.list',
     httpMethod: 'get',
-    httpPath: '/sim_card_groups',
-  },
-  {
-    clientCallName: 'client.simCardGroups.delete',
-    fullyQualifiedName: 'simCardGroups.delete',
-    httpMethod: 'delete',
-    httpPath: '/sim_card_groups/{id}',
+    httpPath: '/sim_card_group_actions',
   },
   {
     clientCallName: 'client.simCardGroups.actions.retrieve',
     fullyQualifiedName: 'simCardGroups.actions.retrieve',
     httpMethod: 'get',
     httpPath: '/sim_card_group_actions/{id}',
-  },
-  {
-    clientCallName: 'client.simCardGroups.actions.list',
-    fullyQualifiedName: 'simCardGroups.actions.list',
-    httpMethod: 'get',
-    httpPath: '/sim_card_group_actions',
   },
   {
     clientCallName: 'client.simCardGroups.actions.removePrivateWirelessGateway',
@@ -4483,6 +4520,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sim_card_order_preview',
   },
   {
+    clientCallName: 'client.simCardOrders.list',
+    fullyQualifiedName: 'simCardOrders.list',
+    httpMethod: 'get',
+    httpPath: '/sim_card_orders',
+  },
+  {
     clientCallName: 'client.simCardOrders.create',
     fullyQualifiedName: 'simCardOrders.create',
     httpMethod: 'post',
@@ -4495,10 +4538,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sim_card_orders/{id}',
   },
   {
-    clientCallName: 'client.simCardOrders.list',
-    fullyQualifiedName: 'simCardOrders.list',
+    clientCallName: 'client.simCards.list',
+    fullyQualifiedName: 'simCards.list',
     httpMethod: 'get',
-    httpPath: '/sim_card_orders',
+    httpPath: '/sim_cards',
+  },
+  {
+    clientCallName: 'client.simCards.delete',
+    fullyQualifiedName: 'simCards.delete',
+    httpMethod: 'delete',
+    httpPath: '/sim_cards/{id}',
   },
   {
     clientCallName: 'client.simCards.retrieve',
@@ -4510,18 +4559,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.simCards.update',
     fullyQualifiedName: 'simCards.update',
     httpMethod: 'patch',
-    httpPath: '/sim_cards/{id}',
-  },
-  {
-    clientCallName: 'client.simCards.list',
-    fullyQualifiedName: 'simCards.list',
-    httpMethod: 'get',
-    httpPath: '/sim_cards',
-  },
-  {
-    clientCallName: 'client.simCards.delete',
-    fullyQualifiedName: 'simCards.delete',
-    httpMethod: 'delete',
     httpPath: '/sim_cards/{id}',
   },
   {
@@ -4549,34 +4586,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sim_cards/{id}/wireless_connectivity_logs',
   },
   {
-    clientCallName: 'client.simCards.actions.retrieve',
-    fullyQualifiedName: 'simCards.actions.retrieve',
-    httpMethod: 'get',
-    httpPath: '/sim_card_actions/{id}',
-  },
-  {
     clientCallName: 'client.simCards.actions.list',
     fullyQualifiedName: 'simCards.actions.list',
     httpMethod: 'get',
     httpPath: '/sim_card_actions',
   },
   {
-    clientCallName: 'client.simCards.actions.bulkDisableVoice',
-    fullyQualifiedName: 'simCards.actions.bulkDisableVoice',
-    httpMethod: 'post',
-    httpPath: '/sim_cards/actions/bulk_disable_voice',
-  },
-  {
-    clientCallName: 'client.simCards.actions.bulkEnableVoice',
-    fullyQualifiedName: 'simCards.actions.bulkEnableVoice',
-    httpMethod: 'post',
-    httpPath: '/sim_cards/actions/bulk_enable_voice',
+    clientCallName: 'client.simCards.actions.retrieve',
+    fullyQualifiedName: 'simCards.actions.retrieve',
+    httpMethod: 'get',
+    httpPath: '/sim_card_actions/{id}',
   },
   {
     clientCallName: 'client.simCards.actions.bulkSetPublicIPs',
     fullyQualifiedName: 'simCards.actions.bulkSetPublicIPs',
     httpMethod: 'post',
     httpPath: '/sim_cards/actions/bulk_set_public_ips',
+  },
+  {
+    clientCallName: 'client.simCards.actions.validateRegistrationCodes',
+    fullyQualifiedName: 'simCards.actions.validateRegistrationCodes',
+    httpMethod: 'post',
+    httpPath: '/sim_cards/actions/validate_registration_codes',
   },
   {
     clientCallName: 'client.simCards.actions.disable',
@@ -4609,16 +4640,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sim_cards/{id}/actions/set_standby',
   },
   {
-    clientCallName: 'client.simCards.actions.validateRegistrationCodes',
-    fullyQualifiedName: 'simCards.actions.validateRegistrationCodes',
+    clientCallName: 'client.simCards.actions.bulkDisableVoice',
+    fullyQualifiedName: 'simCards.actions.bulkDisableVoice',
     httpMethod: 'post',
-    httpPath: '/sim_cards/actions/validate_registration_codes',
+    httpPath: '/sim_cards/actions/bulk_disable_voice',
+  },
+  {
+    clientCallName: 'client.simCards.actions.bulkEnableVoice',
+    fullyQualifiedName: 'simCards.actions.bulkEnableVoice',
+    httpMethod: 'post',
+    httpPath: '/sim_cards/actions/bulk_enable_voice',
   },
   {
     clientCallName: 'client.siprecConnectors.create',
     fullyQualifiedName: 'siprecConnectors.create',
     httpMethod: 'post',
     httpPath: '/siprec_connectors',
+  },
+  {
+    clientCallName: 'client.siprecConnectors.delete',
+    fullyQualifiedName: 'siprecConnectors.delete',
+    httpMethod: 'delete',
+    httpPath: '/siprec_connectors/{connector_name}',
   },
   {
     clientCallName: 'client.siprecConnectors.retrieve',
@@ -4630,12 +4673,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.siprecConnectors.update',
     fullyQualifiedName: 'siprecConnectors.update',
     httpMethod: 'put',
-    httpPath: '/siprec_connectors/{connector_name}',
-  },
-  {
-    clientCallName: 'client.siprecConnectors.delete',
-    fullyQualifiedName: 'siprecConnectors.delete',
-    httpMethod: 'delete',
     httpPath: '/siprec_connectors/{connector_name}',
   },
   {
@@ -4651,9 +4688,9 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/storage/buckets/{bucketName}/{objectName}/presigned_url',
   },
   {
-    clientCallName: 'client.storage.buckets.sslCertificate.create',
-    fullyQualifiedName: 'storage.buckets.sslCertificate.create',
-    httpMethod: 'put',
+    clientCallName: 'client.storage.buckets.sslCertificate.delete',
+    fullyQualifiedName: 'storage.buckets.sslCertificate.delete',
+    httpMethod: 'delete',
     httpPath: '/storage/buckets/{bucketName}/ssl_certificate',
   },
   {
@@ -4663,9 +4700,9 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/storage/buckets/{bucketName}/ssl_certificate',
   },
   {
-    clientCallName: 'client.storage.buckets.sslCertificate.delete',
-    fullyQualifiedName: 'storage.buckets.sslCertificate.delete',
-    httpMethod: 'delete',
+    clientCallName: 'client.storage.buckets.sslCertificate.create',
+    fullyQualifiedName: 'storage.buckets.sslCertificate.create',
+    httpMethod: 'put',
     httpPath: '/storage/buckets/{bucketName}/ssl_certificate',
   },
   {
@@ -4681,10 +4718,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/storage/buckets/{bucketName}/usage/storage',
   },
   {
+    clientCallName: 'client.storage.migrationSources.list',
+    fullyQualifiedName: 'storage.migrationSources.list',
+    httpMethod: 'get',
+    httpPath: '/storage/migration_sources',
+  },
+  {
     clientCallName: 'client.storage.migrationSources.create',
     fullyQualifiedName: 'storage.migrationSources.create',
     httpMethod: 'post',
     httpPath: '/storage/migration_sources',
+  },
+  {
+    clientCallName: 'client.storage.migrationSources.delete',
+    fullyQualifiedName: 'storage.migrationSources.delete',
+    httpMethod: 'delete',
+    httpPath: '/storage/migration_sources/{id}',
   },
   {
     clientCallName: 'client.storage.migrationSources.retrieve',
@@ -4693,16 +4742,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/storage/migration_sources/{id}',
   },
   {
-    clientCallName: 'client.storage.migrationSources.list',
-    fullyQualifiedName: 'storage.migrationSources.list',
+    clientCallName: 'client.storage.migrations.list',
+    fullyQualifiedName: 'storage.migrations.list',
     httpMethod: 'get',
-    httpPath: '/storage/migration_sources',
-  },
-  {
-    clientCallName: 'client.storage.migrationSources.delete',
-    fullyQualifiedName: 'storage.migrationSources.delete',
-    httpMethod: 'delete',
-    httpPath: '/storage/migration_sources/{id}',
+    httpPath: '/storage/migrations',
   },
   {
     clientCallName: 'client.storage.migrations.create',
@@ -4717,16 +4760,106 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/storage/migrations/{id}',
   },
   {
-    clientCallName: 'client.storage.migrations.list',
-    fullyQualifiedName: 'storage.migrations.list',
-    httpMethod: 'get',
-    httpPath: '/storage/migrations',
-  },
-  {
     clientCallName: 'client.storage.migrations.actions.stop',
     fullyQualifiedName: 'storage.migrations.actions.stop',
     httpMethod: 'post',
     httpPath: '/storage/migrations/{id}/actions/stop',
+  },
+  {
+    clientCallName: 'client.storage.kvs.list',
+    fullyQualifiedName: 'storage.kvs.list',
+    httpMethod: 'get',
+    httpPath: '/storage/kvs',
+  },
+  {
+    clientCallName: 'client.storage.kvs.create',
+    fullyQualifiedName: 'storage.kvs.create',
+    httpMethod: 'post',
+    httpPath: '/storage/kvs',
+  },
+  {
+    clientCallName: 'client.storage.kvs.delete',
+    fullyQualifiedName: 'storage.kvs.delete',
+    httpMethod: 'delete',
+    httpPath: '/storage/kvs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.kvs.retrieve',
+    fullyQualifiedName: 'storage.kvs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/storage/kvs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.kvs.keys.list',
+    fullyQualifiedName: 'storage.kvs.keys.list',
+    httpMethod: 'get',
+    httpPath: '/storage/kvs/{id}/keys',
+  },
+  {
+    clientCallName: 'client.storage.kvs.keys.delete',
+    fullyQualifiedName: 'storage.kvs.keys.delete',
+    httpMethod: 'delete',
+    httpPath: '/storage/kvs/{id}/keys/{key}',
+  },
+  {
+    clientCallName: 'client.storage.kvs.keys.retrieve',
+    fullyQualifiedName: 'storage.kvs.keys.retrieve',
+    httpMethod: 'get',
+    httpPath: '/storage/kvs/{id}/keys/{key}',
+  },
+  {
+    clientCallName: 'client.storage.kvs.keys.update',
+    fullyQualifiedName: 'storage.kvs.keys.update',
+    httpMethod: 'put',
+    httpPath: '/storage/kvs/{id}/keys/{key}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.list',
+    fullyQualifiedName: 'storage.cloudfs.list',
+    httpMethod: 'get',
+    httpPath: '/storage/cloudfs',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.create',
+    fullyQualifiedName: 'storage.cloudfs.create',
+    httpMethod: 'post',
+    httpPath: '/storage/cloudfs',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.delete',
+    fullyQualifiedName: 'storage.cloudfs.delete',
+    httpMethod: 'delete',
+    httpPath: '/storage/cloudfs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.retrieve',
+    fullyQualifiedName: 'storage.cloudfs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/storage/cloudfs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.update',
+    fullyQualifiedName: 'storage.cloudfs.update',
+    httpMethod: 'patch',
+    httpPath: '/storage/cloudfs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.cloudfs.actions.rotateMetaToken',
+    fullyQualifiedName: 'storage.cloudfs.actions.rotateMetaToken',
+    httpMethod: 'post',
+    httpPath: '/storage/cloudfs/{id}/actions/rotate-meta-token',
+  },
+  {
+    clientCallName: 'client.subNumberOrders.list',
+    fullyQualifiedName: 'subNumberOrders.list',
+    httpMethod: 'get',
+    httpPath: '/sub_number_orders',
+  },
+  {
+    clientCallName: 'client.subNumberOrders.updateRequirementGroup',
+    fullyQualifiedName: 'subNumberOrders.updateRequirementGroup',
+    httpMethod: 'post',
+    httpPath: '/sub_number_orders/{id}/requirement_group',
   },
   {
     clientCallName: 'client.subNumberOrders.retrieve',
@@ -4741,22 +4874,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sub_number_orders/{sub_number_order_id}',
   },
   {
-    clientCallName: 'client.subNumberOrders.list',
-    fullyQualifiedName: 'subNumberOrders.list',
-    httpMethod: 'get',
-    httpPath: '/sub_number_orders',
-  },
-  {
     clientCallName: 'client.subNumberOrders.cancel',
     fullyQualifiedName: 'subNumberOrders.cancel',
     httpMethod: 'patch',
     httpPath: '/sub_number_orders/{sub_number_order_id}/cancel',
-  },
-  {
-    clientCallName: 'client.subNumberOrders.updateRequirementGroup',
-    fullyQualifiedName: 'subNumberOrders.updateRequirementGroup',
-    httpMethod: 'post',
-    httpPath: '/sub_number_orders/{id}/requirement_group',
   },
   {
     clientCallName: 'client.subNumberOrdersReport.create',
@@ -4777,10 +4898,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sub_number_orders_report/{report_id}/download',
   },
   {
+    clientCallName: 'client.telephonyCredentials.list',
+    fullyQualifiedName: 'telephonyCredentials.list',
+    httpMethod: 'get',
+    httpPath: '/telephony_credentials',
+  },
+  {
     clientCallName: 'client.telephonyCredentials.create',
     fullyQualifiedName: 'telephonyCredentials.create',
     httpMethod: 'post',
     httpPath: '/telephony_credentials',
+  },
+  {
+    clientCallName: 'client.telephonyCredentials.delete',
+    fullyQualifiedName: 'telephonyCredentials.delete',
+    httpMethod: 'delete',
+    httpPath: '/telephony_credentials/{id}',
   },
   {
     clientCallName: 'client.telephonyCredentials.retrieve',
@@ -4795,34 +4928,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/telephony_credentials/{id}',
   },
   {
-    clientCallName: 'client.telephonyCredentials.list',
-    fullyQualifiedName: 'telephonyCredentials.list',
-    httpMethod: 'get',
-    httpPath: '/telephony_credentials',
-  },
-  {
-    clientCallName: 'client.telephonyCredentials.delete',
-    fullyQualifiedName: 'telephonyCredentials.delete',
-    httpMethod: 'delete',
-    httpPath: '/telephony_credentials/{id}',
-  },
-  {
     clientCallName: 'client.telephonyCredentials.createToken',
     fullyQualifiedName: 'telephonyCredentials.createToken',
     httpMethod: 'post',
     httpPath: '/telephony_credentials/{id}/token',
   },
   {
-    clientCallName: 'client.texml.initiateAICall',
-    fullyQualifiedName: 'texml.initiateAICall',
-    httpMethod: 'post',
-    httpPath: '/texml/ai_calls/{connection_id}',
-  },
-  {
     clientCallName: 'client.texml.secrets',
     fullyQualifiedName: 'texml.secrets',
     httpMethod: 'post',
     httpPath: '/texml/secrets',
+  },
+  {
+    clientCallName: 'client.texml.initiateAICall',
+    fullyQualifiedName: 'texml.initiateAICall',
+    httpMethod: 'post',
+    httpPath: '/texml/ai_calls/{connection_id}',
   },
   {
     clientCallName: 'client.texml.accounts.retrieveRecordingsJson',
@@ -4837,6 +4958,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml/Accounts/{account_sid}/Transcriptions.json',
   },
   {
+    clientCallName: 'client.texml.accounts.calls.retrieveCalls',
+    fullyQualifiedName: 'texml.accounts.calls.retrieveCalls',
+    httpMethod: 'get',
+    httpPath: '/texml/Accounts/{account_sid}/Calls',
+  },
+  {
+    clientCallName: 'client.texml.accounts.calls.calls',
+    fullyQualifiedName: 'texml.accounts.calls.calls',
+    httpMethod: 'post',
+    httpPath: '/texml/Accounts/{account_sid}/Calls',
+  },
+  {
     clientCallName: 'client.texml.accounts.calls.retrieve',
     fullyQualifiedName: 'texml.accounts.calls.retrieve',
     httpMethod: 'get',
@@ -4847,18 +4980,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'texml.accounts.calls.update',
     httpMethod: 'post',
     httpPath: '/texml/Accounts/{account_sid}/Calls/{call_sid}',
-  },
-  {
-    clientCallName: 'client.texml.accounts.calls.calls',
-    fullyQualifiedName: 'texml.accounts.calls.calls',
-    httpMethod: 'post',
-    httpPath: '/texml/Accounts/{account_sid}/Calls',
-  },
-  {
-    clientCallName: 'client.texml.accounts.calls.retrieveCalls',
-    fullyQualifiedName: 'texml.accounts.calls.retrieveCalls',
-    httpMethod: 'get',
-    httpPath: '/texml/Accounts/{account_sid}/Calls',
   },
   {
     clientCallName: 'client.texml.accounts.calls.siprecJson',
@@ -4873,15 +4994,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml/Accounts/{account_sid}/Calls/{call_sid}/Streams.json',
   },
   {
-    clientCallName: 'client.texml.accounts.calls.recordingsJson.recordingsJson',
-    fullyQualifiedName: 'texml.accounts.calls.recordingsJson.recordingsJson',
-    httpMethod: 'post',
-    httpPath: '/texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json',
-  },
-  {
     clientCallName: 'client.texml.accounts.calls.recordingsJson.retrieveRecordingsJson',
     fullyQualifiedName: 'texml.accounts.calls.recordingsJson.retrieveRecordingsJson',
     httpMethod: 'get',
+    httpPath: '/texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json',
+  },
+  {
+    clientCallName: 'client.texml.accounts.calls.recordingsJson.recordingsJson',
+    fullyQualifiedName: 'texml.accounts.calls.recordingsJson.recordingsJson',
+    httpMethod: 'post',
     httpPath: '/texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json',
   },
   {
@@ -4903,6 +5024,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml/Accounts/{account_sid}/Calls/{call_sid}/Streams/{streaming_sid}.json',
   },
   {
+    clientCallName: 'client.texml.accounts.conferences.retrieveConferences',
+    fullyQualifiedName: 'texml.accounts.conferences.retrieveConferences',
+    httpMethod: 'get',
+    httpPath: '/texml/Accounts/{account_sid}/Conferences',
+  },
+  {
     clientCallName: 'client.texml.accounts.conferences.retrieve',
     fullyQualifiedName: 'texml.accounts.conferences.retrieve',
     httpMethod: 'get',
@@ -4913,12 +5040,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'texml.accounts.conferences.update',
     httpMethod: 'post',
     httpPath: '/texml/Accounts/{account_sid}/Conferences/{conference_sid}',
-  },
-  {
-    clientCallName: 'client.texml.accounts.conferences.retrieveConferences',
-    fullyQualifiedName: 'texml.accounts.conferences.retrieveConferences',
-    httpMethod: 'get',
-    httpPath: '/texml/Accounts/{account_sid}/Conferences',
   },
   {
     clientCallName: 'client.texml.accounts.conferences.retrieveRecordings',
@@ -4933,6 +5054,25 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings.json',
   },
   {
+    clientCallName: 'client.texml.accounts.conferences.participants.retrieveParticipants',
+    fullyQualifiedName: 'texml.accounts.conferences.participants.retrieveParticipants',
+    httpMethod: 'get',
+    httpPath: '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants',
+  },
+  {
+    clientCallName: 'client.texml.accounts.conferences.participants.participants',
+    fullyQualifiedName: 'texml.accounts.conferences.participants.participants',
+    httpMethod: 'post',
+    httpPath: '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants',
+  },
+  {
+    clientCallName: 'client.texml.accounts.conferences.participants.delete',
+    fullyQualifiedName: 'texml.accounts.conferences.participants.delete',
+    httpMethod: 'delete',
+    httpPath:
+      '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}',
+  },
+  {
     clientCallName: 'client.texml.accounts.conferences.participants.retrieve',
     fullyQualifiedName: 'texml.accounts.conferences.participants.retrieve',
     httpMethod: 'get',
@@ -4945,25 +5085,6 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'post',
     httpPath:
       '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}',
-  },
-  {
-    clientCallName: 'client.texml.accounts.conferences.participants.delete',
-    fullyQualifiedName: 'texml.accounts.conferences.participants.delete',
-    httpMethod: 'delete',
-    httpPath:
-      '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}',
-  },
-  {
-    clientCallName: 'client.texml.accounts.conferences.participants.participants',
-    fullyQualifiedName: 'texml.accounts.conferences.participants.participants',
-    httpMethod: 'post',
-    httpPath: '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants',
-  },
-  {
-    clientCallName: 'client.texml.accounts.conferences.participants.retrieveParticipants',
-    fullyQualifiedName: 'texml.accounts.conferences.participants.retrieveParticipants',
-    httpMethod: 'get',
-    httpPath: '/texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants',
   },
   {
     clientCallName: 'client.texml.accounts.recordings.json.deleteRecordingSidJson',
@@ -4996,6 +5117,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml/Accounts/{account_sid}/Queues',
   },
   {
+    clientCallName: 'client.texml.accounts.queues.delete',
+    fullyQualifiedName: 'texml.accounts.queues.delete',
+    httpMethod: 'delete',
+    httpPath: '/texml/Accounts/{account_sid}/Queues/{queue_sid}',
+  },
+  {
     clientCallName: 'client.texml.accounts.queues.retrieve',
     fullyQualifiedName: 'texml.accounts.queues.retrieve',
     httpMethod: 'get',
@@ -5014,16 +5141,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml/Accounts/{account_sid}/Queues',
   },
   {
-    clientCallName: 'client.texml.accounts.queues.delete',
-    fullyQualifiedName: 'texml.accounts.queues.delete',
-    httpMethod: 'delete',
-    httpPath: '/texml/Accounts/{account_sid}/Queues/{queue_sid}',
+    clientCallName: 'client.texmlApplications.list',
+    fullyQualifiedName: 'texmlApplications.list',
+    httpMethod: 'get',
+    httpPath: '/texml_applications',
   },
   {
     clientCallName: 'client.texmlApplications.create',
     fullyQualifiedName: 'texmlApplications.create',
     httpMethod: 'post',
     httpPath: '/texml_applications',
+  },
+  {
+    clientCallName: 'client.texmlApplications.delete',
+    fullyQualifiedName: 'texmlApplications.delete',
+    httpMethod: 'delete',
+    httpPath: '/texml_applications/{id}',
   },
   {
     clientCallName: 'client.texmlApplications.retrieve',
@@ -5038,30 +5171,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml_applications/{id}',
   },
   {
-    clientCallName: 'client.texmlApplications.list',
-    fullyQualifiedName: 'texmlApplications.list',
-    httpMethod: 'get',
-    httpPath: '/texml_applications',
-  },
-  {
-    clientCallName: 'client.texmlApplications.delete',
-    fullyQualifiedName: 'texmlApplications.delete',
-    httpMethod: 'delete',
-    httpPath: '/texml_applications/{id}',
-  },
-  {
-    clientCallName: 'client.textToSpeech.generate',
-    fullyQualifiedName: 'textToSpeech.generate',
-    httpMethod: 'post',
-    httpPath: '/text-to-speech/speech',
-  },
-  {
     clientCallName: 'client.textToSpeech.listVoices',
     fullyQualifiedName: 'textToSpeech.listVoices',
     httpMethod: 'get',
     httpPath: '/text-to-speech/voices',
   },
   { clientCallName: 'client.textToSpeech.stream', fullyQualifiedName: 'textToSpeech.stream' },
+  {
+    clientCallName: 'client.textToSpeech.generateSpeech',
+    fullyQualifiedName: 'textToSpeech.generateSpeech',
+    httpMethod: 'post',
+    httpPath: '/text-to-speech/speech',
+  },
+  {
+    clientCallName: 'client.textToSpeech.retrieveSpeech',
+    fullyQualifiedName: 'textToSpeech.retrieveSpeech',
+    httpMethod: 'get',
+    httpPath: '/text-to-speech/speech',
+  },
   {
     clientCallName: 'client.usageReports.list',
     fullyQualifiedName: 'usageReports.list',
@@ -5073,6 +5200,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'usageReports.getOptions',
     httpMethod: 'get',
     httpPath: '/usage_reports/options',
+  },
+  {
+    clientCallName: 'client.userAddresses.list',
+    fullyQualifiedName: 'userAddresses.list',
+    httpMethod: 'get',
+    httpPath: '/user_addresses',
   },
   {
     clientCallName: 'client.userAddresses.create',
@@ -5087,22 +5220,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/user_addresses/{id}',
   },
   {
-    clientCallName: 'client.userAddresses.list',
-    fullyQualifiedName: 'userAddresses.list',
-    httpMethod: 'get',
-    httpPath: '/user_addresses',
-  },
-  {
     clientCallName: 'client.userTags.list',
     fullyQualifiedName: 'userTags.list',
     httpMethod: 'get',
     httpPath: '/user_tags',
-  },
-  {
-    clientCallName: 'client.verifications.retrieve',
-    fullyQualifiedName: 'verifications.retrieve',
-    httpMethod: 'get',
-    httpPath: '/verifications/{verification_id}',
   },
   {
     clientCallName: 'client.verifications.triggerCall',
@@ -5121,6 +5242,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'verifications.triggerSMS',
     httpMethod: 'post',
     httpPath: '/verifications/sms',
+  },
+  {
+    clientCallName: 'client.verifications.retrieve',
+    fullyQualifiedName: 'verifications.retrieve',
+    httpMethod: 'get',
+    httpPath: '/verifications/{verification_id}',
   },
   {
     clientCallName: 'client.verifications.triggerWhatsappVerification',
@@ -5147,21 +5274,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/verifications/{verification_id}/actions/verify',
   },
   {
-    clientCallName: 'client.verifiedNumbers.create',
-    fullyQualifiedName: 'verifiedNumbers.create',
-    httpMethod: 'post',
-    httpPath: '/verified_numbers',
-  },
-  {
-    clientCallName: 'client.verifiedNumbers.retrieve',
-    fullyQualifiedName: 'verifiedNumbers.retrieve',
-    httpMethod: 'get',
-    httpPath: '/verified_numbers/{phone_number}',
-  },
-  {
     clientCallName: 'client.verifiedNumbers.list',
     fullyQualifiedName: 'verifiedNumbers.list',
     httpMethod: 'get',
+    httpPath: '/verified_numbers',
+  },
+  {
+    clientCallName: 'client.verifiedNumbers.create',
+    fullyQualifiedName: 'verifiedNumbers.create',
+    httpMethod: 'post',
     httpPath: '/verified_numbers',
   },
   {
@@ -5171,16 +5292,40 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/verified_numbers/{phone_number}',
   },
   {
+    clientCallName: 'client.verifiedNumbers.retrieve',
+    fullyQualifiedName: 'verifiedNumbers.retrieve',
+    httpMethod: 'get',
+    httpPath: '/verified_numbers/{phone_number}',
+  },
+  {
     clientCallName: 'client.verifiedNumbers.actions.submitVerificationCode',
     fullyQualifiedName: 'verifiedNumbers.actions.submitVerificationCode',
     httpMethod: 'post',
     httpPath: '/verified_numbers/{phone_number}/actions/verify',
   },
   {
+    clientCallName: 'client.verifyProfiles.list',
+    fullyQualifiedName: 'verifyProfiles.list',
+    httpMethod: 'get',
+    httpPath: '/verify_profiles',
+  },
+  {
     clientCallName: 'client.verifyProfiles.create',
     fullyQualifiedName: 'verifyProfiles.create',
     httpMethod: 'post',
     httpPath: '/verify_profiles',
+  },
+  {
+    clientCallName: 'client.verifyProfiles.retrieveTemplates',
+    fullyQualifiedName: 'verifyProfiles.retrieveTemplates',
+    httpMethod: 'get',
+    httpPath: '/verify_profiles/templates',
+  },
+  {
+    clientCallName: 'client.verifyProfiles.delete',
+    fullyQualifiedName: 'verifyProfiles.delete',
+    httpMethod: 'delete',
+    httpPath: '/verify_profiles/{verify_profile_id}',
   },
   {
     clientCallName: 'client.verifyProfiles.retrieve',
@@ -5195,27 +5340,9 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/verify_profiles/{verify_profile_id}',
   },
   {
-    clientCallName: 'client.verifyProfiles.list',
-    fullyQualifiedName: 'verifyProfiles.list',
-    httpMethod: 'get',
-    httpPath: '/verify_profiles',
-  },
-  {
-    clientCallName: 'client.verifyProfiles.delete',
-    fullyQualifiedName: 'verifyProfiles.delete',
-    httpMethod: 'delete',
-    httpPath: '/verify_profiles/{verify_profile_id}',
-  },
-  {
     clientCallName: 'client.verifyProfiles.createTemplate',
     fullyQualifiedName: 'verifyProfiles.createTemplate',
     httpMethod: 'post',
-    httpPath: '/verify_profiles/templates',
-  },
-  {
-    clientCallName: 'client.verifyProfiles.retrieveTemplates',
-    fullyQualifiedName: 'verifyProfiles.retrieveTemplates',
-    httpMethod: 'get',
     httpPath: '/verify_profiles/templates',
   },
   {
@@ -5225,10 +5352,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/verify_profiles/templates/{template_id}',
   },
   {
+    clientCallName: 'client.virtualCrossConnects.list',
+    fullyQualifiedName: 'virtualCrossConnects.list',
+    httpMethod: 'get',
+    httpPath: '/virtual_cross_connects',
+  },
+  {
     clientCallName: 'client.virtualCrossConnects.create',
     fullyQualifiedName: 'virtualCrossConnects.create',
     httpMethod: 'post',
     httpPath: '/virtual_cross_connects',
+  },
+  {
+    clientCallName: 'client.virtualCrossConnects.delete',
+    fullyQualifiedName: 'virtualCrossConnects.delete',
+    httpMethod: 'delete',
+    httpPath: '/virtual_cross_connects/{id}',
   },
   {
     clientCallName: 'client.virtualCrossConnects.retrieve',
@@ -5243,28 +5382,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/virtual_cross_connects/{id}',
   },
   {
-    clientCallName: 'client.virtualCrossConnects.list',
-    fullyQualifiedName: 'virtualCrossConnects.list',
-    httpMethod: 'get',
-    httpPath: '/virtual_cross_connects',
-  },
-  {
-    clientCallName: 'client.virtualCrossConnects.delete',
-    fullyQualifiedName: 'virtualCrossConnects.delete',
-    httpMethod: 'delete',
-    httpPath: '/virtual_cross_connects/{id}',
-  },
-  {
     clientCallName: 'client.virtualCrossConnectsCoverage.list',
     fullyQualifiedName: 'virtualCrossConnectsCoverage.list',
     httpMethod: 'get',
     httpPath: '/virtual_cross_connects_coverage',
-  },
-  {
-    clientCallName: 'client.webhookDeliveries.retrieve',
-    fullyQualifiedName: 'webhookDeliveries.retrieve',
-    httpMethod: 'get',
-    httpPath: '/webhook_deliveries/{id}',
   },
   {
     clientCallName: 'client.webhookDeliveries.list',
@@ -5273,21 +5394,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/webhook_deliveries',
   },
   {
-    clientCallName: 'client.wireguardInterfaces.create',
-    fullyQualifiedName: 'wireguardInterfaces.create',
-    httpMethod: 'post',
-    httpPath: '/wireguard_interfaces',
-  },
-  {
-    clientCallName: 'client.wireguardInterfaces.retrieve',
-    fullyQualifiedName: 'wireguardInterfaces.retrieve',
+    clientCallName: 'client.webhookDeliveries.retrieve',
+    fullyQualifiedName: 'webhookDeliveries.retrieve',
     httpMethod: 'get',
-    httpPath: '/wireguard_interfaces/{id}',
+    httpPath: '/webhook_deliveries/{id}',
   },
   {
     clientCallName: 'client.wireguardInterfaces.list',
     fullyQualifiedName: 'wireguardInterfaces.list',
     httpMethod: 'get',
+    httpPath: '/wireguard_interfaces',
+  },
+  {
+    clientCallName: 'client.wireguardInterfaces.create',
+    fullyQualifiedName: 'wireguardInterfaces.create',
+    httpMethod: 'post',
     httpPath: '/wireguard_interfaces',
   },
   {
@@ -5297,10 +5418,28 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/wireguard_interfaces/{id}',
   },
   {
+    clientCallName: 'client.wireguardInterfaces.retrieve',
+    fullyQualifiedName: 'wireguardInterfaces.retrieve',
+    httpMethod: 'get',
+    httpPath: '/wireguard_interfaces/{id}',
+  },
+  {
+    clientCallName: 'client.wireguardPeers.list',
+    fullyQualifiedName: 'wireguardPeers.list',
+    httpMethod: 'get',
+    httpPath: '/wireguard_peers',
+  },
+  {
     clientCallName: 'client.wireguardPeers.create',
     fullyQualifiedName: 'wireguardPeers.create',
     httpMethod: 'post',
     httpPath: '/wireguard_peers',
+  },
+  {
+    clientCallName: 'client.wireguardPeers.delete',
+    fullyQualifiedName: 'wireguardPeers.delete',
+    httpMethod: 'delete',
+    httpPath: '/wireguard_peers/{id}',
   },
   {
     clientCallName: 'client.wireguardPeers.retrieve',
@@ -5312,18 +5451,6 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.wireguardPeers.update',
     fullyQualifiedName: 'wireguardPeers.update',
     httpMethod: 'patch',
-    httpPath: '/wireguard_peers/{id}',
-  },
-  {
-    clientCallName: 'client.wireguardPeers.list',
-    fullyQualifiedName: 'wireguardPeers.list',
-    httpMethod: 'get',
-    httpPath: '/wireguard_peers',
-  },
-  {
-    clientCallName: 'client.wireguardPeers.delete',
-    fullyQualifiedName: 'wireguardPeers.delete',
-    httpMethod: 'delete',
     httpPath: '/wireguard_peers/{id}',
   },
   {
@@ -5339,21 +5466,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/wireless/regions',
   },
   {
-    clientCallName: 'client.wireless.detailRecordsReports.create',
-    fullyQualifiedName: 'wireless.detailRecordsReports.create',
-    httpMethod: 'post',
-    httpPath: '/wireless/detail_records_reports',
-  },
-  {
-    clientCallName: 'client.wireless.detailRecordsReports.retrieve',
-    fullyQualifiedName: 'wireless.detailRecordsReports.retrieve',
-    httpMethod: 'get',
-    httpPath: '/wireless/detail_records_reports/{id}',
-  },
-  {
     clientCallName: 'client.wireless.detailRecordsReports.list',
     fullyQualifiedName: 'wireless.detailRecordsReports.list',
     httpMethod: 'get',
+    httpPath: '/wireless/detail_records_reports',
+  },
+  {
+    clientCallName: 'client.wireless.detailRecordsReports.create',
+    fullyQualifiedName: 'wireless.detailRecordsReports.create',
+    httpMethod: 'post',
     httpPath: '/wireless/detail_records_reports',
   },
   {
@@ -5363,28 +5484,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/wireless/detail_records_reports/{id}',
   },
   {
+    clientCallName: 'client.wireless.detailRecordsReports.retrieve',
+    fullyQualifiedName: 'wireless.detailRecordsReports.retrieve',
+    httpMethod: 'get',
+    httpPath: '/wireless/detail_records_reports/{id}',
+  },
+  {
     clientCallName: 'client.wirelessBlocklistValues.list',
     fullyQualifiedName: 'wirelessBlocklistValues.list',
     httpMethod: 'get',
     httpPath: '/wireless_blocklist_values',
-  },
-  {
-    clientCallName: 'client.wirelessBlocklists.create',
-    fullyQualifiedName: 'wirelessBlocklists.create',
-    httpMethod: 'post',
-    httpPath: '/wireless_blocklists',
-  },
-  {
-    clientCallName: 'client.wirelessBlocklists.retrieve',
-    fullyQualifiedName: 'wirelessBlocklists.retrieve',
-    httpMethod: 'get',
-    httpPath: '/wireless_blocklists/{id}',
-  },
-  {
-    clientCallName: 'client.wirelessBlocklists.update',
-    fullyQualifiedName: 'wirelessBlocklists.update',
-    httpMethod: 'patch',
-    httpPath: '/wireless_blocklists/{id}',
   },
   {
     clientCallName: 'client.wirelessBlocklists.list',
@@ -5393,9 +5502,27 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/wireless_blocklists',
   },
   {
+    clientCallName: 'client.wirelessBlocklists.update',
+    fullyQualifiedName: 'wirelessBlocklists.update',
+    httpMethod: 'patch',
+    httpPath: '/wireless_blocklists/{id}',
+  },
+  {
+    clientCallName: 'client.wirelessBlocklists.create',
+    fullyQualifiedName: 'wirelessBlocklists.create',
+    httpMethod: 'post',
+    httpPath: '/wireless_blocklists',
+  },
+  {
     clientCallName: 'client.wirelessBlocklists.delete',
     fullyQualifiedName: 'wirelessBlocklists.delete',
     httpMethod: 'delete',
+    httpPath: '/wireless_blocklists/{id}',
+  },
+  {
+    clientCallName: 'client.wirelessBlocklists.retrieve',
+    fullyQualifiedName: 'wirelessBlocklists.retrieve',
+    httpMethod: 'get',
     httpPath: '/wireless_blocklists/{id}',
   },
   {
@@ -5411,6 +5538,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/.well-known/oauth-protected-resource',
   },
   {
+    clientCallName: 'client.inexplicitNumberOrders.list',
+    fullyQualifiedName: 'inexplicitNumberOrders.list',
+    httpMethod: 'get',
+    httpPath: '/inexplicit_number_orders',
+  },
+  {
     clientCallName: 'client.inexplicitNumberOrders.create',
     fullyQualifiedName: 'inexplicitNumberOrders.create',
     httpMethod: 'post',
@@ -5423,10 +5556,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/inexplicit_number_orders/{id}',
   },
   {
-    clientCallName: 'client.inexplicitNumberOrders.list',
-    fullyQualifiedName: 'inexplicitNumberOrders.list',
+    clientCallName: 'client.mobilePhoneNumbers.list',
+    fullyQualifiedName: 'mobilePhoneNumbers.list',
     httpMethod: 'get',
-    httpPath: '/inexplicit_number_orders',
+    httpPath: '/v2/mobile_phone_numbers',
   },
   {
     clientCallName: 'client.mobilePhoneNumbers.retrieve',
@@ -5441,10 +5574,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/mobile_phone_numbers/{id}',
   },
   {
-    clientCallName: 'client.mobilePhoneNumbers.list',
-    fullyQualifiedName: 'mobilePhoneNumbers.list',
+    clientCallName: 'client.mobilePhoneNumbers.messaging.list',
+    fullyQualifiedName: 'mobilePhoneNumbers.messaging.list',
     httpMethod: 'get',
-    httpPath: '/v2/mobile_phone_numbers',
+    httpPath: '/mobile_phone_numbers/messaging',
   },
   {
     clientCallName: 'client.mobilePhoneNumbers.messaging.retrieve',
@@ -5453,16 +5586,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/mobile_phone_numbers/{id}/messaging',
   },
   {
-    clientCallName: 'client.mobilePhoneNumbers.messaging.list',
-    fullyQualifiedName: 'mobilePhoneNumbers.messaging.list',
+    clientCallName: 'client.mobileVoiceConnections.list',
+    fullyQualifiedName: 'mobileVoiceConnections.list',
     httpMethod: 'get',
-    httpPath: '/mobile_phone_numbers/messaging',
+    httpPath: '/v2/mobile_voice_connections',
   },
   {
     clientCallName: 'client.mobileVoiceConnections.create',
     fullyQualifiedName: 'mobileVoiceConnections.create',
     httpMethod: 'post',
     httpPath: '/v2/mobile_voice_connections',
+  },
+  {
+    clientCallName: 'client.mobileVoiceConnections.delete',
+    fullyQualifiedName: 'mobileVoiceConnections.delete',
+    httpMethod: 'delete',
+    httpPath: '/v2/mobile_voice_connections/{id}',
   },
   {
     clientCallName: 'client.mobileVoiceConnections.retrieve',
@@ -5477,28 +5616,34 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/mobile_voice_connections/{id}',
   },
   {
-    clientCallName: 'client.mobileVoiceConnections.list',
-    fullyQualifiedName: 'mobileVoiceConnections.list',
-    httpMethod: 'get',
-    httpPath: '/v2/mobile_voice_connections',
-  },
-  {
-    clientCallName: 'client.mobileVoiceConnections.delete',
-    fullyQualifiedName: 'mobileVoiceConnections.delete',
-    httpMethod: 'delete',
-    httpPath: '/v2/mobile_voice_connections/{id}',
-  },
-  {
     clientCallName: 'client.messaging10dlc.getEnum',
     fullyQualifiedName: 'messaging10dlc.getEnum',
     httpMethod: 'get',
     httpPath: '/10dlc/enum/{endpoint}',
   },
   {
+    clientCallName: 'client.messaging10dlc.brand.list',
+    fullyQualifiedName: 'messaging10dlc.brand.list',
+    httpMethod: 'get',
+    httpPath: '/10dlc/brand',
+  },
+  {
     clientCallName: 'client.messaging10dlc.brand.create',
     fullyQualifiedName: 'messaging10dlc.brand.create',
     httpMethod: 'post',
     httpPath: '/10dlc/brand',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.brand.getFeedback',
+    fullyQualifiedName: 'messaging10dlc.brand.getFeedback',
+    httpMethod: 'get',
+    httpPath: '/10dlc/brand/feedback/{brandId}',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.brand.delete',
+    fullyQualifiedName: 'messaging10dlc.brand.delete',
+    httpMethod: 'delete',
+    httpPath: '/10dlc/brand/{brandId}',
   },
   {
     clientCallName: 'client.messaging10dlc.brand.retrieve',
@@ -5513,46 +5658,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/brand/{brandId}',
   },
   {
-    clientCallName: 'client.messaging10dlc.brand.list',
-    fullyQualifiedName: 'messaging10dlc.brand.list',
-    httpMethod: 'get',
-    httpPath: '/10dlc/brand',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.brand.delete',
-    fullyQualifiedName: 'messaging10dlc.brand.delete',
-    httpMethod: 'delete',
-    httpPath: '/10dlc/brand/{brandId}',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.brand.getFeedback',
-    fullyQualifiedName: 'messaging10dlc.brand.getFeedback',
-    httpMethod: 'get',
-    httpPath: '/10dlc/brand/feedback/{brandId}',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.brand.getSMSOtpByReference',
-    fullyQualifiedName: 'messaging10dlc.brand.getSMSOtpByReference',
-    httpMethod: 'get',
-    httpPath: '/10dlc/brand/smsOtp/{referenceId}',
-  },
-  {
     clientCallName: 'client.messaging10dlc.brand.resend2faEmail',
     fullyQualifiedName: 'messaging10dlc.brand.resend2faEmail',
     httpMethod: 'post',
     httpPath: '/10dlc/brand/{brandId}/2faEmail',
   },
   {
-    clientCallName: 'client.messaging10dlc.brand.retrieveSMSOtpStatus',
-    fullyQualifiedName: 'messaging10dlc.brand.retrieveSMSOtpStatus',
-    httpMethod: 'get',
-    httpPath: '/10dlc/brand/{brandId}/smsOtp',
-  },
-  {
     clientCallName: 'client.messaging10dlc.brand.revet',
     fullyQualifiedName: 'messaging10dlc.brand.revet',
     httpMethod: 'put',
     httpPath: '/10dlc/brand/{brandId}/revet',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.brand.retrieveSMSOtpStatus',
+    fullyQualifiedName: 'messaging10dlc.brand.retrieveSMSOtpStatus',
+    httpMethod: 'get',
+    httpPath: '/10dlc/brand/{brandId}/smsOtp',
   },
   {
     clientCallName: 'client.messaging10dlc.brand.triggerSMSOtp',
@@ -5567,15 +5688,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/brand/{brandId}/smsOtp',
   },
   {
+    clientCallName: 'client.messaging10dlc.brand.getSMSOtpByReference',
+    fullyQualifiedName: 'messaging10dlc.brand.getSMSOtpByReference',
+    httpMethod: 'get',
+    httpPath: '/10dlc/brand/smsOtp/{referenceId}',
+  },
+  {
     clientCallName: 'client.messaging10dlc.brand.externalVetting.list',
     fullyQualifiedName: 'messaging10dlc.brand.externalVetting.list',
     httpMethod: 'get',
-    httpPath: '/10dlc/brand/{brandId}/externalVetting',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.brand.externalVetting.imports',
-    fullyQualifiedName: 'messaging10dlc.brand.externalVetting.imports',
-    httpMethod: 'put',
     httpPath: '/10dlc/brand/{brandId}/externalVetting',
   },
   {
@@ -5585,16 +5706,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/brand/{brandId}/externalVetting',
   },
   {
-    clientCallName: 'client.messaging10dlc.campaign.retrieve',
-    fullyQualifiedName: 'messaging10dlc.campaign.retrieve',
-    httpMethod: 'get',
-    httpPath: '/10dlc/campaign/{campaignId}',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.campaign.update',
-    fullyQualifiedName: 'messaging10dlc.campaign.update',
+    clientCallName: 'client.messaging10dlc.brand.externalVetting.imports',
+    fullyQualifiedName: 'messaging10dlc.brand.externalVetting.imports',
     httpMethod: 'put',
-    httpPath: '/10dlc/campaign/{campaignId}',
+    httpPath: '/10dlc/brand/{brandId}/externalVetting',
   },
   {
     clientCallName: 'client.messaging10dlc.campaign.list',
@@ -5615,6 +5730,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/campaign/{campaignId}',
   },
   {
+    clientCallName: 'client.messaging10dlc.campaign.retrieve',
+    fullyQualifiedName: 'messaging10dlc.campaign.retrieve',
+    httpMethod: 'get',
+    httpPath: '/10dlc/campaign/{campaignId}',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.campaign.update',
+    fullyQualifiedName: 'messaging10dlc.campaign.update',
+    httpMethod: 'put',
+    httpPath: '/10dlc/campaign/{campaignId}',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.campaign.submitAppeal',
+    fullyQualifiedName: 'messaging10dlc.campaign.submitAppeal',
+    httpMethod: 'post',
+    httpPath: '/10dlc/campaign/{campaignId}/appeal',
+  },
+  {
     clientCallName: 'client.messaging10dlc.campaign.getMnoMetadata',
     fullyQualifiedName: 'messaging10dlc.campaign.getMnoMetadata',
     httpMethod: 'get',
@@ -5631,12 +5764,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'messaging10dlc.campaign.getSharingStatus',
     httpMethod: 'get',
     httpPath: '/10dlc/campaign/{campaignId}/sharing',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.campaign.submitAppeal',
-    fullyQualifiedName: 'messaging10dlc.campaign.submitAppeal',
-    httpMethod: 'post',
-    httpPath: '/10dlc/campaign/{campaignId}/appeal',
   },
   {
     clientCallName: 'client.messaging10dlc.campaign.usecase.getCost',
@@ -5663,24 +5790,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/campaignBuilder/brand/{brandId}/usecase/{usecase}',
   },
   {
-    clientCallName: 'client.messaging10dlc.partnerCampaigns.retrieve',
-    fullyQualifiedName: 'messaging10dlc.partnerCampaigns.retrieve',
-    httpMethod: 'get',
-    httpPath: '/10dlc/partner_campaigns/{campaignId}',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.partnerCampaigns.update',
-    fullyQualifiedName: 'messaging10dlc.partnerCampaigns.update',
-    httpMethod: 'patch',
-    httpPath: '/10dlc/partner_campaigns/{campaignId}',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.partnerCampaigns.list',
-    fullyQualifiedName: 'messaging10dlc.partnerCampaigns.list',
-    httpMethod: 'get',
-    httpPath: '/10dlc/partner_campaigns',
-  },
-  {
     clientCallName: 'client.messaging10dlc.partnerCampaigns.listSharedByMe',
     fullyQualifiedName: 'messaging10dlc.partnerCampaigns.listSharedByMe',
     httpMethod: 'get',
@@ -5693,10 +5802,40 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/partnerCampaign/{campaignId}/sharing',
   },
   {
+    clientCallName: 'client.messaging10dlc.partnerCampaigns.list',
+    fullyQualifiedName: 'messaging10dlc.partnerCampaigns.list',
+    httpMethod: 'get',
+    httpPath: '/10dlc/partner_campaigns',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.partnerCampaigns.retrieve',
+    fullyQualifiedName: 'messaging10dlc.partnerCampaigns.retrieve',
+    httpMethod: 'get',
+    httpPath: '/10dlc/partner_campaigns/{campaignId}',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.partnerCampaigns.update',
+    fullyQualifiedName: 'messaging10dlc.partnerCampaigns.update',
+    httpMethod: 'patch',
+    httpPath: '/10dlc/partner_campaigns/{campaignId}',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.phoneNumberCampaigns.list',
+    fullyQualifiedName: 'messaging10dlc.phoneNumberCampaigns.list',
+    httpMethod: 'get',
+    httpPath: '/10dlc/phone_number_campaigns',
+  },
+  {
     clientCallName: 'client.messaging10dlc.phoneNumberCampaigns.create',
     fullyQualifiedName: 'messaging10dlc.phoneNumberCampaigns.create',
     httpMethod: 'post',
     httpPath: '/10dlc/phone_number_campaigns',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.phoneNumberCampaigns.delete',
+    fullyQualifiedName: 'messaging10dlc.phoneNumberCampaigns.delete',
+    httpMethod: 'delete',
+    httpPath: '/10dlc/phone_number_campaigns/{phoneNumber}',
   },
   {
     clientCallName: 'client.messaging10dlc.phoneNumberCampaigns.retrieve',
@@ -5711,34 +5850,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/phone_number_campaigns/{phoneNumber}',
   },
   {
-    clientCallName: 'client.messaging10dlc.phoneNumberCampaigns.list',
-    fullyQualifiedName: 'messaging10dlc.phoneNumberCampaigns.list',
-    httpMethod: 'get',
-    httpPath: '/10dlc/phone_number_campaigns',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.phoneNumberCampaigns.delete',
-    fullyQualifiedName: 'messaging10dlc.phoneNumberCampaigns.delete',
-    httpMethod: 'delete',
-    httpPath: '/10dlc/phone_number_campaigns/{phoneNumber}',
-  },
-  {
     clientCallName: 'client.messaging10dlc.phoneNumberAssignmentByProfile.assign',
     fullyQualifiedName: 'messaging10dlc.phoneNumberAssignmentByProfile.assign',
     httpMethod: 'post',
     httpPath: '/10dlc/phoneNumberAssignmentByProfile',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus',
-    fullyQualifiedName: 'messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus',
-    httpMethod: 'get',
-    httpPath: '/10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers',
-  },
-  {
-    clientCallName: 'client.messaging10dlc.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus',
-    fullyQualifiedName: 'messaging10dlc.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus',
-    httpMethod: 'get',
-    httpPath: '/10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers',
   },
   {
     clientCallName: 'client.messaging10dlc.phoneNumberAssignmentByProfile.retrieveStatus',
@@ -5747,10 +5862,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/10dlc/phoneNumberAssignmentByProfile/{taskId}',
   },
   {
-    clientCallName: 'client.organizations.users.retrieve',
-    fullyQualifiedName: 'organizations.users.retrieve',
+    clientCallName: 'client.messaging10dlc.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus',
+    fullyQualifiedName: 'messaging10dlc.phoneNumberAssignmentByProfile.retrievePhoneNumberStatus',
     httpMethod: 'get',
-    httpPath: '/organizations/users/{id}',
+    httpPath: '/10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers',
+  },
+  {
+    clientCallName: 'client.messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus',
+    fullyQualifiedName: 'messaging10dlc.phoneNumberAssignmentByProfile.listPhoneNumberStatus',
+    httpMethod: 'get',
+    httpPath: '/10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers',
   },
   {
     clientCallName: 'client.organizations.users.list',
@@ -5765,22 +5886,16 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/organizations/users/users_groups_report',
   },
   {
+    clientCallName: 'client.organizations.users.retrieve',
+    fullyQualifiedName: 'organizations.users.retrieve',
+    httpMethod: 'get',
+    httpPath: '/organizations/users/{id}',
+  },
+  {
     clientCallName: 'client.organizations.users.actions.remove',
     fullyQualifiedName: 'organizations.users.actions.remove',
     httpMethod: 'post',
     httpPath: '/organizations/users/{id}/actions/remove',
-  },
-  {
-    clientCallName: 'client.alphanumericSenderIDs.create',
-    fullyQualifiedName: 'alphanumericSenderIDs.create',
-    httpMethod: 'post',
-    httpPath: '/alphanumeric_sender_ids',
-  },
-  {
-    clientCallName: 'client.alphanumericSenderIDs.retrieve',
-    fullyQualifiedName: 'alphanumericSenderIDs.retrieve',
-    httpMethod: 'get',
-    httpPath: '/alphanumeric_sender_ids/{id}',
   },
   {
     clientCallName: 'client.alphanumericSenderIDs.list',
@@ -5789,9 +5904,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/alphanumeric_sender_ids',
   },
   {
+    clientCallName: 'client.alphanumericSenderIDs.create',
+    fullyQualifiedName: 'alphanumericSenderIDs.create',
+    httpMethod: 'post',
+    httpPath: '/alphanumeric_sender_ids',
+  },
+  {
     clientCallName: 'client.alphanumericSenderIDs.delete',
     fullyQualifiedName: 'alphanumericSenderIDs.delete',
     httpMethod: 'delete',
+    httpPath: '/alphanumeric_sender_ids/{id}',
+  },
+  {
+    clientCallName: 'client.alphanumericSenderIDs.retrieve',
+    fullyQualifiedName: 'alphanumericSenderIDs.retrieve',
+    httpMethod: 'get',
     httpPath: '/alphanumeric_sender_ids/{id}',
   },
   {
@@ -5819,12 +5946,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/session_analysis/metadata/{record_type}',
   },
   {
-    clientCallName: 'client.whatsapp.businessAccounts.retrieve',
-    fullyQualifiedName: 'whatsapp.businessAccounts.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v2/whatsapp/business_accounts/{id}',
-  },
-  {
     clientCallName: 'client.whatsapp.businessAccounts.list',
     fullyQualifiedName: 'whatsapp.businessAccounts.list',
     httpMethod: 'get',
@@ -5834,6 +5955,12 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.whatsapp.businessAccounts.delete',
     fullyQualifiedName: 'whatsapp.businessAccounts.delete',
     httpMethod: 'delete',
+    httpPath: '/v2/whatsapp/business_accounts/{id}',
+  },
+  {
+    clientCallName: 'client.whatsapp.businessAccounts.retrieve',
+    fullyQualifiedName: 'whatsapp.businessAccounts.retrieve',
+    httpMethod: 'get',
     httpPath: '/v2/whatsapp/business_accounts/{id}',
   },
   {
@@ -5861,15 +5988,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/business_accounts/{id}/settings',
   },
   {
-    clientCallName: 'client.whatsapp.templates.create',
-    fullyQualifiedName: 'whatsapp.templates.create',
-    httpMethod: 'post',
-    httpPath: '/v2/whatsapp/message_templates',
-  },
-  {
     clientCallName: 'client.whatsapp.templates.list',
     fullyQualifiedName: 'whatsapp.templates.list',
     httpMethod: 'get',
+    httpPath: '/v2/whatsapp/message_templates',
+  },
+  {
+    clientCallName: 'client.whatsapp.templates.create',
+    fullyQualifiedName: 'whatsapp.templates.create',
+    httpMethod: 'post',
     httpPath: '/v2/whatsapp/message_templates',
   },
   {
@@ -5897,6 +6024,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/verify',
   },
   {
+    clientCallName: 'client.whatsapp.phoneNumbers.retrieveConversationWindow',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.retrieveConversationWindow',
+    httpMethod: 'get',
+    httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/conversation_window',
+  },
+  {
     clientCallName: 'client.whatsapp.phoneNumbers.callingSettings.retrieve',
     fullyQualifiedName: 'whatsapp.phoneNumbers.callingSettings.retrieve',
     httpMethod: 'get',
@@ -5921,12 +6054,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/profile',
   },
   {
-    clientCallName: 'client.whatsapp.phoneNumbers.profile.photo.retrieve',
-    fullyQualifiedName: 'whatsapp.phoneNumbers.profile.photo.retrieve',
-    httpMethod: 'get',
-    httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/profile/photo',
-  },
-  {
     clientCallName: 'client.whatsapp.phoneNumbers.profile.photo.delete',
     fullyQualifiedName: 'whatsapp.phoneNumbers.profile.photo.delete',
     httpMethod: 'delete',
@@ -5937,6 +6064,42 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'whatsapp.phoneNumbers.profile.photo.upload',
     httpMethod: 'post',
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/profile/photo',
+  },
+  {
+    clientCallName: 'client.whatsapp.phoneNumbers.profile.photo.retrieve',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.profile.photo.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/profile/photo',
+  },
+  {
+    clientCallName: 'client.whatsapp.phoneNumbers.conversationalComponents.list',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.conversationalComponents.list',
+    httpMethod: 'get',
+    httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/conversational_components',
+  },
+  {
+    clientCallName: 'client.whatsapp.phoneNumbers.conversationalComponents.patchAll',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.conversationalComponents.patchAll',
+    httpMethod: 'patch',
+    httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/conversational_components',
+  },
+  {
+    clientCallName: 'client.whatsapp.userData.retrieve',
+    fullyQualifiedName: 'whatsapp.userData.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v2/whatsapp/user_data',
+  },
+  {
+    clientCallName: 'client.whatsapp.userData.update',
+    fullyQualifiedName: 'whatsapp.userData.update',
+    httpMethod: 'patch',
+    httpPath: '/v2/whatsapp/user_data',
+  },
+  {
+    clientCallName: 'client.whatsappMessageTemplates.delete',
+    fullyQualifiedName: 'whatsappMessageTemplates.delete',
+    httpMethod: 'delete',
+    httpPath: '/v2/whatsapp_message_templates/{id}',
   },
   {
     clientCallName: 'client.whatsappMessageTemplates.retrieve',
@@ -5951,10 +6114,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp_message_templates/{id}',
   },
   {
-    clientCallName: 'client.whatsappMessageTemplates.delete',
-    fullyQualifiedName: 'whatsappMessageTemplates.delete',
-    httpMethod: 'delete',
-    httpPath: '/v2/whatsapp_message_templates/{id}',
+    clientCallName: 'client.x402.creditAccount.settle',
+    fullyQualifiedName: 'x402.creditAccount.settle',
+    httpMethod: 'post',
+    httpPath: '/v2/x402/credit_account',
   },
   {
     clientCallName: 'client.x402.creditAccount.createQuote',
@@ -5963,10 +6126,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/x402/credit_account/quote',
   },
   {
-    clientCallName: 'client.x402.creditAccount.settle',
-    fullyQualifiedName: 'x402.creditAccount.settle',
-    httpMethod: 'post',
-    httpPath: '/v2/x402/credit_account',
+    clientCallName: 'client.voiceClones.list',
+    fullyQualifiedName: 'voiceClones.list',
+    httpMethod: 'get',
+    httpPath: '/voice_clones',
   },
   {
     clientCallName: 'client.voiceClones.create',
@@ -5975,16 +6138,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/voice_clones',
   },
   {
-    clientCallName: 'client.voiceClones.update',
-    fullyQualifiedName: 'voiceClones.update',
-    httpMethod: 'patch',
-    httpPath: '/voice_clones/{id}',
-  },
-  {
-    clientCallName: 'client.voiceClones.list',
-    fullyQualifiedName: 'voiceClones.list',
-    httpMethod: 'get',
-    httpPath: '/voice_clones',
+    clientCallName: 'client.voiceClones.createFromUpload',
+    fullyQualifiedName: 'voiceClones.createFromUpload',
+    httpMethod: 'post',
+    httpPath: '/voice_clones/from_upload',
   },
   {
     clientCallName: 'client.voiceClones.delete',
@@ -5993,10 +6150,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/voice_clones/{id}',
   },
   {
-    clientCallName: 'client.voiceClones.createFromUpload',
-    fullyQualifiedName: 'voiceClones.createFromUpload',
-    httpMethod: 'post',
-    httpPath: '/voice_clones/from_upload',
+    clientCallName: 'client.voiceClones.update',
+    fullyQualifiedName: 'voiceClones.update',
+    httpMethod: 'patch',
+    httpPath: '/voice_clones/{id}',
   },
   {
     clientCallName: 'client.voiceClones.downloadSample',
@@ -6005,21 +6162,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/voice_clones/{id}/sample',
   },
   {
-    clientCallName: 'client.voiceDesigns.create',
-    fullyQualifiedName: 'voiceDesigns.create',
-    httpMethod: 'post',
-    httpPath: '/voice_designs',
-  },
-  {
-    clientCallName: 'client.voiceDesigns.retrieve',
-    fullyQualifiedName: 'voiceDesigns.retrieve',
-    httpMethod: 'get',
-    httpPath: '/voice_designs/{id}',
-  },
-  {
     clientCallName: 'client.voiceDesigns.list',
     fullyQualifiedName: 'voiceDesigns.list',
     httpMethod: 'get',
+    httpPath: '/voice_designs',
+  },
+  {
+    clientCallName: 'client.voiceDesigns.create',
+    fullyQualifiedName: 'voiceDesigns.create',
+    httpMethod: 'post',
     httpPath: '/voice_designs',
   },
   {
@@ -6029,16 +6180,10 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/voice_designs/{id}',
   },
   {
-    clientCallName: 'client.voiceDesigns.deleteVersion',
-    fullyQualifiedName: 'voiceDesigns.deleteVersion',
-    httpMethod: 'delete',
-    httpPath: '/voice_designs/{id}/versions/{version}',
-  },
-  {
-    clientCallName: 'client.voiceDesigns.downloadSample',
-    fullyQualifiedName: 'voiceDesigns.downloadSample',
+    clientCallName: 'client.voiceDesigns.retrieve',
+    fullyQualifiedName: 'voiceDesigns.retrieve',
     httpMethod: 'get',
-    httpPath: '/voice_designs/{id}/sample',
+    httpPath: '/voice_designs/{id}',
   },
   {
     clientCallName: 'client.voiceDesigns.rename',
@@ -6047,10 +6192,40 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/voice_designs/{id}',
   },
   {
+    clientCallName: 'client.voiceDesigns.downloadSample',
+    fullyQualifiedName: 'voiceDesigns.downloadSample',
+    httpMethod: 'get',
+    httpPath: '/voice_designs/{id}/sample',
+  },
+  {
+    clientCallName: 'client.voiceDesigns.deleteVersion',
+    fullyQualifiedName: 'voiceDesigns.deleteVersion',
+    httpMethod: 'delete',
+    httpPath: '/voice_designs/{id}/versions/{version}',
+  },
+  {
+    clientCallName: 'client.trafficPolicyProfiles.list',
+    fullyQualifiedName: 'trafficPolicyProfiles.list',
+    httpMethod: 'get',
+    httpPath: '/traffic_policy_profiles',
+  },
+  {
     clientCallName: 'client.trafficPolicyProfiles.create',
     fullyQualifiedName: 'trafficPolicyProfiles.create',
     httpMethod: 'post',
     httpPath: '/traffic_policy_profiles',
+  },
+  {
+    clientCallName: 'client.trafficPolicyProfiles.listServices',
+    fullyQualifiedName: 'trafficPolicyProfiles.listServices',
+    httpMethod: 'get',
+    httpPath: '/traffic_policy_profiles/services',
+  },
+  {
+    clientCallName: 'client.trafficPolicyProfiles.delete',
+    fullyQualifiedName: 'trafficPolicyProfiles.delete',
+    httpMethod: 'delete',
+    httpPath: '/traffic_policy_profiles/{id}',
   },
   {
     clientCallName: 'client.trafficPolicyProfiles.retrieve',
@@ -6065,28 +6240,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/traffic_policy_profiles/{id}',
   },
   {
-    clientCallName: 'client.trafficPolicyProfiles.list',
-    fullyQualifiedName: 'trafficPolicyProfiles.list',
+    clientCallName: 'client.enterprises.list',
+    fullyQualifiedName: 'enterprises.list',
     httpMethod: 'get',
-    httpPath: '/traffic_policy_profiles',
-  },
-  {
-    clientCallName: 'client.trafficPolicyProfiles.delete',
-    fullyQualifiedName: 'trafficPolicyProfiles.delete',
-    httpMethod: 'delete',
-    httpPath: '/traffic_policy_profiles/{id}',
-  },
-  {
-    clientCallName: 'client.trafficPolicyProfiles.listServices',
-    fullyQualifiedName: 'trafficPolicyProfiles.listServices',
-    httpMethod: 'get',
-    httpPath: '/traffic_policy_profiles/services',
+    httpPath: '/enterprises',
   },
   {
     clientCallName: 'client.enterprises.create',
     fullyQualifiedName: 'enterprises.create',
     httpMethod: 'post',
     httpPath: '/enterprises',
+  },
+  {
+    clientCallName: 'client.enterprises.delete',
+    fullyQualifiedName: 'enterprises.delete',
+    httpMethod: 'delete',
+    httpPath: '/enterprises/{enterprise_id}',
   },
   {
     clientCallName: 'client.enterprises.retrieve',
@@ -6101,27 +6270,21 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}',
   },
   {
-    clientCallName: 'client.enterprises.list',
-    fullyQualifiedName: 'enterprises.list',
-    httpMethod: 'get',
-    httpPath: '/enterprises',
-  },
-  {
-    clientCallName: 'client.enterprises.delete',
-    fullyQualifiedName: 'enterprises.delete',
-    httpMethod: 'delete',
-    httpPath: '/enterprises/{enterprise_id}',
-  },
-  {
-    clientCallName: 'client.enterprises.reputation.retrieve',
-    fullyQualifiedName: 'enterprises.reputation.retrieve',
-    httpMethod: 'get',
-    httpPath: '/enterprises/{enterprise_id}/reputation',
+    clientCallName: 'client.enterprises.brandedCalling',
+    fullyQualifiedName: 'enterprises.brandedCalling',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/branded_calling',
   },
   {
     clientCallName: 'client.enterprises.reputation.disable',
     fullyQualifiedName: 'enterprises.reputation.disable',
     httpMethod: 'delete',
+    httpPath: '/enterprises/{enterprise_id}/reputation',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.retrieve',
+    fullyQualifiedName: 'enterprises.reputation.retrieve',
+    httpMethod: 'get',
     httpPath: '/enterprises/{enterprise_id}/reputation',
   },
   {
@@ -6135,12 +6298,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'enterprises.reputation.updateFrequency',
     httpMethod: 'patch',
     httpPath: '/enterprises/{enterprise_id}/reputation/frequency',
-  },
-  {
-    clientCallName: 'client.enterprises.reputation.numbers.retrieve',
-    fullyQualifiedName: 'enterprises.reputation.numbers.retrieve',
-    httpMethod: 'get',
-    httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}',
   },
   {
     clientCallName: 'client.enterprises.reputation.numbers.list',
@@ -6161,10 +6318,58 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}',
   },
   {
-    clientCallName: 'client.reputation.numbers.retrieve',
-    fullyQualifiedName: 'reputation.numbers.retrieve',
+    clientCallName: 'client.enterprises.reputation.numbers.retrieve',
+    fullyQualifiedName: 'enterprises.reputation.numbers.retrieve',
     httpMethod: 'get',
-    httpPath: '/reputation/numbers/{phone_number}',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.numbers.refresh',
+    fullyQualifiedName: 'enterprises.reputation.numbers.refresh',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers/refresh',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.loa.update',
+    fullyQualifiedName: 'enterprises.reputation.loa.update',
+    httpMethod: 'patch',
+    httpPath: '/enterprises/{enterprise_id}/reputation/loa',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.loa.render',
+    fullyQualifiedName: 'enterprises.reputation.loa.render',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/loa',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.remediation.list',
+    fullyQualifiedName: 'enterprises.reputation.remediation.list',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/remediation',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.remediation.create',
+    fullyQualifiedName: 'enterprises.reputation.remediation.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/remediation',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.remediation.retrieve',
+    fullyQualifiedName: 'enterprises.reputation.remediation.retrieve',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/remediation/{remediation_id}',
+  },
+  {
+    clientCallName: 'client.enterprises.dir.list',
+    fullyQualifiedName: 'enterprises.dir.list',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/dir',
+  },
+  {
+    clientCallName: 'client.enterprises.dir.create',
+    fullyQualifiedName: 'enterprises.dir.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/dir',
   },
   {
     clientCallName: 'client.reputation.numbers.list',
@@ -6179,16 +6384,64 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/reputation/numbers/{phone_number}',
   },
   {
+    clientCallName: 'client.reputation.numbers.retrieve',
+    fullyQualifiedName: 'reputation.numbers.retrieve',
+    httpMethod: 'get',
+    httpPath: '/reputation/numbers/{phone_number}',
+  },
+  {
+    clientCallName: 'client.termsOfService.retrieveStatus',
+    fullyQualifiedName: 'termsOfService.retrieveStatus',
+    httpMethod: 'get',
+    httpPath: '/terms_of_service/status',
+  },
+  {
+    clientCallName: 'client.termsOfService.retrieveInfo',
+    fullyQualifiedName: 'termsOfService.retrieveInfo',
+    httpMethod: 'get',
+    httpPath: '/terms_of_service/info',
+  },
+  {
     clientCallName: 'client.termsOfService.numberReputation.agree',
     fullyQualifiedName: 'termsOfService.numberReputation.agree',
     httpMethod: 'post',
     httpPath: '/terms_of_service/number_reputation/agree',
   },
   {
+    clientCallName: 'client.termsOfService.agreements.list',
+    fullyQualifiedName: 'termsOfService.agreements.list',
+    httpMethod: 'get',
+    httpPath: '/terms_of_service/agreements',
+  },
+  {
+    clientCallName: 'client.termsOfService.agreements.retrieve',
+    fullyQualifiedName: 'termsOfService.agreements.retrieve',
+    httpMethod: 'get',
+    httpPath: '/terms_of_service/agreements/{agreement_id}',
+  },
+  {
+    clientCallName: 'client.termsOfService.brandedCalling.agree',
+    fullyQualifiedName: 'termsOfService.brandedCalling.agree',
+    httpMethod: 'post',
+    httpPath: '/terms_of_service/branded_calling/agree',
+  },
+  {
+    clientCallName: 'client.pronunciationDicts.list',
+    fullyQualifiedName: 'pronunciationDicts.list',
+    httpMethod: 'get',
+    httpPath: '/pronunciation_dicts',
+  },
+  {
     clientCallName: 'client.pronunciationDicts.create',
     fullyQualifiedName: 'pronunciationDicts.create',
     httpMethod: 'post',
     httpPath: '/pronunciation_dicts',
+  },
+  {
+    clientCallName: 'client.pronunciationDicts.delete',
+    fullyQualifiedName: 'pronunciationDicts.delete',
+    httpMethod: 'delete',
+    httpPath: '/pronunciation_dicts/{id}',
   },
   {
     clientCallName: 'client.pronunciationDicts.retrieve',
@@ -6203,22 +6456,22 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/pronunciation_dicts/{id}',
   },
   {
-    clientCallName: 'client.pronunciationDicts.list',
-    fullyQualifiedName: 'pronunciationDicts.list',
+    clientCallName: 'client.uacConnections.list',
+    fullyQualifiedName: 'uacConnections.list',
     httpMethod: 'get',
-    httpPath: '/pronunciation_dicts',
-  },
-  {
-    clientCallName: 'client.pronunciationDicts.delete',
-    fullyQualifiedName: 'pronunciationDicts.delete',
-    httpMethod: 'delete',
-    httpPath: '/pronunciation_dicts/{id}',
+    httpPath: '/uac_connections',
   },
   {
     clientCallName: 'client.uacConnections.create',
     fullyQualifiedName: 'uacConnections.create',
     httpMethod: 'post',
     httpPath: '/uac_connections',
+  },
+  {
+    clientCallName: 'client.uacConnections.delete',
+    fullyQualifiedName: 'uacConnections.delete',
+    httpMethod: 'delete',
+    httpPath: '/uac_connections/{id}',
   },
   {
     clientCallName: 'client.uacConnections.retrieve',
@@ -6233,22 +6486,184 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/uac_connections/{id}',
   },
   {
-    clientCallName: 'client.uacConnections.list',
-    fullyQualifiedName: 'uacConnections.list',
-    httpMethod: 'get',
-    httpPath: '/uac_connections',
-  },
-  {
-    clientCallName: 'client.uacConnections.delete',
-    fullyQualifiedName: 'uacConnections.delete',
-    httpMethod: 'delete',
-    httpPath: '/uac_connections/{id}',
-  },
-  {
     clientCallName: 'client.uacConnections.actions.checkRegistrationStatus',
     fullyQualifiedName: 'uacConnections.actions.checkRegistrationStatus',
     httpMethod: 'post',
     httpPath: '/uac_connections/{id}/actions/check_registration_status',
+  },
+  {
+    clientCallName: 'client.voiceSDKCallReports.list',
+    fullyQualifiedName: 'voiceSDKCallReports.list',
+    httpMethod: 'get',
+    httpPath: '/voice_sdk_call_reports',
+  },
+  {
+    clientCallName: 'client.voiceSDKCallReports.retrieve',
+    fullyQualifiedName: 'voiceSDKCallReports.retrieve',
+    httpMethod: 'get',
+    httpPath: '/voice_sdk_call_reports/{call_id}',
+  },
+  {
+    clientCallName: 'client.sipRegistrationStatus.retrieve',
+    fullyQualifiedName: 'sipRegistrationStatus.retrieve',
+    httpMethod: 'get',
+    httpPath: '/sip_registration_status',
+  },
+  {
+    clientCallName: 'client.callReasons.list',
+    fullyQualifiedName: 'callReasons.list',
+    httpMethod: 'get',
+    httpPath: '/call_reasons',
+  },
+  {
+    clientCallName: 'client.callReasons.validate',
+    fullyQualifiedName: 'callReasons.validate',
+    httpMethod: 'post',
+    httpPath: '/call_reasons/validate',
+  },
+  {
+    clientCallName: 'client.dir.list',
+    fullyQualifiedName: 'dir.list',
+    httpMethod: 'get',
+    httpPath: '/dir',
+  },
+  {
+    clientCallName: 'client.dir.listDocumentTypes',
+    fullyQualifiedName: 'dir.listDocumentTypes',
+    httpMethod: 'get',
+    httpPath: '/dir/document_types',
+  },
+  {
+    clientCallName: 'client.dir.delete',
+    fullyQualifiedName: 'dir.delete',
+    httpMethod: 'delete',
+    httpPath: '/dir/{dir_id}',
+  },
+  {
+    clientCallName: 'client.dir.retrieve',
+    fullyQualifiedName: 'dir.retrieve',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}',
+  },
+  {
+    clientCallName: 'client.dir.update',
+    fullyQualifiedName: 'dir.update',
+    httpMethod: 'patch',
+    httpPath: '/dir/{dir_id}',
+  },
+  {
+    clientCallName: 'client.dir.listInfringementClaims',
+    fullyQualifiedName: 'dir.listInfringementClaims',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/infringement_claims',
+  },
+  {
+    clientCallName: 'client.dir.updateInfringement',
+    fullyQualifiedName: 'dir.updateInfringement',
+    httpMethod: 'put',
+    httpPath: '/dir/{dir_id}/infringement_update',
+  },
+  {
+    clientCallName: 'client.dir.submit',
+    fullyQualifiedName: 'dir.submit',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/submit',
+  },
+  {
+    clientCallName: 'client.dir.newLoa',
+    fullyQualifiedName: 'dir.newLoa',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/loa',
+  },
+  {
+    clientCallName: 'client.dir.comments.list',
+    fullyQualifiedName: 'dir.comments.list',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/comments',
+  },
+  {
+    clientCallName: 'client.dir.comments.create',
+    fullyQualifiedName: 'dir.comments.create',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/comments',
+  },
+  {
+    clientCallName: 'client.dir.phoneNumberBatches.list',
+    fullyQualifiedName: 'dir.phoneNumberBatches.list',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/phone_number_batches',
+  },
+  {
+    clientCallName: 'client.dir.phoneNumberBatches.retrieve',
+    fullyQualifiedName: 'dir.phoneNumberBatches.retrieve',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/phone_number_batches/{batch_id}',
+  },
+  {
+    clientCallName: 'client.dir.phoneNumbers.remove',
+    fullyQualifiedName: 'dir.phoneNumbers.remove',
+    httpMethod: 'delete',
+    httpPath: '/dir/{dir_id}/phone_numbers',
+  },
+  {
+    clientCallName: 'client.dir.phoneNumbers.list',
+    fullyQualifiedName: 'dir.phoneNumbers.list',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/phone_numbers',
+  },
+  {
+    clientCallName: 'client.dir.phoneNumbers.add',
+    fullyQualifiedName: 'dir.phoneNumbers.add',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/phone_numbers',
+  },
+  {
+    clientCallName: 'client.dir.references.list',
+    fullyQualifiedName: 'dir.references.list',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/references',
+  },
+  {
+    clientCallName: 'client.dir.references.create',
+    fullyQualifiedName: 'dir.references.create',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/references',
+  },
+  {
+    clientCallName: 'client.dir.references.update',
+    fullyQualifiedName: 'dir.references.update',
+    httpMethod: 'patch',
+    httpPath: '/dir/{dir_id}/references/{ref_type}/{slot}',
+  },
+  {
+    clientCallName: 'client.dir.verifyEmail.list',
+    fullyQualifiedName: 'dir.verifyEmail.list',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/verify_email',
+  },
+  {
+    clientCallName: 'client.dir.verifyEmail.create',
+    fullyQualifiedName: 'dir.verifyEmail.create',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/verify_email',
+  },
+  {
+    clientCallName: 'client.dir.verifyEmail.confirm',
+    fullyQualifiedName: 'dir.verifyEmail.confirm',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/verify_email/confirm',
+  },
+  {
+    clientCallName: 'client.infringementClaims.retrieve',
+    fullyQualifiedName: 'infringementClaims.retrieve',
+    httpMethod: 'get',
+    httpPath: '/infringement_claims/{claim_id}',
+  },
+  {
+    clientCallName: 'client.infringementClaims.contest',
+    fullyQualifiedName: 'infringementClaims.contest',
+    httpMethod: 'post',
+    httpPath: '/infringement_claims/{claim_id}/contest',
   },
 ];
 

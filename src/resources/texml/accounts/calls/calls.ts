@@ -2,14 +2,16 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as RecordingsAPI from './recordings';
-import { RecordingRecordingSidJsonParams, RecordingRecordingSidJsonResponse, Recordings } from './recordings';
+import { RecordingRecordingSidJsonParams, Recordings } from './recordings';
 import * as RecordingsJsonAPI from './recordings-json';
 import {
+  RecordingSource,
   RecordingsJson,
   RecordingsJsonRecordingsJsonParams,
-  RecordingsJsonRecordingsJsonResponse,
   RecordingsJsonRetrieveRecordingsJsonParams,
-  RecordingsJsonRetrieveRecordingsJsonResponse,
+  TexmlCreateCallRecordingResponseBody,
+  TexmlGetCallRecordingsResponseBody,
+  TwimlRecordingChannels,
 } from './recordings-json';
 import * as SiprecAPI from './siprec';
 import { Siprec, SiprecSiprecSidJsonParams, SiprecSiprecSidJsonResponse } from './siprec';
@@ -30,69 +32,6 @@ export class Calls extends APIResource {
   streams: StreamsAPI.Streams = new StreamsAPI.Streams(this._client);
 
   /**
-   * Returns an individual call identified by its CallSid. This endpoint is
-   * eventually consistent.
-   *
-   * @example
-   * ```ts
-   * const call = await client.texml.accounts.calls.retrieve(
-   *   'call_sid',
-   *   { account_sid: 'account_sid' },
-   * );
-   * ```
-   */
-  retrieve(
-    callSid: string,
-    params: CallRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<CallRetrieveResponse> {
-    const { account_sid } = params;
-    return this._client.get(path`/texml/Accounts/${account_sid}/Calls/${callSid}`, options);
-  }
-
-  /**
-   * Update TeXML call. Please note that the keys present in the payload MUST BE
-   * formatted in CamelCase as specified in the example.
-   *
-   * @example
-   * ```ts
-   * const call = await client.texml.accounts.calls.update(
-   *   'call_sid',
-   *   { account_sid: 'account_sid' },
-   * );
-   * ```
-   */
-  update(
-    callSid: string,
-    params: CallUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<CallUpdateResponse> {
-    const { account_sid, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request
-   * URL configured for the connection in the Mission Control Portal.
-   *
-   * @example
-   * ```ts
-   * const response = await client.texml.accounts.calls.calls(
-   *   'account_sid',
-   *   { params: { Url: 'https://www.example.com/texml.xml' } },
-   * );
-   * ```
-   */
-  calls(accountSid: string, args: CallCallsParams, options?: RequestOptions): APIPromise<CallCallsResponse> {
-    const { params } = args;
-    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, { body: params, ...options });
-  }
-
-  /**
    * Returns multiple call resouces for an account. This endpoint is eventually
    * consistent.
    *
@@ -110,6 +49,68 @@ export class Calls extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CallRetrieveCallsResponse> {
     return this._client.get(path`/texml/Accounts/${accountSid}/Calls`, { query, ...options });
+  }
+
+  /**
+   * Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request
+   * URL configured for the connection in the Mission Control Portal.
+   *
+   * @example
+   * ```ts
+   * const response = await client.texml.accounts.calls.calls(
+   *   'account_sid',
+   *   { Url: 'https://www.example.com/instructions.xml' },
+   * );
+   * ```
+   */
+  calls(
+    accountSid: string,
+    params: CallCallsParams,
+    options?: RequestOptions,
+  ): APIPromise<CallCallsResponse> {
+    const { timeout_seconds, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, {
+      body: { Timeout: timeout_seconds, ...body },
+      ...options,
+    });
+  }
+
+  /**
+   * Returns an individual call identified by its CallSid. This endpoint is
+   * eventually consistent.
+   *
+   * @example
+   * ```ts
+   * const callResource =
+   *   await client.texml.accounts.calls.retrieve('call_sid', {
+   *     account_sid: 'account_sid',
+   *   });
+   * ```
+   */
+  retrieve(callSid: string, params: CallRetrieveParams, options?: RequestOptions): APIPromise<CallResource> {
+    const { account_sid } = params;
+    return this._client.get(path`/texml/Accounts/${account_sid}/Calls/${callSid}`, options);
+  }
+
+  /**
+   * Update TeXML call. Please note that the keys present in the payload MUST BE
+   * formatted in CamelCase as specified in the example.
+   *
+   * @example
+   * ```ts
+   * const callResource =
+   *   await client.texml.accounts.calls.update('call_sid', {
+   *     account_sid: 'account_sid',
+   *   });
+   * ```
+   */
+  update(callSid: string, params: CallUpdateParams, options?: RequestOptions): APIPromise<CallResource> {
+    const { account_sid, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+    });
   }
 
   /**
@@ -163,6 +164,100 @@ export class Calls extends APIResource {
   }
 }
 
+export interface CallResource {
+  /**
+   * The id of the account the resource belongs to.
+   */
+  account_sid?: string;
+
+  /**
+   * The value of the answering machine detection result, if this feature was enabled
+   * for the call.
+   */
+  answered_by?: 'human' | 'machine' | 'not_sure';
+
+  /**
+   * Caller ID, if present.
+   */
+  caller_name?: string;
+
+  /**
+   * The timestamp of when the resource was created.
+   */
+  date_created?: string;
+
+  /**
+   * The timestamp of when the resource was last updated.
+   */
+  date_updated?: string;
+
+  /**
+   * The direction of this call.
+   */
+  direction?: 'inbound' | 'outbound';
+
+  /**
+   * The duration of this call, given in seconds.
+   */
+  duration?: string;
+
+  /**
+   * The end time of this call.
+   */
+  end_time?: string;
+
+  /**
+   * The phone number or SIP address that made this call.
+   */
+  from?: string;
+
+  /**
+   * The from number formatted for display.
+   */
+  from_formatted?: string;
+
+  /**
+   * The price of this call, the currency is specified in the price_unit field. Only
+   * populated when the call cost feature is enabled for the account.
+   */
+  price?: string;
+
+  /**
+   * The unit in which the price is given.
+   */
+  price_unit?: string;
+
+  /**
+   * The identifier of this call.
+   */
+  sid?: string;
+
+  /**
+   * The start time of this call.
+   */
+  start_time?: string;
+
+  /**
+   * The status of this call.
+   */
+  status?: 'ringing' | 'in-progress' | 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
+
+  /**
+   * The phone number or SIP address that received this call.
+   */
+  to?: string;
+
+  /**
+   * The to number formatted for display.
+   */
+  to_formatted?: string;
+
+  /**
+   * The relative URI for this call.
+   */
+  uri?: string;
+}
+
 export interface UpdateCall {
   /**
    * HTTP request type used for `FallbackUrl`.
@@ -208,194 +303,6 @@ export interface UpdateCall {
   Url?: string;
 }
 
-export interface CallRetrieveResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The value of the answering machine detection result, if this feature was enabled
-   * for the call.
-   */
-  answered_by?: 'human' | 'machine' | 'not_sure';
-
-  /**
-   * Caller ID, if present.
-   */
-  caller_name?: string;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * The direction of this call.
-   */
-  direction?: 'inbound' | 'outbound';
-
-  /**
-   * The duration of this call, given in seconds.
-   */
-  duration?: string;
-
-  /**
-   * The end time of this call.
-   */
-  end_time?: string;
-
-  /**
-   * The phone number or SIP address that made this call.
-   */
-  from?: string;
-
-  /**
-   * The from number formatted for display.
-   */
-  from_formatted?: string;
-
-  /**
-   * The price of this call, the currency is specified in the price_unit field. Only
-   * populated when the call cost feature is enabled for the account.
-   */
-  price?: string;
-
-  /**
-   * The unit in which the price is given.
-   */
-  price_unit?: string;
-
-  /**
-   * The identifier of this call.
-   */
-  sid?: string;
-
-  /**
-   * The start time of this call.
-   */
-  start_time?: string;
-
-  /**
-   * The status of this call.
-   */
-  status?: 'ringing' | 'in-progress' | 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
-
-  /**
-   * The phone number or SIP address that received this call.
-   */
-  to?: string;
-
-  /**
-   * The to number formatted for display.
-   */
-  to_formatted?: string;
-
-  /**
-   * The relative URI for this call.
-   */
-  uri?: string;
-}
-
-export interface CallUpdateResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The value of the answering machine detection result, if this feature was enabled
-   * for the call.
-   */
-  answered_by?: 'human' | 'machine' | 'not_sure';
-
-  /**
-   * Caller ID, if present.
-   */
-  caller_name?: string;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * The direction of this call.
-   */
-  direction?: 'inbound' | 'outbound';
-
-  /**
-   * The duration of this call, given in seconds.
-   */
-  duration?: string;
-
-  /**
-   * The end time of this call.
-   */
-  end_time?: string;
-
-  /**
-   * The phone number or SIP address that made this call.
-   */
-  from?: string;
-
-  /**
-   * The from number formatted for display.
-   */
-  from_formatted?: string;
-
-  /**
-   * The price of this call, the currency is specified in the price_unit field. Only
-   * populated when the call cost feature is enabled for the account.
-   */
-  price?: string;
-
-  /**
-   * The unit in which the price is given.
-   */
-  price_unit?: string;
-
-  /**
-   * The identifier of this call.
-   */
-  sid?: string;
-
-  /**
-   * The start time of this call.
-   */
-  start_time?: string;
-
-  /**
-   * The status of this call.
-   */
-  status?: 'ringing' | 'in-progress' | 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
-
-  /**
-   * The phone number or SIP address that received this call.
-   */
-  to?: string;
-
-  /**
-   * The to number formatted for display.
-   */
-  to_formatted?: string;
-
-  /**
-   * The relative URI for this call.
-   */
-  uri?: string;
-}
-
 export interface CallCallsResponse {
   from?: string;
 
@@ -405,7 +312,7 @@ export interface CallCallsResponse {
 }
 
 export interface CallRetrieveCallsResponse {
-  calls?: Array<CallRetrieveCallsResponse.Call>;
+  calls?: Array<CallResource>;
 
   /**
    * The number of the last element on the page, zero-indexed.
@@ -441,102 +348,6 @@ export interface CallRetrieveCallsResponse {
    * The URI of the current page.
    */
   uri?: string;
-}
-
-export namespace CallRetrieveCallsResponse {
-  export interface Call {
-    /**
-     * The id of the account the resource belongs to.
-     */
-    account_sid?: string;
-
-    /**
-     * The value of the answering machine detection result, if this feature was enabled
-     * for the call.
-     */
-    answered_by?: 'human' | 'machine' | 'not_sure';
-
-    /**
-     * Caller ID, if present.
-     */
-    caller_name?: string;
-
-    /**
-     * The timestamp of when the resource was created.
-     */
-    date_created?: string;
-
-    /**
-     * The timestamp of when the resource was last updated.
-     */
-    date_updated?: string;
-
-    /**
-     * The direction of this call.
-     */
-    direction?: 'inbound' | 'outbound';
-
-    /**
-     * The duration of this call, given in seconds.
-     */
-    duration?: string;
-
-    /**
-     * The end time of this call.
-     */
-    end_time?: string;
-
-    /**
-     * The phone number or SIP address that made this call.
-     */
-    from?: string;
-
-    /**
-     * The from number formatted for display.
-     */
-    from_formatted?: string;
-
-    /**
-     * The price of this call, the currency is specified in the price_unit field. Only
-     * populated when the call cost feature is enabled for the account.
-     */
-    price?: string;
-
-    /**
-     * The unit in which the price is given.
-     */
-    price_unit?: string;
-
-    /**
-     * The identifier of this call.
-     */
-    sid?: string;
-
-    /**
-     * The start time of this call.
-     */
-    start_time?: string;
-
-    /**
-     * The status of this call.
-     */
-    status?: 'ringing' | 'in-progress' | 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
-
-    /**
-     * The phone number or SIP address that received this call.
-     */
-    to?: string;
-
-    /**
-     * The to number formatted for display.
-     */
-    to_formatted?: string;
-
-    /**
-     * The relative URI for this call.
-     */
-    uri?: string;
-  }
 }
 
 export interface CallSiprecJsonResponse {
@@ -619,69 +430,75 @@ export interface CallStreamsJsonResponse {
   uri?: string;
 }
 
-export interface CallRetrieveParams {
+export interface CallRetrieveCallsParams {
   /**
-   * The id of the account the resource belongs to.
+   * Filters calls by their end date. Expected format is YYYY-MM-DD
    */
-  account_sid: string;
+  EndTime?: string;
+
+  /**
+   * Filters calls by their end date (after). Expected format is YYYY-MM-DD
+   */
+  EndTime_gt?: string;
+
+  /**
+   * Filters calls by their end date (before). Expected format is YYYY-MM-DD
+   */
+  EndTime_lt?: string;
+
+  /**
+   * Filters calls by the from number.
+   */
+  From?: string;
+
+  /**
+   * The number of the page to be displayed, zero-indexed, should be used in
+   * conjuction with PageToken.
+   */
+  Page?: number;
+
+  /**
+   * The number of records to be displayed on a page
+   */
+  PageSize?: number;
+
+  /**
+   * Used to request the next page of results.
+   */
+  PageToken?: string;
+
+  /**
+   * Filters calls by their start date. Expected format is YYYY-MM-DD.
+   */
+  StartTime?: string;
+
+  /**
+   * Filters calls by their start date (after). Expected format is YYYY-MM-DD
+   */
+  StartTime_gt?: string;
+
+  /**
+   * Filters calls by their start date (before). Expected format is YYYY-MM-DD
+   */
+  StartTime_lt?: string;
+
+  /**
+   * Filters calls by status.
+   */
+  Status?: 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
+
+  /**
+   * Filters calls by the to number.
+   */
+  To?: string;
 }
 
-export interface CallUpdateParams {
-  /**
-   * Path param: The id of the account the resource belongs to.
-   */
-  account_sid: string;
+export type CallCallsParams =
+  | CallCallsParams.WithURL
+  | CallCallsParams.WithTeXml
+  | CallCallsParams.ApplicationDefault;
 
-  /**
-   * Body param: HTTP request type used for `FallbackUrl`.
-   */
-  FallbackMethod?: 'GET' | 'POST';
-
-  /**
-   * Body param: A failover URL for which Telnyx will retrieve the TeXML call
-   * instructions if the Url is not responding.
-   */
-  FallbackUrl?: string;
-
-  /**
-   * Body param: HTTP request type used for `Url`.
-   */
-  Method?: 'GET' | 'POST';
-
-  /**
-   * Body param: The value to set the call status to. Setting the status to completed
-   * ends the call.
-   */
-  Status?: string;
-
-  /**
-   * Body param: URL destination for Telnyx to send status callback events to for the
-   * call.
-   */
-  StatusCallback?: string;
-
-  /**
-   * Body param: HTTP request type used for `StatusCallback`.
-   */
-  StatusCallbackMethod?: 'GET' | 'POST';
-
-  /**
-   * Body param: TeXML to replace the current one with.
-   */
-  Texml?: string;
-
-  /**
-   * Body param: The URL where TeXML will make a request to retrieve a new set of
-   * TeXML instructions to continue the call flow.
-   */
-  Url?: string;
-}
-
-export interface CallCallsParams {
-  params: CallCallsParams.WithURL | CallCallsParams.WithTeXml | CallCallsParams.ApplicationDefault;
-}
-
-export namespace CallCallsParams {
+export declare namespace CallCallsParams {
   export interface WithURL {
     /**
      * The URL from which Telnyx will retrieve the TeXML call instructions.
@@ -754,9 +571,11 @@ export namespace CallCallsParams {
     DeepfakeDetectionCallbackUrl?: string;
 
     /**
-     * Allows you to chose between Premium and Standard detections.
+     * Allows you to choose between Regular, Premium, and PremiumCallScreening
+     * detections. See
+     * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
      */
-    DetectionMode?: 'Premium' | 'Regular';
+    DetectionMode?: 'Premium' | 'Regular' | 'PremiumCallScreening';
 
     /**
      * A failover URL for which Telnyx will retrieve the TeXML call instructions if the
@@ -774,6 +593,12 @@ export namespace CallCallsParams {
      * Enables Answering Machine Detection.
      */
     MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Silence duration threshold after a call screening prompt before ending prompt
+     * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+     */
+    MachineDetectionPromptEndTimeout?: number;
 
     /**
      * If initial silence duration is greater than this value, consider it a machine.
@@ -880,7 +705,7 @@ export namespace CallCallsParams {
      * The call events for which Telnyx should send a webhook. Multiple events can be
      * defined when separated by a space.
      */
-    StatusCallbackEvent?: 'initiated' | 'ringing' | 'answered' | 'completed';
+    StatusCallbackEvent?: string;
 
     /**
      * HTTP request type used for `StatusCallback`.
@@ -914,7 +739,7 @@ export namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    Timeout?: number;
+    timeout_seconds?: number;
 
     /**
      * The phone number of the called party. Phone numbers are formatted with a `+` and
@@ -1022,9 +847,11 @@ export namespace CallCallsParams {
     DeepfakeDetectionCallbackUrl?: string;
 
     /**
-     * Allows you to chose between Premium and Standard detections.
+     * Allows you to choose between Regular, Premium, and PremiumCallScreening
+     * detections. See
+     * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
      */
-    DetectionMode?: 'Premium' | 'Regular';
+    DetectionMode?: 'Premium' | 'Regular' | 'PremiumCallScreening';
 
     /**
      * A failover URL for which Telnyx will retrieve the TeXML call instructions if the
@@ -1042,6 +869,12 @@ export namespace CallCallsParams {
      * Enables Answering Machine Detection.
      */
     MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Silence duration threshold after a call screening prompt before ending prompt
+     * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+     */
+    MachineDetectionPromptEndTimeout?: number;
 
     /**
      * If initial silence duration is greater than this value, consider it a machine.
@@ -1148,7 +981,7 @@ export namespace CallCallsParams {
      * The call events for which Telnyx should send a webhook. Multiple events can be
      * defined when separated by a space.
      */
-    StatusCallbackEvent?: 'initiated' | 'ringing' | 'answered' | 'completed';
+    StatusCallbackEvent?: string;
 
     /**
      * HTTP request type used for `StatusCallback`.
@@ -1180,7 +1013,7 @@ export namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    Timeout?: number;
+    timeout_seconds?: number;
 
     /**
      * The phone number of the called party. Phone numbers are formatted with a `+` and
@@ -1284,9 +1117,11 @@ export namespace CallCallsParams {
     DeepfakeDetectionCallbackUrl?: string;
 
     /**
-     * Allows you to chose between Premium and Standard detections.
+     * Allows you to choose between Regular, Premium, and PremiumCallScreening
+     * detections. See
+     * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
      */
-    DetectionMode?: 'Premium' | 'Regular';
+    DetectionMode?: 'Premium' | 'Regular' | 'PremiumCallScreening';
 
     /**
      * A failover URL for which Telnyx will retrieve the TeXML call instructions if the
@@ -1304,6 +1139,12 @@ export namespace CallCallsParams {
      * Enables Answering Machine Detection.
      */
     MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Silence duration threshold after a call screening prompt before ending prompt
+     * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+     */
+    MachineDetectionPromptEndTimeout?: number;
 
     /**
      * If initial silence duration is greater than this value, consider it a machine.
@@ -1410,7 +1251,7 @@ export namespace CallCallsParams {
      * The call events for which Telnyx should send a webhook. Multiple events can be
      * defined when separated by a space.
      */
-    StatusCallbackEvent?: 'initiated' | 'ringing' | 'answered' | 'completed';
+    StatusCallbackEvent?: string;
 
     /**
      * HTTP request type used for `StatusCallback`.
@@ -1444,7 +1285,7 @@ export namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    Timeout?: number;
+    timeout_seconds?: number;
 
     /**
      * The phone number of the called party. Phone numbers are formatted with a `+` and
@@ -1482,67 +1323,62 @@ export namespace CallCallsParams {
   }
 }
 
-export interface CallRetrieveCallsParams {
+export interface CallRetrieveParams {
   /**
-   * Filters calls by their end date. Expected format is YYYY-MM-DD
+   * The id of the account the resource belongs to.
    */
-  EndTime?: string;
+  account_sid: string;
+}
+
+export interface CallUpdateParams {
+  /**
+   * Path param: The id of the account the resource belongs to.
+   */
+  account_sid: string;
 
   /**
-   * Filters calls by their end date (after). Expected format is YYYY-MM-DD
+   * Body param: HTTP request type used for `FallbackUrl`.
    */
-  EndTime_gt?: string;
+  FallbackMethod?: 'GET' | 'POST';
 
   /**
-   * Filters calls by their end date (before). Expected format is YYYY-MM-DD
+   * Body param: A failover URL for which Telnyx will retrieve the TeXML call
+   * instructions if the Url is not responding.
    */
-  EndTime_lt?: string;
+  FallbackUrl?: string;
 
   /**
-   * Filters calls by the from number.
+   * Body param: HTTP request type used for `Url`.
    */
-  From?: string;
+  Method?: 'GET' | 'POST';
 
   /**
-   * The number of the page to be displayed, zero-indexed, should be used in
-   * conjuction with PageToken.
+   * Body param: The value to set the call status to. Setting the status to completed
+   * ends the call.
    */
-  Page?: number;
+  Status?: string;
 
   /**
-   * The number of records to be displayed on a page
+   * Body param: URL destination for Telnyx to send status callback events to for the
+   * call.
    */
-  PageSize?: number;
+  StatusCallback?: string;
 
   /**
-   * Used to request the next page of results.
+   * Body param: HTTP request type used for `StatusCallback`.
    */
-  PageToken?: string;
+  StatusCallbackMethod?: 'GET' | 'POST';
 
   /**
-   * Filters calls by their start date. Expected format is YYYY-MM-DD.
+   * Body param: TeXML to replace the current one with.
    */
-  StartTime?: string;
+  Texml?: string;
 
   /**
-   * Filters calls by their start date (after). Expected format is YYYY-MM-DD
+   * Body param: The URL where TeXML will make a request to retrieve a new set of
+   * TeXML instructions to continue the call flow.
    */
-  StartTime_gt?: string;
-
-  /**
-   * Filters calls by their start date (before). Expected format is YYYY-MM-DD
-   */
-  StartTime_lt?: string;
-
-  /**
-   * Filters calls by status.
-   */
-  Status?: 'canceled' | 'completed' | 'failed' | 'busy' | 'no-answer';
-
-  /**
-   * Filters calls by the to number.
-   */
-  To?: string;
+  Url?: string;
 }
 
 export interface CallSiprecJsonParams {
@@ -1656,32 +1492,32 @@ Calls.Streams = Streams;
 
 export declare namespace Calls {
   export {
+    type CallResource as CallResource,
     type UpdateCall as UpdateCall,
-    type CallRetrieveResponse as CallRetrieveResponse,
-    type CallUpdateResponse as CallUpdateResponse,
     type CallCallsResponse as CallCallsResponse,
     type CallRetrieveCallsResponse as CallRetrieveCallsResponse,
     type CallSiprecJsonResponse as CallSiprecJsonResponse,
     type CallStreamsJsonResponse as CallStreamsJsonResponse,
+    type CallRetrieveCallsParams as CallRetrieveCallsParams,
+    type CallCallsParams as CallCallsParams,
     type CallRetrieveParams as CallRetrieveParams,
     type CallUpdateParams as CallUpdateParams,
-    type CallCallsParams as CallCallsParams,
-    type CallRetrieveCallsParams as CallRetrieveCallsParams,
     type CallSiprecJsonParams as CallSiprecJsonParams,
     type CallStreamsJsonParams as CallStreamsJsonParams,
   };
 
   export {
     RecordingsJson as RecordingsJson,
-    type RecordingsJsonRecordingsJsonResponse as RecordingsJsonRecordingsJsonResponse,
-    type RecordingsJsonRetrieveRecordingsJsonResponse as RecordingsJsonRetrieveRecordingsJsonResponse,
-    type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
+    type RecordingSource as RecordingSource,
+    type TexmlCreateCallRecordingResponseBody as TexmlCreateCallRecordingResponseBody,
+    type TexmlGetCallRecordingsResponseBody as TexmlGetCallRecordingsResponseBody,
+    type TwimlRecordingChannels as TwimlRecordingChannels,
     type RecordingsJsonRetrieveRecordingsJsonParams as RecordingsJsonRetrieveRecordingsJsonParams,
+    type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
   };
 
   export {
     Recordings as Recordings,
-    type RecordingRecordingSidJsonResponse as RecordingRecordingSidJsonResponse,
     type RecordingRecordingSidJsonParams as RecordingRecordingSidJsonParams,
   };
 

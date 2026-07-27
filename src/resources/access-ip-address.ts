@@ -11,20 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class AccessIPAddress extends APIResource {
   /**
-   * Create new Access IP Address
-   */
-  create(body: AccessIPAddressCreateParams, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
-    return this._client.post('/access_ip_address', { body, ...options });
-  }
-
-  /**
-   * Retrieve an access IP address
-   */
-  retrieve(accessIPAddressID: string, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
-    return this._client.get(path`/access_ip_address/${accessIPAddressID}`, options);
-  }
-
-  /**
    * List all Access IP Addresses
    */
   list(
@@ -38,10 +24,24 @@ export class AccessIPAddress extends APIResource {
   }
 
   /**
+   * Create new Access IP Address
+   */
+  create(body: AccessIPAddressCreateParams, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
+    return this._client.post('/access_ip_address', { body, ...options });
+  }
+
+  /**
    * Delete access IP address
    */
   delete(accessIPAddressID: string, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
     return this._client.delete(path`/access_ip_address/${accessIPAddressID}`, options);
+  }
+
+  /**
+   * Retrieve an access IP address
+   */
+  retrieve(accessIPAddressID: string, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
+    return this._client.get(path`/access_ip_address/${accessIPAddressID}`, options);
   }
 }
 
@@ -81,12 +81,6 @@ export interface PaginationMetaCloudflareIPListSync {
   total_pages: number;
 
   total_results: number;
-}
-
-export interface AccessIPAddressCreateParams {
-  ip_address: string;
-
-  description?: string;
 }
 
 export interface AccessIPAddressListParams extends DefaultFlatPaginationParams {
@@ -151,13 +145,19 @@ export namespace AccessIPAddressListParams {
   }
 }
 
+export interface AccessIPAddressCreateParams {
+  ip_address: string;
+
+  description?: string;
+}
+
 export declare namespace AccessIPAddress {
   export {
     type AccessIPAddressResponse as AccessIPAddressResponse,
     type CloudflareSyncStatus as CloudflareSyncStatus,
     type PaginationMetaCloudflareIPListSync as PaginationMetaCloudflareIPListSync,
     type AccessIPAddressResponsesDefaultFlatPagination as AccessIPAddressResponsesDefaultFlatPagination,
-    type AccessIPAddressCreateParams as AccessIPAddressCreateParams,
     type AccessIPAddressListParams as AccessIPAddressListParams,
+    type AccessIPAddressCreateParams as AccessIPAddressCreateParams,
   };
 }

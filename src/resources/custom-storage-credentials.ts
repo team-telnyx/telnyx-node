@@ -11,70 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class CustomStorageCredentials extends APIResource {
   /**
-   * Creates a custom storage credentials configuration.
-   *
-   * @example
-   * ```ts
-   * const customStorageCredential =
-   *   await client.customStorageCredentials.create(
-   *     'connection_id',
-   *     {
-   *       backend: 'gcs',
-   *       configuration: { backend: 'gcs' },
-   *     },
-   *   );
-   * ```
-   */
-  create(
-    connectionID: string,
-    body: CustomStorageCredentialCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<CustomStorageCredentialCreateResponse> {
-    return this._client.post(path`/custom_storage_credentials/${connectionID}`, { body, ...options });
-  }
-
-  /**
-   * Returns the information about custom storage credentials.
-   *
-   * @example
-   * ```ts
-   * const customStorageCredential =
-   *   await client.customStorageCredentials.retrieve(
-   *     'connection_id',
-   *   );
-   * ```
-   */
-  retrieve(
-    connectionID: string,
-    options?: RequestOptions,
-  ): APIPromise<CustomStorageCredentialRetrieveResponse> {
-    return this._client.get(path`/custom_storage_credentials/${connectionID}`, options);
-  }
-
-  /**
-   * Updates a stored custom credentials configuration.
-   *
-   * @example
-   * ```ts
-   * const customStorageCredential =
-   *   await client.customStorageCredentials.update(
-   *     'connection_id',
-   *     {
-   *       backend: 'gcs',
-   *       configuration: { backend: 'gcs' },
-   *     },
-   *   );
-   * ```
-   */
-  update(
-    connectionID: string,
-    body: CustomStorageCredentialUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<CustomStorageCredentialUpdateResponse> {
-    return this._client.put(path`/custom_storage_credentials/${connectionID}`, { body, ...options });
-  }
-
-  /**
    * Deletes a stored custom credentials configuration.
    *
    * @example
@@ -89,6 +25,67 @@ export class CustomStorageCredentials extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * Returns the information about custom storage credentials.
+   *
+   * @example
+   * ```ts
+   * const credentialsResponse =
+   *   await client.customStorageCredentials.retrieve(
+   *     'connection_id',
+   *   );
+   * ```
+   */
+  retrieve(connectionID: string, options?: RequestOptions): APIPromise<CredentialsResponse> {
+    return this._client.get(path`/custom_storage_credentials/${connectionID}`, options);
+  }
+
+  /**
+   * Creates a custom storage credentials configuration.
+   *
+   * @example
+   * ```ts
+   * const credentialsResponse =
+   *   await client.customStorageCredentials.create(
+   *     'connection_id',
+   *     {
+   *       backend: 'gcs',
+   *       configuration: { backend: 'gcs' },
+   *     },
+   *   );
+   * ```
+   */
+  create(
+    connectionID: string,
+    body: CustomStorageCredentialCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<CredentialsResponse> {
+    return this._client.post(path`/custom_storage_credentials/${connectionID}`, { body, ...options });
+  }
+
+  /**
+   * Updates a stored custom credentials configuration.
+   *
+   * @example
+   * ```ts
+   * const credentialsResponse =
+   *   await client.customStorageCredentials.update(
+   *     'connection_id',
+   *     {
+   *       backend: 'gcs',
+   *       configuration: { backend: 'gcs' },
+   *     },
+   *   );
+   * ```
+   */
+  update(
+    connectionID: string,
+    body: CustomStorageCredentialUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<CredentialsResponse> {
+    return this._client.put(path`/custom_storage_credentials/${connectionID}`, { body, ...options });
   }
 }
 
@@ -112,6 +109,21 @@ export interface AzureConfigurationData {
    * Name of the bucket to be used to store recording files.
    */
   bucket?: string;
+}
+
+export interface CredentialsResponse {
+  /**
+   * Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection
+   * resource.
+   */
+  connection_id: string;
+
+  data: CustomStorageConfiguration;
+
+  /**
+   * Identifies record type.
+   */
+  record_type: 'custom_storage_credentials';
 }
 
 export interface CustomStorageConfiguration {
@@ -165,51 +177,6 @@ export interface S3ConfigurationData {
   region?: string;
 }
 
-export interface CustomStorageCredentialCreateResponse {
-  /**
-   * Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection
-   * resource.
-   */
-  connection_id: string;
-
-  data: CustomStorageConfiguration;
-
-  /**
-   * Identifies record type.
-   */
-  record_type: 'custom_storage_credentials';
-}
-
-export interface CustomStorageCredentialRetrieveResponse {
-  /**
-   * Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection
-   * resource.
-   */
-  connection_id: string;
-
-  data: CustomStorageConfiguration;
-
-  /**
-   * Identifies record type.
-   */
-  record_type: 'custom_storage_credentials';
-}
-
-export interface CustomStorageCredentialUpdateResponse {
-  /**
-   * Uniquely identifies a Telnyx application (Call Control, TeXML) or Sip connection
-   * resource.
-   */
-  connection_id: string;
-
-  data: CustomStorageConfiguration;
-
-  /**
-   * Identifies record type.
-   */
-  record_type: 'custom_storage_credentials';
-}
-
 export interface CustomStorageCredentialCreateParams {
   backend: 'gcs' | 's3' | 'azure';
 
@@ -225,12 +192,10 @@ export interface CustomStorageCredentialUpdateParams {
 export declare namespace CustomStorageCredentials {
   export {
     type AzureConfigurationData as AzureConfigurationData,
+    type CredentialsResponse as CredentialsResponse,
     type CustomStorageConfiguration as CustomStorageConfiguration,
     type GcsConfigurationData as GcsConfigurationData,
     type S3ConfigurationData as S3ConfigurationData,
-    type CustomStorageCredentialCreateResponse as CustomStorageCredentialCreateResponse,
-    type CustomStorageCredentialRetrieveResponse as CustomStorageCredentialRetrieveResponse,
-    type CustomStorageCredentialUpdateResponse as CustomStorageCredentialUpdateResponse,
     type CustomStorageCredentialCreateParams as CustomStorageCredentialCreateParams,
     type CustomStorageCredentialUpdateParams as CustomStorageCredentialUpdateParams,
   };

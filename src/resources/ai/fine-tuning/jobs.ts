@@ -10,6 +10,18 @@ import { path } from '../../../internal/utils/path';
  */
 export class Jobs extends APIResource {
   /**
+   * Retrieve a list of all fine tuning jobs created by the user.
+   *
+   * @example
+   * ```ts
+   * const jobs = await client.ai.fineTuning.jobs.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<JobListResponse> {
+    return this._client.get('/ai/fine_tuning/jobs', options);
+  }
+
+  /**
    * Create a new fine tuning job.
    *
    * @example
@@ -36,18 +48,6 @@ export class Jobs extends APIResource {
    */
   retrieve(jobID: string, options?: RequestOptions): APIPromise<FineTuningJob> {
     return this._client.get(path`/ai/fine_tuning/jobs/${jobID}`, options);
-  }
-
-  /**
-   * Retrieve a list of all fine tuning jobs created by the user.
-   *
-   * @example
-   * ```ts
-   * const jobs = await client.ai.fineTuning.jobs.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<JobListResponse> {
-    return this._client.get('/ai/fine_tuning/jobs', options);
   }
 
   /**

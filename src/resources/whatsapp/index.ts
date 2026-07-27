@@ -10,15 +10,29 @@ export {
 export {
   PhoneNumbers,
   type PhoneNumberListResponse,
+  type PhoneNumberRetrieveConversationWindowResponse,
   type PhoneNumberListParams,
   type PhoneNumberResendVerificationParams,
   type PhoneNumberVerifyParams,
+  type PhoneNumberRetrieveConversationWindowParams,
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers/index';
 export {
   Templates,
+  type WhatsappTemplateBodyComponent,
+  type WhatsappTemplateButtonsComponent,
+  type WhatsappTemplateCarouselComponent,
+  type WhatsappTemplateFooterComponent,
+  type WhatsappTemplateHeaderComponent,
   type TemplateCreateResponse,
-  type TemplateCreateParams,
   type TemplateListParams,
+  type TemplateCreateParams,
 } from './templates';
+export {
+  UserData,
+  type WhatsappUserData,
+  type UserDataRetrieveResponse,
+  type UserDataUpdateResponse,
+  type UserDataUpdateParams,
+} from './user-data';
 export { Whatsapp } from './whatsapp';

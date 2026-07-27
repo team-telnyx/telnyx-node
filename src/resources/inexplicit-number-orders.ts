@@ -15,6 +15,23 @@ import { path } from '../internal/utils/path';
  */
 export class InexplicitNumberOrders extends APIResource {
   /**
+   * Get a paginated list of inexplicit number orders.
+   */
+  list(
+    query: InexplicitNumberOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<
+    InexplicitNumberOrderResponsesDefaultFlatPaginationForInexplicitNumberOrders,
+    InexplicitNumberOrderResponse
+  > {
+    return this._client.getAPIList(
+      '/inexplicit_number_orders',
+      DefaultFlatPaginationForInexplicitNumberOrders<InexplicitNumberOrderResponse>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create an inexplicit number order to programmatically purchase phone numbers
    * without specifying exact numbers.
    */
@@ -30,23 +47,6 @@ export class InexplicitNumberOrders extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<InexplicitNumberOrderRetrieveResponse> {
     return this._client.get(path`/inexplicit_number_orders/${id}`, options);
-  }
-
-  /**
-   * Get a paginated list of inexplicit number orders.
-   */
-  list(
-    query: InexplicitNumberOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    InexplicitNumberOrderResponsesDefaultFlatPaginationForInexplicitNumberOrders,
-    InexplicitNumberOrderResponse
-  > {
-    return this._client.getAPIList(
-      '/inexplicit_number_orders',
-      DefaultFlatPaginationForInexplicitNumberOrders<InexplicitNumberOrderResponse>,
-      { query, ...options },
-    );
   }
 }
 
@@ -205,6 +205,9 @@ export interface InexplicitNumberOrderRetrieveResponse {
   data?: InexplicitNumberOrderResponse;
 }
 
+export interface InexplicitNumberOrderListParams
+  extends DefaultFlatPaginationForInexplicitNumberOrdersParams {}
+
 export interface InexplicitNumberOrderCreateParams {
   /**
    * Group(s) of numbers to order. You can have multiple ordering_groups objects
@@ -321,16 +324,13 @@ export namespace InexplicitNumberOrderCreateParams {
   }
 }
 
-export interface InexplicitNumberOrderListParams
-  extends DefaultFlatPaginationForInexplicitNumberOrdersParams {}
-
 export declare namespace InexplicitNumberOrders {
   export {
     type InexplicitNumberOrderResponse as InexplicitNumberOrderResponse,
     type InexplicitNumberOrderCreateResponse as InexplicitNumberOrderCreateResponse,
     type InexplicitNumberOrderRetrieveResponse as InexplicitNumberOrderRetrieveResponse,
     type InexplicitNumberOrderResponsesDefaultFlatPaginationForInexplicitNumberOrders as InexplicitNumberOrderResponsesDefaultFlatPaginationForInexplicitNumberOrders,
-    type InexplicitNumberOrderCreateParams as InexplicitNumberOrderCreateParams,
     type InexplicitNumberOrderListParams as InexplicitNumberOrderListParams,
+    type InexplicitNumberOrderCreateParams as InexplicitNumberOrderCreateParams,
   };
 }

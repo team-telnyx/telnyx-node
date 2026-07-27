@@ -12,6 +12,32 @@ import { path } from '../../../internal/utils/path';
  */
 export class SslCertificateResource extends APIResource {
   /**
+   * Deletes an SSL certificate and its matching secret.
+   *
+   * @example
+   * ```ts
+   * const sslCertificate =
+   *   await client.storage.buckets.sslCertificate.delete('');
+   * ```
+   */
+  delete(bucketName: string, options?: RequestOptions): APIPromise<SslCertificateDeleteResponse> {
+    return this._client.delete(path`/storage/buckets/${bucketName}/ssl_certificate`, options);
+  }
+
+  /**
+   * Returns the stored certificate detail of a bucket, if applicable.
+   *
+   * @example
+   * ```ts
+   * const sslCertificate =
+   *   await client.storage.buckets.sslCertificate.retrieve('');
+   * ```
+   */
+  retrieve(bucketName: string, options?: RequestOptions): APIPromise<SslCertificateRetrieveResponse> {
+    return this._client.get(path`/storage/buckets/${bucketName}/ssl_certificate`, options);
+  }
+
+  /**
    * Uploads an SSL certificate and its matching secret so that you can use Telnyx's
    * storage as your CDN.
    *
@@ -30,32 +56,6 @@ export class SslCertificateResource extends APIResource {
       path`/storage/buckets/${bucketName}/ssl_certificate`,
       multipartFormRequestOptions({ body, ...options }, this._client),
     );
-  }
-
-  /**
-   * Returns the stored certificate detail of a bucket, if applicable.
-   *
-   * @example
-   * ```ts
-   * const sslCertificate =
-   *   await client.storage.buckets.sslCertificate.retrieve('');
-   * ```
-   */
-  retrieve(bucketName: string, options?: RequestOptions): APIPromise<SslCertificateRetrieveResponse> {
-    return this._client.get(path`/storage/buckets/${bucketName}/ssl_certificate`, options);
-  }
-
-  /**
-   * Deletes an SSL certificate and its matching secret.
-   *
-   * @example
-   * ```ts
-   * const sslCertificate =
-   *   await client.storage.buckets.sslCertificate.delete('');
-   * ```
-   */
-  delete(bucketName: string, options?: RequestOptions): APIPromise<SslCertificateDeleteResponse> {
-    return this._client.delete(path`/storage/buckets/${bucketName}/ssl_certificate`, options);
   }
 }
 

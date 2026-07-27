@@ -9,6 +9,23 @@ const client = new Telnyx({
 
 describe('resource texml', () => {
   // Mock server tests are disabled
+  test.skip('secrets: only required params', async () => {
+    const responsePromise = client.texml.secrets({ name: 'My Secret Name', value: 'My Secret Value' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('secrets: required and optional params', async () => {
+    const response = await client.texml.secrets({ name: 'My Secret Name', value: 'My Secret Value' });
+  });
+
+  // Mock server tests are disabled
   test.skip('initiateAICall: only required params', async () => {
     const responsePromise = client.texml.initiateAICall('connection_id', {
       AIAssistantId: 'ai-assistant-id-123',
@@ -45,6 +62,7 @@ describe('resource texml', () => {
       CustomHeaders: [{ name: 'X-Custom-Header', value: 'custom-value' }],
       DetectionMode: 'Premium',
       MachineDetection: 'Enable',
+      MachineDetectionPromptEndTimeout: 5000,
       MachineDetectionSilenceTimeout: 2000,
       MachineDetectionSpeechEndThreshold: 2000,
       MachineDetectionSpeechThreshold: 2000,
@@ -70,22 +88,5 @@ describe('resource texml', () => {
       timeout_seconds: 60,
       Trim: 'trim-silence',
     });
-  });
-
-  // Mock server tests are disabled
-  test.skip('secrets: only required params', async () => {
-    const responsePromise = client.texml.secrets({ name: 'My Secret Name', value: 'My Secret Value' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('secrets: required and optional params', async () => {
-    const response = await client.texml.secrets({ name: 'My Secret Name', value: 'My Secret Value' });
   });
 });

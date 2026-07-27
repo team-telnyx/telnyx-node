@@ -1,6 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as WireguardInterfacesAPI from './wireguard-interfaces';
+import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
+import * as PublicInternetGatewaysAPI from './public-internet-gateways';
 import * as NetworksAPI from './networks/networks';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
@@ -12,49 +15,7 @@ import { path } from '../internal/utils/path';
  */
 export class WireguardInterfaces extends APIResource {
   /**
-   * Create a new WireGuard Interface. Current limitation of 10 interfaces per user
-   * can be created.
-   *
-   * @example
-   * ```ts
-   * const wireguardInterface =
-   *   await client.wireguardInterfaces.create({
-   *     region_code: 'ashburn-va',
-   *   });
-   * ```
-   */
-  create(
-    body: WireguardInterfaceCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<WireguardInterfaceCreateResponse> {
-    return this._client.post('/wireguard_interfaces', { body, ...options });
-  }
-
-  /**
-   * Retrieve a WireGuard Interfaces.
-   *
-   * @example
-   * ```ts
-   * const wireguardInterface =
-   *   await client.wireguardInterfaces.retrieve(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<WireguardInterfaceRetrieveResponse> {
-    return this._client.get(path`/wireguard_interfaces/${id}`, options);
-  }
-
-  /**
    * List all WireGuard Interfaces.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const wireguardInterfaceRead of client.wireguardInterfaces.list()) {
-   *   // ...
-   * }
-   * ```
    */
   list(
     query: WireguardInterfaceListParams | null | undefined = {},
@@ -67,22 +28,52 @@ export class WireguardInterfaces extends APIResource {
   }
 
   /**
+   * Create a new WireGuard Interface. Current limitation of 10 interfaces per user
+   * can be created.
+   */
+  create(
+    params: WireguardInterfaceCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<WireguardInterfaceCreateResponse> {
+    const { body } = params;
+    return this._client.post('/wireguard_interfaces', { body: body, ...options });
+  }
+
+  /**
    * Delete a WireGuard Interface.
-   *
-   * @example
-   * ```ts
-   * const wireguardInterface =
-   *   await client.wireguardInterfaces.delete(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<WireguardInterfaceDeleteResponse> {
     return this._client.delete(path`/wireguard_interfaces/${id}`, options);
   }
+
+  /**
+   * Retrieve a WireGuard Interfaces.
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<WireguardInterfaceRetrieveResponse> {
+    return this._client.get(path`/wireguard_interfaces/${id}`, options);
+  }
 }
 
 export type WireguardInterfaceReadsDefaultFlatPagination = DefaultFlatPagination<WireguardInterfaceRead>;
+
+export interface WireguardInterface
+  extends GlobalIPAssignmentsAPI.Record,
+    PublicInternetGatewaysAPI.NetworkInterface {
+  /**
+   * Enable SIP traffic forwarding over VPN interface.
+   */
+  enable_sip_trunking?: boolean;
+
+  /**
+   * The Telnyx WireGuard peers `Peer.endpoint` value.
+   */
+  endpoint?: string;
+
+  /**
+   * The Telnyx WireGuard peers `Peer.PublicKey`.
+   */
+  public_key?: string;
+}
 
 export interface WireguardInterfaceRead {
   /**
@@ -174,28 +165,6 @@ export interface WireguardInterfaceDeleteResponse {
   data?: WireguardInterfaceRead;
 }
 
-export interface WireguardInterfaceCreateParams {
-  /**
-   * The region the interface should be deployed to.
-   */
-  region_code: string;
-
-  /**
-   * Enable SIP traffic forwarding over VPN interface.
-   */
-  enable_sip_trunking?: boolean;
-
-  /**
-   * A user specified name for the interface.
-   */
-  name?: string;
-
-  /**
-   * The id of the network associated with the interface.
-   */
-  network_id?: string;
-}
-
 export interface WireguardInterfaceListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
@@ -215,14 +184,25 @@ export namespace WireguardInterfaceListParams {
   }
 }
 
+export interface WireguardInterfaceCreateParams {
+  body: WireguardInterfaceCreateParams.Body;
+}
+
+export namespace WireguardInterfaceCreateParams {
+  export interface Body
+    extends WireguardInterfacesAPI.WireguardInterface,
+      PublicInternetGatewaysAPI.NetworkInterfaceRegion {}
+}
+
 export declare namespace WireguardInterfaces {
   export {
+    type WireguardInterface as WireguardInterface,
     type WireguardInterfaceRead as WireguardInterfaceRead,
     type WireguardInterfaceCreateResponse as WireguardInterfaceCreateResponse,
     type WireguardInterfaceRetrieveResponse as WireguardInterfaceRetrieveResponse,
     type WireguardInterfaceDeleteResponse as WireguardInterfaceDeleteResponse,
     type WireguardInterfaceReadsDefaultFlatPagination as WireguardInterfaceReadsDefaultFlatPagination,
-    type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
     type WireguardInterfaceListParams as WireguardInterfaceListParams,
+    type WireguardInterfaceCreateParams as WireguardInterfaceCreateParams,
   };
 }

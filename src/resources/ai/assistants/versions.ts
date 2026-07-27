@@ -12,6 +12,39 @@ import { path } from '../../../internal/utils/path';
  */
 export class Versions extends APIResource {
   /**
+   * Retrieves all versions of a specific assistant with complete configuration and
+   * metadata
+   *
+   * @example
+   * ```ts
+   * const assistantsList =
+   *   await client.ai.assistants.versions.list('assistant_id');
+   * ```
+   */
+  list(assistantID: string, options?: RequestOptions): APIPromise<AssistantsAPI.AssistantsList> {
+    return this._client.get(path`/ai/assistants/${assistantID}/versions`, options);
+  }
+
+  /**
+   * Permanently removes a specific version of an assistant. Can not delete main
+   * version
+   *
+   * @example
+   * ```ts
+   * await client.ai.assistants.versions.delete('version_id', {
+   *   assistant_id: 'assistant_id',
+   * });
+   * ```
+   */
+  delete(versionID: string, params: VersionDeleteParams, options?: RequestOptions): APIPromise<void> {
+    const { assistant_id } = params;
+    return this._client.delete(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Retrieves a specific version of an assistant by assistant_id and version_id
    *
    * @example
@@ -60,39 +93,6 @@ export class Versions extends APIResource {
   }
 
   /**
-   * Retrieves all versions of a specific assistant with complete configuration and
-   * metadata
-   *
-   * @example
-   * ```ts
-   * const assistantsList =
-   *   await client.ai.assistants.versions.list('assistant_id');
-   * ```
-   */
-  list(assistantID: string, options?: RequestOptions): APIPromise<AssistantsAPI.AssistantsList> {
-    return this._client.get(path`/ai/assistants/${assistantID}/versions`, options);
-  }
-
-  /**
-   * Permanently removes a specific version of an assistant. Can not delete main
-   * version
-   *
-   * @example
-   * ```ts
-   * await client.ai.assistants.versions.delete('version_id', {
-   *   assistant_id: 'assistant_id',
-   * });
-   * ```
-   */
-  delete(versionID: string, params: VersionDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { assistant_id } = params;
-    return this._client.delete(path`/ai/assistants/${assistant_id}/versions/${versionID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
    * Promotes a specific version to be the main/current version of the assistant.
    * This will delete any existing canary deploy configuration and send all live
    * production traffic to this version.
@@ -117,6 +117,15 @@ export class Versions extends APIResource {
 }
 
 export interface UpdateAssistant {
+  /**
+   * Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  conversation_flow?: AssistantsAPI.ConversationFlowReq;
+
   description?: string;
 
   /**
@@ -206,7 +215,7 @@ export interface UpdateAssistant {
 
   /**
    * ID of the model to use when `external_llm` is not set. You can use the
-   * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
+   * [Get models API](https://developers.telnyx.com/api-reference/openai-chat/get-available-models-openai-compatible)
    * to see available models. If `external_llm` is provided, the assistant uses
    * `external_llm` instead of this field. If neither `model` nor `external_llm` is
    * provided, Telnyx applies the default model.
@@ -265,23 +274,39 @@ export interface UpdateAssistant {
   widget_settings?: AssistantsAPI.WidgetSettings;
 }
 
+export interface VersionDeleteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
+  assistant_id: string;
+}
+
 export interface VersionRetrieveParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the assistant.
    */
   assistant_id: string;
 
   /**
-   * Query param
+   * Query param: Whether to include MCP servers in the response.
    */
   include_mcp_servers?: boolean;
 }
 
 export interface VersionUpdateParams {
   /**
-   * Path param
+   * Path param: Unique identifier of the assistant.
    */
   assistant_id: string;
+
+  /**
+   * Body param: Conversation flow as supplied by API clients (create / update).
+   *
+   * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
+   * unique node/edge IDs, that `start_node_id` references a real node, and that
+   * every edge's endpoints reference real nodes.
+   */
+  conversation_flow?: AssistantsAPI.ConversationFlowReq;
 
   /**
    * Body param
@@ -391,7 +416,7 @@ export interface VersionUpdateParams {
   /**
    * Body param: ID of the model to use when `external_llm` is not set. You can use
    * the
-   * [Get models API](https://developers.telnyx.com/api-reference/chat/get-available-models)
+   * [Get models API](https://developers.telnyx.com/api-reference/openai-chat/get-available-models-openai-compatible)
    * to see available models. If `external_llm` is provided, the assistant uses
    * `external_llm` instead of this field. If neither `model` nor `external_llm` is
    * provided, Telnyx applies the default model.
@@ -468,20 +493,19 @@ export interface VersionUpdateParams {
   widget_settings?: AssistantsAPI.WidgetSettings;
 }
 
-export interface VersionDeleteParams {
-  assistant_id: string;
-}
-
 export interface VersionPromoteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
 export declare namespace Versions {
   export {
     type UpdateAssistant as UpdateAssistant,
+    type VersionDeleteParams as VersionDeleteParams,
     type VersionRetrieveParams as VersionRetrieveParams,
     type VersionUpdateParams as VersionUpdateParams,
-    type VersionDeleteParams as VersionDeleteParams,
     type VersionPromoteParams as VersionPromoteParams,
   };
 }

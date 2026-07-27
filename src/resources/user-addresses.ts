@@ -11,6 +11,27 @@ import { path } from '../internal/utils/path';
  */
 export class UserAddresses extends APIResource {
   /**
+   * Returns a list of your user addresses.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const userAddress of client.userAddresses.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: UserAddressListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<UserAddressesDefaultFlatPagination, UserAddress> {
+    return this._client.getAPIList('/user_addresses', DefaultFlatPagination<UserAddress>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a user address.
    *
    * @example
@@ -41,27 +62,6 @@ export class UserAddresses extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<UserAddressRetrieveResponse> {
     return this._client.get(path`/user_addresses/${id}`, options);
-  }
-
-  /**
-   * Returns a list of your user addresses.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const userAddress of client.userAddresses.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: UserAddressListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<UserAddressesDefaultFlatPagination, UserAddress> {
-    return this._client.getAPIList('/user_addresses', DefaultFlatPagination<UserAddress>, {
-      query,
-      ...options,
-    });
   }
 }
 
@@ -167,6 +167,87 @@ export interface UserAddressRetrieveResponse {
   data?: UserAddress;
 }
 
+export interface UserAddressListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[customer_reference][eq], filter[customer_reference][contains],
+   * filter[street_address][contains]
+   */
+  filter?: UserAddressListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>street_address</code>: sorts the result by the
+   *     <code>street_address</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-street_address</code>: sorts the result by the
+   *     <code>street_address</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'first_name' | 'last_name' | 'business_name' | 'street_address';
+}
+
+export namespace UserAddressListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[customer_reference][eq], filter[customer_reference][contains],
+   * filter[street_address][contains]
+   */
+  export interface Filter {
+    /**
+     * Filter user addresses via the customer reference. Supports both exact matching
+     * (eq) and partial matching (contains). Matching is not case-sensitive.
+     */
+    customer_reference?: Filter.CustomerReference;
+
+    /**
+     * Filter user addresses via street address. Supports partial matching (contains).
+     * Matching is not case-sensitive.
+     */
+    street_address?: Filter.StreetAddress;
+  }
+
+  export namespace Filter {
+    /**
+     * Filter user addresses via the customer reference. Supports both exact matching
+     * (eq) and partial matching (contains). Matching is not case-sensitive.
+     */
+    export interface CustomerReference {
+      /**
+       * If present, user addresses with <code>customer_reference</code> containing the
+       * given value will be returned. Matching is not case-sensitive.
+       */
+      contains?: string;
+
+      /**
+       * Filter user addresses via exact customer reference match. Matching is not
+       * case-sensitive.
+       */
+      eq?: string;
+    }
+
+    /**
+     * Filter user addresses via street address. Supports partial matching (contains).
+     * Matching is not case-sensitive.
+     */
+    export interface StreetAddress {
+      /**
+       * If present, user addresses with <code>street_address</code> containing the given
+       * value will be returned. Matching is not case-sensitive. Requires at least three
+       * characters.
+       */
+      contains?: string;
+    }
+  }
+}
+
 export interface UserAddressCreateParams {
   /**
    * The business name associated with the user address.
@@ -254,94 +335,13 @@ export interface UserAddressCreateParams {
   skip_address_verification?: boolean;
 }
 
-export interface UserAddressListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[customer_reference][eq], filter[customer_reference][contains],
-   * filter[street_address][contains]
-   */
-  filter?: UserAddressListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>street_address</code>: sorts the result by the
-   *     <code>street_address</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-street_address</code>: sorts the result by the
-   *     <code>street_address</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'first_name' | 'last_name' | 'business_name' | 'street_address';
-}
-
-export namespace UserAddressListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[customer_reference][eq], filter[customer_reference][contains],
-   * filter[street_address][contains]
-   */
-  export interface Filter {
-    /**
-     * Filter user addresses via the customer reference. Supports both exact matching
-     * (eq) and partial matching (contains). Matching is not case-sensitive.
-     */
-    customer_reference?: Filter.CustomerReference;
-
-    /**
-     * Filter user addresses via street address. Supports partial matching (contains).
-     * Matching is not case-sensitive.
-     */
-    street_address?: Filter.StreetAddress;
-  }
-
-  export namespace Filter {
-    /**
-     * Filter user addresses via the customer reference. Supports both exact matching
-     * (eq) and partial matching (contains). Matching is not case-sensitive.
-     */
-    export interface CustomerReference {
-      /**
-       * If present, user addresses with <code>customer_reference</code> containing the
-       * given value will be returned. Matching is not case-sensitive.
-       */
-      contains?: string;
-
-      /**
-       * Filter user addresses via exact customer reference match. Matching is not
-       * case-sensitive.
-       */
-      eq?: string;
-    }
-
-    /**
-     * Filter user addresses via street address. Supports partial matching (contains).
-     * Matching is not case-sensitive.
-     */
-    export interface StreetAddress {
-      /**
-       * If present, user addresses with <code>street_address</code> containing the given
-       * value will be returned. Matching is not case-sensitive. Requires at least three
-       * characters.
-       */
-      contains?: string;
-    }
-  }
-}
-
 export declare namespace UserAddresses {
   export {
     type UserAddress as UserAddress,
     type UserAddressCreateResponse as UserAddressCreateResponse,
     type UserAddressRetrieveResponse as UserAddressRetrieveResponse,
     type UserAddressesDefaultFlatPagination as UserAddressesDefaultFlatPagination,
-    type UserAddressCreateParams as UserAddressCreateParams,
     type UserAddressListParams as UserAddressListParams,
+    type UserAddressCreateParams as UserAddressCreateParams,
   };
 }

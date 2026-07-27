@@ -30,24 +30,6 @@ export class Sessions extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * View a room session.
-   *
-   * @example
-   * ```ts
-   * const session = await client.rooms.sessions.retrieve(
-   *   '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-   * );
-   * ```
-   */
-  retrieve(
-    roomSessionID: string,
-    query: SessionRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<SessionRetrieveResponse> {
-    return this._client.get(path`/room_sessions/${roomSessionID}`, { query, ...options });
-  }
-
-  /**
    * View a list of room sessions.
    *
    * @example
@@ -94,6 +76,24 @@ export class Sessions extends APIResource {
   }
 
   /**
+   * View a room session.
+   *
+   * @example
+   * ```ts
+   * const session = await client.rooms.sessions.retrieve(
+   *   '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+   * );
+   * ```
+   */
+  retrieve(
+    roomSessionID: string,
+    query: SessionRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SessionRetrieveResponse> {
+    return this._client.get(path`/room_sessions/${roomSessionID}`, { query, ...options });
+  }
+
+  /**
    * View a list of room participants.
    *
    * @example
@@ -121,13 +121,6 @@ export class Sessions extends APIResource {
 
 export interface SessionRetrieveResponse {
   data?: RoomsAPI.RoomSession;
-}
-
-export interface SessionRetrieveParams {
-  /**
-   * To decide if room participants should be included in the response.
-   */
-  include_participants?: boolean;
 }
 
 export interface SessionList0Params extends DefaultFlatPaginationParams {
@@ -321,6 +314,13 @@ export namespace SessionList1Params {
   }
 }
 
+export interface SessionRetrieveParams {
+  /**
+   * To decide if room participants should be included in the response.
+   */
+  include_participants?: boolean;
+}
+
 export interface SessionRetrieveParticipantsParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -415,9 +415,9 @@ Sessions.Actions = Actions;
 export declare namespace Sessions {
   export {
     type SessionRetrieveResponse as SessionRetrieveResponse,
-    type SessionRetrieveParams as SessionRetrieveParams,
     type SessionList0Params as SessionList0Params,
     type SessionList1Params as SessionList1Params,
+    type SessionRetrieveParams as SessionRetrieveParams,
     type SessionRetrieveParticipantsParams as SessionRetrieveParticipantsParams,
   };
 

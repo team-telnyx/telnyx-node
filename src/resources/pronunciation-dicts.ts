@@ -13,87 +13,6 @@ import { path } from '../internal/utils/path';
  */
 export class PronunciationDicts extends APIResource {
   /**
-   * Create a new pronunciation dictionary for the authenticated organization. Each
-   * dictionary contains a list of items that control how specific words are spoken.
-   * Items can be alias type (text replacement) or phoneme type (IPA pronunciation
-   * notation).
-   *
-   * As an alternative to providing items directly as JSON, you can upload a
-   * dictionary file (PLS/XML or plain text format, max 1MB) using
-   * multipart/form-data. PLS files use the standard W3C Pronunciation Lexicon
-   * Specification XML format. Text files use a line-based format: `word=alias` for
-   * aliases, `word:/phoneme/` for IPA phonemes.
-   *
-   * Limits:
-   *
-   * - Maximum 50 dictionaries per organization
-   * - Maximum 100 items per dictionary
-   * - Text: max 200 characters
-   * - Alias/phoneme value: max 500 characters
-   * - File upload: max 1MB (1,048,576 bytes)
-   *
-   * @example
-   * ```ts
-   * const pronunciationDict =
-   *   await client.pronunciationDicts.create({
-   *     items: [
-   *       {
-   *         alias: 'tel-nicks',
-   *         text: 'Telnyx',
-   *         type: 'alias',
-   *       },
-   *     ],
-   *     name: 'Brand Names',
-   *   });
-   * ```
-   */
-  create(
-    body: PronunciationDictCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<PronunciationDictCreateResponse> {
-    return this._client.post(
-      '/pronunciation_dicts',
-      maybeMultipartFormRequestOptions({ body, ...options }, this._client),
-    );
-  }
-
-  /**
-   * Retrieve a single pronunciation dictionary by ID.
-   *
-   * @example
-   * ```ts
-   * const pronunciationDict =
-   *   await client.pronunciationDicts.retrieve(
-   *     'c215a3e1-be41-4701-97e8-1d3c22f9a5b7',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<PronunciationDictRetrieveResponse> {
-    return this._client.get(path`/pronunciation_dicts/${id}`, options);
-  }
-
-  /**
-   * Update the name and/or items of an existing pronunciation dictionary. Uses
-   * optimistic locking — if the dictionary was modified concurrently, the request
-   * returns 409 Conflict.
-   *
-   * @example
-   * ```ts
-   * const pronunciationDict =
-   *   await client.pronunciationDicts.update(
-   *     'c215a3e1-be41-4701-97e8-1d3c22f9a5b7',
-   *   );
-   * ```
-   */
-  update(
-    id: string,
-    body: PronunciationDictUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<PronunciationDictUpdateResponse> {
-    return this._client.patch(path`/pronunciation_dicts/${id}`, { body, ...options });
-  }
-
-  /**
    * List all pronunciation dictionaries for the authenticated organization. Results
    * are paginated using offset-based pagination.
    *
@@ -116,6 +35,51 @@ export class PronunciationDicts extends APIResource {
   }
 
   /**
+   * Create a new pronunciation dictionary for the authenticated organization. Each
+   * dictionary contains a list of items that control how specific words are spoken.
+   * Items can be alias type (text replacement) or phoneme type (IPA pronunciation
+   * notation).
+   *
+   * As an alternative to providing items directly as JSON, you can upload a
+   * dictionary file (PLS/XML or plain text format, max 1MB) using
+   * multipart/form-data. PLS files use the standard W3C Pronunciation Lexicon
+   * Specification XML format. Text files use a line-based format: `word=alias` for
+   * aliases, `word:/phoneme/` for IPA phonemes.
+   *
+   * Limits:
+   *
+   * - Maximum 50 dictionaries per organization
+   * - Maximum 100 items per dictionary
+   * - Text: max 200 characters
+   * - Alias/phoneme value: max 500 characters
+   * - File upload: max 1MB (1,048,576 bytes)
+   *
+   * @example
+   * ```ts
+   * const pronunciationDictResponse =
+   *   await client.pronunciationDicts.create({
+   *     items: [
+   *       {
+   *         alias: 'tel-nicks',
+   *         text: 'Telnyx',
+   *         type: 'alias',
+   *       },
+   *     ],
+   *     name: 'Brand Names',
+   *   });
+   * ```
+   */
+  create(
+    body: PronunciationDictCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PronunciationDictResponse> {
+    return this._client.post(
+      '/pronunciation_dicts',
+      maybeMultipartFormRequestOptions({ body, ...options }, this._client),
+    );
+  }
+
+  /**
    * Permanently delete a pronunciation dictionary.
    *
    * @example
@@ -130,6 +94,42 @@ export class PronunciationDicts extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * Retrieve a single pronunciation dictionary by ID.
+   *
+   * @example
+   * ```ts
+   * const pronunciationDictResponse =
+   *   await client.pronunciationDicts.retrieve(
+   *     'c215a3e1-be41-4701-97e8-1d3c22f9a5b7',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<PronunciationDictResponse> {
+    return this._client.get(path`/pronunciation_dicts/${id}`, options);
+  }
+
+  /**
+   * Update the name and/or items of an existing pronunciation dictionary. Uses
+   * optimistic locking — if the dictionary was modified concurrently, the request
+   * returns 409 Conflict.
+   *
+   * @example
+   * ```ts
+   * const pronunciationDictResponse =
+   *   await client.pronunciationDicts.update(
+   *     'c215a3e1-be41-4701-97e8-1d3c22f9a5b7',
+   *   );
+   * ```
+   */
+  update(
+    id: string,
+    body: PronunciationDictUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<PronunciationDictResponse> {
+    return this._client.patch(path`/pronunciation_dicts/${id}`, { body, ...options });
   }
 }
 
@@ -174,7 +174,7 @@ export interface PronunciationDictData {
   /**
    * List of pronunciation items (alias or phoneme type).
    */
-  items?: Array<PronunciationDictAliasItem | PronunciationDictPhonemeItem>;
+  items?: Array<PronunciationDictItem>;
 
   /**
    * Human-readable name for the dictionary. Must be unique within the organization.
@@ -197,6 +197,13 @@ export interface PronunciationDictData {
    */
   version?: number;
 }
+
+/**
+ * A single pronunciation dictionary item. Use type 'alias' to replace matched text
+ * with a spoken alias, or type 'phoneme' to specify exact pronunciation using IPA
+ * notation.
+ */
+export type PronunciationDictItem = PronunciationDictAliasItem | PronunciationDictPhonemeItem;
 
 /**
  * A phoneme pronunciation item. When the `text` value is found in input, it is
@@ -228,39 +235,21 @@ export interface PronunciationDictPhonemeItem {
 /**
  * Response containing a single pronunciation dictionary.
  */
-export interface PronunciationDictCreateResponse {
+export interface PronunciationDictResponse {
   /**
    * A pronunciation dictionary record.
    */
   data?: PronunciationDictData;
 }
 
-/**
- * Response containing a single pronunciation dictionary.
- */
-export interface PronunciationDictRetrieveResponse {
-  /**
-   * A pronunciation dictionary record.
-   */
-  data?: PronunciationDictData;
-}
-
-/**
- * Response containing a single pronunciation dictionary.
- */
-export interface PronunciationDictUpdateResponse {
-  /**
-   * A pronunciation dictionary record.
-   */
-  data?: PronunciationDictData;
-}
+export interface PronunciationDictListParams extends DefaultFlatPaginationParams {}
 
 export interface PronunciationDictCreateParams {
   /**
    * List of pronunciation items (alias or phoneme type). At least one item is
    * required.
    */
-  items: Array<PronunciationDictAliasItem | PronunciationDictPhonemeItem>;
+  items: Array<PronunciationDictItem>;
 
   /**
    * Human-readable name. Must be unique within the organization.
@@ -272,7 +261,7 @@ export interface PronunciationDictUpdateParams {
   /**
    * Updated list of pronunciation items (alias or phoneme type).
    */
-  items?: Array<PronunciationDictAliasItem | PronunciationDictPhonemeItem>;
+  items?: Array<PronunciationDictItem>;
 
   /**
    * Updated dictionary name.
@@ -280,19 +269,16 @@ export interface PronunciationDictUpdateParams {
   name?: string;
 }
 
-export interface PronunciationDictListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace PronunciationDicts {
   export {
     type PronunciationDictAliasItem as PronunciationDictAliasItem,
     type PronunciationDictData as PronunciationDictData,
+    type PronunciationDictItem as PronunciationDictItem,
     type PronunciationDictPhonemeItem as PronunciationDictPhonemeItem,
-    type PronunciationDictCreateResponse as PronunciationDictCreateResponse,
-    type PronunciationDictRetrieveResponse as PronunciationDictRetrieveResponse,
-    type PronunciationDictUpdateResponse as PronunciationDictUpdateResponse,
+    type PronunciationDictResponse as PronunciationDictResponse,
     type PronunciationDictDataDefaultFlatPagination as PronunciationDictDataDefaultFlatPagination,
+    type PronunciationDictListParams as PronunciationDictListParams,
     type PronunciationDictCreateParams as PronunciationDictCreateParams,
     type PronunciationDictUpdateParams as PronunciationDictUpdateParams,
-    type PronunciationDictListParams as PronunciationDictListParams,
   };
 }

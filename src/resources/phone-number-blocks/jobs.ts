@@ -12,20 +12,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Jobs extends APIResource {
   /**
-   * Retrieves a phone number blocks job
-   *
-   * @example
-   * ```ts
-   * const job = await client.phoneNumberBlocks.jobs.retrieve(
-   *   'id',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<JobRetrieveResponse> {
-    return this._client.get(path`/phone_number_blocks/jobs/${id}`, options);
-  }
-
-  /**
    * Lists the phone number blocks jobs
    *
    * @example
@@ -69,6 +55,20 @@ export class Jobs extends APIResource {
     options?: RequestOptions,
   ): APIPromise<JobDeletePhoneNumberBlockResponse> {
     return this._client.post('/phone_number_blocks/jobs/delete_phone_number_block', { body, ...options });
+  }
+
+  /**
+   * Retrieves a phone number blocks job
+   *
+   * @example
+   * ```ts
+   * const job = await client.phoneNumberBlocks.jobs.retrieve(
+   *   'id',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<JobRetrieveResponse> {
+    return this._client.get(path`/phone_number_blocks/jobs/${id}`, options);
   }
 }
 

@@ -2,17 +2,24 @@
 
 export {
   Assistants,
+  type ArithmeticExpression,
   type Assistant,
   type AssistantIntegration,
   type AssistantMcpServer,
   type AssistantTool,
   type AssistantsList,
   type AudioVisualizerConfig,
+  type AuthenticationMethod,
+  type BooleanOpExpression,
+  type ComparisonExpression,
+  type ConversationFlowReq,
   type EnabledFeatures,
+  type Expression,
   type ExternalLlm,
   type ExternalLlmReq,
   type FallbackConfig,
   type FallbackConfigReq,
+  type FlowEdge,
   type HangupTool,
   type HangupToolParams,
   type ImportMetadata,
@@ -21,11 +28,14 @@ export {
   type InferenceEmbeddingWebhookToolParams,
   type InsightSettings,
   type MessagingSettings,
+  type NodePosition,
   type Observability,
   type ObservabilityReq,
+  type ObservabilityStatus,
   type PostConversationSettings,
   type PostConversationSettingsReq,
   type PrivacySettings,
+  type PromptSyncStatus,
   type RetrievalTool,
   type StartSpeakingPlan,
   type TelephonySettings,
@@ -41,10 +51,10 @@ export {
   type AssistantGetTexmlResponse,
   type AssistantSendSMSResponse,
   type AssistantCreateParams,
+  type AssistantImportsParams,
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
-  type AssistantImportsParams,
   type AssistantSendSMSParams,
 } from './assistants';
 export {
@@ -59,35 +69,30 @@ export {
   type CanaryDeployCreateParams,
   type CanaryDeployUpdateParams,
 } from './canary-deploys';
+export { Instructions, type InstructionEnhanceResponse, type InstructionEnhanceParams } from './instructions';
 export {
   ScheduledEvents,
   type ConversationChannelType,
   type EventStatus,
+  type ScheduledCallSettings,
   type ScheduledEventResponse,
   type ScheduledPhoneCallEventResponse,
   type ScheduledSMSEventResponse,
   type ScheduledEventListResponse,
-  type ScheduledEventCreateParams,
-  type ScheduledEventRetrieveParams,
   type ScheduledEventListParams,
+  type ScheduledEventCreateParams,
   type ScheduledEventDeleteParams,
+  type ScheduledEventRetrieveParams,
   type ScheduledEventListResponsesDefaultFlatPagination,
 } from './scheduled-events';
-export {
-  Tags,
-  type TagListResponse,
-  type TagAddResponse,
-  type TagRemoveResponse,
-  type TagAddParams,
-  type TagRemoveParams,
-} from './tags';
+export { Tags, type TagsResponse, type TagAddParams, type TagRemoveParams } from './tags';
 export {
   Tests,
   type AssistantTest,
   type TelnyxConversationChannel,
+  type TestListParams,
   type TestCreateParams,
   type TestUpdateParams,
-  type TestListParams,
   type AssistantTestsDefaultFlatPagination,
 } from './tests/index';
 export {
@@ -95,15 +100,15 @@ export {
   type ToolAddResponse,
   type ToolRemoveResponse,
   type ToolTestResponse,
-  type ToolAddParams,
-  type ToolRemoveParams,
   type ToolTestParams,
+  type ToolRemoveParams,
+  type ToolAddParams,
 } from './tools';
 export {
   Versions,
   type UpdateAssistant,
+  type VersionDeleteParams,
   type VersionRetrieveParams,
   type VersionUpdateParams,
-  type VersionDeleteParams,
   type VersionPromoteParams,
 } from './versions';

@@ -8,6 +8,7 @@ import {
   DefaultGatewayCreateParams,
   DefaultGatewayCreateResponse,
   DefaultGatewayDeleteResponse,
+  DefaultGatewayResource,
   DefaultGatewayRetrieveResponse,
 } from './default-gateway';
 import { APIPromise } from '../../core/api-promise';
@@ -19,7 +20,27 @@ import { path } from '../../internal/utils/path';
  * Network operations
  */
 export class Networks extends APIResource {
-  defaultGateway: DefaultGatewayAPI.DefaultGateway = new DefaultGatewayAPI.DefaultGateway(this._client);
+  defaultGateway: DefaultGatewayAPI.DefaultGatewayResource = new DefaultGatewayAPI.DefaultGatewayResource(
+    this._client,
+  );
+
+  /**
+   * List all Networks.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const network of client.networks.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: NetworkListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NetworksDefaultFlatPagination, Network> {
+    return this._client.getAPIList('/networks', DefaultFlatPagination<Network>, { query, ...options });
+  }
 
   /**
    * Create a new Network.
@@ -27,12 +48,27 @@ export class Networks extends APIResource {
    * @example
    * ```ts
    * const network = await client.networks.create({
-   *   name: 'test network',
+   *   network_create: {},
    * });
    * ```
    */
-  create(body: NetworkCreateParams, options?: RequestOptions): APIPromise<NetworkCreateResponse> {
-    return this._client.post('/networks', { body, ...options });
+  create(params: NetworkCreateParams, options?: RequestOptions): APIPromise<NetworkCreateResponse> {
+    const { network_create } = params;
+    return this._client.post('/networks', { body: network_create, ...options });
+  }
+
+  /**
+   * Delete a Network.
+   *
+   * @example
+   * ```ts
+   * const network = await client.networks.delete(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<NetworkDeleteResponse> {
+    return this._client.delete(path`/networks/${id}`, options);
   }
 
   /**
@@ -56,51 +92,17 @@ export class Networks extends APIResource {
    * ```ts
    * const network = await client.networks.update(
    *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   { name: 'test network' },
+   *   { network_create: {} },
    * );
    * ```
    */
   update(
     networkID: string,
-    body: NetworkUpdateParams,
+    params: NetworkUpdateParams,
     options?: RequestOptions,
   ): APIPromise<NetworkUpdateResponse> {
-    return this._client.patch(path`/networks/${networkID}`, { body, ...options });
-  }
-
-  /**
-   * List all Networks.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const networkListResponse of client.networks.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: NetworkListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NetworkListResponsesDefaultFlatPagination, NetworkListResponse> {
-    return this._client.getAPIList('/networks', DefaultFlatPagination<NetworkListResponse>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete a Network.
-   *
-   * @example
-   * ```ts
-   * const network = await client.networks.delete(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<NetworkDeleteResponse> {
-    return this._client.delete(path`/networks/${id}`, options);
+    const { network_create } = params;
+    return this._client.patch(path`/networks/${networkID}`, { body: network_create, ...options });
   }
 
   /**
@@ -129,7 +131,7 @@ export class Networks extends APIResource {
   }
 }
 
-export type NetworkListResponsesDefaultFlatPagination = DefaultFlatPagination<NetworkListResponse>;
+export type NetworksDefaultFlatPagination = DefaultFlatPagination<Network>;
 
 export type NetworkListInterfacesResponsesDefaultFlatPagination =
   DefaultFlatPagination<NetworkListInterfacesResponse>;
@@ -139,70 +141,29 @@ export type NetworkListInterfacesResponsesDefaultFlatPagination =
  */
 export type InterfaceStatus = 'created' | 'provisioning' | 'provisioned' | 'deleting';
 
-export interface NetworkCreate extends GlobalIPAssignmentsAPI.Record {
-  /**
-   * A user specified name for the network.
-   */
-  name: string;
-}
-
-export interface NetworkCreateResponse {
-  data?: NetworkCreateResponse.Data;
-}
-
-export namespace NetworkCreateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified name for the network.
-     */
-    name?: string;
-  }
-}
-
-export interface NetworkRetrieveResponse {
-  data?: NetworkRetrieveResponse.Data;
-}
-
-export namespace NetworkRetrieveResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified name for the network.
-     */
-    name?: string;
-  }
-}
-
-export interface NetworkUpdateResponse {
-  data?: NetworkUpdateResponse.Data;
-}
-
-export namespace NetworkUpdateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified name for the network.
-     */
-    name?: string;
-  }
-}
-
-export interface NetworkListResponse extends GlobalIPAssignmentsAPI.Record {
+export interface Network extends GlobalIPAssignmentsAPI.Record {
   /**
    * A user specified name for the network.
    */
   name?: string;
 }
 
-export interface NetworkDeleteResponse {
-  data?: NetworkDeleteResponse.Data;
+export interface NetworkCreate extends Network {}
+
+export interface NetworkCreateResponse {
+  data?: Network;
 }
 
-export namespace NetworkDeleteResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified name for the network.
-     */
-    name?: string;
-  }
+export interface NetworkRetrieveResponse {
+  data?: Network;
+}
+
+export interface NetworkUpdateResponse {
+  data?: Network;
+}
+
+export interface NetworkDeleteResponse {
+  data?: Network;
 }
 
 export interface NetworkListInterfacesResponse {
@@ -273,20 +234,6 @@ export namespace NetworkListInterfacesResponse {
   }
 }
 
-export interface NetworkCreateParams {
-  /**
-   * A user specified name for the network.
-   */
-  name: string;
-}
-
-export interface NetworkUpdateParams {
-  /**
-   * A user specified name for the network.
-   */
-  name: string;
-}
-
 export interface NetworkListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[name]
@@ -304,6 +251,14 @@ export namespace NetworkListParams {
      */
     name?: string;
   }
+}
+
+export interface NetworkCreateParams {
+  network_create: NetworkCreate;
+}
+
+export interface NetworkUpdateParams {
+  network_create: NetworkCreate;
 }
 
 export interface NetworkListInterfacesParams extends DefaultFlatPaginationParams {
@@ -332,28 +287,29 @@ export namespace NetworkListInterfacesParams {
   }
 }
 
-Networks.DefaultGateway = DefaultGateway;
+Networks.DefaultGatewayResource = DefaultGatewayResource;
 
 export declare namespace Networks {
   export {
     type InterfaceStatus as InterfaceStatus,
+    type Network as Network,
     type NetworkCreate as NetworkCreate,
     type NetworkCreateResponse as NetworkCreateResponse,
     type NetworkRetrieveResponse as NetworkRetrieveResponse,
     type NetworkUpdateResponse as NetworkUpdateResponse,
-    type NetworkListResponse as NetworkListResponse,
     type NetworkDeleteResponse as NetworkDeleteResponse,
     type NetworkListInterfacesResponse as NetworkListInterfacesResponse,
-    type NetworkListResponsesDefaultFlatPagination as NetworkListResponsesDefaultFlatPagination,
+    type NetworksDefaultFlatPagination as NetworksDefaultFlatPagination,
     type NetworkListInterfacesResponsesDefaultFlatPagination as NetworkListInterfacesResponsesDefaultFlatPagination,
+    type NetworkListParams as NetworkListParams,
     type NetworkCreateParams as NetworkCreateParams,
     type NetworkUpdateParams as NetworkUpdateParams,
-    type NetworkListParams as NetworkListParams,
     type NetworkListInterfacesParams as NetworkListInterfacesParams,
   };
 
   export {
-    DefaultGateway as DefaultGateway,
+    DefaultGatewayResource as DefaultGatewayResource,
+    type DefaultGateway as DefaultGateway,
     type DefaultGatewayCreateResponse as DefaultGatewayCreateResponse,
     type DefaultGatewayRetrieveResponse as DefaultGatewayRetrieveResponse,
     type DefaultGatewayDeleteResponse as DefaultGatewayDeleteResponse,

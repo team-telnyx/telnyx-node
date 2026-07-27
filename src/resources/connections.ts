@@ -9,24 +9,13 @@ import { path } from '../internal/utils/path';
 
 export class Connections extends APIResource {
   /**
-   * Retrieves the high-level details of an existing connection. To retrieve specific
-   * authentication information, use the endpoint for the specific connection type.
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<ConnectionRetrieveResponse> {
-    return this._client.get(path`/connections/${id}`, options);
-  }
-
-  /**
    * Returns a list of your connections irrespective of type.
    */
   list(
     query: ConnectionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ConnectionListResponsesDefaultFlatPagination, ConnectionListResponse> {
-    return this._client.getAPIList('/connections', DefaultFlatPagination<ConnectionListResponse>, {
-      query,
-      ...options,
-    });
+  ): PagePromise<ConnectionsDefaultFlatPagination, Connection> {
+    return this._client.getAPIList('/connections', DefaultFlatPagination<Connection>, { query, ...options });
   }
 
   /**
@@ -45,82 +34,22 @@ export class Connections extends APIResource {
       { query, ...options },
     );
   }
+
+  /**
+   * Retrieves the high-level details of an existing connection. To retrieve specific
+   * authentication information, use the endpoint for the specific connection type.
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<ConnectionRetrieveResponse> {
+    return this._client.get(path`/connections/${id}`, options);
+  }
 }
 
-export type ConnectionListResponsesDefaultFlatPagination = DefaultFlatPagination<ConnectionListResponse>;
+export type ConnectionsDefaultFlatPagination = DefaultFlatPagination<Connection>;
 
 export type ConnectionListActiveCallsResponsesDefaultFlatPagination =
   DefaultFlatPagination<ConnectionListActiveCallsResponse>;
 
-export interface ConnectionRetrieveResponse {
-  data?: ConnectionRetrieveResponse.Data;
-}
-
-export namespace ConnectionRetrieveResponse {
-  export interface Data {
-    /**
-     * Identifies the specific resource.
-     */
-    id?: string;
-
-    /**
-     * Defaults to true
-     */
-    active?: boolean;
-
-    /**
-     * `Latency` directs Telnyx to route media through the site with the lowest
-     * round-trip time to the user's connection. Telnyx calculates this time using ICMP
-     * ping messages. This can be disabled by specifying a site to handle all media.
-     */
-    anchorsite_override?: CredentialConnectionsAPI.AnchorsiteOverride;
-
-    connection_name?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Identifies the associated outbound voice profile.
-     */
-    outbound_voice_profile_id?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * Tags associated with the connection.
-     */
-    tags?: Array<string>;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     */
-    updated_at?: string;
-
-    /**
-     * Determines which webhook format will be used, Telnyx API v1 or v2.
-     */
-    webhook_api_version?: '1' | '2';
-
-    /**
-     * The failover URL where webhooks related to this connection will be sent if
-     * sending to the primary URL fails.
-     */
-    webhook_event_failover_url?: string | null;
-
-    /**
-     * The URL where webhooks related to this connection will be sent.
-     */
-    webhook_event_url?: string | null;
-  }
-}
-
-export interface ConnectionListResponse {
+export interface Connection {
   /**
    * Identifies the specific resource.
    */
@@ -180,6 +109,10 @@ export interface ConnectionListResponse {
    * The URL where webhooks related to this connection will be sent.
    */
   webhook_event_url?: string | null;
+}
+
+export interface ConnectionRetrieveResponse {
+  data?: Connection;
 }
 
 export interface ConnectionListActiveCallsResponse {
@@ -283,10 +216,10 @@ export interface ConnectionListActiveCallsParams extends DefaultFlatPaginationPa
 
 export declare namespace Connections {
   export {
+    type Connection as Connection,
     type ConnectionRetrieveResponse as ConnectionRetrieveResponse,
-    type ConnectionListResponse as ConnectionListResponse,
     type ConnectionListActiveCallsResponse as ConnectionListActiveCallsResponse,
-    type ConnectionListResponsesDefaultFlatPagination as ConnectionListResponsesDefaultFlatPagination,
+    type ConnectionsDefaultFlatPagination as ConnectionsDefaultFlatPagination,
     type ConnectionListActiveCallsResponsesDefaultFlatPagination as ConnectionListActiveCallsResponsesDefaultFlatPagination,
     type ConnectionListParams as ConnectionListParams,
     type ConnectionListActiveCallsParams as ConnectionListActiveCallsParams,

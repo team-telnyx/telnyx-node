@@ -9,6 +9,39 @@ const client = new Telnyx({
 
 describe('resource versions', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.ai.assistants.versions.list('assistant_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: only required params', async () => {
+    const responsePromise = client.ai.assistants.versions.delete('version_id', {
+      assistant_id: 'assistant_id',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: required and optional params', async () => {
+    const response = await client.ai.assistants.versions.delete('version_id', {
+      assistant_id: 'assistant_id',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.ai.assistants.versions.retrieve('version_id', {
       assistant_id: 'assistant_id',
@@ -48,6 +81,147 @@ describe('resource versions', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.ai.assistants.versions.update('version_id', {
       assistant_id: 'assistant_id',
+      conversation_flow: {
+        nodes: [
+          {
+            id: 'n_intake',
+            instructions: "Greet the caller and ask what they're calling about.",
+            external_llm: {
+              base_url: 'base_url',
+              model: 'model',
+              authentication_method: 'token',
+              certificate_ref: 'certificate_ref',
+              forward_metadata: true,
+              llm_api_key_ref: 'llm_api_key_ref',
+              token_retrieval_url: 'token_retrieval_url',
+            },
+            instructions_mode: 'replace',
+            llm_api_key_ref: 'my-key-ref',
+            model: 'moonshotai/Kimi-K2.6',
+            name: 'Intake',
+            position: { x: 120, y: 80 },
+            shared_tool_ids: ['tool-faq-kb'],
+            tools_mode: 'replace',
+            transcription: {
+              api_key_ref: 'api_key_ref',
+              language: 'language',
+              model: 'deepgram/flux',
+              region: 'region',
+              settings: {
+                eager_eot_threshold: 0.3,
+                enable_endpoint_detection: true,
+                end_of_turn_confidence_threshold: 0,
+                eot_threshold: 0.5,
+                eot_timeout_ms: 500,
+                interim_results: true,
+                keyterm: 'keyterm',
+                max_endpoint_delay_ms: 500,
+                max_turn_silence: 100,
+                min_turn_silence: 100,
+                numerals: true,
+                smart_format: true,
+              },
+            },
+            type: 'prompt',
+            voice_settings: {
+              voice: 'voice',
+              api_key_ref: 'api_key_ref',
+              background_audio: {
+                type: 'predefined_media',
+                value: 'silence',
+                volume: 0.1,
+              },
+              expressive_mode: true,
+              language_boost: 'auto',
+              similarity_boost: 0,
+              speed: 0,
+              style: 0,
+              temperature: 0,
+              use_speaker_boost: true,
+              voice_speed: 0,
+            },
+          },
+          {
+            id: 'n_billing',
+            instructions:
+              "Focus on billing questions. Look up the caller's latest invoice with the billing tool before answering.",
+            external_llm: {
+              base_url: 'base_url',
+              model: 'model',
+              authentication_method: 'token',
+              certificate_ref: 'certificate_ref',
+              forward_metadata: true,
+              llm_api_key_ref: 'llm_api_key_ref',
+              token_retrieval_url: 'token_retrieval_url',
+            },
+            instructions_mode: 'append',
+            llm_api_key_ref: 'my-key-ref',
+            model: 'moonshotai/Kimi-K2.6',
+            name: 'Billing',
+            position: { x: 420, y: 80 },
+            shared_tool_ids: ['tool-billing-lookup'],
+            tools_mode: 'append',
+            transcription: {
+              api_key_ref: 'api_key_ref',
+              language: 'language',
+              model: 'deepgram/flux',
+              region: 'region',
+              settings: {
+                eager_eot_threshold: 0.3,
+                enable_endpoint_detection: true,
+                end_of_turn_confidence_threshold: 0,
+                eot_threshold: 0.5,
+                eot_timeout_ms: 500,
+                interim_results: true,
+                keyterm: 'keyterm',
+                max_endpoint_delay_ms: 500,
+                max_turn_silence: 100,
+                min_turn_silence: 100,
+                numerals: true,
+                smart_format: true,
+              },
+            },
+            type: 'prompt',
+            voice_settings: {
+              voice: 'voice',
+              api_key_ref: 'api_key_ref',
+              background_audio: {
+                type: 'predefined_media',
+                value: 'silence',
+                volume: 0.1,
+              },
+              expressive_mode: true,
+              language_boost: 'auto',
+              similarity_boost: 0,
+              speed: 0,
+              style: 0,
+              temperature: 0,
+              use_speaker_boost: true,
+              voice_speed: 0,
+            },
+          },
+        ],
+        start_node_id: 'n_intake',
+        edges: [
+          {
+            id: 'e_intake_to_billing',
+            condition: { prompt: 'The caller is asking about a bill or charge.', type: 'llm' },
+            start_node_id: 'n_intake',
+            target: { node_id: 'n_billing', type: 'node' },
+          },
+          {
+            id: 'e_intake_to_escalation_assistant',
+            condition: { prompt: 'The caller has explicitly asked for a human.', type: 'llm' },
+            start_node_id: 'n_intake',
+            target: {
+              assistant_id: 'assistant-human-handoff',
+              type: 'assistant',
+              position: { x: 600, y: 80 },
+              voice_mode: 'distinct',
+            },
+          },
+        ],
+      },
       description: 'description',
       dynamic_variables: { foo: 'bar' },
       dynamic_variables_webhook_timeout_ms: 1,
@@ -121,6 +295,7 @@ describe('resource versions', () => {
           channels: 'single',
           enabled: true,
           format: 'wav',
+          stop_on_conversation_end: true,
         },
         supports_unauthenticated_web_calls: true,
         time_limit_secs: 30,
@@ -146,6 +321,7 @@ describe('resource versions', () => {
             name: 'name',
             url: 'https://example.com/api/v1/function',
             async: true,
+            async_timeout_ms: 1,
             body_parameters: {
               properties: { age: 'bar', location: 'bar' },
               required: ['age', 'location'],
@@ -175,10 +351,13 @@ describe('resource versions', () => {
         region: 'region',
         settings: {
           eager_eot_threshold: 0.3,
+          enable_endpoint_detection: true,
           end_of_turn_confidence_threshold: 0,
           eot_threshold: 0.5,
           eot_timeout_ms: 500,
+          interim_results: true,
           keyterm: 'keyterm',
+          max_endpoint_delay_ms: 500,
           max_turn_silence: 100,
           min_turn_silence: 100,
           numerals: true,
@@ -189,7 +368,11 @@ describe('resource versions', () => {
       voice_settings: {
         voice: 'voice',
         api_key_ref: 'api_key_ref',
-        background_audio: { type: 'predefined_media', value: 'silence' },
+        background_audio: {
+          type: 'predefined_media',
+          value: 'silence',
+          volume: 0.1,
+        },
         expressive_mode: true,
         language_boost: 'auto',
         similarity_boost: 0,
@@ -212,39 +395,6 @@ describe('resource versions', () => {
         theme: 'light',
         view_history_url: 'view_history_url',
       },
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.ai.assistants.versions.list('assistant_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete: only required params', async () => {
-    const responsePromise = client.ai.assistants.versions.delete('version_id', {
-      assistant_id: 'assistant_id',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete: required and optional params', async () => {
-    const response = await client.ai.assistants.versions.delete('version_id', {
-      assistant_id: 'assistant_id',
     });
   });
 

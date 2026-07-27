@@ -14,18 +14,18 @@ export {
   type RoomCreateResponse,
   type RoomRetrieveResponse,
   type RoomUpdateResponse,
+  type RoomListParams,
   type RoomCreateParams,
   type RoomRetrieveParams,
   type RoomUpdateParams,
-  type RoomListParams,
   type RoomSessionsDefaultFlatPagination,
   type RoomsDefaultFlatPagination,
 } from './rooms';
 export {
   Sessions,
   type SessionRetrieveResponse,
-  type SessionRetrieveParams,
   type SessionList0Params,
   type SessionList1Params,
+  type SessionRetrieveParams,
   type SessionRetrieveParticipantsParams,
 } from './sessions/index';

@@ -4,7 +4,6 @@ import { APIResource } from '../../core/resource';
 import * as AccountsAPI from './accounts/accounts';
 import {
   AccountRetrieveRecordingsJsonParams,
-  AccountRetrieveRecordingsJsonResponse,
   AccountRetrieveTranscriptionsJsonParams,
   AccountRetrieveTranscriptionsJsonResponse,
   Accounts,
@@ -22,10 +21,40 @@ export class Texml extends APIResource {
   accounts: AccountsAPI.Accounts = new AccountsAPI.Accounts(this._client);
 
   /**
+   * Create a TeXML secret which can be later used as a Dynamic Parameter for TeXML
+   * when using Mustache Templates in your TeXML. In your TeXML you will be able to
+   * use your secret name, and this name will be replaced by the actual secret value
+   * when processing the TeXML on Telnyx side. The secrets are not visible in any
+   * logs.
+   *
+   * @example
+   * ```ts
+   * const response = await client.texml.secrets({
+   *   name: 'My Secret Name',
+   *   value: 'My Secret Value',
+   * });
+   * ```
+   */
+  secrets(body: TexmlSecretsParams, options?: RequestOptions): APIPromise<TexmlSecretsResponse> {
+    return this._client.post('/texml/secrets', { body, ...options });
+  }
+
+  /**
    * Initiate an outbound AI call with warm-up support. Validates parameters, builds
    * an internal TeXML with an AI Assistant configuration, encodes instructions into
    * client state, and calls the dial API. The Twiml, Texml, and Url parameters are
    * not allowed and will result in a 422 error.
+   *
+   * **Expected callback events:**
+   *
+   * Status callbacks: `initiated`, `ringing`, `answered`, one terminal status
+   * (`completed`, `no-answer`, `busy`, `canceled`, or `failed`), then `analyzed`
+   * after post-call processing completes.
+   *
+   * Conversation callbacks: `conversation_created` and `conversation_ended`.
+   *
+   * Recording, AMD, transcription, and deepfake detection callbacks are only sent
+   * when those features are enabled.
    *
    * @example
    * ```ts
@@ -50,25 +79,6 @@ export class Texml extends APIResource {
       ...options,
     });
   }
-
-  /**
-   * Create a TeXML secret which can be later used as a Dynamic Parameter for TeXML
-   * when using Mustache Templates in your TeXML. In your TeXML you will be able to
-   * use your secret name, and this name will be replaced by the actual secret value
-   * when processing the TeXML on Telnyx side. The secrets are not visible in any
-   * logs.
-   *
-   * @example
-   * ```ts
-   * const response = await client.texml.secrets({
-   *   name: 'My Secret Name',
-   *   value: 'My Secret Value',
-   * });
-   * ```
-   */
-  secrets(body: TexmlSecretsParams, options?: RequestOptions): APIPromise<TexmlSecretsResponse> {
-    return this._client.post('/texml/secrets', { body, ...options });
-  }
 }
 
 export interface TexmlInitiateAICallResponse {
@@ -91,6 +101,19 @@ export namespace TexmlSecretsResponse {
 
     value?: 'REDACTED';
   }
+}
+
+export interface TexmlSecretsParams {
+  /**
+   * Name used as a reference for the secret, if the name already exists within the
+   * account its value will be replaced
+   */
+  name: string;
+
+  /**
+   * Secret value which will be used when rendering the TeXML template
+   */
+  value: string;
 }
 
 export interface TexmlInitiateAICallParams {
@@ -146,17 +169,19 @@ export interface TexmlInitiateAICallParams {
   CallerId?: string;
 
   /**
-   * URL destination for Telnyx to send conversation callback events to.
+   * URL destination for Telnyx to send AI conversation callback events for this
+   * call. Events include `conversation_created` and `conversation_ended`.
    */
   ConversationCallback?: string;
 
   /**
-   * HTTP request type used for `ConversationCallback`.
+   * HTTP request type used for `ConversationCallback` and `ConversationCallbacks`.
    */
   ConversationCallbackMethod?: 'GET' | 'POST';
 
   /**
-   * An array of URL destinations for conversation callback events.
+   * Array of URL destinations for AI conversation callback events for this call.
+   * Events include `conversation_created` and `conversation_ended`.
    */
   ConversationCallbacks?: Array<string>;
 
@@ -167,14 +192,22 @@ export interface TexmlInitiateAICallParams {
   CustomHeaders?: Array<TexmlInitiateAICallParams.CustomHeader>;
 
   /**
-   * Allows you to choose between Premium and Standard detections.
+   * Allows you to choose between Regular, Premium, and PremiumCallScreening
+   * detections. See
+   * https://developers.telnyx.com/docs/voice/programmable-voice/answering-machine-detection
    */
-  DetectionMode?: 'Premium' | 'Regular';
+  DetectionMode?: 'Premium' | 'Regular' | 'PremiumCallScreening';
 
   /**
    * Enables Answering Machine Detection.
    */
   MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+  /**
+   * Silence duration threshold after a call screening prompt before ending prompt
+   * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
+   */
+  MachineDetectionPromptEndTimeout?: number;
 
   /**
    * If initial silence duration is greater than this value, consider it a machine.
@@ -269,25 +302,32 @@ export interface TexmlInitiateAICallParams {
   SipRegion?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
 
   /**
-   * URL destination for Telnyx to send status callback events to for the call.
+   * URL destination for Telnyx to send status callback events for this AI call. When
+   * provided, this per-call value overrides the status callback URL configured on
+   * the TeXML application/connection.
    */
   StatusCallback?: string;
 
   /**
-   * The call events for which Telnyx should send a webhook. Multiple events can be
-   * defined when separated by a space. Valid values: initiated, ringing, answered,
-   * completed.
+   * The status callback events for which Telnyx should send a webhook for this AI
+   * call. Multiple events can be defined when separated by a space. Valid values:
+   * initiated, ringing, answered, completed, no-answer, busy, canceled, failed,
+   * analyzed. When provided, this per-call value overrides the status callback
+   * events configured on the TeXML application/connection.
    */
   StatusCallbackEvent?: string;
 
   /**
-   * HTTP request type used for `StatusCallback`.
+   * HTTP request type used for `StatusCallback` and `StatusCallbacks` for this AI
+   * call. When provided, this per-call value overrides the status callback method
+   * configured on the TeXML application/connection.
    */
   StatusCallbackMethod?: 'GET' | 'POST';
 
   /**
-   * An array of URL destinations for Telnyx to send status callback events to for
-   * the call.
+   * Array of URL destinations for Telnyx to send status callback events for this AI
+   * call. When provided, these per-call values override the status callback URL
+   * configured on the TeXML application/connection.
    */
   StatusCallbacks?: Array<string>;
 
@@ -325,34 +365,20 @@ export namespace TexmlInitiateAICallParams {
   }
 }
 
-export interface TexmlSecretsParams {
-  /**
-   * Name used as a reference for the secret, if the name already exists within the
-   * account its value will be replaced
-   */
-  name: string;
-
-  /**
-   * Secret value which will be used when rendering the TeXML template
-   */
-  value: string;
-}
-
 Texml.Accounts = Accounts;
 
 export declare namespace Texml {
   export {
     type TexmlInitiateAICallResponse as TexmlInitiateAICallResponse,
     type TexmlSecretsResponse as TexmlSecretsResponse,
-    type TexmlInitiateAICallParams as TexmlInitiateAICallParams,
     type TexmlSecretsParams as TexmlSecretsParams,
+    type TexmlInitiateAICallParams as TexmlInitiateAICallParams,
   };
 
   export {
     Accounts as Accounts,
     type TexmlGetCallRecordingResponseBody as TexmlGetCallRecordingResponseBody,
     type TexmlRecordingSubresourcesUris as TexmlRecordingSubresourcesUris,
-    type AccountRetrieveRecordingsJsonResponse as AccountRetrieveRecordingsJsonResponse,
     type AccountRetrieveTranscriptionsJsonResponse as AccountRetrieveTranscriptionsJsonResponse,
     type AccountRetrieveRecordingsJsonParams as AccountRetrieveRecordingsJsonParams,
     type AccountRetrieveTranscriptionsJsonParams as AccountRetrieveTranscriptionsJsonParams,

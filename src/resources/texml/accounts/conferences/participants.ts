@@ -11,86 +11,26 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Participants extends APIResource {
   /**
-   * Gets conference participant resource
+   * Lists conference participants
    *
    * @example
    * ```ts
-   * const participant =
-   *   await client.texml.accounts.conferences.participants.retrieve(
-   *     'call_sid_or_participant_label',
-   *     {
-   *       account_sid: 'account_sid',
-   *       conference_sid: 'conference_sid',
-   *     },
+   * const response =
+   *   await client.texml.accounts.conferences.participants.retrieveParticipants(
+   *     'conference_sid',
+   *     { account_sid: 'account_sid' },
    *   );
    * ```
    */
-  retrieve(
-    callSidOrParticipantLabel: string,
-    params: ParticipantRetrieveParams,
+  retrieveParticipants(
+    conferenceSid: string,
+    params: ParticipantRetrieveParticipantsParams,
     options?: RequestOptions,
-  ): APIPromise<ParticipantRetrieveResponse> {
-    const { account_sid, conference_sid } = params;
+  ): APIPromise<ParticipantRetrieveParticipantsResponse> {
+    const { account_sid } = params;
     return this._client.get(
-      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
+      path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`,
       options,
-    );
-  }
-
-  /**
-   * Updates a conference participant
-   *
-   * @example
-   * ```ts
-   * const participant =
-   *   await client.texml.accounts.conferences.participants.update(
-   *     'call_sid_or_participant_label',
-   *     {
-   *       account_sid: 'account_sid',
-   *       conference_sid: 'conference_sid',
-   *     },
-   *   );
-   * ```
-   */
-  update(
-    callSidOrParticipantLabel: string,
-    params: ParticipantUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<ParticipantUpdateResponse> {
-    const { account_sid, conference_sid, ...body } = params;
-    return this._client.post(
-      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
-      {
-        body,
-        ...options,
-        headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-      },
-    );
-  }
-
-  /**
-   * Deletes a conference participant
-   *
-   * @example
-   * ```ts
-   * await client.texml.accounts.conferences.participants.delete(
-   *   'call_sid_or_participant_label',
-   *   {
-   *     account_sid: 'account_sid',
-   *     conference_sid: 'conference_sid',
-   *   },
-   * );
-   * ```
-   */
-  delete(
-    callSidOrParticipantLabel: string,
-    params: ParticipantDeleteParams,
-    options?: RequestOptions,
-  ): APIPromise<void> {
-    const { account_sid, conference_sid } = params;
-    return this._client.delete(
-      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
-      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
     );
   }
 
@@ -120,108 +60,91 @@ export class Participants extends APIResource {
   }
 
   /**
-   * Lists conference participants
+   * Deletes a conference participant
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.texml.accounts.conferences.participants.retrieveParticipants(
-   *     'conference_sid',
-   *     { account_sid: 'account_sid' },
+   * await client.texml.accounts.conferences.participants.delete(
+   *   'call_sid_or_participant_label',
+   *   {
+   *     account_sid: 'account_sid',
+   *     conference_sid: 'conference_sid',
+   *   },
+   * );
+   * ```
+   */
+  delete(
+    callSidOrParticipantLabel: string,
+    params: ParticipantDeleteParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { account_sid, conference_sid } = params;
+    return this._client.delete(
+      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
+      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
+    );
+  }
+
+  /**
+   * Gets conference participant resource
+   *
+   * @example
+   * ```ts
+   * const participantResource =
+   *   await client.texml.accounts.conferences.participants.retrieve(
+   *     'call_sid_or_participant_label',
+   *     {
+   *       account_sid: 'account_sid',
+   *       conference_sid: 'conference_sid',
+   *     },
    *   );
    * ```
    */
-  retrieveParticipants(
-    conferenceSid: string,
-    params: ParticipantRetrieveParticipantsParams,
+  retrieve(
+    callSidOrParticipantLabel: string,
+    params: ParticipantRetrieveParams,
     options?: RequestOptions,
-  ): APIPromise<ParticipantRetrieveParticipantsResponse> {
-    const { account_sid } = params;
+  ): APIPromise<ParticipantResource> {
+    const { account_sid, conference_sid } = params;
     return this._client.get(
-      path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Participants`,
+      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
       options,
+    );
+  }
+
+  /**
+   * Updates a conference participant
+   *
+   * @example
+   * ```ts
+   * const participantResource =
+   *   await client.texml.accounts.conferences.participants.update(
+   *     'call_sid_or_participant_label',
+   *     {
+   *       account_sid: 'account_sid',
+   *       conference_sid: 'conference_sid',
+   *     },
+   *   );
+   * ```
+   */
+  update(
+    callSidOrParticipantLabel: string,
+    params: ParticipantUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ParticipantResource> {
+    const { account_sid, conference_sid, ...body } = params;
+    return this._client.post(
+      path`/texml/Accounts/${account_sid}/Conferences/${conference_sid}/Participants/${callSidOrParticipantLabel}`,
+      {
+        body,
+        ...options,
+        headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+      },
     );
   }
 }
 
-export interface ParticipantRetrieveResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The version of the API that was used to make the request.
-   */
-  api_version?: string;
-
-  /**
-   * The identifier of this participant's call.
-   */
-  call_sid?: string;
-
-  /**
-   * The identifier of this participant's call.
-   */
-  call_sid_legacy?: string;
-
-  /**
-   * Whether the participant is coaching another call.
-   */
-  coaching?: boolean;
-
-  /**
-   * The identifier of the coached participant's call.
-   */
-  coaching_call_sid?: string;
-
-  /**
-   * The identifier of the coached participant's call.
-   */
-  coaching_call_sid_legacy?: string;
-
-  /**
-   * The unique identifier for the conference.
-   */
-  conference_sid?: string;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * Whether the conference ends when the participant leaves.
-   */
-  end_conference_on_exit?: boolean;
-
-  /**
-   * Whether the participant is on hold.
-   */
-  hold?: boolean;
-
-  /**
-   * Whether the participant is muted.
-   */
-  muted?: boolean;
-
-  /**
-   * The status of the participant's call in the conference.
-   */
-  status?: 'connecting' | 'connected' | 'completed';
-
-  /**
-   * The relative URI for this participant.
-   */
-  uri?: string;
-}
-
-export interface ParticipantUpdateResponse {
+export interface ParticipantResource {
   /**
    * The id of the account the resource belongs to.
    */
@@ -376,7 +299,7 @@ export interface ParticipantRetrieveParticipantsResponse {
    */
   page_size?: number;
 
-  participants?: Array<ParticipantRetrieveParticipantsResponse.Participant>;
+  participants?: Array<ParticipantResource>;
 
   /**
    * The number of the first element on the page, zero-indexed.
@@ -389,184 +312,11 @@ export interface ParticipantRetrieveParticipantsResponse {
   uri?: string;
 }
 
-export namespace ParticipantRetrieveParticipantsResponse {
-  export interface Participant {
-    /**
-     * The id of the account the resource belongs to.
-     */
-    account_sid?: string;
-
-    /**
-     * The version of the API that was used to make the request.
-     */
-    api_version?: string;
-
-    /**
-     * The identifier of this participant's call.
-     */
-    call_sid?: string;
-
-    /**
-     * The identifier of this participant's call.
-     */
-    call_sid_legacy?: string;
-
-    /**
-     * Whether the participant is coaching another call.
-     */
-    coaching?: boolean;
-
-    /**
-     * The identifier of the coached participant's call.
-     */
-    coaching_call_sid?: string;
-
-    /**
-     * The identifier of the coached participant's call.
-     */
-    coaching_call_sid_legacy?: string;
-
-    /**
-     * The unique identifier for the conference.
-     */
-    conference_sid?: string;
-
-    /**
-     * The timestamp of when the resource was created.
-     */
-    date_created?: string;
-
-    /**
-     * The timestamp of when the resource was last updated.
-     */
-    date_updated?: string;
-
-    /**
-     * Whether the conference ends when the participant leaves.
-     */
-    end_conference_on_exit?: boolean;
-
-    /**
-     * Whether the participant is on hold.
-     */
-    hold?: boolean;
-
-    /**
-     * Whether the participant is muted.
-     */
-    muted?: boolean;
-
-    /**
-     * The status of the participant's call in the conference.
-     */
-    status?: 'connecting' | 'connected' | 'completed';
-
-    /**
-     * The relative URI for this participant.
-     */
-    uri?: string;
-  }
-}
-
-export interface ParticipantRetrieveParams {
+export interface ParticipantRetrieveParticipantsParams {
   /**
    * The id of the account the resource belongs to.
    */
   account_sid: string;
-
-  /**
-   * The ConferenceSid that uniquely identifies a conference.
-   */
-  conference_sid: string;
-}
-
-export interface ParticipantUpdateParams {
-  /**
-   * Path param: The id of the account the resource belongs to.
-   */
-  account_sid: string;
-
-  /**
-   * Path param: The ConferenceSid that uniquely identifies a conference.
-   */
-  conference_sid: string;
-
-  /**
-   * Body param: The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
-   */
-  AnnounceMethod?: 'GET' | 'POST';
-
-  /**
-   * Body param: The URL to call to announce something to the participant. The URL
-   * may return an MP3 fileo a WAV file, or a TwiML document that contains `<Play>`,
-   * `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-   */
-  AnnounceUrl?: string;
-
-  /**
-   * Body param: Whether to play a notification beep to the conference when the
-   * participant exits.
-   */
-  BeepOnExit?: boolean;
-
-  /**
-   * Body param: The SID of the participant who is being coached. The participant
-   * being coached is the only participant who can hear the participant who is
-   * coaching.
-   */
-  CallSidToCoach?: string;
-
-  /**
-   * Body param: Whether the participant is coaching another call. When `true`,
-   * `CallSidToCoach` has to be given.
-   */
-  Coaching?: boolean;
-
-  /**
-   * Body param: Whether to end the conference when the participant leaves.
-   */
-  EndConferenceOnExit?: boolean;
-
-  /**
-   * Body param: Whether the participant should be on hold.
-   */
-  Hold?: boolean;
-
-  /**
-   * Body param: The HTTP method to use when calling the `HoldUrl`.
-   */
-  HoldMethod?: 'GET' | 'POST';
-
-  /**
-   * Body param: The URL to be called using the `HoldMethod` for music that plays
-   * when the participant is on hold. The URL may return an MP3 file, a WAV file, or
-   * a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>`
-   * verbs.
-   */
-  HoldUrl?: string;
-
-  /**
-   * Body param: Whether the participant should be muted.
-   */
-  Muted?: boolean;
-
-  /**
-   * Body param: The URL to call for an audio file to play while the participant is
-   * waiting for the conference to start.
-   */
-  WaitUrl?: string;
-}
-
-export interface ParticipantDeleteParams {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid: string;
-
-  /**
-   * The ConferenceSid that uniquely identifies a conference.
-   */
-  conference_sid: string;
 }
 
 export interface ParticipantParticipantsParams {
@@ -883,23 +633,116 @@ export namespace ParticipantParticipantsParams {
   }
 }
 
-export interface ParticipantRetrieveParticipantsParams {
+export interface ParticipantDeleteParams {
   /**
    * The id of the account the resource belongs to.
    */
   account_sid: string;
+
+  /**
+   * The ConferenceSid that uniquely identifies a conference.
+   */
+  conference_sid: string;
+}
+
+export interface ParticipantRetrieveParams {
+  /**
+   * The id of the account the resource belongs to.
+   */
+  account_sid: string;
+
+  /**
+   * The ConferenceSid that uniquely identifies a conference.
+   */
+  conference_sid: string;
+}
+
+export interface ParticipantUpdateParams {
+  /**
+   * Path param: The id of the account the resource belongs to.
+   */
+  account_sid: string;
+
+  /**
+   * Path param: The ConferenceSid that uniquely identifies a conference.
+   */
+  conference_sid: string;
+
+  /**
+   * Body param: The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
+   */
+  AnnounceMethod?: 'GET' | 'POST';
+
+  /**
+   * Body param: The URL to call to announce something to the participant. The URL
+   * may return an MP3 fileo a WAV file, or a TwiML document that contains `<Play>`,
+   * `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+   */
+  AnnounceUrl?: string;
+
+  /**
+   * Body param: Whether to play a notification beep to the conference when the
+   * participant exits.
+   */
+  BeepOnExit?: boolean;
+
+  /**
+   * Body param: The SID of the participant who is being coached. The participant
+   * being coached is the only participant who can hear the participant who is
+   * coaching.
+   */
+  CallSidToCoach?: string;
+
+  /**
+   * Body param: Whether the participant is coaching another call. When `true`,
+   * `CallSidToCoach` has to be given.
+   */
+  Coaching?: boolean;
+
+  /**
+   * Body param: Whether to end the conference when the participant leaves.
+   */
+  EndConferenceOnExit?: boolean;
+
+  /**
+   * Body param: Whether the participant should be on hold.
+   */
+  Hold?: boolean;
+
+  /**
+   * Body param: The HTTP method to use when calling the `HoldUrl`.
+   */
+  HoldMethod?: 'GET' | 'POST';
+
+  /**
+   * Body param: The URL to be called using the `HoldMethod` for music that plays
+   * when the participant is on hold. The URL may return an MP3 file, a WAV file, or
+   * a TwiML document that contains `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>`
+   * verbs.
+   */
+  HoldUrl?: string;
+
+  /**
+   * Body param: Whether the participant should be muted.
+   */
+  Muted?: boolean;
+
+  /**
+   * Body param: The URL to call for an audio file to play while the participant is
+   * waiting for the conference to start.
+   */
+  WaitUrl?: string;
 }
 
 export declare namespace Participants {
   export {
-    type ParticipantRetrieveResponse as ParticipantRetrieveResponse,
-    type ParticipantUpdateResponse as ParticipantUpdateResponse,
+    type ParticipantResource as ParticipantResource,
     type ParticipantParticipantsResponse as ParticipantParticipantsResponse,
     type ParticipantRetrieveParticipantsResponse as ParticipantRetrieveParticipantsResponse,
+    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
+    type ParticipantParticipantsParams as ParticipantParticipantsParams,
+    type ParticipantDeleteParams as ParticipantDeleteParams,
     type ParticipantRetrieveParams as ParticipantRetrieveParams,
     type ParticipantUpdateParams as ParticipantUpdateParams,
-    type ParticipantDeleteParams as ParticipantDeleteParams,
-    type ParticipantParticipantsParams as ParticipantParticipantsParams,
-    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
   };
 }

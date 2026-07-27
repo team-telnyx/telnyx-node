@@ -2,28 +2,8 @@
 
 import { APIResource } from '../../core/resource';
 import * as ChatAPI from './chat';
-import { APIPromise } from '../../core/api-promise';
-import { RequestOptions } from '../../internal/request-options';
 
-/**
- * Generate text with LLMs
- */
-export class Chat extends APIResource {
-  /**
-   * **Deprecated**: Use `POST /v2/ai/openai/chat/completions` instead. Chat with a
-   * language model. This endpoint is consistent with the
-   * [OpenAI Chat Completions API](https://platform.openai.com/docs/api-reference/chat)
-   * and may be used with the OpenAI JS or Python SDK.
-   *
-   * @deprecated
-   */
-  createCompletion(
-    body: ChatCreateCompletionParams,
-    options?: RequestOptions,
-  ): APIPromise<ChatCreateCompletionResponse> {
-    return this._client.post('/ai/chat/completions', { body, ...options });
-  }
-}
+export class Chat extends APIResource {}
 
 export interface BucketIDs {
   /**
@@ -39,13 +19,11 @@ export interface BucketIDs {
   max_num_results?: number;
 }
 
-export type ChatCreateCompletionResponse = { [key: string]: unknown };
-
-export interface ChatCreateCompletionParams {
+export interface ChatCompletionRequest {
   /**
    * A list of the previous chat messages for context.
    */
-  messages: Array<ChatCreateCompletionParams.Message>;
+  messages: Array<ChatCompletionRequest.Message>;
 
   /**
    * If you are using an external inference provider like xAI or OpenAI, this field
@@ -139,7 +117,7 @@ export interface ChatCreateCompletionParams {
    * Use this is you want to guarantee a JSON output without defining a schema. For
    * control over the schema, use `guided_json`.
    */
-  response_format?: ChatCreateCompletionParams.ResponseFormat;
+  response_format?: ChatCompletionRequest.ResponseFormat;
 
   /**
    * If specified, the system will make a best effort to sample deterministically,
@@ -175,7 +153,7 @@ export interface ChatCreateCompletionParams {
    * [embedded storage buckets](https://developers.telnyx.com/api-reference/embeddings/embed-documents)
    * for retrieval-augmented generation.
    */
-  tools?: Array<ChatCreateCompletionParams.Function | ChatCreateCompletionParams.Retrieval>;
+  tools?: Array<ChatCompletionRequest.Function | ChatCompletionRequest.Retrieval>;
 
   /**
    * This is used with `logprobs`. An integer between 0 and 20 specifying the number
@@ -198,7 +176,7 @@ export interface ChatCreateCompletionParams {
   use_beam_search?: boolean;
 }
 
-export namespace ChatCreateCompletionParams {
+export namespace ChatCompletionRequest {
   export interface Message {
     content: string | Array<Message.TextAndImageArray>;
 
@@ -247,9 +225,5 @@ export namespace ChatCreateCompletionParams {
 }
 
 export declare namespace Chat {
-  export {
-    type BucketIDs as BucketIDs,
-    type ChatCreateCompletionResponse as ChatCreateCompletionResponse,
-    type ChatCreateCompletionParams as ChatCreateCompletionParams,
-  };
+  export { type BucketIDs as BucketIDs, type ChatCompletionRequest as ChatCompletionRequest };
 }

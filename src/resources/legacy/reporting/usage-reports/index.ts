@@ -7,8 +7,8 @@ export {
   type MessagingCreateResponse,
   type MessagingRetrieveResponse,
   type MessagingDeleteResponse,
-  type MessagingCreateParams,
   type MessagingListParams,
+  type MessagingCreateParams,
   type MdrUsageReportResponseLegaciesPerPagePagination,
 } from './messaging';
 export {
@@ -18,8 +18,9 @@ export {
   type TelcoDataUsageReportResponse,
   type NumberLookupCreateResponse,
   type NumberLookupRetrieveResponse,
-  type NumberLookupListResponse,
+  type NumberLookupListParams,
   type NumberLookupCreateParams,
+  type TelcoDataUsageReportResponsesPerPagePagination,
 } from './number-lookup';
 export {
   UsageReports,
@@ -32,7 +33,7 @@ export {
   type VoiceCreateResponse,
   type VoiceRetrieveResponse,
   type VoiceDeleteResponse,
-  type VoiceCreateParams,
   type VoiceListParams,
+  type VoiceCreateParams,
   type CdrUsageReportResponseLegaciesPerPagePagination,
 } from './voice';

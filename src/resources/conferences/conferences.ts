@@ -39,6 +39,7 @@ import {
   ActionUpdateResponse,
   Actions,
   ConferenceCommandResult,
+  ConferenceRegion,
   UpdateConference,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
@@ -51,6 +52,27 @@ import { path } from '../../internal/utils/path';
  */
 export class Conferences extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
+
+  /**
+   * Lists conferences. Conferences are created on demand, and will expire after all
+   * participants have left the conference or after 4 hours regardless of the number
+   * of active participants. Conferences are listed in descending order by
+   * `expires_at`.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const conference of client.conferences.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: ConferenceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ConferencesDefaultFlatPagination, Conference> {
+    return this._client.getAPIList('/conferences', DefaultFlatPagination<Conference>, { query, ...options });
+  }
 
   /**
    * Create a conference from an existing call leg using a `call_control_id` and a
@@ -82,43 +104,6 @@ export class Conferences extends APIResource {
   }
 
   /**
-   * Retrieve an existing conference
-   *
-   * @example
-   * ```ts
-   * const conference = await client.conferences.retrieve('id');
-   * ```
-   */
-  retrieve(
-    id: string,
-    query: ConferenceRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveResponse> {
-    return this._client.get(path`/conferences/${id}`, { query, ...options });
-  }
-
-  /**
-   * Lists conferences. Conferences are created on demand, and will expire after all
-   * participants have left the conference or after 4 hours regardless of the number
-   * of active participants. Conferences are listed in descending order by
-   * `expires_at`.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const conference of client.conferences.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: ConferenceListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ConferencesDefaultFlatPagination, Conference> {
-    return this._client.getAPIList('/conferences', DefaultFlatPagination<Conference>, { query, ...options });
-  }
-
-  /**
    * Lists conference participants
    *
    * @example
@@ -147,11 +132,27 @@ export class Conferences extends APIResource {
   }
 
   /**
+   * Retrieve an existing conference
+   *
+   * @example
+   * ```ts
+   * const conference = await client.conferences.retrieve('id');
+   * ```
+   */
+  retrieve(
+    id: string,
+    query: ConferenceRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ConferenceRetrieveResponse> {
+    return this._client.get(path`/conferences/${id}`, { query, ...options });
+  }
+
+  /**
    * Retrieve details of a specific conference participant by their ID or label.
    *
    * @example
    * ```ts
-   * const response =
+   * const conferenceParticipantResource =
    *   await client.conferences.retrieveParticipant(
    *     'participant_id',
    *     { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
@@ -162,7 +163,7 @@ export class Conferences extends APIResource {
     participantID: string,
     params: ConferenceRetrieveParticipantParams,
     options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveParticipantResponse> {
+  ): APIPromise<ConferenceParticipantResource> {
     const { id } = params;
     return this._client.get(path`/conferences/${id}/participants/${participantID}`, options);
   }
@@ -172,17 +173,18 @@ export class Conferences extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.conferences.updateParticipant(
-   *   'participant_id',
-   *   { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
-   * );
+   * const conferenceParticipantResource =
+   *   await client.conferences.updateParticipant(
+   *     'participant_id',
+   *     { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
    * ```
    */
   updateParticipant(
     participantID: string,
     params: ConferenceUpdateParticipantParams,
     options?: RequestOptions,
-  ): APIPromise<ConferenceUpdateParticipantResponse> {
+  ): APIPromise<ConferenceParticipantResource> {
     const { id, ...body } = params;
     return this._client.patch(path`/conferences/${id}/participants/${participantID}`, { body, ...options });
   }
@@ -333,6 +335,10 @@ export interface ConferenceParticipant {
   whisper_call_control_ids?: Array<string>;
 }
 
+export interface ConferenceParticipantResource {
+  data?: ConferenceParticipant;
+}
+
 export interface ConferenceCreateResponse {
   data?: Conference;
 }
@@ -422,99 +428,6 @@ export namespace ConferenceListParticipantsResponse {
      */
     name?: string;
   }
-}
-
-export interface ConferenceRetrieveParticipantResponse {
-  data?: ConferenceParticipant;
-}
-
-export interface ConferenceUpdateParticipantResponse {
-  data?: ConferenceParticipant;
-}
-
-export interface ConferenceCreateParams {
-  /**
-   * Unique identifier and token for controlling the call
-   */
-  call_control_id: string;
-
-  /**
-   * Name of the conference
-   */
-  name: string;
-
-  /**
-   * Whether a beep sound should be played when participants join and/or leave the
-   * conference.
-   */
-  beep_enabled?: 'always' | 'never' | 'on_enter' | 'on_exit';
-
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string. The client_state will be updated for the creator call
-   * leg and will be used for all webhooks related to the created conference.
-   */
-  client_state?: string;
-
-  /**
-   * Toggle background comfort noise.
-   */
-  comfort_noise?: boolean;
-
-  /**
-   * Use this field to avoid execution of duplicate commands. Telnyx will ignore
-   * subsequent commands with the same `command_id` as one that has already been
-   * executed.
-   */
-  command_id?: string;
-
-  /**
-   * Time length (minutes) after which the conference will end.
-   */
-  duration_minutes?: number;
-
-  /**
-   * The URL of a file to be played to participants joining the conference. The URL
-   * can point to either a WAV or MP3 file. hold_media_name and hold_audio_url cannot
-   * be used together in one request. Takes effect only when
-   * "start_conference_on_create" is set to "false".
-   */
-  hold_audio_url?: string;
-
-  /**
-   * The media_name of a file to be played to participants joining the conference.
-   * The media_name must point to a file previously uploaded to
-   * api.telnyx.com/v2/media by the same user/organization. The file must either be a
-   * WAV or MP3 file. Takes effect only when "start_conference_on_create" is set to
-   * "false".
-   */
-  hold_media_name?: string;
-
-  /**
-   * The maximum number of active conference participants to allow. Must be between 2
-   * and 800. Defaults to 250
-   */
-  max_participants?: number;
-
-  /**
-   * Sets the region where the conference data will be hosted. Defaults to the region
-   * defined in user's data locality settings (Europe or US).
-   */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
-
-  /**
-   * Whether the conference should be started on creation. If the conference isn't
-   * started all participants that join are automatically put on hold. Defaults to
-   * "true".
-   */
-  start_conference_on_create?: boolean;
-}
-
-export interface ConferenceRetrieveParams {
-  /**
-   * Region where the conference data is located
-   */
-  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ConferenceListParams extends DefaultFlatPaginationParams {
@@ -655,6 +568,84 @@ export namespace ConferenceListParams {
   }
 }
 
+export interface ConferenceCreateParams {
+  /**
+   * Unique identifier and token for controlling the call
+   */
+  call_control_id: string;
+
+  /**
+   * Name of the conference
+   */
+  name: string;
+
+  /**
+   * Whether a beep sound should be played when participants join and/or leave the
+   * conference.
+   */
+  beep_enabled?: 'always' | 'never' | 'on_enter' | 'on_exit';
+
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string. The client_state will be updated for the creator call
+   * leg and will be used for all webhooks related to the created conference.
+   */
+  client_state?: string;
+
+  /**
+   * Toggle background comfort noise.
+   */
+  comfort_noise?: boolean;
+
+  /**
+   * Use this field to avoid execution of duplicate commands. Telnyx will ignore
+   * subsequent commands with the same `command_id` as one that has already been
+   * executed.
+   */
+  command_id?: string;
+
+  /**
+   * Time length (minutes) after which the conference will end.
+   */
+  duration_minutes?: number;
+
+  /**
+   * The URL of a file to be played to participants joining the conference. The URL
+   * can point to either a WAV or MP3 file. hold_media_name and hold_audio_url cannot
+   * be used together in one request. Takes effect only when
+   * "start_conference_on_create" is set to "false".
+   */
+  hold_audio_url?: string;
+
+  /**
+   * The media_name of a file to be played to participants joining the conference.
+   * The media_name must point to a file previously uploaded to
+   * api.telnyx.com/v2/media by the same user/organization. The file must either be a
+   * WAV or MP3 file. Takes effect only when "start_conference_on_create" is set to
+   * "false".
+   */
+  hold_media_name?: string;
+
+  /**
+   * The maximum number of active conference participants to allow. Must be between 2
+   * and 800. Defaults to 250
+   */
+  max_participants?: number;
+
+  /**
+   * Sets the region where the conference data will be hosted. Defaults to the region
+   * defined in user's data locality settings (Europe or US).
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
+
+  /**
+   * Whether the conference should be started on creation. If the conference isn't
+   * started all participants that join are automatically put on hold. Defaults to
+   * "true".
+   */
+  start_conference_on_create?: boolean;
+}
+
 export interface ConferenceListParticipantsParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[muted],
@@ -689,6 +680,13 @@ export namespace ConferenceListParticipantsParams {
      */
     whispering?: boolean;
   }
+}
+
+export interface ConferenceRetrieveParams {
+  /**
+   * Region where the conference data is located
+   */
+  region?: 'Australia' | 'Europe' | 'Middle East' | 'US';
 }
 
 export interface ConferenceRetrieveParticipantParams {
@@ -728,17 +726,16 @@ export declare namespace Conferences {
   export {
     type Conference as Conference,
     type ConferenceParticipant as ConferenceParticipant,
+    type ConferenceParticipantResource as ConferenceParticipantResource,
     type ConferenceCreateResponse as ConferenceCreateResponse,
     type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
     type ConferenceListParticipantsResponse as ConferenceListParticipantsResponse,
-    type ConferenceRetrieveParticipantResponse as ConferenceRetrieveParticipantResponse,
-    type ConferenceUpdateParticipantResponse as ConferenceUpdateParticipantResponse,
     type ConferencesDefaultFlatPagination as ConferencesDefaultFlatPagination,
     type ConferenceListParticipantsResponsesDefaultFlatPagination as ConferenceListParticipantsResponsesDefaultFlatPagination,
-    type ConferenceCreateParams as ConferenceCreateParams,
-    type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceListParams as ConferenceListParams,
+    type ConferenceCreateParams as ConferenceCreateParams,
     type ConferenceListParticipantsParams as ConferenceListParticipantsParams,
+    type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceRetrieveParticipantParams as ConferenceRetrieveParticipantParams,
     type ConferenceUpdateParticipantParams as ConferenceUpdateParticipantParams,
   };
@@ -746,6 +743,7 @@ export declare namespace Conferences {
   export {
     Actions as Actions,
     type ConferenceCommandResult as ConferenceCommandResult,
+    type ConferenceRegion as ConferenceRegion,
     type UpdateConference as UpdateConference,
     type ActionUpdateResponse as ActionUpdateResponse,
     type ActionEndConferenceResponse as ActionEndConferenceResponse,
@@ -764,9 +762,6 @@ export declare namespace Conferences {
     type ActionStopResponse as ActionStopResponse,
     type ActionUnholdResponse as ActionUnholdResponse,
     type ActionUnmuteResponse as ActionUnmuteResponse,
-    type ActionUpdateParams as ActionUpdateParams,
-    type ActionEndConferenceParams as ActionEndConferenceParams,
-    type ActionGatherDtmfAudioParams as ActionGatherDtmfAudioParams,
     type ActionHoldParams as ActionHoldParams,
     type ActionJoinParams as ActionJoinParams,
     type ActionLeaveParams as ActionLeaveParams,
@@ -776,10 +771,13 @@ export declare namespace Conferences {
     type ActionRecordResumeParams as ActionRecordResumeParams,
     type ActionRecordStartParams as ActionRecordStartParams,
     type ActionRecordStopParams as ActionRecordStopParams,
-    type ActionSendDtmfParams as ActionSendDtmfParams,
     type ActionSpeakParams as ActionSpeakParams,
     type ActionStopParams as ActionStopParams,
     type ActionUnholdParams as ActionUnholdParams,
     type ActionUnmuteParams as ActionUnmuteParams,
+    type ActionUpdateParams as ActionUpdateParams,
+    type ActionEndConferenceParams as ActionEndConferenceParams,
+    type ActionGatherDtmfAudioParams as ActionGatherDtmfAudioParams,
+    type ActionSendDtmfParams as ActionSendDtmfParams,
   };
 }

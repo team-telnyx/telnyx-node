@@ -21,6 +21,29 @@ describe('resource externalVetting', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('order: only required params', async () => {
+    const responsePromise = client.messaging10dlc.brand.externalVetting.order('brandId', {
+      evpId: 'evpId',
+      vettingClass: 'vettingClass',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('order: required and optional params', async () => {
+    const response = await client.messaging10dlc.brand.externalVetting.order('brandId', {
+      evpId: 'evpId',
+      vettingClass: 'vettingClass',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('imports: only required params', async () => {
     const responsePromise = client.messaging10dlc.brand.externalVetting.imports('brandId', {
       evpId: 'evpId',
@@ -41,29 +64,6 @@ describe('resource externalVetting', () => {
       evpId: 'evpId',
       vettingId: 'vettingId',
       vettingToken: 'vettingToken',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('order: only required params', async () => {
-    const responsePromise = client.messaging10dlc.brand.externalVetting.order('brandId', {
-      evpId: 'evpId',
-      vettingClass: 'vettingClass',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('order: required and optional params', async () => {
-    const response = await client.messaging10dlc.brand.externalVetting.order('brandId', {
-      evpId: 'evpId',
-      vettingClass: 'vettingClass',
     });
   });
 });

@@ -15,6 +15,23 @@ export class Embeddings extends APIResource {
   buckets: BucketsAPI.Buckets = new BucketsAPI.Buckets(this._client);
 
   /**
+   * Retrieve tasks for the user that are either `queued`, `processing`, `failed`,
+   * `success` or `partial_success` based on the query string. Defaults to `queued`
+   * and `processing`.
+   *
+   * @example
+   * ```ts
+   * const embeddings = await client.ai.embeddings.list();
+   * ```
+   */
+  list(
+    query: EmbeddingListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<EmbeddingListResponse> {
+    return this._client.get('/ai/embeddings', { query, ...options });
+  }
+
+  /**
    * Perform embedding on a Telnyx Storage Bucket using the a embedding model. The
    * current supported file types are:
    *
@@ -54,44 +71,6 @@ export class Embeddings extends APIResource {
    */
   create(body: EmbeddingCreateParams, options?: RequestOptions): APIPromise<EmbeddingResponse> {
     return this._client.post('/ai/embeddings', { body, ...options });
-  }
-
-  /**
-   * Check the status of a current embedding task. Will be one of the following:
-   *
-   * - `queued` - Task is waiting to be picked up by a worker
-   * - `processing` - The embedding task is running
-   * - `success` - Task completed successfully and the bucket is embedded
-   * - `failure` - Task failed and no files were embedded successfully
-   * - `partial_success` - Some files were embedded successfully, but at least one
-   *   failed
-   *
-   * @example
-   * ```ts
-   * const embedding = await client.ai.embeddings.retrieve(
-   *   'task_id',
-   * );
-   * ```
-   */
-  retrieve(taskID: string, options?: RequestOptions): APIPromise<EmbeddingRetrieveResponse> {
-    return this._client.get(path`/ai/embeddings/${taskID}`, options);
-  }
-
-  /**
-   * Retrieve tasks for the user that are either `queued`, `processing`, `failed`,
-   * `success` or `partial_success` based on the query string. Defaults to `queued`
-   * and `processing`.
-   *
-   * @example
-   * ```ts
-   * const embeddings = await client.ai.embeddings.list();
-   * ```
-   */
-  list(
-    query: EmbeddingListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<EmbeddingListResponse> {
-    return this._client.get('/ai/embeddings', { query, ...options });
   }
 
   /**
@@ -144,6 +123,27 @@ export class Embeddings extends APIResource {
    */
   url(body: EmbeddingURLParams, options?: RequestOptions): APIPromise<EmbeddingResponse> {
     return this._client.post('/ai/embeddings/url', { body, ...options });
+  }
+
+  /**
+   * Check the status of a current embedding task. Will be one of the following:
+   *
+   * - `queued` - Task is waiting to be picked up by a worker
+   * - `processing` - The embedding task is running
+   * - `success` - Task completed successfully and the bucket is embedded
+   * - `failure` - Task failed and no files were embedded successfully
+   * - `partial_success` - Some files were embedded successfully, but at least one
+   *   failed
+   *
+   * @example
+   * ```ts
+   * const embedding = await client.ai.embeddings.retrieve(
+   *   'task_id',
+   * );
+   * ```
+   */
+  retrieve(taskID: string, options?: RequestOptions): APIPromise<EmbeddingRetrieveResponse> {
+    return this._client.get(path`/ai/embeddings/${taskID}`, options);
   }
 }
 
@@ -256,6 +256,13 @@ export namespace EmbeddingSimilaritySearchResponse {
   }
 }
 
+export interface EmbeddingListParams {
+  /**
+   * List of task statuses i.e. `status=queued&status=processing`
+   */
+  status?: Array<string>;
+}
+
 export interface EmbeddingCreateParams {
   bucket_name: string;
 
@@ -272,13 +279,6 @@ export interface EmbeddingCreateParams {
    * Supported types of custom document loaders for embeddings.
    */
   loader?: 'default' | 'intercom';
-}
-
-export interface EmbeddingListParams {
-  /**
-   * List of task statuses i.e. `status=queued&status=processing`
-   */
-  status?: Array<string>;
 }
 
 export interface EmbeddingSimilaritySearchParams {
@@ -310,8 +310,8 @@ export declare namespace Embeddings {
     type EmbeddingRetrieveResponse as EmbeddingRetrieveResponse,
     type EmbeddingListResponse as EmbeddingListResponse,
     type EmbeddingSimilaritySearchResponse as EmbeddingSimilaritySearchResponse,
-    type EmbeddingCreateParams as EmbeddingCreateParams,
     type EmbeddingListParams as EmbeddingListParams,
+    type EmbeddingCreateParams as EmbeddingCreateParams,
     type EmbeddingSimilaritySearchParams as EmbeddingSimilaritySearchParams,
     type EmbeddingURLParams as EmbeddingURLParams,
   };

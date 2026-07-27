@@ -11,37 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class NotificationSettings extends APIResource {
   /**
-   * Add a notification setting.
-   *
-   * @example
-   * ```ts
-   * const notificationSetting =
-   *   await client.notificationSettings.create();
-   * ```
-   */
-  create(
-    body: NotificationSettingCreateParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<NotificationSettingCreateResponse> {
-    return this._client.post('/notification_settings', { body, ...options });
-  }
-
-  /**
-   * Get a notification setting.
-   *
-   * @example
-   * ```ts
-   * const notificationSetting =
-   *   await client.notificationSettings.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<NotificationSettingRetrieveResponse> {
-    return this._client.get(path`/notification_settings/${id}`, options);
-  }
-
-  /**
    * List notification settings.
    *
    * @example
@@ -63,6 +32,22 @@ export class NotificationSettings extends APIResource {
   }
 
   /**
+   * Add a notification setting.
+   *
+   * @example
+   * ```ts
+   * const notificationSetting =
+   *   await client.notificationSettings.create();
+   * ```
+   */
+  create(
+    body: NotificationSettingCreateParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<NotificationSettingCreateResponse> {
+    return this._client.post('/notification_settings', { body, ...options });
+  }
+
+  /**
    * Delete a notification setting.
    *
    * @example
@@ -75,6 +60,21 @@ export class NotificationSettings extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<NotificationSettingDeleteResponse> {
     return this._client.delete(path`/notification_settings/${id}`, options);
+  }
+
+  /**
+   * Get a notification setting.
+   *
+   * @example
+   * ```ts
+   * const notificationSetting =
+   *   await client.notificationSettings.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<NotificationSettingRetrieveResponse> {
+    return this._client.get(path`/notification_settings/${id}`, options);
   }
 }
 
@@ -149,33 +149,6 @@ export interface NotificationSettingRetrieveResponse {
 
 export interface NotificationSettingDeleteResponse {
   data?: NotificationSetting;
-}
-
-export interface NotificationSettingCreateParams {
-  /**
-   * A UUID reference to the associated Notification Channel.
-   */
-  notification_channel_id?: string;
-
-  /**
-   * A UUID reference to the associated Notification Event Condition.
-   */
-  notification_event_condition_id?: string;
-
-  /**
-   * A UUID reference to the associated Notification Profile.
-   */
-  notification_profile_id?: string;
-
-  parameters?: Array<NotificationSettingCreateParams.Parameter>;
-}
-
-export namespace NotificationSettingCreateParams {
-  export interface Parameter {
-    name?: string;
-
-    value?: string;
-  }
 }
 
 export interface NotificationSettingListParams extends DefaultFlatPaginationParams {
@@ -262,6 +235,33 @@ export namespace NotificationSettingListParams {
   }
 }
 
+export interface NotificationSettingCreateParams {
+  /**
+   * A UUID reference to the associated Notification Channel.
+   */
+  notification_channel_id?: string;
+
+  /**
+   * A UUID reference to the associated Notification Event Condition.
+   */
+  notification_event_condition_id?: string;
+
+  /**
+   * A UUID reference to the associated Notification Profile.
+   */
+  notification_profile_id?: string;
+
+  parameters?: Array<NotificationSettingCreateParams.Parameter>;
+}
+
+export namespace NotificationSettingCreateParams {
+  export interface Parameter {
+    name?: string;
+
+    value?: string;
+  }
+}
+
 export declare namespace NotificationSettings {
   export {
     type NotificationSetting as NotificationSetting,
@@ -269,7 +269,7 @@ export declare namespace NotificationSettings {
     type NotificationSettingRetrieveResponse as NotificationSettingRetrieveResponse,
     type NotificationSettingDeleteResponse as NotificationSettingDeleteResponse,
     type NotificationSettingsDefaultFlatPagination as NotificationSettingsDefaultFlatPagination,
-    type NotificationSettingCreateParams as NotificationSettingCreateParams,
     type NotificationSettingListParams as NotificationSettingListParams,
+    type NotificationSettingCreateParams as NotificationSettingCreateParams,
   };
 }

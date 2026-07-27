@@ -12,6 +12,27 @@ import { path } from '../../internal/utils/path';
  */
 export class Events extends APIResource {
   /**
+   * Returns a list of all port-out events.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const portoutEvent of client.portouts.events.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: EventListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortoutEventsDefaultFlatPagination, PortoutEvent> {
+    return this._client.getAPIList('/portouts/events', DefaultFlatPagination<PortoutEvent>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Show a specific port-out event.
    *
    * @example
@@ -23,27 +44,6 @@ export class Events extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<EventRetrieveResponse> {
     return this._client.get(path`/portouts/events/${id}`, options);
-  }
-
-  /**
-   * Returns a list of all port-out events.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const eventListResponse of client.portouts.events.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: EventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<EventListResponsesDefaultFlatPagination, EventListResponse> {
-    return this._client.getAPIList('/portouts/events', DefaultFlatPagination<EventListResponse>, {
-      query,
-      ...options,
-    });
   }
 
   /**
@@ -64,7 +64,12 @@ export class Events extends APIResource {
   }
 }
 
-export type EventListResponsesDefaultFlatPagination = DefaultFlatPagination<EventListResponse>;
+export type PortoutEventsDefaultFlatPagination = DefaultFlatPagination<PortoutEvent>;
+
+export type PortoutEvent =
+  | WebhookPortoutStatusChanged
+  | WebhookPortoutNewComment
+  | WebhookPortoutFocDateChanged;
 
 export interface WebhookPortoutFocDateChanged {
   /**
@@ -310,13 +315,8 @@ export namespace WebhookPortoutStatusChanged {
 }
 
 export interface EventRetrieveResponse {
-  data?: WebhookPortoutStatusChanged | WebhookPortoutNewComment | WebhookPortoutFocDateChanged;
+  data?: PortoutEvent;
 }
-
-export type EventListResponse =
-  | WebhookPortoutStatusChanged
-  | WebhookPortoutNewComment
-  | WebhookPortoutFocDateChanged;
 
 export interface EventListParams extends DefaultFlatPaginationParams {
   /**
@@ -368,12 +368,12 @@ export namespace EventListParams {
 
 export declare namespace Events {
   export {
+    type PortoutEvent as PortoutEvent,
     type WebhookPortoutFocDateChanged as WebhookPortoutFocDateChanged,
     type WebhookPortoutNewComment as WebhookPortoutNewComment,
     type WebhookPortoutStatusChanged as WebhookPortoutStatusChanged,
     type EventRetrieveResponse as EventRetrieveResponse,
-    type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
+    type PortoutEventsDefaultFlatPagination as PortoutEventsDefaultFlatPagination,
     type EventListParams as EventListParams,
   };
 }

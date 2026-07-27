@@ -11,6 +11,28 @@ import { path } from '../internal/utils/path';
  */
 export class CallControlApplications extends APIResource {
   /**
+   * Return a list of call control applications.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const callControlApplication of client.callControlApplications.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: CallControlApplicationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<CallControlApplicationsDefaultFlatPagination, CallControlApplication> {
+    return this._client.getAPIList(
+      '/call_control_applications',
+      DefaultFlatPagination<CallControlApplication>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create a call control application.
    *
    * @example
@@ -27,6 +49,21 @@ export class CallControlApplications extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CallControlApplicationCreateResponse> {
     return this._client.post('/call_control_applications', { body, ...options });
+  }
+
+  /**
+   * Deletes a call control application.
+   *
+   * @example
+   * ```ts
+   * const callControlApplication =
+   *   await client.callControlApplications.delete(
+   *     '1293384261075731499',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<CallControlApplicationDeleteResponse> {
+    return this._client.delete(path`/call_control_applications/${id}`, options);
   }
 
   /**
@@ -65,43 +102,6 @@ export class CallControlApplications extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CallControlApplicationUpdateResponse> {
     return this._client.patch(path`/call_control_applications/${id}`, { body, ...options });
-  }
-
-  /**
-   * Return a list of call control applications.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const callControlApplication of client.callControlApplications.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: CallControlApplicationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<CallControlApplicationsDefaultFlatPagination, CallControlApplication> {
-    return this._client.getAPIList(
-      '/call_control_applications',
-      DefaultFlatPagination<CallControlApplication>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * Deletes a call control application.
-   *
-   * @example
-   * ```ts
-   * const callControlApplication =
-   *   await client.callControlApplications.delete(
-   *     '1293384261075731499',
-   *   );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<CallControlApplicationDeleteResponse> {
-    return this._client.delete(path`/call_control_applications/${id}`, options);
   }
 }
 
@@ -265,6 +265,157 @@ export interface CallControlApplicationUpdateResponse {
 
 export interface CallControlApplicationDeleteResponse {
   data?: CallControlApplication;
+}
+
+export interface CallControlApplicationListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
+   * filter[leg_id], filter[application_session_id], filter[connection_id],
+   * filter[product], filter[failed], filter[from], filter[to], filter[name],
+   * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
+   */
+  filter?: CallControlApplicationListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-connection_name</code>: sorts the result by the
+   *     <code>connection_name</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'connection_name' | 'active';
+}
+
+export namespace CallControlApplicationListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
+   * filter[leg_id], filter[application_session_id], filter[connection_id],
+   * filter[product], filter[failed], filter[from], filter[to], filter[name],
+   * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
+   */
+  export interface Filter {
+    /**
+     * Application name filters
+     */
+    application_name?: Filter.ApplicationName;
+
+    /**
+     * The unique identifier of the call session. A session may include multiple call
+     * leg events.
+     */
+    application_session_id?: string;
+
+    /**
+     * The unique identifier of the conection.
+     */
+    connection_id?: string;
+
+    /**
+     * Delivery failed or not.
+     */
+    failed?: boolean;
+
+    /**
+     * Filter by From number.
+     */
+    from?: string;
+
+    /**
+     * The unique identifier of an individual call leg.
+     */
+    leg_id?: string;
+
+    /**
+     * If present, conferences will be filtered to those with a matching `name`
+     * attribute. Matching is case-sensitive
+     */
+    name?: string;
+
+    /**
+     * Event occurred_at filters
+     */
+    occurred_at?: Filter.OccurredAt;
+
+    /**
+     * Identifies the associated outbound voice profile.
+     */
+    'outbound.outbound_voice_profile_id'?: string;
+
+    /**
+     * Filter by product.
+     */
+    product?: 'call_control' | 'fax' | 'texml';
+
+    /**
+     * If present, conferences will be filtered by status.
+     */
+    status?: 'init' | 'in_progress' | 'completed';
+
+    /**
+     * Filter by To number.
+     */
+    to?: string;
+
+    /**
+     * Event type
+     */
+    type?: 'command' | 'webhook';
+  }
+
+  export namespace Filter {
+    /**
+     * Application name filters
+     */
+    export interface ApplicationName {
+      /**
+       * If present, applications with <code>application_name</code> containing the given
+       * value will be returned. Matching is not case-sensitive. Requires at least three
+       * characters.
+       */
+      contains?: string;
+    }
+
+    /**
+     * Event occurred_at filters
+     */
+    export interface OccurredAt {
+      /**
+       * Event occurred_at: equal
+       */
+      eq?: string;
+
+      /**
+       * Event occurred_at: greater than
+       */
+      gt?: string;
+
+      /**
+       * Event occurred_at: greater than or equal
+       */
+      gte?: string;
+
+      /**
+       * Event occurred_at: lower than
+       */
+      lt?: string;
+
+      /**
+       * Event occurred_at: lower than or equal
+       */
+      lte?: string;
+    }
+  }
 }
 
 export interface CallControlApplicationCreateParams {
@@ -440,157 +591,6 @@ export interface CallControlApplicationUpdateParams {
   webhook_timeout_secs?: number | null;
 }
 
-export interface CallControlApplicationListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
-   * filter[leg_id], filter[application_session_id], filter[connection_id],
-   * filter[product], filter[failed], filter[from], filter[to], filter[name],
-   * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
-   */
-  filter?: CallControlApplicationListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-connection_name</code>: sorts the result by the
-   *     <code>connection_name</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'connection_name' | 'active';
-}
-
-export namespace CallControlApplicationListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[application_name][contains], filter[outbound.outbound_voice_profile_id],
-   * filter[leg_id], filter[application_session_id], filter[connection_id],
-   * filter[product], filter[failed], filter[from], filter[to], filter[name],
-   * filter[type], filter[occurred_at][eq/gt/gte/lt/lte], filter[status]
-   */
-  export interface Filter {
-    /**
-     * Application name filters
-     */
-    application_name?: Filter.ApplicationName;
-
-    /**
-     * The unique identifier of the call session. A session may include multiple call
-     * leg events.
-     */
-    application_session_id?: string;
-
-    /**
-     * The unique identifier of the conection.
-     */
-    connection_id?: string;
-
-    /**
-     * Delivery failed or not.
-     */
-    failed?: boolean;
-
-    /**
-     * Filter by From number.
-     */
-    from?: string;
-
-    /**
-     * The unique identifier of an individual call leg.
-     */
-    leg_id?: string;
-
-    /**
-     * If present, conferences will be filtered to those with a matching `name`
-     * attribute. Matching is case-sensitive
-     */
-    name?: string;
-
-    /**
-     * Event occurred_at filters
-     */
-    occurred_at?: Filter.OccurredAt;
-
-    /**
-     * Identifies the associated outbound voice profile.
-     */
-    'outbound.outbound_voice_profile_id'?: string;
-
-    /**
-     * Filter by product.
-     */
-    product?: 'call_control' | 'fax' | 'texml';
-
-    /**
-     * If present, conferences will be filtered by status.
-     */
-    status?: 'init' | 'in_progress' | 'completed';
-
-    /**
-     * Filter by To number.
-     */
-    to?: string;
-
-    /**
-     * Event type
-     */
-    type?: 'command' | 'webhook';
-  }
-
-  export namespace Filter {
-    /**
-     * Application name filters
-     */
-    export interface ApplicationName {
-      /**
-       * If present, applications with <code>application_name</code> containing the given
-       * value will be returned. Matching is not case-sensitive. Requires at least three
-       * characters.
-       */
-      contains?: string;
-    }
-
-    /**
-     * Event occurred_at filters
-     */
-    export interface OccurredAt {
-      /**
-       * Event occurred_at: equal
-       */
-      eq?: string;
-
-      /**
-       * Event occurred_at: greater than
-       */
-      gt?: string;
-
-      /**
-       * Event occurred_at: greater than or equal
-       */
-      gte?: string;
-
-      /**
-       * Event occurred_at: lower than
-       */
-      lt?: string;
-
-      /**
-       * Event occurred_at: lower than or equal
-       */
-      lte?: string;
-    }
-  }
-}
-
 export declare namespace CallControlApplications {
   export {
     type CallControlApplication as CallControlApplication,
@@ -601,8 +601,8 @@ export declare namespace CallControlApplications {
     type CallControlApplicationUpdateResponse as CallControlApplicationUpdateResponse,
     type CallControlApplicationDeleteResponse as CallControlApplicationDeleteResponse,
     type CallControlApplicationsDefaultFlatPagination as CallControlApplicationsDefaultFlatPagination,
+    type CallControlApplicationListParams as CallControlApplicationListParams,
     type CallControlApplicationCreateParams as CallControlApplicationCreateParams,
     type CallControlApplicationUpdateParams as CallControlApplicationUpdateParams,
-    type CallControlApplicationListParams as CallControlApplicationListParams,
   };
 }

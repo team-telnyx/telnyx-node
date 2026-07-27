@@ -9,6 +9,44 @@ import { path } from '../internal/utils/path';
 
 export class SubNumberOrders extends APIResource {
   /**
+   * Get a paginated list of sub number orders.
+   *
+   * @example
+   * ```ts
+   * const subNumberOrders = await client.subNumberOrders.list();
+   * ```
+   */
+  list(
+    query: SubNumberOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<SubNumberOrderListResponse> {
+    return this._client.get('/sub_number_orders', { query, ...options });
+  }
+
+  /**
+   * Update requirement group for a sub number order
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.subNumberOrders.updateRequirementGroup(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       requirement_group_id:
+   *         'a4b201f9-8646-4e54-a7d2-b2e403eeaf8c',
+   *     },
+   *   );
+   * ```
+   */
+  updateRequirementGroup(
+    id: string,
+    body: SubNumberOrderUpdateRequirementGroupParams,
+    options?: RequestOptions,
+  ): APIPromise<SubNumberOrderUpdateRequirementGroupResponse> {
+    return this._client.post(path`/sub_number_orders/${id}/requirement_group`, { body, ...options });
+  }
+
+  /**
    * Get an existing sub number order.
    *
    * @example
@@ -46,21 +84,6 @@ export class SubNumberOrders extends APIResource {
   }
 
   /**
-   * Get a paginated list of sub number orders.
-   *
-   * @example
-   * ```ts
-   * const subNumberOrders = await client.subNumberOrders.list();
-   * ```
-   */
-  list(
-    query: SubNumberOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<SubNumberOrderListResponse> {
-    return this._client.get('/sub_number_orders', { query, ...options });
-  }
-
-  /**
    * Allows you to cancel a sub number order in 'pending' status.
    *
    * @example
@@ -72,29 +95,6 @@ export class SubNumberOrders extends APIResource {
    */
   cancel(subNumberOrderID: string, options?: RequestOptions): APIPromise<SubNumberOrderCancelResponse> {
     return this._client.patch(path`/sub_number_orders/${subNumberOrderID}/cancel`, options);
-  }
-
-  /**
-   * Update requirement group for a sub number order
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.subNumberOrders.updateRequirementGroup(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     {
-   *       requirement_group_id:
-   *         'a4b201f9-8646-4e54-a7d2-b2e403eeaf8c',
-   *     },
-   *   );
-   * ```
-   */
-  updateRequirementGroup(
-    id: string,
-    body: SubNumberOrderUpdateRequirementGroupParams,
-    options?: RequestOptions,
-  ): APIPromise<SubNumberOrderUpdateRequirementGroupResponse> {
-    return this._client.post(path`/sub_number_orders/${id}/requirement_group`, { body, ...options });
   }
 }
 
@@ -258,31 +258,6 @@ export namespace SubNumberOrderUpdateRequirementGroupResponse {
   }
 }
 
-export interface SubNumberOrderRetrieveParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[include_phone_numbers]
-   */
-  filter?: SubNumberOrderRetrieveParams.Filter;
-}
-
-export namespace SubNumberOrderRetrieveParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[include_phone_numbers]
-   */
-  export interface Filter {
-    /**
-     * Include the first 50 phone number objects in the results
-     */
-    include_phone_numbers?: boolean;
-  }
-}
-
-export interface SubNumberOrderUpdateParams {
-  regulatory_requirements?: Array<NumberOrderPhoneNumbersAPI.UpdateRegulatoryRequirement>;
-}
-
 export interface SubNumberOrderListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
@@ -333,6 +308,31 @@ export interface SubNumberOrderUpdateRequirementGroupParams {
   requirement_group_id: string;
 }
 
+export interface SubNumberOrderRetrieveParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[include_phone_numbers]
+   */
+  filter?: SubNumberOrderRetrieveParams.Filter;
+}
+
+export namespace SubNumberOrderRetrieveParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[include_phone_numbers]
+   */
+  export interface Filter {
+    /**
+     * Include the first 50 phone number objects in the results
+     */
+    include_phone_numbers?: boolean;
+  }
+}
+
+export interface SubNumberOrderUpdateParams {
+  regulatory_requirements?: Array<NumberOrderPhoneNumbersAPI.UpdateRegulatoryRequirement>;
+}
+
 export declare namespace SubNumberOrders {
   export {
     type SubNumberOrder as SubNumberOrder,
@@ -342,9 +342,9 @@ export declare namespace SubNumberOrders {
     type SubNumberOrderListResponse as SubNumberOrderListResponse,
     type SubNumberOrderCancelResponse as SubNumberOrderCancelResponse,
     type SubNumberOrderUpdateRequirementGroupResponse as SubNumberOrderUpdateRequirementGroupResponse,
-    type SubNumberOrderRetrieveParams as SubNumberOrderRetrieveParams,
-    type SubNumberOrderUpdateParams as SubNumberOrderUpdateParams,
     type SubNumberOrderListParams as SubNumberOrderListParams,
     type SubNumberOrderUpdateRequirementGroupParams as SubNumberOrderUpdateRequirementGroupParams,
+    type SubNumberOrderRetrieveParams as SubNumberOrderRetrieveParams,
+    type SubNumberOrderUpdateParams as SubNumberOrderUpdateParams,
   };
 }

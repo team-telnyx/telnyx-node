@@ -11,6 +11,27 @@ import { path } from '../internal/utils/path';
  */
 export class VerifyProfiles extends APIResource {
   /**
+   * Gets a paginated list of Verify profiles.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const verifyProfile of client.verifyProfiles.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: VerifyProfileListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<VerifyProfilesDefaultFlatPagination, VerifyProfile> {
+    return this._client.getAPIList('/verify_profiles', DefaultFlatPagination<VerifyProfile>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a new Verify profile to associate verifications with.
    *
    * @example
@@ -23,6 +44,34 @@ export class VerifyProfiles extends APIResource {
    */
   create(body: VerifyProfileCreateParams, options?: RequestOptions): APIPromise<VerifyProfileData> {
     return this._client.post('/verify_profiles', { body, ...options });
+  }
+
+  /**
+   * List all Verify profile message templates.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.verifyProfiles.retrieveTemplates();
+   * ```
+   */
+  retrieveTemplates(options?: RequestOptions): APIPromise<VerifyProfileRetrieveTemplatesResponse> {
+    return this._client.get('/verify_profiles/templates', options);
+  }
+
+  /**
+   * Delete Verify profile
+   *
+   * @example
+   * ```ts
+   * const verifyProfileData =
+   *   await client.verifyProfiles.delete(
+   *     '12ade33a-21c0-473b-b055-b3c836e1c292',
+   *   );
+   * ```
+   */
+  delete(verifyProfileID: string, options?: RequestOptions): APIPromise<VerifyProfileData> {
+    return this._client.delete(path`/verify_profiles/${verifyProfileID}`, options);
   }
 
   /**
@@ -60,42 +109,6 @@ export class VerifyProfiles extends APIResource {
   }
 
   /**
-   * Gets a paginated list of Verify profiles.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const verifyProfile of client.verifyProfiles.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: VerifyProfileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<VerifyProfilesDefaultFlatPagination, VerifyProfile> {
-    return this._client.getAPIList('/verify_profiles', DefaultFlatPagination<VerifyProfile>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete Verify profile
-   *
-   * @example
-   * ```ts
-   * const verifyProfileData =
-   *   await client.verifyProfiles.delete(
-   *     '12ade33a-21c0-473b-b055-b3c836e1c292',
-   *   );
-   * ```
-   */
-  delete(verifyProfileID: string, options?: RequestOptions): APIPromise<VerifyProfileData> {
-    return this._client.delete(path`/verify_profiles/${verifyProfileID}`, options);
-  }
-
-  /**
    * Create a new Verify profile message template.
    *
    * @example
@@ -111,19 +124,6 @@ export class VerifyProfiles extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MessageTemplate> {
     return this._client.post('/verify_profiles/templates', { body, ...options });
-  }
-
-  /**
-   * List all Verify profile message templates.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.verifyProfiles.retrieveTemplates();
-   * ```
-   */
-  retrieveTemplates(options?: RequestOptions): APIPromise<VerifyProfileRetrieveTemplatesResponse> {
-    return this._client.get('/verify_profiles/templates', options);
   }
 
   /**
@@ -324,7 +324,7 @@ export namespace VerifyProfile {
     sender_phone_number?: string | null;
 
     /**
-     * Customer pre-approved authentication template name registered on Meta
+     * Customer pre-approved authentication template ID registered on Meta
      */
     template_id?: string | null;
 
@@ -361,6 +361,25 @@ export interface VerifyProfileMessageTemplateResponse {
  */
 export interface VerifyProfileRetrieveTemplatesResponse {
   data: Array<VerifyProfileMessageTemplateResponse>;
+}
+
+export interface VerifyProfileListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[name]
+   */
+  filter?: VerifyProfileListParams.Filter;
+}
+
+export namespace VerifyProfileListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[name]
+   */
+  export interface Filter {
+    /**
+     * Optional filter for profile names.
+     */
+    name?: string;
+  }
 }
 
 export interface VerifyProfileCreateParams {
@@ -514,7 +533,7 @@ export namespace VerifyProfileCreateParams {
     sender_phone_number?: string | null;
 
     /**
-     * Customer pre-approved authentication template name registered on Meta
+     * Customer pre-approved authentication template ID registered on Meta
      */
     template_id?: string | null;
 
@@ -658,7 +677,7 @@ export namespace VerifyProfileUpdateParams {
     sender_phone_number?: string | null;
 
     /**
-     * Customer pre-approved authentication template name registered on Meta
+     * Customer pre-approved authentication template ID registered on Meta
      */
     template_id?: string | null;
 
@@ -677,25 +696,6 @@ export namespace VerifyProfileUpdateParams {
     whitelisted_destinations?: Array<string>;
 
     [k: string]: unknown;
-  }
-}
-
-export interface VerifyProfileListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[name]
-   */
-  filter?: VerifyProfileListParams.Filter;
-}
-
-export namespace VerifyProfileListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[name]
-   */
-  export interface Filter {
-    /**
-     * Optional filter for profile names.
-     */
-    name?: string;
   }
 }
 
@@ -721,9 +721,9 @@ export declare namespace VerifyProfiles {
     type VerifyProfileMessageTemplateResponse as VerifyProfileMessageTemplateResponse,
     type VerifyProfileRetrieveTemplatesResponse as VerifyProfileRetrieveTemplatesResponse,
     type VerifyProfilesDefaultFlatPagination as VerifyProfilesDefaultFlatPagination,
+    type VerifyProfileListParams as VerifyProfileListParams,
     type VerifyProfileCreateParams as VerifyProfileCreateParams,
     type VerifyProfileUpdateParams as VerifyProfileUpdateParams,
-    type VerifyProfileListParams as VerifyProfileListParams,
     type VerifyProfileCreateTemplateParams as VerifyProfileCreateTemplateParams,
     type VerifyProfileUpdateTemplateParams as VerifyProfileUpdateTemplateParams,
   };

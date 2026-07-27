@@ -33,6 +33,24 @@ export class Rooms extends APIResource {
   sessions: SessionsAPI.Sessions = new SessionsAPI.Sessions(this._client);
 
   /**
+   * View a list of rooms.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const room of client.rooms.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: RoomListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<RoomsDefaultFlatPagination, Room> {
+    return this._client.getAPIList('/rooms', DefaultFlatPagination<Room>, { query, ...options });
+  }
+
+  /**
    * Synchronously create a Room.
    *
    * @example
@@ -42,6 +60,25 @@ export class Rooms extends APIResource {
    */
   create(body: RoomCreateParams, options?: RequestOptions): APIPromise<RoomCreateResponse> {
     return this._client.post('/rooms', { body, ...options });
+  }
+
+  /**
+   * Synchronously delete a Room. Participants from that room will be kicked out,
+   * they won't be able to join that room anymore, and you won't be charged anymore
+   * for that room.
+   *
+   * @example
+   * ```ts
+   * await client.rooms.delete(
+   *   '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+   * );
+   * ```
+   */
+  delete(roomID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/rooms/${roomID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -74,43 +111,6 @@ export class Rooms extends APIResource {
    */
   update(roomID: string, body: RoomUpdateParams, options?: RequestOptions): APIPromise<RoomUpdateResponse> {
     return this._client.patch(path`/rooms/${roomID}`, { body, ...options });
-  }
-
-  /**
-   * View a list of rooms.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const room of client.rooms.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: RoomListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<RoomsDefaultFlatPagination, Room> {
-    return this._client.getAPIList('/rooms', DefaultFlatPagination<Room>, { query, ...options });
-  }
-
-  /**
-   * Synchronously delete a Room. Participants from that room will be kicked out,
-   * they won't be able to join that room anymore, and you won't be charged anymore
-   * for that room.
-   *
-   * @example
-   * ```ts
-   * await client.rooms.delete(
-   *   '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-   * );
-   * ```
-   */
-  delete(roomID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/rooms/${roomID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
   }
 }
 
@@ -224,6 +224,76 @@ export interface RoomUpdateResponse {
   data?: Room;
 }
 
+export interface RoomListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[date_created_at][eq], filter[date_created_at][gte],
+   * filter[date_created_at][lte], filter[date_updated_at][eq],
+   * filter[date_updated_at][gte], filter[date_updated_at][lte], filter[unique_name]
+   */
+  filter?: RoomListParams.Filter;
+
+  /**
+   * To decide if room sessions should be included in the response.
+   */
+  include_sessions?: boolean;
+}
+
+export namespace RoomListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[date_created_at][eq], filter[date_created_at][gte],
+   * filter[date_created_at][lte], filter[date_updated_at][eq],
+   * filter[date_updated_at][gte], filter[date_updated_at][lte], filter[unique_name]
+   */
+  export interface Filter {
+    date_created_at?: Filter.DateCreatedAt;
+
+    date_updated_at?: Filter.DateUpdatedAt;
+
+    /**
+     * Unique_name for filtering rooms.
+     */
+    unique_name?: string;
+  }
+
+  export namespace Filter {
+    export interface DateCreatedAt {
+      /**
+       * ISO 8601 date for filtering rooms created on that date.
+       */
+      eq?: string;
+
+      /**
+       * ISO 8601 date for filtering rooms created on or after that date.
+       */
+      gte?: string;
+
+      /**
+       * ISO 8601 date for filtering rooms created on or before that date.
+       */
+      lte?: string;
+    }
+
+    export interface DateUpdatedAt {
+      /**
+       * ISO 8601 date for filtering rooms updated on that date.
+       */
+      eq?: string;
+
+      /**
+       * ISO 8601 date for filtering rooms updated on or after that date.
+       */
+      gte?: string;
+
+      /**
+       * ISO 8601 date for filtering rooms updated on or before that date.
+       */
+      lte?: string;
+    }
+  }
+}
+
 export interface RoomCreateParams {
   /**
    * Enable or disable recording for that room.
@@ -301,76 +371,6 @@ export interface RoomUpdateParams {
   webhook_timeout_secs?: number;
 }
 
-export interface RoomListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[date_created_at][eq], filter[date_created_at][gte],
-   * filter[date_created_at][lte], filter[date_updated_at][eq],
-   * filter[date_updated_at][gte], filter[date_updated_at][lte], filter[unique_name]
-   */
-  filter?: RoomListParams.Filter;
-
-  /**
-   * To decide if room sessions should be included in the response.
-   */
-  include_sessions?: boolean;
-}
-
-export namespace RoomListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[date_created_at][eq], filter[date_created_at][gte],
-   * filter[date_created_at][lte], filter[date_updated_at][eq],
-   * filter[date_updated_at][gte], filter[date_updated_at][lte], filter[unique_name]
-   */
-  export interface Filter {
-    date_created_at?: Filter.DateCreatedAt;
-
-    date_updated_at?: Filter.DateUpdatedAt;
-
-    /**
-     * Unique_name for filtering rooms.
-     */
-    unique_name?: string;
-  }
-
-  export namespace Filter {
-    export interface DateCreatedAt {
-      /**
-       * ISO 8601 date for filtering rooms created on that date.
-       */
-      eq?: string;
-
-      /**
-       * ISO 8601 date for filtering rooms created on or after that date.
-       */
-      gte?: string;
-
-      /**
-       * ISO 8601 date for filtering rooms created on or before that date.
-       */
-      lte?: string;
-    }
-
-    export interface DateUpdatedAt {
-      /**
-       * ISO 8601 date for filtering rooms updated on that date.
-       */
-      eq?: string;
-
-      /**
-       * ISO 8601 date for filtering rooms updated on or after that date.
-       */
-      gte?: string;
-
-      /**
-       * ISO 8601 date for filtering rooms updated on or before that date.
-       */
-      lte?: string;
-    }
-  }
-}
-
 Rooms.Actions = Actions;
 Rooms.Sessions = Sessions;
 
@@ -382,10 +382,10 @@ export declare namespace Rooms {
     type RoomRetrieveResponse as RoomRetrieveResponse,
     type RoomUpdateResponse as RoomUpdateResponse,
     type RoomsDefaultFlatPagination as RoomsDefaultFlatPagination,
+    type RoomListParams as RoomListParams,
     type RoomCreateParams as RoomCreateParams,
     type RoomRetrieveParams as RoomRetrieveParams,
     type RoomUpdateParams as RoomUpdateParams,
-    type RoomListParams as RoomListParams,
   };
 
   export {
@@ -399,9 +399,9 @@ export declare namespace Rooms {
   export {
     Sessions as Sessions,
     type SessionRetrieveResponse as SessionRetrieveResponse,
-    type SessionRetrieveParams as SessionRetrieveParams,
     type SessionList0Params as SessionList0Params,
     type SessionList1Params as SessionList1Params,
+    type SessionRetrieveParams as SessionRetrieveParams,
     type SessionRetrieveParticipantsParams as SessionRetrieveParticipantsParams,
   };
 }

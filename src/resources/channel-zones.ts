@@ -11,20 +11,6 @@ import { path } from '../internal/utils/path';
  */
 export class ChannelZones extends APIResource {
   /**
-   * Update the number of Voice Channels for the Non-US Zones. This allows your
-   * account to handle multiple simultaneous inbound calls to Non-US numbers. Use
-   * this endpoint to increase or decrease your capacity based on expected call
-   * volume.
-   */
-  update(
-    channelZoneID: string,
-    body: ChannelZoneUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<ChannelZoneUpdateResponse> {
-    return this._client.put(path`/channel_zones/${channelZoneID}`, { body, ...options });
-  }
-
-  /**
    * Returns the non-US voice channels for your account. voice channels allow you to
    * use Channel Billing for calls to your Telnyx phone numbers. Please check the
    * <a href="https://support.telnyx.com/en/articles/8428806-global-channel-billing">Telnyx
@@ -34,17 +20,31 @@ export class ChannelZones extends APIResource {
   list(
     query: ChannelZoneListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ChannelZoneListResponsesDefaultFlatPagination, ChannelZoneListResponse> {
-    return this._client.getAPIList('/channel_zones', DefaultFlatPagination<ChannelZoneListResponse>, {
+  ): PagePromise<GcbChannelZonesDefaultFlatPagination, GcbChannelZone> {
+    return this._client.getAPIList('/channel_zones', DefaultFlatPagination<GcbChannelZone>, {
       query,
       ...options,
     });
   }
+
+  /**
+   * Update the number of Voice Channels for the Non-US Zones. This allows your
+   * account to handle multiple simultaneous inbound calls to Non-US numbers. Use
+   * this endpoint to increase or decrease your capacity based on expected call
+   * volume.
+   */
+  update(
+    channelZoneID: string,
+    body: ChannelZoneUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<GcbChannelZone> {
+    return this._client.put(path`/channel_zones/${channelZoneID}`, { body, ...options });
+  }
 }
 
-export type ChannelZoneListResponsesDefaultFlatPagination = DefaultFlatPagination<ChannelZoneListResponse>;
+export type GcbChannelZonesDefaultFlatPagination = DefaultFlatPagination<GcbChannelZone>;
 
-export interface ChannelZoneUpdateResponse {
+export interface GcbChannelZone {
   id: string;
 
   channels: number;
@@ -70,31 +70,7 @@ export interface ChannelZoneUpdateResponse {
   updated_at?: string;
 }
 
-export interface ChannelZoneListResponse {
-  id: string;
-
-  channels: number;
-
-  /**
-   * List of countries (in ISO 3166-2, capitalized) members of the billing channel
-   * zone
-   */
-  countries: Array<string>;
-
-  name: string;
-
-  record_type: 'channel_zone';
-
-  /**
-   * ISO 8601 formatted date of when the channel zone was created
-   */
-  created_at?: string;
-
-  /**
-   * ISO 8601 formatted date of when the channel zone was updated
-   */
-  updated_at?: string;
-}
+export interface ChannelZoneListParams extends DefaultFlatPaginationParams {}
 
 export interface ChannelZoneUpdateParams {
   /**
@@ -103,14 +79,11 @@ export interface ChannelZoneUpdateParams {
   channels: number;
 }
 
-export interface ChannelZoneListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace ChannelZones {
   export {
-    type ChannelZoneUpdateResponse as ChannelZoneUpdateResponse,
-    type ChannelZoneListResponse as ChannelZoneListResponse,
-    type ChannelZoneListResponsesDefaultFlatPagination as ChannelZoneListResponsesDefaultFlatPagination,
-    type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
+    type GcbChannelZone as GcbChannelZone,
+    type GcbChannelZonesDefaultFlatPagination as GcbChannelZonesDefaultFlatPagination,
     type ChannelZoneListParams as ChannelZoneListParams,
+    type ChannelZoneUpdateParams as ChannelZoneUpdateParams,
   };
 }

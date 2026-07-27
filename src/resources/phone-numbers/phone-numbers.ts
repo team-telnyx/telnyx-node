@@ -85,6 +85,64 @@ export class PhoneNumbers extends APIResource {
   voicemail: VoicemailAPI.Voicemail = new VoicemailAPI.Voicemail(this._client);
 
   /**
+   * List phone numbers
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const phoneNumberDetailed of client.phoneNumbers.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: PhoneNumberListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PhoneNumberDetailedsDefaultFlatPagination, PhoneNumberDetailed> {
+    return this._client.getAPIList('/phone_numbers', DefaultFlatPagination<PhoneNumberDetailed>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
+   * List phone numbers, This endpoint is a lighter version of the /phone_numbers
+   * endpoint having higher performance and rate limit.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const phoneNumberSlimListResponse of client.phoneNumbers.slimList()) {
+   *   // ...
+   * }
+   * ```
+   */
+  slimList(
+    query: PhoneNumberSlimListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PhoneNumberSlimListResponsesDefaultFlatPagination, PhoneNumberSlimListResponse> {
+    return this._client.getAPIList(
+      '/phone_numbers/slim',
+      DefaultFlatPagination<PhoneNumberSlimListResponse>,
+      { query, ...options },
+    );
+  }
+
+  /**
+   * Delete a phone number
+   *
+   * @example
+   * ```ts
+   * const phoneNumber = await client.phoneNumbers.delete(
+   *   '1293384261075731499',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<PhoneNumberDeleteResponse> {
+    return this._client.delete(path`/phone_numbers/${id}`, options);
+  }
+
+  /**
    * Retrieve a phone number
    *
    * @example
@@ -114,64 +172,6 @@ export class PhoneNumbers extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PhoneNumberUpdateResponse> {
     return this._client.patch(path`/phone_numbers/${phoneNumberID}`, { body, ...options });
-  }
-
-  /**
-   * List phone numbers
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberDetailed of client.phoneNumbers.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: PhoneNumberListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PhoneNumberDetailedsDefaultFlatPagination, PhoneNumberDetailed> {
-    return this._client.getAPIList('/phone_numbers', DefaultFlatPagination<PhoneNumberDetailed>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete a phone number
-   *
-   * @example
-   * ```ts
-   * const phoneNumber = await client.phoneNumbers.delete(
-   *   '1293384261075731499',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<PhoneNumberDeleteResponse> {
-    return this._client.delete(path`/phone_numbers/${id}`, options);
-  }
-
-  /**
-   * List phone numbers, This endpoint is a lighter version of the /phone_numbers
-   * endpoint having higher performance and rate limit.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberSlimListResponse of client.phoneNumbers.slimList()) {
-   *   // ...
-   * }
-   * ```
-   */
-  slimList(
-    query: PhoneNumberSlimListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PhoneNumberSlimListResponsesDefaultFlatPagination, PhoneNumberSlimListResponse> {
-    return this._client.getAPIList(
-      '/phone_numbers/slim',
-      DefaultFlatPagination<PhoneNumberSlimListResponse>,
-      { query, ...options },
-    );
   }
 }
 
@@ -263,6 +263,14 @@ export interface PhoneNumberDetailed {
    * A list of user-assigned tags to help manage the phone number.
    */
   tags: Array<string>;
+
+  /**
+   * ISO 8601 formatted date indicating when the phone number was first activated
+   * (transitioned from purchase-pending or port-pending to active). Will be null for
+   * numbers that have not yet been activated, or for legacy numbers activated before
+   * this field was tracked.
+   */
+  activated_at?: string | null;
 
   /**
    * Identifies the billing group associated with the phone number.
@@ -383,6 +391,14 @@ export namespace PhoneNumberDeleteResponse {
      * Identifies the resource.
      */
     id?: string;
+
+    /**
+     * ISO 8601 formatted date indicating when the phone number was first activated
+     * (transitioned from purchase-pending or port-pending to active). Will be null for
+     * numbers that have not yet been activated, or for legacy numbers activated before
+     * this field was tracked.
+     */
+    activated_at?: string | null;
 
     /**
      * Identifies the billing group associated with the phone number.
@@ -531,6 +547,14 @@ export interface PhoneNumberSlimListResponse {
   id?: string;
 
   /**
+   * ISO 8601 formatted date indicating when the phone number was first activated
+   * (transitioned from purchase-pending or port-pending to active). Will be null for
+   * numbers that have not yet been activated, or for legacy numbers activated before
+   * this field was tracked.
+   */
+  activated_at?: string | null;
+
+  /**
    * Identifies the billing group associated with the phone number.
    */
   billing_group_id?: string;
@@ -674,46 +698,6 @@ export interface PhoneNumberSlimListResponse {
    * ISO 8601 formatted date indicating when the resource was updated.
    */
   updated_at?: string;
-}
-
-export interface PhoneNumberUpdateParams {
-  /**
-   * Identifies the address associated with the phone number.
-   */
-  address_id?: string;
-
-  /**
-   * Identifies the billing group associated with the phone number.
-   */
-  billing_group_id?: string;
-
-  /**
-   * Identifies the connection associated with the phone number.
-   */
-  connection_id?: string;
-
-  /**
-   * A customer reference string for customer look ups.
-   */
-  customer_reference?: string;
-
-  /**
-   * If someone attempts to port your phone number away from Telnyx and your phone
-   * number has an external PIN set, we will attempt to verify that you provided the
-   * correct external PIN to the winning carrier. Note that not all carriers
-   * cooperate with this security mechanism.
-   */
-  external_pin?: string;
-
-  /**
-   * Indicates whether HD voice is enabled for this number.
-   */
-  hd_voice_enabled?: boolean;
-
-  /**
-   * A list of user-assigned tags to help organize phone numbers.
-   */
-  tags?: Array<string>;
 }
 
 export interface PhoneNumberListParams extends DefaultFlatPaginationParams {
@@ -1033,6 +1017,46 @@ export namespace PhoneNumberSlimListParams {
   }
 }
 
+export interface PhoneNumberUpdateParams {
+  /**
+   * Identifies the address associated with the phone number.
+   */
+  address_id?: string;
+
+  /**
+   * Identifies the billing group associated with the phone number.
+   */
+  billing_group_id?: string;
+
+  /**
+   * Identifies the connection associated with the phone number.
+   */
+  connection_id?: string;
+
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string;
+
+  /**
+   * If someone attempts to port your phone number away from Telnyx and your phone
+   * number has an external PIN set, we will attempt to verify that you provided the
+   * correct external PIN to the winning carrier. Note that not all carriers
+   * cooperate with this security mechanism.
+   */
+  external_pin?: string;
+
+  /**
+   * Indicates whether HD voice is enabled for this number.
+   */
+  hd_voice_enabled?: boolean;
+
+  /**
+   * A list of user-assigned tags to help organize phone numbers.
+   */
+  tags?: Array<string>;
+}
+
 PhoneNumbers.Actions = Actions;
 PhoneNumbers.CsvDownloads = CsvDownloads;
 PhoneNumbers.Jobs = Jobs;
@@ -1049,9 +1073,9 @@ export declare namespace PhoneNumbers {
     type PhoneNumberSlimListResponse as PhoneNumberSlimListResponse,
     type PhoneNumberDetailedsDefaultFlatPagination as PhoneNumberDetailedsDefaultFlatPagination,
     type PhoneNumberSlimListResponsesDefaultFlatPagination as PhoneNumberSlimListResponsesDefaultFlatPagination,
-    type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberSlimListParams as PhoneNumberSlimListParams,
+    type PhoneNumberUpdateParams as PhoneNumberUpdateParams,
   };
 
   export {
@@ -1060,9 +1084,9 @@ export declare namespace PhoneNumbers {
     type ActionChangeBundleStatusResponse as ActionChangeBundleStatusResponse,
     type ActionEnableEmergencyResponse as ActionEnableEmergencyResponse,
     type ActionVerifyOwnershipResponse as ActionVerifyOwnershipResponse,
+    type ActionVerifyOwnershipParams as ActionVerifyOwnershipParams,
     type ActionChangeBundleStatusParams as ActionChangeBundleStatusParams,
     type ActionEnableEmergencyParams as ActionEnableEmergencyParams,
-    type ActionVerifyOwnershipParams as ActionVerifyOwnershipParams,
   };
 
   export {
@@ -1071,8 +1095,8 @@ export declare namespace PhoneNumbers {
     type CsvDownloadCreateResponse as CsvDownloadCreateResponse,
     type CsvDownloadRetrieveResponse as CsvDownloadRetrieveResponse,
     type CsvDownloadsDefaultFlatPagination as CsvDownloadsDefaultFlatPagination,
-    type CsvDownloadCreateParams as CsvDownloadCreateParams,
     type CsvDownloadListParams as CsvDownloadListParams,
+    type CsvDownloadCreateParams as CsvDownloadCreateParams,
   };
 
   export {
@@ -1085,16 +1109,16 @@ export declare namespace PhoneNumbers {
     type PhoneNumbersJobsDefaultFlatPagination as PhoneNumbersJobsDefaultFlatPagination,
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
-    type JobUpdateBatchParams as JobUpdateBatchParams,
     type JobUpdateEmergencySettingsBatchParams as JobUpdateEmergencySettingsBatchParams,
+    type JobUpdateBatchParams as JobUpdateBatchParams,
   };
 
   export {
     Messaging as Messaging,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingUpdateResponse as MessagingUpdateResponse,
-    type MessagingUpdateParams as MessagingUpdateParams,
     type MessagingListParams as MessagingListParams,
+    type MessagingUpdateParams as MessagingUpdateParams,
   };
 
   export {
@@ -1106,8 +1130,8 @@ export declare namespace PhoneNumbers {
     type UpdateVoiceSettings as UpdateVoiceSettings,
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceUpdateResponse as VoiceUpdateResponse,
-    type VoiceUpdateParams as VoiceUpdateParams,
     type VoiceListParams as VoiceListParams,
+    type VoiceUpdateParams as VoiceUpdateParams,
   };
 
   export {
@@ -1117,7 +1141,7 @@ export declare namespace PhoneNumbers {
     type VoicemailCreateResponse as VoicemailCreateResponse,
     type VoicemailRetrieveResponse as VoicemailRetrieveResponse,
     type VoicemailUpdateResponse as VoicemailUpdateResponse,
-    type VoicemailCreateParams as VoicemailCreateParams,
     type VoicemailUpdateParams as VoicemailUpdateParams,
+    type VoicemailCreateParams as VoicemailCreateParams,
   };
 }

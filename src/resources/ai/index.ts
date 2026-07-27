@@ -3,23 +3,33 @@
 export {
   AI,
   type ModelMetadata,
-  type AIRetrieveModelsResponse,
+  type ModelsResponse,
+  type AIRetrieveConversationHistoriesResponse,
   type AISummarizeResponse,
   type AISummarizeParams,
+  type AIRetrieveConversationHistoriesParams,
 } from './ai';
+export { Anthropic } from './anthropic/index';
 export {
   Assistants,
+  type ArithmeticExpression,
   type Assistant,
   type AssistantIntegration,
   type AssistantMcpServer,
   type AssistantTool,
   type AssistantsList,
   type AudioVisualizerConfig,
+  type AuthenticationMethod,
+  type BooleanOpExpression,
+  type ComparisonExpression,
+  type ConversationFlowReq,
   type EnabledFeatures,
+  type Expression,
   type ExternalLlm,
   type ExternalLlmReq,
   type FallbackConfig,
   type FallbackConfigReq,
+  type FlowEdge,
   type HangupTool,
   type HangupToolParams,
   type ImportMetadata,
@@ -28,11 +38,14 @@ export {
   type InferenceEmbeddingWebhookToolParams,
   type InsightSettings,
   type MessagingSettings,
+  type NodePosition,
   type Observability,
   type ObservabilityReq,
+  type ObservabilityStatus,
   type PostConversationSettings,
   type PostConversationSettingsReq,
   type PrivacySettings,
+  type PromptSyncStatus,
   type RetrievalTool,
   type StartSpeakingPlan,
   type TelephonySettings,
@@ -48,28 +61,23 @@ export {
   type AssistantGetTexmlResponse,
   type AssistantSendSMSResponse,
   type AssistantCreateParams,
+  type AssistantImportsParams,
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
-  type AssistantImportsParams,
   type AssistantSendSMSParams,
 } from './assistants/index';
 export { Audio, type AudioTranscribeResponse, type AudioTranscribeParams } from './audio';
-export {
-  Chat,
-  type BucketIDs,
-  type ChatCreateCompletionResponse,
-  type ChatCreateCompletionParams,
-} from './chat';
+export { Chat, type BucketIDs, type ChatCompletionRequest } from './chat';
 export {
   Clusters,
   type RecursiveCluster,
   type ClusterRetrieveResponse,
   type ClusterListResponse,
   type ClusterComputeResponse,
-  type ClusterRetrieveParams,
   type ClusterListParams,
   type ClusterComputeParams,
+  type ClusterRetrieveParams,
   type ClusterFetchGraphParams,
   type ClusterListResponsesDefaultFlatPagination,
 } from './clusters';
@@ -80,9 +88,9 @@ export {
   type ConversationUpdateResponse,
   type ConversationListResponse,
   type ConversationRetrieveConversationsInsightsResponse,
+  type ConversationListParams,
   type ConversationCreateParams,
   type ConversationUpdateParams,
-  type ConversationListParams,
   type ConversationAddMessageParams,
 } from './conversations/index';
 export {
@@ -92,51 +100,42 @@ export {
   type EmbeddingRetrieveResponse,
   type EmbeddingListResponse,
   type EmbeddingSimilaritySearchResponse,
-  type EmbeddingCreateParams,
   type EmbeddingListParams,
+  type EmbeddingCreateParams,
   type EmbeddingSimilaritySearchParams,
   type EmbeddingURLParams,
 } from './embeddings/index';
 export { FineTuning } from './fine-tuning/index';
-export {
-  Integrations,
-  type IntegrationRetrieveResponse,
-  type IntegrationListResponse,
-} from './integrations/index';
+export { Integrations, type Integration, type IntegrationListResponse } from './integrations/index';
 export {
   McpServers,
-  type McpServerCreateResponse,
-  type McpServerRetrieveResponse,
-  type McpServerUpdateResponse,
-  type McpServerListResponse,
+  type McpServer,
+  type McpServerListParams,
   type McpServerCreateParams,
   type McpServerUpdateParams,
-  type McpServerListParams,
-  type McpServerListResponsesDefaultFlatPaginationTopLevelArray,
+  type McpServersDefaultFlatPaginationTopLevelArray,
 } from './mcp-servers';
 export {
   Missions,
+  type EventsListResponse,
+  type ExecutionMode,
   type MissionData,
-  type MissionCreateResponse,
-  type MissionRetrieveResponse,
+  type MissionResponse,
   type MissionCloneMissionResponse,
-  type MissionUpdateMissionResponse,
-  type MissionCreateParams,
   type MissionListParams,
+  type MissionCreateParams,
   type MissionListEventsParams,
   type MissionUpdateMissionParams,
   type MissionDataDefaultFlatPagination,
 } from './missions/index';
-export { OpenAI, type OpenAIListModelsResponse } from './openai/index';
+export { OpenAI, type OpenAICreateResponseResponse, type OpenAICreateResponseParams } from './openai/index';
 export {
   Tools,
-  type ToolCreateResponse,
-  type ToolRetrieveResponse,
-  type ToolUpdateResponse,
-  type ToolListResponse,
+  type PayToolParams,
+  type SharedToolResponse,
   type ToolDeleteResponse,
+  type ToolListParams,
   type ToolCreateParams,
   type ToolUpdateParams,
-  type ToolListParams,
-  type ToolListResponsesDefaultFlatPagination,
+  type SharedToolResponsesDefaultFlatPagination,
 } from './tools';

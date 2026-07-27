@@ -1,6 +1,6 @@
 # Telnyx TypeScript API Library
 
-<a href="https://npmjs.org/package/telnyx"><img alt="NPM version" src="https://img.shields.io/npm/v/telnyx.svg?label=npm%20(stable)" /></a> ![npm bundle size](https://img.shields.io/bundlephobia/minzip/telnyx)
+[![NPM version](<https://img.shields.io/npm/v/telnyx.svg?label=npm%20(stable)>)](https://npmjs.org/package/telnyx) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/telnyx)
 
 This library provides convenient access to the Telnyx REST API from server-side TypeScript or JavaScript.
 
@@ -218,45 +218,6 @@ while (page.hasNextPage()) {
   // ...
 }
 ```
-
-## Real-time Speech-to-Text (WebSocket)
-
-Stream audio for real-time transcription using WebSocket:
-
-```ts
-import Telnyx from 'telnyx';
-import { SpeechToTextWS } from 'telnyx/resources/speech-to-text';
-import * as fs from 'fs';
-
-const client = new Telnyx();
-
-const stt = new SpeechToTextWS(client, {
-  transcription_engine: 'Telnyx',
-  language: 'en-US',
-  interim_results: true,
-});
-
-// Wait for connection
-await stt.waitForOpen();
-
-// Listen for transcripts
-stt.on('transcript', (event) => {
-  console.log(`${event.is_final ? '✓' : '...'} ${event.transcript}`);
-});
-
-stt.on('error', (event) => {
-  console.error('Error:', event.error);
-});
-
-// Send audio data
-const audioData = fs.readFileSync('audio.wav');
-stt.send(audioData);
-
-// Close when done
-stt.close();
-```
-
-Supported transcription engines: `Azure`, `Deepgram`, `Google`, `Telnyx`
 
 ## Advanced Usage
 

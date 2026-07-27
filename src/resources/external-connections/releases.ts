@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ReleasesAPI from './releases';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
@@ -11,6 +10,33 @@ import { path } from '../../internal/utils/path';
  * External Connections operations
  */
 export class Releases extends APIResource {
+  /**
+   * Returns a list of your Releases for the given external connection. These are
+   * automatically created when you change the `connection_id` of a phone number that
+   * is currently on Microsoft Teams.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const release of client.externalConnections.releases.list(
+   *   '1293384261075731499',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    id: string,
+    query: ReleaseListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ReleasesDefaultFlatPagination, Release> {
+    return this._client.getAPIList(
+      path`/external_connections/${id}/releases`,
+      DefaultFlatPagination<Release>,
+      { query, ...options },
+    );
+  }
+
   /**
    * Return the details of a Release request and its phone numbers.
    *
@@ -31,82 +57,11 @@ export class Releases extends APIResource {
     const { id } = params;
     return this._client.get(path`/external_connections/${id}/releases/${releaseID}`, options);
   }
-
-  /**
-   * Returns a list of your Releases for the given external connection. These are
-   * automatically created when you change the `connection_id` of a phone number that
-   * is currently on Microsoft Teams.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const releaseListResponse of client.externalConnections.releases.list(
-   *   '1293384261075731499',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    id: string,
-    query: ReleaseListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ReleaseListResponsesDefaultFlatPagination, ReleaseListResponse> {
-    return this._client.getAPIList(
-      path`/external_connections/${id}/releases`,
-      DefaultFlatPagination<ReleaseListResponse>,
-      { query, ...options },
-    );
-  }
 }
 
-export type ReleaseListResponsesDefaultFlatPagination = DefaultFlatPagination<ReleaseListResponse>;
+export type ReleasesDefaultFlatPagination = DefaultFlatPagination<Release>;
 
-export interface TnReleaseEntry {
-  /**
-   * Phone number ID from the Telnyx API.
-   */
-  number_id?: string;
-
-  /**
-   * Phone number in E164 format.
-   */
-  phone_number?: string;
-}
-
-export interface ReleaseRetrieveResponse {
-  data?: ReleaseRetrieveResponse.Data;
-}
-
-export namespace ReleaseRetrieveResponse {
-  export interface Data {
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * A message set if there is an error with the upload process.
-     */
-    error_message?: string;
-
-    /**
-     * Represents the status of the release on Microsoft Teams.
-     */
-    status?: 'pending_upload' | 'pending' | 'in_progress' | 'complete' | 'failed' | 'expired' | 'unknown';
-
-    telephone_numbers?: Array<ReleasesAPI.TnReleaseEntry>;
-
-    tenant_id?: string;
-
-    /**
-     * Uniquely identifies the resource.
-     */
-    ticket_id?: string;
-  }
-}
-
-export interface ReleaseListResponse {
+export interface Release {
   /**
    * ISO 8601 formatted date indicating when the resource was created.
    */
@@ -132,11 +87,20 @@ export interface ReleaseListResponse {
   ticket_id?: string;
 }
 
-export interface ReleaseRetrieveParams {
+export interface TnReleaseEntry {
   /**
-   * Identifies the resource.
+   * Phone number ID from the Telnyx API.
    */
-  id: string;
+  number_id?: string;
+
+  /**
+   * Phone number in E164 format.
+   */
+  phone_number?: string;
+}
+
+export interface ReleaseRetrieveResponse {
+  data?: Release;
 }
 
 export interface ReleaseListParams extends DefaultFlatPaginationParams {
@@ -208,13 +172,20 @@ export namespace ReleaseListParams {
   }
 }
 
+export interface ReleaseRetrieveParams {
+  /**
+   * Identifies the resource.
+   */
+  id: string;
+}
+
 export declare namespace Releases {
   export {
+    type Release as Release,
     type TnReleaseEntry as TnReleaseEntry,
     type ReleaseRetrieveResponse as ReleaseRetrieveResponse,
-    type ReleaseListResponse as ReleaseListResponse,
-    type ReleaseListResponsesDefaultFlatPagination as ReleaseListResponsesDefaultFlatPagination,
-    type ReleaseRetrieveParams as ReleaseRetrieveParams,
+    type ReleasesDefaultFlatPagination as ReleasesDefaultFlatPagination,
     type ReleaseListParams as ReleaseListParams,
+    type ReleaseRetrieveParams as ReleaseRetrieveParams,
   };
 }

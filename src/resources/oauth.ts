@@ -8,6 +8,26 @@ import { path } from '../internal/utils/path';
 
 export class OAuth extends APIResource {
   /**
+   * OAuth 2.0 authorization endpoint for the authorization code flow
+   *
+   * @example
+   * ```ts
+   * await client.oauth.retrieveAuthorize({
+   *   client_id: 'client_id',
+   *   redirect_uri: 'https://example.com',
+   *   response_type: 'code',
+   * });
+   * ```
+   */
+  retrieveAuthorize(query: OAuthRetrieveAuthorizeParams, options?: RequestOptions): APIPromise<void> {
+    return this._client.get('/oauth/authorize', {
+      query,
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Retrieve details about an OAuth consent token
    *
    * @example
@@ -53,38 +73,6 @@ export class OAuth extends APIResource {
   }
 
   /**
-   * Register a new OAuth client dynamically (RFC 7591)
-   *
-   * @example
-   * ```ts
-   * const response = await client.oauth.register();
-   * ```
-   */
-  register(body: OAuthRegisterParams, options?: RequestOptions): APIPromise<OAuthRegisterResponse> {
-    return this._client.post('/oauth/register', { body, ...options });
-  }
-
-  /**
-   * OAuth 2.0 authorization endpoint for the authorization code flow
-   *
-   * @example
-   * ```ts
-   * await client.oauth.retrieveAuthorize({
-   *   client_id: 'client_id',
-   *   redirect_uri: 'https://example.com',
-   *   response_type: 'code',
-   * });
-   * ```
-   */
-  retrieveAuthorize(query: OAuthRetrieveAuthorizeParams, options?: RequestOptions): APIPromise<void> {
-    return this._client.get('/oauth/authorize', {
-      query,
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
    * Retrieve the JSON Web Key Set for token verification
    *
    * @example
@@ -94,6 +82,18 @@ export class OAuth extends APIResource {
    */
   retrieveJwks(options?: RequestOptions): APIPromise<OAuthRetrieveJwksResponse> {
     return this._client.get('/oauth/jwks', options);
+  }
+
+  /**
+   * Register a new OAuth client dynamically (RFC 7591)
+   *
+   * @example
+   * ```ts
+   * const response = await client.oauth.register();
+   * ```
+   */
+  register(body: OAuthRegisterParams, options?: RequestOptions): APIPromise<OAuthRegisterResponse> {
+    return this._client.post('/oauth/register', { body, ...options });
   }
 
   /**
@@ -341,6 +341,43 @@ export interface OAuthTokenResponse {
   scope?: string;
 }
 
+export interface OAuthRetrieveAuthorizeParams {
+  /**
+   * OAuth client identifier
+   */
+  client_id: string;
+
+  /**
+   * Redirect URI
+   */
+  redirect_uri: string;
+
+  /**
+   * OAuth response type
+   */
+  response_type: 'code';
+
+  /**
+   * PKCE code challenge
+   */
+  code_challenge?: string;
+
+  /**
+   * PKCE code challenge method
+   */
+  code_challenge_method?: 'plain' | 'S256';
+
+  /**
+   * Space-separated list of requested scopes
+   */
+  scope?: string;
+
+  /**
+   * State parameter for CSRF protection
+   */
+  state?: string;
+}
+
 export interface OAuthGrantsParams {
   /**
    * Whether the grant is allowed
@@ -407,43 +444,6 @@ export interface OAuthRegisterParams {
   tos_uri?: string;
 }
 
-export interface OAuthRetrieveAuthorizeParams {
-  /**
-   * OAuth client identifier
-   */
-  client_id: string;
-
-  /**
-   * Redirect URI
-   */
-  redirect_uri: string;
-
-  /**
-   * OAuth response type
-   */
-  response_type: 'code';
-
-  /**
-   * PKCE code challenge
-   */
-  code_challenge?: string;
-
-  /**
-   * PKCE code challenge method
-   */
-  code_challenge_method?: 'plain' | 'S256';
-
-  /**
-   * Space-separated list of requested scopes
-   */
-  scope?: string;
-
-  /**
-   * State parameter for CSRF protection
-   */
-  state?: string;
-}
-
 export interface OAuthTokenParams {
   /**
    * OAuth 2.0 grant type
@@ -494,10 +494,10 @@ export declare namespace OAuth {
     type OAuthRegisterResponse as OAuthRegisterResponse,
     type OAuthRetrieveJwksResponse as OAuthRetrieveJwksResponse,
     type OAuthTokenResponse as OAuthTokenResponse,
+    type OAuthRetrieveAuthorizeParams as OAuthRetrieveAuthorizeParams,
     type OAuthGrantsParams as OAuthGrantsParams,
     type OAuthIntrospectParams as OAuthIntrospectParams,
     type OAuthRegisterParams as OAuthRegisterParams,
-    type OAuthRetrieveAuthorizeParams as OAuthRetrieveAuthorizeParams,
     type OAuthTokenParams as OAuthTokenParams,
   };
 }

@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as PublicInternetGatewaysAPI from './public-internet-gateways';
+import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
 import * as NetworksAPI from './networks/networks';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
@@ -12,46 +14,7 @@ import { path } from '../internal/utils/path';
  */
 export class PublicInternetGateways extends APIResource {
   /**
-   * Create a new Public Internet Gateway.
-   *
-   * @example
-   * ```ts
-   * const publicInternetGateway =
-   *   await client.publicInternetGateways.create();
-   * ```
-   */
-  create(
-    body: PublicInternetGatewayCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<PublicInternetGatewayCreateResponse> {
-    return this._client.post('/public_internet_gateways', { body, ...options });
-  }
-
-  /**
-   * Retrieve a Public Internet Gateway.
-   *
-   * @example
-   * ```ts
-   * const publicInternetGateway =
-   *   await client.publicInternetGateways.retrieve(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<PublicInternetGatewayRetrieveResponse> {
-    return this._client.get(path`/public_internet_gateways/${id}`, options);
-  }
-
-  /**
    * List all Public Internet Gateways.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const publicInternetGatewayRead of client.publicInternetGateways.list()) {
-   *   // ...
-   * }
-   * ```
    */
   list(
     query: PublicInternetGatewayListParams | null | undefined = {},
@@ -65,18 +28,28 @@ export class PublicInternetGateways extends APIResource {
   }
 
   /**
+   * Create a new Public Internet Gateway.
+   */
+  create(
+    params: PublicInternetGatewayCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<PublicInternetGatewayCreateResponse> {
+    const { body } = params;
+    return this._client.post('/public_internet_gateways', { body: body, ...options });
+  }
+
+  /**
    * Delete a Public Internet Gateway.
-   *
-   * @example
-   * ```ts
-   * const publicInternetGateway =
-   *   await client.publicInternetGateways.delete(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<PublicInternetGatewayDeleteResponse> {
     return this._client.delete(path`/public_internet_gateways/${id}`, options);
+  }
+
+  /**
+   * Retrieve a Public Internet Gateway.
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<PublicInternetGatewayRetrieveResponse> {
+    return this._client.get(path`/public_internet_gateways/${id}`, options);
   }
 }
 
@@ -103,6 +76,18 @@ export interface NetworkInterface {
 export interface NetworkInterfaceRegion {
   /**
    * The region the interface should be deployed to.
+   */
+  region_code?: string;
+}
+
+export interface PublicInternetGateway extends GlobalIPAssignmentsAPI.Record, NetworkInterface {
+  /**
+   * The publically accessible ip for this interface.
+   */
+  public_ip?: string;
+
+  /**
+   * The region interface is deployed to.
    */
   region_code?: string;
 }
@@ -166,23 +151,6 @@ export interface PublicInternetGatewayDeleteResponse {
   data?: PublicInternetGatewayRead;
 }
 
-export interface PublicInternetGatewayCreateParams {
-  /**
-   * A user specified name for the interface.
-   */
-  name?: string;
-
-  /**
-   * The id of the network associated with the interface.
-   */
-  network_id?: string;
-
-  /**
-   * The region interface is deployed to.
-   */
-  region_code?: string;
-}
-
 export interface PublicInternetGatewayListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
@@ -202,16 +170,25 @@ export namespace PublicInternetGatewayListParams {
   }
 }
 
+export interface PublicInternetGatewayCreateParams {
+  body: PublicInternetGatewayCreateParams.Body;
+}
+
+export namespace PublicInternetGatewayCreateParams {
+  export interface Body extends PublicInternetGatewaysAPI.PublicInternetGateway {}
+}
+
 export declare namespace PublicInternetGateways {
   export {
     type NetworkInterface as NetworkInterface,
     type NetworkInterfaceRegion as NetworkInterfaceRegion,
+    type PublicInternetGateway as PublicInternetGateway,
     type PublicInternetGatewayRead as PublicInternetGatewayRead,
     type PublicInternetGatewayCreateResponse as PublicInternetGatewayCreateResponse,
     type PublicInternetGatewayRetrieveResponse as PublicInternetGatewayRetrieveResponse,
     type PublicInternetGatewayDeleteResponse as PublicInternetGatewayDeleteResponse,
     type PublicInternetGatewayReadsDefaultFlatPagination as PublicInternetGatewayReadsDefaultFlatPagination,
-    type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
     type PublicInternetGatewayListParams as PublicInternetGatewayListParams,
+    type PublicInternetGatewayCreateParams as PublicInternetGatewayCreateParams,
   };
 }

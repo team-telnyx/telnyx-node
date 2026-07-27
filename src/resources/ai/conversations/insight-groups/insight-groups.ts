@@ -21,6 +21,63 @@ export class InsightGroups extends APIResource {
   insights: InsightGroupsInsightsAPI.Insights = new InsightGroupsInsightsAPI.Insights(this._client);
 
   /**
+   * Get all insight groups
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const insightTemplateGroup of client.ai.conversations.insightGroups.retrieveInsightGroups()) {
+   *   // ...
+   * }
+   * ```
+   */
+  retrieveInsightGroups(
+    query: InsightGroupRetrieveInsightGroupsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<InsightTemplateGroupsDefaultFlatPagination, InsightTemplateGroup> {
+    return this._client.getAPIList(
+      '/ai/conversations/insight-groups',
+      DefaultFlatPagination<InsightTemplateGroup>,
+      { query, ...options },
+    );
+  }
+
+  /**
+   * Create a new insight group
+   *
+   * @example
+   * ```ts
+   * const insightTemplateGroupDetail =
+   *   await client.ai.conversations.insightGroups.insightGroups(
+   *     { name: 'name' },
+   *   );
+   * ```
+   */
+  insightGroups(
+    body: InsightGroupInsightGroupsParams,
+    options?: RequestOptions,
+  ): APIPromise<InsightTemplateGroupDetail> {
+    return this._client.post('/ai/conversations/insight-groups', { body, ...options });
+  }
+
+  /**
+   * Delete insight group by ID
+   *
+   * @example
+   * ```ts
+   * await client.ai.conversations.insightGroups.delete(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  delete(groupID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/conversations/insight-groups/${groupID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Get insight group by ID
    *
    * @example
@@ -53,63 +110,6 @@ export class InsightGroups extends APIResource {
   ): APIPromise<InsightTemplateGroupDetail> {
     return this._client.put(path`/ai/conversations/insight-groups/${groupID}`, { body, ...options });
   }
-
-  /**
-   * Delete insight group by ID
-   *
-   * @example
-   * ```ts
-   * await client.ai.conversations.insightGroups.delete(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  delete(groupID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/conversations/insight-groups/${groupID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Create a new insight group
-   *
-   * @example
-   * ```ts
-   * const insightTemplateGroupDetail =
-   *   await client.ai.conversations.insightGroups.insightGroups(
-   *     { name: 'name' },
-   *   );
-   * ```
-   */
-  insightGroups(
-    body: InsightGroupInsightGroupsParams,
-    options?: RequestOptions,
-  ): APIPromise<InsightTemplateGroupDetail> {
-    return this._client.post('/ai/conversations/insight-groups', { body, ...options });
-  }
-
-  /**
-   * Get all insight groups
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const insightTemplateGroup of client.ai.conversations.insightGroups.retrieveInsightGroups()) {
-   *   // ...
-   * }
-   * ```
-   */
-  retrieveInsightGroups(
-    query: InsightGroupRetrieveInsightGroupsParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<InsightTemplateGroupsDefaultFlatPagination, InsightTemplateGroup> {
-    return this._client.getAPIList(
-      '/ai/conversations/insight-groups',
-      DefaultFlatPagination<InsightTemplateGroup>,
-      { query, ...options },
-    );
-  }
 }
 
 export type InsightTemplateGroupsDefaultFlatPagination = DefaultFlatPagination<InsightTemplateGroup>;
@@ -132,13 +132,7 @@ export interface InsightTemplateGroupDetail {
   data: InsightTemplateGroup;
 }
 
-export interface InsightGroupUpdateParams {
-  description?: string;
-
-  name?: string;
-
-  webhook?: string;
-}
+export interface InsightGroupRetrieveInsightGroupsParams extends DefaultFlatPaginationParams {}
 
 export interface InsightGroupInsightGroupsParams {
   name: string;
@@ -148,7 +142,13 @@ export interface InsightGroupInsightGroupsParams {
   webhook?: string;
 }
 
-export interface InsightGroupRetrieveInsightGroupsParams extends DefaultFlatPaginationParams {}
+export interface InsightGroupUpdateParams {
+  description?: string;
+
+  name?: string;
+
+  webhook?: string;
+}
 
 InsightGroups.Insights = Insights;
 
@@ -157,9 +157,9 @@ export declare namespace InsightGroups {
     type InsightTemplateGroup as InsightTemplateGroup,
     type InsightTemplateGroupDetail as InsightTemplateGroupDetail,
     type InsightTemplateGroupsDefaultFlatPagination as InsightTemplateGroupsDefaultFlatPagination,
-    type InsightGroupUpdateParams as InsightGroupUpdateParams,
-    type InsightGroupInsightGroupsParams as InsightGroupInsightGroupsParams,
     type InsightGroupRetrieveInsightGroupsParams as InsightGroupRetrieveInsightGroupsParams,
+    type InsightGroupInsightGroupsParams as InsightGroupInsightGroupsParams,
+    type InsightGroupUpdateParams as InsightGroupUpdateParams,
   };
 
   export {

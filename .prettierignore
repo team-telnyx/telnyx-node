@@ -1,5 +1,4 @@
 CHANGELOG.md
-src/internal/types.ts
 /ecosystem-tests/*/**
 /node_modules
 /deno

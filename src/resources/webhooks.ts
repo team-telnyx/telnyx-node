@@ -1,19 +1,28 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import { type WebhookUnwrapOptions, unsafeUnwrapWebhook, unwrapWebhook } from '../lib/webhooks';
 import * as NumberOrdersAPI from './number-orders';
 import * as Shared from './shared';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
+import { Webhook } from 'standardwebhooks';
 
 export class Webhooks extends APIResource {
-  unsafeUnwrap<T = UnsafeUnwrapWebhookEvent>(body: string): T {
-    return unsafeUnwrapWebhook<T>(body);
+  unwrap(
+    body: string,
+    { headers, key }: { headers: Record<string, string>; key?: string },
+  ): UnwrapWebhookEvent {
+    if (headers !== undefined) {
+      const keyStr: string | null = key === undefined ? this._client.publicKey : key;
+      if (keyStr === null) throw new Error('Webhook key must not be null in order to unwrap');
+      const wh = new Webhook(keyStr);
+      wh.verify(body, headers);
+    }
+    return JSON.parse(body) as UnwrapWebhookEvent;
   }
 
-  async unwrap<T = UnwrapWebhookEvent>(body: string, options?: WebhookUnwrapOptions): Promise<T> {
-    return unwrapWebhook<T>(body, options, this._client.publicKey);
+  unsafeUnwrap(body: string): UnsafeUnwrapWebhookEvent {
+    return JSON.parse(body) as UnsafeUnwrapWebhookEvent;
   }
 }
 
@@ -352,7 +361,7 @@ export namespace CallAnswered {
     /**
      * User-to-User and Diversion headers from sip invite.
      */
-    sip_headers?: Array<CallsAPI.SipHeader>;
+    sip_headers?: Array<Payload.SipHeader>;
 
     /**
      * ISO 8601 datetime of when the call started.
@@ -373,6 +382,20 @@ export namespace CallAnswered {
      * Destination number or SIP URI of the call.
      */
     to?: string;
+  }
+
+  export namespace Payload {
+    export interface SipHeader {
+      /**
+       * The name of the header received from the SIP INVITE.
+       */
+      name: 'User-to-User' | 'Diversion';
+
+      /**
+       * The value of the header.
+       */
+      value: string;
+    }
   }
 }
 
@@ -526,6 +549,12 @@ export namespace CallConversationEnded {
      * The large language model used during the conversation.
      */
     llm_model?: string;
+
+    /**
+     * Reason the conversation ended. For Conversation Relay, `customer_disconnect`
+     * indicates that the customer WebSocket disconnected.
+     */
+    reason?: string | null;
 
     /**
      * The speech-to-text model used in the conversation.
@@ -1073,7 +1102,7 @@ export namespace CallHangup {
     /**
      * User-to-User and Diversion headers from sip invite.
      */
-    sip_headers?: Array<CallsAPI.SipHeader>;
+    sip_headers?: Array<Payload.SipHeader>;
 
     /**
      * ISO 8601 datetime of when the call started.
@@ -1159,6 +1188,18 @@ export namespace CallHangup {
          */
         skip_packet_count?: string;
       }
+    }
+
+    export interface SipHeader {
+      /**
+       * The name of the header received from the SIP INVITE.
+       */
+      name: 'User-to-User' | 'Diversion';
+
+      /**
+       * The value of the header.
+       */
+      value: string;
     }
   }
 }
@@ -1264,7 +1305,7 @@ export namespace CallInitiated {
     /**
      * User-to-User and Diversion headers from sip invite.
      */
-    sip_headers?: Array<CallsAPI.SipHeader>;
+    sip_headers?: Array<Payload.SipHeader>;
 
     /**
      * ISO 8601 datetime of when the call started.
@@ -1285,6 +1326,20 @@ export namespace CallInitiated {
      * Destination number or SIP URI of the call.
      */
     to?: string;
+  }
+
+  export namespace Payload {
+    export interface SipHeader {
+      /**
+       * The name of the header received from the SIP INVITE.
+       */
+      name: 'User-to-User' | 'Diversion';
+
+      /**
+       * The value of the header.
+       */
+      value: string;
+    }
   }
 }
 
@@ -3795,8 +3850,9 @@ export namespace FaxDelivered {
 
       /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 
@@ -3896,9 +3952,10 @@ export namespace FaxFailed {
       direction?: 'inbound' | 'outbound';
 
       /**
-       * Cause of the sending failure
+       * Customer-facing cause of the fax failure. Mapped from the more granular
+       * `internal_failure_reason`.
        */
-      failure_reason?: 'rejected';
+      failure_reason?: string;
 
       /**
        * Identifies the fax.
@@ -3911,9 +3968,16 @@ export namespace FaxFailed {
       from?: string;
 
       /**
+       * Internal, more granular cause of the fax failure. Useful for deeper debugging
+       * beyond the customer-facing `failure_reason`.
+       */
+      internal_failure_reason?: string;
+
+      /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 
@@ -4019,8 +4083,9 @@ export namespace FaxMediaProcessed {
 
       /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 
@@ -4126,8 +4191,9 @@ export namespace FaxQueued {
 
       /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 
@@ -4233,8 +4299,9 @@ export namespace FaxSendingStarted {
 
       /**
        * The media_name used for the fax's media. Must point to a file previously
-       * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-       * and media_url/contents can't be submitted together.
+       * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+       * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+       * media_url/contents can't be submitted together.
        */
       media_name?: string;
 
@@ -4278,27 +4345,116 @@ export namespace FaxSendingStarted {
 }
 
 export interface InboundMessage {
-  /**
-   * Identifies the type of resource.
-   */
-  id?: string;
+  id: string;
+
+  attachments: Array<{ [key: string]: unknown }>;
+
+  bcc: Array<InboundMessage.Bcc>;
+
+  cc: Array<InboundMessage.Cc>;
+
+  created_at: string;
+
+  direction: 'inbound';
+
+  from: InboundMessage.From;
 
   /**
-   * The type of event being delivered.
+   * Whether conservative plain-text extraction detected a quoted tail. False does
+   * not prove that the source contains no quoted content.
    */
-  event_type?: 'message.received';
+  has_quoted_text: boolean;
+
+  headers: { [key: string]: unknown };
 
   /**
-   * ISO 8601 formatted date indicating when the resource was created.
+   * URL for an offloaded HTML body. Null means the body is not offloaded to a URL;
+   * an inline HTML body may still exist but is not returned on list reads.
+   * `reply_text` and `has_quoted_text` are computed from the inline plain-text body
+   * when present.
    */
-  occurred_at?: string;
+  html_body_url: string | null;
 
-  payload?: Shared.InboundMessagePayload;
+  in_reply_to: string | null;
+
+  inbox_id: string;
+
+  inline_files: Array<{ [key: string]: unknown }>;
 
   /**
-   * Identifies the type of the resource.
+   * RFC Message-ID header.
    */
-  record_type?: 'event';
+  message_id: string;
+
+  read_at: string | null;
+
+  received_at: string;
+
+  record_type: 'email_message';
+
+  /**
+   * Ordered RFC Message-ID values from the References header.
+   */
+  references: Array<string>;
+
+  /**
+   * Conservatively extracted new-reply content from the available plain-text body.
+   * Null means no plain-text body was available because it was absent or offloaded;
+   * HTML bodies are not parsed.
+   */
+  reply_text: string | null;
+
+  reply_to: Array<InboundMessage.ReplyTo>;
+
+  status: 'received';
+
+  subject: string | null;
+
+  /**
+   * URL for an offloaded plain-text body. Null means the body is not offloaded to a
+   * URL; an inline plain-text body may still exist but is not returned on list
+   * reads. `reply_text` and `has_quoted_text` are computed from the inline
+   * plain-text body when present.
+   */
+  text_body_url: string | null;
+
+  thread_id: string;
+
+  to: Array<InboundMessage.To>;
+
+  updated_at: string;
+}
+
+export namespace InboundMessage {
+  export interface Bcc {
+    email: string;
+
+    name?: string;
+  }
+
+  export interface Cc {
+    email: string;
+
+    name?: string;
+  }
+
+  export interface From {
+    email: string;
+
+    name?: string;
+  }
+
+  export interface ReplyTo {
+    email: string;
+
+    name?: string;
+  }
+
+  export interface To {
+    email: string;
+
+    name?: string;
+  }
 }
 
 export interface NumberOrderStatusUpdate {
@@ -5233,7 +5389,33 @@ export namespace HostedNumberOrderEventWebhookEvent {
 }
 
 export interface InboundMessageWebhookEvent {
-  data?: InboundMessage;
+  data?: InboundMessageWebhookEvent.Data;
+}
+
+export namespace InboundMessageWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'message.received';
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    occurred_at?: string;
+
+    payload?: Shared.InboundMessagePayload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
 }
 
 export interface ReplacedLinkClickWebhookEvent {
@@ -5997,7 +6179,33 @@ export namespace HostedNumberOrderEventWebhookEvent {
 }
 
 export interface InboundMessageWebhookEvent {
-  data?: InboundMessage;
+  data?: InboundMessageWebhookEvent.Data;
+}
+
+export namespace InboundMessageWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'message.received';
+
+    /**
+     * ISO 8601 formatted date indicating when the resource was created.
+     */
+    occurred_at?: string;
+
+    payload?: Shared.InboundMessagePayload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
 }
 
 export interface ReplacedLinkClickWebhookEvent {

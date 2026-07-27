@@ -9,6 +9,35 @@ const client = new Telnyx({
 
 describe('resource oauth', () => {
   // Mock server tests are disabled
+  test.skip('retrieveAuthorize: only required params', async () => {
+    const responsePromise = client.oauth.retrieveAuthorize({
+      client_id: 'client_id',
+      redirect_uri: 'https://example.com',
+      response_type: 'code',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveAuthorize: required and optional params', async () => {
+    const response = await client.oauth.retrieveAuthorize({
+      client_id: 'client_id',
+      redirect_uri: 'https://example.com',
+      response_type: 'code',
+      code_challenge: 'code_challenge',
+      code_challenge_method: 'plain',
+      scope: 'scope',
+      state: 'state',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieve', async () => {
     const responsePromise = client.oauth.retrieve('consent_token');
     const rawResponse = await responsePromise.asResponse();
@@ -55,49 +84,20 @@ describe('resource oauth', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('register', async () => {
-    const responsePromise = client.oauth.register({});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieveAuthorize: only required params', async () => {
-    const responsePromise = client.oauth.retrieveAuthorize({
-      client_id: 'client_id',
-      redirect_uri: 'https://example.com',
-      response_type: 'code',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieveAuthorize: required and optional params', async () => {
-    const response = await client.oauth.retrieveAuthorize({
-      client_id: 'client_id',
-      redirect_uri: 'https://example.com',
-      response_type: 'code',
-      code_challenge: 'code_challenge',
-      code_challenge_method: 'plain',
-      scope: 'scope',
-      state: 'state',
-    });
-  });
-
-  // Mock server tests are disabled
   test.skip('retrieveJwks', async () => {
     const responsePromise = client.oauth.retrieveJwks();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('register', async () => {
+    const responsePromise = client.oauth.register({});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

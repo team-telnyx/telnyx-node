@@ -18,11 +18,12 @@ import {
   NumberLookup,
   NumberLookupCreateParams,
   NumberLookupCreateResponse,
-  NumberLookupListResponse,
+  NumberLookupListParams,
   NumberLookupRetrieveResponse,
   TelcoDataAggregation,
   TelcoDataUsageRecord,
   TelcoDataUsageReportResponse,
+  TelcoDataUsageReportResponsesPerPagePagination,
 } from './number-lookup';
 import * as VoiceAPI from './voice';
 import {
@@ -69,8 +70,14 @@ export interface UsageReportRetrieveSpeechToTextResponse {
 }
 
 export interface UsageReportRetrieveSpeechToTextParams {
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
   end_date?: string;
 
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
   start_date?: string;
 }
 
@@ -92,8 +99,8 @@ export declare namespace UsageReports {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingDeleteResponse as MessagingDeleteResponse,
     type MdrUsageReportResponseLegaciesPerPagePagination as MdrUsageReportResponseLegaciesPerPagePagination,
-    type MessagingCreateParams as MessagingCreateParams,
     type MessagingListParams as MessagingListParams,
+    type MessagingCreateParams as MessagingCreateParams,
   };
 
   export {
@@ -103,7 +110,8 @@ export declare namespace UsageReports {
     type TelcoDataUsageReportResponse as TelcoDataUsageReportResponse,
     type NumberLookupCreateResponse as NumberLookupCreateResponse,
     type NumberLookupRetrieveResponse as NumberLookupRetrieveResponse,
-    type NumberLookupListResponse as NumberLookupListResponse,
+    type TelcoDataUsageReportResponsesPerPagePagination as TelcoDataUsageReportResponsesPerPagePagination,
+    type NumberLookupListParams as NumberLookupListParams,
     type NumberLookupCreateParams as NumberLookupCreateParams,
   };
 
@@ -114,7 +122,7 @@ export declare namespace UsageReports {
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceDeleteResponse as VoiceDeleteResponse,
     type CdrUsageReportResponseLegaciesPerPagePagination as CdrUsageReportResponseLegaciesPerPagePagination,
-    type VoiceCreateParams as VoiceCreateParams,
     type VoiceListParams as VoiceListParams,
+    type VoiceCreateParams as VoiceCreateParams,
   };
 }

@@ -3,15 +3,16 @@
 import { APIResource } from '../../core/resource';
 import * as PortingOrdersAPI from './porting-orders';
 import * as AuthenticationProvidersAPI from '../authentication-providers';
+import * as PortingPhoneNumbersAPI from '../porting-phone-numbers';
 import * as Shared from '../shared';
 import * as ActionRequirementsAPI from './action-requirements';
 import {
   ActionRequirementInitiateParams,
   ActionRequirementInitiateResponse,
   ActionRequirementListParams,
-  ActionRequirementListResponse,
-  ActionRequirementListResponsesDefaultFlatPagination,
   ActionRequirements,
+  PortingActionRequirement,
+  PortingActionRequirementsDefaultFlatPagination,
 } from './action-requirements';
 import * as ActionsAPI from './actions';
 import {
@@ -37,9 +38,9 @@ import {
   AdditionalDocumentCreateResponse,
   AdditionalDocumentDeleteParams,
   AdditionalDocumentListParams,
-  AdditionalDocumentListResponse,
-  AdditionalDocumentListResponsesDefaultFlatPagination,
   AdditionalDocuments,
+  PortingAdditionalDocument,
+  PortingAdditionalDocumentsDefaultFlatPagination,
 } from './additional-documents';
 import * as AssociatedPhoneNumbersAPI from './associated-phone-numbers';
 import {
@@ -57,9 +58,9 @@ import {
   CommentCreateParams,
   CommentCreateResponse,
   CommentListParams,
-  CommentListResponse,
-  CommentListResponsesDefaultFlatPagination,
   Comments,
+  PortingOrdersComment,
+  PortingOrdersCommentsDefaultFlatPagination,
 } from './comments';
 import * as PhoneNumberBlocksAPI from './phone-number-blocks';
 import {
@@ -77,9 +78,9 @@ import {
   PhoneNumberConfigurationCreateParams,
   PhoneNumberConfigurationCreateResponse,
   PhoneNumberConfigurationListParams,
-  PhoneNumberConfigurationListResponse,
-  PhoneNumberConfigurationListResponsesDefaultFlatPagination,
   PhoneNumberConfigurations,
+  PortingPhoneNumberConfiguration,
+  PortingPhoneNumberConfigurationsDefaultFlatPagination,
 } from './phone-number-configurations';
 import * as PhoneNumberExtensionsAPI from './phone-number-extensions';
 import {
@@ -94,9 +95,9 @@ import {
 } from './phone-number-extensions';
 import * as VerificationCodesAPI from './verification-codes';
 import {
+  PortingVerificationCode,
+  PortingVerificationCodesDefaultFlatPagination,
   VerificationCodeListParams,
-  VerificationCodeListResponse,
-  VerificationCodeListResponsesDefaultFlatPagination,
   VerificationCodeSendParams,
   VerificationCodeVerifyParams,
   VerificationCodeVerifyResponse,
@@ -134,6 +135,27 @@ export class PortingOrders extends APIResource {
     new PhoneNumberExtensionsAPI.PhoneNumberExtensions(this._client);
 
   /**
+   * Returns a list of your porting order.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const portingOrder of client.portingOrders.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: PortingOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortingOrdersDefaultFlatPagination, PortingOrder> {
+    return this._client.getAPIList('/porting_orders', DefaultFlatPagination<PortingOrder>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a new porting order object.
    *
    * @example
@@ -149,6 +171,37 @@ export class PortingOrders extends APIResource {
    */
   create(body: PortingOrderCreateParams, options?: RequestOptions): APIPromise<PortingOrderCreateResponse> {
     return this._client.post('/porting_orders', { body, ...options });
+  }
+
+  /**
+   * Returns a list of all possible exception types for a porting order.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.portingOrders.retrieveExceptionTypes();
+   * ```
+   */
+  retrieveExceptionTypes(options?: RequestOptions): APIPromise<PortingOrderRetrieveExceptionTypesResponse> {
+    return this._client.get('/porting_orders/exception_types', options);
+  }
+
+  /**
+   * Deletes an existing porting order. This operation is restrict to porting orders
+   * in draft state.
+   *
+   * @example
+   * ```ts
+   * await client.portingOrders.delete(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/porting_orders/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -196,45 +249,6 @@ export class PortingOrders extends APIResource {
   }
 
   /**
-   * Returns a list of your porting order.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const portingOrder of client.portingOrders.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: PortingOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PortingOrdersDefaultFlatPagination, PortingOrder> {
-    return this._client.getAPIList('/porting_orders', DefaultFlatPagination<PortingOrder>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Deletes an existing porting order. This operation is restrict to porting orders
-   * in draft state.
-   *
-   * @example
-   * ```ts
-   * await client.portingOrders.delete(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/porting_orders/${id}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
    * Returns a list of allowed FOC dates for a porting order.
    *
    * @example
@@ -250,19 +264,6 @@ export class PortingOrders extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PortingOrderRetrieveAllowedFocWindowsResponse> {
     return this._client.get(path`/porting_orders/${id}/allowed_foc_windows`, options);
-  }
-
-  /**
-   * Returns a list of all possible exception types for a porting order.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.portingOrders.retrieveExceptionTypes();
-   * ```
-   */
-  retrieveExceptionTypes(options?: RequestOptions): APIPromise<PortingOrderRetrieveExceptionTypesResponse> {
-    return this._client.get('/porting_orders/exception_types', options);
   }
 
   /**
@@ -417,7 +418,7 @@ export interface PortingOrder {
   /**
    * List of phone numbers associated with this porting order
    */
-  phone_numbers?: Array<PortingOrder.PhoneNumber>;
+  phone_numbers?: Array<PortingPhoneNumbersAPI.PortingPhoneNumber>;
 
   /**
    * Count of phone numbers associated with this porting order
@@ -466,100 +467,11 @@ export interface PortingOrder {
   webhook_url?: string | null;
 }
 
-export namespace PortingOrder {
-  export interface PhoneNumber {
-    /**
-     * Activation status
-     */
-    activation_status?:
-      | 'New'
-      | 'Pending'
-      | 'Conflict'
-      | 'Cancel Pending'
-      | 'Failed'
-      | 'Concurred'
-      | 'Activate RDY'
-      | 'Disconnect Pending'
-      | 'Concurrence Sent'
-      | 'Old'
-      | 'Sending'
-      | 'Active'
-      | 'Cancelled';
-
-    /**
-     * E164 formatted phone number
-     */
-    phone_number?: string;
-
-    /**
-     * The type of the phone number
-     */
-    phone_number_type?: 'landline' | 'local' | 'mobile' | 'national' | 'shared_cost' | 'toll_free';
-
-    /**
-     * Specifies whether Telnyx is able to confirm portability this number in the
-     * United States & Canada. International phone numbers are provisional by default.
-     */
-    portability_status?: 'pending' | 'confirmed' | 'provisional';
-
-    /**
-     * Identifies the associated port request
-     */
-    porting_order_id?: string;
-
-    /**
-     * The current status of the porting order
-     */
-    porting_order_status?:
-      | 'draft'
-      | 'in-process'
-      | 'submitted'
-      | 'exception'
-      | 'foc-date-confirmed'
-      | 'cancel-pending'
-      | 'ported'
-      | 'cancelled';
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * The current status of the requirements in a INTL porting order
-     */
-    requirements_status?:
-      | 'requirement-info-pending'
-      | 'requirement-info-under-review'
-      | 'requirement-info-exception'
-      | 'approved';
-
-    /**
-     * A key to reference this porting order when contacting Telnyx customer support
-     */
-    support_key?: string;
-  }
-}
-
 export interface PortingOrderActivationSettings {
   /**
    * Activation status
    */
-  activation_status?:
-    | 'New'
-    | 'Pending'
-    | 'Conflict'
-    | 'Cancel Pending'
-    | 'Failed'
-    | 'Concurred'
-    | 'Activate RDY'
-    | 'Disconnect Pending'
-    | 'Concurrence Sent'
-    | 'Old'
-    | 'Sending'
-    | 'Active'
-    | 'Cancelled'
-    | null;
+  activation_status?: PortingPhoneNumbersAPI.PortingOrderActivationStatus | null;
 
   /**
    * Indicates whether this porting order is eligible for FastPort
@@ -992,103 +904,6 @@ export namespace PortingOrderRetrieveSubRequestResponse {
   }
 }
 
-export interface PortingOrderCreateParams {
-  /**
-   * The list of +E.164 formatted phone numbers
-   */
-  phone_numbers: Array<string>;
-
-  /**
-   * A customer-specified group reference for customer bookkeeping purposes
-   */
-  customer_group_reference?: string;
-
-  /**
-   * A customer-specified reference number for customer bookkeeping purposes
-   */
-  customer_reference?: string | null;
-}
-
-export interface PortingOrderRetrieveParams {
-  /**
-   * Include the first 50 phone number objects in the results
-   */
-  include_phone_numbers?: boolean;
-}
-
-export interface PortingOrderUpdateParams {
-  activation_settings?: PortingOrderUpdateParams.ActivationSettings;
-
-  customer_group_reference?: string;
-
-  customer_reference?: string;
-
-  /**
-   * Can be specified directly or via the `requirement_group_id` parameter.
-   */
-  documents?: PortingOrderDocuments;
-
-  end_user?: PortingOrderEndUser;
-
-  messaging?: PortingOrderUpdateParams.Messaging;
-
-  misc?: PortingOrderMisc | null;
-
-  phone_number_configuration?: PortingOrderPhoneNumberConfiguration;
-
-  /**
-   * If present, we will read the current values from the specified Requirement Group
-   * into the Documents and Requirements for this Porting Order. Note that any future
-   * changes in the Requirement Group would have no impact on this Porting Order. We
-   * will return an error if a specified Requirement Group conflicts with documents
-   * or requirements in the same request.
-   */
-  requirement_group_id?: string;
-
-  /**
-   * List of requirements for porting numbers.
-   */
-  requirements?: Array<PortingOrderUpdateParams.Requirement>;
-
-  user_feedback?: PortingOrderUserFeedback;
-
-  webhook_url?: string;
-}
-
-export namespace PortingOrderUpdateParams {
-  export interface ActivationSettings {
-    /**
-     * ISO 8601 formatted Date/Time requested for the FOC date
-     */
-    foc_datetime_requested?: string;
-  }
-
-  export interface Messaging {
-    /**
-     * Indicates whether Telnyx will port messaging capabilities from the losing
-     * carrier. If false, any messaging capabilities will stay with their current
-     * provider.
-     */
-    enable_messaging?: boolean;
-  }
-
-  /**
-   * Specifies a value for a requirement on the Porting Order.
-   */
-  export interface Requirement {
-    /**
-     * identifies the document or provides the text value that satisfies this
-     * requirement
-     */
-    field_value: string;
-
-    /**
-     * Identifies the requirement type that the `field_value` fulfills
-     */
-    requirement_type_id: string;
-  }
-}
-
 export interface PortingOrderListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -1252,6 +1067,103 @@ export namespace PortingOrderListParams {
   }
 }
 
+export interface PortingOrderCreateParams {
+  /**
+   * The list of +E.164 formatted phone numbers
+   */
+  phone_numbers: Array<string>;
+
+  /**
+   * A customer-specified group reference for customer bookkeeping purposes
+   */
+  customer_group_reference?: string;
+
+  /**
+   * A customer-specified reference number for customer bookkeeping purposes
+   */
+  customer_reference?: string | null;
+}
+
+export interface PortingOrderRetrieveParams {
+  /**
+   * Include the first 50 phone number objects in the results
+   */
+  include_phone_numbers?: boolean;
+}
+
+export interface PortingOrderUpdateParams {
+  activation_settings?: PortingOrderUpdateParams.ActivationSettings;
+
+  customer_group_reference?: string;
+
+  customer_reference?: string;
+
+  /**
+   * Can be specified directly or via the `requirement_group_id` parameter.
+   */
+  documents?: PortingOrderDocuments;
+
+  end_user?: PortingOrderEndUser;
+
+  messaging?: PortingOrderUpdateParams.Messaging;
+
+  misc?: PortingOrderMisc | null;
+
+  phone_number_configuration?: PortingOrderPhoneNumberConfiguration;
+
+  /**
+   * If present, we will read the current values from the specified Requirement Group
+   * into the Documents and Requirements for this Porting Order. Note that any future
+   * changes in the Requirement Group would have no impact on this Porting Order. We
+   * will return an error if a specified Requirement Group conflicts with documents
+   * or requirements in the same request.
+   */
+  requirement_group_id?: string;
+
+  /**
+   * List of requirements for porting numbers.
+   */
+  requirements?: Array<PortingOrderUpdateParams.Requirement>;
+
+  user_feedback?: PortingOrderUserFeedback;
+
+  webhook_url?: string;
+}
+
+export namespace PortingOrderUpdateParams {
+  export interface ActivationSettings {
+    /**
+     * ISO 8601 formatted Date/Time requested for the FOC date
+     */
+    foc_datetime_requested?: string;
+  }
+
+  export interface Messaging {
+    /**
+     * Indicates whether Telnyx will port messaging capabilities from the losing
+     * carrier. If false, any messaging capabilities will stay with their current
+     * provider.
+     */
+    enable_messaging?: boolean;
+  }
+
+  /**
+   * Specifies a value for a requirement on the Porting Order.
+   */
+  export interface Requirement {
+    /**
+     * identifies the document or provides the text value that satisfies this
+     * requirement
+     */
+    field_value: string;
+
+    /**
+     * Identifies the requirement type that the `field_value` fulfills
+     */
+    requirement_type_id: string;
+  }
+}
+
 export interface PortingOrderRetrieveLoaTemplateParams {
   /**
    * The identifier of the LOA configuration to use for the template. If not
@@ -1297,21 +1209,21 @@ export declare namespace PortingOrders {
     type PortingOrderRetrieveSubRequestResponse as PortingOrderRetrieveSubRequestResponse,
     type PortingOrdersDefaultFlatPagination as PortingOrdersDefaultFlatPagination,
     type PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination as PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination,
+    type PortingOrderListParams as PortingOrderListParams,
     type PortingOrderCreateParams as PortingOrderCreateParams,
     type PortingOrderRetrieveParams as PortingOrderRetrieveParams,
     type PortingOrderUpdateParams as PortingOrderUpdateParams,
-    type PortingOrderListParams as PortingOrderListParams,
     type PortingOrderRetrieveLoaTemplateParams as PortingOrderRetrieveLoaTemplateParams,
     type PortingOrderRetrieveRequirementsParams as PortingOrderRetrieveRequirementsParams,
   };
 
   export {
     PhoneNumberConfigurations as PhoneNumberConfigurations,
+    type PortingPhoneNumberConfiguration as PortingPhoneNumberConfiguration,
     type PhoneNumberConfigurationCreateResponse as PhoneNumberConfigurationCreateResponse,
-    type PhoneNumberConfigurationListResponse as PhoneNumberConfigurationListResponse,
-    type PhoneNumberConfigurationListResponsesDefaultFlatPagination as PhoneNumberConfigurationListResponsesDefaultFlatPagination,
-    type PhoneNumberConfigurationCreateParams as PhoneNumberConfigurationCreateParams,
+    type PortingPhoneNumberConfigurationsDefaultFlatPagination as PortingPhoneNumberConfigurationsDefaultFlatPagination,
     type PhoneNumberConfigurationListParams as PhoneNumberConfigurationListParams,
+    type PhoneNumberConfigurationCreateParams as PhoneNumberConfigurationCreateParams,
   };
 
   export {
@@ -1327,35 +1239,35 @@ export declare namespace PortingOrders {
     ActivationJobs as ActivationJobs,
     type ActivationJobRetrieveResponse as ActivationJobRetrieveResponse,
     type ActivationJobUpdateResponse as ActivationJobUpdateResponse,
+    type ActivationJobListParams as ActivationJobListParams,
     type ActivationJobRetrieveParams as ActivationJobRetrieveParams,
     type ActivationJobUpdateParams as ActivationJobUpdateParams,
-    type ActivationJobListParams as ActivationJobListParams,
   };
 
   export {
     AdditionalDocuments as AdditionalDocuments,
+    type PortingAdditionalDocument as PortingAdditionalDocument,
     type AdditionalDocumentCreateResponse as AdditionalDocumentCreateResponse,
-    type AdditionalDocumentListResponse as AdditionalDocumentListResponse,
-    type AdditionalDocumentListResponsesDefaultFlatPagination as AdditionalDocumentListResponsesDefaultFlatPagination,
-    type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
+    type PortingAdditionalDocumentsDefaultFlatPagination as PortingAdditionalDocumentsDefaultFlatPagination,
     type AdditionalDocumentListParams as AdditionalDocumentListParams,
+    type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
     type AdditionalDocumentDeleteParams as AdditionalDocumentDeleteParams,
   };
 
   export {
     Comments as Comments,
+    type PortingOrdersComment as PortingOrdersComment,
     type CommentCreateResponse as CommentCreateResponse,
-    type CommentListResponse as CommentListResponse,
-    type CommentListResponsesDefaultFlatPagination as CommentListResponsesDefaultFlatPagination,
-    type CommentCreateParams as CommentCreateParams,
+    type PortingOrdersCommentsDefaultFlatPagination as PortingOrdersCommentsDefaultFlatPagination,
     type CommentListParams as CommentListParams,
+    type CommentCreateParams as CommentCreateParams,
   };
 
   export {
     VerificationCodes as VerificationCodes,
-    type VerificationCodeListResponse as VerificationCodeListResponse,
+    type PortingVerificationCode as PortingVerificationCode,
     type VerificationCodeVerifyResponse as VerificationCodeVerifyResponse,
-    type VerificationCodeListResponsesDefaultFlatPagination as VerificationCodeListResponsesDefaultFlatPagination,
+    type PortingVerificationCodesDefaultFlatPagination as PortingVerificationCodesDefaultFlatPagination,
     type VerificationCodeListParams as VerificationCodeListParams,
     type VerificationCodeSendParams as VerificationCodeSendParams,
     type VerificationCodeVerifyParams as VerificationCodeVerifyParams,
@@ -1363,9 +1275,9 @@ export declare namespace PortingOrders {
 
   export {
     ActionRequirements as ActionRequirements,
-    type ActionRequirementListResponse as ActionRequirementListResponse,
+    type PortingActionRequirement as PortingActionRequirement,
     type ActionRequirementInitiateResponse as ActionRequirementInitiateResponse,
-    type ActionRequirementListResponsesDefaultFlatPagination as ActionRequirementListResponsesDefaultFlatPagination,
+    type PortingActionRequirementsDefaultFlatPagination as PortingActionRequirementsDefaultFlatPagination,
     type ActionRequirementListParams as ActionRequirementListParams,
     type ActionRequirementInitiateParams as ActionRequirementInitiateParams,
   };
@@ -1376,8 +1288,8 @@ export declare namespace PortingOrders {
     type AssociatedPhoneNumberCreateResponse as AssociatedPhoneNumberCreateResponse,
     type AssociatedPhoneNumberDeleteResponse as AssociatedPhoneNumberDeleteResponse,
     type PortingAssociatedPhoneNumbersDefaultFlatPagination as PortingAssociatedPhoneNumbersDefaultFlatPagination,
-    type AssociatedPhoneNumberCreateParams as AssociatedPhoneNumberCreateParams,
     type AssociatedPhoneNumberListParams as AssociatedPhoneNumberListParams,
+    type AssociatedPhoneNumberCreateParams as AssociatedPhoneNumberCreateParams,
     type AssociatedPhoneNumberDeleteParams as AssociatedPhoneNumberDeleteParams,
   };
 
@@ -1387,8 +1299,8 @@ export declare namespace PortingOrders {
     type PhoneNumberBlockCreateResponse as PhoneNumberBlockCreateResponse,
     type PhoneNumberBlockDeleteResponse as PhoneNumberBlockDeleteResponse,
     type PortingPhoneNumberBlocksDefaultFlatPagination as PortingPhoneNumberBlocksDefaultFlatPagination,
-    type PhoneNumberBlockCreateParams as PhoneNumberBlockCreateParams,
     type PhoneNumberBlockListParams as PhoneNumberBlockListParams,
+    type PhoneNumberBlockCreateParams as PhoneNumberBlockCreateParams,
     type PhoneNumberBlockDeleteParams as PhoneNumberBlockDeleteParams,
   };
 
@@ -1398,8 +1310,8 @@ export declare namespace PortingOrders {
     type PhoneNumberExtensionCreateResponse as PhoneNumberExtensionCreateResponse,
     type PhoneNumberExtensionDeleteResponse as PhoneNumberExtensionDeleteResponse,
     type PortingPhoneNumberExtensionsDefaultFlatPagination as PortingPhoneNumberExtensionsDefaultFlatPagination,
-    type PhoneNumberExtensionCreateParams as PhoneNumberExtensionCreateParams,
     type PhoneNumberExtensionListParams as PhoneNumberExtensionListParams,
+    type PhoneNumberExtensionCreateParams as PhoneNumberExtensionCreateParams,
     type PhoneNumberExtensionDeleteParams as PhoneNumberExtensionDeleteParams,
   };
 }

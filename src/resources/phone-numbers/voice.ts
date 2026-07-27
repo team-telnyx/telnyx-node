@@ -13,6 +13,28 @@ import { path } from '../../internal/utils/path';
  */
 export class Voice extends APIResource {
   /**
+   * List phone numbers with voice settings
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const phoneNumberWithVoiceSettings of client.phoneNumbers.voice.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: VoiceListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PhoneNumberWithVoiceSettingsDefaultFlatPagination, ActionsAPI.PhoneNumberWithVoiceSettings> {
+    return this._client.getAPIList(
+      '/phone_numbers/voice',
+      DefaultFlatPagination<ActionsAPI.PhoneNumberWithVoiceSettings>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Retrieve a phone number with voice settings
    *
    * @example
@@ -38,28 +60,6 @@ export class Voice extends APIResource {
    */
   update(id: string, body: VoiceUpdateParams, options?: RequestOptions): APIPromise<VoiceUpdateResponse> {
     return this._client.patch(path`/phone_numbers/${id}/voice`, { body, ...options });
-  }
-
-  /**
-   * List phone numbers with voice settings
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberWithVoiceSettings of client.phoneNumbers.voice.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: VoiceListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PhoneNumberWithVoiceSettingsDefaultFlatPagination, ActionsAPI.PhoneNumberWithVoiceSettings> {
-    return this._client.getAPIList(
-      '/phone_numbers/voice',
-      DefaultFlatPagination<ActionsAPI.PhoneNumberWithVoiceSettings>,
-      { query, ...options },
-    );
   }
 }
 
@@ -210,58 +210,6 @@ export interface VoiceUpdateResponse {
   data?: ActionsAPI.PhoneNumberWithVoiceSettings;
 }
 
-export interface VoiceUpdateParams {
-  /**
-   * The call forwarding settings for a phone number.
-   */
-  call_forwarding?: CallForwarding;
-
-  /**
-   * The call recording settings for a phone number.
-   */
-  call_recording?: CallRecording;
-
-  /**
-   * Controls whether the caller ID name is enabled for this phone number.
-   */
-  caller_id_name_enabled?: boolean;
-
-  /**
-   * The CNAM listing settings for a phone number.
-   */
-  cnam_listing?: CnamListing;
-
-  /**
-   * The inbound_call_screening setting is a phone number configuration option
-   * variable that allows users to configure their settings to block or flag
-   * fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This
-   * feature has an additional per-number monthly cost associated with it.
-   */
-  inbound_call_screening?: 'disabled' | 'reject_calls' | 'flag_calls';
-
-  /**
-   * The media features settings for a phone number.
-   */
-  media_features?: MediaFeatures;
-
-  /**
-   * Controls whether a tech prefix is enabled for this phone number.
-   */
-  tech_prefix_enabled?: boolean;
-
-  /**
-   * This field allows you to rewrite the destination number of an inbound call
-   * before the call is routed to you. The value of this field may be any
-   * alphanumeric value, and the value will replace the number originally dialed.
-   */
-  translated_number?: string;
-
-  /**
-   * Controls whether a number is billed per minute or uses your concurrent channels.
-   */
-  usage_payment_method?: 'pay-per-minute' | 'channel';
-}
-
 export interface VoiceListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -319,6 +267,58 @@ export namespace VoiceListParams {
   }
 }
 
+export interface VoiceUpdateParams {
+  /**
+   * The call forwarding settings for a phone number.
+   */
+  call_forwarding?: CallForwarding;
+
+  /**
+   * The call recording settings for a phone number.
+   */
+  call_recording?: CallRecording;
+
+  /**
+   * Controls whether the caller ID name is enabled for this phone number.
+   */
+  caller_id_name_enabled?: boolean;
+
+  /**
+   * The CNAM listing settings for a phone number.
+   */
+  cnam_listing?: CnamListing;
+
+  /**
+   * The inbound_call_screening setting is a phone number configuration option
+   * variable that allows users to configure their settings to block or flag
+   * fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This
+   * feature has an additional per-number monthly cost associated with it.
+   */
+  inbound_call_screening?: 'disabled' | 'reject_calls' | 'flag_calls';
+
+  /**
+   * The media features settings for a phone number.
+   */
+  media_features?: MediaFeatures;
+
+  /**
+   * Controls whether a tech prefix is enabled for this phone number.
+   */
+  tech_prefix_enabled?: boolean;
+
+  /**
+   * This field allows you to rewrite the destination number of an inbound call
+   * before the call is routed to you. The value of this field may be any
+   * alphanumeric value, and the value will replace the number originally dialed.
+   */
+  translated_number?: string;
+
+  /**
+   * Controls whether a number is billed per minute or uses your concurrent channels.
+   */
+  usage_payment_method?: 'pay-per-minute' | 'channel';
+}
+
 export declare namespace Voice {
   export {
     type CallForwarding as CallForwarding,
@@ -328,8 +328,8 @@ export declare namespace Voice {
     type UpdateVoiceSettings as UpdateVoiceSettings,
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceUpdateResponse as VoiceUpdateResponse,
-    type VoiceUpdateParams as VoiceUpdateParams,
     type VoiceListParams as VoiceListParams,
+    type VoiceUpdateParams as VoiceUpdateParams,
   };
 }
 

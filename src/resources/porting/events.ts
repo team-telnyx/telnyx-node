@@ -13,6 +13,27 @@ import { path } from '../../internal/utils/path';
  */
 export class Events extends APIResource {
   /**
+   * Returns a list of all porting events.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const portingEvent of client.porting.events.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: EventListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortingEventsDefaultFlatPagination, PortingEvent> {
+    return this._client.getAPIList('/porting/events', DefaultFlatPagination<PortingEvent>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Show a specific porting event.
    *
    * @example
@@ -24,27 +45,6 @@ export class Events extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<EventRetrieveResponse> {
     return this._client.get(path`/porting/events/${id}`, options);
-  }
-
-  /**
-   * Returns a list of all porting events.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const eventListResponse of client.porting.events.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: EventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<EventListResponsesDefaultFlatPagination, EventListResponse> {
-    return this._client.getAPIList('/porting/events', DefaultFlatPagination<EventListResponse>, {
-      query,
-      ...options,
-    });
   }
 
   /**
@@ -65,7 +65,15 @@ export class Events extends APIResource {
   }
 }
 
-export type EventListResponsesDefaultFlatPagination = DefaultFlatPagination<EventListResponse>;
+export type PortingEventsDefaultFlatPagination = DefaultFlatPagination<PortingEvent>;
+
+export type PortingEvent =
+  | PortingEventDeletedPayload
+  | PortingEventMessagingChangedPayload
+  | PortingEventStatusChangedEvent
+  | PortingEventNewCommentEvent
+  | PortingEventSplitEvent
+  | PortingEventWithoutWebhook;
 
 export interface PortingEventDeletedPayload {
   /**
@@ -568,22 +576,8 @@ export interface PortingEventWithoutWebhook {
 }
 
 export interface EventRetrieveResponse {
-  data?:
-    | PortingEventDeletedPayload
-    | PortingEventMessagingChangedPayload
-    | PortingEventStatusChangedEvent
-    | PortingEventNewCommentEvent
-    | PortingEventSplitEvent
-    | PortingEventWithoutWebhook;
+  data?: PortingEvent;
 }
-
-export type EventListResponse =
-  | PortingEventDeletedPayload
-  | PortingEventMessagingChangedPayload
-  | PortingEventStatusChangedEvent
-  | PortingEventNewCommentEvent
-  | PortingEventSplitEvent
-  | PortingEventWithoutWebhook;
 
 export interface EventListParams extends DefaultFlatPaginationParams {
   /**
@@ -642,6 +636,7 @@ export namespace EventListParams {
 
 export declare namespace Events {
   export {
+    type PortingEvent as PortingEvent,
     type PortingEventDeletedPayload as PortingEventDeletedPayload,
     type PortingEventMessagingChangedPayload as PortingEventMessagingChangedPayload,
     type PortingEventNewCommentEvent as PortingEventNewCommentEvent,
@@ -649,8 +644,7 @@ export declare namespace Events {
     type PortingEventStatusChangedEvent as PortingEventStatusChangedEvent,
     type PortingEventWithoutWebhook as PortingEventWithoutWebhook,
     type EventRetrieveResponse as EventRetrieveResponse,
-    type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
+    type PortingEventsDefaultFlatPagination as PortingEventsDefaultFlatPagination,
     type EventListParams as EventListParams,
   };
 }

@@ -10,6 +10,25 @@ import { path } from '../../internal/utils/path';
  */
 export class CivicAddresses extends APIResource {
   /**
+   * Returns the civic addresses and locations from Microsoft Teams.
+   *
+   * @example
+   * ```ts
+   * const civicAddresses =
+   *   await client.externalConnections.civicAddresses.list(
+   *     '1293384261075731499',
+   *   );
+   * ```
+   */
+  list(
+    id: string,
+    query: CivicAddressListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<CivicAddressListResponse> {
+    return this._client.get(path`/external_connections/${id}/civic_addresses`, { query, ...options });
+  }
+
+  /**
    * Return the details of an existing Civic Address with its Locations inside the
    * 'data' attribute of the response.
    *
@@ -29,25 +48,6 @@ export class CivicAddresses extends APIResource {
   ): APIPromise<CivicAddressRetrieveResponse> {
     const { id } = params;
     return this._client.get(path`/external_connections/${id}/civic_addresses/${addressID}`, options);
-  }
-
-  /**
-   * Returns the civic addresses and locations from Microsoft Teams.
-   *
-   * @example
-   * ```ts
-   * const civicAddresses =
-   *   await client.externalConnections.civicAddresses.list(
-   *     '1293384261075731499',
-   *   );
-   * ```
-   */
-  list(
-    id: string,
-    query: CivicAddressListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<CivicAddressListResponse> {
-    return this._client.get(path`/external_connections/${id}/civic_addresses`, { query, ...options });
   }
 }
 
@@ -118,13 +118,6 @@ export interface CivicAddressListResponse {
   data?: Array<CivicAddress>;
 }
 
-export interface CivicAddressRetrieveParams {
-  /**
-   * Identifies the resource.
-   */
-  id: string;
-}
-
 export interface CivicAddressListParams {
   /**
    * Filter parameter for civic addresses (deepObject style). Supports filtering by
@@ -146,13 +139,20 @@ export namespace CivicAddressListParams {
   }
 }
 
+export interface CivicAddressRetrieveParams {
+  /**
+   * Identifies the resource.
+   */
+  id: string;
+}
+
 export declare namespace CivicAddresses {
   export {
     type CivicAddress as CivicAddress,
     type Location as Location,
     type CivicAddressRetrieveResponse as CivicAddressRetrieveResponse,
     type CivicAddressListResponse as CivicAddressListResponse,
-    type CivicAddressRetrieveParams as CivicAddressRetrieveParams,
     type CivicAddressListParams as CivicAddressListParams,
+    type CivicAddressRetrieveParams as CivicAddressRetrieveParams,
   };
 }

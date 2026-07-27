@@ -9,6 +9,108 @@ const client = new Telnyx({
 
 describe('resource calls', () => {
   // Mock server tests are disabled
+  test.skip('retrieveCalls', async () => {
+    const responsePromise = client.texml.accounts.calls.retrieveCalls('account_sid');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveCalls: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.texml.accounts.calls.retrieveCalls(
+        'account_sid',
+        {
+          EndTime: 'EndTime',
+          EndTime_gt: 'EndTime_gt',
+          EndTime_lt: 'EndTime_lt',
+          From: 'From',
+          Page: 0,
+          PageSize: 0,
+          PageToken: 'PageToken',
+          StartTime: 'StartTime',
+          StartTime_gt: 'StartTime_gt',
+          StartTime_lt: 'StartTime_lt',
+          Status: 'canceled',
+          To: 'To',
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('calls: only required params', async () => {
+    const responsePromise = client.texml.accounts.calls.calls('account_sid', {
+      Url: 'https://www.example.com/instructions.xml',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('calls: required and optional params', async () => {
+    const response = await client.texml.accounts.calls.calls('account_sid', {
+      Url: 'https://www.example.com/instructions.xml',
+      ApplicationSid: 'ApplicationSid',
+      AsyncAmd: true,
+      AsyncAmdStatusCallback: 'https://www.example.com/callback',
+      AsyncAmdStatusCallbackMethod: 'GET',
+      CallerId: 'Info',
+      CancelPlaybackOnDetectMessageEnd: false,
+      CancelPlaybackOnMachineDetection: false,
+      CustomHeaders: [{ name: 'X-Custom-Header', value: 'custom-value' }],
+      DeepfakeDetection: 'Enable',
+      DeepfakeDetectionCallbackMethod: 'GET',
+      DeepfakeDetectionCallbackUrl: 'https://www.example.com/deepfake-callback',
+      DetectionMode: 'Premium',
+      FallbackUrl: 'https://www.example.com/instructions-fallback.xml',
+      From: '+16175551212',
+      MachineDetection: 'Enable',
+      MachineDetectionPromptEndTimeout: 5000,
+      MachineDetectionSilenceTimeout: 2000,
+      MachineDetectionSpeechEndThreshold: 2000,
+      MachineDetectionSpeechThreshold: 2000,
+      MachineDetectionTimeout: 5000,
+      MediaEncryption: 'disabled',
+      PreferredCodecs: 'PCMA,PCMU',
+      Record: false,
+      RecordingChannels: 'dual',
+      RecordingStatusCallback: 'https://example.com/recording_status_callback',
+      RecordingStatusCallbackEvent: 'in-progress completed absent',
+      RecordingStatusCallbackMethod: 'GET',
+      RecordingTimeout: 5,
+      RecordingTrack: 'inbound',
+      SendRecordingUrl: false,
+      SipAuthPassword: '1234',
+      SipAuthUsername: 'user',
+      SipRegion: 'Canada',
+      StatusCallback: 'https://www.example.com/callback',
+      StatusCallbackEvent: 'initiated answered',
+      StatusCallbackMethod: 'GET',
+      SuperviseCallSid: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      SupervisingRole: 'monitor',
+      Texml: 'Texml',
+      TimeLimit: 3600,
+      timeout_seconds: 60,
+      To: '+16175551212',
+      Trim: 'trim-silence',
+      UrlMethod: 'GET',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.retrieve('call_sid', { account_sid: 'account_sid' });
     const rawResponse = await responsePromise.asResponse();
@@ -50,109 +152,6 @@ describe('resource calls', () => {
       Texml: '<?xml version="1.0" encoding="UTF-8"?><Response><Say>Hello</Say></Response>',
       Url: 'https://www.example.com/intruction-b.xml',
     });
-  });
-
-  // Mock server tests are disabled
-  test.skip('calls: only required params', async () => {
-    const responsePromise = client.texml.accounts.calls.calls('account_sid', {
-      params: { Url: 'https://www.example.com/texml.xml' },
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('calls: required and optional params', async () => {
-    const response = await client.texml.accounts.calls.calls('account_sid', {
-      params: {
-        Url: 'https://www.example.com/texml.xml',
-        ApplicationSid: 'example-app-sid',
-        AsyncAmd: true,
-        AsyncAmdStatusCallback: 'https://www.example.com/callback',
-        AsyncAmdStatusCallbackMethod: 'GET',
-        CallerId: 'Info',
-        CancelPlaybackOnDetectMessageEnd: false,
-        CancelPlaybackOnMachineDetection: false,
-        CustomHeaders: [{ name: 'X-Custom-Header', value: 'custom-value' }],
-        DeepfakeDetection: 'Enable',
-        DeepfakeDetectionCallbackMethod: 'GET',
-        DeepfakeDetectionCallbackUrl: 'https://www.example.com/deepfake-callback',
-        DetectionMode: 'Premium',
-        FallbackUrl: 'https://www.example.com/instructions-fallback.xml',
-        From: '+13120001234',
-        MachineDetection: 'Enable',
-        MachineDetectionSilenceTimeout: 2000,
-        MachineDetectionSpeechEndThreshold: 2000,
-        MachineDetectionSpeechThreshold: 2000,
-        MachineDetectionTimeout: 5000,
-        MediaEncryption: 'disabled',
-        PreferredCodecs: 'PCMA,PCMU',
-        Record: false,
-        RecordingChannels: 'dual',
-        RecordingStatusCallback: 'https://example.com/recording_status_callback',
-        RecordingStatusCallbackEvent: 'in-progress completed absent',
-        RecordingStatusCallbackMethod: 'GET',
-        RecordingTimeout: 5,
-        RecordingTrack: 'inbound',
-        SendRecordingUrl: false,
-        SipAuthPassword: '1234',
-        SipAuthUsername: 'user',
-        SipRegion: 'Canada',
-        StatusCallback: 'https://www.example.com/statuscallback-listener',
-        StatusCallbackEvent: 'initiated',
-        StatusCallbackMethod: 'GET',
-        SuperviseCallSid: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
-        SupervisingRole: 'monitor',
-        Texml: 'Texml',
-        TimeLimit: 3600,
-        Timeout: 60,
-        To: '+13121230000',
-        Trim: 'trim-silence',
-        UrlMethod: 'GET',
-      },
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieveCalls', async () => {
-    const responsePromise = client.texml.accounts.calls.retrieveCalls('account_sid');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieveCalls: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.texml.accounts.calls.retrieveCalls(
-        'account_sid',
-        {
-          EndTime: 'EndTime',
-          EndTime_gt: 'EndTime_gt',
-          EndTime_lt: 'EndTime_lt',
-          From: 'From',
-          Page: 0,
-          PageSize: 0,
-          PageToken: 'PageToken',
-          StartTime: 'StartTime',
-          StartTime_gt: 'StartTime_gt',
-          StartTime_lt: 'StartTime_lt',
-          Status: 'canceled',
-          To: 'To',
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled

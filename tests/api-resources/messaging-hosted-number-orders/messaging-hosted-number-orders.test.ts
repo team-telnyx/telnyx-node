@@ -9,6 +9,29 @@ const client = new Telnyx({
 
 describe('resource messagingHostedNumberOrders', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.messagingHostedNumberOrders.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('list: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.messagingHostedNumberOrders.list(
+        { 'page[number]': 0, 'page[size]': 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('create', async () => {
     const responsePromise = client.messagingHostedNumberOrders.create();
     const rawResponse = await responsePromise.asResponse();
@@ -35,53 +58,6 @@ describe('resource messagingHostedNumberOrders', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.messagingHostedNumberOrders.retrieve('id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.messagingHostedNumberOrders.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.messagingHostedNumberOrders.list(
-        { 'page[number]': 0, 'page[size]': 0 },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete', async () => {
-    const responsePromise = client.messagingHostedNumberOrders.delete('id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('checkEligibility: only required params', async () => {
     const responsePromise = client.messagingHostedNumberOrders.checkEligibility({
       phone_numbers: ['string'],
@@ -98,6 +74,51 @@ describe('resource messagingHostedNumberOrders', () => {
   // Mock server tests are disabled
   test.skip('checkEligibility: required and optional params', async () => {
     const response = await client.messagingHostedNumberOrders.checkEligibility({ phone_numbers: ['string'] });
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete', async () => {
+    const responsePromise = client.messagingHostedNumberOrders.delete('id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.messagingHostedNumberOrders.retrieve('id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('validateCodes: only required params', async () => {
+    const responsePromise = client.messagingHostedNumberOrders.validateCodes('id', {
+      verification_codes: [{ code: 'code', phone_number: 'phone_number' }],
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('validateCodes: required and optional params', async () => {
+    const response = await client.messagingHostedNumberOrders.validateCodes('id', {
+      verification_codes: [{ code: 'code', phone_number: 'phone_number' }],
+    });
   });
 
   // Mock server tests are disabled
@@ -120,27 +141,6 @@ describe('resource messagingHostedNumberOrders', () => {
     const response = await client.messagingHostedNumberOrders.createVerificationCodes('id', {
       phone_numbers: ['string'],
       verification_method: 'sms',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('validateCodes: only required params', async () => {
-    const responsePromise = client.messagingHostedNumberOrders.validateCodes('id', {
-      verification_codes: [{ code: 'code', phone_number: 'phone_number' }],
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('validateCodes: required and optional params', async () => {
-    const response = await client.messagingHostedNumberOrders.validateCodes('id', {
-      verification_codes: [{ code: 'code', phone_number: 'phone_number' }],
     });
   });
 });

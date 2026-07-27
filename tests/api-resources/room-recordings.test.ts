@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource roomRecordings', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.roomRecordings.retrieve('0ccc7b54-4df3-4bca-a65a-3da1ecc777f0');
+  test.skip('deleteBulk', async () => {
+    const responsePromise = client.roomRecordings.deleteBulk();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -18,6 +18,38 @@ describe('resource roomRecordings', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('deleteBulk: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.roomRecordings.deleteBulk(
+        {
+          filter: {
+            date_ended_at: {
+              eq: '2021-04-25',
+              gte: '2021-04-25',
+              lte: '2021-04-25',
+            },
+            date_started_at: {
+              eq: '2021-04-25',
+              gte: '2021-04-25',
+              lte: '2021-04-25',
+            },
+            duration_secs: 20,
+            participant_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+            room_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+            session_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
+            status: 'completed',
+            type: 'audio',
+          },
+          'page[number]': 0,
+          'page[size]': 0,
+        },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
   // Mock server tests are disabled
@@ -77,8 +109,8 @@ describe('resource roomRecordings', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('deleteBulk', async () => {
-    const responsePromise = client.roomRecordings.deleteBulk();
+  test.skip('retrieve', async () => {
+    const responsePromise = client.roomRecordings.retrieve('0ccc7b54-4df3-4bca-a65a-3da1ecc777f0');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -86,37 +118,5 @@ describe('resource roomRecordings', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('deleteBulk: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.roomRecordings.deleteBulk(
-        {
-          filter: {
-            date_ended_at: {
-              eq: '2021-04-25',
-              gte: '2021-04-25',
-              lte: '2021-04-25',
-            },
-            date_started_at: {
-              eq: '2021-04-25',
-              gte: '2021-04-25',
-              lte: '2021-04-25',
-            },
-            duration_secs: 20,
-            participant_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-            room_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-            session_id: '0ccc7b54-4df3-4bca-a65a-3da1ecc777f0',
-            status: 'completed',
-            type: 'audio',
-          },
-          'page[number]': 0,
-          'page[size]': 0,
-        },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

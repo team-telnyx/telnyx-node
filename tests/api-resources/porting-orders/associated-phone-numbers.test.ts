@@ -9,35 +9,6 @@ const client = new Telnyx({
 
 describe('resource associatedPhoneNumbers', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.portingOrders.associatedPhoneNumbers.create(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      {
-        action: 'keep',
-        phone_number_range: {},
-      },
-    );
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.portingOrders.associatedPhoneNumbers.create(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      {
-        action: 'keep',
-        phone_number_range: { end_at: '+441234567899', start_at: '+441234567890' },
-      },
-    );
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.portingOrders.associatedPhoneNumbers.list(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
@@ -66,6 +37,35 @@ describe('resource associatedPhoneNumbers', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.portingOrders.associatedPhoneNumbers.create(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        action: 'keep',
+        phone_number_range: {},
+      },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.portingOrders.associatedPhoneNumbers.create(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      {
+        action: 'keep',
+        phone_number_range: { end_at: '+441234567899', start_at: '+441234567890' },
+      },
+    );
   });
 
   // Mock server tests are disabled

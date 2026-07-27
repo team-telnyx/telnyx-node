@@ -8,7 +8,7 @@ import { path } from '../../../internal/utils/path';
 /**
  * Brand operations
  */
-export class ExternalVetting extends APIResource {
+export class ExternalVettingResource extends APIResource {
   /**
    * Get list of valid external vetting record for a given brand
    *
@@ -25,29 +25,6 @@ export class ExternalVetting extends APIResource {
   }
 
   /**
-   * This operation can be used to import an external vetting record from a
-   * TCR-approved vetting provider. If the vetting provider confirms validity of the
-   * record, it will be saved with the brand and will be considered for future
-   * campaign qualification.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.messaging10dlc.brand.externalVetting.imports(
-   *     'brandId',
-   *     { evpId: 'evpId', vettingId: 'vettingId' },
-   *   );
-   * ```
-   */
-  imports(
-    brandID: string,
-    body: ExternalVettingImportsParams,
-    options?: RequestOptions,
-  ): APIPromise<ExternalVettingImportsResponse> {
-    return this._client.put(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
-  }
-
-  /**
    * Order new external vetting for a brand.
    *
    * Duplicate orders for the same `evpId` and `vettingClass` return `400` with code
@@ -56,7 +33,7 @@ export class ExternalVetting extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const externalVetting =
    *   await client.messaging10dlc.brand.externalVetting.order(
    *     'brandId',
    *     { evpId: 'evpId', vettingClass: 'vettingClass' },
@@ -67,57 +44,35 @@ export class ExternalVetting extends APIResource {
     brandID: string,
     body: ExternalVettingOrderParams,
     options?: RequestOptions,
-  ): APIPromise<ExternalVettingOrderResponse> {
+  ): APIPromise<ExternalVetting> {
     return this._client.post(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
   }
-}
 
-export type ExternalVettingListResponse = Array<ExternalVettingListResponse.ExternalVettingListResponseItem>;
-
-export namespace ExternalVettingListResponse {
-  export interface ExternalVettingListResponseItem {
-    /**
-     * Vetting submission date. This is the date when the vetting request is generated
-     * in ISO 8601 format.
-     */
-    createDate?: string;
-
-    /**
-     * External vetting provider ID for the brand.
-     */
-    evpId?: string;
-
-    /**
-     * Vetting effective date. This is the date when vetting was completed, or the
-     * starting effective date in ISO 8601 format. If this date is missing, then the
-     * vetting was not complete or not valid.
-     */
-    vettedDate?: string;
-
-    /**
-     * Identifies the vetting classification.
-     */
-    vettingClass?: string;
-
-    /**
-     * Unique ID that identifies a vetting transaction performed by a vetting provider.
-     * This ID is provided by the vetting provider at time of vetting.
-     */
-    vettingId?: string;
-
-    /**
-     * Vetting score ranging from 0-100.
-     */
-    vettingScore?: number;
-
-    /**
-     * Required by some providers for vetting record confirmation.
-     */
-    vettingToken?: string;
+  /**
+   * This operation can be used to import an external vetting record from a
+   * TCR-approved vetting provider. If the vetting provider confirms validity of the
+   * record, it will be saved with the brand and will be considered for future
+   * campaign qualification.
+   *
+   * @example
+   * ```ts
+   * const externalVetting =
+   *   await client.messaging10dlc.brand.externalVetting.imports(
+   *     'brandId',
+   *     { evpId: 'evpId', vettingId: 'vettingId' },
+   *   );
+   * ```
+   */
+  imports(
+    brandID: string,
+    body: ExternalVettingImportsParams,
+    options?: RequestOptions,
+  ): APIPromise<ExternalVetting> {
+    return this._client.put(path`/10dlc/brand/${brandID}/externalVetting`, { body, ...options });
   }
 }
 
-export interface ExternalVettingImportsResponse {
+export interface ExternalVetting {
   /**
    * Vetting submission date. This is the date when the vetting request is generated
    * in ISO 8601 format.
@@ -158,45 +113,18 @@ export interface ExternalVettingImportsResponse {
   vettingToken?: string;
 }
 
-export interface ExternalVettingOrderResponse {
-  /**
-   * Vetting submission date. This is the date when the vetting request is generated
-   * in ISO 8601 format.
-   */
-  createDate?: string;
+export type ExternalVettingListResponse = Array<ExternalVetting>;
 
+export interface ExternalVettingOrderParams {
   /**
    * External vetting provider ID for the brand.
    */
-  evpId?: string;
-
-  /**
-   * Vetting effective date. This is the date when vetting was completed, or the
-   * starting effective date in ISO 8601 format. If this date is missing, then the
-   * vetting was not complete or not valid.
-   */
-  vettedDate?: string;
+  evpId: string;
 
   /**
    * Identifies the vetting classification.
    */
-  vettingClass?: string;
-
-  /**
-   * Unique ID that identifies a vetting transaction performed by a vetting provider.
-   * This ID is provided by the vetting provider at time of vetting.
-   */
-  vettingId?: string;
-
-  /**
-   * Vetting score ranging from 0-100.
-   */
-  vettingScore?: number;
-
-  /**
-   * Required by some providers for vetting record confirmation.
-   */
-  vettingToken?: string;
+  vettingClass: string;
 }
 
 export interface ExternalVettingImportsParams {
@@ -217,24 +145,11 @@ export interface ExternalVettingImportsParams {
   vettingToken?: string;
 }
 
-export interface ExternalVettingOrderParams {
-  /**
-   * External vetting provider ID for the brand.
-   */
-  evpId: string;
-
-  /**
-   * Identifies the vetting classification.
-   */
-  vettingClass: string;
-}
-
-export declare namespace ExternalVetting {
+export declare namespace ExternalVettingResource {
   export {
+    type ExternalVetting as ExternalVetting,
     type ExternalVettingListResponse as ExternalVettingListResponse,
-    type ExternalVettingImportsResponse as ExternalVettingImportsResponse,
-    type ExternalVettingOrderResponse as ExternalVettingOrderResponse,
-    type ExternalVettingImportsParams as ExternalVettingImportsParams,
     type ExternalVettingOrderParams as ExternalVettingOrderParams,
+    type ExternalVettingImportsParams as ExternalVettingImportsParams,
   };
 }

@@ -12,6 +12,27 @@ import { path } from '../internal/utils/path';
  */
 export class Requirements extends APIResource {
   /**
+   * List all requirements with filtering, sorting, and pagination
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const docReqsRequirement of client.requirements.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: RequirementListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DocReqsRequirementsDefaultFlatPagination, DocReqsRequirement> {
+    return this._client.getAPIList('/requirements', DefaultFlatPagination<DocReqsRequirement>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Retrieve a document requirement record
    *
    * @example
@@ -21,90 +42,18 @@ export class Requirements extends APIResource {
    * );
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<RequirementRetrieveResponse> {
-    return this._client.get(path`/requirements/${id}`, options);
-  }
-
-  /**
-   * List all requirements with filtering, sorting, and pagination
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const requirementListResponse of client.requirements.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: RequirementListParams | null | undefined = {},
+  retrieve(
+    id: string,
+    query: RequirementRetrieveParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RequirementListResponsesDefaultFlatPagination, RequirementListResponse> {
-    return this._client.getAPIList('/requirements', DefaultFlatPagination<RequirementListResponse>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<RequirementRetrieveResponse> {
+    return this._client.get(path`/requirements/${id}`, { query, ...options });
   }
 }
 
-export type RequirementListResponsesDefaultFlatPagination = DefaultFlatPagination<RequirementListResponse>;
+export type DocReqsRequirementsDefaultFlatPagination = DefaultFlatPagination<DocReqsRequirement>;
 
-export interface RequirementRetrieveResponse {
-  data?: RequirementRetrieveResponse.Data;
-}
-
-export namespace RequirementRetrieveResponse {
-  export interface Data {
-    /**
-     * Identifies the associated document
-     */
-    id?: string;
-
-    /**
-     * Indicates whether this requirement applies to branded_calling, ordering,
-     * porting, or both ordering and porting
-     */
-    action?: 'both' | 'branded_calling' | 'ordering' | 'porting';
-
-    /**
-     * The 2-character (ISO 3166-1 alpha-2) country code where this requirement applies
-     */
-    country_code?: string;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * The locality where this requirement applies
-     */
-    locality?: string;
-
-    /**
-     * Indicates the phone_number_type this requirement applies to. Leave blank if this
-     * requirement applies to all number_types.
-     */
-    phone_number_type?: 'local' | 'national' | 'toll_free';
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * Lists the requirement types necessary to fulfill this requirement
-     */
-    requirements_types?: Array<Shared.DocReqsRequirementType>;
-
-    /**
-     * ISO 8601 formatted date-time indicating when the resource was last updated.
-     */
-    updated_at?: string;
-  }
-}
-
-export interface RequirementListResponse {
+export interface DocReqsRequirement {
   /**
    * Identifies the associated document
    */
@@ -127,6 +76,17 @@ export interface RequirementListResponse {
   created_at?: string;
 
   /**
+   * When this version was superseded. NULL means this is the active or pending
+   * version.
+   */
+  effective_end_at?: string | null;
+
+  /**
+   * When this version became (or will become) active.
+   */
+  effective_start_at?: string | null;
+
+  /**
    * The locality where this requirement applies
    */
   locality?: string;
@@ -145,12 +105,21 @@ export interface RequirementListResponse {
   /**
    * Lists the requirement types necessary to fulfill this requirement
    */
-  requirements_types?: Array<Shared.DocReqsRequirementType>;
+  requirement_types?: Array<Shared.DocReqsRequirementType>;
 
   /**
    * ISO 8601 formatted date-time indicating when the resource was last updated.
    */
   updated_at?: string;
+
+  /**
+   * Version number. Increments with each new version. Defaults to 1.
+   */
+  version?: number;
+}
+
+export interface RequirementRetrieveResponse {
+  data?: DocReqsRequirement;
 }
 
 export interface RequirementListParams extends DefaultFlatPaginationParams {
@@ -174,6 +143,12 @@ export interface RequirementListParams extends DefaultFlatPaginationParams {
     | '-country_code'
     | '-phone_number_type'
   >;
+
+  /**
+   * Filter by requirement version number. When omitted, returns the currently-active
+   * version.
+   */
+  version?: number;
 }
 
 export namespace RequirementListParams {
@@ -200,11 +175,20 @@ export namespace RequirementListParams {
   }
 }
 
+export interface RequirementRetrieveParams {
+  /**
+   * Filter by requirement version number. When omitted, returns the currently-active
+   * version.
+   */
+  version?: number;
+}
+
 export declare namespace Requirements {
   export {
+    type DocReqsRequirement as DocReqsRequirement,
     type RequirementRetrieveResponse as RequirementRetrieveResponse,
-    type RequirementListResponse as RequirementListResponse,
-    type RequirementListResponsesDefaultFlatPagination as RequirementListResponsesDefaultFlatPagination,
+    type DocReqsRequirementsDefaultFlatPagination as DocReqsRequirementsDefaultFlatPagination,
     type RequirementListParams as RequirementListParams,
+    type RequirementRetrieveParams as RequirementRetrieveParams,
   };
 }

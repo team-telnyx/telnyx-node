@@ -11,6 +11,27 @@ import { path } from '../../internal/utils/path';
  */
 export class Reports extends APIResource {
   /**
+   * List the reports generated about porting operations.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const portingReport of client.porting.reports.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: ReportListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortingReportsDefaultFlatPagination, PortingReport> {
+    return this._client.getAPIList('/porting/reports', DefaultFlatPagination<PortingReport>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Generate reports about porting operations.
    *
    * @example
@@ -37,27 +58,6 @@ export class Reports extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<ReportRetrieveResponse> {
     return this._client.get(path`/porting/reports/${id}`, options);
-  }
-
-  /**
-   * List the reports generated about porting operations.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const portingReport of client.porting.reports.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: ReportListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PortingReportsDefaultFlatPagination, PortingReport> {
-    return this._client.getAPIList('/porting/reports', DefaultFlatPagination<PortingReport>, {
-      query,
-      ...options,
-    });
   }
 }
 
@@ -160,18 +160,6 @@ export interface ReportRetrieveResponse {
   data?: PortingReport;
 }
 
-export interface ReportCreateParams {
-  /**
-   * The parameters for generating a porting orders CSV report.
-   */
-  params: ExportPortingOrdersCsvReport;
-
-  /**
-   * Identifies the type of report
-   */
-  report_type: 'export_porting_orders_csv';
-}
-
 export interface ReportListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -198,6 +186,18 @@ export namespace ReportListParams {
   }
 }
 
+export interface ReportCreateParams {
+  /**
+   * The parameters for generating a porting orders CSV report.
+   */
+  params: ExportPortingOrdersCsvReport;
+
+  /**
+   * Identifies the type of report
+   */
+  report_type: 'export_porting_orders_csv';
+}
+
 export declare namespace Reports {
   export {
     type ExportPortingOrdersCsvReport as ExportPortingOrdersCsvReport,
@@ -205,7 +205,7 @@ export declare namespace Reports {
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
     type PortingReportsDefaultFlatPagination as PortingReportsDefaultFlatPagination,
-    type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
+    type ReportCreateParams as ReportCreateParams,
   };
 }

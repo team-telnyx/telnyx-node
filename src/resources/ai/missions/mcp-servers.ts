@@ -8,6 +8,21 @@ import { path } from '../../../internal/utils/path';
 
 export class McpServers extends APIResource {
   /**
+   * List all MCP servers for a mission
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.ai.missions.mcpServers.listMcpServers(
+   *     'mission_id',
+   *   );
+   * ```
+   */
+  listMcpServers(missionID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.get(path`/ai/missions/${missionID}/mcp-servers`, options);
+  }
+
+  /**
    * Create a new MCP server for a mission
    *
    * @example
@@ -67,21 +82,6 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * List all MCP servers for a mission
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.ai.missions.mcpServers.listMcpServers(
-   *     'mission_id',
-   *   );
-   * ```
-   */
-  listMcpServers(missionID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.get(path`/ai/missions/${missionID}/mcp-servers`, options);
-  }
-
-  /**
    * Update an MCP server definition
    *
    * @example
@@ -112,14 +112,23 @@ export type McpServerListMcpServersResponse = unknown;
 export type McpServerUpdateMcpServerResponse = unknown;
 
 export interface McpServerDeleteMcpServerParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface McpServerGetMcpServerParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface McpServerUpdateMcpServerParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 

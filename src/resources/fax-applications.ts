@@ -12,6 +12,30 @@ import { path } from '../internal/utils/path';
  */
 export class FaxApplications extends APIResource {
   /**
+   * This endpoint returns a list of your Fax Applications inside the 'data'
+   * attribute of the response. You can adjust which applications are listed by using
+   * filters. Fax Applications are used to configure how you send and receive faxes
+   * using the Programmable Fax API with Telnyx.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const faxApplication of client.faxApplications.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: FaxApplicationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FaxApplicationsDefaultFlatPagination, FaxApplication> {
+    return this._client.getAPIList('/fax_applications', DefaultFlatPagination<FaxApplication>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a new Fax Application based on the parameters sent in the request. The
    * application name and webhook URL are required. Once created, you can assign
    * phone numbers to your application using the `/phone_numbers` endpoint.
@@ -29,6 +53,21 @@ export class FaxApplications extends APIResource {
     options?: RequestOptions,
   ): APIPromise<FaxApplicationCreateResponse> {
     return this._client.post('/fax_applications', { body, ...options });
+  }
+
+  /**
+   * Permanently deletes a Fax Application. Deletion may be prevented if the
+   * application is in use by phone numbers.
+   *
+   * @example
+   * ```ts
+   * const faxApplication = await client.faxApplications.delete(
+   *   '1293384261075731499',
+   * );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<FaxApplicationDeleteResponse> {
+    return this._client.delete(path`/fax_applications/${id}`, options);
   }
 
   /**
@@ -68,45 +107,6 @@ export class FaxApplications extends APIResource {
     options?: RequestOptions,
   ): APIPromise<FaxApplicationUpdateResponse> {
     return this._client.patch(path`/fax_applications/${id}`, { body, ...options });
-  }
-
-  /**
-   * This endpoint returns a list of your Fax Applications inside the 'data'
-   * attribute of the response. You can adjust which applications are listed by using
-   * filters. Fax Applications are used to configure how you send and receive faxes
-   * using the Programmable Fax API with Telnyx.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const faxApplication of client.faxApplications.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: FaxApplicationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FaxApplicationsDefaultFlatPagination, FaxApplication> {
-    return this._client.getAPIList('/fax_applications', DefaultFlatPagination<FaxApplication>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Permanently deletes a Fax Application. Deletion may be prevented if the
-   * application is in use by phone numbers.
-   *
-   * @example
-   * ```ts
-   * const faxApplication = await client.faxApplications.delete(
-   *   '1293384261075731499',
-   * );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<FaxApplicationDeleteResponse> {
-    return this._client.delete(path`/fax_applications/${id}`, options);
   }
 }
 
@@ -231,6 +231,64 @@ export interface FaxApplicationUpdateResponse {
 
 export interface FaxApplicationDeleteResponse {
   data?: FaxApplication;
+}
+
+export interface FaxApplicationListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[application_name][contains], filter[outbound_voice_profile_id]
+   */
+  filter?: FaxApplicationListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>application_name</code>: sorts the result by the
+   *     <code>application_name</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-application_name</code>: sorts the result by the
+   *     <code>application_name</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'application_name' | 'active';
+}
+
+export namespace FaxApplicationListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[application_name][contains], filter[outbound_voice_profile_id]
+   */
+  export interface Filter {
+    /**
+     * Application name filtering operations
+     */
+    application_name?: Filter.ApplicationName;
+
+    /**
+     * Identifies the associated outbound voice profile.
+     */
+    outbound_voice_profile_id?: string;
+  }
+
+  export namespace Filter {
+    /**
+     * Application name filtering operations
+     */
+    export interface ApplicationName {
+      /**
+       * If present, applications with <code>application_name</code> containing the given
+       * value will be returned. Matching is not case-sensitive. Requires at least three
+       * characters.
+       */
+      contains?: string;
+    }
+  }
 }
 
 export interface FaxApplicationCreateParams {
@@ -409,64 +467,6 @@ export namespace FaxApplicationUpdateParams {
   }
 }
 
-export interface FaxApplicationListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[application_name][contains], filter[outbound_voice_profile_id]
-   */
-  filter?: FaxApplicationListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>application_name</code>: sorts the result by the
-   *     <code>application_name</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-application_name</code>: sorts the result by the
-   *     <code>application_name</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'application_name' | 'active';
-}
-
-export namespace FaxApplicationListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[application_name][contains], filter[outbound_voice_profile_id]
-   */
-  export interface Filter {
-    /**
-     * Application name filtering operations
-     */
-    application_name?: Filter.ApplicationName;
-
-    /**
-     * Identifies the associated outbound voice profile.
-     */
-    outbound_voice_profile_id?: string;
-  }
-
-  export namespace Filter {
-    /**
-     * Application name filtering operations
-     */
-    export interface ApplicationName {
-      /**
-       * If present, applications with <code>application_name</code> containing the given
-       * value will be returned. Matching is not case-sensitive. Requires at least three
-       * characters.
-       */
-      contains?: string;
-    }
-  }
-}
-
 export declare namespace FaxApplications {
   export {
     type FaxApplication as FaxApplication,
@@ -475,8 +475,8 @@ export declare namespace FaxApplications {
     type FaxApplicationUpdateResponse as FaxApplicationUpdateResponse,
     type FaxApplicationDeleteResponse as FaxApplicationDeleteResponse,
     type FaxApplicationsDefaultFlatPagination as FaxApplicationsDefaultFlatPagination,
+    type FaxApplicationListParams as FaxApplicationListParams,
     type FaxApplicationCreateParams as FaxApplicationCreateParams,
     type FaxApplicationUpdateParams as FaxApplicationUpdateParams,
-    type FaxApplicationListParams as FaxApplicationListParams,
   };
 }

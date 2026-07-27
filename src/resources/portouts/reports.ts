@@ -11,6 +11,27 @@ import { path } from '../../internal/utils/path';
  */
 export class Reports extends APIResource {
   /**
+   * List the reports generated about port-out operations.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const portoutReport of client.portouts.reports.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: ReportListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortoutReportsDefaultFlatPagination, PortoutReport> {
+    return this._client.getAPIList('/portouts/reports', DefaultFlatPagination<PortoutReport>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Generate reports about port-out operations.
    *
    * @example
@@ -37,27 +58,6 @@ export class Reports extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<ReportRetrieveResponse> {
     return this._client.get(path`/portouts/reports/${id}`, options);
-  }
-
-  /**
-   * List the reports generated about port-out operations.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const portoutReport of client.portouts.reports.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: ReportListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PortoutReportsDefaultFlatPagination, PortoutReport> {
-    return this._client.getAPIList('/portouts/reports', DefaultFlatPagination<PortoutReport>, {
-      query,
-      ...options,
-    });
   }
 }
 
@@ -161,18 +161,6 @@ export interface ReportRetrieveResponse {
   data?: PortoutReport;
 }
 
-export interface ReportCreateParams {
-  /**
-   * The parameters for generating a port-outs CSV report.
-   */
-  params: ExportPortoutsCsvReport;
-
-  /**
-   * Identifies the type of report
-   */
-  report_type: 'export_portouts_csv';
-}
-
 export interface ReportListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -199,6 +187,18 @@ export namespace ReportListParams {
   }
 }
 
+export interface ReportCreateParams {
+  /**
+   * The parameters for generating a port-outs CSV report.
+   */
+  params: ExportPortoutsCsvReport;
+
+  /**
+   * Identifies the type of report
+   */
+  report_type: 'export_portouts_csv';
+}
+
 export declare namespace Reports {
   export {
     type ExportPortoutsCsvReport as ExportPortoutsCsvReport,
@@ -206,7 +206,7 @@ export declare namespace Reports {
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
     type PortoutReportsDefaultFlatPagination as PortoutReportsDefaultFlatPagination,
-    type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
+    type ReportCreateParams as ReportCreateParams,
   };
 }

@@ -8,21 +8,6 @@ import { path } from '../../internal/utils/path';
 
 export class Actions extends APIResource {
   /**
-   * This API fetches detailed information about a SIM card action to follow-up on an
-   * existing asynchronous operation.
-   *
-   * @example
-   * ```ts
-   * const action = await client.simCards.actions.retrieve(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<ActionRetrieveResponse> {
-    return this._client.get(path`/sim_card_actions/${id}`, options);
-  }
-
-  /**
    * This API lists a paginated collection of SIM card actions. It enables exploring
    * a collection of existing asynchronous operations using specific filters.
    *
@@ -45,59 +30,18 @@ export class Actions extends APIResource {
   }
 
   /**
-   * This API triggers an asynchronous operation to disable voice on SIM cards
-   * belonging to a specified SIM Card Group.<br/> For each SIM Card a SIM Card
-   * Action will be generated. The status of the SIM Card Actions can be followed
-   * through the
-   * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
-   * API.
-   *
-   * The overall status of the Bulk SIM Card Action can be followed through the
-   * [List Bulk SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-bulk-sim-card-actions)
-   * API.
+   * This API fetches detailed information about a SIM card action to follow-up on an
+   * existing asynchronous operation.
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.simCards.actions.bulkDisableVoice({
-   *     sim_card_group_id:
-   *       '6b14e151-8493-4fa1-8664-1cc4e6d14158',
-   *   });
+   * const action = await client.simCards.actions.retrieve(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
    * ```
    */
-  bulkDisableVoice(
-    body: ActionBulkDisableVoiceParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionBulkDisableVoiceResponse> {
-    return this._client.post('/sim_cards/actions/bulk_disable_voice', { body, ...options });
-  }
-
-  /**
-   * This API triggers an asynchronous operation to enable voice on SIM cards
-   * belonging to a specified SIM Card Group.<br/> For each SIM Card a SIM Card
-   * Action will be generated. The status of the SIM Card Actions can be followed
-   * through the
-   * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
-   * API.
-   *
-   * The overall status of the Bulk SIM Card Action can be followed through the
-   * [List Bulk SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-bulk-sim-card-actions)
-   * API.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.simCards.actions.bulkEnableVoice({
-   *     sim_card_group_id:
-   *       '6b14e151-8493-4fa1-8664-1cc4e6d14158',
-   *   });
-   * ```
-   */
-  bulkEnableVoice(
-    body: ActionBulkEnableVoiceParams,
-    options?: RequestOptions,
-  ): APIPromise<ActionBulkEnableVoiceResponse> {
-    return this._client.post('/sim_cards/actions/bulk_enable_voice', { body, ...options });
+  retrieve(id: string, options?: RequestOptions): APIPromise<ActionRetrieveResponse> {
+    return this._client.get(path`/sim_card_actions/${id}`, options);
   }
 
   /**
@@ -120,6 +64,22 @@ export class Actions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ActionBulkSetPublicIPsResponse> {
     return this._client.post('/sim_cards/actions/bulk_set_public_ips', { body, ...options });
+  }
+
+  /**
+   * It validates whether SIM card registration codes are valid or not.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.simCards.actions.validateRegistrationCodes();
+   * ```
+   */
+  validateRegistrationCodes(
+    body: ActionValidateRegistrationCodesParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionValidateRegistrationCodesResponse> {
+    return this._client.post('/sim_cards/actions/validate_registration_codes', { body, ...options });
   }
 
   /**
@@ -230,19 +190,59 @@ export class Actions extends APIResource {
   }
 
   /**
-   * It validates whether SIM card registration codes are valid or not.
+   * This API triggers an asynchronous operation to disable voice on SIM cards
+   * belonging to a specified SIM Card Group.<br/> For each SIM Card a SIM Card
+   * Action will be generated. The status of the SIM Card Actions can be followed
+   * through the
+   * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+   * API.
+   *
+   * The overall status of the Bulk SIM Card Action can be followed through the
+   * [List Bulk SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-bulk-sim-card-actions)
+   * API.
    *
    * @example
    * ```ts
    * const response =
-   *   await client.simCards.actions.validateRegistrationCodes();
+   *   await client.simCards.actions.bulkDisableVoice({
+   *     sim_card_group_id:
+   *       '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+   *   });
    * ```
    */
-  validateRegistrationCodes(
-    body: ActionValidateRegistrationCodesParams,
+  bulkDisableVoice(
+    body: ActionBulkDisableVoiceParams,
     options?: RequestOptions,
-  ): APIPromise<ActionValidateRegistrationCodesResponse> {
-    return this._client.post('/sim_cards/actions/validate_registration_codes', { body, ...options });
+  ): APIPromise<ActionBulkDisableVoiceResponse> {
+    return this._client.post('/sim_cards/actions/bulk_disable_voice', { body, ...options });
+  }
+
+  /**
+   * This API triggers an asynchronous operation to enable voice on SIM cards
+   * belonging to a specified SIM Card Group.<br/> For each SIM Card a SIM Card
+   * Action will be generated. The status of the SIM Card Actions can be followed
+   * through the
+   * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+   * API.
+   *
+   * The overall status of the Bulk SIM Card Action can be followed through the
+   * [List Bulk SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-bulk-sim-card-actions)
+   * API.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.simCards.actions.bulkEnableVoice({
+   *     sim_card_group_id:
+   *       '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+   *   });
+   * ```
+   */
+  bulkEnableVoice(
+    body: ActionBulkEnableVoiceParams,
+    options?: RequestOptions,
+  ): APIPromise<ActionBulkEnableVoiceResponse> {
+    return this._client.post('/sim_cards/actions/bulk_enable_voice', { body, ...options });
   }
 }
 
@@ -492,16 +492,12 @@ export namespace ActionListParams {
   }
 }
 
-export interface ActionBulkDisableVoiceParams {
-  sim_card_group_id: string;
-}
-
-export interface ActionBulkEnableVoiceParams {
-  sim_card_group_id: string;
-}
-
 export interface ActionBulkSetPublicIPsParams {
   sim_card_ids: Array<string>;
+}
+
+export interface ActionValidateRegistrationCodesParams {
+  registration_codes?: Array<string>;
 }
 
 export interface ActionSetPublicIPParams {
@@ -512,8 +508,12 @@ export interface ActionSetPublicIPParams {
   region_code?: string;
 }
 
-export interface ActionValidateRegistrationCodesParams {
-  registration_codes?: Array<string>;
+export interface ActionBulkDisableVoiceParams {
+  sim_card_group_id: string;
+}
+
+export interface ActionBulkEnableVoiceParams {
+  sim_card_group_id: string;
 }
 
 export declare namespace Actions {
@@ -532,10 +532,10 @@ export declare namespace Actions {
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
     type SimCardActionsDefaultFlatPagination as SimCardActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
+    type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
+    type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,
+    type ActionSetPublicIPParams as ActionSetPublicIPParams,
     type ActionBulkDisableVoiceParams as ActionBulkDisableVoiceParams,
     type ActionBulkEnableVoiceParams as ActionBulkEnableVoiceParams,
-    type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
-    type ActionSetPublicIPParams as ActionSetPublicIPParams,
-    type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,
   };
 }

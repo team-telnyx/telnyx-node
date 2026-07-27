@@ -12,36 +12,11 @@ import { path } from '../../../../internal/utils/path';
  */
 export class RecordingsJson extends APIResource {
   /**
-   * Starts recording with specified parameters for call idientified by call_sid.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.texml.accounts.calls.recordingsJson.recordingsJson(
-   *     'call_sid',
-   *     { account_sid: 'account_sid' },
-   *   );
-   * ```
-   */
-  recordingsJson(
-    callSid: string,
-    params: RecordingsJsonRecordingsJsonParams,
-    options?: RequestOptions,
-  ): APIPromise<RecordingsJsonRecordingsJsonResponse> {
-    const { account_sid, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Recordings.json`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
-  }
-
-  /**
    * Returns recordings for a call identified by call_sid.
    *
    * @example
    * ```ts
-   * const response =
+   * const texmlGetCallRecordingsResponseBody =
    *   await client.texml.accounts.calls.recordingsJson.retrieveRecordingsJson(
    *     'call_sid',
    *     { account_sid: 'account_sid' },
@@ -52,18 +27,55 @@ export class RecordingsJson extends APIResource {
     callSid: string,
     params: RecordingsJsonRetrieveRecordingsJsonParams,
     options?: RequestOptions,
-  ): APIPromise<RecordingsJsonRetrieveRecordingsJsonResponse> {
+  ): APIPromise<TexmlGetCallRecordingsResponseBody> {
     const { account_sid } = params;
     return this._client.get(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Recordings.json`, options);
   }
+
+  /**
+   * Starts recording with specified parameters for call idientified by call_sid.
+   *
+   * @example
+   * ```ts
+   * const texmlCreateCallRecordingResponseBody =
+   *   await client.texml.accounts.calls.recordingsJson.recordingsJson(
+   *     'call_sid',
+   *     { account_sid: 'account_sid' },
+   *   );
+   * ```
+   */
+  recordingsJson(
+    callSid: string,
+    params: RecordingsJsonRecordingsJsonParams,
+    options?: RequestOptions,
+  ): APIPromise<TexmlCreateCallRecordingResponseBody> {
+    const { account_sid, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${account_sid}/Calls/${callSid}/Recordings.json`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+    });
+  }
 }
 
-export interface RecordingsJsonRecordingsJsonResponse {
+/**
+ * Defines how the recording was created.
+ */
+export type RecordingSource =
+  | 'StartCallRecordingAPI'
+  | 'StartConferenceRecordingAPI'
+  | 'OutboundAPI'
+  | 'DialVerb'
+  | 'Conference'
+  | 'RecordVerb'
+  | 'Trunking';
+
+export interface TexmlCreateCallRecordingResponseBody {
   account_sid?: string;
 
   call_sid?: string;
 
-  channels?: 1 | 2;
+  channels?: TwimlRecordingChannels;
 
   conference_sid?: string | null;
 
@@ -96,14 +108,7 @@ export interface RecordingsJsonRecordingsJsonResponse {
   /**
    * Defines how the recording was created.
    */
-  source?:
-    | 'StartCallRecordingAPI'
-    | 'StartConferenceRecordingAPI'
-    | 'OutboundAPI'
-    | 'DialVerb'
-    | 'Conference'
-    | 'RecordVerb'
-    | 'Trunking';
+  source?: RecordingSource;
 
   start_time?: string;
 
@@ -118,7 +123,7 @@ export interface RecordingsJsonRecordingsJsonResponse {
   uri?: string;
 }
 
-export interface RecordingsJsonRetrieveRecordingsJsonResponse {
+export interface TexmlGetCallRecordingsResponseBody {
   /**
    * The number of the last element on the page, zero-indexed.
    */
@@ -160,6 +165,15 @@ export interface RecordingsJsonRetrieveRecordingsJsonResponse {
    * The URI of the current page.
    */
   uri?: string;
+}
+
+export type TwimlRecordingChannels = 1 | 2;
+
+export interface RecordingsJsonRetrieveRecordingsJsonParams {
+  /**
+   * The id of the account the resource belongs to.
+   */
+  account_sid: string;
 }
 
 export interface RecordingsJsonRecordingsJsonParams {
@@ -207,18 +221,13 @@ export interface RecordingsJsonRecordingsJsonParams {
   SendRecordingUrl?: boolean;
 }
 
-export interface RecordingsJsonRetrieveRecordingsJsonParams {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid: string;
-}
-
 export declare namespace RecordingsJson {
   export {
-    type RecordingsJsonRecordingsJsonResponse as RecordingsJsonRecordingsJsonResponse,
-    type RecordingsJsonRetrieveRecordingsJsonResponse as RecordingsJsonRetrieveRecordingsJsonResponse,
-    type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
+    type RecordingSource as RecordingSource,
+    type TexmlCreateCallRecordingResponseBody as TexmlCreateCallRecordingResponseBody,
+    type TexmlGetCallRecordingsResponseBody as TexmlGetCallRecordingsResponseBody,
+    type TwimlRecordingChannels as TwimlRecordingChannels,
     type RecordingsJsonRetrieveRecordingsJsonParams as RecordingsJsonRetrieveRecordingsJsonParams,
+    type RecordingsJsonRecordingsJsonParams as RecordingsJsonRecordingsJsonParams,
   };
 }

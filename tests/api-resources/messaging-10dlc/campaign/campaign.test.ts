@@ -9,30 +9,6 @@ const client = new Telnyx({
 
 describe('resource campaign', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.messaging10dlc.campaign.retrieve('campaignId');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update', async () => {
-    const responsePromise = client.messaging10dlc.campaign.update('campaignId', {});
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('list: only required params', async () => {
     const responsePromise = client.messaging10dlc.campaign.list({ brandId: 'brandId' });
     const rawResponse = await responsePromise.asResponse();
@@ -79,8 +55,8 @@ describe('resource campaign', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('getMnoMetadata', async () => {
-    const responsePromise = client.messaging10dlc.campaign.getMnoMetadata('campaignId');
+  test.skip('retrieve', async () => {
+    const responsePromise = client.messaging10dlc.campaign.retrieve('campaignId');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -91,20 +67,8 @@ describe('resource campaign', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('getOperationStatus', async () => {
-    const responsePromise = client.messaging10dlc.campaign.getOperationStatus('campaignId');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('getSharingStatus', async () => {
-    const responsePromise = client.messaging10dlc.campaign.getSharingStatus('campaignId');
+  test.skip('update', async () => {
+    const responsePromise = client.messaging10dlc.campaign.update('campaignId', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -141,5 +105,41 @@ describe('resource campaign', () => {
           'The website has been updated to include the required privacy policy and terms of service.',
       },
     );
+  });
+
+  // Mock server tests are disabled
+  test.skip('getMnoMetadata', async () => {
+    const responsePromise = client.messaging10dlc.campaign.getMnoMetadata('campaignId');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getOperationStatus', async () => {
+    const responsePromise = client.messaging10dlc.campaign.getOperationStatus('campaignId');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('getSharingStatus', async () => {
+    const responsePromise = client.messaging10dlc.campaign.getSharingStatus('campaignId');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

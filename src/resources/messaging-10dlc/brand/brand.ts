@@ -5,10 +5,9 @@ import * as ExternalVettingAPI from './external-vetting';
 import {
   ExternalVetting,
   ExternalVettingImportsParams,
-  ExternalVettingImportsResponse,
   ExternalVettingListResponse,
   ExternalVettingOrderParams,
-  ExternalVettingOrderResponse,
+  ExternalVettingResource,
 } from './external-vetting';
 import { APIPromise } from '../../../core/api-promise';
 import { PagePromise, PerPagePaginationV2, type PerPagePaginationV2Params } from '../../../core/pagination';
@@ -20,7 +19,29 @@ import { path } from '../../../internal/utils/path';
  * Brand operations
  */
 export class Brand extends APIResource {
-  externalVetting: ExternalVettingAPI.ExternalVetting = new ExternalVettingAPI.ExternalVetting(this._client);
+  externalVetting: ExternalVettingAPI.ExternalVettingResource =
+    new ExternalVettingAPI.ExternalVettingResource(this._client);
+
+  /**
+   * This endpoint is used to list all brands associated with your organization.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const brandListResponse of client.messaging10dlc.brand.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: BrandListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<BrandListResponsesPerPagePaginationV2, BrandListResponse> {
+    return this._client.getAPIList('/10dlc/brand', PerPagePaginationV2<BrandListResponse>, {
+      query,
+      ...options,
+    });
+  }
 
   /**
    * This endpoint is used to create a new brand. A brand is an entity created by The
@@ -42,6 +63,48 @@ export class Brand extends APIResource {
    */
   create(body: BrandCreateParams, options?: RequestOptions): APIPromise<TelnyxBrand> {
     return this._client.post('/10dlc/brand', { body, ...options });
+  }
+
+  /**
+   * Get feedback about a brand by ID. This endpoint can be used after creating or
+   * revetting a brand.
+   *
+   * Possible values for `.category[].id`:
+   *
+   * - `TAX_ID` - Data mismatch related to tax id and its associated properties.
+   * - `STOCK_SYMBOL` - Non public entity registered as a public for profit entity or
+   *   the stock information mismatch.
+   * - `GOVERNMENT_ENTITY` - Non government entity registered as a government entity.
+   *   Must be a U.S. government entity.
+   * - `NONPROFIT` - Not a recognized non-profit entity. No IRS tax-exempt status
+   *   found.
+   * - `OTHERS` - Details of the data misrepresentation if any.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.messaging10dlc.brand.getFeedback('brandId');
+   * ```
+   */
+  getFeedback(brandID: string, options?: RequestOptions): APIPromise<BrandGetFeedbackResponse> {
+    return this._client.get(path`/10dlc/brand/feedback/${brandID}`, options);
+  }
+
+  /**
+   * Delete Brand. This endpoint is used to delete a brand. Note the brand cannot be
+   * deleted if it contains one or more active campaigns, the campaigns need to be
+   * inactive and at least 3 months old due to billing purposes.
+   *
+   * @example
+   * ```ts
+   * await client.messaging10dlc.brand.delete('brandId');
+   * ```
+   */
+  delete(brandID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/10dlc/brand/${brandID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -78,99 +141,6 @@ export class Brand extends APIResource {
   }
 
   /**
-   * This endpoint is used to list all brands associated with your organization.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const brandListResponse of client.messaging10dlc.brand.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: BrandListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<BrandListResponsesPerPagePaginationV2, BrandListResponse> {
-    return this._client.getAPIList('/10dlc/brand', PerPagePaginationV2<BrandListResponse>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Delete Brand. This endpoint is used to delete a brand. Note the brand cannot be
-   * deleted if it contains one or more active campaigns, the campaigns need to be
-   * inactive and at least 3 months old due to billing purposes.
-   *
-   * @example
-   * ```ts
-   * await client.messaging10dlc.brand.delete('brandId');
-   * ```
-   */
-  delete(brandID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/10dlc/brand/${brandID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Get feedback about a brand by ID. This endpoint can be used after creating or
-   * revetting a brand.
-   *
-   * Possible values for `.category[].id`:
-   *
-   * - `TAX_ID` - Data mismatch related to tax id and its associated properties.
-   * - `STOCK_SYMBOL` - Non public entity registered as a public for profit entity or
-   *   the stock information mismatch.
-   * - `GOVERNMENT_ENTITY` - Non government entity registered as a government entity.
-   *   Must be a U.S. government entity.
-   * - `NONPROFIT` - Not a recognized non-profit entity. No IRS tax-exempt status
-   *   found.
-   * - `OTHERS` - Details of the data misrepresentation if any.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.messaging10dlc.brand.getFeedback('brandId');
-   * ```
-   */
-  getFeedback(brandID: string, options?: RequestOptions): APIPromise<BrandGetFeedbackResponse> {
-    return this._client.get(path`/10dlc/brand/feedback/${brandID}`, options);
-  }
-
-  /**
-   * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand
-   * verification.
-   *
-   * This endpoint allows you to check the delivery and verification status of an OTP
-   * sent during the Sole Proprietor brand verification process. You can query by
-   * either:
-   *
-   * - `referenceId` - The reference ID returned when the OTP was initially triggered
-   * - `brandId` - Query parameter for portal users to look up OTP status by Brand ID
-   *
-   * The response includes delivery status, verification dates, and detailed delivery
-   * information.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.messaging10dlc.brand.getSMSOtpByReference(
-   *     'OTP4B2001',
-   *   );
-   * ```
-   */
-  getSMSOtpByReference(
-    referenceID: string,
-    query: BrandGetSMSOtpByReferenceParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<BrandGetSMSOtpByReferenceResponse> {
-    return this._client.get(path`/10dlc/brand/smsOtp/${referenceID}`, { query, ...options });
-  }
-
-  /**
    * Resend brand 2FA email
    *
    * @example
@@ -183,6 +153,22 @@ export class Brand extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * This operation allows you to revet the brand. However, revetting is allowed once
+   * after the successful brand registration and thereafter limited to once every 3
+   * months.
+   *
+   * @example
+   * ```ts
+   * const telnyxBrand = await client.messaging10dlc.brand.revet(
+   *   'brandId',
+   * );
+   * ```
+   */
+  revet(brandID: string, options?: RequestOptions): APIPromise<TelnyxBrand> {
+    return this._client.put(path`/10dlc/brand/${brandID}/revet`, options);
   }
 
   /**
@@ -201,33 +187,14 @@ export class Brand extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const brandSMSOtpStatus =
    *   await client.messaging10dlc.brand.retrieveSMSOtpStatus(
    *     '4b20019b-043a-78f8-0657-b3be3f4b4002',
    *   );
    * ```
    */
-  retrieveSMSOtpStatus(
-    brandID: string,
-    options?: RequestOptions,
-  ): APIPromise<BrandRetrieveSMSOtpStatusResponse> {
+  retrieveSMSOtpStatus(brandID: string, options?: RequestOptions): APIPromise<BrandSMSOtpStatus> {
     return this._client.get(path`/10dlc/brand/${brandID}/smsOtp`, options);
-  }
-
-  /**
-   * This operation allows you to revet the brand. However, revetting is allowed once
-   * after the successful brand registration and thereafter limited to once every 3
-   * months.
-   *
-   * @example
-   * ```ts
-   * const telnyxBrand = await client.messaging10dlc.brand.revet(
-   *   'brandId',
-   * );
-   * ```
-   */
-  revet(brandID: string, options?: RequestOptions): APIPromise<TelnyxBrand> {
-    return this._client.put(path`/10dlc/brand/${brandID}/revet`, options);
   }
 
   /**
@@ -305,6 +272,36 @@ export class Brand extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Query the status of an SMS OTP (One-Time Password) for Sole Proprietor brand
+   * verification.
+   *
+   * This endpoint allows you to check the delivery and verification status of an OTP
+   * sent during the Sole Proprietor brand verification process. You can query by
+   * either:
+   *
+   * - `referenceId` - The reference ID returned when the OTP was initially triggered
+   * - `brandId` - Query parameter for portal users to look up OTP status by Brand ID
+   *
+   * The response includes delivery status, verification dates, and detailed delivery
+   * information.
+   *
+   * @example
+   * ```ts
+   * const brandSMSOtpStatus =
+   *   await client.messaging10dlc.brand.getSMSOtpByReference(
+   *     'OTP4B2001',
+   *   );
+   * ```
+   */
+  getSMSOtpByReference(
+    referenceID: string,
+    query: BrandGetSMSOtpByReferenceParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<BrandSMSOtpStatus> {
+    return this._client.get(path`/10dlc/brand/smsOtp/${referenceID}`, { query, ...options });
+  }
 }
 
 export type BrandListResponsesPerPagePaginationV2 = PerPagePaginationV2<BrandListResponse>;
@@ -324,6 +321,52 @@ export interface BrandOptionalAttributes {
    * The tax exempt status of the brand
    */
   taxExemptStatus?: string;
+}
+
+/**
+ * Status information for an SMS OTP sent during Sole Proprietor brand verification
+ */
+export interface BrandSMSOtpStatus {
+  /**
+   * The Brand ID associated with this OTP request
+   */
+  brandId: string;
+
+  /**
+   * The current delivery status of the OTP SMS message. Common values include:
+   * `DELIVERED_HANDSET`, `PENDING`, `FAILED`, `EXPIRED`
+   */
+  deliveryStatus: string;
+
+  /**
+   * The mobile phone number where the OTP was sent, in E.164 format
+   */
+  mobilePhone: string;
+
+  /**
+   * The reference ID for this OTP request, used for status queries
+   */
+  referenceId: string;
+
+  /**
+   * The timestamp when the OTP request was initiated
+   */
+  requestDate: string;
+
+  /**
+   * The timestamp when the delivery status was last updated
+   */
+  deliveryStatusDate?: string;
+
+  /**
+   * Additional details about the delivery status
+   */
+  deliveryStatusDetails?: string;
+
+  /**
+   * The timestamp when the OTP was successfully verified (if applicable)
+   */
+  verifyDate?: string;
 }
 
 /**
@@ -698,98 +741,6 @@ export namespace BrandGetFeedbackResponse {
 }
 
 /**
- * Status information for an SMS OTP sent during Sole Proprietor brand verification
- */
-export interface BrandGetSMSOtpByReferenceResponse {
-  /**
-   * The Brand ID associated with this OTP request
-   */
-  brandId: string;
-
-  /**
-   * The current delivery status of the OTP SMS message. Common values include:
-   * `DELIVERED_HANDSET`, `PENDING`, `FAILED`, `EXPIRED`
-   */
-  deliveryStatus: string;
-
-  /**
-   * The mobile phone number where the OTP was sent, in E.164 format
-   */
-  mobilePhone: string;
-
-  /**
-   * The reference ID for this OTP request, used for status queries
-   */
-  referenceId: string;
-
-  /**
-   * The timestamp when the OTP request was initiated
-   */
-  requestDate: string;
-
-  /**
-   * The timestamp when the delivery status was last updated
-   */
-  deliveryStatusDate?: string;
-
-  /**
-   * Additional details about the delivery status
-   */
-  deliveryStatusDetails?: string;
-
-  /**
-   * The timestamp when the OTP was successfully verified (if applicable)
-   */
-  verifyDate?: string;
-}
-
-/**
- * Status information for an SMS OTP sent during Sole Proprietor brand verification
- */
-export interface BrandRetrieveSMSOtpStatusResponse {
-  /**
-   * The Brand ID associated with this OTP request
-   */
-  brandId: string;
-
-  /**
-   * The current delivery status of the OTP SMS message. Common values include:
-   * `DELIVERED_HANDSET`, `PENDING`, `FAILED`, `EXPIRED`
-   */
-  deliveryStatus: string;
-
-  /**
-   * The mobile phone number where the OTP was sent, in E.164 format
-   */
-  mobilePhone: string;
-
-  /**
-   * The reference ID for this OTP request, used for status queries
-   */
-  referenceId: string;
-
-  /**
-   * The timestamp when the OTP request was initiated
-   */
-  requestDate: string;
-
-  /**
-   * The timestamp when the delivery status was last updated
-   */
-  deliveryStatusDate?: string;
-
-  /**
-   * Additional details about the delivery status
-   */
-  deliveryStatusDetails?: string;
-
-  /**
-   * The timestamp when the OTP was successfully verified (if applicable)
-   */
-  verifyDate?: string;
-}
-
-/**
  * Response after successfully triggering a Brand SMS OTP
  */
 export interface BrandTriggerSMSOtpResponse {
@@ -802,6 +753,58 @@ export interface BrandTriggerSMSOtpResponse {
    * The reference ID that can be used to check OTP status
    */
   referenceId: string;
+}
+
+export interface BrandListParams extends PerPagePaginationV2Params {
+  /**
+   * Filter results by the Telnyx Brand id
+   */
+  brandId?: string;
+
+  /**
+   * Filter results by country.
+   */
+  country?: string;
+
+  /**
+   * Filter results by display name.
+   */
+  displayName?: string;
+
+  /**
+   * Filter results by entity type.
+   */
+  entityType?: string;
+
+  /**
+   * Specifies the sort order for results. If not given, results are sorted by
+   * createdAt in descending order.
+   */
+  sort?:
+    | 'assignedCampaignsCount'
+    | '-assignedCampaignsCount'
+    | 'brandId'
+    | '-brandId'
+    | 'createdAt'
+    | '-createdAt'
+    | 'displayName'
+    | '-displayName'
+    | 'identityStatus'
+    | '-identityStatus'
+    | 'status'
+    | '-status'
+    | 'tcrBrandId'
+    | '-tcrBrandId';
+
+  /**
+   * Filter results by state.
+   */
+  state?: string;
+
+  /**
+   * Filter results by the TCR Brand id
+   */
+  tcrBrandId?: string;
 }
 
 export interface BrandCreateParams {
@@ -1055,53 +1058,6 @@ export interface BrandUpdateParams {
   website?: string;
 }
 
-export interface BrandListParams extends PerPagePaginationV2Params {
-  /**
-   * Filter results by the Telnyx Brand id
-   */
-  brandId?: string;
-
-  country?: string;
-
-  displayName?: string;
-
-  entityType?: string;
-
-  /**
-   * Specifies the sort order for results. If not given, results are sorted by
-   * createdAt in descending order.
-   */
-  sort?:
-    | 'assignedCampaignsCount'
-    | '-assignedCampaignsCount'
-    | 'brandId'
-    | '-brandId'
-    | 'createdAt'
-    | '-createdAt'
-    | 'displayName'
-    | '-displayName'
-    | 'identityStatus'
-    | '-identityStatus'
-    | 'status'
-    | '-status'
-    | 'tcrBrandId'
-    | '-tcrBrandId';
-
-  state?: string;
-
-  /**
-   * Filter results by the TCR Brand id
-   */
-  tcrBrandId?: string;
-}
-
-export interface BrandGetSMSOtpByReferenceParams {
-  /**
-   * Filter by Brand ID for easier lookup in portal applications
-   */
-  brandId?: string;
-}
-
 export interface BrandTriggerSMSOtpParams {
   /**
    * SMS message template to send the OTP. Must include `@OTP_PIN@` placeholder which
@@ -1122,13 +1078,21 @@ export interface BrandVerifySMSOtpParams {
   otpPin: string;
 }
 
-Brand.ExternalVetting = ExternalVetting;
+export interface BrandGetSMSOtpByReferenceParams {
+  /**
+   * Filter by Brand ID for easier lookup in portal applications
+   */
+  brandId?: string;
+}
+
+Brand.ExternalVettingResource = ExternalVettingResource;
 
 export declare namespace Brand {
   export {
     type AltBusinessIDType as AltBusinessIDType,
     type BrandIdentityStatus as BrandIdentityStatus,
     type BrandOptionalAttributes as BrandOptionalAttributes,
+    type BrandSMSOtpStatus as BrandSMSOtpStatus,
     type EntityType as EntityType,
     type StockExchange as StockExchange,
     type TelnyxBrand as TelnyxBrand,
@@ -1136,24 +1100,21 @@ export declare namespace Brand {
     type BrandRetrieveResponse as BrandRetrieveResponse,
     type BrandListResponse as BrandListResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
-    type BrandGetSMSOtpByReferenceResponse as BrandGetSMSOtpByReferenceResponse,
-    type BrandRetrieveSMSOtpStatusResponse as BrandRetrieveSMSOtpStatusResponse,
     type BrandTriggerSMSOtpResponse as BrandTriggerSMSOtpResponse,
     type BrandListResponsesPerPagePaginationV2 as BrandListResponsesPerPagePaginationV2,
+    type BrandListParams as BrandListParams,
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
-    type BrandListParams as BrandListParams,
-    type BrandGetSMSOtpByReferenceParams as BrandGetSMSOtpByReferenceParams,
     type BrandTriggerSMSOtpParams as BrandTriggerSMSOtpParams,
     type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams,
+    type BrandGetSMSOtpByReferenceParams as BrandGetSMSOtpByReferenceParams,
   };
 
   export {
-    ExternalVetting as ExternalVetting,
+    ExternalVettingResource as ExternalVettingResource,
+    type ExternalVetting as ExternalVetting,
     type ExternalVettingListResponse as ExternalVettingListResponse,
-    type ExternalVettingImportsResponse as ExternalVettingImportsResponse,
-    type ExternalVettingOrderResponse as ExternalVettingOrderResponse,
-    type ExternalVettingImportsParams as ExternalVettingImportsParams,
     type ExternalVettingOrderParams as ExternalVettingOrderParams,
+    type ExternalVettingImportsParams as ExternalVettingImportsParams,
   };
 }

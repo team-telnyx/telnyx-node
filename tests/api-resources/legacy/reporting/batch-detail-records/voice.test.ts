@@ -9,6 +9,18 @@ const client = new Telnyx({
 
 describe('resource voice', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.legacy.reporting.batchDetailRecords.voice.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.legacy.reporting.batchDetailRecords.voice.create({
       end_time: '2024-02-12T23:59:59Z',
@@ -53,22 +65,8 @@ describe('resource voice', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.legacy.reporting.batchDetailRecords.voice.retrieve(
-      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-    );
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.legacy.reporting.batchDetailRecords.voice.list();
+  test.skip('retrieveFields', async () => {
+    const responsePromise = client.legacy.reporting.batchDetailRecords.voice.retrieveFields();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -93,8 +91,10 @@ describe('resource voice', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieveFields', async () => {
-    const responsePromise = client.legacy.reporting.batchDetailRecords.voice.retrieveFields();
+  test.skip('retrieve', async () => {
+    const responsePromise = client.legacy.reporting.batchDetailRecords.voice.retrieve(
+      '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;

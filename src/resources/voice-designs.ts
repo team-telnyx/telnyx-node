@@ -12,50 +12,13 @@ import { path } from '../internal/utils/path';
  */
 export class VoiceDesigns extends APIResource {
   /**
-   * Creates a new voice design (version 1) when `voice_design_id` is omitted. When
-   * `voice_design_id` is provided, adds a new version to the existing design
-   * instead. A design can have at most 50 versions.
-   *
-   * @example
-   * ```ts
-   * const voiceDesign = await client.voiceDesigns.create({
-   *   prompt: 'Speak in a warm, friendly tone',
-   *   text: 'Hello, welcome to our service.',
-   * });
-   * ```
-   */
-  create(body: VoiceDesignCreateParams, options?: RequestOptions): APIPromise<VoiceDesignCreateResponse> {
-    return this._client.post('/voice_designs', { body, ...options });
-  }
-
-  /**
-   * Returns the latest version of a voice design, or a specific version when
-   * `?version=N` is provided. The `id` parameter accepts either a UUID or the design
-   * name.
-   *
-   * @example
-   * ```ts
-   * const voiceDesign = await client.voiceDesigns.retrieve(
-   *   'id',
-   * );
-   * ```
-   */
-  retrieve(
-    id: string,
-    query: VoiceDesignRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<VoiceDesignRetrieveResponse> {
-    return this._client.get(path`/voice_designs/${id}`, { query, ...options });
-  }
-
-  /**
    * Returns a paginated list of voice designs belonging to the authenticated
    * account.
    *
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const voiceDesignListResponse of client.voiceDesigns.list()) {
+   * for await (const voiceDesignSummaryData of client.voiceDesigns.list()) {
    *   // ...
    * }
    * ```
@@ -63,11 +26,29 @@ export class VoiceDesigns extends APIResource {
   list(
     query: VoiceDesignListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<VoiceDesignListResponsesDefaultFlatPagination, VoiceDesignListResponse> {
-    return this._client.getAPIList('/voice_designs', DefaultFlatPagination<VoiceDesignListResponse>, {
+  ): PagePromise<VoiceDesignSummaryDataDefaultFlatPagination, VoiceDesignSummaryData> {
+    return this._client.getAPIList('/voice_designs', DefaultFlatPagination<VoiceDesignSummaryData>, {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Creates a new voice design (version 1) when `voice_design_id` is omitted. When
+   * `voice_design_id` is provided, adds a new version to the existing design
+   * instead. A design can have at most 50 versions.
+   *
+   * @example
+   * ```ts
+   * const voiceDesignResponse =
+   *   await client.voiceDesigns.create({
+   *     prompt: 'Speak in a warm, friendly tone',
+   *     text: 'Hello, welcome to our service.',
+   *   });
+   * ```
+   */
+  create(body: VoiceDesignCreateParams, options?: RequestOptions): APIPromise<VoiceDesignResponse> {
+    return this._client.post('/voice_designs', { body, ...options });
   }
 
   /**
@@ -87,24 +68,40 @@ export class VoiceDesigns extends APIResource {
   }
 
   /**
-   * Permanently deletes a specific version of a voice design. The version number
-   * must be a positive integer.
+   * Returns the latest version of a voice design, or a specific version when
+   * `?version=N` is provided. The `id` parameter accepts either a UUID or the design
+   * name.
    *
    * @example
    * ```ts
-   * await client.voiceDesigns.deleteVersion(1, { id: 'id' });
+   * const voiceDesignResponse =
+   *   await client.voiceDesigns.retrieve('id');
    * ```
    */
-  deleteVersion(
-    version: number,
-    params: VoiceDesignDeleteVersionParams,
+  retrieve(
+    id: string,
+    query: VoiceDesignRetrieveParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<void> {
-    const { id } = params;
-    return this._client.delete(path`/voice_designs/${id}/versions/${version}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  ): APIPromise<VoiceDesignResponse> {
+    return this._client.get(path`/voice_designs/${id}`, { query, ...options });
+  }
+
+  /**
+   * Updates the name of a voice design. All versions retain their other properties.
+   *
+   * @example
+   * ```ts
+   * const response = await client.voiceDesigns.rename('id', {
+   *   name: 'updated-narrator',
+   * });
+   * ```
+   */
+  rename(
+    id: string,
+    body: VoiceDesignRenameParams,
+    options?: RequestOptions,
+  ): APIPromise<VoiceDesignRenameResponse> {
+    return this._client.patch(path`/voice_designs/${id}`, { body, ...options });
   }
 
   /**
@@ -136,25 +133,28 @@ export class VoiceDesigns extends APIResource {
   }
 
   /**
-   * Updates the name of a voice design. All versions retain their other properties.
+   * Permanently deletes a specific version of a voice design. The version number
+   * must be a positive integer.
    *
    * @example
    * ```ts
-   * const response = await client.voiceDesigns.rename('id', {
-   *   name: 'updated-narrator',
-   * });
+   * await client.voiceDesigns.deleteVersion(1, { id: 'id' });
    * ```
    */
-  rename(
-    id: string,
-    body: VoiceDesignRenameParams,
+  deleteVersion(
+    version: number,
+    params: VoiceDesignDeleteVersionParams,
     options?: RequestOptions,
-  ): APIPromise<VoiceDesignRenameResponse> {
-    return this._client.patch(path`/voice_designs/${id}`, { body, ...options });
+  ): APIPromise<void> {
+    const { id } = params;
+    return this._client.delete(path`/voice_designs/${id}/versions/${version}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 }
 
-export type VoiceDesignListResponsesDefaultFlatPagination = DefaultFlatPagination<VoiceDesignListResponse>;
+export type VoiceDesignSummaryDataDefaultFlatPagination = DefaultFlatPagination<VoiceDesignSummaryData>;
 
 /**
  * A voice design object with full version detail.
@@ -231,17 +231,7 @@ export interface VoiceDesignData {
 /**
  * Response envelope for a single voice design with full version detail.
  */
-export interface VoiceDesignCreateResponse {
-  /**
-   * A voice design object with full version detail.
-   */
-  data?: VoiceDesignData;
-}
-
-/**
- * Response envelope for a single voice design with full version detail.
- */
-export interface VoiceDesignRetrieveResponse {
+export interface VoiceDesignResponse {
   /**
    * A voice design object with full version detail.
    */
@@ -251,7 +241,7 @@ export interface VoiceDesignRetrieveResponse {
 /**
  * A summarized voice design object (without version-specific fields).
  */
-export interface VoiceDesignListResponse {
+export interface VoiceDesignSummaryData {
   /**
    * Unique identifier for the voice design.
    */
@@ -296,49 +286,19 @@ export interface VoiceDesignRenameResponse {
   /**
    * A summarized voice design object (without version-specific fields).
    */
-  data?: VoiceDesignRenameResponse.Data;
+  data?: VoiceDesignSummaryData;
 }
 
-export namespace VoiceDesignRenameResponse {
+export interface VoiceDesignListParams extends DefaultFlatPaginationParams {
   /**
-   * A summarized voice design object (without version-specific fields).
+   * Case-insensitive substring filter on the name field.
    */
-  export interface Data {
-    /**
-     * Unique identifier for the voice design.
-     */
-    id?: string;
+  'filter[name]'?: string;
 
-    /**
-     * Timestamp when the voice design was first created.
-     */
-    created_at?: string;
-
-    /**
-     * Name of the voice design.
-     */
-    name?: string;
-
-    /**
-     * Voice synthesis provider used for this design.
-     */
-    provider?: 'telnyx' | 'minimax' | null;
-
-    /**
-     * List of TTS model identifiers supported by this design's provider.
-     */
-    provider_supported_models?: Array<string>;
-
-    /**
-     * Identifies the resource type.
-     */
-    record_type?: 'voice_design';
-
-    /**
-     * Timestamp when the voice design was last updated.
-     */
-    updated_at?: string;
-  }
+  /**
+   * Sort order. Prefix with `-` for descending. Defaults to `-created_at`.
+   */
+  sort?: 'name' | '-name' | 'created_at' | '-created_at';
 }
 
 export interface VoiceDesignCreateParams {
@@ -415,23 +375,11 @@ export interface VoiceDesignRetrieveParams {
   version?: number;
 }
 
-export interface VoiceDesignListParams extends DefaultFlatPaginationParams {
+export interface VoiceDesignRenameParams {
   /**
-   * Case-insensitive substring filter on the name field.
+   * New name for the voice design.
    */
-  'filter[name]'?: string;
-
-  /**
-   * Sort order. Prefix with `-` for descending. Defaults to `-created_at`.
-   */
-  sort?: 'name' | '-name' | 'created_at' | '-created_at';
-}
-
-export interface VoiceDesignDeleteVersionParams {
-  /**
-   * The voice design UUID or name.
-   */
-  id: string;
+  name: string;
 }
 
 export interface VoiceDesignDownloadSampleParams {
@@ -442,26 +390,25 @@ export interface VoiceDesignDownloadSampleParams {
   version?: number;
 }
 
-export interface VoiceDesignRenameParams {
+export interface VoiceDesignDeleteVersionParams {
   /**
-   * New name for the voice design.
+   * The voice design UUID or name.
    */
-  name: string;
+  id: string;
 }
 
 export declare namespace VoiceDesigns {
   export {
     type VoiceDesignData as VoiceDesignData,
-    type VoiceDesignCreateResponse as VoiceDesignCreateResponse,
-    type VoiceDesignRetrieveResponse as VoiceDesignRetrieveResponse,
-    type VoiceDesignListResponse as VoiceDesignListResponse,
+    type VoiceDesignResponse as VoiceDesignResponse,
+    type VoiceDesignSummaryData as VoiceDesignSummaryData,
     type VoiceDesignRenameResponse as VoiceDesignRenameResponse,
-    type VoiceDesignListResponsesDefaultFlatPagination as VoiceDesignListResponsesDefaultFlatPagination,
+    type VoiceDesignSummaryDataDefaultFlatPagination as VoiceDesignSummaryDataDefaultFlatPagination,
+    type VoiceDesignListParams as VoiceDesignListParams,
     type VoiceDesignCreateParams as VoiceDesignCreateParams,
     type VoiceDesignRetrieveParams as VoiceDesignRetrieveParams,
-    type VoiceDesignListParams as VoiceDesignListParams,
-    type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
-    type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
     type VoiceDesignRenameParams as VoiceDesignRenameParams,
+    type VoiceDesignDownloadSampleParams as VoiceDesignDownloadSampleParams,
+    type VoiceDesignDeleteVersionParams as VoiceDesignDeleteVersionParams,
   };
 }

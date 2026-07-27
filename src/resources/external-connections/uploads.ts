@@ -11,6 +11,30 @@ import { path } from '../../internal/utils/path';
  */
 export class Uploads extends APIResource {
   /**
+   * Returns a list of your Upload requests for the given external connection.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const upload of client.externalConnections.uploads.list(
+   *   '1293384261075731499',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    id: string,
+    query: UploadListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<UploadsDefaultFlatPagination, Upload> {
+    return this._client.getAPIList(path`/external_connections/${id}/uploads`, DefaultFlatPagination<Upload>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a new Upload request to Microsoft teams with the included phone numbers.
    * Only one of civic_address_id or location_id must be provided, not both. The
    * maximum allowed phone numbers for the numbers_ids array is 1000.
@@ -36,48 +60,19 @@ export class Uploads extends APIResource {
   }
 
   /**
-   * Return the details of an Upload request and its phone numbers.
+   * Forces a recheck of the status of all pending Upload requests for the given
+   * external connection in the background.
    *
    * @example
    * ```ts
-   * const upload =
-   *   await client.externalConnections.uploads.retrieve(
-   *     '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
-   *     { id: '1293384261075731499' },
+   * const response =
+   *   await client.externalConnections.uploads.refreshStatus(
+   *     '1293384261075731499',
    *   );
    * ```
    */
-  retrieve(
-    ticketID: string,
-    params: UploadRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<UploadRetrieveResponse> {
-    const { id } = params;
-    return this._client.get(path`/external_connections/${id}/uploads/${ticketID}`, options);
-  }
-
-  /**
-   * Returns a list of your Upload requests for the given external connection.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const upload of client.externalConnections.uploads.list(
-   *   '1293384261075731499',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    id: string,
-    query: UploadListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<UploadsDefaultFlatPagination, Upload> {
-    return this._client.getAPIList(path`/external_connections/${id}/uploads`, DefaultFlatPagination<Upload>, {
-      query,
-      ...options,
-    });
+  refreshStatus(id: string, options?: RequestOptions): APIPromise<UploadRefreshStatusResponse> {
+    return this._client.post(path`/external_connections/${id}/uploads/refresh`, options);
   }
 
   /**
@@ -97,19 +92,24 @@ export class Uploads extends APIResource {
   }
 
   /**
-   * Forces a recheck of the status of all pending Upload requests for the given
-   * external connection in the background.
+   * Return the details of an Upload request and its phone numbers.
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.externalConnections.uploads.refreshStatus(
-   *     '1293384261075731499',
+   * const upload =
+   *   await client.externalConnections.uploads.retrieve(
+   *     '7b6a6449-b055-45a6-81f6-f6f0dffa4cc6',
+   *     { id: '1293384261075731499' },
    *   );
    * ```
    */
-  refreshStatus(id: string, options?: RequestOptions): APIPromise<UploadRefreshStatusResponse> {
-    return this._client.post(path`/external_connections/${id}/uploads/refresh`, options);
+  retrieve(
+    ticketID: string,
+    params: UploadRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<UploadRetrieveResponse> {
+    const { id } = params;
+    return this._client.get(path`/external_connections/${id}/uploads/${ticketID}`, options);
   }
 
   /**
@@ -271,35 +271,6 @@ export interface UploadRetryResponse {
   data?: Upload;
 }
 
-export interface UploadCreateParams {
-  number_ids: Array<string>;
-
-  additional_usages?: Array<'calling_user_assignment' | 'first_party_app_assignment'>;
-
-  /**
-   * Identifies the civic address to assign all phone numbers to.
-   */
-  civic_address_id?: string;
-
-  /**
-   * Identifies the location to assign all phone numbers to.
-   */
-  location_id?: string;
-
-  /**
-   * The use case of the upload request. NOTE: `calling_user_assignment` is not
-   * supported for toll free numbers.
-   */
-  usage?: 'calling_user_assignment' | 'first_party_app_assignment';
-}
-
-export interface UploadRetrieveParams {
-  /**
-   * Identifies the resource.
-   */
-  id: string;
-}
-
 export interface UploadListParams extends DefaultFlatPaginationParams {
   /**
    * Filter parameter for uploads (deepObject style). Supports filtering by status,
@@ -359,6 +330,35 @@ export namespace UploadListParams {
   }
 }
 
+export interface UploadCreateParams {
+  number_ids: Array<string>;
+
+  additional_usages?: Array<'calling_user_assignment' | 'first_party_app_assignment'>;
+
+  /**
+   * Identifies the civic address to assign all phone numbers to.
+   */
+  civic_address_id?: string;
+
+  /**
+   * Identifies the location to assign all phone numbers to.
+   */
+  location_id?: string;
+
+  /**
+   * The use case of the upload request. NOTE: `calling_user_assignment` is not
+   * supported for toll free numbers.
+   */
+  usage?: 'calling_user_assignment' | 'first_party_app_assignment';
+}
+
+export interface UploadRetrieveParams {
+  /**
+   * Identifies the resource.
+   */
+  id: string;
+}
+
 export interface UploadRetryParams {
   /**
    * Identifies the resource.
@@ -376,9 +376,9 @@ export declare namespace Uploads {
     type UploadRefreshStatusResponse as UploadRefreshStatusResponse,
     type UploadRetryResponse as UploadRetryResponse,
     type UploadsDefaultFlatPagination as UploadsDefaultFlatPagination,
+    type UploadListParams as UploadListParams,
     type UploadCreateParams as UploadCreateParams,
     type UploadRetrieveParams as UploadRetrieveParams,
-    type UploadListParams as UploadListParams,
     type UploadRetryParams as UploadRetryParams,
   };
 }

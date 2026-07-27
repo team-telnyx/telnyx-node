@@ -9,59 +9,6 @@ const client = new Telnyx({
 
 describe('resource conferences', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.conferences.create({
-      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
-      name: 'Business',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.conferences.create({
-      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
-      name: 'Business',
-      beep_enabled: 'always',
-      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
-      comfort_noise: false,
-      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
-      duration_minutes: 5,
-      hold_audio_url: 'http://www.example.com/audio.wav',
-      hold_media_name: 'my_media_uploaded_to_media_storage_api',
-      max_participants: 250,
-      region: 'US',
-      start_conference_on_create: false,
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.conferences.retrieve('id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.conferences.retrieve('id', { region: 'Australia' }, { path: '/_stainless_unknown_path' }),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.conferences.list();
     const rawResponse = await responsePromise.asResponse();
@@ -110,6 +57,39 @@ describe('resource conferences', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.conferences.create({
+      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      name: 'Business',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.conferences.create({
+      call_control_id: 'v3:MdI91X4lWFEs7IgbBEOT9M4AigoY08M0WWZFISt1Yw2axZ_IiE4pqg',
+      name: 'Business',
+      beep_enabled: 'always',
+      client_state: 'aGF2ZSBhIG5pY2UgZGF5ID1d',
+      comfort_noise: false,
+      command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
+      duration_minutes: 5,
+      hold_audio_url: 'http://www.example.com/audio.wav',
+      hold_media_name: 'my_media_uploaded_to_media_storage_api',
+      max_participants: 250,
+      region: 'US',
+      start_conference_on_create: false,
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('listParticipants', async () => {
     const responsePromise = client.conferences.listParticipants('conference_id');
     const rawResponse = await responsePromise.asResponse();
@@ -139,6 +119,26 @@ describe('resource conferences', () => {
         },
         { path: '/_stainless_unknown_path' },
       ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.conferences.retrieve('id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.conferences.retrieve('id', { region: 'Australia' }, { path: '/_stainless_unknown_path' }),
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 

@@ -45,8 +45,8 @@ export declare namespace BundlePricing {
     type PaginationResponse as PaginationResponse,
     type BillingBundleRetrieveResponse as BillingBundleRetrieveResponse,
     type BillingBundleSummariesDefaultFlatPagination as BillingBundleSummariesDefaultFlatPagination,
-    type BillingBundleRetrieveParams as BillingBundleRetrieveParams,
     type BillingBundleListParams as BillingBundleListParams,
+    type BillingBundleRetrieveParams as BillingBundleRetrieveParams,
   };
 
   export {
@@ -59,11 +59,11 @@ export declare namespace BundlePricing {
     type UserBundleListResourcesResponse as UserBundleListResourcesResponse,
     type UserBundleListUnusedResponse as UserBundleListUnusedResponse,
     type UserBundlesDefaultFlatPagination as UserBundlesDefaultFlatPagination,
-    type UserBundleCreateParams as UserBundleCreateParams,
-    type UserBundleRetrieveParams as UserBundleRetrieveParams,
     type UserBundleListParams as UserBundleListParams,
-    type UserBundleDeactivateParams as UserBundleDeactivateParams,
-    type UserBundleListResourcesParams as UserBundleListResourcesParams,
+    type UserBundleCreateParams as UserBundleCreateParams,
     type UserBundleListUnusedParams as UserBundleListUnusedParams,
+    type UserBundleDeactivateParams as UserBundleDeactivateParams,
+    type UserBundleRetrieveParams as UserBundleRetrieveParams,
+    type UserBundleListResourcesParams as UserBundleListResourcesParams,
   };
 }

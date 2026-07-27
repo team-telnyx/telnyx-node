@@ -2,31 +2,28 @@
 
 export {
   Calls,
+  type CallResource,
   type UpdateCall,
-  type CallRetrieveResponse,
-  type CallUpdateResponse,
   type CallCallsResponse,
   type CallRetrieveCallsResponse,
   type CallSiprecJsonResponse,
   type CallStreamsJsonResponse,
+  type CallRetrieveCallsParams,
+  type CallCallsParams,
   type CallRetrieveParams,
   type CallUpdateParams,
-  type CallCallsParams,
-  type CallRetrieveCallsParams,
   type CallSiprecJsonParams,
   type CallStreamsJsonParams,
 } from './calls';
-export {
-  Recordings,
-  type RecordingRecordingSidJsonResponse,
-  type RecordingRecordingSidJsonParams,
-} from './recordings';
+export { Recordings, type RecordingRecordingSidJsonParams } from './recordings';
 export {
   RecordingsJson,
-  type RecordingsJsonRecordingsJsonResponse,
-  type RecordingsJsonRetrieveRecordingsJsonResponse,
-  type RecordingsJsonRecordingsJsonParams,
+  type RecordingSource,
+  type TexmlCreateCallRecordingResponseBody,
+  type TexmlGetCallRecordingsResponseBody,
+  type TwimlRecordingChannels,
   type RecordingsJsonRetrieveRecordingsJsonParams,
+  type RecordingsJsonRecordingsJsonParams,
 } from './recordings-json';
 export { Siprec, type SiprecSiprecSidJsonResponse, type SiprecSiprecSidJsonParams } from './siprec';
 export { Streams, type StreamStreamingSidJsonResponse, type StreamStreamingSidJsonParams } from './streams';

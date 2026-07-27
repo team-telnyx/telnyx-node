@@ -40,22 +40,20 @@ import * as RunsAPI from './runs/runs';
 import {
   MissionRunData,
   MissionRunDataDefaultFlatPagination,
+  MissionRunResponse,
+  MissionRunsListResponse,
   RunCancelRunParams,
-  RunCancelRunResponse,
   RunCreateParams,
-  RunCreateResponse,
   RunListParams,
   RunListRunsParams,
   RunPauseRunParams,
-  RunPauseRunResponse,
   RunResumeRunParams,
-  RunResumeRunResponse,
   RunRetrieveParams,
-  RunRetrieveResponse,
+  RunStatus,
   RunUpdateParams,
-  RunUpdateResponse,
   Runs,
 } from './runs/runs';
+import * as TestSuitesRunsAPI from '../assistants/tests/test-suites/runs';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -71,34 +69,6 @@ export class Missions extends APIResource {
   knowledgeBases: KnowledgeBasesAPI.KnowledgeBases = new KnowledgeBasesAPI.KnowledgeBases(this._client);
   mcpServers: McpServersAPI.McpServers = new McpServersAPI.McpServers(this._client);
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
-
-  /**
-   * Create a new mission definition
-   *
-   * @example
-   * ```ts
-   * const mission = await client.ai.missions.create({
-   *   name: 'name',
-   * });
-   * ```
-   */
-  create(body: MissionCreateParams, options?: RequestOptions): APIPromise<MissionCreateResponse> {
-    return this._client.post('/ai/missions', { body, ...options });
-  }
-
-  /**
-   * Get a mission by ID (includes tools, knowledge_bases, mcp_servers)
-   *
-   * @example
-   * ```ts
-   * const mission = await client.ai.missions.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieve(missionID: string, options?: RequestOptions): APIPromise<MissionRetrieveResponse> {
-    return this._client.get(path`/ai/missions/${missionID}`, options);
-  }
 
   /**
    * List all missions for the organization
@@ -119,34 +89,31 @@ export class Missions extends APIResource {
   }
 
   /**
-   * Clone an existing mission
+   * Create a new mission definition
    *
    * @example
    * ```ts
-   * const response = await client.ai.missions.cloneMission(
-   *   'mission_id',
-   * );
+   * const missionResponse = await client.ai.missions.create({
+   *   name: 'name',
+   * });
    * ```
    */
-  cloneMission(missionID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.post(path`/ai/missions/${missionID}/clone`, options);
+  create(body: MissionCreateParams, options?: RequestOptions): APIPromise<MissionResponse> {
+    return this._client.post('/ai/missions', { body, ...options });
   }
 
   /**
-   * Delete a mission
+   * Get a mission by ID (includes tools, knowledge_bases, mcp_servers)
    *
    * @example
    * ```ts
-   * await client.ai.missions.deleteMission(
+   * const missionResponse = await client.ai.missions.retrieve(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    * );
    * ```
    */
-  deleteMission(missionID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/ai/missions/${missionID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  retrieve(missionID: string, options?: RequestOptions): APIPromise<MissionResponse> {
+    return this._client.get(path`/ai/missions/${missionID}`, options);
   }
 
   /**
@@ -171,30 +138,70 @@ export class Missions extends APIResource {
   }
 
   /**
+   * Delete a mission
+   *
+   * @example
+   * ```ts
+   * await client.ai.missions.deleteMission(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  deleteMission(missionID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/missions/${missionID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Update a mission definition
    *
    * @example
    * ```ts
-   * const response = await client.ai.missions.updateMission(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * const missionResponse =
+   *   await client.ai.missions.updateMission(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
   updateMission(
     missionID: string,
     body: MissionUpdateMissionParams,
     options?: RequestOptions,
-  ): APIPromise<MissionUpdateMissionResponse> {
+  ): APIPromise<MissionResponse> {
     return this._client.put(path`/ai/missions/${missionID}`, { body, ...options });
+  }
+
+  /**
+   * Clone an existing mission
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.missions.cloneMission(
+   *   'mission_id',
+   * );
+   * ```
+   */
+  cloneMission(missionID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.post(path`/ai/missions/${missionID}/clone`, options);
   }
 }
 
 export type MissionDataDefaultFlatPagination = DefaultFlatPagination<MissionData>;
 
+export interface EventsListResponse {
+  data: Array<EventsAPI.EventData>;
+
+  meta: TestSuitesRunsAPI.Meta;
+}
+
+export type ExecutionMode = 'external' | 'managed';
+
 export interface MissionData {
   created_at: string;
 
-  execution_mode: 'external' | 'managed';
+  execution_mode: ExecutionMode;
 
   mission_id: string;
 
@@ -211,26 +218,20 @@ export interface MissionData {
   model?: string;
 }
 
-export interface MissionCreateResponse {
-  data: MissionData;
-}
-
-export interface MissionRetrieveResponse {
+export interface MissionResponse {
   data: MissionData;
 }
 
 export type MissionCloneMissionResponse = unknown;
 
-export interface MissionUpdateMissionResponse {
-  data: MissionData;
-}
+export interface MissionListParams extends DefaultFlatPaginationParams {}
 
 export interface MissionCreateParams {
   name: string;
 
   description?: string;
 
-  execution_mode?: 'external' | 'managed';
+  execution_mode?: ExecutionMode;
 
   instructions?: string;
 
@@ -239,16 +240,17 @@ export interface MissionCreateParams {
   model?: string;
 }
 
-export interface MissionListParams extends DefaultFlatPaginationParams {}
-
 export interface MissionListEventsParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by type.
+   */
   type?: string;
 }
 
 export interface MissionUpdateMissionParams {
   description?: string;
 
-  execution_mode?: 'external' | 'managed';
+  execution_mode?: ExecutionMode;
 
   instructions?: string;
 
@@ -266,14 +268,14 @@ Missions.Tools = Tools;
 
 export declare namespace Missions {
   export {
+    type EventsListResponse as EventsListResponse,
+    type ExecutionMode as ExecutionMode,
     type MissionData as MissionData,
-    type MissionCreateResponse as MissionCreateResponse,
-    type MissionRetrieveResponse as MissionRetrieveResponse,
+    type MissionResponse as MissionResponse,
     type MissionCloneMissionResponse as MissionCloneMissionResponse,
-    type MissionUpdateMissionResponse as MissionUpdateMissionResponse,
     type MissionDataDefaultFlatPagination as MissionDataDefaultFlatPagination,
-    type MissionCreateParams as MissionCreateParams,
     type MissionListParams as MissionListParams,
+    type MissionCreateParams as MissionCreateParams,
     type MissionListEventsParams as MissionListEventsParams,
     type MissionUpdateMissionParams as MissionUpdateMissionParams,
   };
@@ -281,19 +283,16 @@ export declare namespace Missions {
   export {
     Runs as Runs,
     type MissionRunData as MissionRunData,
-    type RunCreateResponse as RunCreateResponse,
-    type RunRetrieveResponse as RunRetrieveResponse,
-    type RunUpdateResponse as RunUpdateResponse,
-    type RunCancelRunResponse as RunCancelRunResponse,
-    type RunPauseRunResponse as RunPauseRunResponse,
-    type RunResumeRunResponse as RunResumeRunResponse,
+    type MissionRunResponse as MissionRunResponse,
+    type MissionRunsListResponse as MissionRunsListResponse,
+    type RunStatus as RunStatus,
     type MissionRunDataDefaultFlatPagination as MissionRunDataDefaultFlatPagination,
+    type RunListParams as RunListParams,
     type RunCreateParams as RunCreateParams,
     type RunRetrieveParams as RunRetrieveParams,
     type RunUpdateParams as RunUpdateParams,
-    type RunListParams as RunListParams,
-    type RunCancelRunParams as RunCancelRunParams,
     type RunListRunsParams as RunListRunsParams,
+    type RunCancelRunParams as RunCancelRunParams,
     type RunPauseRunParams as RunPauseRunParams,
     type RunResumeRunParams as RunResumeRunParams,
   };

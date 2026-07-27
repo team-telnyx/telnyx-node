@@ -9,10 +9,10 @@ const client = new Telnyx({
 
 describe('resource participants', () => {
   // Mock server tests are disabled
-  test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.texml.accounts.conferences.participants.retrieve(
-      'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+  test.skip('retrieveParticipants: only required params', async () => {
+    const responsePromise = client.texml.accounts.conferences.participants.retrieveParticipants(
+      'conference_sid',
+      { account_sid: 'account_sid' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -24,70 +24,10 @@ describe('resource participants', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
-    const response = await client.texml.accounts.conferences.participants.retrieve(
-      'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
-    );
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: only required params', async () => {
-    const responsePromise = client.texml.accounts.conferences.participants.update(
-      'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
-    );
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('update: required and optional params', async () => {
-    const response = await client.texml.accounts.conferences.participants.update(
-      'call_sid_or_participant_label',
-      {
-        account_sid: 'account_sid',
-        conference_sid: 'conference_sid',
-        AnnounceMethod: 'GET',
-        AnnounceUrl: 'https://www.example.com/announce.xml',
-        BeepOnExit: false,
-        CallSidToCoach: 'v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ',
-        Coaching: false,
-        EndConferenceOnExit: false,
-        Hold: true,
-        HoldMethod: 'POST',
-        HoldUrl: 'https://www.example.com/hold-music.xml',
-        Muted: true,
-        WaitUrl: 'https://www.example.com/wait_music.mp3',
-      },
-    );
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete: only required params', async () => {
-    const responsePromise = client.texml.accounts.conferences.participants.delete(
-      'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
-    );
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('delete: required and optional params', async () => {
-    const response = await client.texml.accounts.conferences.participants.delete(
-      'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+  test.skip('retrieveParticipants: required and optional params', async () => {
+    const response = await client.texml.accounts.conferences.participants.retrieveParticipants(
+      'conference_sid',
+      { account_sid: 'account_sid' },
     );
   });
 
@@ -161,10 +101,10 @@ describe('resource participants', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieveParticipants: only required params', async () => {
-    const responsePromise = client.texml.accounts.conferences.participants.retrieveParticipants(
-      'conference_sid',
-      { account_sid: 'account_sid' },
+  test.skip('delete: only required params', async () => {
+    const responsePromise = client.texml.accounts.conferences.participants.delete(
+      'call_sid_or_participant_label',
+      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -176,10 +116,70 @@ describe('resource participants', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('retrieveParticipants: required and optional params', async () => {
-    const response = await client.texml.accounts.conferences.participants.retrieveParticipants(
-      'conference_sid',
-      { account_sid: 'account_sid' },
+  test.skip('delete: required and optional params', async () => {
+    const response = await client.texml.accounts.conferences.participants.delete(
+      'call_sid_or_participant_label',
+      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+    );
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.texml.accounts.conferences.participants.retrieve(
+      'call_sid_or_participant_label',
+      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.texml.accounts.conferences.participants.retrieve(
+      'call_sid_or_participant_label',
+      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+    );
+  });
+
+  // Mock server tests are disabled
+  test.skip('update: only required params', async () => {
+    const responsePromise = client.texml.accounts.conferences.participants.update(
+      'call_sid_or_participant_label',
+      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('update: required and optional params', async () => {
+    const response = await client.texml.accounts.conferences.participants.update(
+      'call_sid_or_participant_label',
+      {
+        account_sid: 'account_sid',
+        conference_sid: 'conference_sid',
+        AnnounceMethod: 'GET',
+        AnnounceUrl: 'https://www.example.com/announce.xml',
+        BeepOnExit: false,
+        CallSidToCoach: 'v3:9X2vxPDFY2RHSJ1EdMS0RHRksMTg7ldNxdjWbVr9zBjbGjGsSe-aiQ',
+        Coaching: false,
+        EndConferenceOnExit: false,
+        Hold: true,
+        HoldMethod: 'POST',
+        HoldUrl: 'https://www.example.com/hold-music.xml',
+        Muted: true,
+        WaitUrl: 'https://www.example.com/wait_music.mp3',
+      },
     );
   });
 });

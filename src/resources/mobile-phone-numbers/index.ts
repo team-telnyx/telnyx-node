@@ -2,17 +2,17 @@
 
 export {
   Messaging,
+  type MobilePhoneNumberWithMessagingSettings,
   type MessagingRetrieveResponse,
-  type MessagingListResponse,
   type MessagingListParams,
-  type MessagingListResponsesDefaultFlatPagination,
+  type MobilePhoneNumberWithMessagingSettingsDefaultFlatPagination,
 } from './messaging';
 export {
   MobilePhoneNumbers,
   type MobilePhoneNumber,
   type MobilePhoneNumberRetrieveResponse,
   type MobilePhoneNumberUpdateResponse,
-  type MobilePhoneNumberUpdateParams,
   type MobilePhoneNumberListParams,
+  type MobilePhoneNumberUpdateParams,
   type MobilePhoneNumbersDefaultFlatPagination,
 } from './mobile-phone-numbers';

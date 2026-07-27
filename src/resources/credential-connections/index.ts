@@ -4,6 +4,7 @@ export { Actions, type ActionCheckRegistrationStatusResponse } from './actions';
 export {
   CredentialConnections,
   type AnchorsiteOverride,
+  type ConnectionNoiseSuppression,
   type ConnectionRtcpSettings,
   type CredentialConnection,
   type CredentialInbound,
@@ -14,8 +15,8 @@ export {
   type CredentialConnectionRetrieveResponse,
   type CredentialConnectionUpdateResponse,
   type CredentialConnectionDeleteResponse,
+  type CredentialConnectionListParams,
   type CredentialConnectionCreateParams,
   type CredentialConnectionUpdateParams,
-  type CredentialConnectionListParams,
   type CredentialConnectionsDefaultFlatPagination,
 } from './credential-connections';

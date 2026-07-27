@@ -12,10 +12,10 @@ import {
 import * as EventsAPI from './events';
 import {
   EventListParams,
-  EventListResponse,
-  EventListResponsesDefaultFlatPagination,
   EventRetrieveResponse,
   Events,
+  PortoutEvent,
+  PortoutEventsDefaultFlatPagination,
   WebhookPortoutFocDateChanged,
   WebhookPortoutNewComment,
   WebhookPortoutStatusChanged,
@@ -55,20 +55,6 @@ export class Portouts extends APIResource {
     new SupportingDocumentsAPI.SupportingDocuments(this._client);
 
   /**
-   * Returns the portout request based on the ID provided
-   *
-   * @example
-   * ```ts
-   * const portout = await client.portouts.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<PortoutRetrieveResponse> {
-    return this._client.get(path`/portouts/${id}`, options);
-  }
-
-  /**
    * Returns the portout requests according to filters
    *
    * @example
@@ -102,6 +88,20 @@ export class Portouts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PortoutListRejectionCodesResponse> {
     return this._client.get(path`/portouts/rejections/${portoutID}`, { query, ...options });
+  }
+
+  /**
+   * Returns the portout request based on the ID provided
+   *
+   * @example
+   * ```ts
+   * const portout = await client.portouts.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<PortoutRetrieveResponse> {
+    return this._client.get(path`/portouts/${id}`, options);
   }
 
   /**
@@ -461,12 +461,12 @@ export declare namespace Portouts {
 
   export {
     Events as Events,
+    type PortoutEvent as PortoutEvent,
     type WebhookPortoutFocDateChanged as WebhookPortoutFocDateChanged,
     type WebhookPortoutNewComment as WebhookPortoutNewComment,
     type WebhookPortoutStatusChanged as WebhookPortoutStatusChanged,
     type EventRetrieveResponse as EventRetrieveResponse,
-    type EventListResponse as EventListResponse,
-    type EventListResponsesDefaultFlatPagination as EventListResponsesDefaultFlatPagination,
+    type PortoutEventsDefaultFlatPagination as PortoutEventsDefaultFlatPagination,
     type EventListParams as EventListParams,
   };
 
@@ -477,8 +477,8 @@ export declare namespace Portouts {
     type ReportCreateResponse as ReportCreateResponse,
     type ReportRetrieveResponse as ReportRetrieveResponse,
     type PortoutReportsDefaultFlatPagination as PortoutReportsDefaultFlatPagination,
-    type ReportCreateParams as ReportCreateParams,
     type ReportListParams as ReportListParams,
+    type ReportCreateParams as ReportCreateParams,
   };
 
   export {

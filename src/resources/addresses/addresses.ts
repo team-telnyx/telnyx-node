@@ -21,6 +21,24 @@ export class Addresses extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
+   * Returns a list of your addresses.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const address of client.addresses.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: AddressListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AddressesDefaultFlatPagination, Address> {
+    return this._client.getAPIList('/addresses', DefaultFlatPagination<Address>, { query, ...options });
+  }
+
+  /**
    * Creates an address.
    *
    * @example
@@ -40,36 +58,6 @@ export class Addresses extends APIResource {
   }
 
   /**
-   * Retrieves the details of an existing address.
-   *
-   * @example
-   * ```ts
-   * const address = await client.addresses.retrieve('id');
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<AddressRetrieveResponse> {
-    return this._client.get(path`/addresses/${id}`, options);
-  }
-
-  /**
-   * Returns a list of your addresses.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const address of client.addresses.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: AddressListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AddressesDefaultFlatPagination, Address> {
-    return this._client.getAPIList('/addresses', DefaultFlatPagination<Address>, { query, ...options });
-  }
-
-  /**
    * Deletes an existing address.
    *
    * @example
@@ -79,6 +67,18 @@ export class Addresses extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<AddressDeleteResponse> {
     return this._client.delete(path`/addresses/${id}`, options);
+  }
+
+  /**
+   * Retrieves the details of an existing address.
+   *
+   * @example
+   * ```ts
+   * const address = await client.addresses.retrieve('id');
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<AddressRetrieveResponse> {
+    return this._client.get(path`/addresses/${id}`, options);
   }
 }
 
@@ -207,6 +207,93 @@ export interface AddressDeleteResponse {
   data?: Address;
 }
 
+export interface AddressListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[customer_reference][eq], filter[customer_reference][contains],
+   * filter[used_as_emergency], filter[street_address][contains],
+   * filter[address_book][eq]
+   */
+  filter?: AddressListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>street_address</code>: sorts the result by the
+   *     <code>street_address</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-street_address</code>: sorts the result by the
+   *     <code>street_address</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'first_name' | 'last_name' | 'business_name' | 'street_address';
+}
+
+export namespace AddressListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[customer_reference][eq], filter[customer_reference][contains],
+   * filter[used_as_emergency], filter[street_address][contains],
+   * filter[address_book][eq]
+   */
+  export interface Filter {
+    address_book?: Filter.AddressBook;
+
+    /**
+     * If present, addresses with <code>customer_reference</code> containing the given
+     * value will be returned. Matching is not case-sensitive.
+     */
+    customer_reference?: string | Filter.CustomerReferenceMatcher;
+
+    street_address?: Filter.StreetAddress;
+
+    /**
+     * If set as 'true', only addresses used as the emergency address for at least one
+     * active phone-number will be returned. When set to 'false', the opposite happens:
+     * only addresses not used as the emergency address from phone-numbers will be
+     * returned.
+     */
+    used_as_emergency?: string;
+  }
+
+  export namespace Filter {
+    export interface AddressBook {
+      /**
+       * If present, only returns results with the <code>address_book</code> flag equal
+       * to the given value.
+       */
+      eq?: string;
+    }
+
+    export interface CustomerReferenceMatcher {
+      /**
+       * Partial match for customer_reference. Matching is not case-sensitive.
+       */
+      contains?: string;
+
+      /**
+       * Exact match for customer_reference.
+       */
+      eq?: string;
+    }
+
+    export interface StreetAddress {
+      /**
+       * If present, addresses with <code>street_address</code> containing the given
+       * value will be returned. Matching is not case-sensitive. Requires at least three
+       * characters.
+       */
+      contains?: string;
+    }
+  }
+}
+
 export interface AddressCreateParams {
   /**
    * The business name associated with the address. An address must have either a
@@ -298,93 +385,6 @@ export interface AddressCreateParams {
   validate_address?: boolean;
 }
 
-export interface AddressListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[customer_reference][eq], filter[customer_reference][contains],
-   * filter[used_as_emergency], filter[street_address][contains],
-   * filter[address_book][eq]
-   */
-  filter?: AddressListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>street_address</code>: sorts the result by the
-   *     <code>street_address</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-street_address</code>: sorts the result by the
-   *     <code>street_address</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'first_name' | 'last_name' | 'business_name' | 'street_address';
-}
-
-export namespace AddressListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[customer_reference][eq], filter[customer_reference][contains],
-   * filter[used_as_emergency], filter[street_address][contains],
-   * filter[address_book][eq]
-   */
-  export interface Filter {
-    address_book?: Filter.AddressBook;
-
-    /**
-     * If present, addresses with <code>customer_reference</code> containing the given
-     * value will be returned. Matching is not case-sensitive.
-     */
-    customer_reference?: string | Filter.CustomerReferenceMatcher;
-
-    street_address?: Filter.StreetAddress;
-
-    /**
-     * If set as 'true', only addresses used as the emergency address for at least one
-     * active phone-number will be returned. When set to 'false', the opposite happens:
-     * only addresses not used as the emergency address from phone-numbers will be
-     * returned.
-     */
-    used_as_emergency?: string;
-  }
-
-  export namespace Filter {
-    export interface AddressBook {
-      /**
-       * If present, only returns results with the <code>address_book</code> flag equal
-       * to the given value.
-       */
-      eq?: string;
-    }
-
-    export interface CustomerReferenceMatcher {
-      /**
-       * Partial match for customer_reference. Matching is not case-sensitive.
-       */
-      contains?: string;
-
-      /**
-       * Exact match for customer_reference.
-       */
-      eq?: string;
-    }
-
-    export interface StreetAddress {
-      /**
-       * If present, addresses with <code>street_address</code> containing the given
-       * value will be returned. Matching is not case-sensitive. Requires at least three
-       * characters.
-       */
-      contains?: string;
-    }
-  }
-}
-
 Addresses.Actions = Actions;
 
 export declare namespace Addresses {
@@ -394,15 +394,15 @@ export declare namespace Addresses {
     type AddressRetrieveResponse as AddressRetrieveResponse,
     type AddressDeleteResponse as AddressDeleteResponse,
     type AddressesDefaultFlatPagination as AddressesDefaultFlatPagination,
-    type AddressCreateParams as AddressCreateParams,
     type AddressListParams as AddressListParams,
+    type AddressCreateParams as AddressCreateParams,
   };
 
   export {
     Actions as Actions,
     type ActionAcceptSuggestionsResponse as ActionAcceptSuggestionsResponse,
     type ActionValidateResponse as ActionValidateResponse,
-    type ActionAcceptSuggestionsParams as ActionAcceptSuggestionsParams,
     type ActionValidateParams as ActionValidateParams,
+    type ActionAcceptSuggestionsParams as ActionAcceptSuggestionsParams,
   };
 }

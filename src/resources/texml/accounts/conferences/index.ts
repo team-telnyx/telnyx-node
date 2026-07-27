@@ -2,26 +2,23 @@
 
 export {
   Conferences,
-  type ConferenceRetrieveResponse,
-  type ConferenceUpdateResponse,
+  type ConferenceResource,
   type ConferenceRetrieveConferencesResponse,
   type ConferenceRetrieveRecordingsResponse,
-  type ConferenceRetrieveRecordingsJsonResponse,
+  type ConferenceRetrieveConferencesParams,
   type ConferenceRetrieveParams,
   type ConferenceUpdateParams,
-  type ConferenceRetrieveConferencesParams,
   type ConferenceRetrieveRecordingsParams,
   type ConferenceRetrieveRecordingsJsonParams,
 } from './conferences';
 export {
   Participants,
-  type ParticipantRetrieveResponse,
-  type ParticipantUpdateResponse,
+  type ParticipantResource,
   type ParticipantParticipantsResponse,
   type ParticipantRetrieveParticipantsResponse,
+  type ParticipantRetrieveParticipantsParams,
+  type ParticipantParticipantsParams,
+  type ParticipantDeleteParams,
   type ParticipantRetrieveParams,
   type ParticipantUpdateParams,
-  type ParticipantDeleteParams,
-  type ParticipantParticipantsParams,
-  type ParticipantRetrieveParticipantsParams,
 } from './participants';

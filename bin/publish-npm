@@ -16,6 +16,16 @@ cd dist
 PACKAGE_NAME="$(jq -r -e '.name' ./package.json)"
 VERSION="$(jq -r -e '.version' ./package.json)"
 
+# Release publication can be retried after a partial failure (for example,
+# when the SDK package was published but a workspace package was not). Treat
+# an already-published exact version as success so the remaining packages can
+# continue.
+PUBLISHED_VERSION="$(npm view "$PACKAGE_NAME@$VERSION" version --json 2>/dev/null || true)"
+if [[ "$(echo "$PUBLISHED_VERSION" | jq -r 'select(type == "string") // empty')" == "$VERSION" ]]; then
+  echo "$PACKAGE_NAME@$VERSION is already published; skipping"
+  exit 0
+fi
+
 # Get latest version from npm
 #
 # If the package doesn't exist, npm will return:

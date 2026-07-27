@@ -12,41 +12,6 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Voice extends APIResource {
   /**
-   * Creates a new legacy usage V2 CDR report request with the specified filters
-   *
-   * @example
-   * ```ts
-   * const voice =
-   *   await client.legacy.reporting.usageReports.voice.create({
-   *     end_time: '2024-02-01T00:00:00Z',
-   *     start_time: '2024-02-01T00:00:00Z',
-   *   });
-   * ```
-   */
-  create(body: VoiceCreateParams, options?: RequestOptions): APIPromise<VoiceCreateResponse> {
-    return this._client.post('/legacy/reporting/usage_reports/voice', {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Fetch single cdr usage report by id.
-   *
-   * @example
-   * ```ts
-   * const voice =
-   *   await client.legacy.reporting.usageReports.voice.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<VoiceRetrieveResponse> {
-    return this._client.get(path`/legacy/reporting/usage_reports/voice/${id}`, options);
-  }
-
-  /**
    * Fetch all previous requests for cdr usage reports.
    *
    * @example
@@ -69,6 +34,26 @@ export class Voice extends APIResource {
   }
 
   /**
+   * Creates a new legacy usage V2 CDR report request with the specified filters
+   *
+   * @example
+   * ```ts
+   * const voice =
+   *   await client.legacy.reporting.usageReports.voice.create({
+   *     end_time: '2024-02-01T00:00:00Z',
+   *     start_time: '2024-02-01T00:00:00Z',
+   *   });
+   * ```
+   */
+  create(body: VoiceCreateParams, options?: RequestOptions): APIPromise<VoiceCreateResponse> {
+    return this._client.post('/legacy/reporting/usage_reports/voice', {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Deletes a specific V2 legacy usage CDR report request by ID
    *
    * @example
@@ -81,6 +66,21 @@ export class Voice extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<VoiceDeleteResponse> {
     return this._client.delete(path`/legacy/reporting/usage_reports/voice/${id}`, options);
+  }
+
+  /**
+   * Fetch single cdr usage report by id.
+   *
+   * @example
+   * ```ts
+   * const voice =
+   *   await client.legacy.reporting.usageReports.voice.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<VoiceRetrieveResponse> {
+    return this._client.get(path`/legacy/reporting/usage_reports/voice/${id}`, options);
   }
 }
 
@@ -149,6 +149,8 @@ export interface VoiceDeleteResponse {
   data?: CdrUsageReportResponseLegacy;
 }
 
+export interface VoiceListParams extends PerPagePaginationParams {}
+
 export interface VoiceCreateParams {
   /**
    * End time in ISO format
@@ -187,8 +189,6 @@ export interface VoiceCreateParams {
   select_all_managed_accounts?: boolean;
 }
 
-export interface VoiceListParams extends PerPagePaginationParams {}
-
 export declare namespace Voice {
   export {
     type CdrUsageReportResponseLegacy as CdrUsageReportResponseLegacy,
@@ -196,7 +196,7 @@ export declare namespace Voice {
     type VoiceRetrieveResponse as VoiceRetrieveResponse,
     type VoiceDeleteResponse as VoiceDeleteResponse,
     type CdrUsageReportResponseLegaciesPerPagePagination as CdrUsageReportResponseLegaciesPerPagePagination,
-    type VoiceCreateParams as VoiceCreateParams,
     type VoiceListParams as VoiceListParams,
+    type VoiceCreateParams as VoiceCreateParams,
   };
 }

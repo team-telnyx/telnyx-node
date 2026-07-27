@@ -11,6 +11,22 @@ import { path } from '../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
+   * Validates an address for emergency services.
+   *
+   * @example
+   * ```ts
+   * const response = await client.addresses.actions.validate({
+   *   country_code: 'US',
+   *   postal_code: '78701',
+   *   street_address: '600 Congress Avenue',
+   * });
+   * ```
+   */
+  validate(body: ActionValidateParams, options?: RequestOptions): APIPromise<ActionValidateResponse> {
+    return this._client.post('/addresses/actions/validate', { body, ...options });
+  }
+
+  /**
    * Accepts this address suggestion as a new emergency address for Operator Connect
    * and finishes the uploads of the numbers associated with it to Microsoft.
    *
@@ -31,22 +47,6 @@ export class Actions extends APIResource {
       body,
       ...options,
     });
-  }
-
-  /**
-   * Validates an address for emergency services.
-   *
-   * @example
-   * ```ts
-   * const response = await client.addresses.actions.validate({
-   *   country_code: 'US',
-   *   postal_code: '78701',
-   *   street_address: '600 Congress Avenue',
-   * });
-   * ```
-   */
-  validate(body: ActionValidateParams, options?: RequestOptions): APIPromise<ActionValidateResponse> {
-    return this._client.post('/addresses/actions/validate', { body, ...options });
   }
 }
 
@@ -137,13 +137,6 @@ export namespace ActionValidateResponse {
   }
 }
 
-export interface ActionAcceptSuggestionsParams {
-  /**
-   * The ID of the address.
-   */
-  id?: string;
-}
-
 export interface ActionValidateParams {
   /**
    * The two-character (ISO 3166-1 alpha-2) country code of the address.
@@ -179,11 +172,18 @@ export interface ActionValidateParams {
   locality?: string;
 }
 
+export interface ActionAcceptSuggestionsParams {
+  /**
+   * The ID of the address.
+   */
+  id?: string;
+}
+
 export declare namespace Actions {
   export {
     type ActionAcceptSuggestionsResponse as ActionAcceptSuggestionsResponse,
     type ActionValidateResponse as ActionValidateResponse,
-    type ActionAcceptSuggestionsParams as ActionAcceptSuggestionsParams,
     type ActionValidateParams as ActionValidateParams,
+    type ActionAcceptSuggestionsParams as ActionAcceptSuggestionsParams,
   };
 }

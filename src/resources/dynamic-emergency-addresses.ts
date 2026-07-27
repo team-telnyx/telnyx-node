@@ -11,6 +11,28 @@ import { path } from '../internal/utils/path';
  */
 export class DynamicEmergencyAddresses extends APIResource {
   /**
+   * Returns the dynamic emergency addresses according to filters
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const dynamicEmergencyAddress of client.dynamicEmergencyAddresses.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: DynamicEmergencyAddressListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<DynamicEmergencyAddressesDefaultFlatPagination, DynamicEmergencyAddress> {
+    return this._client.getAPIList(
+      '/dynamic_emergency_addresses',
+      DefaultFlatPagination<DynamicEmergencyAddress>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Creates a dynamic emergency address.
    *
    * @example
@@ -34,43 +56,6 @@ export class DynamicEmergencyAddresses extends APIResource {
   }
 
   /**
-   * Returns the dynamic emergency address based on the ID provided
-   *
-   * @example
-   * ```ts
-   * const dynamicEmergencyAddress =
-   *   await client.dynamicEmergencyAddresses.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<DynamicEmergencyAddressRetrieveResponse> {
-    return this._client.get(path`/dynamic_emergency_addresses/${id}`, options);
-  }
-
-  /**
-   * Returns the dynamic emergency addresses according to filters
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const dynamicEmergencyAddress of client.dynamicEmergencyAddresses.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: DynamicEmergencyAddressListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<DynamicEmergencyAddressesDefaultFlatPagination, DynamicEmergencyAddress> {
-    return this._client.getAPIList(
-      '/dynamic_emergency_addresses',
-      DefaultFlatPagination<DynamicEmergencyAddress>,
-      { query, ...options },
-    );
-  }
-
-  /**
    * Deletes the dynamic emergency address based on the ID provided
    *
    * @example
@@ -83,6 +68,21 @@ export class DynamicEmergencyAddresses extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<DynamicEmergencyAddressDeleteResponse> {
     return this._client.delete(path`/dynamic_emergency_addresses/${id}`, options);
+  }
+
+  /**
+   * Returns the dynamic emergency address based on the ID provided
+   *
+   * @example
+   * ```ts
+   * const dynamicEmergencyAddress =
+   *   await client.dynamicEmergencyAddresses.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<DynamicEmergencyAddressRetrieveResponse> {
+    return this._client.get(path`/dynamic_emergency_addresses/${id}`, options);
   }
 }
 
@@ -152,30 +152,6 @@ export interface DynamicEmergencyAddressDeleteResponse {
   data?: DynamicEmergencyAddress;
 }
 
-export interface DynamicEmergencyAddressCreateParams {
-  administrative_area: string;
-
-  country_code: 'US' | 'CA' | 'PR';
-
-  house_number: string;
-
-  locality: string;
-
-  postal_code: string;
-
-  street_name: string;
-
-  extended_address?: string;
-
-  house_suffix?: string;
-
-  street_post_directional?: string;
-
-  street_pre_directional?: string;
-
-  street_suffix?: string;
-}
-
 export interface DynamicEmergencyAddressListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
@@ -202,6 +178,30 @@ export namespace DynamicEmergencyAddressListParams {
   }
 }
 
+export interface DynamicEmergencyAddressCreateParams {
+  administrative_area: string;
+
+  country_code: 'US' | 'CA' | 'PR';
+
+  house_number: string;
+
+  locality: string;
+
+  postal_code: string;
+
+  street_name: string;
+
+  extended_address?: string;
+
+  house_suffix?: string;
+
+  street_post_directional?: string;
+
+  street_pre_directional?: string;
+
+  street_suffix?: string;
+}
+
 export declare namespace DynamicEmergencyAddresses {
   export {
     type DynamicEmergencyAddress as DynamicEmergencyAddress,
@@ -209,7 +209,7 @@ export declare namespace DynamicEmergencyAddresses {
     type DynamicEmergencyAddressRetrieveResponse as DynamicEmergencyAddressRetrieveResponse,
     type DynamicEmergencyAddressDeleteResponse as DynamicEmergencyAddressDeleteResponse,
     type DynamicEmergencyAddressesDefaultFlatPagination as DynamicEmergencyAddressesDefaultFlatPagination,
-    type DynamicEmergencyAddressCreateParams as DynamicEmergencyAddressCreateParams,
     type DynamicEmergencyAddressListParams as DynamicEmergencyAddressListParams,
+    type DynamicEmergencyAddressCreateParams as DynamicEmergencyAddressCreateParams,
   };
 }

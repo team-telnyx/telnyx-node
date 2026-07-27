@@ -9,59 +9,6 @@ const client = new Telnyx({
 
 describe('resource scheduledEvents', () => {
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.ai.assistants.scheduledEvents.create('assistant_id', {
-      scheduled_at_fixed_datetime: '2025-04-15T13:07:28.764Z',
-      telnyx_agent_target: 'telnyx_agent_target',
-      telnyx_conversation_channel: 'phone_call',
-      telnyx_end_user_target: 'telnyx_end_user_target',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.ai.assistants.scheduledEvents.create('assistant_id', {
-      scheduled_at_fixed_datetime: '2025-04-15T13:07:28.764Z',
-      telnyx_agent_target: 'telnyx_agent_target',
-      telnyx_conversation_channel: 'phone_call',
-      telnyx_end_user_target: 'telnyx_end_user_target',
-      conversation_metadata: { foo: 'string' },
-      dynamic_variables: { foo: 'string' },
-      max_retries_client_errors: 0,
-      retry_interval_secs: 60,
-      text: 'text',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.ai.assistants.scheduledEvents.retrieve('event_id', {
-      assistant_id: 'assistant_id',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
-    const response = await client.ai.assistants.scheduledEvents.retrieve('event_id', {
-      assistant_id: 'assistant_id',
-    });
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.ai.assistants.scheduledEvents.list('assistant_id');
     const rawResponse = await responsePromise.asResponse();
@@ -92,6 +39,39 @@ describe('resource scheduledEvents', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.ai.assistants.scheduledEvents.create('assistant_id', {
+      scheduled_at_fixed_datetime: '2025-04-15T13:07:28.764Z',
+      telnyx_agent_target: 'telnyx_agent_target',
+      telnyx_conversation_channel: 'phone_call',
+      telnyx_end_user_target: 'telnyx_end_user_target',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.ai.assistants.scheduledEvents.create('assistant_id', {
+      scheduled_at_fixed_datetime: '2025-04-15T13:07:28.764Z',
+      telnyx_agent_target: 'telnyx_agent_target',
+      telnyx_conversation_channel: 'phone_call',
+      telnyx_end_user_target: 'telnyx_end_user_target',
+      call_settings: { sip_region: 'US' },
+      conversation_metadata: { foo: 'string' },
+      dynamic_variables: { foo: 'string' },
+      max_retries_client_errors: 0,
+      retry_interval_secs: 60,
+      text: 'text',
+    });
+  });
+
+  // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
     const responsePromise = client.ai.assistants.scheduledEvents.delete('event_id', {
       assistant_id: 'assistant_id',
@@ -108,6 +88,27 @@ describe('resource scheduledEvents', () => {
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
     const response = await client.ai.assistants.scheduledEvents.delete('event_id', {
+      assistant_id: 'assistant_id',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: only required params', async () => {
+    const responsePromise = client.ai.assistants.scheduledEvents.retrieve('event_id', {
+      assistant_id: 'assistant_id',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: required and optional params', async () => {
+    const response = await client.ai.assistants.scheduledEvents.retrieve('event_id', {
       assistant_id: 'assistant_id',
     });
   });

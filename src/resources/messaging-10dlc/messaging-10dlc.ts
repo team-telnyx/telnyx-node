@@ -43,14 +43,13 @@ import {
   BrandCreateParams,
   BrandGetFeedbackResponse,
   BrandGetSMSOtpByReferenceParams,
-  BrandGetSMSOtpByReferenceResponse,
   BrandIdentityStatus,
   BrandListParams,
   BrandListResponse,
   BrandListResponsesPerPagePaginationV2,
   BrandOptionalAttributes,
   BrandRetrieveResponse,
-  BrandRetrieveSMSOtpStatusResponse,
+  BrandSMSOtpStatus,
   BrandTriggerSMSOtpParams,
   BrandTriggerSMSOtpResponse,
   BrandUpdateParams,
@@ -130,7 +129,7 @@ export class Messaging10dlc extends APIResource {
 export type Messaging10dlcGetEnumResponse =
   | Array<string>
   | Array<{ [key: string]: unknown }>
-  | { [key: string]: unknown }
+  | { [key: string]: string }
   | { [key: string]: unknown }
   | Messaging10dlcGetEnumResponse.EnumPaginatedResponse;
 
@@ -159,6 +158,7 @@ export declare namespace Messaging10dlc {
     type AltBusinessIDType as AltBusinessIDType,
     type BrandIdentityStatus as BrandIdentityStatus,
     type BrandOptionalAttributes as BrandOptionalAttributes,
+    type BrandSMSOtpStatus as BrandSMSOtpStatus,
     type EntityType as EntityType,
     type StockExchange as StockExchange,
     type TelnyxBrand as TelnyxBrand,
@@ -166,16 +166,14 @@ export declare namespace Messaging10dlc {
     type BrandRetrieveResponse as BrandRetrieveResponse,
     type BrandListResponse as BrandListResponse,
     type BrandGetFeedbackResponse as BrandGetFeedbackResponse,
-    type BrandGetSMSOtpByReferenceResponse as BrandGetSMSOtpByReferenceResponse,
-    type BrandRetrieveSMSOtpStatusResponse as BrandRetrieveSMSOtpStatusResponse,
     type BrandTriggerSMSOtpResponse as BrandTriggerSMSOtpResponse,
     type BrandListResponsesPerPagePaginationV2 as BrandListResponsesPerPagePaginationV2,
+    type BrandListParams as BrandListParams,
     type BrandCreateParams as BrandCreateParams,
     type BrandUpdateParams as BrandUpdateParams,
-    type BrandListParams as BrandListParams,
-    type BrandGetSMSOtpByReferenceParams as BrandGetSMSOtpByReferenceParams,
     type BrandTriggerSMSOtpParams as BrandTriggerSMSOtpParams,
     type BrandVerifySMSOtpParams as BrandVerifySMSOtpParams,
+    type BrandGetSMSOtpByReferenceParams as BrandGetSMSOtpByReferenceParams,
   };
 
   export {
@@ -190,8 +188,8 @@ export declare namespace Messaging10dlc {
     type CampaignGetSharingStatusResponse as CampaignGetSharingStatusResponse,
     type CampaignSubmitAppealResponse as CampaignSubmitAppealResponse,
     type CampaignListResponsesPerPagePaginationV2 as CampaignListResponsesPerPagePaginationV2,
-    type CampaignUpdateParams as CampaignUpdateParams,
     type CampaignListParams as CampaignListParams,
+    type CampaignUpdateParams as CampaignUpdateParams,
     type CampaignSubmitAppealParams as CampaignSubmitAppealParams,
   };
 
@@ -205,11 +203,11 @@ export declare namespace Messaging10dlc {
     type TelnyxDownstreamCampaign as TelnyxDownstreamCampaign,
     type PartnerCampaignListSharedByMeResponse as PartnerCampaignListSharedByMeResponse,
     type PartnerCampaignRetrieveSharingStatusResponse as PartnerCampaignRetrieveSharingStatusResponse,
-    type TelnyxDownstreamCampaignsPerPagePaginationV2 as TelnyxDownstreamCampaignsPerPagePaginationV2,
     type PartnerCampaignListSharedByMeResponsesPerPagePaginationV2 as PartnerCampaignListSharedByMeResponsesPerPagePaginationV2,
-    type PartnerCampaignUpdateParams as PartnerCampaignUpdateParams,
-    type PartnerCampaignListParams as PartnerCampaignListParams,
+    type TelnyxDownstreamCampaignsPerPagePaginationV2 as TelnyxDownstreamCampaignsPerPagePaginationV2,
     type PartnerCampaignListSharedByMeParams as PartnerCampaignListSharedByMeParams,
+    type PartnerCampaignListParams as PartnerCampaignListParams,
+    type PartnerCampaignUpdateParams as PartnerCampaignUpdateParams,
   };
 
   export {
@@ -217,9 +215,9 @@ export declare namespace Messaging10dlc {
     type PhoneNumberCampaign as PhoneNumberCampaign,
     type PhoneNumberCampaignCreate as PhoneNumberCampaignCreate,
     type PhoneNumberCampaignsPerPagePaginationV2 as PhoneNumberCampaignsPerPagePaginationV2,
+    type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams,
     type PhoneNumberCampaignCreateParams as PhoneNumberCampaignCreateParams,
     type PhoneNumberCampaignUpdateParams as PhoneNumberCampaignUpdateParams,
-    type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams,
   };
 
   export {
@@ -231,7 +229,7 @@ export declare namespace Messaging10dlc {
     type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse,
     type PhoneNumberAssignmentByProfileRetrieveStatusResponse as PhoneNumberAssignmentByProfileRetrieveStatusResponse,
     type PhoneNumberAssignmentByProfileAssignParams as PhoneNumberAssignmentByProfileAssignParams,
-    type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams as PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
     type PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams as PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusParams,
+    type PhoneNumberAssignmentByProfileListPhoneNumberStatusParams as PhoneNumberAssignmentByProfileListPhoneNumberStatusParams,
   };
 }

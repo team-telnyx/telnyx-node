@@ -2,13 +2,13 @@
 
 export {
   Calls,
+  type QueueCall,
   type CallRetrieveResponse,
-  type CallListResponse,
-  type CallRetrieveParams,
-  type CallUpdateParams,
   type CallListParams,
+  type CallRetrieveParams,
   type CallRemoveParams,
-  type CallListResponsesDefaultFlatPagination,
+  type CallUpdateParams,
+  type QueueCallsDefaultFlatPagination,
 } from './calls';
 export {
   Queues,
@@ -16,8 +16,8 @@ export {
   type QueueCreateResponse,
   type QueueRetrieveResponse,
   type QueueUpdateResponse,
+  type QueueListParams,
   type QueueCreateParams,
   type QueueUpdateParams,
-  type QueueListParams,
   type QueuesDefaultFlatPagination,
 } from './queues';

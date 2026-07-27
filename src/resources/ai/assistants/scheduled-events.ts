@@ -16,6 +16,31 @@ import { path } from '../../../internal/utils/path';
  */
 export class ScheduledEvents extends APIResource {
   /**
+   * Get scheduled events for an assistant with pagination and filtering
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const scheduledEventListResponse of client.ai.assistants.scheduledEvents.list(
+   *   'assistant_id',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    assistantID: string,
+    query: ScheduledEventListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ScheduledEventListResponsesDefaultFlatPagination, ScheduledEventListResponse> {
+    return this._client.getAPIList(
+      path`/ai/assistants/${assistantID}/scheduled_events`,
+      DefaultFlatPagination<ScheduledEventListResponse>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create a scheduled event for an assistant
    *
    * @example
@@ -42,6 +67,26 @@ export class ScheduledEvents extends APIResource {
   }
 
   /**
+   * If the event is pending, this will cancel the event. Otherwise, this will simply
+   * remove the record of the event.
+   *
+   * @example
+   * ```ts
+   * await client.ai.assistants.scheduledEvents.delete(
+   *   'event_id',
+   *   { assistant_id: 'assistant_id' },
+   * );
+   * ```
+   */
+  delete(eventID: string, params: ScheduledEventDeleteParams, options?: RequestOptions): APIPromise<void> {
+    const { assistant_id } = params;
+    return this._client.delete(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Retrieve a scheduled event by event ID
    *
    * @example
@@ -61,51 +106,6 @@ export class ScheduledEvents extends APIResource {
     const { assistant_id } = params;
     return this._client.get(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, options);
   }
-
-  /**
-   * Get scheduled events for an assistant with pagination and filtering
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const scheduledEventListResponse of client.ai.assistants.scheduledEvents.list(
-   *   'assistant_id',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    assistantID: string,
-    query: ScheduledEventListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ScheduledEventListResponsesDefaultFlatPagination, ScheduledEventListResponse> {
-    return this._client.getAPIList(
-      path`/ai/assistants/${assistantID}/scheduled_events`,
-      DefaultFlatPagination<ScheduledEventListResponse>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * If the event is pending, this will cancel the event. Otherwise, this will simply
-   * remove the record of the event.
-   *
-   * @example
-   * ```ts
-   * await client.ai.assistants.scheduledEvents.delete(
-   *   'event_id',
-   *   { assistant_id: 'assistant_id' },
-   * );
-   * ```
-   */
-  delete(eventID: string, params: ScheduledEventDeleteParams, options?: RequestOptions): APIPromise<void> {
-    const { assistant_id } = params;
-    return this._client.delete(path`/ai/assistants/${assistant_id}/scheduled_events/${eventID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
-  }
 }
 
 export type ScheduledEventListResponsesDefaultFlatPagination =
@@ -114,6 +114,20 @@ export type ScheduledEventListResponsesDefaultFlatPagination =
 export type ConversationChannelType = 'phone_call' | 'sms_chat';
 
 export type EventStatus = 'pending' | 'in_progress' | 'completed' | 'failed';
+
+/**
+ * Per-call telephony overrides applied when a scheduled phone-call event
+ * dispatches. Phone-call events only. New per-call dispatch options should be
+ * added here rather than as top-level event fields.
+ */
+export interface ScheduledCallSettings {
+  /**
+   * SIP region passed to Telnyx when initiating an outbound call. Values match the
+   * Telnyx TeXML `SipRegion` parameter exactly. Telnyx defaults to `US` when
+   * omitted.
+   */
+  sip_region?: 'US' | 'Europe' | 'Canada' | 'Australia' | 'Middle East';
+}
 
 /**
  * Union type for different scheduled event response types
@@ -137,6 +151,13 @@ export interface ScheduledPhoneCallEventResponse {
    * Duration of the call in seconds
    */
   call_duration?: number;
+
+  /**
+   * Per-call telephony overrides applied when a scheduled phone-call event
+   * dispatches. Phone-call events only. New per-call dispatch options should be
+   * added here rather than as top-level event fields.
+   */
+  call_settings?: ScheduledCallSettings;
 
   /**
    * Values: busy, canceled, no-answer, ringing, completed, failed, in-progress
@@ -238,6 +259,23 @@ export interface ScheduledSMSEventResponse {
 
 export type ScheduledEventListResponse = ScheduledPhoneCallEventResponse | ScheduledSMSEventResponse;
 
+export interface ScheduledEventListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by conversation channel.
+   */
+  conversation_channel?: ConversationChannelType;
+
+  /**
+   * Start of the date range filter (inclusive, ISO 8601).
+   */
+  from_date?: string;
+
+  /**
+   * End of the date range filter (inclusive, ISO 8601).
+   */
+  to_date?: string;
+}
+
 export interface ScheduledEventCreateParams {
   /**
    * The datetime at which the event should be scheduled. Formatted as ISO 8601.
@@ -255,6 +293,13 @@ export interface ScheduledEventCreateParams {
    * The phone number, SIP URI, to schedule the call or text to.
    */
   telnyx_end_user_target: string;
+
+  /**
+   * Per-call telephony overrides applied when a scheduled phone-call event
+   * dispatches. Phone-call events only. New per-call dispatch options should be
+   * added here rather than as top-level event fields.
+   */
+  call_settings?: ScheduledCallSettings;
 
   /**
    * Metadata associated with the conversation. Telnyx provides several pieces of
@@ -282,19 +327,17 @@ export interface ScheduledEventCreateParams {
   text?: string;
 }
 
-export interface ScheduledEventRetrieveParams {
+export interface ScheduledEventDeleteParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
-export interface ScheduledEventListParams extends DefaultFlatPaginationParams {
-  conversation_channel?: ConversationChannelType;
-
-  from_date?: string;
-
-  to_date?: string;
-}
-
-export interface ScheduledEventDeleteParams {
+export interface ScheduledEventRetrieveParams {
+  /**
+   * Unique identifier of the assistant.
+   */
   assistant_id: string;
 }
 
@@ -302,14 +345,15 @@ export declare namespace ScheduledEvents {
   export {
     type ConversationChannelType as ConversationChannelType,
     type EventStatus as EventStatus,
+    type ScheduledCallSettings as ScheduledCallSettings,
     type ScheduledEventResponse as ScheduledEventResponse,
     type ScheduledPhoneCallEventResponse as ScheduledPhoneCallEventResponse,
     type ScheduledSMSEventResponse as ScheduledSMSEventResponse,
     type ScheduledEventListResponse as ScheduledEventListResponse,
     type ScheduledEventListResponsesDefaultFlatPagination as ScheduledEventListResponsesDefaultFlatPagination,
-    type ScheduledEventCreateParams as ScheduledEventCreateParams,
-    type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
     type ScheduledEventListParams as ScheduledEventListParams,
+    type ScheduledEventCreateParams as ScheduledEventCreateParams,
     type ScheduledEventDeleteParams as ScheduledEventDeleteParams,
+    type ScheduledEventRetrieveParams as ScheduledEventRetrieveParams,
   };
 }

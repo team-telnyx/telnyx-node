@@ -9,23 +9,6 @@ const client = new Telnyx({
 
 describe('resource rcs', () => {
   // Mock server tests are disabled
-  test.skip('inviteTestNumber: only required params', async () => {
-    const responsePromise = client.messaging.rcs.inviteTestNumber('phone_number', { id: 'id' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('inviteTestNumber: required and optional params', async () => {
-    const response = await client.messaging.rcs.inviteTestNumber('phone_number', { id: 'id' });
-  });
-
-  // Mock server tests are disabled
   test.skip('listBulkCapabilities: only required params', async () => {
     const responsePromise = client.messaging.rcs.listBulkCapabilities({
       agent_id: 'TestAgent',
@@ -67,5 +50,22 @@ describe('resource rcs', () => {
     const response = await client.messaging.rcs.retrieveCapabilities('phone_number', {
       agent_id: 'agent_id',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('inviteTestNumber: only required params', async () => {
+    const responsePromise = client.messaging.rcs.inviteTestNumber('phone_number', { id: 'id' });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('inviteTestNumber: required and optional params', async () => {
+    const response = await client.messaging.rcs.inviteTestNumber('phone_number', { id: 'id' });
   });
 });

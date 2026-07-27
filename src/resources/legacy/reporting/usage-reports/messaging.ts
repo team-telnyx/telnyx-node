@@ -12,40 +12,6 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Messaging extends APIResource {
   /**
-   * Creates a new legacy usage V2 MDR report request with the specified filters
-   *
-   * @example
-   * ```ts
-   * const messaging =
-   *   await client.legacy.reporting.usageReports.messaging.create(
-   *     { aggregation_type: 0 },
-   *   );
-   * ```
-   */
-  create(body: MessagingCreateParams, options?: RequestOptions): APIPromise<MessagingCreateResponse> {
-    return this._client.post('/legacy/reporting/usage_reports/messaging', {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': '*/*' }, options?.headers]),
-    });
-  }
-
-  /**
-   * Fetch single MDR usage report by id.
-   *
-   * @example
-   * ```ts
-   * const messaging =
-   *   await client.legacy.reporting.usageReports.messaging.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<MessagingRetrieveResponse> {
-    return this._client.get(path`/legacy/reporting/usage_reports/messaging/${id}`, options);
-  }
-
-  /**
    * Fetch all previous requests for MDR usage reports.
    *
    * @example
@@ -68,6 +34,25 @@ export class Messaging extends APIResource {
   }
 
   /**
+   * Creates a new legacy usage V2 MDR report request with the specified filters
+   *
+   * @example
+   * ```ts
+   * const messaging =
+   *   await client.legacy.reporting.usageReports.messaging.create(
+   *     { aggregation_type: 0 },
+   *   );
+   * ```
+   */
+  create(body: MessagingCreateParams, options?: RequestOptions): APIPromise<MessagingCreateResponse> {
+    return this._client.post('/legacy/reporting/usage_reports/messaging', {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': '*/*' }, options?.headers]),
+    });
+  }
+
+  /**
    * Deletes a specific V2 legacy usage MDR report request by ID
    *
    * @example
@@ -80,6 +65,21 @@ export class Messaging extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<MessagingDeleteResponse> {
     return this._client.delete(path`/legacy/reporting/usage_reports/messaging/${id}`, options);
+  }
+
+  /**
+   * Fetch single MDR usage report by id.
+   *
+   * @example
+   * ```ts
+   * const messaging =
+   *   await client.legacy.reporting.usageReports.messaging.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<MessagingRetrieveResponse> {
+    return this._client.get(path`/legacy/reporting/usage_reports/messaging/${id}`, options);
   }
 }
 
@@ -157,6 +157,8 @@ export interface MessagingDeleteResponse {
   data?: MdrUsageReportResponseLegacy;
 }
 
+export interface MessagingListParams extends PerPagePaginationParams {}
+
 export interface MessagingCreateParams {
   /**
    * Aggregation type: No aggregation = 0, By Messaging Profile = 1, By Tags = 2
@@ -180,8 +182,6 @@ export interface MessagingCreateParams {
   start_time?: string;
 }
 
-export interface MessagingListParams extends PerPagePaginationParams {}
-
 export declare namespace Messaging {
   export {
     type MdrUsageReportResponseLegacy as MdrUsageReportResponseLegacy,
@@ -190,7 +190,7 @@ export declare namespace Messaging {
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingDeleteResponse as MessagingDeleteResponse,
     type MdrUsageReportResponseLegaciesPerPagePagination as MdrUsageReportResponseLegaciesPerPagePagination,
-    type MessagingCreateParams as MessagingCreateParams,
     type MessagingListParams as MessagingListParams,
+    type MessagingCreateParams as MessagingCreateParams,
   };
 }

@@ -9,18 +9,6 @@ const client = new Telnyx({
 
 describe('resource verifications', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.verifications.retrieve('12ade33a-21c0-473b-b055-b3c836e1c292');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('triggerCall: only required params', async () => {
     const responsePromise = client.verifications.triggerCall({
       phone_number: '+13035551234',
@@ -93,6 +81,18 @@ describe('resource verifications', () => {
       custom_code: '43612',
       timeout_secs: 300,
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.verifications.retrieve('12ade33a-21c0-473b-b055-b3c836e1c292');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled

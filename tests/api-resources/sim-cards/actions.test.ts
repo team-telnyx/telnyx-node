@@ -9,18 +9,6 @@ const client = new Telnyx({
 
 describe('resource actions', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.simCards.actions.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.simCards.actions.list();
     const rawResponse = await responsePromise.asResponse();
@@ -53,10 +41,8 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('bulkDisableVoice: only required params', async () => {
-    const responsePromise = client.simCards.actions.bulkDisableVoice({
-      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
-    });
+  test.skip('retrieve', async () => {
+    const responsePromise = client.simCards.actions.retrieve('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -64,34 +50,6 @@ describe('resource actions', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('bulkDisableVoice: required and optional params', async () => {
-    const response = await client.simCards.actions.bulkDisableVoice({
-      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
-    });
-  });
-
-  // Mock server tests are disabled
-  test.skip('bulkEnableVoice: only required params', async () => {
-    const responsePromise = client.simCards.actions.bulkEnableVoice({
-      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
-    });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('bulkEnableVoice: required and optional params', async () => {
-    const response = await client.simCards.actions.bulkEnableVoice({
-      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
-    });
   });
 
   // Mock server tests are disabled
@@ -113,6 +71,18 @@ describe('resource actions', () => {
     const response = await client.simCards.actions.bulkSetPublicIPs({
       sim_card_ids: ['6b14e151-8493-4fa1-8664-1cc4e6d14158'],
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('validateRegistrationCodes', async () => {
+    const responsePromise = client.simCards.actions.validateRegistrationCodes({});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled
@@ -188,8 +158,10 @@ describe('resource actions', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('validateRegistrationCodes', async () => {
-    const responsePromise = client.simCards.actions.validateRegistrationCodes({});
+  test.skip('bulkDisableVoice: only required params', async () => {
+    const responsePromise = client.simCards.actions.bulkDisableVoice({
+      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -197,5 +169,33 @@ describe('resource actions', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('bulkDisableVoice: required and optional params', async () => {
+    const response = await client.simCards.actions.bulkDisableVoice({
+      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('bulkEnableVoice: only required params', async () => {
+    const responsePromise = client.simCards.actions.bulkEnableVoice({
+      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('bulkEnableVoice: required and optional params', async () => {
+    const response = await client.simCards.actions.bulkEnableVoice({
+      sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+    });
   });
 });

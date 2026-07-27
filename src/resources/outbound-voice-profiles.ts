@@ -11,6 +11,28 @@ import { path } from '../internal/utils/path';
  */
 export class OutboundVoiceProfiles extends APIResource {
   /**
+   * Get all outbound voice profiles belonging to the user that match the given
+   * filters.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const outboundVoiceProfile of client.outboundVoiceProfiles.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: OutboundVoiceProfileListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<OutboundVoiceProfilesDefaultFlatPagination, OutboundVoiceProfile> {
+    return this._client.getAPIList('/outbound_voice_profiles', DefaultFlatPagination<OutboundVoiceProfile>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create an outbound voice profile.
    *
    * @example
@@ -26,6 +48,21 @@ export class OutboundVoiceProfiles extends APIResource {
     options?: RequestOptions,
   ): APIPromise<OutboundVoiceProfileCreateResponse> {
     return this._client.post('/outbound_voice_profiles', { body, ...options });
+  }
+
+  /**
+   * Deletes an existing outbound voice profile.
+   *
+   * @example
+   * ```ts
+   * const outboundVoiceProfile =
+   *   await client.outboundVoiceProfiles.delete(
+   *     '1293384261075731499',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<OutboundVoiceProfileDeleteResponse> {
+    return this._client.delete(path`/outbound_voice_profiles/${id}`, options);
   }
 
   /**
@@ -61,43 +98,6 @@ export class OutboundVoiceProfiles extends APIResource {
     options?: RequestOptions,
   ): APIPromise<OutboundVoiceProfileUpdateResponse> {
     return this._client.patch(path`/outbound_voice_profiles/${id}`, { body, ...options });
-  }
-
-  /**
-   * Get all outbound voice profiles belonging to the user that match the given
-   * filters.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const outboundVoiceProfile of client.outboundVoiceProfiles.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: OutboundVoiceProfileListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<OutboundVoiceProfilesDefaultFlatPagination, OutboundVoiceProfile> {
-    return this._client.getAPIList('/outbound_voice_profiles', DefaultFlatPagination<OutboundVoiceProfile>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Deletes an existing outbound voice profile.
-   *
-   * @example
-   * ```ts
-   * const outboundVoiceProfile =
-   *   await client.outboundVoiceProfiles.delete(
-   *     '1293384261075731499',
-   *   );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<OutboundVoiceProfileDeleteResponse> {
-    return this._client.delete(path`/outbound_voice_profiles/${id}`, options);
   }
 }
 
@@ -280,6 +280,69 @@ export interface OutboundVoiceProfileUpdateResponse {
 
 export interface OutboundVoiceProfileDeleteResponse {
   data?: OutboundVoiceProfile;
+}
+
+export interface OutboundVoiceProfileListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[name][contains]
+   */
+  filter?: OutboundVoiceProfileListParams.Filter;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code>-</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>name</code>: sorts the result by the
+   *     <code>name</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-name</code>: sorts the result by the
+   *     <code>name</code> field in descending order.
+   *   </li>
+   * </ul> <br/>
+   */
+  sort?:
+    | 'enabled'
+    | '-enabled'
+    | 'created_at'
+    | '-created_at'
+    | 'name'
+    | '-name'
+    | 'service_plan'
+    | '-service_plan'
+    | 'traffic_type'
+    | '-traffic_type'
+    | 'usage_payment_method'
+    | '-usage_payment_method';
+}
+
+export namespace OutboundVoiceProfileListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[name][contains]
+   */
+  export interface Filter {
+    /**
+     * Name filtering operations
+     */
+    name?: Filter.Name;
+  }
+
+  export namespace Filter {
+    /**
+     * Name filtering operations
+     */
+    export interface Name {
+      /**
+       * Optional filter on outbound voice profile name.
+       */
+      contains?: string;
+    }
+  }
 }
 
 export interface OutboundVoiceProfileCreateParams {
@@ -480,69 +543,6 @@ export namespace OutboundVoiceProfileUpdateParams {
   }
 }
 
-export interface OutboundVoiceProfileListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[name][contains]
-   */
-  filter?: OutboundVoiceProfileListParams.Filter;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code>-</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>name</code>: sorts the result by the
-   *     <code>name</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-name</code>: sorts the result by the
-   *     <code>name</code> field in descending order.
-   *   </li>
-   * </ul> <br/>
-   */
-  sort?:
-    | 'enabled'
-    | '-enabled'
-    | 'created_at'
-    | '-created_at'
-    | 'name'
-    | '-name'
-    | 'service_plan'
-    | '-service_plan'
-    | 'traffic_type'
-    | '-traffic_type'
-    | 'usage_payment_method'
-    | '-usage_payment_method';
-}
-
-export namespace OutboundVoiceProfileListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[name][contains]
-   */
-  export interface Filter {
-    /**
-     * Name filtering operations
-     */
-    name?: Filter.Name;
-  }
-
-  export namespace Filter {
-    /**
-     * Name filtering operations
-     */
-    export interface Name {
-      /**
-       * Optional filter on outbound voice profile name.
-       */
-      contains?: string;
-    }
-  }
-}
-
 export declare namespace OutboundVoiceProfiles {
   export {
     type OutboundCallRecording as OutboundCallRecording,
@@ -555,8 +555,8 @@ export declare namespace OutboundVoiceProfiles {
     type OutboundVoiceProfileUpdateResponse as OutboundVoiceProfileUpdateResponse,
     type OutboundVoiceProfileDeleteResponse as OutboundVoiceProfileDeleteResponse,
     type OutboundVoiceProfilesDefaultFlatPagination as OutboundVoiceProfilesDefaultFlatPagination,
+    type OutboundVoiceProfileListParams as OutboundVoiceProfileListParams,
     type OutboundVoiceProfileCreateParams as OutboundVoiceProfileCreateParams,
     type OutboundVoiceProfileUpdateParams as OutboundVoiceProfileUpdateParams,
-    type OutboundVoiceProfileListParams as OutboundVoiceProfileListParams,
   };
 }

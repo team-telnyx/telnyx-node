@@ -10,16 +10,15 @@ export type CLIOptions = McpOptions & {
   debug: boolean;
   logFormat: 'json' | 'pretty';
   transport: 'stdio' | 'http';
+  host: string;
   port: number | undefined;
   socket: string | undefined;
 };
 
 export type McpOptions = {
   includeCodeTool?: boolean | undefined;
-  includeDocsTools?: boolean | undefined;
   stainlessApiKey?: string | undefined;
-  docsSearchMode?: 'stainless-api' | 'local' | undefined;
-  docsDir?: string | undefined;
+  serverApiKey?: string | undefined;
   codeAllowHttpGets?: boolean | undefined;
   codeAllowedMethods?: string[] | undefined;
   codeBlockedMethods?: string[] | undefined;
@@ -27,7 +26,7 @@ export type McpOptions = {
   customInstructionsPath?: string | undefined;
 };
 
-export type McpCodeExecutionMode = 'stainless-sandbox' | 'local';
+export type McpCodeExecutionMode = 'local';
 
 export function parseCLIOptions(): CLIOptions {
   const opts = yargs(hideBin(process.argv))
@@ -50,27 +49,21 @@ export function parseCLIOptions(): CLIOptions {
     })
     .option('code-execution-mode', {
       type: 'string',
-      choices: ['stainless-sandbox', 'local'],
-      default: 'stainless-sandbox',
+      choices: ['local'],
+      default: 'local',
       description:
-        "Where to run code execution in code tool; 'stainless-sandbox' will execute code in Stainless-hosted sandboxes whereas 'local' will execute code locally on the MCP server machine.",
+        'The server was generated without access to the Stainless API, so code execution can only run locally on the MCP server machine.',
     })
     .option('custom-instructions-path', {
       type: 'string',
       description: 'Path to custom instructions for the MCP server',
     })
     .option('debug', { type: 'boolean', description: 'Enable debug logging' })
-    .option('docs-dir', {
+    .option('host', {
       type: 'string',
+      default: '127.0.0.1',
       description:
-        'Path to a directory of local documentation files (markdown/JSON) to include in local docs search.',
-    })
-    .option('docs-search-mode', {
-      type: 'string',
-      choices: ['stainless-api', 'local'],
-      default: 'stainless-api',
-      description:
-        "Where to search documentation; 'stainless-api' uses the Stainless-hosted search API whereas 'local' uses an in-memory search index built from embedded SDK method data and optional local docs files.",
+        'Host interface to bind when using HTTP transport. Set explicitly to 0.0.0.0 or :: to accept remote connections.',
     })
     .option('log-format', {
       type: 'string',
@@ -80,13 +73,18 @@ export function parseCLIOptions(): CLIOptions {
     .option('no-tools', {
       type: 'string',
       array: true,
-      choices: ['code', 'docs'],
+      choices: ['code'],
       description: 'Tools to explicitly disable',
     })
     .option('port', {
       type: 'number',
       default: 3000,
       description: 'Port to serve on if using http transport',
+    })
+    .option('server-api-key', {
+      type: 'string',
+      default: readEnv('MCP_SERVER_API_KEY'),
+      description: 'Pre-shared key required in the x-mcp-server-api-key header for HTTP transport.',
     })
     .option('socket', { type: 'string', description: 'Unix socket to serve on if using http transport' })
     .option('stainless-api-key', {
@@ -98,7 +96,7 @@ export function parseCLIOptions(): CLIOptions {
     .option('tools', {
       type: 'string',
       array: true,
-      choices: ['code', 'docs'],
+      choices: ['code'],
       description: 'Tools to explicitly enable',
     })
     .option('transport', {
@@ -112,16 +110,16 @@ export function parseCLIOptions(): CLIOptions {
     .help();
 
   const argv = opts.parseSync();
+  const transport = argv.transport as 'stdio' | 'http';
 
-  const shouldIncludeToolType = (toolType: 'code' | 'docs') =>
+  const shouldIncludeToolType = (toolType: 'code') =>
     argv.noTools?.includes(toolType) ? false
     : argv.tools?.includes(toolType) ? true
     : undefined;
 
-  const includeCodeTool = shouldIncludeToolType('code');
-  const includeDocsTools = shouldIncludeToolType('docs');
+  const includeCodeTool =
+    transport === 'http' && !argv.tools?.includes('code') ? false : shouldIncludeToolType('code');
 
-  const transport = argv.transport as 'stdio' | 'http';
   const logFormat =
     argv.logFormat ? (argv.logFormat as 'json' | 'pretty')
     : process.stderr.isTTY ? 'pretty'
@@ -129,17 +127,17 @@ export function parseCLIOptions(): CLIOptions {
 
   return {
     ...(includeCodeTool !== undefined && { includeCodeTool }),
-    ...(includeDocsTools !== undefined && { includeDocsTools }),
     debug: !!argv.debug,
     stainlessApiKey: argv.stainlessApiKey,
-    docsSearchMode: argv.docsSearchMode as 'stainless-api' | 'local' | undefined,
-    docsDir: argv.docsDir,
+    serverApiKey: argv.serverApiKey,
+
     codeAllowHttpGets: argv.codeAllowHttpGets,
     codeAllowedMethods: argv.codeAllowedMethods,
     codeBlockedMethods: argv.codeBlockedMethods,
     codeExecutionMode: argv.codeExecutionMode as McpCodeExecutionMode,
     customInstructionsPath: argv.customInstructionsPath,
     transport,
+    host: argv.host,
     logFormat,
     port: argv.port,
     socket: argv.socket,
@@ -156,8 +154,8 @@ const coerceArray = <T extends z.ZodTypeAny>(zodType: T) =>
   );
 
 const QueryOptions = z.object({
-  tools: coerceArray(z.enum(['code', 'docs'])).describe('Specify which MCP tools to use'),
-  no_tools: coerceArray(z.enum(['code', 'docs'])).describe('Specify which MCP tools to not use.'),
+  tools: coerceArray(z.enum(['code'])).describe('Specify which MCP tools to use'),
+  no_tools: coerceArray(z.enum(['code'])).describe('Specify which MCP tools to not use.'),
   tool: coerceArray(z.string()).describe('Include tools matching the specified names'),
 });
 
@@ -166,20 +164,13 @@ export function parseQueryOptions(defaultOptions: McpOptions, query: unknown): M
   const queryOptions = QueryOptions.parse(queryObject);
 
   let codeTool: boolean | undefined =
-    queryOptions.no_tools && queryOptions.no_tools?.includes('code') ? false
+    defaultOptions.includeCodeTool === false ? false
+    : queryOptions.no_tools && queryOptions.no_tools?.includes('code') ? false
     : queryOptions.tools?.includes('code') ? true
     : defaultOptions.includeCodeTool;
 
-  let docsTools: boolean | undefined =
-    queryOptions.no_tools && queryOptions.no_tools?.includes('docs') ? false
-    : queryOptions.tools?.includes('docs') ? true
-    : defaultOptions.includeDocsTools;
-
   return {
+    ...defaultOptions,
     ...(codeTool !== undefined && { includeCodeTool: codeTool }),
-    ...(docsTools !== undefined && { includeDocsTools: docsTools }),
-    codeExecutionMode: defaultOptions.codeExecutionMode,
-    docsSearchMode: defaultOptions.docsSearchMode,
-    docsDir: defaultOptions.docsDir,
   };
 }

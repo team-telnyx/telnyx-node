@@ -13,6 +13,27 @@ import { path } from '../../internal/utils/path';
 
 export class McpServers extends APIResource {
   /**
+   * Retrieve a list of MCP servers.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const mcpServer of client.ai.mcpServers.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: McpServerListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<McpServersDefaultFlatPaginationTopLevelArray, McpServer> {
+    return this._client.getAPIList('/ai/mcp_servers', DefaultFlatPaginationTopLevelArray<McpServer>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a new MCP server.
    *
    * @example
@@ -24,62 +45,8 @@ export class McpServers extends APIResource {
    * });
    * ```
    */
-  create(body: McpServerCreateParams, options?: RequestOptions): APIPromise<McpServerCreateResponse> {
+  create(body: McpServerCreateParams, options?: RequestOptions): APIPromise<McpServer> {
     return this._client.post('/ai/mcp_servers', { body, ...options });
-  }
-
-  /**
-   * Retrieve details for a specific MCP server.
-   *
-   * @example
-   * ```ts
-   * const mcpServer = await client.ai.mcpServers.retrieve(
-   *   'mcp_server_id',
-   * );
-   * ```
-   */
-  retrieve(mcpServerID: string, options?: RequestOptions): APIPromise<McpServerRetrieveResponse> {
-    return this._client.get(path`/ai/mcp_servers/${mcpServerID}`, options);
-  }
-
-  /**
-   * Update an existing MCP server.
-   *
-   * @example
-   * ```ts
-   * const mcpServer = await client.ai.mcpServers.update(
-   *   'mcp_server_id',
-   * );
-   * ```
-   */
-  update(
-    mcpServerID: string,
-    body: McpServerUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<McpServerUpdateResponse> {
-    return this._client.put(path`/ai/mcp_servers/${mcpServerID}`, { body, ...options });
-  }
-
-  /**
-   * Retrieve a list of MCP servers.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const mcpServerListResponse of client.ai.mcpServers.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: McpServerListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<McpServerListResponsesDefaultFlatPaginationTopLevelArray, McpServerListResponse> {
-    return this._client.getAPIList(
-      '/ai/mcp_servers',
-      DefaultFlatPaginationTopLevelArray<McpServerListResponse>,
-      { query, ...options },
-    );
   }
 
   /**
@@ -96,12 +63,39 @@ export class McpServers extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Retrieve details for a specific MCP server.
+   *
+   * @example
+   * ```ts
+   * const mcpServer = await client.ai.mcpServers.retrieve(
+   *   'mcp_server_id',
+   * );
+   * ```
+   */
+  retrieve(mcpServerID: string, options?: RequestOptions): APIPromise<McpServer> {
+    return this._client.get(path`/ai/mcp_servers/${mcpServerID}`, options);
+  }
+
+  /**
+   * Update an existing MCP server.
+   *
+   * @example
+   * ```ts
+   * const mcpServer = await client.ai.mcpServers.update(
+   *   'mcp_server_id',
+   * );
+   * ```
+   */
+  update(mcpServerID: string, body: McpServerUpdateParams, options?: RequestOptions): APIPromise<McpServer> {
+    return this._client.put(path`/ai/mcp_servers/${mcpServerID}`, { body, ...options });
+  }
 }
 
-export type McpServerListResponsesDefaultFlatPaginationTopLevelArray =
-  DefaultFlatPaginationTopLevelArray<McpServerListResponse>;
+export type McpServersDefaultFlatPaginationTopLevelArray = DefaultFlatPaginationTopLevelArray<McpServer>;
 
-export interface McpServerCreateResponse {
+export interface McpServer {
   id: string;
 
   created_at: string;
@@ -117,52 +111,16 @@ export interface McpServerCreateResponse {
   api_key_ref?: string | null;
 }
 
-export interface McpServerRetrieveResponse {
-  id: string;
+export interface McpServerListParams extends DefaultFlatPaginationTopLevelArrayParams {
+  /**
+   * Filter results by type.
+   */
+  type?: string;
 
-  created_at: string;
-
-  name: string;
-
-  type: string;
-
-  url: string;
-
-  allowed_tools?: Array<string> | null;
-
-  api_key_ref?: string | null;
-}
-
-export interface McpServerUpdateResponse {
-  id: string;
-
-  created_at: string;
-
-  name: string;
-
-  type: string;
-
-  url: string;
-
-  allowed_tools?: Array<string> | null;
-
-  api_key_ref?: string | null;
-}
-
-export interface McpServerListResponse {
-  id: string;
-
-  created_at: string;
-
-  name: string;
-
-  type: string;
-
-  url: string;
-
-  allowed_tools?: Array<string> | null;
-
-  api_key_ref?: string | null;
+  /**
+   * Filter results by url.
+   */
+  url?: string;
 }
 
 export interface McpServerCreateParams {
@@ -193,21 +151,12 @@ export interface McpServerUpdateParams {
   url?: string;
 }
 
-export interface McpServerListParams extends DefaultFlatPaginationTopLevelArrayParams {
-  type?: string;
-
-  url?: string;
-}
-
 export declare namespace McpServers {
   export {
-    type McpServerCreateResponse as McpServerCreateResponse,
-    type McpServerRetrieveResponse as McpServerRetrieveResponse,
-    type McpServerUpdateResponse as McpServerUpdateResponse,
-    type McpServerListResponse as McpServerListResponse,
-    type McpServerListResponsesDefaultFlatPaginationTopLevelArray as McpServerListResponsesDefaultFlatPaginationTopLevelArray,
+    type McpServer as McpServer,
+    type McpServersDefaultFlatPaginationTopLevelArray as McpServersDefaultFlatPaginationTopLevelArray,
+    type McpServerListParams as McpServerListParams,
     type McpServerCreateParams as McpServerCreateParams,
     type McpServerUpdateParams as McpServerUpdateParams,
-    type McpServerListParams as McpServerListParams,
   };
 }

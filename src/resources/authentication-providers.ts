@@ -8,6 +8,28 @@ import { path } from '../internal/utils/path';
 
 export class AuthenticationProviders extends APIResource {
   /**
+   * Returns a list of your SSO authentication providers.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const authenticationProvider of client.authenticationProviders.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: AuthenticationProviderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<AuthenticationProvidersDefaultFlatPagination, AuthenticationProvider> {
+    return this._client.getAPIList(
+      '/authentication_providers',
+      DefaultFlatPagination<AuthenticationProvider>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Creates an authentication provider.
    *
    * @example
@@ -32,6 +54,19 @@ export class AuthenticationProviders extends APIResource {
     options?: RequestOptions,
   ): APIPromise<AuthenticationProviderCreateResponse> {
     return this._client.post('/authentication_providers', { body, ...options });
+  }
+
+  /**
+   * Deletes an existing authentication provider.
+   *
+   * @example
+   * ```ts
+   * const authenticationProvider =
+   *   await client.authenticationProviders.delete('id');
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<AuthenticationProviderDeleteResponse> {
+    return this._client.delete(path`/authentication_providers/${id}`, options);
   }
 
   /**
@@ -75,41 +110,6 @@ export class AuthenticationProviders extends APIResource {
     options?: RequestOptions,
   ): APIPromise<AuthenticationProviderUpdateResponse> {
     return this._client.patch(path`/authentication_providers/${id}`, { body, ...options });
-  }
-
-  /**
-   * Returns a list of your SSO authentication providers.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const authenticationProvider of client.authenticationProviders.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: AuthenticationProviderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AuthenticationProvidersDefaultFlatPagination, AuthenticationProvider> {
-    return this._client.getAPIList(
-      '/authentication_providers',
-      DefaultFlatPagination<AuthenticationProvider>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * Deletes an existing authentication provider.
-   *
-   * @example
-   * ```ts
-   * const authenticationProvider =
-   *   await client.authenticationProviders.delete('id');
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<AuthenticationProviderDeleteResponse> {
-    return this._client.delete(path`/authentication_providers/${id}`, options);
   }
 }
 
@@ -292,6 +292,35 @@ export interface AuthenticationProviderDeleteResponse {
   data?: AuthenticationProvider;
 }
 
+export interface AuthenticationProviderListParams extends DefaultFlatPaginationParams {
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code>-</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>name</code>: sorts the result by the
+   *     <code>name</code> field in ascending order.
+   *   </li>
+   *   <li>
+   *     <code>-name</code>: sorts the result by the
+   *     <code>name</code> field in descending order.
+   *   </li>
+   * </ul><br/>If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?:
+    | 'name'
+    | '-name'
+    | 'short_name'
+    | '-short_name'
+    | 'active'
+    | '-active'
+    | 'created_at'
+    | '-created_at'
+    | 'updated_at'
+    | '-updated_at';
+}
+
 export interface AuthenticationProviderCreateParams {
   /**
    * The name associated with the authentication provider.
@@ -350,35 +379,6 @@ export interface AuthenticationProviderUpdateParams {
   short_name?: string;
 }
 
-export interface AuthenticationProviderListParams extends DefaultFlatPaginationParams {
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code>-</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>name</code>: sorts the result by the
-   *     <code>name</code> field in ascending order.
-   *   </li>
-   *   <li>
-   *     <code>-name</code>: sorts the result by the
-   *     <code>name</code> field in descending order.
-   *   </li>
-   * </ul><br/>If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?:
-    | 'name'
-    | '-name'
-    | 'short_name'
-    | '-short_name'
-    | 'active'
-    | '-active'
-    | 'created_at'
-    | '-created_at'
-    | 'updated_at'
-    | '-updated_at';
-}
-
 export declare namespace AuthenticationProviders {
   export {
     type AuthenticationProvider as AuthenticationProvider,
@@ -389,8 +389,8 @@ export declare namespace AuthenticationProviders {
     type AuthenticationProviderUpdateResponse as AuthenticationProviderUpdateResponse,
     type AuthenticationProviderDeleteResponse as AuthenticationProviderDeleteResponse,
     type AuthenticationProvidersDefaultFlatPagination as AuthenticationProvidersDefaultFlatPagination,
+    type AuthenticationProviderListParams as AuthenticationProviderListParams,
     type AuthenticationProviderCreateParams as AuthenticationProviderCreateParams,
     type AuthenticationProviderUpdateParams as AuthenticationProviderUpdateParams,
-    type AuthenticationProviderListParams as AuthenticationProviderListParams,
   };
 }

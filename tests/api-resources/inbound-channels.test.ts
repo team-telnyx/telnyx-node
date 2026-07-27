@@ -9,6 +9,18 @@ const client = new Telnyx({
 
 describe('resource inboundChannels', () => {
   // Mock server tests are disabled
+  test.skip('list', async () => {
+    const responsePromise = client.inboundChannels.list();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.inboundChannels.update({ channels: 7 });
     const rawResponse = await responsePromise.asResponse();
@@ -23,17 +35,5 @@ describe('resource inboundChannels', () => {
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.inboundChannels.update({ channels: 7 });
-  });
-
-  // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.inboundChannels.list();
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

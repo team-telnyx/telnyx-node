@@ -10,6 +10,28 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class PhoneNumberConfigurations extends APIResource {
   /**
+   * Returns a list of phone number configurations paginated.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const portingPhoneNumberConfiguration of client.portingOrders.phoneNumberConfigurations.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: PhoneNumberConfigurationListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortingPhoneNumberConfigurationsDefaultFlatPagination, PortingPhoneNumberConfiguration> {
+    return this._client.getAPIList(
+      '/porting_orders/phone_number_configurations',
+      DefaultFlatPagination<PortingPhoneNumberConfiguration>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Creates a list of phone number configurations.
    *
    * @example
@@ -24,75 +46,12 @@ export class PhoneNumberConfigurations extends APIResource {
   ): APIPromise<PhoneNumberConfigurationCreateResponse> {
     return this._client.post('/porting_orders/phone_number_configurations', { body, ...options });
   }
-
-  /**
-   * Returns a list of phone number configurations paginated.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberConfigurationListResponse of client.portingOrders.phoneNumberConfigurations.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: PhoneNumberConfigurationListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<
-    PhoneNumberConfigurationListResponsesDefaultFlatPagination,
-    PhoneNumberConfigurationListResponse
-  > {
-    return this._client.getAPIList(
-      '/porting_orders/phone_number_configurations',
-      DefaultFlatPagination<PhoneNumberConfigurationListResponse>,
-      { query, ...options },
-    );
-  }
 }
 
-export type PhoneNumberConfigurationListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<PhoneNumberConfigurationListResponse>;
+export type PortingPhoneNumberConfigurationsDefaultFlatPagination =
+  DefaultFlatPagination<PortingPhoneNumberConfiguration>;
 
-export interface PhoneNumberConfigurationCreateResponse {
-  data?: Array<PhoneNumberConfigurationCreateResponse.Data>;
-}
-
-export namespace PhoneNumberConfigurationCreateResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies this phone number configuration
-     */
-    id?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Identifies the associated porting phone number
-     */
-    porting_phone_number_id?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     */
-    updated_at?: string;
-
-    /**
-     * Identifies the associated user bundle
-     */
-    user_bundle_id?: string;
-  }
-}
-
-export interface PhoneNumberConfigurationListResponse {
+export interface PortingPhoneNumberConfiguration {
   /**
    * Uniquely identifies this phone number configuration
    */
@@ -124,22 +83,8 @@ export interface PhoneNumberConfigurationListResponse {
   user_bundle_id?: string;
 }
 
-export interface PhoneNumberConfigurationCreateParams {
-  phone_number_configurations?: Array<PhoneNumberConfigurationCreateParams.PhoneNumberConfiguration>;
-}
-
-export namespace PhoneNumberConfigurationCreateParams {
-  export interface PhoneNumberConfiguration {
-    /**
-     * Identifies the porting phone number to be configured.
-     */
-    porting_phone_number_id: string;
-
-    /**
-     * Identifies the user bundle to be associated with the porting phone number.
-     */
-    user_bundle_id: string;
-  }
+export interface PhoneNumberConfigurationCreateResponse {
+  data?: Array<PortingPhoneNumberConfiguration>;
 }
 
 export interface PhoneNumberConfigurationListParams extends DefaultFlatPaginationParams {
@@ -207,12 +152,30 @@ export namespace PhoneNumberConfigurationListParams {
   }
 }
 
+export interface PhoneNumberConfigurationCreateParams {
+  phone_number_configurations?: Array<PhoneNumberConfigurationCreateParams.PhoneNumberConfiguration>;
+}
+
+export namespace PhoneNumberConfigurationCreateParams {
+  export interface PhoneNumberConfiguration {
+    /**
+     * Identifies the porting phone number to be configured.
+     */
+    porting_phone_number_id: string;
+
+    /**
+     * Identifies the user bundle to be associated with the porting phone number.
+     */
+    user_bundle_id: string;
+  }
+}
+
 export declare namespace PhoneNumberConfigurations {
   export {
+    type PortingPhoneNumberConfiguration as PortingPhoneNumberConfiguration,
     type PhoneNumberConfigurationCreateResponse as PhoneNumberConfigurationCreateResponse,
-    type PhoneNumberConfigurationListResponse as PhoneNumberConfigurationListResponse,
-    type PhoneNumberConfigurationListResponsesDefaultFlatPagination as PhoneNumberConfigurationListResponsesDefaultFlatPagination,
-    type PhoneNumberConfigurationCreateParams as PhoneNumberConfigurationCreateParams,
+    type PortingPhoneNumberConfigurationsDefaultFlatPagination as PortingPhoneNumberConfigurationsDefaultFlatPagination,
     type PhoneNumberConfigurationListParams as PhoneNumberConfigurationListParams,
+    type PhoneNumberConfigurationCreateParams as PhoneNumberConfigurationCreateParams,
   };
 }

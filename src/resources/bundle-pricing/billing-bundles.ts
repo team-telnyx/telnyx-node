@@ -9,32 +9,6 @@ import { path } from '../../internal/utils/path';
 
 export class BillingBundles extends APIResource {
   /**
-   * Get a single bundle by ID.
-   *
-   * @example
-   * ```ts
-   * const billingBundle =
-   *   await client.bundlePricing.billingBundles.retrieve(
-   *     '8661948c-a386-4385-837f-af00f40f111a',
-   *   );
-   * ```
-   */
-  retrieve(
-    bundleID: string,
-    params: BillingBundleRetrieveParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<BillingBundleRetrieveResponse> {
-    const { authorization_bearer } = params ?? {};
-    return this._client.get(path`/bundle_pricing/billing_bundles/${bundleID}`, {
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
-  }
-
-  /**
    * Get all allowed bundles.
    *
    * @example
@@ -62,6 +36,32 @@ export class BillingBundles extends APIResource {
         ]),
       },
     );
+  }
+
+  /**
+   * Get a single bundle by ID.
+   *
+   * @example
+   * ```ts
+   * const billingBundle =
+   *   await client.bundlePricing.billingBundles.retrieve(
+   *     '8661948c-a386-4385-837f-af00f40f111a',
+   *   );
+   * ```
+   */
+  retrieve(
+    bundleID: string,
+    params: BillingBundleRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<BillingBundleRetrieveResponse> {
+    const { authorization_bearer } = params ?? {};
+    return this._client.get(path`/bundle_pricing/billing_bundles/${bundleID}`, {
+      ...options,
+      headers: buildHeaders([
+        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -214,13 +214,6 @@ export namespace BillingBundleRetrieveResponse {
   }
 }
 
-export interface BillingBundleRetrieveParams {
-  /**
-   * Authenticates the request with your Telnyx API V2 KEY
-   */
-  authorization_bearer?: string;
-}
-
 export interface BillingBundleListParams extends DefaultFlatPaginationParams {
   /**
    * Query param: Consolidated filter parameter (deepObject style). Supports
@@ -254,13 +247,20 @@ export namespace BillingBundleListParams {
   }
 }
 
+export interface BillingBundleRetrieveParams {
+  /**
+   * Authenticates the request with your Telnyx API V2 KEY
+   */
+  authorization_bearer?: string;
+}
+
 export declare namespace BillingBundles {
   export {
     type BillingBundleSummary as BillingBundleSummary,
     type PaginationResponse as PaginationResponse,
     type BillingBundleRetrieveResponse as BillingBundleRetrieveResponse,
     type BillingBundleSummariesDefaultFlatPagination as BillingBundleSummariesDefaultFlatPagination,
-    type BillingBundleRetrieveParams as BillingBundleRetrieveParams,
     type BillingBundleListParams as BillingBundleListParams,
+    type BillingBundleRetrieveParams as BillingBundleRetrieveParams,
   };
 }

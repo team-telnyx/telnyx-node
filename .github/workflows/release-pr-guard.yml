@@ -1,0 +1,40 @@
+name: Release PR Guard
+
+# Generated release PRs are tree-replaced from prod 'next' (promoted staging
+# content). They must NEVER modify prod-owned machinery: a diff touching these
+# paths means staging content leaked through the promote's restore step (as
+# happened with bin/check-release-environment on 2026-07-03/04). Passes
+# trivially for human PRs, which may legitimately edit workflows.
+
+on:
+  pull_request:
+    branches: [master]
+
+permissions:
+  contents: read
+
+jobs:
+  protected-paths:
+    name: protected-paths
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Block prod-owned changes in generated release PRs
+        env:
+          HEAD_REF: ${{ github.head_ref }}
+          BASE_REF: ${{ github.base_ref }}
+        run: |
+          if [[ "$HEAD_REF" != release-please--* ]]; then
+            echo "Not a generated release PR; nothing to guard."
+            exit 0
+          fi
+          changed=$(git diff --name-only "origin/$BASE_REF"...HEAD)
+          bad=$(printf '%s\n' "$changed" | grep -E '^(\.github/|bin/|release-please-config\.json)' | grep -v '^\.github/workflows/create-releases\.yml$' || true)
+          if [ -n "$bad" ]; then
+            echo "::error::Generated release PR modifies prod-owned machinery (staging leak through promote?):"
+            printf '%s\n' "$bad"
+            exit 1
+          fi
+          echo "No prod-owned paths touched."

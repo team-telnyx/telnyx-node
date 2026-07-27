@@ -10,26 +10,6 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class CreditAccount extends APIResource {
   /**
-   * Creates a payment quote for the specified USD amount. Returns payment details
-   * including the x402 payment requirements, network, and expiration time. The quote
-   * must be settled before it expires.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.x402.creditAccount.createQuote({
-   *     amount_usd: '50.00',
-   *   });
-   * ```
-   */
-  createQuote(
-    body: CreditAccountCreateQuoteParams,
-    options?: RequestOptions,
-  ): APIPromise<CreditAccountCreateQuoteResponse> {
-    return this._client.post('/v2/x402/credit_account/quote', { body, ...options });
-  }
-
-  /**
    * Settles an x402 payment using the quote ID and a signed payment authorization.
    * The payment signature can be provided via the `PAYMENT-SIGNATURE` header or the
    * `payment_signature` body parameter. Settlement is idempotent — submitting the
@@ -60,6 +40,26 @@ export class CreditAccount extends APIResource {
         options?.headers,
       ]),
     });
+  }
+
+  /**
+   * Creates a payment quote for the specified USD amount. Returns payment details
+   * including the x402 payment requirements, network, and expiration time. The quote
+   * must be settled before it expires.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.x402.creditAccount.createQuote({
+   *     amount_usd: '50.00',
+   *   });
+   * ```
+   */
+  createQuote(
+    body: CreditAccountCreateQuoteParams,
+    options?: RequestOptions,
+  ): APIPromise<CreditAccountCreateQuoteResponse> {
+    return this._client.post('/v2/x402/credit_account/quote', { body, ...options });
   }
 }
 
@@ -256,13 +256,6 @@ export namespace CreditAccountSettleResponse {
   }
 }
 
-export interface CreditAccountCreateQuoteParams {
-  /**
-   * Amount in USD to fund (minimum 5.00, maximum 10000.00).
-   */
-  amount_usd: string;
-}
-
 export interface CreditAccountSettleParams {
   /**
    * Body param: The quote ID to settle.
@@ -282,11 +275,18 @@ export interface CreditAccountSettleParams {
   header_payment_signature?: string;
 }
 
+export interface CreditAccountCreateQuoteParams {
+  /**
+   * Amount in USD to fund (minimum 5.00, maximum 10000.00).
+   */
+  amount_usd: string;
+}
+
 export declare namespace CreditAccount {
   export {
     type CreditAccountCreateQuoteResponse as CreditAccountCreateQuoteResponse,
     type CreditAccountSettleResponse as CreditAccountSettleResponse,
-    type CreditAccountCreateQuoteParams as CreditAccountCreateQuoteParams,
     type CreditAccountSettleParams as CreditAccountSettleParams,
+    type CreditAccountCreateQuoteParams as CreditAccountCreateQuoteParams,
   };
 }

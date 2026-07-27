@@ -15,77 +15,11 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
+/**
+ * Messages
+ */
 export class Messages extends APIResource {
   rcs: RcsAPI.Rcs = new RcsAPI.Rcs(this._client);
-
-  /**
-   * Note: This API endpoint can only retrieve messages that are no older than 10
-   * days since their creation. If you require messages older than this, please
-   * generate an
-   * [MDR report.](https://developers.telnyx.com/api-reference/mdr-usage-reports/create-mdr-usage-report)
-   *
-   * @example
-   * ```ts
-   * const message = await client.messages.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<MessageRetrieveResponse> {
-    return this._client.get(path`/messages/${id}`, options);
-  }
-
-  /**
-   * Cancel a scheduled message that has not yet been sent. Only messages with
-   * `status=scheduled` and `send_at` more than a minute from now can be cancelled.
-   *
-   * @example
-   * ```ts
-   * const response = await client.messages.cancelScheduled(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  cancelScheduled(id: string, options?: RequestOptions): APIPromise<MessageCancelScheduledResponse> {
-    return this._client.delete(path`/messages/${id}`, options);
-  }
-
-  /**
-   * Retrieve all messages in a group MMS conversation by the group message ID.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.messages.retrieveGroupMessages(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  retrieveGroupMessages(
-    messageID: string,
-    options?: RequestOptions,
-  ): APIPromise<MessageRetrieveGroupMessagesResponse> {
-    return this._client.get(path`/messages/group/${messageID}`, options);
-  }
-
-  /**
-   * Schedule a message with a Phone Number, Alphanumeric Sender ID, Short Code or
-   * Number Pool.
-   *
-   * This endpoint allows you to schedule a message with any messaging resource.
-   * Current messaging resources include: long-code, short-code, number-pool, and
-   * alphanumeric-sender-id.
-   *
-   * @example
-   * ```ts
-   * const response = await client.messages.schedule({
-   *   to: '+18445550001',
-   * });
-   * ```
-   */
-  schedule(body: MessageScheduleParams, options?: RequestOptions): APIPromise<MessageScheduleResponse> {
-    return this._client.post('/messages/schedule', { body, ...options });
-  }
 
   /**
    * Send a message with a Phone Number, Alphanumeric Sender ID, Short Code or Number
@@ -104,24 +38,6 @@ export class Messages extends APIResource {
    */
   send(body: MessageSendParams, options?: RequestOptions): APIPromise<MessageSendResponse> {
     return this._client.post('/messages', { body, ...options });
-  }
-
-  /**
-   * Send a group MMS message
-   *
-   * @example
-   * ```ts
-   * const response = await client.messages.sendGroupMms({
-   *   from: '+13125551234',
-   *   to: ['+18655551234', '+14155551234'],
-   * });
-   * ```
-   */
-  sendGroupMms(
-    body: MessageSendGroupMmsParams,
-    options?: RequestOptions,
-  ): APIPromise<MessageSendGroupMmsResponse> {
-    return this._client.post('/messages/group_mms', { body, ...options });
   }
 
   /**
@@ -180,22 +96,72 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Send a Whatsapp message
+   * Send a group MMS message
    *
    * @example
    * ```ts
-   * const response = await client.messages.sendWhatsapp({
+   * const response = await client.messages.sendGroupMms({
    *   from: '+13125551234',
-   *   to: '+13125551234',
-   *   whatsapp_message: {},
+   *   to: ['+18655551234', '+14155551234'],
    * });
    * ```
    */
-  sendWhatsapp(
-    body: MessageSendWhatsappParams,
+  sendGroupMms(
+    body: MessageSendGroupMmsParams,
     options?: RequestOptions,
-  ): APIPromise<MessageSendWhatsappResponse> {
-    return this._client.post('/messages/whatsapp', { body, ...options });
+  ): APIPromise<MessageSendGroupMmsResponse> {
+    return this._client.post('/messages/group_mms', { body, ...options });
+  }
+
+  /**
+   * Schedule a message with a Phone Number, Alphanumeric Sender ID, Short Code or
+   * Number Pool.
+   *
+   * This endpoint allows you to schedule a message with any messaging resource.
+   * Current messaging resources include: long-code, short-code, number-pool, and
+   * alphanumeric-sender-id.
+   *
+   * @example
+   * ```ts
+   * const response = await client.messages.schedule({
+   *   to: '+18445550001',
+   * });
+   * ```
+   */
+  schedule(body: MessageScheduleParams, options?: RequestOptions): APIPromise<MessageScheduleResponse> {
+    return this._client.post('/messages/schedule', { body, ...options });
+  }
+
+  /**
+   * Cancel a scheduled message that has not yet been sent. Only messages with
+   * `status=scheduled` and `send_at` more than a minute from now can be cancelled.
+   *
+   * @example
+   * ```ts
+   * const response = await client.messages.cancelScheduled(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  cancelScheduled(id: string, options?: RequestOptions): APIPromise<MessageCancelScheduledResponse> {
+    return this._client.delete(path`/messages/${id}`, options);
+  }
+
+  /**
+   * Note: This API endpoint can only retrieve messages that are no older than 10
+   * days since their creation. If you require messages older than this, please
+   * generate an
+   * [MDR report.](https://developers.telnyx.com/api-reference/mdr-usage-reports/create-mdr-usage-report)
+   *
+   * @example
+   * ```ts
+   * const message = await client.messages.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<MessageRetrieveResponse> {
+    return this._client.get(path`/messages/${id}`, options);
   }
 
   /**
@@ -219,31 +185,23 @@ export class Messages extends APIResource {
   ): APIPromise<MessageSendWithAlphanumericSenderResponse> {
     return this._client.post('/messages/alphanumeric_sender_id', { body, ...options });
   }
-}
 
-export interface MessagingError {
-  code: string;
-
-  title: string;
-
-  detail?: string;
-
-  meta?: { [key: string]: unknown };
-
-  source?: MessagingError.Source;
-}
-
-export namespace MessagingError {
-  export interface Source {
-    /**
-     * Indicates which query parameter caused the error.
-     */
-    parameter?: string;
-
-    /**
-     * JSON pointer (RFC6901) to the offending entity.
-     */
-    pointer?: string;
+  /**
+   * Retrieve all messages in a group MMS conversation by the group message ID.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.messages.retrieveGroupMessages(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  retrieveGroupMessages(
+    messageID: string,
+    options?: RequestOptions,
+  ): APIPromise<MessageRetrieveGroupMessagesResponse> {
+    return this._client.get(path`/messages/group/${messageID}`, options);
   }
 }
 
@@ -282,7 +240,7 @@ export interface OutboundMessagePayload {
    * These errors may point at addressees when referring to unsuccessful/unconfirmed
    * delivery statuses.
    */
-  errors?: Array<MessagingError>;
+  errors?: Array<Shared.MessagingError>;
 
   from?: OutboundMessagePayload.From;
 
@@ -292,6 +250,11 @@ export interface OutboundMessagePayload {
    * Unique identifier for a messaging profile.
    */
   messaging_profile_id?: string;
+
+  /**
+   * The number of characters in the message text
+   */
+  num_chars?: number;
 
   /**
    * The id of the organization the messaging profile belongs to.
@@ -1293,7 +1256,7 @@ export interface MessageCancelScheduledResponse {
    * These errors may point at addressees when referring to unsuccessful/unconfirmed
    * delivery statuses.
    */
-  errors?: Array<MessagingError>;
+  errors?: Array<Shared.MessagingError>;
 
   from?: MessageCancelScheduledResponse.From;
 
@@ -1303,6 +1266,11 @@ export interface MessageCancelScheduledResponse {
    * Unique identifier for a messaging profile.
    */
   messaging_profile_id?: string;
+
+  /**
+   * The number of characters in the message text
+   */
+  num_chars?: number;
 
   /**
    * The id of the organization the messaging profile belongs to.
@@ -1576,147 +1544,8 @@ export interface MessageSendShortCodeResponse {
   data?: OutboundMessagePayload;
 }
 
-export interface MessageSendWhatsappResponse {
-  data?: MessageSendWhatsappResponse.Data;
-}
-
-export namespace MessageSendWhatsappResponse {
-  export interface Data {
-    /**
-     * message ID
-     */
-    id?: string;
-
-    body?: MessagesAPI.WhatsappMessageContent;
-
-    direction?: string;
-
-    encoding?: string;
-
-    from?: Data.From;
-
-    messaging_profile_id?: string;
-
-    organization_id?: string;
-
-    received_at?: string;
-
-    record_type?: string;
-
-    to?: Array<MessagesAPI.RcsToItem>;
-
-    type?: string;
-
-    /**
-     * Seconds the message is queued due to rate limiting before being sent to the
-     * carrier. Represents the maximum wait across all applicable rate limits (account,
-     * carrier, campaign). 0.0 = no queuing delay.
-     */
-    wait_seconds?: number | null;
-  }
-
-  export namespace Data {
-    export interface From {
-      /**
-       * The carrier of the sender.
-       */
-      carrier?: string;
-
-      /**
-       * The line-type of the sender.
-       */
-      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-      /**
-       * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-       * code).
-       */
-      phone_number?: string;
-
-      status?: 'received' | 'delivered';
-    }
-  }
-}
-
 export interface MessageSendWithAlphanumericSenderResponse {
   data?: OutboundMessagePayload;
-}
-
-export interface MessageScheduleParams {
-  /**
-   * Receiving address (+E.164 formatted phone number or short code).
-   */
-  to: string;
-
-  /**
-   * Automatically detect if an SMS message is unusually long and exceeds a
-   * recommended limit of message parts.
-   */
-  auto_detect?: boolean;
-
-  /**
-   * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-   * code).
-   *
-   * **Required if sending with a phone number, short code, or alphanumeric sender
-   * ID.**
-   */
-  from?: string;
-
-  /**
-   * A list of media URLs. The total media size must be less than 1 MB.
-   *
-   * **Required for MMS**
-   */
-  media_urls?: Array<string>;
-
-  /**
-   * Unique identifier for a messaging profile.
-   *
-   * **Required if sending via number pool or with an alphanumeric sender ID.**
-   */
-  messaging_profile_id?: string;
-
-  /**
-   * ISO 8601 formatted date indicating when to send the message - accurate up till a
-   * minute.
-   */
-  send_at?: string;
-
-  /**
-   * Subject of multimedia message
-   */
-  subject?: string;
-
-  /**
-   * Message body (i.e., content) as a non-empty string.
-   *
-   * **Required for SMS**
-   */
-  text?: string;
-
-  /**
-   * The protocol for sending the message, either SMS or MMS.
-   */
-  type?: 'SMS' | 'MMS';
-
-  /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
-   */
-  use_profile_webhooks?: boolean;
-
-  /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
-   */
-  webhook_failover_url?: string;
-
-  /**
-   * The URL where webhooks related to this message will be sent.
-   */
-  webhook_url?: string;
 }
 
 export interface MessageSendParams {
@@ -1785,51 +1614,6 @@ export interface MessageSendParams {
    * The protocol for sending the message, either SMS or MMS.
    */
   type?: 'SMS' | 'MMS';
-
-  /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
-   */
-  use_profile_webhooks?: boolean;
-
-  /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
-   */
-  webhook_failover_url?: string;
-
-  /**
-   * The URL where webhooks related to this message will be sent.
-   */
-  webhook_url?: string;
-}
-
-export interface MessageSendGroupMmsParams {
-  /**
-   * Phone number, in +E.164 format, used to send the message.
-   */
-  from: string;
-
-  /**
-   * A list of destinations. No more than 8 destinations are allowed.
-   */
-  to: Array<string>;
-
-  /**
-   * A list of media URLs. The total media size must be less than 1 MB.
-   */
-  media_urls?: Array<string>;
-
-  /**
-   * Subject of multimedia message
-   */
-  subject?: string;
-
-  /**
-   * Message body (i.e., content) as a non-empty string.
-   */
-  text?: string;
 
   /**
    * If the profile this number is associated with has webhooks, use them for
@@ -2057,28 +1841,121 @@ export interface MessageSendShortCodeParams {
   webhook_url?: string;
 }
 
-export interface MessageSendWhatsappParams {
+export interface MessageSendGroupMmsParams {
   /**
-   * Phone number in +E.164 format associated with Whatsapp account
+   * Phone number, in +E.164 format, used to send the message.
    */
   from: string;
 
   /**
-   * Phone number in +E.164 format
+   * A list of destinations. No more than 8 destinations are allowed.
+   */
+  to: Array<string>;
+
+  /**
+   * A list of media URLs. The total media size must be less than 1 MB.
+   */
+  media_urls?: Array<string>;
+
+  /**
+   * Subject of multimedia message
+   */
+  subject?: string;
+
+  /**
+   * Message body (i.e., content) as a non-empty string.
+   */
+  text?: string;
+
+  /**
+   * If the profile this number is associated with has webhooks, use them for
+   * delivery notifications. If webhooks are also specified on the message itself,
+   * they will be attempted first, then those on the profile.
+   */
+  use_profile_webhooks?: boolean;
+
+  /**
+   * The failover URL where webhooks related to this message will be sent if sending
+   * to the primary URL fails.
+   */
+  webhook_failover_url?: string;
+
+  /**
+   * The URL where webhooks related to this message will be sent.
+   */
+  webhook_url?: string;
+}
+
+export interface MessageScheduleParams {
+  /**
+   * Receiving address (+E.164 formatted phone number or short code).
    */
   to: string;
 
-  whatsapp_message: WhatsappMessageContent;
+  /**
+   * Automatically detect if an SMS message is unusually long and exceeds a
+   * recommended limit of message parts.
+   */
+  auto_detect?: boolean;
 
   /**
-   * Messaging profile ID - required if the 'from' number is not SMS-enabled
+   * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
+   * code).
+   *
+   * **Required if sending with a phone number, short code, or alphanumeric sender
+   * ID.**
+   */
+  from?: string;
+
+  /**
+   * A list of media URLs. The total media size must be less than 1 MB.
+   *
+   * **Required for MMS**
+   */
+  media_urls?: Array<string>;
+
+  /**
+   * Unique identifier for a messaging profile.
+   *
+   * **Required if sending via number pool or with an alphanumeric sender ID.**
    */
   messaging_profile_id?: string;
 
   /**
-   * Message type - must be set to "WHATSAPP"
+   * ISO 8601 formatted date indicating when to send the message - accurate up till a
+   * minute.
    */
-  type?: 'WHATSAPP';
+  send_at?: string;
+
+  /**
+   * Subject of multimedia message
+   */
+  subject?: string;
+
+  /**
+   * Message body (i.e., content) as a non-empty string.
+   *
+   * **Required for SMS**
+   */
+  text?: string;
+
+  /**
+   * The protocol for sending the message, either SMS or MMS.
+   */
+  type?: 'SMS' | 'MMS';
+
+  /**
+   * If the profile this number is associated with has webhooks, use them for
+   * delivery notifications. If webhooks are also specified on the message itself,
+   * they will be attempted first, then those on the profile.
+   */
+  use_profile_webhooks?: boolean;
+
+  /**
+   * The failover URL where webhooks related to this message will be sent if sending
+   * to the primary URL fails.
+   */
+  webhook_failover_url?: string;
 
   /**
    * The URL where webhooks related to this message will be sent.
@@ -2127,7 +2004,6 @@ Messages.Rcs = Rcs;
 
 export declare namespace Messages {
   export {
-    type MessagingError as MessagingError,
     type OutboundMessagePayload as OutboundMessagePayload,
     type RcsAgentMessage as RcsAgentMessage,
     type RcsCardContent as RcsCardContent,
@@ -2149,15 +2025,13 @@ export declare namespace Messages {
     type MessageSendLongCodeResponse as MessageSendLongCodeResponse,
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
-    type MessageSendWhatsappResponse as MessageSendWhatsappResponse,
     type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
-    type MessageScheduleParams as MessageScheduleParams,
     type MessageSendParams as MessageSendParams,
-    type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
     type MessageSendLongCodeParams as MessageSendLongCodeParams,
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
     type MessageSendShortCodeParams as MessageSendShortCodeParams,
-    type MessageSendWhatsappParams as MessageSendWhatsappParams,
+    type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
+    type MessageScheduleParams as MessageScheduleParams,
     type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
   };
 

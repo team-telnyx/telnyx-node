@@ -13,7 +13,7 @@ describe('resource calls', () => {
     const responsePromise = client.calls.dial({
       connection_id: '7267xxxxxxxxxxxxxx',
       from: '+18005550101',
-      to: '+18005550100 or sip:username@sip.telnyx.com',
+      to: '+18005550100 or sip:username@sip.telnyx.com;secure=srtp',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -29,7 +29,7 @@ describe('resource calls', () => {
     const response = await client.calls.dial({
       connection_id: '7267xxxxxxxxxxxxxx',
       from: '+18005550101',
-      to: '+18005550100 or sip:username@sip.telnyx.com',
+      to: '+18005550100 or sip:username@sip.telnyx.com;secure=srtp',
       answering_machine_detection: 'detect',
       answering_machine_detection_config: {
         after_greeting_silence_millis: 1000,
@@ -113,6 +113,44 @@ describe('resource calls', () => {
           'v2:qqpb0mmvd-ovhhBr0BUQQn0fld5jIboaaX3-De0DkqXHzbf8d75xkw',
         ],
       },
+      conversation_relay_config: {
+        url: 'wss://example.com/conversation-relay',
+        custom_parameters: { customer_id: 'bar' },
+        dtmf_detection: true,
+        greeting: 'Hi! Ask me anything!',
+        interruptible: 'speech',
+        interruptible_greeting: 'dtmf',
+        interruption_settings: {
+          enable: true,
+          interruptible: 'speech',
+          interruptible_greeting: 'speech',
+          welcome_greeting_interruptible: 'speech',
+        },
+        language: 'en-US',
+        languages: [
+          {
+            language: 'en-US',
+            speech_model: 'nova-3',
+            transcription_engine: 'Deepgram',
+            transcription_engine_config: { transcription_model: 'bar' },
+            transcription_provider: 'Deepgram',
+            tts_provider: 'telnyx',
+            voice: 'Telnyx.Ultra.alloy',
+            voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
+          },
+        ],
+        provider: 'elevenlabs',
+        structured_provider: { voice_id: 'bar', model_id: 'bar' },
+        transcription_engine: 'Google',
+        transcription_engine_config: {
+          transcription_model: 'bar',
+          interim_results: 'bar',
+          keywords_boosting: 'bar',
+        },
+        tts_provider: 'telnyx',
+        voice: 'Telnyx.KokoroTTS.af',
+        voice_settings: { type: 'telnyx', voice_speed: 1 },
+      },
       custom_headers: [
         { name: 'head_1', value: 'val_1' },
         { name: 'head_2', value: 'val_2' },
@@ -140,6 +178,9 @@ describe('resource calls', () => {
       record_timeout_secs: 100,
       record_track: 'outbound',
       record_trim: 'trim-silence',
+      retry_on_timeout: true,
+      route_to_mobile: true,
+      send_digits_on_answer: 'wwww200',
       send_silence_when_idle: true,
       sip_auth_password: 'password',
       sip_auth_username: 'username',

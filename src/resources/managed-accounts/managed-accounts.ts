@@ -15,6 +15,28 @@ export class ManagedAccounts extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
+   * Lists the accounts managed by the current user. Users need to be explictly
+   * approved by Telnyx in order to become manager accounts.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const managedAccountListResponse of client.managedAccounts.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: ManagedAccountListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<ManagedAccountListResponsesDefaultFlatPagination, ManagedAccountListResponse> {
+    return this._client.getAPIList('/managed_accounts', DefaultFlatPagination<ManagedAccountListResponse>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Create a new managed account owned by the authenticated user. You need to be
    * explictly approved by Telnyx in order to become a manager account.
    *
@@ -30,6 +52,22 @@ export class ManagedAccounts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ManagedAccountCreateResponse> {
     return this._client.post('/managed_accounts', { body, ...options });
+  }
+
+  /**
+   * Display information about allocatable global outbound channels for the current
+   * user. Only usable by account managers.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.managedAccounts.getAllocatableGlobalOutboundChannels();
+   * ```
+   */
+  getAllocatableGlobalOutboundChannels(
+    options?: RequestOptions,
+  ): APIPromise<ManagedAccountGetAllocatableGlobalOutboundChannelsResponse> {
+    return this._client.get('/managed_accounts/allocatable_global_outbound_channels', options);
   }
 
   /**
@@ -61,44 +99,6 @@ export class ManagedAccounts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ManagedAccountUpdateResponse> {
     return this._client.patch(path`/managed_accounts/${id}`, { body, ...options });
-  }
-
-  /**
-   * Lists the accounts managed by the current user. Users need to be explictly
-   * approved by Telnyx in order to become manager accounts.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const managedAccountListResponse of client.managedAccounts.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: ManagedAccountListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<ManagedAccountListResponsesDefaultFlatPagination, ManagedAccountListResponse> {
-    return this._client.getAPIList('/managed_accounts', DefaultFlatPagination<ManagedAccountListResponse>, {
-      query,
-      ...options,
-    });
-  }
-
-  /**
-   * Display information about allocatable global outbound channels for the current
-   * user. Only usable by account managers.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.managedAccounts.getAllocatableGlobalOutboundChannels();
-   * ```
-   */
-  getAllocatableGlobalOutboundChannels(
-    options?: RequestOptions,
-  ): APIPromise<ManagedAccountGetAllocatableGlobalOutboundChannelsResponse> {
-    return this._client.get('/managed_accounts/allocatable_global_outbound_channels', options);
   }
 
   /**
@@ -370,6 +370,93 @@ export namespace ManagedAccountUpdateGlobalChannelLimitResponse {
   }
 }
 
+export interface ManagedAccountListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[email][contains], filter[email][eq], filter[organization_name][contains],
+   * filter[organization_name][eq], filter[status][eq]
+   */
+  filter?: ManagedAccountListParams.Filter;
+
+  /**
+   * Specifies if cancelled accounts should be included in the results.
+   */
+  include_cancelled_accounts?: boolean;
+
+  /**
+   * Specifies the sort order for results. By default sorting direction is ascending.
+   * To have the results sorted in descending order add the <code> -</code>
+   * prefix.<br/><br/> That is: <ul>
+   *
+   *   <li>
+   *     <code>email</code>: sorts the result by the
+   *     <code>email</code> field in ascending order.
+   *   </li>
+   *
+   *   <li>
+   *     <code>-email</code>: sorts the result by the
+   *     <code>email</code> field in descending order.
+   *   </li>
+   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
+   */
+  sort?: 'created_at' | 'email';
+}
+
+export namespace ManagedAccountListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally:
+   * filter[email][contains], filter[email][eq], filter[organization_name][contains],
+   * filter[organization_name][eq], filter[status][eq]
+   */
+  export interface Filter {
+    email?: Filter.Email;
+
+    organization_name?: Filter.OrganizationName;
+
+    status?: Filter.Status;
+  }
+
+  export namespace Filter {
+    export interface Email {
+      /**
+       * If present, email containing the given value will be returned. Matching is not
+       * case-sensitive. Requires at least three characters.
+       */
+      contains?: string;
+
+      /**
+       * If present, only returns results with the <code>email</code> matching exactly
+       * the value given.
+       */
+      eq?: string;
+    }
+
+    export interface OrganizationName {
+      /**
+       * If present, only returns results with the <code>organization_name</code>
+       * containing the given value. Matching is not case-sensitive. Requires at least
+       * three characters.
+       */
+      contains?: string;
+
+      /**
+       * If present, only returns results with the <code>organization_name</code>
+       * matching exactly the value given.
+       */
+      eq?: string;
+    }
+
+    export interface Status {
+      /**
+       * If present, only returns managed accounts with the <code>status</code> matching
+       * exactly the value given. Use <code>enabled</code> or <code>disabled</code> to
+       * filter accounts by whether they are currently able to use Telnyx services.
+       */
+      eq?: 'all' | 'active' | 'enabled' | 'cancelled' | 'disabled' | 'blocked';
+    }
+  }
+}
+
 export interface ManagedAccountCreateParams {
   /**
    * The name of the business for which the new managed account is being created,
@@ -419,82 +506,6 @@ export interface ManagedAccountUpdateParams {
   managed_account_allow_custom_pricing?: boolean;
 }
 
-export interface ManagedAccountListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[email][contains], filter[email][eq], filter[organization_name][contains],
-   * filter[organization_name][eq]
-   */
-  filter?: ManagedAccountListParams.Filter;
-
-  /**
-   * Specifies if cancelled accounts should be included in the results.
-   */
-  include_cancelled_accounts?: boolean;
-
-  /**
-   * Specifies the sort order for results. By default sorting direction is ascending.
-   * To have the results sorted in descending order add the <code> -</code>
-   * prefix.<br/><br/> That is: <ul>
-   *
-   *   <li>
-   *     <code>email</code>: sorts the result by the
-   *     <code>email</code> field in ascending order.
-   *   </li>
-   *
-   *   <li>
-   *     <code>-email</code>: sorts the result by the
-   *     <code>email</code> field in descending order.
-   *   </li>
-   * </ul> <br/> If not given, results are sorted by <code>created_at</code> in descending order.
-   */
-  sort?: 'created_at' | 'email';
-}
-
-export namespace ManagedAccountListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally:
-   * filter[email][contains], filter[email][eq], filter[organization_name][contains],
-   * filter[organization_name][eq]
-   */
-  export interface Filter {
-    email?: Filter.Email;
-
-    organization_name?: Filter.OrganizationName;
-  }
-
-  export namespace Filter {
-    export interface Email {
-      /**
-       * If present, email containing the given value will be returned. Matching is not
-       * case-sensitive. Requires at least three characters.
-       */
-      contains?: string;
-
-      /**
-       * If present, only returns results with the <code>email</code> matching exactly
-       * the value given.
-       */
-      eq?: string;
-    }
-
-    export interface OrganizationName {
-      /**
-       * If present, only returns results with the <code>organization_name</code>
-       * containing the given value. Matching is not case-sensitive. Requires at least
-       * three characters.
-       */
-      contains?: string;
-
-      /**
-       * If present, only returns results with the <code>organization_name</code>
-       * matching exactly the value given.
-       */
-      eq?: string;
-    }
-  }
-}
-
 export interface ManagedAccountUpdateGlobalChannelLimitParams {
   /**
    * Integer value that indicates the number of allocatable global outbound channels
@@ -518,9 +529,9 @@ export declare namespace ManagedAccounts {
     type ManagedAccountGetAllocatableGlobalOutboundChannelsResponse as ManagedAccountGetAllocatableGlobalOutboundChannelsResponse,
     type ManagedAccountUpdateGlobalChannelLimitResponse as ManagedAccountUpdateGlobalChannelLimitResponse,
     type ManagedAccountListResponsesDefaultFlatPagination as ManagedAccountListResponsesDefaultFlatPagination,
+    type ManagedAccountListParams as ManagedAccountListParams,
     type ManagedAccountCreateParams as ManagedAccountCreateParams,
     type ManagedAccountUpdateParams as ManagedAccountUpdateParams,
-    type ManagedAccountListParams as ManagedAccountListParams,
     type ManagedAccountUpdateGlobalChannelLimitParams as ManagedAccountUpdateGlobalChannelLimitParams,
   };
 

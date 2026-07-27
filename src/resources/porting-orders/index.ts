@@ -2,11 +2,11 @@
 
 export {
   ActionRequirements,
-  type ActionRequirementListResponse,
+  type PortingActionRequirement,
   type ActionRequirementInitiateResponse,
   type ActionRequirementListParams,
   type ActionRequirementInitiateParams,
-  type ActionRequirementListResponsesDefaultFlatPagination,
+  type PortingActionRequirementsDefaultFlatPagination,
 } from './action-requirements';
 export {
   Actions,
@@ -20,62 +20,62 @@ export {
   ActivationJobs,
   type ActivationJobRetrieveResponse,
   type ActivationJobUpdateResponse,
+  type ActivationJobListParams,
   type ActivationJobRetrieveParams,
   type ActivationJobUpdateParams,
-  type ActivationJobListParams,
 } from './activation-jobs';
 export {
   AdditionalDocuments,
+  type PortingAdditionalDocument,
   type AdditionalDocumentCreateResponse,
-  type AdditionalDocumentListResponse,
-  type AdditionalDocumentCreateParams,
   type AdditionalDocumentListParams,
+  type AdditionalDocumentCreateParams,
   type AdditionalDocumentDeleteParams,
-  type AdditionalDocumentListResponsesDefaultFlatPagination,
+  type PortingAdditionalDocumentsDefaultFlatPagination,
 } from './additional-documents';
 export {
   AssociatedPhoneNumbers,
   type PortingAssociatedPhoneNumber,
   type AssociatedPhoneNumberCreateResponse,
   type AssociatedPhoneNumberDeleteResponse,
-  type AssociatedPhoneNumberCreateParams,
   type AssociatedPhoneNumberListParams,
+  type AssociatedPhoneNumberCreateParams,
   type AssociatedPhoneNumberDeleteParams,
   type PortingAssociatedPhoneNumbersDefaultFlatPagination,
 } from './associated-phone-numbers';
 export {
   Comments,
+  type PortingOrdersComment,
   type CommentCreateResponse,
-  type CommentListResponse,
-  type CommentCreateParams,
   type CommentListParams,
-  type CommentListResponsesDefaultFlatPagination,
+  type CommentCreateParams,
+  type PortingOrdersCommentsDefaultFlatPagination,
 } from './comments';
 export {
   PhoneNumberBlocks,
   type PortingPhoneNumberBlock,
   type PhoneNumberBlockCreateResponse,
   type PhoneNumberBlockDeleteResponse,
-  type PhoneNumberBlockCreateParams,
   type PhoneNumberBlockListParams,
+  type PhoneNumberBlockCreateParams,
   type PhoneNumberBlockDeleteParams,
   type PortingPhoneNumberBlocksDefaultFlatPagination,
 } from './phone-number-blocks';
 export {
   PhoneNumberConfigurations,
+  type PortingPhoneNumberConfiguration,
   type PhoneNumberConfigurationCreateResponse,
-  type PhoneNumberConfigurationListResponse,
-  type PhoneNumberConfigurationCreateParams,
   type PhoneNumberConfigurationListParams,
-  type PhoneNumberConfigurationListResponsesDefaultFlatPagination,
+  type PhoneNumberConfigurationCreateParams,
+  type PortingPhoneNumberConfigurationsDefaultFlatPagination,
 } from './phone-number-configurations';
 export {
   PhoneNumberExtensions,
   type PortingPhoneNumberExtension,
   type PhoneNumberExtensionCreateResponse,
   type PhoneNumberExtensionDeleteResponse,
-  type PhoneNumberExtensionCreateParams,
   type PhoneNumberExtensionListParams,
+  type PhoneNumberExtensionCreateParams,
   type PhoneNumberExtensionDeleteParams,
   type PortingPhoneNumberExtensionsDefaultFlatPagination,
 } from './phone-number-extensions';
@@ -101,10 +101,10 @@ export {
   type PortingOrderRetrieveExceptionTypesResponse,
   type PortingOrderRetrieveRequirementsResponse,
   type PortingOrderRetrieveSubRequestResponse,
+  type PortingOrderListParams,
   type PortingOrderCreateParams,
   type PortingOrderRetrieveParams,
   type PortingOrderUpdateParams,
-  type PortingOrderListParams,
   type PortingOrderRetrieveLoaTemplateParams,
   type PortingOrderRetrieveRequirementsParams,
   type PortingOrdersActivationJobsDefaultFlatPagination,
@@ -113,10 +113,10 @@ export {
 } from './porting-orders';
 export {
   VerificationCodes,
-  type VerificationCodeListResponse,
+  type PortingVerificationCode,
   type VerificationCodeVerifyResponse,
   type VerificationCodeListParams,
   type VerificationCodeSendParams,
   type VerificationCodeVerifyParams,
-  type VerificationCodeListResponsesDefaultFlatPagination,
+  type PortingVerificationCodesDefaultFlatPagination,
 } from './verification-codes';

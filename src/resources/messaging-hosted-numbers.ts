@@ -10,33 +10,16 @@ import { path } from '../internal/utils/path';
 
 export class MessagingHostedNumbers extends APIResource {
   /**
-   * Retrieve a specific messaging hosted number by its ID or phone number.
+   * Delete a messaging hosted number
    *
    * @example
    * ```ts
    * const messagingHostedNumber =
-   *   await client.messagingHostedNumbers.retrieve('id');
+   *   await client.messagingHostedNumbers.delete('id');
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<MessagingHostedNumberRetrieveResponse> {
-    return this._client.get(path`/messaging_hosted_numbers/${id}`, options);
-  }
-
-  /**
-   * Update the messaging settings for a hosted number.
-   *
-   * @example
-   * ```ts
-   * const messagingHostedNumber =
-   *   await client.messagingHostedNumbers.update('id');
-   * ```
-   */
-  update(
-    id: string,
-    body: MessagingHostedNumberUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<MessagingHostedNumberUpdateResponse> {
-    return this._client.patch(path`/messaging_hosted_numbers/${id}`, { body, ...options });
+  delete(id: string, options?: RequestOptions): APIPromise<MessagingHostedNumberDeleteResponse> {
+    return this._client.delete(path`/messaging_hosted_numbers/${id}`, options);
   }
 
   /**
@@ -65,17 +48,59 @@ export class MessagingHostedNumbers extends APIResource {
   }
 
   /**
-   * Delete a messaging hosted number
+   * Retrieve a specific messaging hosted number by its ID or phone number.
    *
    * @example
    * ```ts
    * const messagingHostedNumber =
-   *   await client.messagingHostedNumbers.delete('id');
+   *   await client.messagingHostedNumbers.retrieve('id');
    * ```
    */
-  delete(id: string, options?: RequestOptions): APIPromise<MessagingHostedNumberDeleteResponse> {
-    return this._client.delete(path`/messaging_hosted_numbers/${id}`, options);
+  retrieve(id: string, options?: RequestOptions): APIPromise<MessagingHostedNumberRetrieveResponse> {
+    return this._client.get(path`/messaging_hosted_numbers/${id}`, options);
   }
+
+  /**
+   * Update the messaging settings for a hosted number.
+   *
+   * @example
+   * ```ts
+   * const messagingHostedNumber =
+   *   await client.messagingHostedNumbers.update('id');
+   * ```
+   */
+  update(
+    id: string,
+    body: MessagingHostedNumberUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessagingHostedNumberUpdateResponse> {
+    return this._client.patch(path`/messaging_hosted_numbers/${id}`, { body, ...options });
+  }
+}
+
+export interface UpdatePhoneNumberMessagingSettingsRequest {
+  /**
+   * Configure the messaging product for this number:
+   *
+   * - Omit this field or set its value to `null` to keep the current value.
+   * - Set this field to a quoted product ID to set this phone number to that product
+   */
+  messaging_product?: string;
+
+  /**
+   * Configure the messaging profile this phone number is assigned to:
+   *
+   * - Omit this field or set its value to `null` to keep the current value.
+   * - Set this field to `""` to unassign the number from its messaging profile
+   * - Set this field to a quoted UUID of a messaging profile to assign this number
+   *   to that messaging profile
+   */
+  messaging_profile_id?: string;
+
+  /**
+   * Tags to set on this phone number.
+   */
+  tags?: Array<string>;
 }
 
 export interface MessagingHostedNumberRetrieveResponse {
@@ -88,6 +113,28 @@ export interface MessagingHostedNumberUpdateResponse {
 
 export interface MessagingHostedNumberDeleteResponse {
   data?: Shared.MessagingHostedNumberOrder;
+}
+
+export interface MessagingHostedNumberListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter by messaging profile ID.
+   */
+  'filter[messaging_profile_id]'?: string;
+
+  /**
+   * Filter by exact phone number.
+   */
+  'filter[phone_number]'?: string;
+
+  /**
+   * Filter by phone number substring.
+   */
+  'filter[phone_number][contains]'?: string;
+
+  /**
+   * Sort by phone number.
+   */
+  'sort[phone_number]'?: 'asc' | 'desc';
 }
 
 export interface MessagingHostedNumberUpdateParams {
@@ -115,35 +162,14 @@ export interface MessagingHostedNumberUpdateParams {
   tags?: Array<string>;
 }
 
-export interface MessagingHostedNumberListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter by messaging profile ID.
-   */
-  'filter[messaging_profile_id]'?: string;
-
-  /**
-   * Filter by exact phone number.
-   */
-  'filter[phone_number]'?: string;
-
-  /**
-   * Filter by phone number substring.
-   */
-  'filter[phone_number][contains]'?: string;
-
-  /**
-   * Sort by phone number.
-   */
-  'sort[phone_number]'?: 'asc' | 'desc';
-}
-
 export declare namespace MessagingHostedNumbers {
   export {
+    type UpdatePhoneNumberMessagingSettingsRequest as UpdatePhoneNumberMessagingSettingsRequest,
     type MessagingHostedNumberRetrieveResponse as MessagingHostedNumberRetrieveResponse,
     type MessagingHostedNumberUpdateResponse as MessagingHostedNumberUpdateResponse,
     type MessagingHostedNumberDeleteResponse as MessagingHostedNumberDeleteResponse,
-    type MessagingHostedNumberUpdateParams as MessagingHostedNumberUpdateParams,
     type MessagingHostedNumberListParams as MessagingHostedNumberListParams,
+    type MessagingHostedNumberUpdateParams as MessagingHostedNumberUpdateParams,
   };
 }
 

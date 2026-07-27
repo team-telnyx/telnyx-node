@@ -11,51 +11,12 @@ import { path } from '../../internal/utils/path';
  */
 export class Tools extends APIResource {
   /**
-   * Create Tool
-   *
-   * @example
-   * ```ts
-   * const tool = await client.ai.tools.create({
-   *   display_name: 'display_name',
-   *   type: 'type',
-   * });
-   * ```
-   */
-  create(body: ToolCreateParams, options?: RequestOptions): APIPromise<ToolCreateResponse> {
-    return this._client.post('/ai/tools', { body, ...options });
-  }
-
-  /**
-   * Get Tool
-   *
-   * @example
-   * ```ts
-   * const tool = await client.ai.tools.retrieve('tool_id');
-   * ```
-   */
-  retrieve(toolID: string, options?: RequestOptions): APIPromise<ToolRetrieveResponse> {
-    return this._client.get(path`/ai/tools/${toolID}`, options);
-  }
-
-  /**
-   * Update Tool
-   *
-   * @example
-   * ```ts
-   * const tool = await client.ai.tools.update('tool_id');
-   * ```
-   */
-  update(toolID: string, body: ToolUpdateParams, options?: RequestOptions): APIPromise<ToolUpdateResponse> {
-    return this._client.patch(path`/ai/tools/${toolID}`, { body, ...options });
-  }
-
-  /**
    * List Tools
    *
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const toolListResponse of client.ai.tools.list()) {
+   * for await (const sharedToolResponse of client.ai.tools.list()) {
    *   // ...
    * }
    * ```
@@ -63,11 +24,26 @@ export class Tools extends APIResource {
   list(
     query: ToolListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ToolListResponsesDefaultFlatPagination, ToolListResponse> {
-    return this._client.getAPIList('/ai/tools', DefaultFlatPagination<ToolListResponse>, {
+  ): PagePromise<SharedToolResponsesDefaultFlatPagination, SharedToolResponse> {
+    return this._client.getAPIList('/ai/tools', DefaultFlatPagination<SharedToolResponse>, {
       query,
       ...options,
     });
+  }
+
+  /**
+   * Create Tool
+   *
+   * @example
+   * ```ts
+   * const sharedToolResponse = await client.ai.tools.create({
+   *   display_name: 'display_name',
+   *   type: 'type',
+   * });
+   * ```
+   */
+  create(body: ToolCreateParams, options?: RequestOptions): APIPromise<SharedToolResponse> {
+    return this._client.post('/ai/tools', { body, ...options });
   }
 
   /**
@@ -81,53 +57,62 @@ export class Tools extends APIResource {
   delete(toolID: string, options?: RequestOptions): APIPromise<unknown> {
     return this._client.delete(path`/ai/tools/${toolID}`, options);
   }
+
+  /**
+   * Get Tool
+   *
+   * @example
+   * ```ts
+   * const sharedToolResponse = await client.ai.tools.retrieve(
+   *   'tool_id',
+   * );
+   * ```
+   */
+  retrieve(toolID: string, options?: RequestOptions): APIPromise<SharedToolResponse> {
+    return this._client.get(path`/ai/tools/${toolID}`, options);
+  }
+
+  /**
+   * Update Tool
+   *
+   * @example
+   * ```ts
+   * const sharedToolResponse = await client.ai.tools.update(
+   *   'tool_id',
+   * );
+   * ```
+   */
+  update(toolID: string, body: ToolUpdateParams, options?: RequestOptions): APIPromise<SharedToolResponse> {
+    return this._client.patch(path`/ai/tools/${toolID}`, { body, ...options });
+  }
 }
 
-export type ToolListResponsesDefaultFlatPagination = DefaultFlatPagination<ToolListResponse>;
+export type SharedToolResponsesDefaultFlatPagination = DefaultFlatPagination<SharedToolResponse>;
 
-export interface ToolCreateResponse {
-  id: string;
+export interface PayToolParams {
+  /**
+   * The name of the pay connector configured in the Telnyx API. Must reference an
+   * existing pay connector for this organization.
+   */
+  connector_name: string;
 
-  tool_definition: { [key: string]: unknown };
+  /**
+   * Default currency for payments processed by this tool.
+   */
+  currency?: string;
 
-  type: string;
+  /**
+   * Optional description of the pay tool that will be passed to the assistant.
+   */
+  description?: string | null;
 
-  created_at?: string;
-
-  display_name?: string;
-
-  timeout_ms?: number;
+  /**
+   * Default payment method for payments processed by this tool.
+   */
+  payment_method?: string;
 }
 
-export interface ToolRetrieveResponse {
-  id: string;
-
-  tool_definition: { [key: string]: unknown };
-
-  type: string;
-
-  created_at?: string;
-
-  display_name?: string;
-
-  timeout_ms?: number;
-}
-
-export interface ToolUpdateResponse {
-  id: string;
-
-  tool_definition: { [key: string]: unknown };
-
-  type: string;
-
-  created_at?: string;
-
-  display_name?: string;
-
-  timeout_ms?: number;
-}
-
-export interface ToolListResponse {
+export interface SharedToolResponse {
   id: string;
 
   tool_definition: { [key: string]: unknown };
@@ -143,16 +128,32 @@ export interface ToolListResponse {
 
 export type ToolDeleteResponse = unknown;
 
+export interface ToolListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter results by filter name.
+   */
+  'filter[name]'?: string;
+
+  /**
+   * Filter results by filter type.
+   */
+  'filter[type]'?: string;
+}
+
 export interface ToolCreateParams {
   display_name: string;
 
   type: string;
+
+  client_side_tool?: { [key: string]: unknown };
 
   function?: { [key: string]: unknown };
 
   handoff?: { [key: string]: unknown };
 
   invite?: { [key: string]: unknown };
+
+  pay?: PayToolParams;
 
   retrieval?: { [key: string]: unknown };
 
@@ -164,6 +165,8 @@ export interface ToolCreateParams {
 }
 
 export interface ToolUpdateParams {
+  client_side_tool?: { [key: string]: unknown };
+
   display_name?: string;
 
   function?: { [key: string]: unknown };
@@ -171,6 +174,8 @@ export interface ToolUpdateParams {
   handoff?: { [key: string]: unknown };
 
   invite?: { [key: string]: unknown };
+
+  pay?: PayToolParams;
 
   retrieval?: { [key: string]: unknown };
 
@@ -183,22 +188,14 @@ export interface ToolUpdateParams {
   [k: string]: unknown;
 }
 
-export interface ToolListParams extends DefaultFlatPaginationParams {
-  'filter[name]'?: string;
-
-  'filter[type]'?: string;
-}
-
 export declare namespace Tools {
   export {
-    type ToolCreateResponse as ToolCreateResponse,
-    type ToolRetrieveResponse as ToolRetrieveResponse,
-    type ToolUpdateResponse as ToolUpdateResponse,
-    type ToolListResponse as ToolListResponse,
+    type PayToolParams as PayToolParams,
+    type SharedToolResponse as SharedToolResponse,
     type ToolDeleteResponse as ToolDeleteResponse,
-    type ToolListResponsesDefaultFlatPagination as ToolListResponsesDefaultFlatPagination,
+    type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
+    type ToolListParams as ToolListParams,
     type ToolCreateParams as ToolCreateParams,
     type ToolUpdateParams as ToolUpdateParams,
-    type ToolListParams as ToolListParams,
   };
 }

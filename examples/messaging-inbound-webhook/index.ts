@@ -16,7 +16,9 @@ app.use(express.json());
 app.use(function webhookValidator(req: any, res: any, next: any) {
   try {
     // Simple webhook validation - in production you'd want proper signature verification
-    const event = telnyx.webhooks.unwrap(JSON.stringify(req.body));
+    const event = telnyx.webhooks.unwrap(JSON.stringify(req.body), {
+      headers: req.headers as Record<string, string>,
+    });
     req.telnyxEvent = event;
     next();
   } catch (e) {

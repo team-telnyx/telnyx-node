@@ -7,8 +7,8 @@ export {
   type UserGroupReference,
   type UserRetrieveResponse,
   type UserGetGroupsReportResponse,
-  type UserRetrieveParams,
   type UserListParams,
   type UserGetGroupsReportParams,
+  type UserRetrieveParams,
   type OrganizationUsersDefaultFlatPagination,
 } from './users/index';

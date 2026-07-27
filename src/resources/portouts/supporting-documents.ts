@@ -10,6 +10,21 @@ import { path } from '../../internal/utils/path';
  */
 export class SupportingDocuments extends APIResource {
   /**
+   * List every supporting documents for a portout request.
+   *
+   * @example
+   * ```ts
+   * const supportingDocuments =
+   *   await client.portouts.supportingDocuments.list(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  list(id: string, options?: RequestOptions): APIPromise<SupportingDocumentListResponse> {
+    return this._client.get(path`/portouts/${id}/supporting_documents`, options);
+  }
+
+  /**
    * Creates a list of supporting documents on a portout request.
    *
    * @example
@@ -26,21 +41,6 @@ export class SupportingDocuments extends APIResource {
     options?: RequestOptions,
   ): APIPromise<SupportingDocumentCreateResponse> {
     return this._client.post(path`/portouts/${id}/supporting_documents`, { body, ...options });
-  }
-
-  /**
-   * List every supporting documents for a portout request.
-   *
-   * @example
-   * ```ts
-   * const supportingDocuments =
-   *   await client.portouts.supportingDocuments.list(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
-   * ```
-   */
-  list(id: string, options?: RequestOptions): APIPromise<SupportingDocumentListResponse> {
-    return this._client.get(path`/portouts/${id}/supporting_documents`, options);
   }
 }
 

@@ -1,17 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import {
-  ContentBlock,
-  McpRequestContext,
-  McpTool,
-  Metadata,
-  ToolCallResult,
-  asErrorResult,
-  asTextContentResult,
-} from './types';
+import { ContentBlock, McpRequestContext, McpTool, Metadata, ToolCallResult, asErrorResult } from './types';
 import { Tool } from '@modelcontextprotocol/sdk/types.js';
-import { readEnv } from './util';
-import { WorkerInput, WorkerOutput } from './code-tool-types';
+import { WorkerOutput } from './code-tool-types';
 import { getLogger } from './logger';
 import { SdkMethod } from './methods';
 import { McpCodeExecutionMode } from './options';
@@ -113,13 +104,8 @@ export function codeTool({
     let result: ToolCallResult;
     const startTime = Date.now();
 
-    if (codeExecutionMode === 'local') {
-      logger.debug('Executing code in local Deno environment');
-      result = await localDenoHandler({ reqContext, args });
-    } else {
-      logger.debug('Executing code in remote Stainless environment');
-      result = await remoteStainlessHandler({ reqContext, args });
-    }
+    logger.debug('Executing code in local Deno environment');
+    result = await localDenoHandler({ reqContext, args });
 
     logger.info(
       {
@@ -136,69 +122,32 @@ export function codeTool({
   return { metadata, tool, handler };
 }
 
-const remoteStainlessHandler = async ({
-  reqContext,
-  args,
+export const buildCodeWorkerEnvironment = ({
+  serverEnv,
+  clientEnv,
+  allowedClientEnvNames,
 }: {
-  reqContext: McpRequestContext;
-  args: any;
-}): Promise<ToolCallResult> => {
-  const code = args.code as string;
-  const intent = args.intent as string | undefined;
-  const client = reqContext.client;
-
-  const codeModeEndpoint = readEnv('CODE_MODE_ENDPOINT_URL') ?? 'https://api.stainless.com/api/ai/code-tool';
-
-  const localClientEnvs = {
-    TELNYX_API_KEY: readEnv('TELNYX_API_KEY') ?? client.apiKey ?? undefined,
-    TELNYX_PUBLIC_KEY: readEnv('TELNYX_PUBLIC_KEY') ?? client.publicKey ?? undefined,
-    TELNYX_CLIENT_ID: readEnv('TELNYX_CLIENT_ID') ?? client.clientID ?? undefined,
-    TELNYX_CLIENT_SECRET: readEnv('TELNYX_CLIENT_SECRET') ?? client.clientSecret ?? undefined,
-    TELNYX_BASE_URL: readEnv('TELNYX_BASE_URL') ?? client.baseURL ?? undefined,
+  serverEnv: NodeJS.ProcessEnv;
+  clientEnv: Record<string, unknown> | undefined;
+  allowedClientEnvNames: readonly string[];
+}): { env: Record<string, string>; readableClientEnvNames: string[] } => {
+  const runtimeEnvKeys = ['PATH', 'HOME', 'TMPDIR', 'TEMP', 'TMP', 'DENO_DIR'] as const;
+  const runtimeEnv = Object.fromEntries(
+    runtimeEnvKeys.flatMap((key) => {
+      const value = serverEnv[key];
+      return value === undefined ? [] : [[key, value]];
+    }),
+  );
+  const allowedNames = new Set(allowedClientEnvNames);
+  const safeClientEnv = Object.fromEntries(
+    Object.entries(clientEnv ?? {}).filter(
+      (entry): entry is [string, string] => allowedNames.has(entry[0]) && typeof entry[1] === 'string',
+    ),
+  );
+  return {
+    env: { ...runtimeEnv, ...safeClientEnv },
+    readableClientEnvNames: Object.keys(safeClientEnv),
   };
-  // Merge any upstream client envs from the request header, with upstream values taking precedence.
-  const mergedClientEnvs = { ...localClientEnvs, ...reqContext.upstreamClientEnvs };
-
-  // Setting a Stainless API key authenticates requests to the code tool endpoint.
-  const res = await fetch(codeModeEndpoint, {
-    method: 'POST',
-    headers: {
-      ...(reqContext.stainlessApiKey && { Authorization: reqContext.stainlessApiKey }),
-      'Content-Type': 'application/json',
-      'x-stainless-mcp-client-envs': JSON.stringify(mergedClientEnvs),
-    },
-    body: JSON.stringify({
-      project_name: 'telnyx',
-      code,
-      intent,
-      client_opts: {},
-    } satisfies WorkerInput),
-  });
-
-  if (!res.ok) {
-    if (res.status === 404 && !reqContext.stainlessApiKey) {
-      throw new Error(
-        'Could not access code tool for this project. You may need to provide a Stainless API key via the STAINLESS_API_KEY environment variable, the --stainless-api-key flag, or the x-stainless-api-key HTTP header.',
-      );
-    }
-    throw new Error(
-      `${res.status}: ${
-        res.statusText
-      } error when trying to contact Code Tool server. Details: ${await res.text()}`,
-    );
-  }
-
-  const { is_error, result, log_lines, err_lines } = (await res.json()) as WorkerOutput;
-  const hasLogs = log_lines.length > 0 || err_lines.length > 0;
-  const output = {
-    result,
-    ...(log_lines.length > 0 && { log_lines }),
-    ...(err_lines.length > 0 && { err_lines }),
-  };
-  if (is_error) {
-    return asErrorResult(typeof result === 'string' && !hasLogs ? result : JSON.stringify(output, null, 2));
-  }
-  return asTextContentResult(output);
 };
 
 const localDenoHandler = async ({
@@ -227,8 +176,7 @@ const localDenoHandler = async ({
   // Check if deno is in PATH
   const { execSync } = await import('node:child_process');
   try {
-    execSync('command -v deno', { stdio: 'ignore' });
-    denoPath = 'deno';
+    denoPath = execSync('command -v deno', { encoding: 'utf8' }).trim();
   } catch {
     try {
       // Use deno binary in node_modules if it's found
@@ -263,22 +211,32 @@ const localDenoHandler = async ({
 
   const allowRead = allowReadPaths.join(',');
 
+  const { env: workerEnv, readableClientEnvNames } = buildCodeWorkerEnvironment({
+    serverEnv: process.env,
+    clientEnv: reqContext.upstreamClientEnvs,
+    allowedClientEnvNames: [
+      'TELNYX_API_KEY',
+      'TELNYX_PUBLIC_KEY',
+      'TELNYX_CLIENT_ID',
+      'TELNYX_CLIENT_SECRET',
+      'TELNYX_BASE_URL',
+    ],
+  });
+
   const worker = await newDenoHTTPWorker(url.pathToFileURL(workerPath), {
     denoExecutable: denoPath,
     runFlags: [
       `--node-modules-dir=manual`,
       `--allow-read=${allowRead}`,
       `--allow-net=${baseURLHostname}`,
-      // Allow environment variables because instantiating the client will try to read from them,
-      // even though they are not set.
-      '--allow-env',
+      ...(readableClientEnvNames.length > 0 ? [`--allow-env=${readableClientEnvNames.join(',')}`] : []),
     ],
     printOutput: true,
     spawnOptions: {
       cwd: path.dirname(workerPath),
-      // Merge any upstream client envs into the Deno subprocess environment,
-      // with the upstream env vars taking precedence.
-      env: { ...process.env, ...reqContext.upstreamClientEnvs },
+      // Do not expose the MCP server's inherited environment to executed code.
+      // Only non-secret runtime variables and client-provided variables are forwarded.
+      env: workerEnv,
     },
   });
 

@@ -8,6 +8,27 @@ import { path } from '../internal/utils/path';
 
 export class NumberBlockOrders extends APIResource {
   /**
+   * Get a paginated list of number block orders.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const numberBlockOrder of client.numberBlockOrders.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: NumberBlockOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<NumberBlockOrdersDefaultFlatPagination, NumberBlockOrder> {
+    return this._client.getAPIList('/number_block_orders', DefaultFlatPagination<NumberBlockOrder>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a phone number block order.
    *
    * @example
@@ -42,27 +63,6 @@ export class NumberBlockOrders extends APIResource {
     options?: RequestOptions,
   ): APIPromise<NumberBlockOrderRetrieveResponse> {
     return this._client.get(path`/number_block_orders/${numberBlockOrderID}`, options);
-  }
-
-  /**
-   * Get a paginated list of number block orders.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const numberBlockOrder of client.numberBlockOrders.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: NumberBlockOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<NumberBlockOrdersDefaultFlatPagination, NumberBlockOrder> {
-    return this._client.getAPIList('/number_block_orders', DefaultFlatPagination<NumberBlockOrder>, {
-      query,
-      ...options,
-    });
   }
 }
 
@@ -133,33 +133,6 @@ export interface NumberBlockOrderRetrieveResponse {
   data?: NumberBlockOrder;
 }
 
-export interface NumberBlockOrderCreateParams {
-  /**
-   * The phone number range included in the block.
-   */
-  range: number;
-
-  /**
-   * Starting phone number block
-   */
-  starting_number: string;
-
-  /**
-   * Identifies the connection associated with this phone number.
-   */
-  connection_id?: string;
-
-  /**
-   * A customer reference string for customer look ups.
-   */
-  customer_reference?: string;
-
-  /**
-   * Identifies the messaging profile associated with the phone number.
-   */
-  messaging_profile_id?: string;
-}
-
 export interface NumberBlockOrderListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
@@ -208,13 +181,40 @@ export namespace NumberBlockOrderListParams {
   }
 }
 
+export interface NumberBlockOrderCreateParams {
+  /**
+   * The phone number range included in the block.
+   */
+  range: number;
+
+  /**
+   * Starting phone number block
+   */
+  starting_number: string;
+
+  /**
+   * Identifies the connection associated with this phone number.
+   */
+  connection_id?: string;
+
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string;
+
+  /**
+   * Identifies the messaging profile associated with the phone number.
+   */
+  messaging_profile_id?: string;
+}
+
 export declare namespace NumberBlockOrders {
   export {
     type NumberBlockOrder as NumberBlockOrder,
     type NumberBlockOrderCreateResponse as NumberBlockOrderCreateResponse,
     type NumberBlockOrderRetrieveResponse as NumberBlockOrderRetrieveResponse,
     type NumberBlockOrdersDefaultFlatPagination as NumberBlockOrdersDefaultFlatPagination,
-    type NumberBlockOrderCreateParams as NumberBlockOrderCreateParams,
     type NumberBlockOrderListParams as NumberBlockOrderListParams,
+    type NumberBlockOrderCreateParams as NumberBlockOrderCreateParams,
   };
 }

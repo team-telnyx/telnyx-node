@@ -8,6 +8,21 @@ import { path } from '../../../internal/utils/path';
 
 export class KnowledgeBases extends APIResource {
   /**
+   * List all knowledge bases for a mission
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.ai.missions.knowledgeBases.listKnowledgeBases(
+   *     'mission_id',
+   *   );
+   * ```
+   */
+  listKnowledgeBases(missionID: string, options?: RequestOptions): APIPromise<unknown> {
+    return this._client.get(path`/ai/missions/${missionID}/knowledge-bases`, options);
+  }
+
+  /**
    * Create a new knowledge base for a mission
    *
    * @example
@@ -67,21 +82,6 @@ export class KnowledgeBases extends APIResource {
   }
 
   /**
-   * List all knowledge bases for a mission
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.ai.missions.knowledgeBases.listKnowledgeBases(
-   *     'mission_id',
-   *   );
-   * ```
-   */
-  listKnowledgeBases(missionID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.get(path`/ai/missions/${missionID}/knowledge-bases`, options);
-  }
-
-  /**
    * Update a knowledge base definition
    *
    * @example
@@ -112,14 +112,23 @@ export type KnowledgeBaseListKnowledgeBasesResponse = unknown;
 export type KnowledgeBaseUpdateKnowledgeBaseResponse = unknown;
 
 export interface KnowledgeBaseDeleteKnowledgeBaseParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface KnowledgeBaseGetKnowledgeBaseParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 
 export interface KnowledgeBaseUpdateKnowledgeBaseParams {
+  /**
+   * Unique identifier of the mission.
+   */
   mission_id: string;
 }
 

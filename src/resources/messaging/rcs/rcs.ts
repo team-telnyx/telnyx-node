@@ -14,27 +14,6 @@ export class Rcs extends APIResource {
   agents: AgentsAPI.Agents = new AgentsAPI.Agents(this._client);
 
   /**
-   * Adds a test phone number to an RCS agent for testing purposes.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.messaging.rcs.inviteTestNumber(
-   *     'phone_number',
-   *     { id: 'id' },
-   *   );
-   * ```
-   */
-  inviteTestNumber(
-    phoneNumber: string,
-    params: RcInviteTestNumberParams,
-    options?: RequestOptions,
-  ): APIPromise<RcInviteTestNumberResponse> {
-    const { id } = params;
-    return this._client.put(path`/messaging/rcs/test_number_invite/${id}/${phoneNumber}`, options);
-  }
-
-  /**
    * Check RCS capabilities (batch)
    *
    * @example
@@ -72,6 +51,27 @@ export class Rcs extends APIResource {
   ): APIPromise<RcRetrieveCapabilitiesResponse> {
     const { agent_id } = params;
     return this._client.get(path`/messaging/rcs/capabilities/${agent_id}/${phoneNumber}`, options);
+  }
+
+  /**
+   * Adds a test phone number to an RCS agent for testing purposes.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.messaging.rcs.inviteTestNumber(
+   *     'phone_number',
+   *     { id: 'id' },
+   *   );
+   * ```
+   */
+  inviteTestNumber(
+    phoneNumber: string,
+    params: RcInviteTestNumberParams,
+    options?: RequestOptions,
+  ): APIPromise<RcInviteTestNumberResponse> {
+    const { id } = params;
+    return this._client.put(path`/messaging/rcs/test_number_invite/${id}/${phoneNumber}`, options);
   }
 }
 
@@ -138,13 +138,6 @@ export interface RcRetrieveCapabilitiesResponse {
   data?: RcsCapabilities;
 }
 
-export interface RcInviteTestNumberParams {
-  /**
-   * RCS agent ID
-   */
-  id: string;
-}
-
 export interface RcListBulkCapabilitiesParams {
   /**
    * RCS Agent ID
@@ -164,6 +157,13 @@ export interface RcRetrieveCapabilitiesParams {
   agent_id: string;
 }
 
+export interface RcInviteTestNumberParams {
+  /**
+   * RCS agent ID
+   */
+  id: string;
+}
+
 Rcs.Agents = Agents;
 
 export declare namespace Rcs {
@@ -172,14 +172,14 @@ export declare namespace Rcs {
     type RcInviteTestNumberResponse as RcInviteTestNumberResponse,
     type RcListBulkCapabilitiesResponse as RcListBulkCapabilitiesResponse,
     type RcRetrieveCapabilitiesResponse as RcRetrieveCapabilitiesResponse,
-    type RcInviteTestNumberParams as RcInviteTestNumberParams,
     type RcListBulkCapabilitiesParams as RcListBulkCapabilitiesParams,
     type RcRetrieveCapabilitiesParams as RcRetrieveCapabilitiesParams,
+    type RcInviteTestNumberParams as RcInviteTestNumberParams,
   };
 
   export {
     Agents as Agents,
-    type AgentUpdateParams as AgentUpdateParams,
     type AgentListParams as AgentListParams,
+    type AgentUpdateParams as AgentUpdateParams,
   };
 }

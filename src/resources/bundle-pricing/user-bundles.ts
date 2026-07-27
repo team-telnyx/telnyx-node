@@ -10,6 +10,32 @@ import { path } from '../../internal/utils/path';
 
 export class UserBundles extends APIResource {
   /**
+   * Get a paginated list of user bundles.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const userBundle of client.bundlePricing.userBundles.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    params: UserBundleListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<UserBundlesDefaultFlatPagination, UserBundle> {
+    const { authorization_bearer, ...query } = params ?? {};
+    return this._client.getAPIList('/bundle_pricing/user_bundles', DefaultFlatPagination<UserBundle>, {
+      query,
+      ...options,
+      headers: buildHeaders([
+        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
+        options?.headers,
+      ]),
+    });
+  }
+
+  /**
    * Creates multiple user bundles for the user.
    *
    * @example
@@ -31,48 +57,20 @@ export class UserBundles extends APIResource {
   }
 
   /**
-   * Retrieves a user bundle by its ID.
+   * Returns all user bundles that aren't in use.
    *
    * @example
    * ```ts
-   * const userBundle =
-   *   await client.bundlePricing.userBundles.retrieve(
-   *     'ca1d2263-d1f1-43ac-ba53-248e7a4bb26a',
-   *   );
+   * const response =
+   *   await client.bundlePricing.userBundles.listUnused();
    * ```
    */
-  retrieve(
-    userBundleID: string,
-    params: UserBundleRetrieveParams | null | undefined = {},
+  listUnused(
+    params: UserBundleListUnusedParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<UserBundleRetrieveResponse> {
-    const { authorization_bearer } = params ?? {};
-    return this._client.get(path`/bundle_pricing/user_bundles/${userBundleID}`, {
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
-  }
-
-  /**
-   * Get a paginated list of user bundles.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const userBundle of client.bundlePricing.userBundles.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    params: UserBundleListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<UserBundlesDefaultFlatPagination, UserBundle> {
+  ): APIPromise<UserBundleListUnusedResponse> {
     const { authorization_bearer, ...query } = params ?? {};
-    return this._client.getAPIList('/bundle_pricing/user_bundles', DefaultFlatPagination<UserBundle>, {
+    return this._client.get('/bundle_pricing/user_bundles/unused', {
       query,
       ...options,
       headers: buildHeaders([
@@ -109,6 +107,32 @@ export class UserBundles extends APIResource {
   }
 
   /**
+   * Retrieves a user bundle by its ID.
+   *
+   * @example
+   * ```ts
+   * const userBundle =
+   *   await client.bundlePricing.userBundles.retrieve(
+   *     'ca1d2263-d1f1-43ac-ba53-248e7a4bb26a',
+   *   );
+   * ```
+   */
+  retrieve(
+    userBundleID: string,
+    params: UserBundleRetrieveParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<UserBundleRetrieveResponse> {
+    const { authorization_bearer } = params ?? {};
+    return this._client.get(path`/bundle_pricing/user_bundles/${userBundleID}`, {
+      ...options,
+      headers: buildHeaders([
+        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
+        options?.headers,
+      ]),
+    });
+  }
+
+  /**
    * Retrieves the resources of a user bundle by its ID.
    *
    * @example
@@ -126,30 +150,6 @@ export class UserBundles extends APIResource {
   ): APIPromise<UserBundleListResourcesResponse> {
     const { authorization_bearer } = params ?? {};
     return this._client.get(path`/bundle_pricing/user_bundles/${userBundleID}/resources`, {
-      ...options,
-      headers: buildHeaders([
-        { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
-        options?.headers,
-      ]),
-    });
-  }
-
-  /**
-   * Returns all user bundles that aren't in use.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.bundlePricing.userBundles.listUnused();
-   * ```
-   */
-  listUnused(
-    params: UserBundleListUnusedParams | null | undefined = {},
-    options?: RequestOptions,
-  ): APIPromise<UserBundleListUnusedResponse> {
-    const { authorization_bearer, ...query } = params ?? {};
-    return this._client.get('/bundle_pricing/user_bundles/unused', {
-      query,
       ...options,
       headers: buildHeaders([
         { ...(authorization_bearer != null ? { authorization_bearer: authorization_bearer } : undefined) },
@@ -250,45 +250,6 @@ export namespace UserBundleListUnusedResponse {
   }
 }
 
-export interface UserBundleCreateParams {
-  /**
-   * Body param: Idempotency key for the request. Can be any UUID, but should always
-   * be unique for each request.
-   */
-  idempotency_key?: string;
-
-  /**
-   * Body param
-   */
-  items?: Array<UserBundleCreateParams.Item>;
-
-  /**
-   * Header param: Authenticates the request with your Telnyx API V2 KEY
-   */
-  authorization_bearer?: string;
-}
-
-export namespace UserBundleCreateParams {
-  export interface Item {
-    /**
-     * Quantity of user bundles to order.
-     */
-    billing_bundle_id: string;
-
-    /**
-     * Quantity of user bundles to order.
-     */
-    quantity: number;
-  }
-}
-
-export interface UserBundleRetrieveParams {
-  /**
-   * Authenticates the request with your Telnyx API V2 KEY
-   */
-  authorization_bearer?: string;
-}
-
 export interface UserBundleListParams extends DefaultFlatPaginationParams {
   /**
    * Query param: Consolidated filter parameter (deepObject style). Supports
@@ -322,18 +283,36 @@ export namespace UserBundleListParams {
   }
 }
 
-export interface UserBundleDeactivateParams {
+export interface UserBundleCreateParams {
   /**
-   * Authenticates the request with your Telnyx API V2 KEY
+   * Body param: Idempotency key for the request. Can be any UUID, but should always
+   * be unique for each request.
+   */
+  idempotency_key?: string;
+
+  /**
+   * Body param
+   */
+  items?: Array<UserBundleCreateParams.Item>;
+
+  /**
+   * Header param: Authenticates the request with your Telnyx API V2 KEY
    */
   authorization_bearer?: string;
 }
 
-export interface UserBundleListResourcesParams {
-  /**
-   * Authenticates the request with your Telnyx API V2 KEY
-   */
-  authorization_bearer?: string;
+export namespace UserBundleCreateParams {
+  export interface Item {
+    /**
+     * Quantity of user bundles to order.
+     */
+    billing_bundle_id: string;
+
+    /**
+     * Quantity of user bundles to order.
+     */
+    quantity: number;
+  }
 }
 
 export interface UserBundleListUnusedParams {
@@ -369,6 +348,27 @@ export namespace UserBundleListUnusedParams {
   }
 }
 
+export interface UserBundleDeactivateParams {
+  /**
+   * Authenticates the request with your Telnyx API V2 KEY
+   */
+  authorization_bearer?: string;
+}
+
+export interface UserBundleRetrieveParams {
+  /**
+   * Authenticates the request with your Telnyx API V2 KEY
+   */
+  authorization_bearer?: string;
+}
+
+export interface UserBundleListResourcesParams {
+  /**
+   * Authenticates the request with your Telnyx API V2 KEY
+   */
+  authorization_bearer?: string;
+}
+
 export declare namespace UserBundles {
   export {
     type UserBundle as UserBundle,
@@ -379,11 +379,11 @@ export declare namespace UserBundles {
     type UserBundleListResourcesResponse as UserBundleListResourcesResponse,
     type UserBundleListUnusedResponse as UserBundleListUnusedResponse,
     type UserBundlesDefaultFlatPagination as UserBundlesDefaultFlatPagination,
-    type UserBundleCreateParams as UserBundleCreateParams,
-    type UserBundleRetrieveParams as UserBundleRetrieveParams,
     type UserBundleListParams as UserBundleListParams,
-    type UserBundleDeactivateParams as UserBundleDeactivateParams,
-    type UserBundleListResourcesParams as UserBundleListResourcesParams,
+    type UserBundleCreateParams as UserBundleCreateParams,
     type UserBundleListUnusedParams as UserBundleListUnusedParams,
+    type UserBundleDeactivateParams as UserBundleDeactivateParams,
+    type UserBundleRetrieveParams as UserBundleRetrieveParams,
+    type UserBundleListResourcesParams as UserBundleListResourcesParams,
   };
 }

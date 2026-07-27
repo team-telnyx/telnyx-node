@@ -11,38 +11,24 @@ import { path } from '../internal/utils/path';
  */
 export class WirelessBlocklists extends APIResource {
   /**
-   * Create a Wireless Blocklist to prevent SIMs from connecting to certain networks.
+   * Get all Wireless Blocklists belonging to the user.
    *
    * @example
    * ```ts
-   * const wirelessBlocklist =
-   *   await client.wirelessBlocklists.create({
-   *     name: 'My Wireless Blocklist',
-   *     type: 'country',
-   *     values: ['CA', 'US'],
-   *   });
+   * // Automatically fetches more pages as needed.
+   * for await (const wirelessBlocklist of client.wirelessBlocklists.list()) {
+   *   // ...
+   * }
    * ```
    */
-  create(
-    body: WirelessBlocklistCreateParams,
+  list(
+    query: WirelessBlocklistListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<WirelessBlocklistCreateResponse> {
-    return this._client.post('/wireless_blocklists', { body, ...options });
-  }
-
-  /**
-   * Retrieve information about a Wireless Blocklist.
-   *
-   * @example
-   * ```ts
-   * const wirelessBlocklist =
-   *   await client.wirelessBlocklists.retrieve(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<WirelessBlocklistRetrieveResponse> {
-    return this._client.get(path`/wireless_blocklists/${id}`, options);
+  ): PagePromise<WirelessBlocklistsDefaultFlatPagination, WirelessBlocklist> {
+    return this._client.getAPIList('/wireless_blocklists', DefaultFlatPagination<WirelessBlocklist>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -65,24 +51,23 @@ export class WirelessBlocklists extends APIResource {
   }
 
   /**
-   * Get all Wireless Blocklists belonging to the user.
+   * Create a Wireless Blocklist to prevent SIMs from connecting to certain networks.
    *
    * @example
    * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const wirelessBlocklist of client.wirelessBlocklists.list()) {
-   *   // ...
-   * }
+   * const wirelessBlocklist =
+   *   await client.wirelessBlocklists.create({
+   *     name: 'My Wireless Blocklist',
+   *     type: 'country',
+   *     values: ['CA', 'US'],
+   *   });
    * ```
    */
-  list(
-    query: WirelessBlocklistListParams | null | undefined = {},
+  create(
+    body: WirelessBlocklistCreateParams,
     options?: RequestOptions,
-  ): PagePromise<WirelessBlocklistsDefaultFlatPagination, WirelessBlocklist> {
-    return this._client.getAPIList('/wireless_blocklists', DefaultFlatPagination<WirelessBlocklist>, {
-      query,
-      ...options,
-    });
+  ): APIPromise<WirelessBlocklistCreateResponse> {
+    return this._client.post('/wireless_blocklists', { body, ...options });
   }
 
   /**
@@ -98,6 +83,21 @@ export class WirelessBlocklists extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<WirelessBlocklistDeleteResponse> {
     return this._client.delete(path`/wireless_blocklists/${id}`, options);
+  }
+
+  /**
+   * Retrieve information about a Wireless Blocklist.
+   *
+   * @example
+   * ```ts
+   * const wirelessBlocklist =
+   *   await client.wirelessBlocklists.retrieve(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<WirelessBlocklistRetrieveResponse> {
+    return this._client.get(path`/wireless_blocklists/${id}`, options);
   }
 }
 
@@ -153,35 +153,6 @@ export interface WirelessBlocklistDeleteResponse {
   data?: WirelessBlocklist;
 }
 
-export interface WirelessBlocklistCreateParams {
-  /**
-   * The name of the Wireless Blocklist.
-   */
-  name: string;
-
-  /**
-   * The type of wireless blocklist.
-   */
-  type: 'country' | 'mcc' | 'plmn';
-
-  /**
-   * Values to block. The values here depend on the `type` of Wireless Blocklist.
-   */
-  values: Array<string>;
-}
-
-export interface WirelessBlocklistUpdateParams {
-  /**
-   * The name of the Wireless Blocklist.
-   */
-  name?: string;
-
-  /**
-   * Values to block. The values here depend on the `type` of Wireless Blocklist.
-   */
-  values?: Array<string>;
-}
-
 export interface WirelessBlocklistListParams extends DefaultFlatPaginationParams {
   /**
    * The name of the Wireless Blocklist.
@@ -199,6 +170,35 @@ export interface WirelessBlocklistListParams extends DefaultFlatPaginationParams
   'filter[values]'?: string;
 }
 
+export interface WirelessBlocklistUpdateParams {
+  /**
+   * The name of the Wireless Blocklist.
+   */
+  name?: string;
+
+  /**
+   * Values to block. The values here depend on the `type` of Wireless Blocklist.
+   */
+  values?: Array<string>;
+}
+
+export interface WirelessBlocklistCreateParams {
+  /**
+   * The name of the Wireless Blocklist.
+   */
+  name: string;
+
+  /**
+   * The type of wireless blocklist.
+   */
+  type: 'country' | 'mcc' | 'plmn';
+
+  /**
+   * Values to block. The values here depend on the `type` of Wireless Blocklist.
+   */
+  values: Array<string>;
+}
+
 export declare namespace WirelessBlocklists {
   export {
     type WirelessBlocklist as WirelessBlocklist,
@@ -207,8 +207,8 @@ export declare namespace WirelessBlocklists {
     type WirelessBlocklistUpdateResponse as WirelessBlocklistUpdateResponse,
     type WirelessBlocklistDeleteResponse as WirelessBlocklistDeleteResponse,
     type WirelessBlocklistsDefaultFlatPagination as WirelessBlocklistsDefaultFlatPagination,
-    type WirelessBlocklistCreateParams as WirelessBlocklistCreateParams,
-    type WirelessBlocklistUpdateParams as WirelessBlocklistUpdateParams,
     type WirelessBlocklistListParams as WirelessBlocklistListParams,
+    type WirelessBlocklistUpdateParams as WirelessBlocklistUpdateParams,
+    type WirelessBlocklistCreateParams as WirelessBlocklistCreateParams,
   };
 }

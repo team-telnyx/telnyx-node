@@ -9,6 +9,13 @@ import {
   CallingSettings,
   WhatsappCallingSettingsData,
 } from './calling-settings';
+import * as ConversationalComponentsAPI from './conversational-components';
+import {
+  ConversationalComponentListResponse,
+  ConversationalComponentPatchAllParams,
+  ConversationalComponentPatchAllResponse,
+  ConversationalComponents,
+} from './conversational-components';
 import * as ProfileAPI from './profile/profile';
 import {
   Profile,
@@ -33,6 +40,8 @@ import { path } from '../../../internal/utils/path';
 export class PhoneNumbers extends APIResource {
   callingSettings: CallingSettingsAPI.CallingSettings = new CallingSettingsAPI.CallingSettings(this._client);
   profile: ProfileAPI.Profile = new ProfileAPI.Profile(this._client);
+  conversationalComponents: ConversationalComponentsAPI.ConversationalComponents =
+    new ConversationalComponentsAPI.ConversationalComponents(this._client);
 
   /**
    * List Whatsapp phone numbers
@@ -110,6 +119,31 @@ export class PhoneNumbers extends APIResource {
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
+
+  /**
+   * Returns whether the 24-hour conversation window is currently open for a given
+   * source/destination pair. If window_active is false, only template messages may
+   * be sent.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.whatsapp.phoneNumbers.retrieveConversationWindow(
+   *     'phone_number',
+   *     { destination_number: '+353894650851' },
+   *   );
+   * ```
+   */
+  retrieveConversationWindow(
+    phoneNumber: string,
+    query: PhoneNumberRetrieveConversationWindowParams,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberRetrieveConversationWindowResponse> {
+    return this._client.get(path`/v2/whatsapp/phone_numbers/${phoneNumber}/conversation_window`, {
+      query,
+      ...options,
+    });
+  }
 }
 
 export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>;
@@ -153,6 +187,34 @@ export interface PhoneNumberListResponse {
   waba_id?: string;
 }
 
+export interface PhoneNumberRetrieveConversationWindowResponse {
+  data?: PhoneNumberRetrieveConversationWindowResponse.Data;
+}
+
+export namespace PhoneNumberRetrieveConversationWindowResponse {
+  export interface Data {
+    /**
+     * Timestamp of the last inbound message that opened the window
+     */
+    last_user_message_at?: string;
+
+    /**
+     * Whether the 24-hour conversation window is currently open
+     */
+    window_active?: boolean;
+
+    /**
+     * When the window closes. Null if no active window.
+     */
+    window_expires_at?: string | null;
+
+    /**
+     * Window type. Currently always 24h when present.
+     */
+    window_type?: string;
+  }
+}
+
 export interface PhoneNumberListParams extends DefaultFlatPaginationParams {}
 
 export interface PhoneNumberResendVerificationParams {
@@ -163,16 +225,26 @@ export interface PhoneNumberVerifyParams {
   code: string;
 }
 
+export interface PhoneNumberRetrieveConversationWindowParams {
+  /**
+   * Destination phone number in E.164 format
+   */
+  destination_number: string;
+}
+
 PhoneNumbers.CallingSettings = CallingSettings;
 PhoneNumbers.Profile = Profile;
+PhoneNumbers.ConversationalComponents = ConversationalComponents;
 
 export declare namespace PhoneNumbers {
   export {
     type PhoneNumberListResponse as PhoneNumberListResponse,
+    type PhoneNumberRetrieveConversationWindowResponse as PhoneNumberRetrieveConversationWindowResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
+    type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
   };
 
   export {
@@ -189,5 +261,12 @@ export declare namespace PhoneNumbers {
     type ProfileRetrieveResponse as ProfileRetrieveResponse,
     type ProfileUpdateResponse as ProfileUpdateResponse,
     type ProfileUpdateParams as ProfileUpdateParams,
+  };
+
+  export {
+    ConversationalComponents as ConversationalComponents,
+    type ConversationalComponentListResponse as ConversationalComponentListResponse,
+    type ConversationalComponentPatchAllResponse as ConversationalComponentPatchAllResponse,
+    type ConversationalComponentPatchAllParams as ConversationalComponentPatchAllParams,
   };
 }

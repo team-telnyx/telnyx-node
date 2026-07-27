@@ -12,6 +12,31 @@ import { path } from '../../internal/utils/path';
  */
 export class AdditionalDocuments extends APIResource {
   /**
+   * Returns a list of additional documents for a porting order.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const portingAdditionalDocument of client.portingOrders.additionalDocuments.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    id: string,
+    query: AdditionalDocumentListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PortingAdditionalDocumentsDefaultFlatPagination, PortingAdditionalDocument> {
+    return this._client.getAPIList(
+      path`/porting_orders/${id}/additional_documents`,
+      DefaultFlatPagination<PortingAdditionalDocument>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Creates a list of additional documents for a porting order.
    *
    * @example
@@ -28,31 +53,6 @@ export class AdditionalDocuments extends APIResource {
     options?: RequestOptions,
   ): APIPromise<AdditionalDocumentCreateResponse> {
     return this._client.post(path`/porting_orders/${id}/additional_documents`, { body, ...options });
-  }
-
-  /**
-   * Returns a list of additional documents for a porting order.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const additionalDocumentListResponse of client.portingOrders.additionalDocuments.list(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * )) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    id: string,
-    query: AdditionalDocumentListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<AdditionalDocumentListResponsesDefaultFlatPagination, AdditionalDocumentListResponse> {
-    return this._client.getAPIList(
-      path`/porting_orders/${id}/additional_documents`,
-      DefaultFlatPagination<AdditionalDocumentListResponse>,
-      { query, ...options },
-    );
   }
 
   /**
@@ -79,63 +79,10 @@ export class AdditionalDocuments extends APIResource {
   }
 }
 
-export type AdditionalDocumentListResponsesDefaultFlatPagination =
-  DefaultFlatPagination<AdditionalDocumentListResponse>;
+export type PortingAdditionalDocumentsDefaultFlatPagination =
+  DefaultFlatPagination<PortingAdditionalDocument>;
 
-export interface AdditionalDocumentCreateResponse {
-  data?: Array<AdditionalDocumentCreateResponse.Data>;
-}
-
-export namespace AdditionalDocumentCreateResponse {
-  export interface Data {
-    /**
-     * Uniquely identifies this additional document
-     */
-    id?: string;
-
-    /**
-     * The content type of the related document.
-     */
-    content_type?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    created_at?: string;
-
-    /**
-     * Identifies the associated document
-     */
-    document_id?: string;
-
-    /**
-     * Identifies the type of additional document
-     */
-    document_type?: 'loa' | 'invoice' | 'csr' | 'other';
-
-    /**
-     * The filename of the related document.
-     */
-    filename?: string;
-
-    /**
-     * Identifies the associated porting order
-     */
-    porting_order_id?: string;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: string;
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was updated.
-     */
-    updated_at?: string;
-  }
-}
-
-export interface AdditionalDocumentListResponse {
+export interface PortingAdditionalDocument {
   /**
    * Uniquely identifies this additional document
    */
@@ -182,22 +129,8 @@ export interface AdditionalDocumentListResponse {
   updated_at?: string;
 }
 
-export interface AdditionalDocumentCreateParams {
-  additional_documents?: Array<AdditionalDocumentCreateParams.AdditionalDocument>;
-}
-
-export namespace AdditionalDocumentCreateParams {
-  export interface AdditionalDocument {
-    /**
-     * The document identification
-     */
-    document_id?: string;
-
-    /**
-     * The type of document being created.
-     */
-    document_type?: 'loa' | 'invoice' | 'csr' | 'other';
-  }
+export interface AdditionalDocumentCreateResponse {
+  data?: Array<PortingAdditionalDocument>;
 }
 
 export interface AdditionalDocumentListParams extends DefaultFlatPaginationParams {
@@ -237,6 +170,24 @@ export namespace AdditionalDocumentListParams {
   }
 }
 
+export interface AdditionalDocumentCreateParams {
+  additional_documents?: Array<AdditionalDocumentCreateParams.AdditionalDocument>;
+}
+
+export namespace AdditionalDocumentCreateParams {
+  export interface AdditionalDocument {
+    /**
+     * The document identification
+     */
+    document_id?: string;
+
+    /**
+     * The type of document being created.
+     */
+    document_type?: 'loa' | 'invoice' | 'csr' | 'other';
+  }
+}
+
 export interface AdditionalDocumentDeleteParams {
   /**
    * Porting Order id
@@ -246,11 +197,11 @@ export interface AdditionalDocumentDeleteParams {
 
 export declare namespace AdditionalDocuments {
   export {
+    type PortingAdditionalDocument as PortingAdditionalDocument,
     type AdditionalDocumentCreateResponse as AdditionalDocumentCreateResponse,
-    type AdditionalDocumentListResponse as AdditionalDocumentListResponse,
-    type AdditionalDocumentListResponsesDefaultFlatPagination as AdditionalDocumentListResponsesDefaultFlatPagination,
-    type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
+    type PortingAdditionalDocumentsDefaultFlatPagination as PortingAdditionalDocumentsDefaultFlatPagination,
     type AdditionalDocumentListParams as AdditionalDocumentListParams,
+    type AdditionalDocumentCreateParams as AdditionalDocumentCreateParams,
     type AdditionalDocumentDeleteParams as AdditionalDocumentDeleteParams,
   };
 }

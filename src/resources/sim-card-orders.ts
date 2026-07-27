@@ -11,6 +11,27 @@ import { path } from '../internal/utils/path';
  */
 export class SimCardOrders extends APIResource {
   /**
+   * Get all SIM card orders according to filters.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const simCardOrder of client.simCardOrders.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: SimCardOrderListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<SimCardOrdersDefaultFlatPagination, SimCardOrder> {
+    return this._client.getAPIList('/sim_card_orders', DefaultFlatPagination<SimCardOrder>, {
+      query,
+      ...options,
+    });
+  }
+
+  /**
    * Creates a new order for SIM cards.
    *
    * @example
@@ -37,27 +58,6 @@ export class SimCardOrders extends APIResource {
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<SimCardOrderRetrieveResponse> {
     return this._client.get(path`/sim_card_orders/${id}`, options);
-  }
-
-  /**
-   * Get all SIM card orders according to filters.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const simCardOrder of client.simCardOrders.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: SimCardOrderListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<SimCardOrdersDefaultFlatPagination, SimCardOrder> {
-    return this._client.getAPIList('/sim_card_orders', DefaultFlatPagination<SimCardOrder>, {
-      query,
-      ...options,
-    });
   }
 }
 
@@ -199,18 +199,6 @@ export interface SimCardOrderRetrieveResponse {
   data?: SimCardOrder;
 }
 
-export interface SimCardOrderCreateParams {
-  /**
-   * Uniquely identifies the address for the order.
-   */
-  address_id: string;
-
-  /**
-   * The amount of SIM cards to order.
-   */
-  quantity: number;
-}
-
 export interface SimCardOrderListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter for SIM card orders (deepObject style).
@@ -299,13 +287,25 @@ export namespace SimCardOrderListParams {
   }
 }
 
+export interface SimCardOrderCreateParams {
+  /**
+   * Uniquely identifies the address for the order.
+   */
+  address_id: string;
+
+  /**
+   * The amount of SIM cards to order.
+   */
+  quantity: number;
+}
+
 export declare namespace SimCardOrders {
   export {
     type SimCardOrder as SimCardOrder,
     type SimCardOrderCreateResponse as SimCardOrderCreateResponse,
     type SimCardOrderRetrieveResponse as SimCardOrderRetrieveResponse,
     type SimCardOrdersDefaultFlatPagination as SimCardOrdersDefaultFlatPagination,
-    type SimCardOrderCreateParams as SimCardOrderCreateParams,
     type SimCardOrderListParams as SimCardOrderListParams,
+    type SimCardOrderCreateParams as SimCardOrderCreateParams,
   };
 }

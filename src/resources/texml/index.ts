@@ -4,7 +4,6 @@ export {
   Accounts,
   type TexmlGetCallRecordingResponseBody,
   type TexmlRecordingSubresourcesUris,
-  type AccountRetrieveRecordingsJsonResponse,
   type AccountRetrieveTranscriptionsJsonResponse,
   type AccountRetrieveRecordingsJsonParams,
   type AccountRetrieveTranscriptionsJsonParams,
@@ -13,6 +12,6 @@ export {
   Texml,
   type TexmlInitiateAICallResponse,
   type TexmlSecretsResponse,
-  type TexmlInitiateAICallParams,
   type TexmlSecretsParams,
+  type TexmlInitiateAICallParams,
 } from './texml';

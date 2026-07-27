@@ -35,19 +35,6 @@ export class BusinessAccounts extends APIResource {
   settings: SettingsAPI.Settings = new SettingsAPI.Settings(this._client);
 
   /**
-   * Get a single Whatsapp Business Account
-   *
-   * @example
-   * ```ts
-   * const businessAccount =
-   *   await client.whatsapp.businessAccounts.retrieve('id');
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<BusinessAccountRetrieveResponse> {
-    return this._client.get(path`/v2/whatsapp/business_accounts/${id}`, options);
-  }
-
-  /**
    * List Whatsapp Business Accounts
    *
    * @example
@@ -82,6 +69,19 @@ export class BusinessAccounts extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * Get a single Whatsapp Business Account
+   *
+   * @example
+   * ```ts
+   * const businessAccount =
+   *   await client.whatsapp.businessAccounts.retrieve('id');
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<BusinessAccountRetrieveResponse> {
+    return this._client.get(path`/v2/whatsapp/business_accounts/${id}`, options);
   }
 }
 

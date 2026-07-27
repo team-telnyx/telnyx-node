@@ -12,6 +12,19 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Voice extends APIResource {
   /**
+   * Retrieves all CDR report requests for the authenticated user
+   *
+   * @example
+   * ```ts
+   * const voices =
+   *   await client.legacy.reporting.batchDetailRecords.voice.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<VoiceListResponse> {
+    return this._client.get('/legacy/reporting/batch_detail_records/voice', options);
+  }
+
+  /**
    * Creates a new CDR report request with the specified filters
    *
    * @example
@@ -30,31 +43,16 @@ export class Voice extends APIResource {
   }
 
   /**
-   * Retrieves a specific CDR report request by ID
+   * Retrieves all available fields that can be used in CDR reports
    *
    * @example
    * ```ts
-   * const voice =
-   *   await client.legacy.reporting.batchDetailRecords.voice.retrieve(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * const response =
+   *   await client.legacy.reporting.batchDetailRecords.voice.retrieveFields();
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<VoiceRetrieveResponse> {
-    return this._client.get(path`/legacy/reporting/batch_detail_records/voice/${id}`, options);
-  }
-
-  /**
-   * Retrieves all CDR report requests for the authenticated user
-   *
-   * @example
-   * ```ts
-   * const voices =
-   *   await client.legacy.reporting.batchDetailRecords.voice.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<VoiceListResponse> {
-    return this._client.get('/legacy/reporting/batch_detail_records/voice', options);
+  retrieveFields(options?: RequestOptions): APIPromise<VoiceRetrieveFieldsResponse> {
+    return this._client.get('/legacy/reporting/batch_detail_records/voice/fields', options);
   }
 
   /**
@@ -73,16 +71,18 @@ export class Voice extends APIResource {
   }
 
   /**
-   * Retrieves all available fields that can be used in CDR reports
+   * Retrieves a specific CDR report request by ID
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.legacy.reporting.batchDetailRecords.voice.retrieveFields();
+   * const voice =
+   *   await client.legacy.reporting.batchDetailRecords.voice.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
    * ```
    */
-  retrieveFields(options?: RequestOptions): APIPromise<VoiceRetrieveFieldsResponse> {
-    return this._client.get('/legacy/reporting/batch_detail_records/voice/fields', options);
+  retrieve(id: string, options?: RequestOptions): APIPromise<VoiceRetrieveResponse> {
+    return this._client.get(path`/legacy/reporting/batch_detail_records/voice/${id}`, options);
   }
 }
 

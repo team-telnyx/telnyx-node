@@ -12,6 +12,24 @@ import { path } from '../internal/utils/path';
  */
 export class GlobalIPs extends APIResource {
   /**
+   * List all Global IPs.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const globalIP of client.globalIPs.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: GlobalIPListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<GlobalIPsDefaultFlatPagination, GlobalIP> {
+    return this._client.getAPIList('/global_ips', DefaultFlatPagination<GlobalIP>, { query, ...options });
+  }
+
+  /**
    * Create a Global IP.
    *
    * @example
@@ -21,41 +39,6 @@ export class GlobalIPs extends APIResource {
    */
   create(body: GlobalIPCreateParams, options?: RequestOptions): APIPromise<GlobalIPCreateResponse> {
     return this._client.post('/global_ips', { body, ...options });
-  }
-
-  /**
-   * Retrieve a Global IP.
-   *
-   * @example
-   * ```ts
-   * const globalIP = await client.globalIPs.retrieve(
-   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<GlobalIPRetrieveResponse> {
-    return this._client.get(path`/global_ips/${id}`, options);
-  }
-
-  /**
-   * List all Global IPs.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const globalIPListResponse of client.globalIPs.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: GlobalIPListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<GlobalIPListResponsesDefaultFlatPagination, GlobalIPListResponse> {
-    return this._client.getAPIList('/global_ips', DefaultFlatPagination<GlobalIPListResponse>, {
-      query,
-      ...options,
-    });
   }
 
   /**
@@ -71,67 +54,25 @@ export class GlobalIPs extends APIResource {
   delete(id: string, options?: RequestOptions): APIPromise<GlobalIPDeleteResponse> {
     return this._client.delete(path`/global_ips/${id}`, options);
   }
-}
 
-export type GlobalIPListResponsesDefaultFlatPagination = DefaultFlatPagination<GlobalIPListResponse>;
-
-export interface GlobalIPCreateResponse {
-  data?: GlobalIPCreateResponse.Data;
-}
-
-export namespace GlobalIPCreateResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified description for the address.
-     */
-    description?: string;
-
-    /**
-     * The Global IP address.
-     */
-    ip_address?: string;
-
-    /**
-     * A user specified name for the address.
-     */
-    name?: string;
-
-    /**
-     * A Global IP ports grouped by protocol code.
-     */
-    ports?: { [key: string]: unknown };
+  /**
+   * Retrieve a Global IP.
+   *
+   * @example
+   * ```ts
+   * const globalIP = await client.globalIPs.retrieve(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<GlobalIPRetrieveResponse> {
+    return this._client.get(path`/global_ips/${id}`, options);
   }
 }
 
-export interface GlobalIPRetrieveResponse {
-  data?: GlobalIPRetrieveResponse.Data;
-}
+export type GlobalIPsDefaultFlatPagination = DefaultFlatPagination<GlobalIP>;
 
-export namespace GlobalIPRetrieveResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified description for the address.
-     */
-    description?: string;
-
-    /**
-     * The Global IP address.
-     */
-    ip_address?: string;
-
-    /**
-     * A user specified name for the address.
-     */
-    name?: string;
-
-    /**
-     * A Global IP ports grouped by protocol code.
-     */
-    ports?: { [key: string]: unknown };
-  }
-}
-
-export interface GlobalIPListResponse extends GlobalIPAssignmentsAPI.Record {
+export interface GlobalIP extends GlobalIPAssignmentsAPI.Record {
   /**
    * A user specified description for the address.
    */
@@ -153,33 +94,19 @@ export interface GlobalIPListResponse extends GlobalIPAssignmentsAPI.Record {
   ports?: { [key: string]: unknown };
 }
 
+export interface GlobalIPCreateResponse {
+  data?: GlobalIP;
+}
+
+export interface GlobalIPRetrieveResponse {
+  data?: GlobalIP;
+}
+
 export interface GlobalIPDeleteResponse {
-  data?: GlobalIPDeleteResponse.Data;
+  data?: GlobalIP;
 }
 
-export namespace GlobalIPDeleteResponse {
-  export interface Data extends GlobalIPAssignmentsAPI.Record {
-    /**
-     * A user specified description for the address.
-     */
-    description?: string;
-
-    /**
-     * The Global IP address.
-     */
-    ip_address?: string;
-
-    /**
-     * A user specified name for the address.
-     */
-    name?: string;
-
-    /**
-     * A Global IP ports grouped by protocol code.
-     */
-    ports?: { [key: string]: unknown };
-  }
-}
+export interface GlobalIPListParams extends DefaultFlatPaginationParams {}
 
 export interface GlobalIPCreateParams {
   /**
@@ -198,16 +125,14 @@ export interface GlobalIPCreateParams {
   ports?: { [key: string]: unknown };
 }
 
-export interface GlobalIPListParams extends DefaultFlatPaginationParams {}
-
 export declare namespace GlobalIPs {
   export {
+    type GlobalIP as GlobalIP,
     type GlobalIPCreateResponse as GlobalIPCreateResponse,
     type GlobalIPRetrieveResponse as GlobalIPRetrieveResponse,
-    type GlobalIPListResponse as GlobalIPListResponse,
     type GlobalIPDeleteResponse as GlobalIPDeleteResponse,
-    type GlobalIPListResponsesDefaultFlatPagination as GlobalIPListResponsesDefaultFlatPagination,
-    type GlobalIPCreateParams as GlobalIPCreateParams,
+    type GlobalIPsDefaultFlatPagination as GlobalIPsDefaultFlatPagination,
     type GlobalIPListParams as GlobalIPListParams,
+    type GlobalIPCreateParams as GlobalIPCreateParams,
   };
 }

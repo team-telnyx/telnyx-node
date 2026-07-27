@@ -12,37 +12,6 @@ import { path } from '../internal/utils/path';
  */
 export class RoomCompositions extends APIResource {
   /**
-   * Asynchronously create a room composition.
-   *
-   * @example
-   * ```ts
-   * const roomComposition =
-   *   await client.roomCompositions.create();
-   * ```
-   */
-  create(
-    body: RoomCompositionCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<RoomCompositionCreateResponse> {
-    return this._client.post('/room_compositions', { body, ...options });
-  }
-
-  /**
-   * View a room composition.
-   *
-   * @example
-   * ```ts
-   * const roomComposition =
-   *   await client.roomCompositions.retrieve(
-   *     '5219b3af-87c6-4c08-9b58-5a533d893e21',
-   *   );
-   * ```
-   */
-  retrieve(roomCompositionID: string, options?: RequestOptions): APIPromise<RoomCompositionRetrieveResponse> {
-    return this._client.get(path`/room_compositions/${roomCompositionID}`, options);
-  }
-
-  /**
    * View a list of room compositions.
    *
    * @example
@@ -64,6 +33,22 @@ export class RoomCompositions extends APIResource {
   }
 
   /**
+   * Asynchronously create a room composition.
+   *
+   * @example
+   * ```ts
+   * const roomComposition =
+   *   await client.roomCompositions.create();
+   * ```
+   */
+  create(
+    body: RoomCompositionCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<RoomCompositionCreateResponse> {
+    return this._client.post('/room_compositions', { body, ...options });
+  }
+
+  /**
    * Synchronously delete a room composition.
    *
    * @example
@@ -78,6 +63,21 @@ export class RoomCompositions extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * View a room composition.
+   *
+   * @example
+   * ```ts
+   * const roomComposition =
+   *   await client.roomCompositions.retrieve(
+   *     '5219b3af-87c6-4c08-9b58-5a533d893e21',
+   *   );
+   * ```
+   */
+  retrieve(roomCompositionID: string, options?: RequestOptions): APIPromise<RoomCompositionRetrieveResponse> {
+    return this._client.get(path`/room_compositions/${roomCompositionID}`, options);
   }
 }
 
@@ -241,47 +241,6 @@ export interface RoomCompositionRetrieveResponse {
   data?: RoomComposition;
 }
 
-export interface RoomCompositionCreateParams {
-  /**
-   * The desired format of the room composition.
-   */
-  format?: string;
-
-  /**
-   * The desired resolution (width/height in pixels) of the resulting video of the
-   * room composition. Both width and height are required to be between 16 and 1280;
-   * and width _ height should not exceed 1280 _ 720
-   */
-  resolution?: string;
-
-  /**
-   * id of the room session associated with the room composition.
-   */
-  session_id?: string;
-
-  /**
-   * Describes the video layout of the room composition in terms of regions.
-   */
-  video_layout?: { [key: string]: VideoRegion };
-
-  /**
-   * The failover URL where webhooks related to this room composition will be sent if
-   * sending to the primary URL fails. Must include a scheme, such as 'https'.
-   */
-  webhook_event_failover_url?: string;
-
-  /**
-   * The URL where webhooks related to this room composition will be sent. Must
-   * include a scheme, such as 'https'.
-   */
-  webhook_event_url?: string;
-
-  /**
-   * Specifies how many seconds to wait before timing out a webhook.
-   */
-  webhook_timeout_secs?: number;
-}
-
 export interface RoomCompositionListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -331,6 +290,47 @@ export namespace RoomCompositionListParams {
   }
 }
 
+export interface RoomCompositionCreateParams {
+  /**
+   * The desired format of the room composition.
+   */
+  format?: string;
+
+  /**
+   * The desired resolution (width/height in pixels) of the resulting video of the
+   * room composition. Both width and height are required to be between 16 and 1280;
+   * and width _ height should not exceed 1280 _ 720
+   */
+  resolution?: string;
+
+  /**
+   * id of the room session associated with the room composition.
+   */
+  session_id?: string;
+
+  /**
+   * Describes the video layout of the room composition in terms of regions.
+   */
+  video_layout?: { [key: string]: VideoRegion };
+
+  /**
+   * The failover URL where webhooks related to this room composition will be sent if
+   * sending to the primary URL fails. Must include a scheme, such as 'https'.
+   */
+  webhook_event_failover_url?: string;
+
+  /**
+   * The URL where webhooks related to this room composition will be sent. Must
+   * include a scheme, such as 'https'.
+   */
+  webhook_event_url?: string;
+
+  /**
+   * Specifies how many seconds to wait before timing out a webhook.
+   */
+  webhook_timeout_secs?: number;
+}
+
 export declare namespace RoomCompositions {
   export {
     type RoomComposition as RoomComposition,
@@ -338,7 +338,7 @@ export declare namespace RoomCompositions {
     type RoomCompositionCreateResponse as RoomCompositionCreateResponse,
     type RoomCompositionRetrieveResponse as RoomCompositionRetrieveResponse,
     type RoomCompositionsDefaultFlatPagination as RoomCompositionsDefaultFlatPagination,
-    type RoomCompositionCreateParams as RoomCompositionCreateParams,
     type RoomCompositionListParams as RoomCompositionListParams,
+    type RoomCompositionCreateParams as RoomCompositionCreateParams,
   };
 }

@@ -22,9 +22,9 @@ export {
   type SimCardGroupUpdateResponse,
   type SimCardGroupListResponse,
   type SimCardGroupDeleteResponse,
+  type SimCardGroupListParams,
   type SimCardGroupCreateParams,
   type SimCardGroupRetrieveParams,
   type SimCardGroupUpdateParams,
-  type SimCardGroupListParams,
   type SimCardGroupListResponsesDefaultFlatPagination,
 } from './sim-card-groups';

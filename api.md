@@ -20,10 +20,11 @@ Types:
 - <code><a href="./src/resources/shared.ts">Feature</a></code>
 - <code><a href="./src/resources/shared.ts">HostedNumber</a></code>
 - <code><a href="./src/resources/shared.ts">InboundMessagePayload</a></code>
+- <code><a href="./src/resources/shared.ts">InworldVoiceSettings</a></code>
+- <code><a href="./src/resources/shared.ts">MessagingError</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingFeatureSet</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingHostedNumberOrder</a></code>
 - <code><a href="./src/resources/shared.ts">MessagingPaginationMeta</a></code>
-- <code><a href="./src/resources/shared.ts">MetaInfo</a></code>
 - <code><a href="./src/resources/shared.ts">Metadata</a></code>
 - <code><a href="./src/resources/shared.ts">MinimaxVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">NetappsLocation</a></code>
@@ -34,7 +35,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">PortingOrdersExceptionType</a></code>
 - <code><a href="./src/resources/shared.ts">RegionInformation</a></code>
 - <code><a href="./src/resources/shared.ts">ReputationData</a></code>
-- <code><a href="./src/resources/shared.ts">ReputationPhoneNumberWithReputationData</a></code>
 - <code><a href="./src/resources/shared.ts">ResembleVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RimeVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RoomParticipant</a></code>
@@ -68,10 +68,10 @@ Types:
 
 Methods:
 
-- <code title="post /legacy/reporting/batch_detail_records/messaging">client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">create</a>({ ...params }) -> MessagingCreateResponse</code>
-- <code title="get /legacy/reporting/batch_detail_records/messaging/{id}">client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">retrieve</a>(id) -> MessagingRetrieveResponse</code>
 - <code title="get /legacy/reporting/batch_detail_records/messaging">client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">list</a>() -> MessagingListResponse</code>
+- <code title="post /legacy/reporting/batch_detail_records/messaging">client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">create</a>({ ...params }) -> MessagingCreateResponse</code>
 - <code title="delete /legacy/reporting/batch_detail_records/messaging/{id}">client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">delete</a>(id) -> MessagingDeleteResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/messaging/{id}">client.legacy.reporting.batchDetailRecords.messaging.<a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">retrieve</a>(id) -> MessagingRetrieveResponse</code>
 
 #### SpeechToText
 
@@ -85,10 +85,10 @@ Types:
 
 Methods:
 
-- <code title="post /legacy/reporting/batch_detail_records/speech_to_text">client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">create</a>({ ...params }) -> SpeechToTextCreateResponse</code>
-- <code title="get /legacy/reporting/batch_detail_records/speech_to_text/{id}">client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">retrieve</a>(id) -> SpeechToTextRetrieveResponse</code>
 - <code title="get /legacy/reporting/batch_detail_records/speech_to_text">client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">list</a>() -> SpeechToTextListResponse</code>
+- <code title="post /legacy/reporting/batch_detail_records/speech_to_text">client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">create</a>({ ...params }) -> SpeechToTextCreateResponse</code>
 - <code title="delete /legacy/reporting/batch_detail_records/speech_to_text/{id}">client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">delete</a>(id) -> SpeechToTextDeleteResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/speech_to_text/{id}">client.legacy.reporting.batchDetailRecords.speechToText.<a href="./src/resources/legacy/reporting/batch-detail-records/speech-to-text.ts">retrieve</a>(id) -> SpeechToTextRetrieveResponse</code>
 
 #### Voice
 
@@ -103,11 +103,11 @@ Types:
 
 Methods:
 
-- <code title="post /legacy/reporting/batch_detail_records/voice">client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">create</a>({ ...params }) -> VoiceCreateResponse</code>
-- <code title="get /legacy/reporting/batch_detail_records/voice/{id}">client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">retrieve</a>(id) -> VoiceRetrieveResponse</code>
 - <code title="get /legacy/reporting/batch_detail_records/voice">client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">list</a>() -> VoiceListResponse</code>
-- <code title="delete /legacy/reporting/batch_detail_records/voice/{id}">client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">delete</a>(id) -> VoiceDeleteResponse</code>
+- <code title="post /legacy/reporting/batch_detail_records/voice">client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">create</a>({ ...params }) -> VoiceCreateResponse</code>
 - <code title="get /legacy/reporting/batch_detail_records/voice/fields">client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">retrieveFields</a>() -> VoiceRetrieveFieldsResponse</code>
+- <code title="delete /legacy/reporting/batch_detail_records/voice/{id}">client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">delete</a>(id) -> VoiceDeleteResponse</code>
+- <code title="get /legacy/reporting/batch_detail_records/voice/{id}">client.legacy.reporting.batchDetailRecords.voice.<a href="./src/resources/legacy/reporting/batch-detail-records/voice.ts">retrieve</a>(id) -> VoiceRetrieveResponse</code>
 
 ### UsageReports
 
@@ -131,10 +131,10 @@ Types:
 
 Methods:
 
-- <code title="post /legacy/reporting/usage_reports/messaging">client.legacy.reporting.usageReports.messaging.<a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">create</a>({ ...params }) -> MessagingCreateResponse</code>
-- <code title="get /legacy/reporting/usage_reports/messaging/{id}">client.legacy.reporting.usageReports.messaging.<a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">retrieve</a>(id) -> MessagingRetrieveResponse</code>
 - <code title="get /legacy/reporting/usage_reports/messaging">client.legacy.reporting.usageReports.messaging.<a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">list</a>({ ...params }) -> MdrUsageReportResponseLegaciesPerPagePagination</code>
+- <code title="post /legacy/reporting/usage_reports/messaging">client.legacy.reporting.usageReports.messaging.<a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">create</a>({ ...params }) -> MessagingCreateResponse</code>
 - <code title="delete /legacy/reporting/usage_reports/messaging/{id}">client.legacy.reporting.usageReports.messaging.<a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">delete</a>(id) -> MessagingDeleteResponse</code>
+- <code title="get /legacy/reporting/usage_reports/messaging/{id}">client.legacy.reporting.usageReports.messaging.<a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">retrieve</a>(id) -> MessagingRetrieveResponse</code>
 
 #### NumberLookup
 
@@ -145,14 +145,13 @@ Types:
 - <code><a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">TelcoDataUsageReportResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">NumberLookupCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">NumberLookupRetrieveResponse</a></code>
-- <code><a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">NumberLookupListResponse</a></code>
 
 Methods:
 
+- <code title="get /legacy/reporting/usage_reports/number_lookup">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">list</a>({ ...params }) -> TelcoDataUsageReportResponsesPerPagePagination</code>
 - <code title="post /legacy/reporting/usage_reports/number_lookup">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">create</a>({ ...params }) -> NumberLookupCreateResponse</code>
-- <code title="get /legacy/reporting/usage_reports/number_lookup/{id}">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">retrieve</a>(id) -> NumberLookupRetrieveResponse</code>
-- <code title="get /legacy/reporting/usage_reports/number_lookup">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">list</a>() -> NumberLookupListResponse</code>
 - <code title="delete /legacy/reporting/usage_reports/number_lookup/{id}">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">delete</a>(id) -> void</code>
+- <code title="get /legacy/reporting/usage_reports/number_lookup/{id}">client.legacy.reporting.usageReports.numberLookup.<a href="./src/resources/legacy/reporting/usage-reports/number-lookup.ts">retrieve</a>(id) -> NumberLookupRetrieveResponse</code>
 
 #### Voice
 
@@ -165,10 +164,10 @@ Types:
 
 Methods:
 
-- <code title="post /legacy/reporting/usage_reports/voice">client.legacy.reporting.usageReports.voice.<a href="./src/resources/legacy/reporting/usage-reports/voice.ts">create</a>({ ...params }) -> VoiceCreateResponse</code>
-- <code title="get /legacy/reporting/usage_reports/voice/{id}">client.legacy.reporting.usageReports.voice.<a href="./src/resources/legacy/reporting/usage-reports/voice.ts">retrieve</a>(id) -> VoiceRetrieveResponse</code>
 - <code title="get /legacy/reporting/usage_reports/voice">client.legacy.reporting.usageReports.voice.<a href="./src/resources/legacy/reporting/usage-reports/voice.ts">list</a>({ ...params }) -> CdrUsageReportResponseLegaciesPerPagePagination</code>
+- <code title="post /legacy/reporting/usage_reports/voice">client.legacy.reporting.usageReports.voice.<a href="./src/resources/legacy/reporting/usage-reports/voice.ts">create</a>({ ...params }) -> VoiceCreateResponse</code>
 - <code title="delete /legacy/reporting/usage_reports/voice/{id}">client.legacy.reporting.usageReports.voice.<a href="./src/resources/legacy/reporting/usage-reports/voice.ts">delete</a>(id) -> VoiceDeleteResponse</code>
+- <code title="get /legacy/reporting/usage_reports/voice/{id}">client.legacy.reporting.usageReports.voice.<a href="./src/resources/legacy/reporting/usage-reports/voice.ts">retrieve</a>(id) -> VoiceRetrieveResponse</code>
 
 # OAuth
 
@@ -183,12 +182,12 @@ Types:
 
 Methods:
 
+- <code title="get /oauth/authorize">client.oauth.<a href="./src/resources/oauth.ts">retrieveAuthorize</a>({ ...params }) -> void</code>
 - <code title="get /oauth/consent/{consent_token}">client.oauth.<a href="./src/resources/oauth.ts">retrieve</a>(consentToken) -> OAuthRetrieveResponse</code>
 - <code title="post /oauth/grants">client.oauth.<a href="./src/resources/oauth.ts">grants</a>({ ...params }) -> OAuthGrantsResponse</code>
 - <code title="post /oauth/introspect">client.oauth.<a href="./src/resources/oauth.ts">introspect</a>({ ...params }) -> OAuthIntrospectResponse</code>
-- <code title="post /oauth/register">client.oauth.<a href="./src/resources/oauth.ts">register</a>({ ...params }) -> OAuthRegisterResponse</code>
-- <code title="get /oauth/authorize">client.oauth.<a href="./src/resources/oauth.ts">retrieveAuthorize</a>({ ...params }) -> void</code>
 - <code title="get /oauth/jwks">client.oauth.<a href="./src/resources/oauth.ts">retrieveJwks</a>() -> OAuthRetrieveJwksResponse</code>
+- <code title="post /oauth/register">client.oauth.<a href="./src/resources/oauth.ts">register</a>({ ...params }) -> OAuthRegisterResponse</code>
 - <code title="post /oauth/token">client.oauth.<a href="./src/resources/oauth.ts">token</a>({ ...params }) -> OAuthTokenResponse</code>
 
 # OAuthClients
@@ -203,11 +202,11 @@ Types:
 
 Methods:
 
+- <code title="get /oauth_clients">client.oauthClients.<a href="./src/resources/oauth-clients.ts">list</a>({ ...params }) -> OAuthClientsDefaultFlatPagination</code>
 - <code title="post /oauth_clients">client.oauthClients.<a href="./src/resources/oauth-clients.ts">create</a>({ ...params }) -> OAuthClientCreateResponse</code>
+- <code title="delete /oauth_clients/{id}">client.oauthClients.<a href="./src/resources/oauth-clients.ts">delete</a>(id) -> void</code>
 - <code title="get /oauth_clients/{id}">client.oauthClients.<a href="./src/resources/oauth-clients.ts">retrieve</a>(id) -> OAuthClientRetrieveResponse</code>
 - <code title="put /oauth_clients/{id}">client.oauthClients.<a href="./src/resources/oauth-clients.ts">update</a>(id, { ...params }) -> OAuthClientUpdateResponse</code>
-- <code title="get /oauth_clients">client.oauthClients.<a href="./src/resources/oauth-clients.ts">list</a>({ ...params }) -> OAuthClientsDefaultFlatPagination</code>
-- <code title="delete /oauth_clients/{id}">client.oauthClients.<a href="./src/resources/oauth-clients.ts">delete</a>(id) -> void</code>
 
 # OAuthGrants
 
@@ -219,9 +218,9 @@ Types:
 
 Methods:
 
-- <code title="get /oauth_grants/{id}">client.oauthGrants.<a href="./src/resources/oauth-grants.ts">retrieve</a>(id) -> OAuthGrantRetrieveResponse</code>
 - <code title="get /oauth_grants">client.oauthGrants.<a href="./src/resources/oauth-grants.ts">list</a>({ ...params }) -> OAuthGrantsDefaultFlatPagination</code>
 - <code title="delete /oauth_grants/{id}">client.oauthGrants.<a href="./src/resources/oauth-grants.ts">delete</a>(id) -> OAuthGrantDeleteResponse</code>
+- <code title="get /oauth_grants/{id}">client.oauthGrants.<a href="./src/resources/oauth-grants.ts">retrieve</a>(id) -> OAuthGrantRetrieveResponse</code>
 
 # Webhooks
 
@@ -408,8 +407,8 @@ Types:
 
 Methods:
 
-- <code>client.webhooks.<a href="./src/resources/webhooks.ts">unsafeUnwrap</a>(body) -> void</code>
 - <code>client.webhooks.<a href="./src/resources/webhooks.ts">unwrap</a>(body) -> void</code>
+- <code>client.webhooks.<a href="./src/resources/webhooks.ts">unsafeUnwrap</a>(body) -> void</code>
 
 # AccessIPAddress
 
@@ -421,10 +420,10 @@ Types:
 
 Methods:
 
-- <code title="post /access_ip_address">client.accessIPAddress.<a href="./src/resources/access-ip-address.ts">create</a>({ ...params }) -> AccessIPAddressResponse</code>
-- <code title="get /access_ip_address/{access_ip_address_id}">client.accessIPAddress.<a href="./src/resources/access-ip-address.ts">retrieve</a>(accessIPAddressID) -> AccessIPAddressResponse</code>
 - <code title="get /access_ip_address">client.accessIPAddress.<a href="./src/resources/access-ip-address.ts">list</a>({ ...params }) -> AccessIPAddressResponsesDefaultFlatPagination</code>
+- <code title="post /access_ip_address">client.accessIPAddress.<a href="./src/resources/access-ip-address.ts">create</a>({ ...params }) -> AccessIPAddressResponse</code>
 - <code title="delete /access_ip_address/{access_ip_address_id}">client.accessIPAddress.<a href="./src/resources/access-ip-address.ts">delete</a>(accessIPAddressID) -> AccessIPAddressResponse</code>
+- <code title="get /access_ip_address/{access_ip_address_id}">client.accessIPAddress.<a href="./src/resources/access-ip-address.ts">retrieve</a>(accessIPAddressID) -> AccessIPAddressResponse</code>
 
 # AccessIPRanges
 
@@ -434,8 +433,8 @@ Types:
 
 Methods:
 
-- <code title="post /access_ip_ranges">client.accessIPRanges.<a href="./src/resources/access-ip-ranges.ts">create</a>({ ...params }) -> AccessIPRange</code>
 - <code title="get /access_ip_ranges">client.accessIPRanges.<a href="./src/resources/access-ip-ranges.ts">list</a>({ ...params }) -> AccessIPRangesDefaultFlatPagination</code>
+- <code title="post /access_ip_ranges">client.accessIPRanges.<a href="./src/resources/access-ip-ranges.ts">create</a>({ ...params }) -> AccessIPRange</code>
 - <code title="delete /access_ip_ranges/{access_ip_range_id}">client.accessIPRanges.<a href="./src/resources/access-ip-ranges.ts">delete</a>(accessIPRangeID) -> AccessIPRange</code>
 
 # Actions
@@ -475,10 +474,10 @@ Types:
 
 Methods:
 
-- <code title="post /addresses">client.addresses.<a href="./src/resources/addresses/addresses.ts">create</a>({ ...params }) -> AddressCreateResponse</code>
-- <code title="get /addresses/{id}">client.addresses.<a href="./src/resources/addresses/addresses.ts">retrieve</a>(id) -> AddressRetrieveResponse</code>
 - <code title="get /addresses">client.addresses.<a href="./src/resources/addresses/addresses.ts">list</a>({ ...params }) -> AddressesDefaultFlatPagination</code>
+- <code title="post /addresses">client.addresses.<a href="./src/resources/addresses/addresses.ts">create</a>({ ...params }) -> AddressCreateResponse</code>
 - <code title="delete /addresses/{id}">client.addresses.<a href="./src/resources/addresses/addresses.ts">delete</a>(id) -> AddressDeleteResponse</code>
+- <code title="get /addresses/{id}">client.addresses.<a href="./src/resources/addresses/addresses.ts">retrieve</a>(id) -> AddressRetrieveResponse</code>
 
 ## Actions
 
@@ -489,54 +488,60 @@ Types:
 
 Methods:
 
-- <code title="post /addresses/{id}/actions/accept_suggestions">client.addresses.actions.<a href="./src/resources/addresses/actions.ts">acceptSuggestions</a>(addressUuid, { ...params }) -> ActionAcceptSuggestionsResponse</code>
 - <code title="post /addresses/actions/validate">client.addresses.actions.<a href="./src/resources/addresses/actions.ts">validate</a>({ ...params }) -> ActionValidateResponse</code>
+- <code title="post /addresses/{id}/actions/accept_suggestions">client.addresses.actions.<a href="./src/resources/addresses/actions.ts">acceptSuggestions</a>(addressUuid, { ...params }) -> ActionAcceptSuggestionsResponse</code>
 
 # AdvancedOrders
 
 Types:
 
 - <code><a href="./src/resources/advanced-orders.ts">AdvancedOrder</a></code>
-- <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderCreateResponse</a></code>
-- <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderRetrieveResponse</a></code>
+- <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderRequest</a></code>
 - <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderListResponse</a></code>
-- <code><a href="./src/resources/advanced-orders.ts">AdvancedOrderUpdateRequirementGroupResponse</a></code>
 
 Methods:
 
-- <code title="post /advanced_orders">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">create</a>({ ...params }) -> AdvancedOrderCreateResponse</code>
-- <code title="get /advanced_orders/{order_id}">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">retrieve</a>(orderID) -> AdvancedOrderRetrieveResponse</code>
 - <code title="get /advanced_orders">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">list</a>() -> AdvancedOrderListResponse</code>
-- <code title="patch /advanced_orders/{advanced-order-id}/requirement_group">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">updateRequirementGroup</a>(advancedOrderID, { ...params }) -> AdvancedOrderUpdateRequirementGroupResponse</code>
+- <code title="post /advanced_orders">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">create</a>({ ...params }) -> AdvancedOrder</code>
+- <code title="get /advanced_orders/{order_id}">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">retrieve</a>(orderID) -> AdvancedOrder</code>
+- <code title="patch /advanced_orders/{advanced-order-id}/requirement_group">client.advancedOrders.<a href="./src/resources/advanced-orders.ts">updateRequirementGroup</a>(advancedOrderID, { ...params }) -> AdvancedOrder</code>
 
 # AI
 
 Types:
 
 - <code><a href="./src/resources/ai/ai.ts">ModelMetadata</a></code>
-- <code><a href="./src/resources/ai/ai.ts">AIRetrieveModelsResponse</a></code>
+- <code><a href="./src/resources/ai/ai.ts">ModelsResponse</a></code>
+- <code><a href="./src/resources/ai/ai.ts">AIRetrieveConversationHistoriesResponse</a></code>
 - <code><a href="./src/resources/ai/ai.ts">AISummarizeResponse</a></code>
 
 Methods:
 
-- <code title="get /ai/models">client.ai.<a href="./src/resources/ai/ai.ts">retrieveModels</a>() -> AIRetrieveModelsResponse</code>
 - <code title="post /ai/summarize">client.ai.<a href="./src/resources/ai/ai.ts">summarize</a>({ ...params }) -> AISummarizeResponse</code>
+- <code title="get /ai/conversation_histories">client.ai.<a href="./src/resources/ai/ai.ts">retrieveConversationHistories</a>({ ...params }) -> AIRetrieveConversationHistoriesResponse</code>
 
 ## Assistants
 
 Types:
 
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ArithmeticExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Assistant</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantIntegration</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantMcpServer</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantsList</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AudioVisualizerConfig</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AuthenticationMethod</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">BooleanOpExpression</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ComparisonExpression</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlowReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">EnabledFeatures</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">Expression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ExternalLlm</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ExternalLlmReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfigReq</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">FlowEdge</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ImportMetadata</a></code>
@@ -545,11 +550,14 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingWebhookToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InsightSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">MessagingSettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">NodePosition</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Observability</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ObservabilityReq</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ObservabilityStatus</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PostConversationSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PostConversationSettingsReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PrivacySettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">PromptSyncStatus</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">RetrievalTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">StartSpeakingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
@@ -567,15 +575,15 @@ Types:
 
 Methods:
 
+- <code title="get /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">list</a>() -> AssistantsList</code>
 - <code title="post /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">create</a>({ ...params }) -> InferenceEmbedding</code>
+- <code title="post /ai/assistants/import">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">imports</a>({ ...params }) -> AssistantsList</code>
+- <code title="delete /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">delete</a>(assistantID) -> AssistantDeleteResponse</code>
 - <code title="get /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">retrieve</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="post /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">update</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
-- <code title="get /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">list</a>() -> AssistantsList</code>
-- <code title="delete /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">delete</a>(assistantID) -> AssistantDeleteResponse</code>
 - <code title="post /ai/assistants/{assistant_id}/chat">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">chat</a>(assistantID, { ...params }) -> AssistantChatResponse</code>
 - <code title="post /ai/assistants/{assistant_id}/clone">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">clone</a>(assistantID) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}/texml">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">getTexml</a>(assistantID) -> string</code>
-- <code title="post /ai/assistants/import">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">imports</a>({ ...params }) -> AssistantsList</code>
 - <code title="post /ai/assistants/{assistant_id}/chat/sms">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">sendSMS</a>(assistantID, { ...params }) -> AssistantSendSMSResponse</code>
 
 ### Tests
@@ -587,11 +595,11 @@ Types:
 
 Methods:
 
+- <code title="get /ai/assistants/tests">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">list</a>({ ...params }) -> AssistantTestsDefaultFlatPagination</code>
 - <code title="post /ai/assistants/tests">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">create</a>({ ...params }) -> AssistantTest</code>
+- <code title="delete /ai/assistants/tests/{test_id}">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">delete</a>(testID) -> void</code>
 - <code title="get /ai/assistants/tests/{test_id}">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">retrieve</a>(testID) -> AssistantTest</code>
 - <code title="put /ai/assistants/tests/{test_id}">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">update</a>(testID, { ...params }) -> AssistantTest</code>
-- <code title="get /ai/assistants/tests">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">list</a>({ ...params }) -> AssistantTestsDefaultFlatPagination</code>
-- <code title="delete /ai/assistants/tests/{test_id}">client.ai.assistants.tests.<a href="./src/resources/ai/assistants/tests/tests.ts">delete</a>(testID) -> void</code>
 
 #### TestSuites
 
@@ -626,9 +634,9 @@ Types:
 
 Methods:
 
-- <code title="get /ai/assistants/tests/{test_id}/runs/{run_id}">client.ai.assistants.tests.runs.<a href="./src/resources/ai/assistants/tests/runs.ts">retrieve</a>(runID, { ...params }) -> TestRunResponse</code>
 - <code title="get /ai/assistants/tests/{test_id}/runs">client.ai.assistants.tests.runs.<a href="./src/resources/ai/assistants/tests/runs.ts">list</a>(testID, { ...params }) -> TestRunResponsesDefaultFlatPagination</code>
 - <code title="post /ai/assistants/tests/{test_id}/runs">client.ai.assistants.tests.runs.<a href="./src/resources/ai/assistants/tests/runs.ts">trigger</a>(testID, { ...params }) -> TestRunResponse</code>
+- <code title="get /ai/assistants/tests/{test_id}/runs/{run_id}">client.ai.assistants.tests.runs.<a href="./src/resources/ai/assistants/tests/runs.ts">retrieve</a>(runID, { ...params }) -> TestRunResponse</code>
 
 ### CanaryDeploys
 
@@ -644,10 +652,10 @@ Types:
 
 Methods:
 
-- <code title="post /ai/assistants/{assistant_id}/canary-deploys">client.ai.assistants.canaryDeploys.<a href="./src/resources/ai/assistants/canary-deploys.ts">create</a>(assistantID, { ...params }) -> CanaryDeployResponse</code>
-- <code title="get /ai/assistants/{assistant_id}/canary-deploys">client.ai.assistants.canaryDeploys.<a href="./src/resources/ai/assistants/canary-deploys.ts">retrieve</a>(assistantID) -> CanaryDeployResponse</code>
-- <code title="put /ai/assistants/{assistant_id}/canary-deploys">client.ai.assistants.canaryDeploys.<a href="./src/resources/ai/assistants/canary-deploys.ts">update</a>(assistantID, { ...params }) -> CanaryDeployResponse</code>
 - <code title="delete /ai/assistants/{assistant_id}/canary-deploys">client.ai.assistants.canaryDeploys.<a href="./src/resources/ai/assistants/canary-deploys.ts">delete</a>(assistantID) -> void</code>
+- <code title="get /ai/assistants/{assistant_id}/canary-deploys">client.ai.assistants.canaryDeploys.<a href="./src/resources/ai/assistants/canary-deploys.ts">retrieve</a>(assistantID) -> CanaryDeployResponse</code>
+- <code title="post /ai/assistants/{assistant_id}/canary-deploys">client.ai.assistants.canaryDeploys.<a href="./src/resources/ai/assistants/canary-deploys.ts">create</a>(assistantID, { ...params }) -> CanaryDeployResponse</code>
+- <code title="put /ai/assistants/{assistant_id}/canary-deploys">client.ai.assistants.canaryDeploys.<a href="./src/resources/ai/assistants/canary-deploys.ts">update</a>(assistantID, { ...params }) -> CanaryDeployResponse</code>
 
 ### ScheduledEvents
 
@@ -655,6 +663,7 @@ Types:
 
 - <code><a href="./src/resources/ai/assistants/scheduled-events.ts">ConversationChannelType</a></code>
 - <code><a href="./src/resources/ai/assistants/scheduled-events.ts">EventStatus</a></code>
+- <code><a href="./src/resources/ai/assistants/scheduled-events.ts">ScheduledCallSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/scheduled-events.ts">ScheduledEventResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/scheduled-events.ts">ScheduledPhoneCallEventResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/scheduled-events.ts">ScheduledSMSEventResponse</a></code>
@@ -662,10 +671,10 @@ Types:
 
 Methods:
 
-- <code title="post /ai/assistants/{assistant_id}/scheduled_events">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">create</a>(assistantID, { ...params }) -> ScheduledEventResponse</code>
-- <code title="get /ai/assistants/{assistant_id}/scheduled_events/{event_id}">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">retrieve</a>(eventID, { ...params }) -> ScheduledEventResponse</code>
 - <code title="get /ai/assistants/{assistant_id}/scheduled_events">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">list</a>(assistantID, { ...params }) -> ScheduledEventListResponsesDefaultFlatPagination</code>
+- <code title="post /ai/assistants/{assistant_id}/scheduled_events">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">create</a>(assistantID, { ...params }) -> ScheduledEventResponse</code>
 - <code title="delete /ai/assistants/{assistant_id}/scheduled_events/{event_id}">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">delete</a>(eventID, { ...params }) -> void</code>
+- <code title="get /ai/assistants/{assistant_id}/scheduled_events/{event_id}">client.ai.assistants.scheduledEvents.<a href="./src/resources/ai/assistants/scheduled-events.ts">retrieve</a>(eventID, { ...params }) -> ScheduledEventResponse</code>
 
 ### Tools
 
@@ -677,9 +686,9 @@ Types:
 
 Methods:
 
-- <code title="put /ai/assistants/{assistant_id}/tools/{tool_id}">client.ai.assistants.tools.<a href="./src/resources/ai/assistants/tools.ts">add</a>(toolID, { ...params }) -> unknown</code>
-- <code title="delete /ai/assistants/{assistant_id}/tools/{tool_id}">client.ai.assistants.tools.<a href="./src/resources/ai/assistants/tools.ts">remove</a>(toolID, { ...params }) -> unknown</code>
 - <code title="post /ai/assistants/{assistant_id}/tools/{tool_id}/test">client.ai.assistants.tools.<a href="./src/resources/ai/assistants/tools.ts">test</a>(toolID, { ...params }) -> ToolTestResponse</code>
+- <code title="delete /ai/assistants/{assistant_id}/tools/{tool_id}">client.ai.assistants.tools.<a href="./src/resources/ai/assistants/tools.ts">remove</a>(toolID, { ...params }) -> unknown</code>
+- <code title="put /ai/assistants/{assistant_id}/tools/{tool_id}">client.ai.assistants.tools.<a href="./src/resources/ai/assistants/tools.ts">add</a>(toolID, { ...params }) -> unknown</code>
 
 ### Versions
 
@@ -689,25 +698,33 @@ Types:
 
 Methods:
 
-- <code title="get /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">retrieve</a>(versionID, { ...params }) -> InferenceEmbedding</code>
-- <code title="post /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">update</a>(versionID, { ...params }) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}/versions">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">list</a>(assistantID) -> AssistantsList</code>
 - <code title="delete /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">delete</a>(versionID, { ...params }) -> void</code>
+- <code title="get /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">retrieve</a>(versionID, { ...params }) -> InferenceEmbedding</code>
+- <code title="post /ai/assistants/{assistant_id}/versions/{version_id}">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">update</a>(versionID, { ...params }) -> InferenceEmbedding</code>
 - <code title="post /ai/assistants/{assistant_id}/versions/{version_id}/promote">client.ai.assistants.versions.<a href="./src/resources/ai/assistants/versions.ts">promote</a>(versionID, { ...params }) -> InferenceEmbedding</code>
 
 ### Tags
 
 Types:
 
-- <code><a href="./src/resources/ai/assistants/tags.ts">TagListResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/tags.ts">TagAddResponse</a></code>
-- <code><a href="./src/resources/ai/assistants/tags.ts">TagRemoveResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/tags.ts">TagsResponse</a></code>
 
 Methods:
 
-- <code title="get /ai/assistants/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">list</a>() -> TagListResponse</code>
-- <code title="post /ai/assistants/{assistant_id}/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">add</a>(assistantID, { ...params }) -> TagAddResponse</code>
-- <code title="delete /ai/assistants/{assistant_id}/tags/{tag}">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">remove</a>(tag, { ...params }) -> TagRemoveResponse</code>
+- <code title="get /ai/assistants/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">list</a>() -> TagsResponse</code>
+- <code title="post /ai/assistants/{assistant_id}/tags">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">add</a>(assistantID, { ...params }) -> TagsResponse</code>
+- <code title="delete /ai/assistants/{assistant_id}/tags/{tag}">client.ai.assistants.tags.<a href="./src/resources/ai/assistants/tags.ts">remove</a>(tag, { ...params }) -> TagsResponse</code>
+
+### Instructions
+
+Types:
+
+- <code><a href="./src/resources/ai/assistants/instructions.ts">InstructionEnhanceResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/assistants/{assistant_id}/instructions/enhance">client.ai.assistants.instructions.<a href="./src/resources/ai/assistants/instructions.ts">enhance</a>(assistantID, { ...params }) -> string</code>
 
 ## Audio
 
@@ -724,11 +741,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/ai/chat.ts">BucketIDs</a></code>
-- <code><a href="./src/resources/ai/chat.ts">ChatCreateCompletionResponse</a></code>
-
-Methods:
-
-- <code title="post /ai/chat/completions">client.ai.chat.<a href="./src/resources/ai/chat.ts">createCompletion</a>({ ...params }) -> ChatCreateCompletionResponse</code>
+- <code><a href="./src/resources/ai/chat.ts">ChatCompletionRequest</a></code>
 
 ## Clusters
 
@@ -741,10 +754,10 @@ Types:
 
 Methods:
 
-- <code title="get /ai/clusters/{task_id}">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">retrieve</a>(taskID, { ...params }) -> ClusterRetrieveResponse</code>
 - <code title="get /ai/clusters">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">list</a>({ ...params }) -> ClusterListResponsesDefaultFlatPagination</code>
-- <code title="delete /ai/clusters/{task_id}">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">delete</a>(taskID) -> void</code>
 - <code title="post /ai/clusters">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">compute</a>({ ...params }) -> ClusterComputeResponse</code>
+- <code title="delete /ai/clusters/{task_id}">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">delete</a>(taskID) -> void</code>
+- <code title="get /ai/clusters/{task_id}">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">retrieve</a>(taskID, { ...params }) -> ClusterRetrieveResponse</code>
 - <code title="get /ai/clusters/{task_id}/graph">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">fetchGraph</a>(taskID, { ...params }) -> Response</code>
 
 ## Conversations
@@ -759,13 +772,13 @@ Types:
 
 Methods:
 
+- <code title="get /ai/conversations">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
 - <code title="post /ai/conversations">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">create</a>({ ...params }) -> Conversation</code>
+- <code title="delete /ai/conversations/{conversation_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">delete</a>(conversationID) -> void</code>
 - <code title="get /ai/conversations/{conversation_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">retrieve</a>(conversationID) -> ConversationRetrieveResponse</code>
 - <code title="put /ai/conversations/{conversation_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">update</a>(conversationID, { ...params }) -> ConversationUpdateResponse</code>
-- <code title="get /ai/conversations">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">list</a>({ ...params }) -> ConversationListResponse</code>
-- <code title="delete /ai/conversations/{conversation_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">delete</a>(conversationID) -> void</code>
-- <code title="post /ai/conversations/{conversation_id}/message">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">addMessage</a>(conversationID, { ...params }) -> void</code>
 - <code title="get /ai/conversations/{conversation_id}/conversations-insights">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">retrieveConversationsInsights</a>(conversationID) -> ConversationRetrieveConversationsInsightsResponse</code>
+- <code title="post /ai/conversations/{conversation_id}/message">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">addMessage</a>(conversationID, { ...params }) -> void</code>
 
 ### InsightGroups
 
@@ -776,11 +789,11 @@ Types:
 
 Methods:
 
+- <code title="get /ai/conversations/insight-groups">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">retrieveInsightGroups</a>({ ...params }) -> InsightTemplateGroupsDefaultFlatPagination</code>
+- <code title="post /ai/conversations/insight-groups">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">insightGroups</a>({ ...params }) -> InsightTemplateGroupDetail</code>
+- <code title="delete /ai/conversations/insight-groups/{group_id}">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">delete</a>(groupID) -> void</code>
 - <code title="get /ai/conversations/insight-groups/{group_id}">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">retrieve</a>(groupID) -> InsightTemplateGroupDetail</code>
 - <code title="put /ai/conversations/insight-groups/{group_id}">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">update</a>(groupID, { ...params }) -> InsightTemplateGroupDetail</code>
-- <code title="delete /ai/conversations/insight-groups/{group_id}">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">delete</a>(groupID) -> void</code>
-- <code title="post /ai/conversations/insight-groups">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">insightGroups</a>({ ...params }) -> InsightTemplateGroupDetail</code>
-- <code title="get /ai/conversations/insight-groups">client.ai.conversations.insightGroups.<a href="./src/resources/ai/conversations/insight-groups/insight-groups.ts">retrieveInsightGroups</a>({ ...params }) -> InsightTemplateGroupsDefaultFlatPagination</code>
 
 #### Insights
 
@@ -798,11 +811,11 @@ Types:
 
 Methods:
 
+- <code title="get /ai/conversations/insights">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">list</a>({ ...params }) -> InsightTemplatesDefaultFlatPagination</code>
 - <code title="post /ai/conversations/insights">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">create</a>({ ...params }) -> InsightTemplateDetail</code>
+- <code title="delete /ai/conversations/insights/{insight_id}">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">delete</a>(insightID) -> void</code>
 - <code title="get /ai/conversations/insights/{insight_id}">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">retrieve</a>(insightID) -> InsightTemplateDetail</code>
 - <code title="put /ai/conversations/insights/{insight_id}">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">update</a>(insightID, { ...params }) -> InsightTemplateDetail</code>
-- <code title="get /ai/conversations/insights">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">list</a>({ ...params }) -> InsightTemplatesDefaultFlatPagination</code>
-- <code title="delete /ai/conversations/insights/{insight_id}">client.ai.conversations.insights.<a href="./src/resources/ai/conversations/insights.ts">delete</a>(insightID) -> void</code>
 
 ### Messages
 
@@ -813,6 +826,16 @@ Types:
 Methods:
 
 - <code title="get /ai/conversations/{conversation_id}/messages">client.ai.conversations.messages.<a href="./src/resources/ai/conversations/messages.ts">list</a>(conversationID, { ...params }) -> MessageListResponsesDefaultFlatPagination</code>
+
+### ConversationInsights
+
+Types:
+
+- <code><a href="./src/resources/ai/conversations/conversation-insights.ts">ConversationInsightRetrieveAggregatesResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/conversations/conversation-insights/aggregates">client.ai.conversations.conversationInsights.<a href="./src/resources/ai/conversations/conversation-insights.ts">retrieveAggregates</a>({ ...params }) -> ConversationInsightRetrieveAggregatesResponse</code>
 
 ## Embeddings
 
@@ -826,11 +849,11 @@ Types:
 
 Methods:
 
-- <code title="post /ai/embeddings">client.ai.embeddings.<a href="./src/resources/ai/embeddings/embeddings.ts">create</a>({ ...params }) -> EmbeddingResponse</code>
-- <code title="get /ai/embeddings/{task_id}">client.ai.embeddings.<a href="./src/resources/ai/embeddings/embeddings.ts">retrieve</a>(taskID) -> EmbeddingRetrieveResponse</code>
 - <code title="get /ai/embeddings">client.ai.embeddings.<a href="./src/resources/ai/embeddings/embeddings.ts">list</a>({ ...params }) -> EmbeddingListResponse</code>
+- <code title="post /ai/embeddings">client.ai.embeddings.<a href="./src/resources/ai/embeddings/embeddings.ts">create</a>({ ...params }) -> EmbeddingResponse</code>
 - <code title="post /ai/embeddings/similarity-search">client.ai.embeddings.<a href="./src/resources/ai/embeddings/embeddings.ts">similaritySearch</a>({ ...params }) -> EmbeddingSimilaritySearchResponse</code>
 - <code title="post /ai/embeddings/url">client.ai.embeddings.<a href="./src/resources/ai/embeddings/embeddings.ts">url</a>({ ...params }) -> EmbeddingResponse</code>
+- <code title="get /ai/embeddings/{task_id}">client.ai.embeddings.<a href="./src/resources/ai/embeddings/embeddings.ts">retrieve</a>(taskID) -> EmbeddingRetrieveResponse</code>
 
 ### Buckets
 
@@ -841,9 +864,9 @@ Types:
 
 Methods:
 
-- <code title="get /ai/embeddings/buckets/{bucket_name}">client.ai.embeddings.buckets.<a href="./src/resources/ai/embeddings/buckets.ts">retrieve</a>(bucketName) -> BucketRetrieveResponse</code>
 - <code title="get /ai/embeddings/buckets">client.ai.embeddings.buckets.<a href="./src/resources/ai/embeddings/buckets.ts">list</a>() -> BucketListResponse</code>
 - <code title="delete /ai/embeddings/buckets/{bucket_name}">client.ai.embeddings.buckets.<a href="./src/resources/ai/embeddings/buckets.ts">delete</a>(bucketName) -> void</code>
+- <code title="get /ai/embeddings/buckets/{bucket_name}">client.ai.embeddings.buckets.<a href="./src/resources/ai/embeddings/buckets.ts">retrieve</a>(bucketName) -> BucketRetrieveResponse</code>
 
 ## FineTuning
 
@@ -856,22 +879,22 @@ Types:
 
 Methods:
 
+- <code title="get /ai/fine_tuning/jobs">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">list</a>() -> JobListResponse</code>
 - <code title="post /ai/fine_tuning/jobs">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">create</a>({ ...params }) -> FineTuningJob</code>
 - <code title="get /ai/fine_tuning/jobs/{job_id}">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">retrieve</a>(jobID) -> FineTuningJob</code>
-- <code title="get /ai/fine_tuning/jobs">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">list</a>() -> JobListResponse</code>
 - <code title="post /ai/fine_tuning/jobs/{job_id}/cancel">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">cancel</a>(jobID) -> FineTuningJob</code>
 
 ## Integrations
 
 Types:
 
-- <code><a href="./src/resources/ai/integrations/integrations.ts">IntegrationRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/integrations/integrations.ts">Integration</a></code>
 - <code><a href="./src/resources/ai/integrations/integrations.ts">IntegrationListResponse</a></code>
 
 Methods:
 
-- <code title="get /ai/integrations/{integration_id}">client.ai.integrations.<a href="./src/resources/ai/integrations/integrations.ts">retrieve</a>(integrationID) -> IntegrationRetrieveResponse</code>
 - <code title="get /ai/integrations">client.ai.integrations.<a href="./src/resources/ai/integrations/integrations.ts">list</a>() -> IntegrationListResponse</code>
+- <code title="get /ai/integrations/{integration_id}">client.ai.integrations.<a href="./src/resources/ai/integrations/integrations.ts">retrieve</a>(integrationID) -> Integration</code>
 
 ### Connections
 
@@ -883,102 +906,96 @@ Types:
 
 Methods:
 
-- <code title="get /ai/integrations/connections/{user_connection_id}">client.ai.integrations.connections.<a href="./src/resources/ai/integrations/connections.ts">retrieve</a>(userConnectionID) -> ConnectionRetrieveResponse</code>
 - <code title="get /ai/integrations/connections">client.ai.integrations.connections.<a href="./src/resources/ai/integrations/connections.ts">list</a>() -> ConnectionListResponse</code>
 - <code title="delete /ai/integrations/connections/{user_connection_id}">client.ai.integrations.connections.<a href="./src/resources/ai/integrations/connections.ts">delete</a>(userConnectionID) -> void</code>
+- <code title="get /ai/integrations/connections/{user_connection_id}">client.ai.integrations.connections.<a href="./src/resources/ai/integrations/connections.ts">retrieve</a>(userConnectionID) -> ConnectionRetrieveResponse</code>
 
 ## McpServers
 
 Types:
 
-- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerCreateResponse</a></code>
-- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerRetrieveResponse</a></code>
-- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerUpdateResponse</a></code>
-- <code><a href="./src/resources/ai/mcp-servers.ts">McpServerListResponse</a></code>
+- <code><a href="./src/resources/ai/mcp-servers.ts">McpServer</a></code>
 
 Methods:
 
-- <code title="post /ai/mcp_servers">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">create</a>({ ...params }) -> McpServerCreateResponse</code>
-- <code title="get /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">retrieve</a>(mcpServerID) -> McpServerRetrieveResponse</code>
-- <code title="put /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">update</a>(mcpServerID, { ...params }) -> McpServerUpdateResponse</code>
-- <code title="get /ai/mcp_servers">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">list</a>({ ...params }) -> McpServerListResponsesDefaultFlatPaginationTopLevelArray</code>
+- <code title="get /ai/mcp_servers">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">list</a>({ ...params }) -> McpServersDefaultFlatPaginationTopLevelArray</code>
+- <code title="post /ai/mcp_servers">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">create</a>({ ...params }) -> McpServer</code>
 - <code title="delete /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">delete</a>(mcpServerID) -> void</code>
+- <code title="get /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">retrieve</a>(mcpServerID) -> McpServer</code>
+- <code title="put /ai/mcp_servers/{mcp_server_id}">client.ai.mcpServers.<a href="./src/resources/ai/mcp-servers.ts">update</a>(mcpServerID, { ...params }) -> McpServer</code>
 
 ## Missions
 
 Types:
 
+- <code><a href="./src/resources/ai/missions/missions.ts">EventsListResponse</a></code>
+- <code><a href="./src/resources/ai/missions/missions.ts">ExecutionMode</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionData</a></code>
-- <code><a href="./src/resources/ai/missions/missions.ts">MissionCreateResponse</a></code>
-- <code><a href="./src/resources/ai/missions/missions.ts">MissionRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/missions/missions.ts">MissionResponse</a></code>
 - <code><a href="./src/resources/ai/missions/missions.ts">MissionCloneMissionResponse</a></code>
-- <code><a href="./src/resources/ai/missions/missions.ts">MissionUpdateMissionResponse</a></code>
 
 Methods:
 
-- <code title="post /ai/missions">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">create</a>({ ...params }) -> MissionCreateResponse</code>
-- <code title="get /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">retrieve</a>(missionID) -> MissionRetrieveResponse</code>
 - <code title="get /ai/missions">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">list</a>({ ...params }) -> MissionDataDefaultFlatPagination</code>
-- <code title="post /ai/missions/{mission_id}/clone">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">cloneMission</a>(missionID) -> unknown</code>
-- <code title="delete /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">deleteMission</a>(missionID) -> void</code>
+- <code title="post /ai/missions">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">create</a>({ ...params }) -> MissionResponse</code>
+- <code title="get /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">retrieve</a>(missionID) -> MissionResponse</code>
 - <code title="get /ai/missions/events">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">listEvents</a>({ ...params }) -> EventDataDefaultFlatPagination</code>
-- <code title="put /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">updateMission</a>(missionID, { ...params }) -> MissionUpdateMissionResponse</code>
+- <code title="delete /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">deleteMission</a>(missionID) -> void</code>
+- <code title="put /ai/missions/{mission_id}">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">updateMission</a>(missionID, { ...params }) -> MissionResponse</code>
+- <code title="post /ai/missions/{mission_id}/clone">client.ai.missions.<a href="./src/resources/ai/missions/missions.ts">cloneMission</a>(missionID) -> unknown</code>
 
 ### Runs
 
 Types:
 
 - <code><a href="./src/resources/ai/missions/runs/runs.ts">MissionRunData</a></code>
-- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunCreateResponse</a></code>
-- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunRetrieveResponse</a></code>
-- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunUpdateResponse</a></code>
-- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunCancelRunResponse</a></code>
-- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunPauseRunResponse</a></code>
-- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunResumeRunResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">MissionRunResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">MissionRunsListResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/runs.ts">RunStatus</a></code>
 
 Methods:
 
-- <code title="post /ai/missions/{mission_id}/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">create</a>(missionID, { ...params }) -> RunCreateResponse</code>
-- <code title="get /ai/missions/{mission_id}/runs/{run_id}">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">retrieve</a>(runID, { ...params }) -> RunRetrieveResponse</code>
-- <code title="patch /ai/missions/{mission_id}/runs/{run_id}">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">update</a>(runID, { ...params }) -> RunUpdateResponse</code>
 - <code title="get /ai/missions/{mission_id}/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">list</a>(missionID, { ...params }) -> MissionRunDataDefaultFlatPagination</code>
-- <code title="post /ai/missions/{mission_id}/runs/{run_id}/cancel">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">cancelRun</a>(runID, { ...params }) -> RunCancelRunResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">create</a>(missionID, { ...params }) -> MissionRunResponse</code>
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">retrieve</a>(runID, { ...params }) -> MissionRunResponse</code>
+- <code title="patch /ai/missions/{mission_id}/runs/{run_id}">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">update</a>(runID, { ...params }) -> MissionRunResponse</code>
 - <code title="get /ai/missions/runs">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">listRuns</a>({ ...params }) -> MissionRunDataDefaultFlatPagination</code>
-- <code title="post /ai/missions/{mission_id}/runs/{run_id}/pause">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">pauseRun</a>(runID, { ...params }) -> RunPauseRunResponse</code>
-- <code title="post /ai/missions/{mission_id}/runs/{run_id}/resume">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">resumeRun</a>(runID, { ...params }) -> RunResumeRunResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/cancel">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">cancelRun</a>(runID, { ...params }) -> MissionRunResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/pause">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">pauseRun</a>(runID, { ...params }) -> MissionRunResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/resume">client.ai.missions.runs.<a href="./src/resources/ai/missions/runs/runs.ts">resumeRun</a>(runID, { ...params }) -> MissionRunResponse</code>
 
 #### Events
 
 Types:
 
 - <code><a href="./src/resources/ai/missions/runs/events.ts">EventData</a></code>
-- <code><a href="./src/resources/ai/missions/runs/events.ts">EventGetEventDetailsResponse</a></code>
-- <code><a href="./src/resources/ai/missions/runs/events.ts">EventLogResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/events.ts">EventResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/events.ts">EventType</a></code>
 
 Methods:
 
 - <code title="get /ai/missions/{mission_id}/runs/{run_id}/events">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">list</a>(runID, { ...params }) -> EventDataDefaultFlatPagination</code>
-- <code title="get /ai/missions/{mission_id}/runs/{run_id}/events/{event_id}">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">getEventDetails</a>(eventID, { ...params }) -> EventGetEventDetailsResponse</code>
-- <code title="post /ai/missions/{mission_id}/runs/{run_id}/events">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">log</a>(runID, { ...params }) -> EventLogResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/events">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">log</a>(runID, { ...params }) -> EventResponse</code>
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}/events/{event_id}">client.ai.missions.runs.events.<a href="./src/resources/ai/missions/runs/events.ts">getEventDetails</a>(eventID, { ...params }) -> EventResponse</code>
 
 #### Plan
 
 Types:
 
+- <code><a href="./src/resources/ai/missions/runs/plan.ts">CreatePlanStepRequest</a></code>
 - <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanStepData</a></code>
-- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanCreateResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanStepResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanStepsCreatedResponse</a></code>
+- <code><a href="./src/resources/ai/missions/runs/plan.ts">StepStatus</a></code>
 - <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanRetrieveResponse</a></code>
-- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanAddStepsToPlanResponse</a></code>
-- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanGetStepDetailsResponse</a></code>
-- <code><a href="./src/resources/ai/missions/runs/plan.ts">PlanUpdateStepResponse</a></code>
 
 Methods:
 
-- <code title="post /ai/missions/{mission_id}/runs/{run_id}/plan">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">create</a>(runID, { ...params }) -> PlanCreateResponse</code>
 - <code title="get /ai/missions/{mission_id}/runs/{run_id}/plan">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">retrieve</a>(runID, { ...params }) -> PlanRetrieveResponse</code>
-- <code title="post /ai/missions/{mission_id}/runs/{run_id}/plan/steps">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">addStepsToPlan</a>(runID, { ...params }) -> PlanAddStepsToPlanResponse</code>
-- <code title="get /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">getStepDetails</a>(stepID, { ...params }) -> PlanGetStepDetailsResponse</code>
-- <code title="patch /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">updateStep</a>(stepID, { ...params }) -> PlanUpdateStepResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/plan">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">create</a>(runID, { ...params }) -> PlanStepsCreatedResponse</code>
+- <code title="patch /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">updateStep</a>(stepID, { ...params }) -> PlanStepResponse</code>
+- <code title="post /ai/missions/{mission_id}/runs/{run_id}/plan/steps">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">addStepsToPlan</a>(runID, { ...params }) -> PlanStepsCreatedResponse</code>
+- <code title="get /ai/missions/{mission_id}/runs/{run_id}/plan/steps/{step_id}">client.ai.missions.runs.plan.<a href="./src/resources/ai/missions/runs/plan.ts">getStepDetails</a>(stepID, { ...params }) -> PlanStepResponse</code>
 
 #### TelnyxAgents
 
@@ -1005,10 +1022,10 @@ Types:
 
 Methods:
 
+- <code title="get /ai/missions/{mission_id}/knowledge-bases">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">listKnowledgeBases</a>(missionID) -> unknown</code>
 - <code title="post /ai/missions/{mission_id}/knowledge-bases">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">createKnowledgeBase</a>(missionID) -> unknown</code>
 - <code title="delete /ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">deleteKnowledgeBase</a>(knowledgeBaseID, { ...params }) -> void</code>
 - <code title="get /ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">getKnowledgeBase</a>(knowledgeBaseID, { ...params }) -> unknown</code>
-- <code title="get /ai/missions/{mission_id}/knowledge-bases">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">listKnowledgeBases</a>(missionID) -> unknown</code>
 - <code title="put /ai/missions/{mission_id}/knowledge-bases/{knowledge_base_id}">client.ai.missions.knowledgeBases.<a href="./src/resources/ai/missions/knowledge-bases.ts">updateKnowledgeBase</a>(knowledgeBaseID, { ...params }) -> unknown</code>
 
 ### McpServers
@@ -1022,10 +1039,10 @@ Types:
 
 Methods:
 
+- <code title="get /ai/missions/{mission_id}/mcp-servers">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">listMcpServers</a>(missionID) -> unknown</code>
 - <code title="post /ai/missions/{mission_id}/mcp-servers">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">createMcpServer</a>(missionID) -> unknown</code>
 - <code title="delete /ai/missions/{mission_id}/mcp-servers/{mcp_server_id}">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">deleteMcpServer</a>(mcpServerID, { ...params }) -> void</code>
 - <code title="get /ai/missions/{mission_id}/mcp-servers/{mcp_server_id}">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">getMcpServer</a>(mcpServerID, { ...params }) -> unknown</code>
-- <code title="get /ai/missions/{mission_id}/mcp-servers">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">listMcpServers</a>(missionID) -> unknown</code>
 - <code title="put /ai/missions/{mission_id}/mcp-servers/{mcp_server_id}">client.ai.missions.mcpServers.<a href="./src/resources/ai/missions/mcp-servers.ts">updateMcpServer</a>(mcpServerID, { ...params }) -> unknown</code>
 
 ### Tools
@@ -1039,21 +1056,22 @@ Types:
 
 Methods:
 
+- <code title="get /ai/missions/{mission_id}/tools">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">listTools</a>(missionID) -> unknown</code>
 - <code title="post /ai/missions/{mission_id}/tools">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">createTool</a>(missionID) -> unknown</code>
 - <code title="delete /ai/missions/{mission_id}/tools/{tool_id}">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">deleteTool</a>(toolID, { ...params }) -> void</code>
 - <code title="get /ai/missions/{mission_id}/tools/{tool_id}">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">getTool</a>(toolID, { ...params }) -> unknown</code>
-- <code title="get /ai/missions/{mission_id}/tools">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">listTools</a>(missionID) -> unknown</code>
 - <code title="put /ai/missions/{mission_id}/tools/{tool_id}">client.ai.missions.tools.<a href="./src/resources/ai/missions/tools.ts">updateTool</a>(toolID, { ...params }) -> unknown</code>
 
 ## OpenAI
 
 Types:
 
-- <code><a href="./src/resources/ai/openai/openai.ts">OpenAIListModelsResponse</a></code>
+- <code><a href="./src/resources/ai/openai/openai.ts">OpenAICreateResponseResponse</a></code>
 
 Methods:
 
-- <code title="get /ai/openai/models">client.ai.openai.<a href="./src/resources/ai/openai/openai.ts">listModels</a>() -> OpenAIListModelsResponse</code>
+- <code title="get /ai/openai/models">client.ai.openai.<a href="./src/resources/ai/openai/openai.ts">listModels</a>() -> ModelsResponse</code>
+- <code title="post /ai/openai/responses">client.ai.openai.<a href="./src/resources/ai/openai/openai.ts">createResponse</a>({ ...params }) -> OpenAICreateResponseResponse</code>
 
 ### Embeddings
 
@@ -1081,19 +1099,29 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/ai/tools.ts">ToolCreateResponse</a></code>
-- <code><a href="./src/resources/ai/tools.ts">ToolRetrieveResponse</a></code>
-- <code><a href="./src/resources/ai/tools.ts">ToolUpdateResponse</a></code>
-- <code><a href="./src/resources/ai/tools.ts">ToolListResponse</a></code>
+- <code><a href="./src/resources/ai/tools.ts">PayToolParams</a></code>
+- <code><a href="./src/resources/ai/tools.ts">SharedToolResponse</a></code>
 - <code><a href="./src/resources/ai/tools.ts">ToolDeleteResponse</a></code>
 
 Methods:
 
-- <code title="post /ai/tools">client.ai.tools.<a href="./src/resources/ai/tools.ts">create</a>({ ...params }) -> ToolCreateResponse</code>
-- <code title="get /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">retrieve</a>(toolID) -> ToolRetrieveResponse</code>
-- <code title="patch /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">update</a>(toolID, { ...params }) -> ToolUpdateResponse</code>
-- <code title="get /ai/tools">client.ai.tools.<a href="./src/resources/ai/tools.ts">list</a>({ ...params }) -> ToolListResponsesDefaultFlatPagination</code>
+- <code title="get /ai/tools">client.ai.tools.<a href="./src/resources/ai/tools.ts">list</a>({ ...params }) -> SharedToolResponsesDefaultFlatPagination</code>
+- <code title="post /ai/tools">client.ai.tools.<a href="./src/resources/ai/tools.ts">create</a>({ ...params }) -> SharedToolResponse</code>
 - <code title="delete /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">delete</a>(toolID) -> unknown</code>
+- <code title="get /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">retrieve</a>(toolID) -> SharedToolResponse</code>
+- <code title="patch /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">update</a>(toolID, { ...params }) -> SharedToolResponse</code>
+
+## Anthropic
+
+### V1
+
+Types:
+
+- <code><a href="./src/resources/ai/anthropic/v1.ts">V1MessagesResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/anthropic/v1/messages">client.ai.anthropic.v1.<a href="./src/resources/ai/anthropic/v1.ts">messages</a>({ ...params }) -> V1MessagesResponse</code>
 
 # AuditEvents
 
@@ -1119,11 +1147,11 @@ Types:
 
 Methods:
 
+- <code title="get /authentication_providers">client.authenticationProviders.<a href="./src/resources/authentication-providers.ts">list</a>({ ...params }) -> AuthenticationProvidersDefaultFlatPagination</code>
 - <code title="post /authentication_providers">client.authenticationProviders.<a href="./src/resources/authentication-providers.ts">create</a>({ ...params }) -> AuthenticationProviderCreateResponse</code>
+- <code title="delete /authentication_providers/{id}">client.authenticationProviders.<a href="./src/resources/authentication-providers.ts">delete</a>(id) -> AuthenticationProviderDeleteResponse</code>
 - <code title="get /authentication_providers/{id}">client.authenticationProviders.<a href="./src/resources/authentication-providers.ts">retrieve</a>(id) -> AuthenticationProviderRetrieveResponse</code>
 - <code title="patch /authentication_providers/{id}">client.authenticationProviders.<a href="./src/resources/authentication-providers.ts">update</a>(id, { ...params }) -> AuthenticationProviderUpdateResponse</code>
-- <code title="get /authentication_providers">client.authenticationProviders.<a href="./src/resources/authentication-providers.ts">list</a>({ ...params }) -> AuthenticationProvidersDefaultFlatPagination</code>
-- <code title="delete /authentication_providers/{id}">client.authenticationProviders.<a href="./src/resources/authentication-providers.ts">delete</a>(id) -> AuthenticationProviderDeleteResponse</code>
 
 # AvailablePhoneNumberBlocks
 
@@ -1167,24 +1195,24 @@ Types:
 
 Methods:
 
+- <code title="get /billing_groups">client.billingGroups.<a href="./src/resources/billing-groups.ts">list</a>({ ...params }) -> BillingGroupsDefaultFlatPagination</code>
 - <code title="post /billing_groups">client.billingGroups.<a href="./src/resources/billing-groups.ts">create</a>({ ...params }) -> BillingGroupCreateResponse</code>
+- <code title="delete /billing_groups/{id}">client.billingGroups.<a href="./src/resources/billing-groups.ts">delete</a>(id) -> BillingGroupDeleteResponse</code>
 - <code title="get /billing_groups/{id}">client.billingGroups.<a href="./src/resources/billing-groups.ts">retrieve</a>(id) -> BillingGroupRetrieveResponse</code>
 - <code title="patch /billing_groups/{id}">client.billingGroups.<a href="./src/resources/billing-groups.ts">update</a>(id, { ...params }) -> BillingGroupUpdateResponse</code>
-- <code title="get /billing_groups">client.billingGroups.<a href="./src/resources/billing-groups.ts">list</a>({ ...params }) -> BillingGroupsDefaultFlatPagination</code>
-- <code title="delete /billing_groups/{id}">client.billingGroups.<a href="./src/resources/billing-groups.ts">delete</a>(id) -> BillingGroupDeleteResponse</code>
 
 # BulkSimCardActions
 
 Types:
 
+- <code><a href="./src/resources/bulk-sim-card-actions.ts">BulkSimCardActionDetailed</a></code>
 - <code><a href="./src/resources/bulk-sim-card-actions.ts">SimCardActionsSummary</a></code>
 - <code><a href="./src/resources/bulk-sim-card-actions.ts">BulkSimCardActionRetrieveResponse</a></code>
-- <code><a href="./src/resources/bulk-sim-card-actions.ts">BulkSimCardActionListResponse</a></code>
 
 Methods:
 
+- <code title="get /bulk_sim_card_actions">client.bulkSimCardActions.<a href="./src/resources/bulk-sim-card-actions.ts">list</a>({ ...params }) -> BulkSimCardActionDetailedsDefaultFlatPagination</code>
 - <code title="get /bulk_sim_card_actions/{id}">client.bulkSimCardActions.<a href="./src/resources/bulk-sim-card-actions.ts">retrieve</a>(id) -> BulkSimCardActionRetrieveResponse</code>
-- <code title="get /bulk_sim_card_actions">client.bulkSimCardActions.<a href="./src/resources/bulk-sim-card-actions.ts">list</a>({ ...params }) -> BulkSimCardActionListResponsesDefaultFlatPagination</code>
 
 # BundlePricing
 
@@ -1198,8 +1226,8 @@ Types:
 
 Methods:
 
-- <code title="get /bundle_pricing/billing_bundles/{bundle_id}">client.bundlePricing.billingBundles.<a href="./src/resources/bundle-pricing/billing-bundles.ts">retrieve</a>(bundleID, { ...params }) -> BillingBundleRetrieveResponse</code>
 - <code title="get /bundle_pricing/billing_bundles">client.bundlePricing.billingBundles.<a href="./src/resources/bundle-pricing/billing-bundles.ts">list</a>({ ...params }) -> BillingBundleSummariesDefaultFlatPagination</code>
+- <code title="get /bundle_pricing/billing_bundles/{bundle_id}">client.bundlePricing.billingBundles.<a href="./src/resources/bundle-pricing/billing-bundles.ts">retrieve</a>(bundleID, { ...params }) -> BillingBundleRetrieveResponse</code>
 
 ## UserBundles
 
@@ -1215,12 +1243,12 @@ Types:
 
 Methods:
 
-- <code title="post /bundle_pricing/user_bundles/bulk">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">create</a>({ ...params }) -> UserBundleCreateResponse</code>
-- <code title="get /bundle_pricing/user_bundles/{user_bundle_id}">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">retrieve</a>(userBundleID, { ...params }) -> UserBundleRetrieveResponse</code>
 - <code title="get /bundle_pricing/user_bundles">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">list</a>({ ...params }) -> UserBundlesDefaultFlatPagination</code>
-- <code title="delete /bundle_pricing/user_bundles/{user_bundle_id}">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">deactivate</a>(userBundleID, { ...params }) -> UserBundleDeactivateResponse</code>
-- <code title="get /bundle_pricing/user_bundles/{user_bundle_id}/resources">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">listResources</a>(userBundleID, { ...params }) -> UserBundleListResourcesResponse</code>
+- <code title="post /bundle_pricing/user_bundles/bulk">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">create</a>({ ...params }) -> UserBundleCreateResponse</code>
 - <code title="get /bundle_pricing/user_bundles/unused">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">listUnused</a>({ ...params }) -> UserBundleListUnusedResponse</code>
+- <code title="delete /bundle_pricing/user_bundles/{user_bundle_id}">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">deactivate</a>(userBundleID, { ...params }) -> UserBundleDeactivateResponse</code>
+- <code title="get /bundle_pricing/user_bundles/{user_bundle_id}">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">retrieve</a>(userBundleID, { ...params }) -> UserBundleRetrieveResponse</code>
+- <code title="get /bundle_pricing/user_bundles/{user_bundle_id}/resources">client.bundlePricing.userBundles.<a href="./src/resources/bundle-pricing/user-bundles.ts">listResources</a>(userBundleID, { ...params }) -> UserBundleListResourcesResponse</code>
 
 # CallControlApplications
 
@@ -1236,11 +1264,11 @@ Types:
 
 Methods:
 
+- <code title="get /call_control_applications">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">list</a>({ ...params }) -> CallControlApplicationsDefaultFlatPagination</code>
 - <code title="post /call_control_applications">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">create</a>({ ...params }) -> CallControlApplicationCreateResponse</code>
+- <code title="delete /call_control_applications/{id}">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">delete</a>(id) -> CallControlApplicationDeleteResponse</code>
 - <code title="get /call_control_applications/{id}">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">retrieve</a>(id) -> CallControlApplicationRetrieveResponse</code>
 - <code title="patch /call_control_applications/{id}">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">update</a>(id, { ...params }) -> CallControlApplicationUpdateResponse</code>
-- <code title="get /call_control_applications">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">list</a>({ ...params }) -> CallControlApplicationsDefaultFlatPagination</code>
-- <code title="delete /call_control_applications/{id}">client.callControlApplications.<a href="./src/resources/call-control-applications.ts">delete</a>(id) -> CallControlApplicationDeleteResponse</code>
 
 # CallEvents
 
@@ -1257,6 +1285,9 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/calls/calls.ts">CallAssistantRequest</a></code>
+- <code><a href="./src/resources/calls/calls.ts">ConversationRelayEmbeddedConfig</a></code>
+- <code><a href="./src/resources/calls/calls.ts">ConversationRelayInterruptionSettings</a></code>
+- <code><a href="./src/resources/calls/calls.ts">ConversationRelayLanguage</a></code>
 - <code><a href="./src/resources/calls/calls.ts">CustomSipHeader</a></code>
 - <code><a href="./src/resources/calls/calls.ts">DialogflowConfig</a></code>
 - <code><a href="./src/resources/calls/calls.ts">SipHeader</a></code>
@@ -1278,18 +1309,24 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/calls/actions.ts">AIAssistantJoinParticipant</a></code>
+- <code><a href="./src/resources/calls/actions.ts">AssistantMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">AwsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResult</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResultWithConversationID</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ConversationRelayInterruptible</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova2Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova3Config</a></code>
+- <code><a href="./src/resources/calls/actions.ts">DeveloperMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ElevenLabsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">GoogleTranscriptionLanguage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">InterruptionSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">Loopcount</a></code>
 - <code><a href="./src/resources/calls/actions.ts">StopRecordingRequest</a></code>
+- <code><a href="./src/resources/calls/actions.ts">SystemMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TelnyxTranscriptionLanguage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TelnyxVoiceSettings</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ToolMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAssemblyaiConfig</a></code>
@@ -1297,9 +1334,13 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineBConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineDeepgramConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineParakeetConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSonioxConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSpeechmaticsConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineTelnyxConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineXaiConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionStartRequest</a></code>
+- <code><a href="./src/resources/calls/actions.ts">UserMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionAddAIAssistantMessagesResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionAnswerResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionBridgeResponse</a></code>
@@ -1319,6 +1360,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">ActionSendSipInfoResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionSpeakResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionStartAIAssistantResponse</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ActionStartConversationRelayResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionStartForkingResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionStartNoiseSuppressionResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionStartPlaybackResponse</a></code>
@@ -1327,6 +1369,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">ActionStartStreamingResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionStartTranscriptionResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionStopAIAssistantResponse</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ActionStopConversationRelayResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionStopForkingResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionStopGatherResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionStopNoiseSuppressionResponse</a></code>
@@ -1341,56 +1384,57 @@ Types:
 
 Methods:
 
-- <code title="post /calls/{call_control_id}/actions/ai_assistant_add_messages">client.calls.actions.<a href="./src/resources/calls/actions.ts">addAIAssistantMessages</a>(callControlID, { ...params }) -> ActionAddAIAssistantMessagesResponse</code>
+- <code title="post /calls/{call_control_id}/actions/ai_assistant_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startAIAssistant</a>(callControlID, { ...params }) -> ActionStartAIAssistantResponse</code>
+- <code title="post /calls/{call_control_id}/actions/ai_assistant_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopAIAssistant</a>(callControlID, { ...params }) -> ActionStopAIAssistantResponse</code>
 - <code title="post /calls/{call_control_id}/actions/answer">client.calls.actions.<a href="./src/resources/calls/actions.ts">answer</a>(callControlID, { ...params }) -> ActionAnswerResponse</code>
 - <code title="post /calls/{call_control_id}/actions/bridge">client.calls.actions.<a href="./src/resources/calls/actions.ts">bridge</a>(callControlIDToBridge, { ...params }) -> ActionBridgeResponse</code>
+- <code title="put /calls/{call_control_id}/actions/client_state_update">client.calls.actions.<a href="./src/resources/calls/actions.ts">updateClientState</a>(callControlID, { ...params }) -> ActionUpdateClientStateResponse</code>
 - <code title="post /calls/{call_control_id}/actions/enqueue">client.calls.actions.<a href="./src/resources/calls/actions.ts">enqueue</a>(callControlID, { ...params }) -> ActionEnqueueResponse</code>
+- <code title="post /calls/{call_control_id}/actions/fork_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startForking</a>(callControlID, { ...params }) -> ActionStartForkingResponse</code>
+- <code title="post /calls/{call_control_id}/actions/fork_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopForking</a>(callControlID, { ...params }) -> ActionStopForkingResponse</code>
 - <code title="post /calls/{call_control_id}/actions/gather">client.calls.actions.<a href="./src/resources/calls/actions.ts">gather</a>(callControlID, { ...params }) -> ActionGatherResponse</code>
+- <code title="post /calls/{call_control_id}/actions/gather_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopGather</a>(callControlID, { ...params }) -> ActionStopGatherResponse</code>
 - <code title="post /calls/{call_control_id}/actions/gather_using_ai">client.calls.actions.<a href="./src/resources/calls/actions.ts">gatherUsingAI</a>(callControlID, { ...params }) -> ActionGatherUsingAIResponse</code>
 - <code title="post /calls/{call_control_id}/actions/gather_using_audio">client.calls.actions.<a href="./src/resources/calls/actions.ts">gatherUsingAudio</a>(callControlID, { ...params }) -> ActionGatherUsingAudioResponse</code>
 - <code title="post /calls/{call_control_id}/actions/gather_using_speak">client.calls.actions.<a href="./src/resources/calls/actions.ts">gatherUsingSpeak</a>(callControlID, { ...params }) -> ActionGatherUsingSpeakResponse</code>
 - <code title="post /calls/{call_control_id}/actions/hangup">client.calls.actions.<a href="./src/resources/calls/actions.ts">hangup</a>(callControlID, { ...params }) -> ActionHangupResponse</code>
-- <code title="post /calls/{call_control_id}/actions/ai_assistant_join">client.calls.actions.<a href="./src/resources/calls/actions.ts">joinAIAssistant</a>(callControlID, { ...params }) -> ActionJoinAIAssistantResponse</code>
 - <code title="post /calls/{call_control_id}/actions/leave_queue">client.calls.actions.<a href="./src/resources/calls/actions.ts">leaveQueue</a>(callControlID, { ...params }) -> ActionLeaveQueueResponse</code>
+- <code title="post /calls/{call_control_id}/actions/playback_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startPlayback</a>(callControlID, { ...params }) -> ActionStartPlaybackResponse</code>
+- <code title="post /calls/{call_control_id}/actions/playback_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopPlayback</a>(callControlID, { ...params }) -> ActionStopPlaybackResponse</code>
 - <code title="post /calls/{call_control_id}/actions/record_pause">client.calls.actions.<a href="./src/resources/calls/actions.ts">pauseRecording</a>(callControlID, { ...params }) -> ActionPauseRecordingResponse</code>
+- <code title="post /calls/{call_control_id}/actions/record_resume">client.calls.actions.<a href="./src/resources/calls/actions.ts">resumeRecording</a>(callControlID, { ...params }) -> ActionResumeRecordingResponse</code>
+- <code title="post /calls/{call_control_id}/actions/record_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startRecording</a>(callControlID, { ...params }) -> ActionStartRecordingResponse</code>
+- <code title="post /calls/{call_control_id}/actions/record_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopRecording</a>(callControlID, { ...params }) -> ActionStopRecordingResponse</code>
 - <code title="post /calls/{call_control_id}/actions/refer">client.calls.actions.<a href="./src/resources/calls/actions.ts">refer</a>(callControlID, { ...params }) -> ActionReferResponse</code>
 - <code title="post /calls/{call_control_id}/actions/reject">client.calls.actions.<a href="./src/resources/calls/actions.ts">reject</a>(callControlID, { ...params }) -> ActionRejectResponse</code>
-- <code title="post /calls/{call_control_id}/actions/record_resume">client.calls.actions.<a href="./src/resources/calls/actions.ts">resumeRecording</a>(callControlID, { ...params }) -> ActionResumeRecordingResponse</code>
 - <code title="post /calls/{call_control_id}/actions/send_dtmf">client.calls.actions.<a href="./src/resources/calls/actions.ts">sendDtmf</a>(callControlID, { ...params }) -> ActionSendDtmfResponse</code>
 - <code title="post /calls/{call_control_id}/actions/send_sip_info">client.calls.actions.<a href="./src/resources/calls/actions.ts">sendSipInfo</a>(callControlID, { ...params }) -> ActionSendSipInfoResponse</code>
-- <code title="post /calls/{call_control_id}/actions/speak">client.calls.actions.<a href="./src/resources/calls/actions.ts">speak</a>(callControlID, { ...params }) -> ActionSpeakResponse</code>
-- <code title="post /calls/{call_control_id}/actions/ai_assistant_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startAIAssistant</a>(callControlID, { ...params }) -> ActionStartAIAssistantResponse</code>
-- <code title="post /calls/{call_control_id}/actions/fork_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startForking</a>(callControlID, { ...params }) -> ActionStartForkingResponse</code>
-- <code title="post /calls/{call_control_id}/actions/suppression_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startNoiseSuppression</a>(callControlID, { ...params }) -> ActionStartNoiseSuppressionResponse</code>
-- <code title="post /calls/{call_control_id}/actions/playback_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startPlayback</a>(callControlID, { ...params }) -> ActionStartPlaybackResponse</code>
-- <code title="post /calls/{call_control_id}/actions/record_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startRecording</a>(callControlID, { ...params }) -> ActionStartRecordingResponse</code>
 - <code title="post /calls/{call_control_id}/actions/siprec_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startSiprec</a>(callControlID, { ...params }) -> ActionStartSiprecResponse</code>
-- <code title="post /calls/{call_control_id}/actions/streaming_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startStreaming</a>(callControlID, { ...params }) -> ActionStartStreamingResponse</code>
-- <code title="post /calls/{call_control_id}/actions/transcription_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startTranscription</a>(callControlID, { ...params }) -> ActionStartTranscriptionResponse</code>
-- <code title="post /calls/{call_control_id}/actions/ai_assistant_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopAIAssistant</a>(callControlID, { ...params }) -> ActionStopAIAssistantResponse</code>
-- <code title="post /calls/{call_control_id}/actions/fork_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopForking</a>(callControlID, { ...params }) -> ActionStopForkingResponse</code>
-- <code title="post /calls/{call_control_id}/actions/gather_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopGather</a>(callControlID, { ...params }) -> ActionStopGatherResponse</code>
-- <code title="post /calls/{call_control_id}/actions/suppression_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopNoiseSuppression</a>(callControlID, { ...params }) -> ActionStopNoiseSuppressionResponse</code>
-- <code title="post /calls/{call_control_id}/actions/playback_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopPlayback</a>(callControlID, { ...params }) -> ActionStopPlaybackResponse</code>
-- <code title="post /calls/{call_control_id}/actions/record_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopRecording</a>(callControlID, { ...params }) -> ActionStopRecordingResponse</code>
 - <code title="post /calls/{call_control_id}/actions/siprec_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopSiprec</a>(callControlID, { ...params }) -> ActionStopSiprecResponse</code>
+- <code title="post /calls/{call_control_id}/actions/speak">client.calls.actions.<a href="./src/resources/calls/actions.ts">speak</a>(callControlID, { ...params }) -> ActionSpeakResponse</code>
+- <code title="post /calls/{call_control_id}/actions/streaming_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startStreaming</a>(callControlID, { ...params }) -> ActionStartStreamingResponse</code>
 - <code title="post /calls/{call_control_id}/actions/streaming_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopStreaming</a>(callControlID, { ...params }) -> ActionStopStreamingResponse</code>
-- <code title="post /calls/{call_control_id}/actions/transcription_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopTranscription</a>(callControlID, { ...params }) -> ActionStopTranscriptionResponse</code>
+- <code title="post /calls/{call_control_id}/actions/suppression_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startNoiseSuppression</a>(callControlID, { ...params }) -> ActionStartNoiseSuppressionResponse</code>
+- <code title="post /calls/{call_control_id}/actions/suppression_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopNoiseSuppression</a>(callControlID, { ...params }) -> ActionStopNoiseSuppressionResponse</code>
 - <code title="post /calls/{call_control_id}/actions/switch_supervisor_role">client.calls.actions.<a href="./src/resources/calls/actions.ts">switchSupervisorRole</a>(callControlID, { ...params }) -> ActionSwitchSupervisorRoleResponse</code>
+- <code title="post /calls/{call_control_id}/actions/transcription_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startTranscription</a>(callControlID, { ...params }) -> ActionStartTranscriptionResponse</code>
+- <code title="post /calls/{call_control_id}/actions/transcription_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopTranscription</a>(callControlID, { ...params }) -> ActionStopTranscriptionResponse</code>
 - <code title="post /calls/{call_control_id}/actions/transfer">client.calls.actions.<a href="./src/resources/calls/actions.ts">transfer</a>(callControlID, { ...params }) -> ActionTransferResponse</code>
-- <code title="put /calls/{call_control_id}/actions/client_state_update">client.calls.actions.<a href="./src/resources/calls/actions.ts">updateClientState</a>(callControlID, { ...params }) -> ActionUpdateClientStateResponse</code>
+- <code title="post /calls/{call_control_id}/actions/ai_assistant_add_messages">client.calls.actions.<a href="./src/resources/calls/actions.ts">addAIAssistantMessages</a>(callControlID, { ...params }) -> ActionAddAIAssistantMessagesResponse</code>
+- <code title="post /calls/{call_control_id}/actions/ai_assistant_join">client.calls.actions.<a href="./src/resources/calls/actions.ts">joinAIAssistant</a>(callControlID, { ...params }) -> ActionJoinAIAssistantResponse</code>
+- <code title="post /calls/{call_control_id}/actions/conversation_relay_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startConversationRelay</a>(callControlID, { ...params }) -> ActionStartConversationRelayResponse</code>
+- <code title="post /calls/{call_control_id}/actions/conversation_relay_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopConversationRelay</a>(callControlID, { ...params }) -> ActionStopConversationRelayResponse</code>
 
 # ChannelZones
 
 Types:
 
-- <code><a href="./src/resources/channel-zones.ts">ChannelZoneUpdateResponse</a></code>
-- <code><a href="./src/resources/channel-zones.ts">ChannelZoneListResponse</a></code>
+- <code><a href="./src/resources/channel-zones.ts">GcbChannelZone</a></code>
 
 Methods:
 
-- <code title="put /channel_zones/{channel_zone_id}">client.channelZones.<a href="./src/resources/channel-zones.ts">update</a>(channelZoneID, { ...params }) -> ChannelZoneUpdateResponse</code>
-- <code title="get /channel_zones">client.channelZones.<a href="./src/resources/channel-zones.ts">list</a>({ ...params }) -> ChannelZoneListResponsesDefaultFlatPagination</code>
+- <code title="get /channel_zones">client.channelZones.<a href="./src/resources/channel-zones.ts">list</a>({ ...params }) -> GcbChannelZonesDefaultFlatPagination</code>
+- <code title="put /channel_zones/{channel_zone_id}">client.channelZones.<a href="./src/resources/channel-zones.ts">update</a>(channelZoneID, { ...params }) -> GcbChannelZone</code>
 
 # ChargesBreakdown
 
@@ -1425,9 +1469,9 @@ Types:
 
 Methods:
 
+- <code title="get /comments">client.comments.<a href="./src/resources/comments.ts">list</a>({ ...params }) -> CommentListResponse</code>
 - <code title="post /comments">client.comments.<a href="./src/resources/comments.ts">create</a>({ ...params }) -> CommentCreateResponse</code>
 - <code title="get /comments/{id}">client.comments.<a href="./src/resources/comments.ts">retrieve</a>(id) -> CommentRetrieveResponse</code>
-- <code title="get /comments">client.comments.<a href="./src/resources/comments.ts">list</a>({ ...params }) -> CommentListResponse</code>
 - <code title="patch /comments/{id}/read">client.comments.<a href="./src/resources/comments.ts">markAsRead</a>(id) -> CommentMarkAsReadResponse</code>
 
 # Conferences
@@ -1436,26 +1480,26 @@ Types:
 
 - <code><a href="./src/resources/conferences/conferences.ts">Conference</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceParticipant</a></code>
+- <code><a href="./src/resources/conferences/conferences.ts">ConferenceParticipantResource</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceCreateResponse</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceRetrieveResponse</a></code>
 - <code><a href="./src/resources/conferences/conferences.ts">ConferenceListParticipantsResponse</a></code>
-- <code><a href="./src/resources/conferences/conferences.ts">ConferenceRetrieveParticipantResponse</a></code>
-- <code><a href="./src/resources/conferences/conferences.ts">ConferenceUpdateParticipantResponse</a></code>
 
 Methods:
 
-- <code title="post /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">create</a>({ ...params }) -> ConferenceCreateResponse</code>
-- <code title="get /conferences/{id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieve</a>(id, { ...params }) -> ConferenceRetrieveResponse</code>
 - <code title="get /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">list</a>({ ...params }) -> ConferencesDefaultFlatPagination</code>
+- <code title="post /conferences">client.conferences.<a href="./src/resources/conferences/conferences.ts">create</a>({ ...params }) -> ConferenceCreateResponse</code>
 - <code title="get /conferences/{conference_id}/participants">client.conferences.<a href="./src/resources/conferences/conferences.ts">listParticipants</a>(conferenceID, { ...params }) -> ConferenceListParticipantsResponsesDefaultFlatPagination</code>
-- <code title="get /conferences/{id}/participants/{participant_id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieveParticipant</a>(participantID, { ...params }) -> ConferenceRetrieveParticipantResponse</code>
-- <code title="patch /conferences/{id}/participants/{participant_id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">updateParticipant</a>(participantID, { ...params }) -> ConferenceUpdateParticipantResponse</code>
+- <code title="get /conferences/{id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieve</a>(id, { ...params }) -> ConferenceRetrieveResponse</code>
+- <code title="get /conferences/{id}/participants/{participant_id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">retrieveParticipant</a>(participantID, { ...params }) -> ConferenceParticipantResource</code>
+- <code title="patch /conferences/{id}/participants/{participant_id}">client.conferences.<a href="./src/resources/conferences/conferences.ts">updateParticipant</a>(participantID, { ...params }) -> ConferenceParticipantResource</code>
 
 ## Actions
 
 Types:
 
 - <code><a href="./src/resources/conferences/actions.ts">ConferenceCommandResult</a></code>
+- <code><a href="./src/resources/conferences/actions.ts">ConferenceRegion</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">UpdateConference</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionUpdateResponse</a></code>
 - <code><a href="./src/resources/conferences/actions.ts">ActionEndConferenceResponse</a></code>
@@ -1477,9 +1521,6 @@ Types:
 
 Methods:
 
-- <code title="post /conferences/{id}/actions/update">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">update</a>(id, { ...params }) -> ActionUpdateResponse</code>
-- <code title="post /conferences/{id}/actions/end">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">endConference</a>(id, { ...params }) -> ActionEndConferenceResponse</code>
-- <code title="post /conferences/{id}/actions/gather_using_audio">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">gatherDtmfAudio</a>(id, { ...params }) -> ActionGatherDtmfAudioResponse</code>
 - <code title="post /conferences/{id}/actions/hold">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">hold</a>(id, { ...params }) -> ActionHoldResponse</code>
 - <code title="post /conferences/{id}/actions/join">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">join</a>(id, { ...params }) -> ActionJoinResponse</code>
 - <code title="post /conferences/{id}/actions/leave">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">leave</a>(id, { ...params }) -> ActionLeaveResponse</code>
@@ -1489,25 +1530,28 @@ Methods:
 - <code title="post /conferences/{id}/actions/record_resume">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">recordResume</a>(id, { ...params }) -> ActionRecordResumeResponse</code>
 - <code title="post /conferences/{id}/actions/record_start">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">recordStart</a>(id, { ...params }) -> ActionRecordStartResponse</code>
 - <code title="post /conferences/{id}/actions/record_stop">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">recordStop</a>(id, { ...params }) -> ActionRecordStopResponse</code>
-- <code title="post /conferences/{id}/actions/send_dtmf">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">sendDtmf</a>(id, { ...params }) -> ActionSendDtmfResponse</code>
 - <code title="post /conferences/{id}/actions/speak">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">speak</a>(id, { ...params }) -> ActionSpeakResponse</code>
 - <code title="post /conferences/{id}/actions/stop">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">stop</a>(id, { ...params }) -> ActionStopResponse</code>
 - <code title="post /conferences/{id}/actions/unhold">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">unhold</a>(id, { ...params }) -> ActionUnholdResponse</code>
 - <code title="post /conferences/{id}/actions/unmute">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">unmute</a>(id, { ...params }) -> ActionUnmuteResponse</code>
+- <code title="post /conferences/{id}/actions/update">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">update</a>(id, { ...params }) -> ActionUpdateResponse</code>
+- <code title="post /conferences/{id}/actions/end">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">endConference</a>(id, { ...params }) -> ActionEndConferenceResponse</code>
+- <code title="post /conferences/{id}/actions/gather_using_audio">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">gatherDtmfAudio</a>(id, { ...params }) -> ActionGatherDtmfAudioResponse</code>
+- <code title="post /conferences/{id}/actions/send_dtmf">client.conferences.actions.<a href="./src/resources/conferences/actions.ts">sendDtmf</a>(id, { ...params }) -> ActionSendDtmfResponse</code>
 
 # Connections
 
 Types:
 
+- <code><a href="./src/resources/connections.ts">Connection</a></code>
 - <code><a href="./src/resources/connections.ts">ConnectionRetrieveResponse</a></code>
-- <code><a href="./src/resources/connections.ts">ConnectionListResponse</a></code>
 - <code><a href="./src/resources/connections.ts">ConnectionListActiveCallsResponse</a></code>
 
 Methods:
 
-- <code title="get /connections/{id}">client.connections.<a href="./src/resources/connections.ts">retrieve</a>(id) -> ConnectionRetrieveResponse</code>
-- <code title="get /connections">client.connections.<a href="./src/resources/connections.ts">list</a>({ ...params }) -> ConnectionListResponsesDefaultFlatPagination</code>
+- <code title="get /connections">client.connections.<a href="./src/resources/connections.ts">list</a>({ ...params }) -> ConnectionsDefaultFlatPagination</code>
 - <code title="get /connections/{connection_id}/active_calls">client.connections.<a href="./src/resources/connections.ts">listActiveCalls</a>(connectionID, { ...params }) -> ConnectionListActiveCallsResponsesDefaultFlatPagination</code>
+- <code title="get /connections/{id}">client.connections.<a href="./src/resources/connections.ts">retrieve</a>(id) -> ConnectionRetrieveResponse</code>
 
 # CountryCoverage
 
@@ -1527,6 +1571,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/credential-connections/credential-connections.ts">AnchorsiteOverride</a></code>
+- <code><a href="./src/resources/credential-connections/credential-connections.ts">ConnectionNoiseSuppression</a></code>
 - <code><a href="./src/resources/credential-connections/credential-connections.ts">ConnectionRtcpSettings</a></code>
 - <code><a href="./src/resources/credential-connections/credential-connections.ts">CredentialConnection</a></code>
 - <code><a href="./src/resources/credential-connections/credential-connections.ts">CredentialInbound</a></code>
@@ -1540,11 +1585,11 @@ Types:
 
 Methods:
 
+- <code title="get /credential_connections">client.credentialConnections.<a href="./src/resources/credential-connections/credential-connections.ts">list</a>({ ...params }) -> CredentialConnectionsDefaultFlatPagination</code>
 - <code title="post /credential_connections">client.credentialConnections.<a href="./src/resources/credential-connections/credential-connections.ts">create</a>({ ...params }) -> CredentialConnectionCreateResponse</code>
+- <code title="delete /credential_connections/{id}">client.credentialConnections.<a href="./src/resources/credential-connections/credential-connections.ts">delete</a>(id) -> CredentialConnectionDeleteResponse</code>
 - <code title="get /credential_connections/{id}">client.credentialConnections.<a href="./src/resources/credential-connections/credential-connections.ts">retrieve</a>(id) -> CredentialConnectionRetrieveResponse</code>
 - <code title="patch /credential_connections/{id}">client.credentialConnections.<a href="./src/resources/credential-connections/credential-connections.ts">update</a>(id, { ...params }) -> CredentialConnectionUpdateResponse</code>
-- <code title="get /credential_connections">client.credentialConnections.<a href="./src/resources/credential-connections/credential-connections.ts">list</a>({ ...params }) -> CredentialConnectionsDefaultFlatPagination</code>
-- <code title="delete /credential_connections/{id}">client.credentialConnections.<a href="./src/resources/credential-connections/credential-connections.ts">delete</a>(id) -> CredentialConnectionDeleteResponse</code>
 
 ## Actions
 
@@ -1561,19 +1606,17 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/custom-storage-credentials.ts">AzureConfigurationData</a></code>
+- <code><a href="./src/resources/custom-storage-credentials.ts">CredentialsResponse</a></code>
 - <code><a href="./src/resources/custom-storage-credentials.ts">CustomStorageConfiguration</a></code>
 - <code><a href="./src/resources/custom-storage-credentials.ts">GcsConfigurationData</a></code>
 - <code><a href="./src/resources/custom-storage-credentials.ts">S3ConfigurationData</a></code>
-- <code><a href="./src/resources/custom-storage-credentials.ts">CustomStorageCredentialCreateResponse</a></code>
-- <code><a href="./src/resources/custom-storage-credentials.ts">CustomStorageCredentialRetrieveResponse</a></code>
-- <code><a href="./src/resources/custom-storage-credentials.ts">CustomStorageCredentialUpdateResponse</a></code>
 
 Methods:
 
-- <code title="post /custom_storage_credentials/{connection_id}">client.customStorageCredentials.<a href="./src/resources/custom-storage-credentials.ts">create</a>(connectionID, { ...params }) -> CustomStorageCredentialCreateResponse</code>
-- <code title="get /custom_storage_credentials/{connection_id}">client.customStorageCredentials.<a href="./src/resources/custom-storage-credentials.ts">retrieve</a>(connectionID) -> CustomStorageCredentialRetrieveResponse</code>
-- <code title="put /custom_storage_credentials/{connection_id}">client.customStorageCredentials.<a href="./src/resources/custom-storage-credentials.ts">update</a>(connectionID, { ...params }) -> CustomStorageCredentialUpdateResponse</code>
 - <code title="delete /custom_storage_credentials/{connection_id}">client.customStorageCredentials.<a href="./src/resources/custom-storage-credentials.ts">delete</a>(connectionID) -> void</code>
+- <code title="get /custom_storage_credentials/{connection_id}">client.customStorageCredentials.<a href="./src/resources/custom-storage-credentials.ts">retrieve</a>(connectionID) -> CredentialsResponse</code>
+- <code title="post /custom_storage_credentials/{connection_id}">client.customStorageCredentials.<a href="./src/resources/custom-storage-credentials.ts">create</a>(connectionID, { ...params }) -> CredentialsResponse</code>
+- <code title="put /custom_storage_credentials/{connection_id}">client.customStorageCredentials.<a href="./src/resources/custom-storage-credentials.ts">update</a>(connectionID, { ...params }) -> CredentialsResponse</code>
 
 # CustomerServiceRecords
 
@@ -1586,10 +1629,10 @@ Types:
 
 Methods:
 
-- <code title="post /customer_service_records">client.customerServiceRecords.<a href="./src/resources/customer-service-records.ts">create</a>({ ...params }) -> CustomerServiceRecordCreateResponse</code>
-- <code title="get /customer_service_records/{customer_service_record_id}">client.customerServiceRecords.<a href="./src/resources/customer-service-records.ts">retrieve</a>(customerServiceRecordID) -> CustomerServiceRecordRetrieveResponse</code>
 - <code title="get /customer_service_records">client.customerServiceRecords.<a href="./src/resources/customer-service-records.ts">list</a>({ ...params }) -> CustomerServiceRecordsDefaultFlatPagination</code>
+- <code title="post /customer_service_records">client.customerServiceRecords.<a href="./src/resources/customer-service-records.ts">create</a>({ ...params }) -> CustomerServiceRecordCreateResponse</code>
 - <code title="post /customer_service_records/phone_number_coverages">client.customerServiceRecords.<a href="./src/resources/customer-service-records.ts">verifyPhoneNumberCoverage</a>({ ...params }) -> CustomerServiceRecordVerifyPhoneNumberCoverageResponse</code>
+- <code title="get /customer_service_records/{customer_service_record_id}">client.customerServiceRecords.<a href="./src/resources/customer-service-records.ts">retrieve</a>(customerServiceRecordID) -> CustomerServiceRecordRetrieveResponse</code>
 
 # DetailRecords
 
@@ -1605,16 +1648,14 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/dialogflow-connections.ts">DialogflowConnectionCreateResponse</a></code>
-- <code><a href="./src/resources/dialogflow-connections.ts">DialogflowConnectionRetrieveResponse</a></code>
-- <code><a href="./src/resources/dialogflow-connections.ts">DialogflowConnectionUpdateResponse</a></code>
+- <code><a href="./src/resources/dialogflow-connections.ts">DialogflowConnectionResponse</a></code>
 
 Methods:
 
-- <code title="post /dialogflow_connections/{connection_id}">client.dialogflowConnections.<a href="./src/resources/dialogflow-connections.ts">create</a>(connectionID, { ...params }) -> DialogflowConnectionCreateResponse</code>
-- <code title="get /dialogflow_connections/{connection_id}">client.dialogflowConnections.<a href="./src/resources/dialogflow-connections.ts">retrieve</a>(connectionID) -> DialogflowConnectionRetrieveResponse</code>
-- <code title="put /dialogflow_connections/{connection_id}">client.dialogflowConnections.<a href="./src/resources/dialogflow-connections.ts">update</a>(connectionID, { ...params }) -> DialogflowConnectionUpdateResponse</code>
 - <code title="delete /dialogflow_connections/{connection_id}">client.dialogflowConnections.<a href="./src/resources/dialogflow-connections.ts">delete</a>(connectionID) -> void</code>
+- <code title="get /dialogflow_connections/{connection_id}">client.dialogflowConnections.<a href="./src/resources/dialogflow-connections.ts">retrieve</a>(connectionID) -> DialogflowConnectionResponse</code>
+- <code title="post /dialogflow_connections/{connection_id}">client.dialogflowConnections.<a href="./src/resources/dialogflow-connections.ts">create</a>(connectionID, { ...params }) -> DialogflowConnectionResponse</code>
+- <code title="put /dialogflow_connections/{connection_id}">client.dialogflowConnections.<a href="./src/resources/dialogflow-connections.ts">update</a>(connectionID, { ...params }) -> DialogflowConnectionResponse</code>
 
 # DocumentLinks
 
@@ -1631,6 +1672,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/documents.ts">DocServiceDocument</a></code>
+- <code><a href="./src/resources/documents.ts">DocServiceRecord</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentRetrieveResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentUpdateResponse</a></code>
 - <code><a href="./src/resources/documents.ts">DocumentDeleteResponse</a></code>
@@ -1640,14 +1682,14 @@ Types:
 
 Methods:
 
-- <code title="get /documents/{id}">client.documents.<a href="./src/resources/documents.ts">retrieve</a>(id) -> DocumentRetrieveResponse</code>
-- <code title="patch /documents/{id}">client.documents.<a href="./src/resources/documents.ts">update</a>(documentID, { ...params }) -> DocumentUpdateResponse</code>
 - <code title="get /documents">client.documents.<a href="./src/resources/documents.ts">list</a>({ ...params }) -> DocServiceDocumentsDefaultFlatPagination</code>
-- <code title="delete /documents/{id}">client.documents.<a href="./src/resources/documents.ts">delete</a>(id) -> DocumentDeleteResponse</code>
-- <code title="get /documents/{id}/download">client.documents.<a href="./src/resources/documents.ts">download</a>(id) -> Response</code>
-- <code title="get /documents/{id}/download_link">client.documents.<a href="./src/resources/documents.ts">generateDownloadLink</a>(id) -> DocumentGenerateDownloadLinkResponse</code>
 - <code title="post /documents?content-type=multipart">client.documents.<a href="./src/resources/documents.ts">upload</a>({ ...params }) -> DocumentUploadResponse</code>
 - <code title="post /documents">client.documents.<a href="./src/resources/documents.ts">uploadJson</a>({ ...params }) -> DocumentUploadJsonResponse</code>
+- <code title="delete /documents/{id}">client.documents.<a href="./src/resources/documents.ts">delete</a>(id) -> DocumentDeleteResponse</code>
+- <code title="get /documents/{id}">client.documents.<a href="./src/resources/documents.ts">retrieve</a>(id) -> DocumentRetrieveResponse</code>
+- <code title="patch /documents/{id}">client.documents.<a href="./src/resources/documents.ts">update</a>(documentID, { ...params }) -> DocumentUpdateResponse</code>
+- <code title="get /documents/{id}/download">client.documents.<a href="./src/resources/documents.ts">download</a>(id) -> Response</code>
+- <code title="get /documents/{id}/download_link">client.documents.<a href="./src/resources/documents.ts">generateDownloadLink</a>(id) -> DocumentGenerateDownloadLinkResponse</code>
 
 # DynamicEmergencyAddresses
 
@@ -1660,10 +1702,10 @@ Types:
 
 Methods:
 
-- <code title="post /dynamic_emergency_addresses">client.dynamicEmergencyAddresses.<a href="./src/resources/dynamic-emergency-addresses.ts">create</a>({ ...params }) -> DynamicEmergencyAddressCreateResponse</code>
-- <code title="get /dynamic_emergency_addresses/{id}">client.dynamicEmergencyAddresses.<a href="./src/resources/dynamic-emergency-addresses.ts">retrieve</a>(id) -> DynamicEmergencyAddressRetrieveResponse</code>
 - <code title="get /dynamic_emergency_addresses">client.dynamicEmergencyAddresses.<a href="./src/resources/dynamic-emergency-addresses.ts">list</a>({ ...params }) -> DynamicEmergencyAddressesDefaultFlatPagination</code>
+- <code title="post /dynamic_emergency_addresses">client.dynamicEmergencyAddresses.<a href="./src/resources/dynamic-emergency-addresses.ts">create</a>({ ...params }) -> DynamicEmergencyAddressCreateResponse</code>
 - <code title="delete /dynamic_emergency_addresses/{id}">client.dynamicEmergencyAddresses.<a href="./src/resources/dynamic-emergency-addresses.ts">delete</a>(id) -> DynamicEmergencyAddressDeleteResponse</code>
+- <code title="get /dynamic_emergency_addresses/{id}">client.dynamicEmergencyAddresses.<a href="./src/resources/dynamic-emergency-addresses.ts">retrieve</a>(id) -> DynamicEmergencyAddressRetrieveResponse</code>
 
 # DynamicEmergencyEndpoints
 
@@ -1676,10 +1718,10 @@ Types:
 
 Methods:
 
-- <code title="post /dynamic_emergency_endpoints">client.dynamicEmergencyEndpoints.<a href="./src/resources/dynamic-emergency-endpoints.ts">create</a>({ ...params }) -> DynamicEmergencyEndpointCreateResponse</code>
-- <code title="get /dynamic_emergency_endpoints/{id}">client.dynamicEmergencyEndpoints.<a href="./src/resources/dynamic-emergency-endpoints.ts">retrieve</a>(id) -> DynamicEmergencyEndpointRetrieveResponse</code>
 - <code title="get /dynamic_emergency_endpoints">client.dynamicEmergencyEndpoints.<a href="./src/resources/dynamic-emergency-endpoints.ts">list</a>({ ...params }) -> DynamicEmergencyEndpointsDefaultFlatPagination</code>
+- <code title="post /dynamic_emergency_endpoints">client.dynamicEmergencyEndpoints.<a href="./src/resources/dynamic-emergency-endpoints.ts">create</a>({ ...params }) -> DynamicEmergencyEndpointCreateResponse</code>
 - <code title="delete /dynamic_emergency_endpoints/{id}">client.dynamicEmergencyEndpoints.<a href="./src/resources/dynamic-emergency-endpoints.ts">delete</a>(id) -> DynamicEmergencyEndpointDeleteResponse</code>
+- <code title="get /dynamic_emergency_endpoints/{id}">client.dynamicEmergencyEndpoints.<a href="./src/resources/dynamic-emergency-endpoints.ts">retrieve</a>(id) -> DynamicEmergencyEndpointRetrieveResponse</code>
 
 # ExternalConnections
 
@@ -1695,26 +1737,26 @@ Types:
 
 Methods:
 
+- <code title="get /external_connections">client.externalConnections.<a href="./src/resources/external-connections/external-connections.ts">list</a>({ ...params }) -> ExternalConnectionsDefaultFlatPagination</code>
 - <code title="post /external_connections">client.externalConnections.<a href="./src/resources/external-connections/external-connections.ts">create</a>({ ...params }) -> ExternalConnectionCreateResponse</code>
+- <code title="delete /external_connections/{id}">client.externalConnections.<a href="./src/resources/external-connections/external-connections.ts">delete</a>(id) -> ExternalConnectionDeleteResponse</code>
 - <code title="get /external_connections/{id}">client.externalConnections.<a href="./src/resources/external-connections/external-connections.ts">retrieve</a>(id) -> ExternalConnectionRetrieveResponse</code>
 - <code title="patch /external_connections/{id}">client.externalConnections.<a href="./src/resources/external-connections/external-connections.ts">update</a>(id, { ...params }) -> ExternalConnectionUpdateResponse</code>
-- <code title="get /external_connections">client.externalConnections.<a href="./src/resources/external-connections/external-connections.ts">list</a>({ ...params }) -> ExternalConnectionsDefaultFlatPagination</code>
-- <code title="delete /external_connections/{id}">client.externalConnections.<a href="./src/resources/external-connections/external-connections.ts">delete</a>(id) -> ExternalConnectionDeleteResponse</code>
 - <code title="patch /external_connections/{id}/locations/{location_id}">client.externalConnections.<a href="./src/resources/external-connections/external-connections.ts">updateLocation</a>(locationID, { ...params }) -> ExternalConnectionUpdateLocationResponse</code>
 
 ## LogMessages
 
 Types:
 
+- <code><a href="./src/resources/external-connections/log-messages.ts">LogMessage</a></code>
 - <code><a href="./src/resources/external-connections/log-messages.ts">LogMessageRetrieveResponse</a></code>
-- <code><a href="./src/resources/external-connections/log-messages.ts">LogMessageListResponse</a></code>
 - <code><a href="./src/resources/external-connections/log-messages.ts">LogMessageDismissResponse</a></code>
 
 Methods:
 
-- <code title="get /external_connections/log_messages/{id}">client.externalConnections.logMessages.<a href="./src/resources/external-connections/log-messages.ts">retrieve</a>(id) -> LogMessageRetrieveResponse</code>
-- <code title="get /external_connections/log_messages">client.externalConnections.logMessages.<a href="./src/resources/external-connections/log-messages.ts">list</a>({ ...params }) -> LogMessageListResponsesDefaultPaginationForLogMessages</code>
+- <code title="get /external_connections/log_messages">client.externalConnections.logMessages.<a href="./src/resources/external-connections/log-messages.ts">list</a>({ ...params }) -> LogMessagesDefaultPaginationForLogMessages</code>
 - <code title="delete /external_connections/log_messages/{id}">client.externalConnections.logMessages.<a href="./src/resources/external-connections/log-messages.ts">dismiss</a>(id) -> LogMessageDismissResponse</code>
+- <code title="get /external_connections/log_messages/{id}">client.externalConnections.logMessages.<a href="./src/resources/external-connections/log-messages.ts">retrieve</a>(id) -> LogMessageRetrieveResponse</code>
 
 ## CivicAddresses
 
@@ -1727,8 +1769,8 @@ Types:
 
 Methods:
 
-- <code title="get /external_connections/{id}/civic_addresses/{address_id}">client.externalConnections.civicAddresses.<a href="./src/resources/external-connections/civic-addresses.ts">retrieve</a>(addressID, { ...params }) -> CivicAddressRetrieveResponse</code>
 - <code title="get /external_connections/{id}/civic_addresses">client.externalConnections.civicAddresses.<a href="./src/resources/external-connections/civic-addresses.ts">list</a>(id, { ...params }) -> CivicAddressListResponse</code>
+- <code title="get /external_connections/{id}/civic_addresses/{address_id}">client.externalConnections.civicAddresses.<a href="./src/resources/external-connections/civic-addresses.ts">retrieve</a>(addressID, { ...params }) -> CivicAddressRetrieveResponse</code>
 
 ## PhoneNumbers
 
@@ -1740,22 +1782,22 @@ Types:
 
 Methods:
 
+- <code title="get /external_connections/{id}/phone_numbers">client.externalConnections.phoneNumbers.<a href="./src/resources/external-connections/phone-numbers.ts">list</a>(id, { ...params }) -> ExternalConnectionPhoneNumbersDefaultFlatPagination</code>
 - <code title="get /external_connections/{id}/phone_numbers/{phone_number_id}">client.externalConnections.phoneNumbers.<a href="./src/resources/external-connections/phone-numbers.ts">retrieve</a>(phoneNumberID, { ...params }) -> PhoneNumberRetrieveResponse</code>
 - <code title="patch /external_connections/{id}/phone_numbers/{phone_number_id}">client.externalConnections.phoneNumbers.<a href="./src/resources/external-connections/phone-numbers.ts">update</a>(phoneNumberID, { ...params }) -> PhoneNumberUpdateResponse</code>
-- <code title="get /external_connections/{id}/phone_numbers">client.externalConnections.phoneNumbers.<a href="./src/resources/external-connections/phone-numbers.ts">list</a>(id, { ...params }) -> ExternalConnectionPhoneNumbersDefaultFlatPagination</code>
 
 ## Releases
 
 Types:
 
+- <code><a href="./src/resources/external-connections/releases.ts">Release</a></code>
 - <code><a href="./src/resources/external-connections/releases.ts">TnReleaseEntry</a></code>
 - <code><a href="./src/resources/external-connections/releases.ts">ReleaseRetrieveResponse</a></code>
-- <code><a href="./src/resources/external-connections/releases.ts">ReleaseListResponse</a></code>
 
 Methods:
 
+- <code title="get /external_connections/{id}/releases">client.externalConnections.releases.<a href="./src/resources/external-connections/releases.ts">list</a>(id, { ...params }) -> ReleasesDefaultFlatPagination</code>
 - <code title="get /external_connections/{id}/releases/{release_id}">client.externalConnections.releases.<a href="./src/resources/external-connections/releases.ts">retrieve</a>(releaseID, { ...params }) -> ReleaseRetrieveResponse</code>
-- <code title="get /external_connections/{id}/releases">client.externalConnections.releases.<a href="./src/resources/external-connections/releases.ts">list</a>(id, { ...params }) -> ReleaseListResponsesDefaultFlatPagination</code>
 
 ## Uploads
 
@@ -1771,11 +1813,11 @@ Types:
 
 Methods:
 
-- <code title="post /external_connections/{id}/uploads">client.externalConnections.uploads.<a href="./src/resources/external-connections/uploads.ts">create</a>(id, { ...params }) -> UploadCreateResponse</code>
-- <code title="get /external_connections/{id}/uploads/{ticket_id}">client.externalConnections.uploads.<a href="./src/resources/external-connections/uploads.ts">retrieve</a>(ticketID, { ...params }) -> UploadRetrieveResponse</code>
 - <code title="get /external_connections/{id}/uploads">client.externalConnections.uploads.<a href="./src/resources/external-connections/uploads.ts">list</a>(id, { ...params }) -> UploadsDefaultFlatPagination</code>
-- <code title="get /external_connections/{id}/uploads/status">client.externalConnections.uploads.<a href="./src/resources/external-connections/uploads.ts">pendingCount</a>(id) -> UploadPendingCountResponse</code>
+- <code title="post /external_connections/{id}/uploads">client.externalConnections.uploads.<a href="./src/resources/external-connections/uploads.ts">create</a>(id, { ...params }) -> UploadCreateResponse</code>
 - <code title="post /external_connections/{id}/uploads/refresh">client.externalConnections.uploads.<a href="./src/resources/external-connections/uploads.ts">refreshStatus</a>(id) -> UploadRefreshStatusResponse</code>
+- <code title="get /external_connections/{id}/uploads/status">client.externalConnections.uploads.<a href="./src/resources/external-connections/uploads.ts">pendingCount</a>(id) -> UploadPendingCountResponse</code>
+- <code title="get /external_connections/{id}/uploads/{ticket_id}">client.externalConnections.uploads.<a href="./src/resources/external-connections/uploads.ts">retrieve</a>(ticketID, { ...params }) -> UploadRetrieveResponse</code>
 - <code title="post /external_connections/{id}/uploads/{ticket_id}/retry">client.externalConnections.uploads.<a href="./src/resources/external-connections/uploads.ts">retry</a>(ticketID, { ...params }) -> UploadRetryResponse</code>
 
 # FaxApplications
@@ -1790,26 +1832,27 @@ Types:
 
 Methods:
 
+- <code title="get /fax_applications">client.faxApplications.<a href="./src/resources/fax-applications.ts">list</a>({ ...params }) -> FaxApplicationsDefaultFlatPagination</code>
 - <code title="post /fax_applications">client.faxApplications.<a href="./src/resources/fax-applications.ts">create</a>({ ...params }) -> FaxApplicationCreateResponse</code>
+- <code title="delete /fax_applications/{id}">client.faxApplications.<a href="./src/resources/fax-applications.ts">delete</a>(id) -> FaxApplicationDeleteResponse</code>
 - <code title="get /fax_applications/{id}">client.faxApplications.<a href="./src/resources/fax-applications.ts">retrieve</a>(id) -> FaxApplicationRetrieveResponse</code>
 - <code title="patch /fax_applications/{id}">client.faxApplications.<a href="./src/resources/fax-applications.ts">update</a>(id, { ...params }) -> FaxApplicationUpdateResponse</code>
-- <code title="get /fax_applications">client.faxApplications.<a href="./src/resources/fax-applications.ts">list</a>({ ...params }) -> FaxApplicationsDefaultFlatPagination</code>
-- <code title="delete /fax_applications/{id}">client.faxApplications.<a href="./src/resources/fax-applications.ts">delete</a>(id) -> FaxApplicationDeleteResponse</code>
 
 # Faxes
 
 Types:
 
 - <code><a href="./src/resources/faxes/faxes.ts">Fax</a></code>
+- <code><a href="./src/resources/faxes/faxes.ts">Quality</a></code>
 - <code><a href="./src/resources/faxes/faxes.ts">FaxCreateResponse</a></code>
 - <code><a href="./src/resources/faxes/faxes.ts">FaxRetrieveResponse</a></code>
 
 Methods:
 
-- <code title="post /faxes">client.faxes.<a href="./src/resources/faxes/faxes.ts">create</a>({ ...params }) -> FaxCreateResponse</code>
-- <code title="get /faxes/{id}">client.faxes.<a href="./src/resources/faxes/faxes.ts">retrieve</a>(id) -> FaxRetrieveResponse</code>
 - <code title="get /faxes">client.faxes.<a href="./src/resources/faxes/faxes.ts">list</a>({ ...params }) -> FaxesDefaultFlatPagination</code>
+- <code title="post /faxes">client.faxes.<a href="./src/resources/faxes/faxes.ts">create</a>({ ...params }) -> FaxCreateResponse</code>
 - <code title="delete /faxes/{id}">client.faxes.<a href="./src/resources/faxes/faxes.ts">delete</a>(id) -> void</code>
+- <code title="get /faxes/{id}">client.faxes.<a href="./src/resources/faxes/faxes.ts">retrieve</a>(id) -> FaxRetrieveResponse</code>
 
 ## Actions
 
@@ -1839,11 +1882,11 @@ Types:
 
 Methods:
 
+- <code title="get /fqdn_connections">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">list</a>({ ...params }) -> FqdnConnectionsDefaultFlatPagination</code>
 - <code title="post /fqdn_connections">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">create</a>({ ...params }) -> FqdnConnectionCreateResponse</code>
+- <code title="delete /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">delete</a>(id) -> FqdnConnectionDeleteResponse</code>
 - <code title="get /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">retrieve</a>(id) -> FqdnConnectionRetrieveResponse</code>
 - <code title="patch /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">update</a>(id, { ...params }) -> FqdnConnectionUpdateResponse</code>
-- <code title="get /fqdn_connections">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">list</a>({ ...params }) -> FqdnConnectionsDefaultFlatPagination</code>
-- <code title="delete /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">delete</a>(id) -> FqdnConnectionDeleteResponse</code>
 
 # Fqdns
 
@@ -1857,11 +1900,11 @@ Types:
 
 Methods:
 
+- <code title="get /fqdns">client.fqdns.<a href="./src/resources/fqdns.ts">list</a>({ ...params }) -> FqdnsDefaultFlatPagination</code>
 - <code title="post /fqdns">client.fqdns.<a href="./src/resources/fqdns.ts">create</a>({ ...params }) -> FqdnCreateResponse</code>
+- <code title="delete /fqdns/{id}">client.fqdns.<a href="./src/resources/fqdns.ts">delete</a>(id) -> FqdnDeleteResponse</code>
 - <code title="get /fqdns/{id}">client.fqdns.<a href="./src/resources/fqdns.ts">retrieve</a>(id) -> FqdnRetrieveResponse</code>
 - <code title="patch /fqdns/{id}">client.fqdns.<a href="./src/resources/fqdns.ts">update</a>(id, { ...params }) -> FqdnUpdateResponse</code>
-- <code title="get /fqdns">client.fqdns.<a href="./src/resources/fqdns.ts">list</a>({ ...params }) -> FqdnsDefaultFlatPagination</code>
-- <code title="delete /fqdns/{id}">client.fqdns.<a href="./src/resources/fqdns.ts">delete</a>(id) -> FqdnDeleteResponse</code>
 
 # GlobalIPAllowedPorts
 
@@ -1896,11 +1939,11 @@ Types:
 
 Methods:
 
+- <code title="get /global_ip_assignments">client.globalIPAssignments.<a href="./src/resources/global-ip-assignments.ts">list</a>({ ...params }) -> GlobalIPAssignmentsDefaultFlatPagination</code>
 - <code title="post /global_ip_assignments">client.globalIPAssignments.<a href="./src/resources/global-ip-assignments.ts">create</a>() -> GlobalIPAssignmentCreateResponse</code>
+- <code title="delete /global_ip_assignments/{id}">client.globalIPAssignments.<a href="./src/resources/global-ip-assignments.ts">delete</a>(id) -> GlobalIPAssignmentDeleteResponse</code>
 - <code title="get /global_ip_assignments/{id}">client.globalIPAssignments.<a href="./src/resources/global-ip-assignments.ts">retrieve</a>(id) -> GlobalIPAssignmentRetrieveResponse</code>
 - <code title="patch /global_ip_assignments/{id}">client.globalIPAssignments.<a href="./src/resources/global-ip-assignments.ts">update</a>(globalIPAssignmentID, { ...params }) -> GlobalIPAssignmentUpdateResponse</code>
-- <code title="get /global_ip_assignments">client.globalIPAssignments.<a href="./src/resources/global-ip-assignments.ts">list</a>({ ...params }) -> GlobalIPAssignmentsDefaultFlatPagination</code>
-- <code title="delete /global_ip_assignments/{id}">client.globalIPAssignments.<a href="./src/resources/global-ip-assignments.ts">delete</a>(id) -> GlobalIPAssignmentDeleteResponse</code>
 
 # GlobalIPAssignmentsUsage
 
@@ -1926,17 +1969,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/global-ip-health-checks.ts">GlobalIPHealthCheck</a></code>
 - <code><a href="./src/resources/global-ip-health-checks.ts">GlobalIPHealthCheckCreateResponse</a></code>
 - <code><a href="./src/resources/global-ip-health-checks.ts">GlobalIPHealthCheckRetrieveResponse</a></code>
-- <code><a href="./src/resources/global-ip-health-checks.ts">GlobalIPHealthCheckListResponse</a></code>
 - <code><a href="./src/resources/global-ip-health-checks.ts">GlobalIPHealthCheckDeleteResponse</a></code>
 
 Methods:
 
+- <code title="get /global_ip_health_checks">client.globalIPHealthChecks.<a href="./src/resources/global-ip-health-checks.ts">list</a>({ ...params }) -> GlobalIPHealthChecksDefaultFlatPagination</code>
 - <code title="post /global_ip_health_checks">client.globalIPHealthChecks.<a href="./src/resources/global-ip-health-checks.ts">create</a>({ ...params }) -> GlobalIPHealthCheckCreateResponse</code>
-- <code title="get /global_ip_health_checks/{id}">client.globalIPHealthChecks.<a href="./src/resources/global-ip-health-checks.ts">retrieve</a>(id) -> GlobalIPHealthCheckRetrieveResponse</code>
-- <code title="get /global_ip_health_checks">client.globalIPHealthChecks.<a href="./src/resources/global-ip-health-checks.ts">list</a>({ ...params }) -> GlobalIPHealthCheckListResponsesDefaultFlatPagination</code>
 - <code title="delete /global_ip_health_checks/{id}">client.globalIPHealthChecks.<a href="./src/resources/global-ip-health-checks.ts">delete</a>(id) -> GlobalIPHealthCheckDeleteResponse</code>
+- <code title="get /global_ip_health_checks/{id}">client.globalIPHealthChecks.<a href="./src/resources/global-ip-health-checks.ts">retrieve</a>(id) -> GlobalIPHealthCheckRetrieveResponse</code>
 
 # GlobalIPLatency
 
@@ -1972,17 +2015,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/global-ips.ts">GlobalIP</a></code>
 - <code><a href="./src/resources/global-ips.ts">GlobalIPCreateResponse</a></code>
 - <code><a href="./src/resources/global-ips.ts">GlobalIPRetrieveResponse</a></code>
-- <code><a href="./src/resources/global-ips.ts">GlobalIPListResponse</a></code>
 - <code><a href="./src/resources/global-ips.ts">GlobalIPDeleteResponse</a></code>
 
 Methods:
 
+- <code title="get /global_ips">client.globalIPs.<a href="./src/resources/global-ips.ts">list</a>({ ...params }) -> GlobalIPsDefaultFlatPagination</code>
 - <code title="post /global_ips">client.globalIPs.<a href="./src/resources/global-ips.ts">create</a>({ ...params }) -> GlobalIPCreateResponse</code>
-- <code title="get /global_ips/{id}">client.globalIPs.<a href="./src/resources/global-ips.ts">retrieve</a>(id) -> GlobalIPRetrieveResponse</code>
-- <code title="get /global_ips">client.globalIPs.<a href="./src/resources/global-ips.ts">list</a>({ ...params }) -> GlobalIPListResponsesDefaultFlatPagination</code>
 - <code title="delete /global_ips/{id}">client.globalIPs.<a href="./src/resources/global-ips.ts">delete</a>(id) -> GlobalIPDeleteResponse</code>
+- <code title="get /global_ips/{id}">client.globalIPs.<a href="./src/resources/global-ips.ts">retrieve</a>(id) -> GlobalIPRetrieveResponse</code>
 
 # InboundChannels
 
@@ -1993,8 +2036,8 @@ Types:
 
 Methods:
 
-- <code title="patch /inbound_channels">client.inboundChannels.<a href="./src/resources/inbound-channels.ts">update</a>({ ...params }) -> InboundChannelUpdateResponse</code>
 - <code title="get /inbound_channels">client.inboundChannels.<a href="./src/resources/inbound-channels.ts">list</a>() -> InboundChannelListResponse</code>
+- <code title="patch /inbound_channels">client.inboundChannels.<a href="./src/resources/inbound-channels.ts">update</a>({ ...params }) -> InboundChannelUpdateResponse</code>
 
 # IntegrationSecrets
 
@@ -2005,8 +2048,8 @@ Types:
 
 Methods:
 
-- <code title="post /integration_secrets">client.integrationSecrets.<a href="./src/resources/integration-secrets.ts">create</a>({ ...params }) -> IntegrationSecretCreateResponse</code>
 - <code title="get /integration_secrets">client.integrationSecrets.<a href="./src/resources/integration-secrets.ts">list</a>({ ...params }) -> IntegrationSecretsDefaultFlatPagination</code>
+- <code title="post /integration_secrets">client.integrationSecrets.<a href="./src/resources/integration-secrets.ts">create</a>({ ...params }) -> IntegrationSecretCreateResponse</code>
 - <code title="delete /integration_secrets/{id}">client.integrationSecrets.<a href="./src/resources/integration-secrets.ts">delete</a>(id) -> void</code>
 
 # InventoryCoverage
@@ -2028,8 +2071,8 @@ Types:
 
 Methods:
 
-- <code title="get /invoices/{id}">client.invoices.<a href="./src/resources/invoices.ts">retrieve</a>(id, { ...params }) -> InvoiceRetrieveResponse</code>
 - <code title="get /invoices">client.invoices.<a href="./src/resources/invoices.ts">list</a>({ ...params }) -> InvoiceListResponsesDefaultFlatPagination</code>
+- <code title="get /invoices/{id}">client.invoices.<a href="./src/resources/invoices.ts">retrieve</a>(id, { ...params }) -> InvoiceRetrieveResponse</code>
 
 # IPConnections
 
@@ -2045,11 +2088,11 @@ Types:
 
 Methods:
 
+- <code title="get /ip_connections">client.ipConnections.<a href="./src/resources/ip-connections.ts">list</a>({ ...params }) -> IPConnectionsDefaultFlatPagination</code>
 - <code title="post /ip_connections">client.ipConnections.<a href="./src/resources/ip-connections.ts">create</a>({ ...params }) -> IPConnectionCreateResponse</code>
+- <code title="delete /ip_connections/{id}">client.ipConnections.<a href="./src/resources/ip-connections.ts">delete</a>(id) -> IPConnectionDeleteResponse</code>
 - <code title="get /ip_connections/{id}">client.ipConnections.<a href="./src/resources/ip-connections.ts">retrieve</a>(id) -> IPConnectionRetrieveResponse</code>
 - <code title="patch /ip_connections/{id}">client.ipConnections.<a href="./src/resources/ip-connections.ts">update</a>(id, { ...params }) -> IPConnectionUpdateResponse</code>
-- <code title="get /ip_connections">client.ipConnections.<a href="./src/resources/ip-connections.ts">list</a>({ ...params }) -> IPConnectionsDefaultFlatPagination</code>
-- <code title="delete /ip_connections/{id}">client.ipConnections.<a href="./src/resources/ip-connections.ts">delete</a>(id) -> IPConnectionDeleteResponse</code>
 
 # IPs
 
@@ -2063,11 +2106,11 @@ Types:
 
 Methods:
 
+- <code title="get /ips">client.ips.<a href="./src/resources/ips.ts">list</a>({ ...params }) -> IPsDefaultFlatPagination</code>
 - <code title="post /ips">client.ips.<a href="./src/resources/ips.ts">create</a>({ ...params }) -> IPCreateResponse</code>
+- <code title="delete /ips/{id}">client.ips.<a href="./src/resources/ips.ts">delete</a>(id) -> IPDeleteResponse</code>
 - <code title="get /ips/{id}">client.ips.<a href="./src/resources/ips.ts">retrieve</a>(id) -> IPRetrieveResponse</code>
 - <code title="patch /ips/{id}">client.ips.<a href="./src/resources/ips.ts">update</a>(id, { ...params }) -> IPUpdateResponse</code>
-- <code title="get /ips">client.ips.<a href="./src/resources/ips.ts">list</a>({ ...params }) -> IPsDefaultFlatPagination</code>
-- <code title="delete /ips/{id}">client.ips.<a href="./src/resources/ips.ts">delete</a>(id) -> IPDeleteResponse</code>
 
 # LedgerBillingGroupReports
 
@@ -2109,11 +2152,11 @@ Types:
 
 Methods:
 
+- <code title="get /managed_accounts">client.managedAccounts.<a href="./src/resources/managed-accounts/managed-accounts.ts">list</a>({ ...params }) -> ManagedAccountListResponsesDefaultFlatPagination</code>
 - <code title="post /managed_accounts">client.managedAccounts.<a href="./src/resources/managed-accounts/managed-accounts.ts">create</a>({ ...params }) -> ManagedAccountCreateResponse</code>
+- <code title="get /managed_accounts/allocatable_global_outbound_channels">client.managedAccounts.<a href="./src/resources/managed-accounts/managed-accounts.ts">getAllocatableGlobalOutboundChannels</a>() -> ManagedAccountGetAllocatableGlobalOutboundChannelsResponse</code>
 - <code title="get /managed_accounts/{id}">client.managedAccounts.<a href="./src/resources/managed-accounts/managed-accounts.ts">retrieve</a>(id) -> ManagedAccountRetrieveResponse</code>
 - <code title="patch /managed_accounts/{id}">client.managedAccounts.<a href="./src/resources/managed-accounts/managed-accounts.ts">update</a>(id, { ...params }) -> ManagedAccountUpdateResponse</code>
-- <code title="get /managed_accounts">client.managedAccounts.<a href="./src/resources/managed-accounts/managed-accounts.ts">list</a>({ ...params }) -> ManagedAccountListResponsesDefaultFlatPagination</code>
-- <code title="get /managed_accounts/allocatable_global_outbound_channels">client.managedAccounts.<a href="./src/resources/managed-accounts/managed-accounts.ts">getAllocatableGlobalOutboundChannels</a>() -> ManagedAccountGetAllocatableGlobalOutboundChannelsResponse</code>
 - <code title="patch /managed_accounts/{id}/update_global_channel_limit">client.managedAccounts.<a href="./src/resources/managed-accounts/managed-accounts.ts">updateGlobalChannelLimit</a>(id, { ...params }) -> ManagedAccountUpdateGlobalChannelLimitResponse</code>
 
 ## Actions
@@ -2140,18 +2183,17 @@ Types:
 
 Methods:
 
+- <code title="get /media">client.media.<a href="./src/resources/media.ts">list</a>({ ...params }) -> MediaListResponse</code>
+- <code title="post /media">client.media.<a href="./src/resources/media.ts">upload</a>({ ...params }) -> MediaUploadResponse</code>
+- <code title="delete /media/{media_name}">client.media.<a href="./src/resources/media.ts">delete</a>(mediaName) -> void</code>
 - <code title="get /media/{media_name}">client.media.<a href="./src/resources/media.ts">retrieve</a>(mediaName) -> MediaRetrieveResponse</code>
 - <code title="put /media/{media_name}">client.media.<a href="./src/resources/media.ts">update</a>(mediaName, { ...params }) -> MediaUpdateResponse</code>
-- <code title="get /media">client.media.<a href="./src/resources/media.ts">list</a>({ ...params }) -> MediaListResponse</code>
-- <code title="delete /media/{media_name}">client.media.<a href="./src/resources/media.ts">delete</a>(mediaName) -> void</code>
 - <code title="get /media/{media_name}/download">client.media.<a href="./src/resources/media.ts">download</a>(mediaName) -> Response</code>
-- <code title="post /media">client.media.<a href="./src/resources/media.ts">upload</a>({ ...params }) -> MediaUploadResponse</code>
 
 # Messages
 
 Types:
 
-- <code><a href="./src/resources/messages/messages.ts">MessagingError</a></code>
 - <code><a href="./src/resources/messages/messages.ts">OutboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">RcsAgentMessage</a></code>
 - <code><a href="./src/resources/messages/messages.ts">RcsCardContent</a></code>
@@ -2173,22 +2215,20 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">MessageSendLongCodeResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendNumberPoolResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendShortCodeResponse</a></code>
-- <code><a href="./src/resources/messages/messages.ts">MessageSendWhatsappResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendWithAlphanumericSenderResponse</a></code>
 
 Methods:
 
-- <code title="get /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieve</a>(id) -> MessageRetrieveResponse</code>
-- <code title="delete /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">cancelScheduled</a>(id) -> MessageCancelScheduledResponse</code>
-- <code title="get /messages/group/{message_id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieveGroupMessages</a>(messageID) -> MessageRetrieveGroupMessagesResponse</code>
-- <code title="post /messages/schedule">client.messages.<a href="./src/resources/messages/messages.ts">schedule</a>({ ...params }) -> MessageScheduleResponse</code>
 - <code title="post /messages">client.messages.<a href="./src/resources/messages/messages.ts">send</a>({ ...params }) -> MessageSendResponse</code>
-- <code title="post /messages/group_mms">client.messages.<a href="./src/resources/messages/messages.ts">sendGroupMms</a>({ ...params }) -> MessageSendGroupMmsResponse</code>
 - <code title="post /messages/long_code">client.messages.<a href="./src/resources/messages/messages.ts">sendLongCode</a>({ ...params }) -> MessageSendLongCodeResponse</code>
 - <code title="post /messages/number_pool">client.messages.<a href="./src/resources/messages/messages.ts">sendNumberPool</a>({ ...params }) -> MessageSendNumberPoolResponse</code>
 - <code title="post /messages/short_code">client.messages.<a href="./src/resources/messages/messages.ts">sendShortCode</a>({ ...params }) -> MessageSendShortCodeResponse</code>
-- <code title="post /messages/whatsapp">client.messages.<a href="./src/resources/messages/messages.ts">sendWhatsapp</a>({ ...params }) -> MessageSendWhatsappResponse</code>
+- <code title="post /messages/group_mms">client.messages.<a href="./src/resources/messages/messages.ts">sendGroupMms</a>({ ...params }) -> MessageSendGroupMmsResponse</code>
+- <code title="post /messages/schedule">client.messages.<a href="./src/resources/messages/messages.ts">schedule</a>({ ...params }) -> MessageScheduleResponse</code>
+- <code title="delete /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">cancelScheduled</a>(id) -> MessageCancelScheduledResponse</code>
+- <code title="get /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieve</a>(id) -> MessageRetrieveResponse</code>
 - <code title="post /messages/alphanumeric_sender_id">client.messages.<a href="./src/resources/messages/messages.ts">sendWithAlphanumericSender</a>({ ...params }) -> MessageSendWithAlphanumericSenderResponse</code>
+- <code title="get /messages/group/{message_id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieveGroupMessages</a>(messageID) -> MessageRetrieveGroupMessagesResponse</code>
 
 ## Rcs
 
@@ -2215,17 +2255,17 @@ Types:
 
 Methods:
 
-- <code title="put /messaging/rcs/test_number_invite/{id}/{phone_number}">client.messaging.rcs.<a href="./src/resources/messaging/rcs/rcs.ts">inviteTestNumber</a>(phoneNumber, { ...params }) -> RcInviteTestNumberResponse</code>
 - <code title="post /messaging/rcs/bulk_capabilities">client.messaging.rcs.<a href="./src/resources/messaging/rcs/rcs.ts">listBulkCapabilities</a>({ ...params }) -> RcListBulkCapabilitiesResponse</code>
 - <code title="get /messaging/rcs/capabilities/{agent_id}/{phone_number}">client.messaging.rcs.<a href="./src/resources/messaging/rcs/rcs.ts">retrieveCapabilities</a>(phoneNumber, { ...params }) -> RcRetrieveCapabilitiesResponse</code>
+- <code title="put /messaging/rcs/test_number_invite/{id}/{phone_number}">client.messaging.rcs.<a href="./src/resources/messaging/rcs/rcs.ts">inviteTestNumber</a>(phoneNumber, { ...params }) -> RcInviteTestNumberResponse</code>
 
 ### Agents
 
 Methods:
 
+- <code title="get /messaging/rcs/agents">client.messaging.rcs.agents.<a href="./src/resources/messaging/rcs/agents.ts">list</a>({ ...params }) -> RcsAgentsDefaultFlatPagination</code>
 - <code title="get /messaging/rcs/agents/{id}">client.messaging.rcs.agents.<a href="./src/resources/messaging/rcs/agents.ts">retrieve</a>(id) -> RcsAgentResponse</code>
 - <code title="patch /messaging/rcs/agents/{id}">client.messaging.rcs.agents.<a href="./src/resources/messaging/rcs/agents.ts">update</a>(id, { ...params }) -> RcsAgentResponse</code>
-- <code title="get /messaging/rcs/agents">client.messaging.rcs.agents.<a href="./src/resources/messaging/rcs/agents.ts">list</a>({ ...params }) -> RcsAgentsDefaultFlatPagination</code>
 
 # MessagingHostedNumberOrders
 
@@ -2240,13 +2280,13 @@ Types:
 
 Methods:
 
-- <code title="post /messaging_hosted_number_orders">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">create</a>({ ...params }) -> MessagingHostedNumberOrderCreateResponse</code>
-- <code title="get /messaging_hosted_number_orders/{id}">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">retrieve</a>(id) -> MessagingHostedNumberOrderRetrieveResponse</code>
 - <code title="get /messaging_hosted_number_orders">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">list</a>({ ...params }) -> MessagingHostedNumberOrdersDefaultFlatPagination</code>
-- <code title="delete /messaging_hosted_number_orders/{id}">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">delete</a>(id) -> MessagingHostedNumberOrderDeleteResponse</code>
+- <code title="post /messaging_hosted_number_orders">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">create</a>({ ...params }) -> MessagingHostedNumberOrderCreateResponse</code>
 - <code title="post /messaging_hosted_number_orders/eligibility_numbers_check">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">checkEligibility</a>({ ...params }) -> MessagingHostedNumberOrderCheckEligibilityResponse</code>
-- <code title="post /messaging_hosted_number_orders/{id}/verification_codes">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">createVerificationCodes</a>(id, { ...params }) -> MessagingHostedNumberOrderCreateVerificationCodesResponse</code>
+- <code title="delete /messaging_hosted_number_orders/{id}">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">delete</a>(id) -> MessagingHostedNumberOrderDeleteResponse</code>
+- <code title="get /messaging_hosted_number_orders/{id}">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">retrieve</a>(id) -> MessagingHostedNumberOrderRetrieveResponse</code>
 - <code title="post /messaging_hosted_number_orders/{id}/validation_codes">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">validateCodes</a>(id, { ...params }) -> MessagingHostedNumberOrderValidateCodesResponse</code>
+- <code title="post /messaging_hosted_number_orders/{id}/verification_codes">client.messagingHostedNumberOrders.<a href="./src/resources/messaging-hosted-number-orders/messaging-hosted-number-orders.ts">createVerificationCodes</a>(id, { ...params }) -> MessagingHostedNumberOrderCreateVerificationCodesResponse</code>
 
 ## Actions
 
@@ -2262,16 +2302,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/messaging-hosted-numbers.ts">UpdatePhoneNumberMessagingSettingsRequest</a></code>
 - <code><a href="./src/resources/messaging-hosted-numbers.ts">MessagingHostedNumberRetrieveResponse</a></code>
 - <code><a href="./src/resources/messaging-hosted-numbers.ts">MessagingHostedNumberUpdateResponse</a></code>
 - <code><a href="./src/resources/messaging-hosted-numbers.ts">MessagingHostedNumberDeleteResponse</a></code>
 
 Methods:
 
+- <code title="delete /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">delete</a>(id) -> MessagingHostedNumberDeleteResponse</code>
+- <code title="get /messaging_hosted_numbers">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">list</a>({ ...params }) -> PhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
 - <code title="get /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">retrieve</a>(id) -> MessagingHostedNumberRetrieveResponse</code>
 - <code title="patch /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">update</a>(id, { ...params }) -> MessagingHostedNumberUpdateResponse</code>
-- <code title="get /messaging_hosted_numbers">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">list</a>({ ...params }) -> PhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
-- <code title="delete /messaging_hosted_numbers/{id}">client.messagingHostedNumbers.<a href="./src/resources/messaging-hosted-numbers.ts">delete</a>(id) -> MessagingHostedNumberDeleteResponse</code>
 
 # MessagingNumbersBulkUpdates
 
@@ -2311,14 +2352,14 @@ Types:
 
 Methods:
 
+- <code title="get /messaging_profiles">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">list</a>({ ...params }) -> MessagingProfilesDefaultFlatPagination</code>
 - <code title="post /messaging_profiles">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">create</a>({ ...params }) -> MessagingProfileCreateResponse</code>
+- <code title="delete /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">delete</a>(messagingProfileID) -> MessagingProfileDeleteResponse</code>
 - <code title="get /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">retrieve</a>(messagingProfileID) -> MessagingProfileRetrieveResponse</code>
 - <code title="patch /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">update</a>(messagingProfileID, { ...params }) -> MessagingProfileUpdateResponse</code>
-- <code title="get /messaging_profiles">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">list</a>({ ...params }) -> MessagingProfilesDefaultFlatPagination</code>
-- <code title="delete /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">delete</a>(messagingProfileID) -> MessagingProfileDeleteResponse</code>
-- <code title="get /messaging_profiles/{id}/alphanumeric_sender_ids">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listAlphanumericSenderIDs</a>(id, { ...params }) -> AlphanumericSenderIDsDefaultFlatPagination</code>
 - <code title="get /messaging_profiles/{id}/phone_numbers">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listPhoneNumbers</a>(messagingProfileID, { ...params }) -> PhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
 - <code title="get /messaging_profiles/{id}/short_codes">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listShortCodes</a>(messagingProfileID, { ...params }) -> ShortCodesDefaultFlatPagination</code>
+- <code title="get /messaging_profiles/{id}/alphanumeric_sender_ids">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">listAlphanumericSenderIDs</a>(id, { ...params }) -> AlphanumericSenderIDsDefaultFlatPagination</code>
 - <code title="get /messaging_profiles/{id}/metrics">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">retrieveMetrics</a>(id, { ...params }) -> MessagingProfileRetrieveMetricsResponse</code>
 
 ## AutorespConfigs
@@ -2333,11 +2374,11 @@ Types:
 
 Methods:
 
+- <code title="get /messaging_profiles/{profile_id}/autoresp_configs">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">list</a>(profileID, { ...params }) -> AutorespConfigListResponse</code>
 - <code title="post /messaging_profiles/{profile_id}/autoresp_configs">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">create</a>(profileID, { ...params }) -> AutoRespConfigResponse</code>
+- <code title="delete /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">delete</a>(autorespCfgID, { ...params }) -> string</code>
 - <code title="get /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">retrieve</a>(autorespCfgID, { ...params }) -> AutoRespConfigResponse</code>
 - <code title="put /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">update</a>(autorespCfgID, { ...params }) -> AutoRespConfigResponse</code>
-- <code title="get /messaging_profiles/{profile_id}/autoresp_configs">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">list</a>(profileID, { ...params }) -> AutorespConfigListResponse</code>
-- <code title="delete /messaging_profiles/{profile_id}/autoresp_configs/{autoresp_cfg_id}">client.messagingProfiles.autorespConfigs.<a href="./src/resources/messaging-profiles/autoresp-configs.ts">delete</a>(autorespCfgID, { ...params }) -> string</code>
 
 ## Actions
 
@@ -2370,11 +2411,11 @@ Types:
 
 Methods:
 
+- <code title="get /messaging_tollfree/verification/requests">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">list</a>({ ...params }) -> VerificationRequestStatusesDefaultPaginationForMessagingTollfree</code>
 - <code title="post /messaging_tollfree/verification/requests">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">create</a>({ ...params }) -> VerificationRequestEgress</code>
+- <code title="delete /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">delete</a>(id) -> void</code>
 - <code title="get /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">retrieve</a>(id) -> VerificationRequestStatus</code>
 - <code title="patch /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">update</a>(id, { ...params }) -> VerificationRequestEgress</code>
-- <code title="get /messaging_tollfree/verification/requests">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">list</a>({ ...params }) -> VerificationRequestStatusesDefaultPaginationForMessagingTollfree</code>
-- <code title="delete /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">delete</a>(id) -> void</code>
 - <code title="get /messaging_tollfree/verification/requests/{id}/status_history">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">retrieveStatusHistory</a>(id, { ...params }) -> RequestRetrieveStatusHistoryResponse</code>
 
 # MessagingURLDomains
@@ -2406,10 +2447,10 @@ Types:
 
 Methods:
 
-- <code title="post /mobile_push_credentials">client.mobilePushCredentials.<a href="./src/resources/mobile-push-credentials.ts">create</a>({ ...params }) -> PushCredentialResponse</code>
-- <code title="get /mobile_push_credentials/{push_credential_id}">client.mobilePushCredentials.<a href="./src/resources/mobile-push-credentials.ts">retrieve</a>(pushCredentialID) -> PushCredentialResponse</code>
 - <code title="get /mobile_push_credentials">client.mobilePushCredentials.<a href="./src/resources/mobile-push-credentials.ts">list</a>({ ...params }) -> PushCredentialsDefaultFlatPagination</code>
+- <code title="post /mobile_push_credentials">client.mobilePushCredentials.<a href="./src/resources/mobile-push-credentials.ts">create</a>({ ...params }) -> PushCredentialResponse</code>
 - <code title="delete /mobile_push_credentials/{push_credential_id}">client.mobilePushCredentials.<a href="./src/resources/mobile-push-credentials.ts">delete</a>(pushCredentialID) -> void</code>
+- <code title="get /mobile_push_credentials/{push_credential_id}">client.mobilePushCredentials.<a href="./src/resources/mobile-push-credentials.ts">retrieve</a>(pushCredentialID) -> PushCredentialResponse</code>
 
 # NetworkCoverage
 
@@ -2427,36 +2468,37 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/networks/networks.ts">InterfaceStatus</a></code>
+- <code><a href="./src/resources/networks/networks.ts">Network</a></code>
 - <code><a href="./src/resources/networks/networks.ts">NetworkCreate</a></code>
 - <code><a href="./src/resources/networks/networks.ts">NetworkCreateResponse</a></code>
 - <code><a href="./src/resources/networks/networks.ts">NetworkRetrieveResponse</a></code>
 - <code><a href="./src/resources/networks/networks.ts">NetworkUpdateResponse</a></code>
-- <code><a href="./src/resources/networks/networks.ts">NetworkListResponse</a></code>
 - <code><a href="./src/resources/networks/networks.ts">NetworkDeleteResponse</a></code>
 - <code><a href="./src/resources/networks/networks.ts">NetworkListInterfacesResponse</a></code>
 
 Methods:
 
+- <code title="get /networks">client.networks.<a href="./src/resources/networks/networks.ts">list</a>({ ...params }) -> NetworksDefaultFlatPagination</code>
 - <code title="post /networks">client.networks.<a href="./src/resources/networks/networks.ts">create</a>({ ...params }) -> NetworkCreateResponse</code>
+- <code title="delete /networks/{id}">client.networks.<a href="./src/resources/networks/networks.ts">delete</a>(id) -> NetworkDeleteResponse</code>
 - <code title="get /networks/{id}">client.networks.<a href="./src/resources/networks/networks.ts">retrieve</a>(id) -> NetworkRetrieveResponse</code>
 - <code title="patch /networks/{id}">client.networks.<a href="./src/resources/networks/networks.ts">update</a>(networkID, { ...params }) -> NetworkUpdateResponse</code>
-- <code title="get /networks">client.networks.<a href="./src/resources/networks/networks.ts">list</a>({ ...params }) -> NetworkListResponsesDefaultFlatPagination</code>
-- <code title="delete /networks/{id}">client.networks.<a href="./src/resources/networks/networks.ts">delete</a>(id) -> NetworkDeleteResponse</code>
 - <code title="get /networks/{id}/network_interfaces">client.networks.<a href="./src/resources/networks/networks.ts">listInterfaces</a>(id, { ...params }) -> NetworkListInterfacesResponsesDefaultFlatPagination</code>
 
 ## DefaultGateway
 
 Types:
 
+- <code><a href="./src/resources/networks/default-gateway.ts">DefaultGateway</a></code>
 - <code><a href="./src/resources/networks/default-gateway.ts">DefaultGatewayCreateResponse</a></code>
 - <code><a href="./src/resources/networks/default-gateway.ts">DefaultGatewayRetrieveResponse</a></code>
 - <code><a href="./src/resources/networks/default-gateway.ts">DefaultGatewayDeleteResponse</a></code>
 
 Methods:
 
-- <code title="post /networks/{id}/default_gateway">client.networks.defaultGateway.<a href="./src/resources/networks/default-gateway.ts">create</a>(networkIdentifier, { ...params }) -> DefaultGatewayCreateResponse</code>
-- <code title="get /networks/{id}/default_gateway">client.networks.defaultGateway.<a href="./src/resources/networks/default-gateway.ts">retrieve</a>(id) -> DefaultGatewayRetrieveResponse</code>
 - <code title="delete /networks/{id}/default_gateway">client.networks.defaultGateway.<a href="./src/resources/networks/default-gateway.ts">delete</a>(id) -> DefaultGatewayDeleteResponse</code>
+- <code title="get /networks/{id}/default_gateway">client.networks.defaultGateway.<a href="./src/resources/networks/default-gateway.ts">retrieve</a>(id) -> DefaultGatewayRetrieveResponse</code>
+- <code title="post /networks/{id}/default_gateway">client.networks.defaultGateway.<a href="./src/resources/networks/default-gateway.ts">create</a>(networkIdentifier, { ...params }) -> DefaultGatewayCreateResponse</code>
 
 # NotificationChannels
 
@@ -2470,11 +2512,11 @@ Types:
 
 Methods:
 
+- <code title="get /notification_channels">client.notificationChannels.<a href="./src/resources/notification-channels.ts">list</a>({ ...params }) -> NotificationChannelsDefaultFlatPagination</code>
 - <code title="post /notification_channels">client.notificationChannels.<a href="./src/resources/notification-channels.ts">create</a>({ ...params }) -> NotificationChannelCreateResponse</code>
+- <code title="delete /notification_channels/{id}">client.notificationChannels.<a href="./src/resources/notification-channels.ts">delete</a>(id) -> NotificationChannelDeleteResponse</code>
 - <code title="get /notification_channels/{id}">client.notificationChannels.<a href="./src/resources/notification-channels.ts">retrieve</a>(id) -> NotificationChannelRetrieveResponse</code>
 - <code title="patch /notification_channels/{id}">client.notificationChannels.<a href="./src/resources/notification-channels.ts">update</a>(notificationChannelID, { ...params }) -> NotificationChannelUpdateResponse</code>
-- <code title="get /notification_channels">client.notificationChannels.<a href="./src/resources/notification-channels.ts">list</a>({ ...params }) -> NotificationChannelsDefaultFlatPagination</code>
-- <code title="delete /notification_channels/{id}">client.notificationChannels.<a href="./src/resources/notification-channels.ts">delete</a>(id) -> NotificationChannelDeleteResponse</code>
 
 # NotificationEventConditions
 
@@ -2508,11 +2550,11 @@ Types:
 
 Methods:
 
+- <code title="get /notification_profiles">client.notificationProfiles.<a href="./src/resources/notification-profiles.ts">list</a>({ ...params }) -> NotificationProfilesDefaultFlatPagination</code>
 - <code title="post /notification_profiles">client.notificationProfiles.<a href="./src/resources/notification-profiles.ts">create</a>({ ...params }) -> NotificationProfileCreateResponse</code>
+- <code title="delete /notification_profiles/{id}">client.notificationProfiles.<a href="./src/resources/notification-profiles.ts">delete</a>(id) -> NotificationProfileDeleteResponse</code>
 - <code title="get /notification_profiles/{id}">client.notificationProfiles.<a href="./src/resources/notification-profiles.ts">retrieve</a>(id) -> NotificationProfileRetrieveResponse</code>
 - <code title="patch /notification_profiles/{id}">client.notificationProfiles.<a href="./src/resources/notification-profiles.ts">update</a>(notificationProfileID, { ...params }) -> NotificationProfileUpdateResponse</code>
-- <code title="get /notification_profiles">client.notificationProfiles.<a href="./src/resources/notification-profiles.ts">list</a>({ ...params }) -> NotificationProfilesDefaultFlatPagination</code>
-- <code title="delete /notification_profiles/{id}">client.notificationProfiles.<a href="./src/resources/notification-profiles.ts">delete</a>(id) -> NotificationProfileDeleteResponse</code>
 
 # NotificationSettings
 
@@ -2525,10 +2567,10 @@ Types:
 
 Methods:
 
-- <code title="post /notification_settings">client.notificationSettings.<a href="./src/resources/notification-settings.ts">create</a>({ ...params }) -> NotificationSettingCreateResponse</code>
-- <code title="get /notification_settings/{id}">client.notificationSettings.<a href="./src/resources/notification-settings.ts">retrieve</a>(id) -> NotificationSettingRetrieveResponse</code>
 - <code title="get /notification_settings">client.notificationSettings.<a href="./src/resources/notification-settings.ts">list</a>({ ...params }) -> NotificationSettingsDefaultFlatPagination</code>
+- <code title="post /notification_settings">client.notificationSettings.<a href="./src/resources/notification-settings.ts">create</a>({ ...params }) -> NotificationSettingCreateResponse</code>
 - <code title="delete /notification_settings/{id}">client.notificationSettings.<a href="./src/resources/notification-settings.ts">delete</a>(id) -> NotificationSettingDeleteResponse</code>
+- <code title="get /notification_settings/{id}">client.notificationSettings.<a href="./src/resources/notification-settings.ts">retrieve</a>(id) -> NotificationSettingRetrieveResponse</code>
 
 # NumberBlockOrders
 
@@ -2540,9 +2582,9 @@ Types:
 
 Methods:
 
+- <code title="get /number_block_orders">client.numberBlockOrders.<a href="./src/resources/number-block-orders.ts">list</a>({ ...params }) -> NumberBlockOrdersDefaultFlatPagination</code>
 - <code title="post /number_block_orders">client.numberBlockOrders.<a href="./src/resources/number-block-orders.ts">create</a>({ ...params }) -> NumberBlockOrderCreateResponse</code>
 - <code title="get /number_block_orders/{number_block_order_id}">client.numberBlockOrders.<a href="./src/resources/number-block-orders.ts">retrieve</a>(numberBlockOrderID) -> NumberBlockOrderRetrieveResponse</code>
-- <code title="get /number_block_orders">client.numberBlockOrders.<a href="./src/resources/number-block-orders.ts">list</a>({ ...params }) -> NumberBlockOrdersDefaultFlatPagination</code>
 
 # NumberLookup
 
@@ -2567,9 +2609,9 @@ Types:
 
 Methods:
 
-- <code title="get /number_order_phone_numbers/{number_order_phone_number_id}">client.numberOrderPhoneNumbers.<a href="./src/resources/number-order-phone-numbers.ts">retrieve</a>(numberOrderPhoneNumberID) -> NumberOrderPhoneNumberRetrieveResponse</code>
 - <code title="get /number_order_phone_numbers">client.numberOrderPhoneNumbers.<a href="./src/resources/number-order-phone-numbers.ts">list</a>({ ...params }) -> NumberOrderPhoneNumberListResponse</code>
 - <code title="post /number_order_phone_numbers/{id}/requirement_group">client.numberOrderPhoneNumbers.<a href="./src/resources/number-order-phone-numbers.ts">updateRequirementGroup</a>(id, { ...params }) -> NumberOrderPhoneNumberUpdateRequirementGroupResponse</code>
+- <code title="get /number_order_phone_numbers/{number_order_phone_number_id}">client.numberOrderPhoneNumbers.<a href="./src/resources/number-order-phone-numbers.ts">retrieve</a>(numberOrderPhoneNumberID) -> NumberOrderPhoneNumberRetrieveResponse</code>
 - <code title="patch /number_order_phone_numbers/{number_order_phone_number_id}">client.numberOrderPhoneNumbers.<a href="./src/resources/number-order-phone-numbers.ts">updateRequirements</a>(numberOrderPhoneNumberID, { ...params }) -> NumberOrderPhoneNumberUpdateRequirementsResponse</code>
 
 # NumberOrders
@@ -2585,10 +2627,10 @@ Types:
 
 Methods:
 
+- <code title="get /number_orders">client.numberOrders.<a href="./src/resources/number-orders.ts">list</a>({ ...params }) -> NumberOrderListResponsesDefaultFlatPagination</code>
 - <code title="post /number_orders">client.numberOrders.<a href="./src/resources/number-orders.ts">create</a>({ ...params }) -> NumberOrderCreateResponse</code>
 - <code title="get /number_orders/{number_order_id}">client.numberOrders.<a href="./src/resources/number-orders.ts">retrieve</a>(numberOrderID) -> NumberOrderRetrieveResponse</code>
 - <code title="patch /number_orders/{number_order_id}">client.numberOrders.<a href="./src/resources/number-orders.ts">update</a>(numberOrderID, { ...params }) -> NumberOrderUpdateResponse</code>
-- <code title="get /number_orders">client.numberOrders.<a href="./src/resources/number-orders.ts">list</a>({ ...params }) -> NumberOrderListResponsesDefaultFlatPagination</code>
 
 # NumberReservations
 
@@ -2601,9 +2643,9 @@ Types:
 
 Methods:
 
+- <code title="get /number_reservations">client.numberReservations.<a href="./src/resources/number-reservations/number-reservations.ts">list</a>({ ...params }) -> NumberReservationsDefaultFlatPagination</code>
 - <code title="post /number_reservations">client.numberReservations.<a href="./src/resources/number-reservations/number-reservations.ts">create</a>({ ...params }) -> NumberReservationCreateResponse</code>
 - <code title="get /number_reservations/{number_reservation_id}">client.numberReservations.<a href="./src/resources/number-reservations/number-reservations.ts">retrieve</a>(numberReservationID) -> NumberReservationRetrieveResponse</code>
-- <code title="get /number_reservations">client.numberReservations.<a href="./src/resources/number-reservations/number-reservations.ts">list</a>({ ...params }) -> NumberReservationsDefaultFlatPagination</code>
 
 ## Actions
 
@@ -2646,8 +2688,8 @@ Types:
 
 Methods:
 
-- <code title="get /ota_updates/{id}">client.otaUpdates.<a href="./src/resources/ota-updates.ts">retrieve</a>(id) -> OtaUpdateRetrieveResponse</code>
 - <code title="get /ota_updates">client.otaUpdates.<a href="./src/resources/ota-updates.ts">list</a>({ ...params }) -> OtaUpdateListResponsesDefaultFlatPagination</code>
+- <code title="get /ota_updates/{id}">client.otaUpdates.<a href="./src/resources/ota-updates.ts">retrieve</a>(id) -> OtaUpdateRetrieveResponse</code>
 
 # OutboundVoiceProfiles
 
@@ -2665,11 +2707,11 @@ Types:
 
 Methods:
 
+- <code title="get /outbound_voice_profiles">client.outboundVoiceProfiles.<a href="./src/resources/outbound-voice-profiles.ts">list</a>({ ...params }) -> OutboundVoiceProfilesDefaultFlatPagination</code>
 - <code title="post /outbound_voice_profiles">client.outboundVoiceProfiles.<a href="./src/resources/outbound-voice-profiles.ts">create</a>({ ...params }) -> OutboundVoiceProfileCreateResponse</code>
+- <code title="delete /outbound_voice_profiles/{id}">client.outboundVoiceProfiles.<a href="./src/resources/outbound-voice-profiles.ts">delete</a>(id) -> OutboundVoiceProfileDeleteResponse</code>
 - <code title="get /outbound_voice_profiles/{id}">client.outboundVoiceProfiles.<a href="./src/resources/outbound-voice-profiles.ts">retrieve</a>(id) -> OutboundVoiceProfileRetrieveResponse</code>
 - <code title="patch /outbound_voice_profiles/{id}">client.outboundVoiceProfiles.<a href="./src/resources/outbound-voice-profiles.ts">update</a>(id, { ...params }) -> OutboundVoiceProfileUpdateResponse</code>
-- <code title="get /outbound_voice_profiles">client.outboundVoiceProfiles.<a href="./src/resources/outbound-voice-profiles.ts">list</a>({ ...params }) -> OutboundVoiceProfilesDefaultFlatPagination</code>
-- <code title="delete /outbound_voice_profiles/{id}">client.outboundVoiceProfiles.<a href="./src/resources/outbound-voice-profiles.ts">delete</a>(id) -> OutboundVoiceProfileDeleteResponse</code>
 
 # Payment
 
@@ -2691,8 +2733,8 @@ Types:
 
 Methods:
 
-- <code title="patch /payment/auto_recharge_prefs">client.payment.autoRechargePrefs.<a href="./src/resources/payment/auto-recharge-prefs.ts">update</a>({ ...params }) -> AutoRechargePrefUpdateResponse</code>
 - <code title="get /payment/auto_recharge_prefs">client.payment.autoRechargePrefs.<a href="./src/resources/payment/auto-recharge-prefs.ts">list</a>() -> AutoRechargePrefListResponse</code>
+- <code title="patch /payment/auto_recharge_prefs">client.payment.autoRechargePrefs.<a href="./src/resources/payment/auto-recharge-prefs.ts">update</a>({ ...params }) -> AutoRechargePrefUpdateResponse</code>
 
 # PhoneNumberBlocks
 
@@ -2707,9 +2749,9 @@ Types:
 
 Methods:
 
-- <code title="get /phone_number_blocks/jobs/{id}">client.phoneNumberBlocks.jobs.<a href="./src/resources/phone-number-blocks/jobs.ts">retrieve</a>(id) -> JobRetrieveResponse</code>
 - <code title="get /phone_number_blocks/jobs">client.phoneNumberBlocks.jobs.<a href="./src/resources/phone-number-blocks/jobs.ts">list</a>({ ...params }) -> JobsDefaultFlatPagination</code>
 - <code title="post /phone_number_blocks/jobs/delete_phone_number_block">client.phoneNumberBlocks.jobs.<a href="./src/resources/phone-number-blocks/jobs.ts">deletePhoneNumberBlock</a>({ ...params }) -> JobDeletePhoneNumberBlockResponse</code>
+- <code title="get /phone_number_blocks/jobs/{id}">client.phoneNumberBlocks.jobs.<a href="./src/resources/phone-number-blocks/jobs.ts">retrieve</a>(id) -> JobRetrieveResponse</code>
 
 # PhoneNumbers
 
@@ -2723,11 +2765,11 @@ Types:
 
 Methods:
 
+- <code title="get /phone_numbers">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">list</a>({ ...params }) -> PhoneNumberDetailedsDefaultFlatPagination</code>
+- <code title="get /phone_numbers/slim">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">slimList</a>({ ...params }) -> PhoneNumberSlimListResponsesDefaultFlatPagination</code>
+- <code title="delete /phone_numbers/{id}">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">delete</a>(id) -> PhoneNumberDeleteResponse</code>
 - <code title="get /phone_numbers/{id}">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">retrieve</a>(id) -> PhoneNumberRetrieveResponse</code>
 - <code title="patch /phone_numbers/{id}">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">update</a>(phoneNumberID, { ...params }) -> PhoneNumberUpdateResponse</code>
-- <code title="get /phone_numbers">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">list</a>({ ...params }) -> PhoneNumberDetailedsDefaultFlatPagination</code>
-- <code title="delete /phone_numbers/{id}">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">delete</a>(id) -> PhoneNumberDeleteResponse</code>
-- <code title="get /phone_numbers/slim">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">slimList</a>({ ...params }) -> PhoneNumberSlimListResponsesDefaultFlatPagination</code>
 
 ## Actions
 
@@ -2740,9 +2782,9 @@ Types:
 
 Methods:
 
+- <code title="post /phone_numbers/actions/verify_ownership">client.phoneNumbers.actions.<a href="./src/resources/phone-numbers/actions.ts">verifyOwnership</a>({ ...params }) -> ActionVerifyOwnershipResponse</code>
 - <code title="patch /phone_numbers/{id}/actions/bundle_status_change">client.phoneNumbers.actions.<a href="./src/resources/phone-numbers/actions.ts">changeBundleStatus</a>(id, { ...params }) -> ActionChangeBundleStatusResponse</code>
 - <code title="post /phone_numbers/{id}/actions/enable_emergency">client.phoneNumbers.actions.<a href="./src/resources/phone-numbers/actions.ts">enableEmergency</a>(id, { ...params }) -> ActionEnableEmergencyResponse</code>
-- <code title="post /phone_numbers/actions/verify_ownership">client.phoneNumbers.actions.<a href="./src/resources/phone-numbers/actions.ts">verifyOwnership</a>({ ...params }) -> ActionVerifyOwnershipResponse</code>
 
 ## CsvDownloads
 
@@ -2754,9 +2796,9 @@ Types:
 
 Methods:
 
+- <code title="get /phone_numbers/csv_downloads">client.phoneNumbers.csvDownloads.<a href="./src/resources/phone-numbers/csv-downloads.ts">list</a>({ ...params }) -> CsvDownloadsDefaultFlatPagination</code>
 - <code title="post /phone_numbers/csv_downloads">client.phoneNumbers.csvDownloads.<a href="./src/resources/phone-numbers/csv-downloads.ts">create</a>({ ...params }) -> CsvDownloadCreateResponse</code>
 - <code title="get /phone_numbers/csv_downloads/{id}">client.phoneNumbers.csvDownloads.<a href="./src/resources/phone-numbers/csv-downloads.ts">retrieve</a>(id) -> CsvDownloadRetrieveResponse</code>
-- <code title="get /phone_numbers/csv_downloads">client.phoneNumbers.csvDownloads.<a href="./src/resources/phone-numbers/csv-downloads.ts">list</a>({ ...params }) -> CsvDownloadsDefaultFlatPagination</code>
 
 ## Jobs
 
@@ -2770,11 +2812,11 @@ Types:
 
 Methods:
 
-- <code title="get /phone_numbers/jobs/{id}">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">retrieve</a>(id) -> JobRetrieveResponse</code>
 - <code title="get /phone_numbers/jobs">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">list</a>({ ...params }) -> PhoneNumbersJobsDefaultFlatPagination</code>
 - <code title="post /phone_numbers/jobs/delete_phone_numbers">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">deleteBatch</a>({ ...params }) -> JobDeleteBatchResponse</code>
-- <code title="post /phone_numbers/jobs/update_phone_numbers">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">updateBatch</a>({ ...params }) -> JobUpdateBatchResponse</code>
 - <code title="post /phone_numbers/jobs/update_emergency_settings">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">updateEmergencySettingsBatch</a>({ ...params }) -> JobUpdateEmergencySettingsBatchResponse</code>
+- <code title="post /phone_numbers/jobs/update_phone_numbers">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">updateBatch</a>({ ...params }) -> JobUpdateBatchResponse</code>
+- <code title="get /phone_numbers/jobs/{id}">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">retrieve</a>(id) -> JobRetrieveResponse</code>
 
 ## Messaging
 
@@ -2785,9 +2827,9 @@ Types:
 
 Methods:
 
+- <code title="get /phone_numbers/messaging">client.phoneNumbers.messaging.<a href="./src/resources/phone-numbers/messaging.ts">list</a>({ ...params }) -> PhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
 - <code title="get /phone_numbers/{id}/messaging">client.phoneNumbers.messaging.<a href="./src/resources/phone-numbers/messaging.ts">retrieve</a>(id) -> MessagingRetrieveResponse</code>
 - <code title="patch /phone_numbers/{id}/messaging">client.phoneNumbers.messaging.<a href="./src/resources/phone-numbers/messaging.ts">update</a>(id, { ...params }) -> MessagingUpdateResponse</code>
-- <code title="get /phone_numbers/messaging">client.phoneNumbers.messaging.<a href="./src/resources/phone-numbers/messaging.ts">list</a>({ ...params }) -> PhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
 
 ## Voice
 
@@ -2803,9 +2845,9 @@ Types:
 
 Methods:
 
+- <code title="get /phone_numbers/voice">client.phoneNumbers.voice.<a href="./src/resources/phone-numbers/voice.ts">list</a>({ ...params }) -> PhoneNumberWithVoiceSettingsDefaultFlatPagination</code>
 - <code title="get /phone_numbers/{id}/voice">client.phoneNumbers.voice.<a href="./src/resources/phone-numbers/voice.ts">retrieve</a>(id) -> VoiceRetrieveResponse</code>
 - <code title="patch /phone_numbers/{id}/voice">client.phoneNumbers.voice.<a href="./src/resources/phone-numbers/voice.ts">update</a>(id, { ...params }) -> VoiceUpdateResponse</code>
-- <code title="get /phone_numbers/voice">client.phoneNumbers.voice.<a href="./src/resources/phone-numbers/voice.ts">list</a>({ ...params }) -> PhoneNumberWithVoiceSettingsDefaultFlatPagination</code>
 
 ## Voicemail
 
@@ -2819,9 +2861,9 @@ Types:
 
 Methods:
 
-- <code title="post /phone_numbers/{phone_number_id}/voicemail">client.phoneNumbers.voicemail.<a href="./src/resources/phone-numbers/voicemail.ts">create</a>(phoneNumberID, { ...params }) -> VoicemailCreateResponse</code>
 - <code title="get /phone_numbers/{phone_number_id}/voicemail">client.phoneNumbers.voicemail.<a href="./src/resources/phone-numbers/voicemail.ts">retrieve</a>(phoneNumberID) -> VoicemailRetrieveResponse</code>
 - <code title="patch /phone_numbers/{phone_number_id}/voicemail">client.phoneNumbers.voicemail.<a href="./src/resources/phone-numbers/voicemail.ts">update</a>(phoneNumberID, { ...params }) -> VoicemailUpdateResponse</code>
+- <code title="post /phone_numbers/{phone_number_id}/voicemail">client.phoneNumbers.voicemail.<a href="./src/resources/phone-numbers/voicemail.ts">create</a>(phoneNumberID, { ...params }) -> VoicemailCreateResponse</code>
 
 # PhoneNumbersRegulatoryRequirements
 
@@ -2857,6 +2899,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/porting/events.ts">PortingEvent</a></code>
 - <code><a href="./src/resources/porting/events.ts">PortingEventDeletedPayload</a></code>
 - <code><a href="./src/resources/porting/events.ts">PortingEventMessagingChangedPayload</a></code>
 - <code><a href="./src/resources/porting/events.ts">PortingEventNewCommentEvent</a></code>
@@ -2864,12 +2907,11 @@ Types:
 - <code><a href="./src/resources/porting/events.ts">PortingEventStatusChangedEvent</a></code>
 - <code><a href="./src/resources/porting/events.ts">PortingEventWithoutWebhook</a></code>
 - <code><a href="./src/resources/porting/events.ts">EventRetrieveResponse</a></code>
-- <code><a href="./src/resources/porting/events.ts">EventListResponse</a></code>
 
 Methods:
 
+- <code title="get /porting/events">client.porting.events.<a href="./src/resources/porting/events.ts">list</a>({ ...params }) -> PortingEventsDefaultFlatPagination</code>
 - <code title="get /porting/events/{id}">client.porting.events.<a href="./src/resources/porting/events.ts">retrieve</a>(id) -> EventRetrieveResponse</code>
-- <code title="get /porting/events">client.porting.events.<a href="./src/resources/porting/events.ts">list</a>({ ...params }) -> EventListResponsesDefaultFlatPagination</code>
 - <code title="post /porting/events/{id}/republish">client.porting.events.<a href="./src/resources/porting/events.ts">republish</a>(id) -> void</code>
 
 ## Reports
@@ -2883,9 +2925,9 @@ Types:
 
 Methods:
 
+- <code title="get /porting/reports">client.porting.reports.<a href="./src/resources/porting/reports.ts">list</a>({ ...params }) -> PortingReportsDefaultFlatPagination</code>
 - <code title="post /porting/reports">client.porting.reports.<a href="./src/resources/porting/reports.ts">create</a>({ ...params }) -> ReportCreateResponse</code>
 - <code title="get /porting/reports/{id}">client.porting.reports.<a href="./src/resources/porting/reports.ts">retrieve</a>(id) -> ReportRetrieveResponse</code>
-- <code title="get /porting/reports">client.porting.reports.<a href="./src/resources/porting/reports.ts">list</a>({ ...params }) -> PortingReportsDefaultFlatPagination</code>
 
 ## LoaConfigurations
 
@@ -2898,14 +2940,14 @@ Types:
 
 Methods:
 
-- <code title="post /porting/loa_configurations">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">create</a>({ ...params }) -> LoaConfigurationCreateResponse</code>
-- <code title="get /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">retrieve</a>(id) -> LoaConfigurationRetrieveResponse</code>
-- <code title="patch /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">update</a>(id, { ...params }) -> LoaConfigurationUpdateResponse</code>
-- <code title="get /porting/loa_configurations">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">list</a>({ ...params }) -> PortingLoaConfigurationsDefaultFlatPagination</code>
-- <code title="delete /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">delete</a>(id) -> void</code>
-- <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview</a>({ ...params }) -> Response</code>
 - <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview0</a>({ ...params }) -> Response</code>
 - <code title="get /porting/loa_configurations/{id}/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview1</a>(id) -> Response</code>
+- <code title="get /porting/loa_configurations">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">list</a>({ ...params }) -> PortingLoaConfigurationsDefaultFlatPagination</code>
+- <code title="post /porting/loa_configurations">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">create</a>({ ...params }) -> LoaConfigurationCreateResponse</code>
+- <code title="delete /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">delete</a>(id) -> void</code>
+- <code title="get /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">retrieve</a>(id) -> LoaConfigurationRetrieveResponse</code>
+- <code title="patch /porting/loa_configurations/{id}">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">update</a>(id, { ...params }) -> LoaConfigurationUpdateResponse</code>
+- <code title="post /porting/loa_configurations/preview">client.porting.loaConfigurations.<a href="./src/resources/porting/loa-configurations.ts">preview</a>({ ...params }) -> Response</code>
 
 # PortingOrders
 
@@ -2934,13 +2976,13 @@ Types:
 
 Methods:
 
+- <code title="get /porting_orders">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">list</a>({ ...params }) -> PortingOrdersDefaultFlatPagination</code>
 - <code title="post /porting_orders">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">create</a>({ ...params }) -> PortingOrderCreateResponse</code>
+- <code title="get /porting_orders/exception_types">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">retrieveExceptionTypes</a>() -> PortingOrderRetrieveExceptionTypesResponse</code>
+- <code title="delete /porting_orders/{id}">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">delete</a>(id) -> void</code>
 - <code title="get /porting_orders/{id}">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">retrieve</a>(id, { ...params }) -> PortingOrderRetrieveResponse</code>
 - <code title="patch /porting_orders/{id}">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">update</a>(id, { ...params }) -> PortingOrderUpdateResponse</code>
-- <code title="get /porting_orders">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">list</a>({ ...params }) -> PortingOrdersDefaultFlatPagination</code>
-- <code title="delete /porting_orders/{id}">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">delete</a>(id) -> void</code>
 - <code title="get /porting_orders/{id}/allowed_foc_windows">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">retrieveAllowedFocWindows</a>(id) -> PortingOrderRetrieveAllowedFocWindowsResponse</code>
-- <code title="get /porting_orders/exception_types">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">retrieveExceptionTypes</a>() -> PortingOrderRetrieveExceptionTypesResponse</code>
 - <code title="get /porting_orders/{id}/loa_template">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">retrieveLoaTemplate</a>(id, { ...params }) -> Response</code>
 - <code title="get /porting_orders/{id}/requirements">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">retrieveRequirements</a>(id, { ...params }) -> PortingOrderRetrieveRequirementsResponsesDefaultFlatPagination</code>
 - <code title="get /porting_orders/{id}/sub_request">client.portingOrders.<a href="./src/resources/porting-orders/porting-orders.ts">retrieveSubRequest</a>(id) -> PortingOrderRetrieveSubRequestResponse</code>
@@ -2949,13 +2991,13 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/porting-orders/phone-number-configurations.ts">PortingPhoneNumberConfiguration</a></code>
 - <code><a href="./src/resources/porting-orders/phone-number-configurations.ts">PhoneNumberConfigurationCreateResponse</a></code>
-- <code><a href="./src/resources/porting-orders/phone-number-configurations.ts">PhoneNumberConfigurationListResponse</a></code>
 
 Methods:
 
+- <code title="get /porting_orders/phone_number_configurations">client.portingOrders.phoneNumberConfigurations.<a href="./src/resources/porting-orders/phone-number-configurations.ts">list</a>({ ...params }) -> PortingPhoneNumberConfigurationsDefaultFlatPagination</code>
 - <code title="post /porting_orders/phone_number_configurations">client.portingOrders.phoneNumberConfigurations.<a href="./src/resources/porting-orders/phone-number-configurations.ts">create</a>({ ...params }) -> PhoneNumberConfigurationCreateResponse</code>
-- <code title="get /porting_orders/phone_number_configurations">client.portingOrders.phoneNumberConfigurations.<a href="./src/resources/porting-orders/phone-number-configurations.ts">list</a>({ ...params }) -> PhoneNumberConfigurationListResponsesDefaultFlatPagination</code>
 
 ## Actions
 
@@ -2982,45 +3024,45 @@ Types:
 
 Methods:
 
+- <code title="get /porting_orders/{id}/activation_jobs">client.portingOrders.activationJobs.<a href="./src/resources/porting-orders/activation-jobs.ts">list</a>(id, { ...params }) -> PortingOrdersActivationJobsDefaultFlatPagination</code>
 - <code title="get /porting_orders/{id}/activation_jobs/{activationJobId}">client.portingOrders.activationJobs.<a href="./src/resources/porting-orders/activation-jobs.ts">retrieve</a>(activationJobID, { ...params }) -> ActivationJobRetrieveResponse</code>
 - <code title="patch /porting_orders/{id}/activation_jobs/{activationJobId}">client.portingOrders.activationJobs.<a href="./src/resources/porting-orders/activation-jobs.ts">update</a>(activationJobID, { ...params }) -> ActivationJobUpdateResponse</code>
-- <code title="get /porting_orders/{id}/activation_jobs">client.portingOrders.activationJobs.<a href="./src/resources/porting-orders/activation-jobs.ts">list</a>(id, { ...params }) -> PortingOrdersActivationJobsDefaultFlatPagination</code>
 
 ## AdditionalDocuments
 
 Types:
 
+- <code><a href="./src/resources/porting-orders/additional-documents.ts">PortingAdditionalDocument</a></code>
 - <code><a href="./src/resources/porting-orders/additional-documents.ts">AdditionalDocumentCreateResponse</a></code>
-- <code><a href="./src/resources/porting-orders/additional-documents.ts">AdditionalDocumentListResponse</a></code>
 
 Methods:
 
+- <code title="get /porting_orders/{id}/additional_documents">client.portingOrders.additionalDocuments.<a href="./src/resources/porting-orders/additional-documents.ts">list</a>(id, { ...params }) -> PortingAdditionalDocumentsDefaultFlatPagination</code>
 - <code title="post /porting_orders/{id}/additional_documents">client.portingOrders.additionalDocuments.<a href="./src/resources/porting-orders/additional-documents.ts">create</a>(id, { ...params }) -> AdditionalDocumentCreateResponse</code>
-- <code title="get /porting_orders/{id}/additional_documents">client.portingOrders.additionalDocuments.<a href="./src/resources/porting-orders/additional-documents.ts">list</a>(id, { ...params }) -> AdditionalDocumentListResponsesDefaultFlatPagination</code>
 - <code title="delete /porting_orders/{id}/additional_documents/{additional_document_id}">client.portingOrders.additionalDocuments.<a href="./src/resources/porting-orders/additional-documents.ts">delete</a>(additionalDocumentID, { ...params }) -> void</code>
 
 ## Comments
 
 Types:
 
+- <code><a href="./src/resources/porting-orders/comments.ts">PortingOrdersComment</a></code>
 - <code><a href="./src/resources/porting-orders/comments.ts">CommentCreateResponse</a></code>
-- <code><a href="./src/resources/porting-orders/comments.ts">CommentListResponse</a></code>
 
 Methods:
 
+- <code title="get /porting_orders/{id}/comments">client.portingOrders.comments.<a href="./src/resources/porting-orders/comments.ts">list</a>(id, { ...params }) -> PortingOrdersCommentsDefaultFlatPagination</code>
 - <code title="post /porting_orders/{id}/comments">client.portingOrders.comments.<a href="./src/resources/porting-orders/comments.ts">create</a>(id, { ...params }) -> CommentCreateResponse</code>
-- <code title="get /porting_orders/{id}/comments">client.portingOrders.comments.<a href="./src/resources/porting-orders/comments.ts">list</a>(id, { ...params }) -> CommentListResponsesDefaultFlatPagination</code>
 
 ## VerificationCodes
 
 Types:
 
-- <code><a href="./src/resources/porting-orders/verification-codes.ts">VerificationCodeListResponse</a></code>
+- <code><a href="./src/resources/porting-orders/verification-codes.ts">PortingVerificationCode</a></code>
 - <code><a href="./src/resources/porting-orders/verification-codes.ts">VerificationCodeVerifyResponse</a></code>
 
 Methods:
 
-- <code title="get /porting_orders/{id}/verification_codes">client.portingOrders.verificationCodes.<a href="./src/resources/porting-orders/verification-codes.ts">list</a>(id, { ...params }) -> VerificationCodeListResponsesDefaultFlatPagination</code>
+- <code title="get /porting_orders/{id}/verification_codes">client.portingOrders.verificationCodes.<a href="./src/resources/porting-orders/verification-codes.ts">list</a>(id, { ...params }) -> PortingVerificationCodesDefaultFlatPagination</code>
 - <code title="post /porting_orders/{id}/verification_codes/send">client.portingOrders.verificationCodes.<a href="./src/resources/porting-orders/verification-codes.ts">send</a>(id, { ...params }) -> void</code>
 - <code title="post /porting_orders/{id}/verification_codes/verify">client.portingOrders.verificationCodes.<a href="./src/resources/porting-orders/verification-codes.ts">verify</a>(id, { ...params }) -> VerificationCodeVerifyResponse</code>
 
@@ -3028,12 +3070,12 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/porting-orders/action-requirements.ts">ActionRequirementListResponse</a></code>
+- <code><a href="./src/resources/porting-orders/action-requirements.ts">PortingActionRequirement</a></code>
 - <code><a href="./src/resources/porting-orders/action-requirements.ts">ActionRequirementInitiateResponse</a></code>
 
 Methods:
 
-- <code title="get /porting_orders/{porting_order_id}/action_requirements">client.portingOrders.actionRequirements.<a href="./src/resources/porting-orders/action-requirements.ts">list</a>(portingOrderID, { ...params }) -> ActionRequirementListResponsesDefaultFlatPagination</code>
+- <code title="get /porting_orders/{porting_order_id}/action_requirements">client.portingOrders.actionRequirements.<a href="./src/resources/porting-orders/action-requirements.ts">list</a>(portingOrderID, { ...params }) -> PortingActionRequirementsDefaultFlatPagination</code>
 - <code title="post /porting_orders/{porting_order_id}/action_requirements/{id}/initiate">client.portingOrders.actionRequirements.<a href="./src/resources/porting-orders/action-requirements.ts">initiate</a>(id, { ...params }) -> ActionRequirementInitiateResponse</code>
 
 ## AssociatedPhoneNumbers
@@ -3046,8 +3088,8 @@ Types:
 
 Methods:
 
-- <code title="post /porting_orders/{porting_order_id}/associated_phone_numbers">client.portingOrders.associatedPhoneNumbers.<a href="./src/resources/porting-orders/associated-phone-numbers.ts">create</a>(portingOrderID, { ...params }) -> AssociatedPhoneNumberCreateResponse</code>
 - <code title="get /porting_orders/{porting_order_id}/associated_phone_numbers">client.portingOrders.associatedPhoneNumbers.<a href="./src/resources/porting-orders/associated-phone-numbers.ts">list</a>(portingOrderID, { ...params }) -> PortingAssociatedPhoneNumbersDefaultFlatPagination</code>
+- <code title="post /porting_orders/{porting_order_id}/associated_phone_numbers">client.portingOrders.associatedPhoneNumbers.<a href="./src/resources/porting-orders/associated-phone-numbers.ts">create</a>(portingOrderID, { ...params }) -> AssociatedPhoneNumberCreateResponse</code>
 - <code title="delete /porting_orders/{porting_order_id}/associated_phone_numbers/{id}">client.portingOrders.associatedPhoneNumbers.<a href="./src/resources/porting-orders/associated-phone-numbers.ts">delete</a>(id, { ...params }) -> AssociatedPhoneNumberDeleteResponse</code>
 
 ## PhoneNumberBlocks
@@ -3060,8 +3102,8 @@ Types:
 
 Methods:
 
-- <code title="post /porting_orders/{porting_order_id}/phone_number_blocks">client.portingOrders.phoneNumberBlocks.<a href="./src/resources/porting-orders/phone-number-blocks.ts">create</a>(portingOrderID, { ...params }) -> PhoneNumberBlockCreateResponse</code>
 - <code title="get /porting_orders/{porting_order_id}/phone_number_blocks">client.portingOrders.phoneNumberBlocks.<a href="./src/resources/porting-orders/phone-number-blocks.ts">list</a>(portingOrderID, { ...params }) -> PortingPhoneNumberBlocksDefaultFlatPagination</code>
+- <code title="post /porting_orders/{porting_order_id}/phone_number_blocks">client.portingOrders.phoneNumberBlocks.<a href="./src/resources/porting-orders/phone-number-blocks.ts">create</a>(portingOrderID, { ...params }) -> PhoneNumberBlockCreateResponse</code>
 - <code title="delete /porting_orders/{porting_order_id}/phone_number_blocks/{id}">client.portingOrders.phoneNumberBlocks.<a href="./src/resources/porting-orders/phone-number-blocks.ts">delete</a>(id, { ...params }) -> PhoneNumberBlockDeleteResponse</code>
 
 ## PhoneNumberExtensions
@@ -3074,19 +3116,20 @@ Types:
 
 Methods:
 
-- <code title="post /porting_orders/{porting_order_id}/phone_number_extensions">client.portingOrders.phoneNumberExtensions.<a href="./src/resources/porting-orders/phone-number-extensions.ts">create</a>(portingOrderID, { ...params }) -> PhoneNumberExtensionCreateResponse</code>
 - <code title="get /porting_orders/{porting_order_id}/phone_number_extensions">client.portingOrders.phoneNumberExtensions.<a href="./src/resources/porting-orders/phone-number-extensions.ts">list</a>(portingOrderID, { ...params }) -> PortingPhoneNumberExtensionsDefaultFlatPagination</code>
+- <code title="post /porting_orders/{porting_order_id}/phone_number_extensions">client.portingOrders.phoneNumberExtensions.<a href="./src/resources/porting-orders/phone-number-extensions.ts">create</a>(portingOrderID, { ...params }) -> PhoneNumberExtensionCreateResponse</code>
 - <code title="delete /porting_orders/{porting_order_id}/phone_number_extensions/{id}">client.portingOrders.phoneNumberExtensions.<a href="./src/resources/porting-orders/phone-number-extensions.ts">delete</a>(id, { ...params }) -> PhoneNumberExtensionDeleteResponse</code>
 
 # PortingPhoneNumbers
 
 Types:
 
-- <code><a href="./src/resources/porting-phone-numbers.ts">PortingPhoneNumberListResponse</a></code>
+- <code><a href="./src/resources/porting-phone-numbers.ts">PortingOrderActivationStatus</a></code>
+- <code><a href="./src/resources/porting-phone-numbers.ts">PortingPhoneNumber</a></code>
 
 Methods:
 
-- <code title="get /porting_phone_numbers">client.portingPhoneNumbers.<a href="./src/resources/porting-phone-numbers.ts">list</a>({ ...params }) -> PortingPhoneNumberListResponsesDefaultFlatPagination</code>
+- <code title="get /porting_phone_numbers">client.portingPhoneNumbers.<a href="./src/resources/porting-phone-numbers.ts">list</a>({ ...params }) -> PortingPhoneNumbersDefaultFlatPagination</code>
 
 # Portouts
 
@@ -3099,25 +3142,25 @@ Types:
 
 Methods:
 
-- <code title="get /portouts/{id}">client.portouts.<a href="./src/resources/portouts/portouts.ts">retrieve</a>(id) -> PortoutRetrieveResponse</code>
 - <code title="get /portouts">client.portouts.<a href="./src/resources/portouts/portouts.ts">list</a>({ ...params }) -> PortoutDetailsDefaultFlatPagination</code>
 - <code title="get /portouts/rejections/{portout_id}">client.portouts.<a href="./src/resources/portouts/portouts.ts">listRejectionCodes</a>(portoutID, { ...params }) -> PortoutListRejectionCodesResponse</code>
+- <code title="get /portouts/{id}">client.portouts.<a href="./src/resources/portouts/portouts.ts">retrieve</a>(id) -> PortoutRetrieveResponse</code>
 - <code title="patch /portouts/{id}/{status}">client.portouts.<a href="./src/resources/portouts/portouts.ts">updateStatus</a>(status, { ...params }) -> PortoutUpdateStatusResponse</code>
 
 ## Events
 
 Types:
 
+- <code><a href="./src/resources/portouts/events.ts">PortoutEvent</a></code>
 - <code><a href="./src/resources/portouts/events.ts">WebhookPortoutFocDateChanged</a></code>
 - <code><a href="./src/resources/portouts/events.ts">WebhookPortoutNewComment</a></code>
 - <code><a href="./src/resources/portouts/events.ts">WebhookPortoutStatusChanged</a></code>
 - <code><a href="./src/resources/portouts/events.ts">EventRetrieveResponse</a></code>
-- <code><a href="./src/resources/portouts/events.ts">EventListResponse</a></code>
 
 Methods:
 
+- <code title="get /portouts/events">client.portouts.events.<a href="./src/resources/portouts/events.ts">list</a>({ ...params }) -> PortoutEventsDefaultFlatPagination</code>
 - <code title="get /portouts/events/{id}">client.portouts.events.<a href="./src/resources/portouts/events.ts">retrieve</a>(id) -> EventRetrieveResponse</code>
-- <code title="get /portouts/events">client.portouts.events.<a href="./src/resources/portouts/events.ts">list</a>({ ...params }) -> EventListResponsesDefaultFlatPagination</code>
 - <code title="post /portouts/events/{id}/republish">client.portouts.events.<a href="./src/resources/portouts/events.ts">republish</a>(id) -> void</code>
 
 ## Reports
@@ -3131,9 +3174,9 @@ Types:
 
 Methods:
 
+- <code title="get /portouts/reports">client.portouts.reports.<a href="./src/resources/portouts/reports.ts">list</a>({ ...params }) -> PortoutReportsDefaultFlatPagination</code>
 - <code title="post /portouts/reports">client.portouts.reports.<a href="./src/resources/portouts/reports.ts">create</a>({ ...params }) -> ReportCreateResponse</code>
 - <code title="get /portouts/reports/{id}">client.portouts.reports.<a href="./src/resources/portouts/reports.ts">retrieve</a>(id) -> ReportRetrieveResponse</code>
-- <code title="get /portouts/reports">client.portouts.reports.<a href="./src/resources/portouts/reports.ts">list</a>({ ...params }) -> PortoutReportsDefaultFlatPagination</code>
 
 ## Comments
 
@@ -3145,8 +3188,8 @@ Types:
 
 Methods:
 
-- <code title="post /portouts/{id}/comments">client.portouts.comments.<a href="./src/resources/portouts/comments.ts">create</a>(id, { ...params }) -> CommentCreateResponse</code>
 - <code title="get /portouts/{id}/comments">client.portouts.comments.<a href="./src/resources/portouts/comments.ts">list</a>(id) -> CommentListResponse</code>
+- <code title="post /portouts/{id}/comments">client.portouts.comments.<a href="./src/resources/portouts/comments.ts">create</a>(id, { ...params }) -> CommentCreateResponse</code>
 
 ## SupportingDocuments
 
@@ -3158,8 +3201,8 @@ Types:
 
 Methods:
 
-- <code title="post /portouts/{id}/supporting_documents">client.portouts.supportingDocuments.<a href="./src/resources/portouts/supporting-documents.ts">create</a>(id, { ...params }) -> SupportingDocumentCreateResponse</code>
 - <code title="get /portouts/{id}/supporting_documents">client.portouts.supportingDocuments.<a href="./src/resources/portouts/supporting-documents.ts">list</a>(id) -> SupportingDocumentListResponse</code>
+- <code title="post /portouts/{id}/supporting_documents">client.portouts.supportingDocuments.<a href="./src/resources/portouts/supporting-documents.ts">create</a>(id, { ...params }) -> SupportingDocumentCreateResponse</code>
 
 # PrivateWirelessGateways
 
@@ -3174,10 +3217,10 @@ Types:
 
 Methods:
 
-- <code title="post /private_wireless_gateways">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">create</a>({ ...params }) -> PrivateWirelessGatewayCreateResponse</code>
-- <code title="get /private_wireless_gateways/{id}">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">retrieve</a>(id) -> PrivateWirelessGatewayRetrieveResponse</code>
 - <code title="get /private_wireless_gateways">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">list</a>({ ...params }) -> PrivateWirelessGatewaysDefaultFlatPagination</code>
+- <code title="post /private_wireless_gateways">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">create</a>({ ...params }) -> PrivateWirelessGatewayCreateResponse</code>
 - <code title="delete /private_wireless_gateways/{id}">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">delete</a>(id) -> PrivateWirelessGatewayDeleteResponse</code>
+- <code title="get /private_wireless_gateways/{id}">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">retrieve</a>(id) -> PrivateWirelessGatewayRetrieveResponse</code>
 
 # PublicInternetGateways
 
@@ -3185,6 +3228,7 @@ Types:
 
 - <code><a href="./src/resources/public-internet-gateways.ts">NetworkInterface</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">NetworkInterfaceRegion</a></code>
+- <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGateway</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayRead</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayCreateResponse</a></code>
 - <code><a href="./src/resources/public-internet-gateways.ts">PublicInternetGatewayRetrieveResponse</a></code>
@@ -3192,10 +3236,10 @@ Types:
 
 Methods:
 
-- <code title="post /public_internet_gateways">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">create</a>({ ...params }) -> PublicInternetGatewayCreateResponse</code>
-- <code title="get /public_internet_gateways/{id}">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">retrieve</a>(id) -> PublicInternetGatewayRetrieveResponse</code>
 - <code title="get /public_internet_gateways">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">list</a>({ ...params }) -> PublicInternetGatewayReadsDefaultFlatPagination</code>
+- <code title="post /public_internet_gateways">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">create</a>({ ...params }) -> PublicInternetGatewayCreateResponse</code>
 - <code title="delete /public_internet_gateways/{id}">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">delete</a>(id) -> PublicInternetGatewayDeleteResponse</code>
+- <code title="get /public_internet_gateways/{id}">client.publicInternetGateways.<a href="./src/resources/public-internet-gateways.ts">retrieve</a>(id) -> PublicInternetGatewayRetrieveResponse</code>
 
 # Queues
 
@@ -3208,25 +3252,25 @@ Types:
 
 Methods:
 
-- <code title="post /queues">client.queues.<a href="./src/resources/queues/queues.ts">create</a>({ ...params }) -> QueueCreateResponse</code>
 - <code title="get /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">retrieve</a>(queueName) -> QueueRetrieveResponse</code>
-- <code title="post /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">update</a>(queueName, { ...params }) -> QueueUpdateResponse</code>
 - <code title="get /queues">client.queues.<a href="./src/resources/queues/queues.ts">list</a>({ ...params }) -> QueuesDefaultFlatPagination</code>
+- <code title="post /queues">client.queues.<a href="./src/resources/queues/queues.ts">create</a>({ ...params }) -> QueueCreateResponse</code>
 - <code title="delete /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">delete</a>(queueName) -> void</code>
+- <code title="post /queues/{queue_name}">client.queues.<a href="./src/resources/queues/queues.ts">update</a>(queueName, { ...params }) -> QueueUpdateResponse</code>
 
 ## Calls
 
 Types:
 
+- <code><a href="./src/resources/queues/calls.ts">QueueCall</a></code>
 - <code><a href="./src/resources/queues/calls.ts">CallRetrieveResponse</a></code>
-- <code><a href="./src/resources/queues/calls.ts">CallListResponse</a></code>
 
 Methods:
 
+- <code title="get /queues/{queue_name}/calls">client.queues.calls.<a href="./src/resources/queues/calls.ts">list</a>(queueName, { ...params }) -> QueueCallsDefaultFlatPagination</code>
 - <code title="get /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">retrieve</a>(callControlID, { ...params }) -> CallRetrieveResponse</code>
-- <code title="patch /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">update</a>(callControlID, { ...params }) -> void</code>
-- <code title="get /queues/{queue_name}/calls">client.queues.calls.<a href="./src/resources/queues/calls.ts">list</a>(queueName, { ...params }) -> CallListResponsesDefaultFlatPagination</code>
 - <code title="delete /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">remove</a>(callControlID, { ...params }) -> void</code>
+- <code title="patch /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">update</a>(callControlID, { ...params }) -> void</code>
 
 # RcsAgents
 
@@ -3245,23 +3289,22 @@ Types:
 
 Methods:
 
-- <code title="get /recording_transcriptions/{recording_transcription_id}">client.recordingTranscriptions.<a href="./src/resources/recording-transcriptions.ts">retrieve</a>(recordingTranscriptionID) -> RecordingTranscriptionRetrieveResponse</code>
 - <code title="get /recording_transcriptions">client.recordingTranscriptions.<a href="./src/resources/recording-transcriptions.ts">list</a>({ ...params }) -> RecordingTranscriptionsDefaultFlatPagination</code>
 - <code title="delete /recording_transcriptions/{recording_transcription_id}">client.recordingTranscriptions.<a href="./src/resources/recording-transcriptions.ts">delete</a>(recordingTranscriptionID) -> RecordingTranscriptionDeleteResponse</code>
+- <code title="get /recording_transcriptions/{recording_transcription_id}">client.recordingTranscriptions.<a href="./src/resources/recording-transcriptions.ts">retrieve</a>(recordingTranscriptionID) -> RecordingTranscriptionRetrieveResponse</code>
 
 # Recordings
 
 Types:
 
+- <code><a href="./src/resources/recordings/recordings.ts">RecordingResponse</a></code>
 - <code><a href="./src/resources/recordings/recordings.ts">RecordingResponseData</a></code>
-- <code><a href="./src/resources/recordings/recordings.ts">RecordingRetrieveResponse</a></code>
-- <code><a href="./src/resources/recordings/recordings.ts">RecordingDeleteResponse</a></code>
 
 Methods:
 
-- <code title="get /recordings/{recording_id}">client.recordings.<a href="./src/resources/recordings/recordings.ts">retrieve</a>(recordingID) -> RecordingRetrieveResponse</code>
 - <code title="get /recordings">client.recordings.<a href="./src/resources/recordings/recordings.ts">list</a>({ ...params }) -> RecordingResponseDataDefaultFlatPagination</code>
-- <code title="delete /recordings/{recording_id}">client.recordings.<a href="./src/resources/recordings/recordings.ts">delete</a>(recordingID) -> RecordingDeleteResponse</code>
+- <code title="delete /recordings/{recording_id}">client.recordings.<a href="./src/resources/recordings/recordings.ts">delete</a>(recordingID) -> RecordingResponse</code>
+- <code title="get /recordings/{recording_id}">client.recordings.<a href="./src/resources/recordings/recordings.ts">retrieve</a>(recordingID) -> RecordingResponse</code>
 
 ## Actions
 
@@ -3328,11 +3371,25 @@ Types:
 
 Methods:
 
-- <code title="post /reports/mdr_usage_reports">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">create</a>({ ...params }) -> MdrUsageReportCreateResponse</code>
-- <code title="get /reports/mdr_usage_reports/{id}">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">retrieve</a>(id) -> MdrUsageReportRetrieveResponse</code>
 - <code title="get /reports/mdr_usage_reports">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">list</a>({ ...params }) -> MdrUsageReportsDefaultFlatPagination</code>
-- <code title="delete /reports/mdr_usage_reports/{id}">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">delete</a>(id) -> MdrUsageReportDeleteResponse</code>
+- <code title="post /reports/mdr_usage_reports">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">create</a>({ ...params }) -> MdrUsageReportCreateResponse</code>
 - <code title="get /reports/mdr_usage_reports/sync">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">fetchSync</a>({ ...params }) -> MdrUsageReportFetchSyncResponse</code>
+- <code title="delete /reports/mdr_usage_reports/{id}">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">delete</a>(id) -> MdrUsageReportDeleteResponse</code>
+- <code title="get /reports/mdr_usage_reports/{id}">client.reports.mdrUsageReports.<a href="./src/resources/reports/mdr-usage-reports.ts">retrieve</a>(id) -> MdrUsageReportRetrieveResponse</code>
+
+# SpeechToText
+
+Types:
+
+- <code><a href="./src/resources/speech-to-text.ts">SttServiceType</a></code>
+- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
+- <code><a href="./src/resources/speech-to-text.ts">TranscribeClientEvent</a></code>
+- <code><a href="./src/resources/speech-to-text.ts">TranscribeServerEvent</a></code>
+
+Methods:
+
+- <code title="get /speech-to-text/providers">client.speechToText.<a href="./src/resources/speech-to-text.ts">listProviders</a>({ ...params }) -> SpeechToTextListProvidersResponse</code>
+- <code title="get /speech-to-text/transcription">client.speechToText.<a href="./src/resources/speech-to-text.ts">retrieveTranscription</a>({ ...params }) -> void</code>
 
 # RequirementGroups
 
@@ -3344,11 +3401,11 @@ Types:
 
 Methods:
 
+- <code title="get /requirement_groups">client.requirementGroups.<a href="./src/resources/requirement-groups.ts">list</a>({ ...params }) -> RequirementGroupListResponse</code>
 - <code title="post /requirement_groups">client.requirementGroups.<a href="./src/resources/requirement-groups.ts">create</a>({ ...params }) -> RequirementGroup</code>
+- <code title="delete /requirement_groups/{id}">client.requirementGroups.<a href="./src/resources/requirement-groups.ts">delete</a>(id) -> RequirementGroup</code>
 - <code title="get /requirement_groups/{id}">client.requirementGroups.<a href="./src/resources/requirement-groups.ts">retrieve</a>(id) -> RequirementGroup</code>
 - <code title="patch /requirement_groups/{id}">client.requirementGroups.<a href="./src/resources/requirement-groups.ts">update</a>(id, { ...params }) -> RequirementGroup</code>
-- <code title="get /requirement_groups">client.requirementGroups.<a href="./src/resources/requirement-groups.ts">list</a>({ ...params }) -> RequirementGroupListResponse</code>
-- <code title="delete /requirement_groups/{id}">client.requirementGroups.<a href="./src/resources/requirement-groups.ts">delete</a>(id) -> RequirementGroup</code>
 - <code title="post /requirement_groups/{id}/submit_for_approval">client.requirementGroups.<a href="./src/resources/requirement-groups.ts">submitForApproval</a>(id) -> RequirementGroup</code>
 
 # RequirementTypes
@@ -3360,20 +3417,20 @@ Types:
 
 Methods:
 
-- <code title="get /requirement_types/{id}">client.requirementTypes.<a href="./src/resources/requirement-types.ts">retrieve</a>(id) -> RequirementTypeRetrieveResponse</code>
 - <code title="get /requirement_types">client.requirementTypes.<a href="./src/resources/requirement-types.ts">list</a>({ ...params }) -> RequirementTypeListResponse</code>
+- <code title="get /requirement_types/{id}">client.requirementTypes.<a href="./src/resources/requirement-types.ts">retrieve</a>(id) -> RequirementTypeRetrieveResponse</code>
 
 # Requirements
 
 Types:
 
+- <code><a href="./src/resources/requirements.ts">DocReqsRequirement</a></code>
 - <code><a href="./src/resources/requirements.ts">RequirementRetrieveResponse</a></code>
-- <code><a href="./src/resources/requirements.ts">RequirementListResponse</a></code>
 
 Methods:
 
-- <code title="get /requirements/{id}">client.requirements.<a href="./src/resources/requirements.ts">retrieve</a>(id) -> RequirementRetrieveResponse</code>
-- <code title="get /requirements">client.requirements.<a href="./src/resources/requirements.ts">list</a>({ ...params }) -> RequirementListResponsesDefaultFlatPagination</code>
+- <code title="get /requirements">client.requirements.<a href="./src/resources/requirements.ts">list</a>({ ...params }) -> DocReqsRequirementsDefaultFlatPagination</code>
+- <code title="get /requirements/{id}">client.requirements.<a href="./src/resources/requirements.ts">retrieve</a>(id, { ...params }) -> RequirementRetrieveResponse</code>
 
 # RoomCompositions
 
@@ -3386,10 +3443,10 @@ Types:
 
 Methods:
 
-- <code title="post /room_compositions">client.roomCompositions.<a href="./src/resources/room-compositions.ts">create</a>({ ...params }) -> RoomCompositionCreateResponse</code>
-- <code title="get /room_compositions/{room_composition_id}">client.roomCompositions.<a href="./src/resources/room-compositions.ts">retrieve</a>(roomCompositionID) -> RoomCompositionRetrieveResponse</code>
 - <code title="get /room_compositions">client.roomCompositions.<a href="./src/resources/room-compositions.ts">list</a>({ ...params }) -> RoomCompositionsDefaultFlatPagination</code>
+- <code title="post /room_compositions">client.roomCompositions.<a href="./src/resources/room-compositions.ts">create</a>({ ...params }) -> RoomCompositionCreateResponse</code>
 - <code title="delete /room_compositions/{room_composition_id}">client.roomCompositions.<a href="./src/resources/room-compositions.ts">delete</a>(roomCompositionID) -> void</code>
+- <code title="get /room_compositions/{room_composition_id}">client.roomCompositions.<a href="./src/resources/room-compositions.ts">retrieve</a>(roomCompositionID) -> RoomCompositionRetrieveResponse</code>
 
 # RoomParticipants
 
@@ -3399,23 +3456,23 @@ Types:
 
 Methods:
 
-- <code title="get /room_participants/{room_participant_id}">client.roomParticipants.<a href="./src/resources/room-participants.ts">retrieve</a>(roomParticipantID) -> RoomParticipantRetrieveResponse</code>
 - <code title="get /room_participants">client.roomParticipants.<a href="./src/resources/room-participants.ts">list</a>({ ...params }) -> RoomParticipantsDefaultFlatPagination</code>
+- <code title="get /room_participants/{room_participant_id}">client.roomParticipants.<a href="./src/resources/room-participants.ts">retrieve</a>(roomParticipantID) -> RoomParticipantRetrieveResponse</code>
 
 # RoomRecordings
 
 Types:
 
+- <code><a href="./src/resources/room-recordings.ts">RoomRecording</a></code>
 - <code><a href="./src/resources/room-recordings.ts">RoomRecordingRetrieveResponse</a></code>
-- <code><a href="./src/resources/room-recordings.ts">RoomRecordingListResponse</a></code>
 - <code><a href="./src/resources/room-recordings.ts">RoomRecordingDeleteBulkResponse</a></code>
 
 Methods:
 
-- <code title="get /room_recordings/{room_recording_id}">client.roomRecordings.<a href="./src/resources/room-recordings.ts">retrieve</a>(roomRecordingID) -> RoomRecordingRetrieveResponse</code>
-- <code title="get /room_recordings">client.roomRecordings.<a href="./src/resources/room-recordings.ts">list</a>({ ...params }) -> RoomRecordingListResponsesDefaultFlatPagination</code>
-- <code title="delete /room_recordings/{room_recording_id}">client.roomRecordings.<a href="./src/resources/room-recordings.ts">delete</a>(roomRecordingID) -> void</code>
 - <code title="delete /room_recordings">client.roomRecordings.<a href="./src/resources/room-recordings.ts">deleteBulk</a>({ ...params }) -> RoomRecordingDeleteBulkResponse</code>
+- <code title="get /room_recordings">client.roomRecordings.<a href="./src/resources/room-recordings.ts">list</a>({ ...params }) -> RoomRecordingsDefaultFlatPagination</code>
+- <code title="delete /room_recordings/{room_recording_id}">client.roomRecordings.<a href="./src/resources/room-recordings.ts">delete</a>(roomRecordingID) -> void</code>
+- <code title="get /room_recordings/{room_recording_id}">client.roomRecordings.<a href="./src/resources/room-recordings.ts">retrieve</a>(roomRecordingID) -> RoomRecordingRetrieveResponse</code>
 
 # Rooms
 
@@ -3429,11 +3486,11 @@ Types:
 
 Methods:
 
+- <code title="get /rooms">client.rooms.<a href="./src/resources/rooms/rooms.ts">list</a>({ ...params }) -> RoomsDefaultFlatPagination</code>
 - <code title="post /rooms">client.rooms.<a href="./src/resources/rooms/rooms.ts">create</a>({ ...params }) -> RoomCreateResponse</code>
+- <code title="delete /rooms/{room_id}">client.rooms.<a href="./src/resources/rooms/rooms.ts">delete</a>(roomID) -> void</code>
 - <code title="get /rooms/{room_id}">client.rooms.<a href="./src/resources/rooms/rooms.ts">retrieve</a>(roomID, { ...params }) -> RoomRetrieveResponse</code>
 - <code title="patch /rooms/{room_id}">client.rooms.<a href="./src/resources/rooms/rooms.ts">update</a>(roomID, { ...params }) -> RoomUpdateResponse</code>
-- <code title="get /rooms">client.rooms.<a href="./src/resources/rooms/rooms.ts">list</a>({ ...params }) -> RoomsDefaultFlatPagination</code>
-- <code title="delete /rooms/{room_id}">client.rooms.<a href="./src/resources/rooms/rooms.ts">delete</a>(roomID) -> void</code>
 
 ## Actions
 
@@ -3455,9 +3512,9 @@ Types:
 
 Methods:
 
-- <code title="get /room_sessions/{room_session_id}">client.rooms.sessions.<a href="./src/resources/rooms/sessions/sessions.ts">retrieve</a>(roomSessionID, { ...params }) -> SessionRetrieveResponse</code>
 - <code title="get /room_sessions">client.rooms.sessions.<a href="./src/resources/rooms/sessions/sessions.ts">list0</a>({ ...params }) -> RoomSessionsDefaultFlatPagination</code>
 - <code title="get /rooms/{room_id}/sessions">client.rooms.sessions.<a href="./src/resources/rooms/sessions/sessions.ts">list1</a>(roomID, { ...params }) -> RoomSessionsDefaultFlatPagination</code>
+- <code title="get /room_sessions/{room_session_id}">client.rooms.sessions.<a href="./src/resources/rooms/sessions/sessions.ts">retrieve</a>(roomSessionID, { ...params }) -> SessionRetrieveResponse</code>
 - <code title="get /room_sessions/{room_session_id}/participants">client.rooms.sessions.<a href="./src/resources/rooms/sessions/sessions.ts">retrieveParticipants</a>(roomSessionID, { ...params }) -> RoomParticipantsDefaultFlatPagination</code>
 
 ### Actions
@@ -3496,9 +3553,9 @@ Types:
 
 Methods:
 
+- <code title="get /short_codes">client.shortCodes.<a href="./src/resources/short-codes.ts">list</a>({ ...params }) -> ShortCodesDefaultFlatPagination</code>
 - <code title="get /short_codes/{id}">client.shortCodes.<a href="./src/resources/short-codes.ts">retrieve</a>(id) -> ShortCodeRetrieveResponse</code>
 - <code title="patch /short_codes/{id}">client.shortCodes.<a href="./src/resources/short-codes.ts">update</a>(id, { ...params }) -> ShortCodeUpdateResponse</code>
-- <code title="get /short_codes">client.shortCodes.<a href="./src/resources/short-codes.ts">list</a>({ ...params }) -> ShortCodesDefaultFlatPagination</code>
 
 # SimCardDataUsageNotifications
 
@@ -3512,11 +3569,11 @@ Types:
 
 Methods:
 
+- <code title="get /sim_card_data_usage_notifications">client.simCardDataUsageNotifications.<a href="./src/resources/sim-card-data-usage-notifications.ts">list</a>({ ...params }) -> SimCardDataUsageNotificationsDefaultFlatPagination</code>
 - <code title="post /sim_card_data_usage_notifications">client.simCardDataUsageNotifications.<a href="./src/resources/sim-card-data-usage-notifications.ts">create</a>({ ...params }) -> SimCardDataUsageNotificationCreateResponse</code>
+- <code title="delete /sim_card_data_usage_notifications/{id}">client.simCardDataUsageNotifications.<a href="./src/resources/sim-card-data-usage-notifications.ts">delete</a>(id) -> SimCardDataUsageNotificationDeleteResponse</code>
 - <code title="get /sim_card_data_usage_notifications/{id}">client.simCardDataUsageNotifications.<a href="./src/resources/sim-card-data-usage-notifications.ts">retrieve</a>(id) -> SimCardDataUsageNotificationRetrieveResponse</code>
 - <code title="patch /sim_card_data_usage_notifications/{id}">client.simCardDataUsageNotifications.<a href="./src/resources/sim-card-data-usage-notifications.ts">update</a>(simCardDataUsageNotificationID, { ...params }) -> SimCardDataUsageNotificationUpdateResponse</code>
-- <code title="get /sim_card_data_usage_notifications">client.simCardDataUsageNotifications.<a href="./src/resources/sim-card-data-usage-notifications.ts">list</a>({ ...params }) -> SimCardDataUsageNotificationsDefaultFlatPagination</code>
-- <code title="delete /sim_card_data_usage_notifications/{id}">client.simCardDataUsageNotifications.<a href="./src/resources/sim-card-data-usage-notifications.ts">delete</a>(id) -> SimCardDataUsageNotificationDeleteResponse</code>
 
 # SimCardGroups
 
@@ -3532,11 +3589,11 @@ Types:
 
 Methods:
 
+- <code title="get /sim_card_groups">client.simCardGroups.<a href="./src/resources/sim-card-groups/sim-card-groups.ts">list</a>({ ...params }) -> SimCardGroupListResponsesDefaultFlatPagination</code>
 - <code title="post /sim_card_groups">client.simCardGroups.<a href="./src/resources/sim-card-groups/sim-card-groups.ts">create</a>({ ...params }) -> SimCardGroupCreateResponse</code>
+- <code title="delete /sim_card_groups/{id}">client.simCardGroups.<a href="./src/resources/sim-card-groups/sim-card-groups.ts">delete</a>(id) -> SimCardGroupDeleteResponse</code>
 - <code title="get /sim_card_groups/{id}">client.simCardGroups.<a href="./src/resources/sim-card-groups/sim-card-groups.ts">retrieve</a>(id, { ...params }) -> SimCardGroupRetrieveResponse</code>
 - <code title="patch /sim_card_groups/{id}">client.simCardGroups.<a href="./src/resources/sim-card-groups/sim-card-groups.ts">update</a>(id, { ...params }) -> SimCardGroupUpdateResponse</code>
-- <code title="get /sim_card_groups">client.simCardGroups.<a href="./src/resources/sim-card-groups/sim-card-groups.ts">list</a>({ ...params }) -> SimCardGroupListResponsesDefaultFlatPagination</code>
-- <code title="delete /sim_card_groups/{id}">client.simCardGroups.<a href="./src/resources/sim-card-groups/sim-card-groups.ts">delete</a>(id) -> SimCardGroupDeleteResponse</code>
 
 ## Actions
 
@@ -3551,8 +3608,8 @@ Types:
 
 Methods:
 
-- <code title="get /sim_card_group_actions/{id}">client.simCardGroups.actions.<a href="./src/resources/sim-card-groups/actions.ts">retrieve</a>(id) -> ActionRetrieveResponse</code>
 - <code title="get /sim_card_group_actions">client.simCardGroups.actions.<a href="./src/resources/sim-card-groups/actions.ts">list</a>({ ...params }) -> SimCardGroupActionsDefaultFlatPagination</code>
+- <code title="get /sim_card_group_actions/{id}">client.simCardGroups.actions.<a href="./src/resources/sim-card-groups/actions.ts">retrieve</a>(id) -> ActionRetrieveResponse</code>
 - <code title="post /sim_card_groups/{id}/actions/remove_private_wireless_gateway">client.simCardGroups.actions.<a href="./src/resources/sim-card-groups/actions.ts">removePrivateWirelessGateway</a>(id) -> ActionRemovePrivateWirelessGatewayResponse</code>
 - <code title="post /sim_card_groups/{id}/actions/remove_wireless_blocklist">client.simCardGroups.actions.<a href="./src/resources/sim-card-groups/actions.ts">removeWirelessBlocklist</a>(id) -> ActionRemoveWirelessBlocklistResponse</code>
 - <code title="post /sim_card_groups/{id}/actions/set_private_wireless_gateway">client.simCardGroups.actions.<a href="./src/resources/sim-card-groups/actions.ts">setPrivateWirelessGateway</a>(id, { ...params }) -> ActionSetPrivateWirelessGatewayResponse</code>
@@ -3578,9 +3635,9 @@ Types:
 
 Methods:
 
+- <code title="get /sim_card_orders">client.simCardOrders.<a href="./src/resources/sim-card-orders.ts">list</a>({ ...params }) -> SimCardOrdersDefaultFlatPagination</code>
 - <code title="post /sim_card_orders">client.simCardOrders.<a href="./src/resources/sim-card-orders.ts">create</a>({ ...params }) -> SimCardOrderCreateResponse</code>
 - <code title="get /sim_card_orders/{id}">client.simCardOrders.<a href="./src/resources/sim-card-orders.ts">retrieve</a>(id) -> SimCardOrderRetrieveResponse</code>
-- <code title="get /sim_card_orders">client.simCardOrders.<a href="./src/resources/sim-card-orders.ts">list</a>({ ...params }) -> SimCardOrdersDefaultFlatPagination</code>
 
 # SimCards
 
@@ -3597,10 +3654,10 @@ Types:
 
 Methods:
 
-- <code title="get /sim_cards/{id}">client.simCards.<a href="./src/resources/sim-cards/sim-cards.ts">retrieve</a>(id, { ...params }) -> SimCardRetrieveResponse</code>
-- <code title="patch /sim_cards/{id}">client.simCards.<a href="./src/resources/sim-cards/sim-cards.ts">update</a>(simCardID, { ...params }) -> SimCardUpdateResponse</code>
 - <code title="get /sim_cards">client.simCards.<a href="./src/resources/sim-cards/sim-cards.ts">list</a>({ ...params }) -> SimpleSimCardsDefaultFlatPagination</code>
 - <code title="delete /sim_cards/{id}">client.simCards.<a href="./src/resources/sim-cards/sim-cards.ts">delete</a>(id, { ...params }) -> SimCardDeleteResponse</code>
+- <code title="get /sim_cards/{id}">client.simCards.<a href="./src/resources/sim-cards/sim-cards.ts">retrieve</a>(id, { ...params }) -> SimCardRetrieveResponse</code>
+- <code title="patch /sim_cards/{id}">client.simCards.<a href="./src/resources/sim-cards/sim-cards.ts">update</a>(simCardID, { ...params }) -> SimCardUpdateResponse</code>
 - <code title="get /sim_cards/{id}/activation_code">client.simCards.<a href="./src/resources/sim-cards/sim-cards.ts">getActivationCode</a>(id) -> SimCardGetActivationCodeResponse</code>
 - <code title="get /sim_cards/{id}/device_details">client.simCards.<a href="./src/resources/sim-cards/sim-cards.ts">getDeviceDetails</a>(id) -> SimCardGetDeviceDetailsResponse</code>
 - <code title="get /sim_cards/{id}/public_ip">client.simCards.<a href="./src/resources/sim-cards/sim-cards.ts">getPublicIP</a>(id) -> SimCardGetPublicIPResponse</code>
@@ -3625,32 +3682,30 @@ Types:
 
 Methods:
 
-- <code title="get /sim_card_actions/{id}">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">retrieve</a>(id) -> ActionRetrieveResponse</code>
 - <code title="get /sim_card_actions">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">list</a>({ ...params }) -> SimCardActionsDefaultFlatPagination</code>
-- <code title="post /sim_cards/actions/bulk_disable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkDisableVoice</a>({ ...params }) -> ActionBulkDisableVoiceResponse</code>
-- <code title="post /sim_cards/actions/bulk_enable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkEnableVoice</a>({ ...params }) -> ActionBulkEnableVoiceResponse</code>
+- <code title="get /sim_card_actions/{id}">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">retrieve</a>(id) -> ActionRetrieveResponse</code>
 - <code title="post /sim_cards/actions/bulk_set_public_ips">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkSetPublicIPs</a>({ ...params }) -> ActionBulkSetPublicIPsResponse</code>
+- <code title="post /sim_cards/actions/validate_registration_codes">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">validateRegistrationCodes</a>({ ...params }) -> ActionValidateRegistrationCodesResponse</code>
 - <code title="post /sim_cards/{id}/actions/disable">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">disable</a>(id) -> ActionDisableResponse</code>
 - <code title="post /sim_cards/{id}/actions/enable">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">enable</a>(id) -> ActionEnableResponse</code>
 - <code title="post /sim_cards/{id}/actions/remove_public_ip">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">removePublicIP</a>(id) -> ActionRemovePublicIPResponse</code>
 - <code title="post /sim_cards/{id}/actions/set_public_ip">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">setPublicIP</a>(id, { ...params }) -> ActionSetPublicIPResponse</code>
 - <code title="post /sim_cards/{id}/actions/set_standby">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">setStandby</a>(id) -> ActionSetStandbyResponse</code>
-- <code title="post /sim_cards/actions/validate_registration_codes">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">validateRegistrationCodes</a>({ ...params }) -> ActionValidateRegistrationCodesResponse</code>
+- <code title="post /sim_cards/actions/bulk_disable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkDisableVoice</a>({ ...params }) -> ActionBulkDisableVoiceResponse</code>
+- <code title="post /sim_cards/actions/bulk_enable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkEnableVoice</a>({ ...params }) -> ActionBulkEnableVoiceResponse</code>
 
 # SiprecConnectors
 
 Types:
 
-- <code><a href="./src/resources/siprec-connectors.ts">SiprecConnectorCreateResponse</a></code>
-- <code><a href="./src/resources/siprec-connectors.ts">SiprecConnectorRetrieveResponse</a></code>
-- <code><a href="./src/resources/siprec-connectors.ts">SiprecConnectorUpdateResponse</a></code>
+- <code><a href="./src/resources/siprec-connectors.ts">SiprecConnectorResponse</a></code>
 
 Methods:
 
-- <code title="post /siprec_connectors">client.siprecConnectors.<a href="./src/resources/siprec-connectors.ts">create</a>({ ...params }) -> SiprecConnectorCreateResponse</code>
-- <code title="get /siprec_connectors/{connector_name}">client.siprecConnectors.<a href="./src/resources/siprec-connectors.ts">retrieve</a>(connectorName) -> SiprecConnectorRetrieveResponse</code>
-- <code title="put /siprec_connectors/{connector_name}">client.siprecConnectors.<a href="./src/resources/siprec-connectors.ts">update</a>(connectorName, { ...params }) -> SiprecConnectorUpdateResponse</code>
+- <code title="post /siprec_connectors">client.siprecConnectors.<a href="./src/resources/siprec-connectors.ts">create</a>({ ...params }) -> SiprecConnectorResponse</code>
 - <code title="delete /siprec_connectors/{connector_name}">client.siprecConnectors.<a href="./src/resources/siprec-connectors.ts">delete</a>(connectorName) -> void</code>
+- <code title="get /siprec_connectors/{connector_name}">client.siprecConnectors.<a href="./src/resources/siprec-connectors.ts">retrieve</a>(connectorName) -> SiprecConnectorResponse</code>
+- <code title="put /siprec_connectors/{connector_name}">client.siprecConnectors.<a href="./src/resources/siprec-connectors.ts">update</a>(connectorName, { ...params }) -> SiprecConnectorResponse</code>
 
 # Storage
 
@@ -3683,9 +3738,9 @@ Types:
 
 Methods:
 
-- <code title="put /storage/buckets/{bucketName}/ssl_certificate">client.storage.buckets.sslCertificate.<a href="./src/resources/storage/buckets/ssl-certificate.ts">create</a>(bucketName, { ...params }) -> SslCertificateCreateResponse</code>
-- <code title="get /storage/buckets/{bucketName}/ssl_certificate">client.storage.buckets.sslCertificate.<a href="./src/resources/storage/buckets/ssl-certificate.ts">retrieve</a>(bucketName) -> SslCertificateRetrieveResponse</code>
 - <code title="delete /storage/buckets/{bucketName}/ssl_certificate">client.storage.buckets.sslCertificate.<a href="./src/resources/storage/buckets/ssl-certificate.ts">delete</a>(bucketName) -> SslCertificateDeleteResponse</code>
+- <code title="get /storage/buckets/{bucketName}/ssl_certificate">client.storage.buckets.sslCertificate.<a href="./src/resources/storage/buckets/ssl-certificate.ts">retrieve</a>(bucketName) -> SslCertificateRetrieveResponse</code>
+- <code title="put /storage/buckets/{bucketName}/ssl_certificate">client.storage.buckets.sslCertificate.<a href="./src/resources/storage/buckets/ssl-certificate.ts">create</a>(bucketName, { ...params }) -> SslCertificateCreateResponse</code>
 
 ### Usage
 
@@ -3712,10 +3767,10 @@ Types:
 
 Methods:
 
-- <code title="post /storage/migration_sources">client.storage.migrationSources.<a href="./src/resources/storage/migration-sources.ts">create</a>({ ...params }) -> MigrationSourceCreateResponse</code>
-- <code title="get /storage/migration_sources/{id}">client.storage.migrationSources.<a href="./src/resources/storage/migration-sources.ts">retrieve</a>(id) -> MigrationSourceRetrieveResponse</code>
 - <code title="get /storage/migration_sources">client.storage.migrationSources.<a href="./src/resources/storage/migration-sources.ts">list</a>() -> MigrationSourceListResponse</code>
+- <code title="post /storage/migration_sources">client.storage.migrationSources.<a href="./src/resources/storage/migration-sources.ts">create</a>({ ...params }) -> MigrationSourceCreateResponse</code>
 - <code title="delete /storage/migration_sources/{id}">client.storage.migrationSources.<a href="./src/resources/storage/migration-sources.ts">delete</a>(id) -> MigrationSourceDeleteResponse</code>
+- <code title="get /storage/migration_sources/{id}">client.storage.migrationSources.<a href="./src/resources/storage/migration-sources.ts">retrieve</a>(id) -> MigrationSourceRetrieveResponse</code>
 
 ## Migrations
 
@@ -3728,9 +3783,9 @@ Types:
 
 Methods:
 
+- <code title="get /storage/migrations">client.storage.migrations.<a href="./src/resources/storage/migrations/migrations.ts">list</a>() -> MigrationListResponse</code>
 - <code title="post /storage/migrations">client.storage.migrations.<a href="./src/resources/storage/migrations/migrations.ts">create</a>({ ...params }) -> MigrationCreateResponse</code>
 - <code title="get /storage/migrations/{id}">client.storage.migrations.<a href="./src/resources/storage/migrations/migrations.ts">retrieve</a>(id) -> MigrationRetrieveResponse</code>
-- <code title="get /storage/migrations">client.storage.migrations.<a href="./src/resources/storage/migrations/migrations.ts">list</a>() -> MigrationListResponse</code>
 
 ### Actions
 
@@ -3741,6 +3796,56 @@ Types:
 Methods:
 
 - <code title="post /storage/migrations/{id}/actions/stop">client.storage.migrations.actions.<a href="./src/resources/storage/migrations/actions.ts">stop</a>(id) -> ActionStopResponse</code>
+
+## Kvs
+
+Types:
+
+- <code><a href="./src/resources/storage/kvs/kvs.ts">KvNamespace</a></code>
+- <code><a href="./src/resources/storage/kvs/kvs.ts">KvNamespaceResponseWrapper</a></code>
+
+Methods:
+
+- <code title="get /storage/kvs">client.storage.kvs.<a href="./src/resources/storage/kvs/kvs.ts">list</a>({ ...params }) -> KvNamespacesDefaultFlatPagination</code>
+- <code title="post /storage/kvs">client.storage.kvs.<a href="./src/resources/storage/kvs/kvs.ts">create</a>({ ...params }) -> KvNamespaceResponseWrapper</code>
+- <code title="delete /storage/kvs/{id}">client.storage.kvs.<a href="./src/resources/storage/kvs/kvs.ts">delete</a>(id) -> KvNamespaceResponseWrapper</code>
+- <code title="get /storage/kvs/{id}">client.storage.kvs.<a href="./src/resources/storage/kvs/kvs.ts">retrieve</a>(id) -> KvNamespaceResponseWrapper</code>
+
+### Keys
+
+Types:
+
+- <code><a href="./src/resources/storage/kvs/keys.ts">KeyListResponse</a></code>
+
+Methods:
+
+- <code title="get /storage/kvs/{id}/keys">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">list</a>(id, { ...params }) -> KeyListResponsesCursorFlatPagination</code>
+- <code title="delete /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">delete</a>(key, { ...params }) -> void</code>
+- <code title="get /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">retrieve</a>(key, { ...params }) -> Response</code>
+- <code title="put /storage/kvs/{id}/keys/{key}">client.storage.kvs.keys.<a href="./src/resources/storage/kvs/keys.ts">update</a>(key, body, { ...params }) -> void</code>
+
+## Cloudfs
+
+Types:
+
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemDetailResponseWrapper</a></code>
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemResponseWrapper</a></code>
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemStatus</a></code>
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfListResponse</a></code>
+
+Methods:
+
+- <code title="get /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">list</a>({ ...params }) -> CloudfListResponse</code>
+- <code title="post /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">create</a>({ ...params }) -> CloudfsFilesystemResponseWrapper</code>
+- <code title="delete /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">delete</a>(id) -> CloudfsFilesystemDetailResponseWrapper</code>
+- <code title="get /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">retrieve</a>(id) -> CloudfsFilesystemDetailResponseWrapper</code>
+- <code title="patch /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">update</a>(id, { ...params }) -> CloudfsFilesystemDetailResponseWrapper</code>
+
+### Actions
+
+Methods:
+
+- <code title="post /storage/cloudfs/{id}/actions/rotate-meta-token">client.storage.cloudfs.actions.<a href="./src/resources/storage/cloudfs/actions.ts">rotateMetaToken</a>(id, { ...params }) -> CloudfsFilesystemResponseWrapper</code>
 
 # SubNumberOrders
 
@@ -3756,11 +3861,11 @@ Types:
 
 Methods:
 
+- <code title="get /sub_number_orders">client.subNumberOrders.<a href="./src/resources/sub-number-orders.ts">list</a>({ ...params }) -> SubNumberOrderListResponse</code>
+- <code title="post /sub_number_orders/{id}/requirement_group">client.subNumberOrders.<a href="./src/resources/sub-number-orders.ts">updateRequirementGroup</a>(id, { ...params }) -> SubNumberOrderUpdateRequirementGroupResponse</code>
 - <code title="get /sub_number_orders/{sub_number_order_id}">client.subNumberOrders.<a href="./src/resources/sub-number-orders.ts">retrieve</a>(subNumberOrderID, { ...params }) -> SubNumberOrderRetrieveResponse</code>
 - <code title="patch /sub_number_orders/{sub_number_order_id}">client.subNumberOrders.<a href="./src/resources/sub-number-orders.ts">update</a>(subNumberOrderID, { ...params }) -> SubNumberOrderUpdateResponse</code>
-- <code title="get /sub_number_orders">client.subNumberOrders.<a href="./src/resources/sub-number-orders.ts">list</a>({ ...params }) -> SubNumberOrderListResponse</code>
 - <code title="patch /sub_number_orders/{sub_number_order_id}/cancel">client.subNumberOrders.<a href="./src/resources/sub-number-orders.ts">cancel</a>(subNumberOrderID) -> SubNumberOrderCancelResponse</code>
-- <code title="post /sub_number_orders/{id}/requirement_group">client.subNumberOrders.<a href="./src/resources/sub-number-orders.ts">updateRequirementGroup</a>(id, { ...params }) -> SubNumberOrderUpdateRequirementGroupResponse</code>
 
 # SubNumberOrdersReport
 
@@ -3790,11 +3895,11 @@ Types:
 
 Methods:
 
+- <code title="get /telephony_credentials">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">list</a>({ ...params }) -> TelephonyCredentialsDefaultFlatPagination</code>
 - <code title="post /telephony_credentials">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">create</a>({ ...params }) -> TelephonyCredentialCreateResponse</code>
+- <code title="delete /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">delete</a>(id) -> TelephonyCredentialDeleteResponse</code>
 - <code title="get /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">retrieve</a>(id) -> TelephonyCredentialRetrieveResponse</code>
 - <code title="patch /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">update</a>(id, { ...params }) -> TelephonyCredentialUpdateResponse</code>
-- <code title="get /telephony_credentials">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">list</a>({ ...params }) -> TelephonyCredentialsDefaultFlatPagination</code>
-- <code title="delete /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">delete</a>(id) -> TelephonyCredentialDeleteResponse</code>
 - <code title="post /telephony_credentials/{id}/token">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">createToken</a>(id) -> string</code>
 
 # Texml
@@ -3806,8 +3911,8 @@ Types:
 
 Methods:
 
-- <code title="post /texml/ai_calls/{connection_id}">client.texml.<a href="./src/resources/texml/texml.ts">initiateAICall</a>(connectionID, { ...params }) -> TexmlInitiateAICallResponse</code>
 - <code title="post /texml/secrets">client.texml.<a href="./src/resources/texml/texml.ts">secrets</a>({ ...params }) -> TexmlSecretsResponse</code>
+- <code title="post /texml/ai_calls/{connection_id}">client.texml.<a href="./src/resources/texml/texml.ts">initiateAICall</a>(connectionID, { ...params }) -> TexmlInitiateAICallResponse</code>
 
 ## Accounts
 
@@ -3815,21 +3920,19 @@ Types:
 
 - <code><a href="./src/resources/texml/accounts/accounts.ts">TexmlGetCallRecordingResponseBody</a></code>
 - <code><a href="./src/resources/texml/accounts/accounts.ts">TexmlRecordingSubresourcesUris</a></code>
-- <code><a href="./src/resources/texml/accounts/accounts.ts">AccountRetrieveRecordingsJsonResponse</a></code>
 - <code><a href="./src/resources/texml/accounts/accounts.ts">AccountRetrieveTranscriptionsJsonResponse</a></code>
 
 Methods:
 
-- <code title="get /texml/Accounts/{account_sid}/Recordings.json">client.texml.accounts.<a href="./src/resources/texml/accounts/accounts.ts">retrieveRecordingsJson</a>(accountSid, { ...params }) -> AccountRetrieveRecordingsJsonResponse</code>
+- <code title="get /texml/Accounts/{account_sid}/Recordings.json">client.texml.accounts.<a href="./src/resources/texml/accounts/accounts.ts">retrieveRecordingsJson</a>(accountSid, { ...params }) -> TexmlGetCallRecordingsResponseBody</code>
 - <code title="get /texml/Accounts/{account_sid}/Transcriptions.json">client.texml.accounts.<a href="./src/resources/texml/accounts/accounts.ts">retrieveTranscriptionsJson</a>(accountSid, { ...params }) -> AccountRetrieveTranscriptionsJsonResponse</code>
 
 ### Calls
 
 Types:
 
+- <code><a href="./src/resources/texml/accounts/calls/calls.ts">CallResource</a></code>
 - <code><a href="./src/resources/texml/accounts/calls/calls.ts">UpdateCall</a></code>
-- <code><a href="./src/resources/texml/accounts/calls/calls.ts">CallRetrieveResponse</a></code>
-- <code><a href="./src/resources/texml/accounts/calls/calls.ts">CallUpdateResponse</a></code>
 - <code><a href="./src/resources/texml/accounts/calls/calls.ts">CallCallsResponse</a></code>
 - <code><a href="./src/resources/texml/accounts/calls/calls.ts">CallRetrieveCallsResponse</a></code>
 - <code><a href="./src/resources/texml/accounts/calls/calls.ts">CallSiprecJsonResponse</a></code>
@@ -3837,10 +3940,10 @@ Types:
 
 Methods:
 
-- <code title="get /texml/Accounts/{account_sid}/Calls/{call_sid}">client.texml.accounts.calls.<a href="./src/resources/texml/accounts/calls/calls.ts">retrieve</a>(callSid, { ...params }) -> CallRetrieveResponse</code>
-- <code title="post /texml/Accounts/{account_sid}/Calls/{call_sid}">client.texml.accounts.calls.<a href="./src/resources/texml/accounts/calls/calls.ts">update</a>(callSid, { ...params }) -> CallUpdateResponse</code>
-- <code title="post /texml/Accounts/{account_sid}/Calls">client.texml.accounts.calls.<a href="./src/resources/texml/accounts/calls/calls.ts">calls</a>(accountSid, { ...params }) -> CallCallsResponse</code>
 - <code title="get /texml/Accounts/{account_sid}/Calls">client.texml.accounts.calls.<a href="./src/resources/texml/accounts/calls/calls.ts">retrieveCalls</a>(accountSid, { ...params }) -> CallRetrieveCallsResponse</code>
+- <code title="post /texml/Accounts/{account_sid}/Calls">client.texml.accounts.calls.<a href="./src/resources/texml/accounts/calls/calls.ts">calls</a>(accountSid, { ...params }) -> CallCallsResponse</code>
+- <code title="get /texml/Accounts/{account_sid}/Calls/{call_sid}">client.texml.accounts.calls.<a href="./src/resources/texml/accounts/calls/calls.ts">retrieve</a>(callSid, { ...params }) -> CallResource</code>
+- <code title="post /texml/Accounts/{account_sid}/Calls/{call_sid}">client.texml.accounts.calls.<a href="./src/resources/texml/accounts/calls/calls.ts">update</a>(callSid, { ...params }) -> CallResource</code>
 - <code title="post /texml/Accounts/{account_sid}/Calls/{call_sid}/Siprec.json">client.texml.accounts.calls.<a href="./src/resources/texml/accounts/calls/calls.ts">siprecJson</a>(callSid, { ...params }) -> CallSiprecJsonResponse</code>
 - <code title="post /texml/Accounts/{account_sid}/Calls/{call_sid}/Streams.json">client.texml.accounts.calls.<a href="./src/resources/texml/accounts/calls/calls.ts">streamsJson</a>(callSid, { ...params }) -> CallStreamsJsonResponse</code>
 
@@ -3848,23 +3951,21 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/texml/accounts/calls/recordings-json.ts">RecordingsJsonRecordingsJsonResponse</a></code>
-- <code><a href="./src/resources/texml/accounts/calls/recordings-json.ts">RecordingsJsonRetrieveRecordingsJsonResponse</a></code>
+- <code><a href="./src/resources/texml/accounts/calls/recordings-json.ts">RecordingSource</a></code>
+- <code><a href="./src/resources/texml/accounts/calls/recordings-json.ts">TexmlCreateCallRecordingResponseBody</a></code>
+- <code><a href="./src/resources/texml/accounts/calls/recordings-json.ts">TexmlGetCallRecordingsResponseBody</a></code>
+- <code><a href="./src/resources/texml/accounts/calls/recordings-json.ts">TwimlRecordingChannels</a></code>
 
 Methods:
 
-- <code title="post /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json">client.texml.accounts.calls.recordingsJson.<a href="./src/resources/texml/accounts/calls/recordings-json.ts">recordingsJson</a>(callSid, { ...params }) -> RecordingsJsonRecordingsJsonResponse</code>
-- <code title="get /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json">client.texml.accounts.calls.recordingsJson.<a href="./src/resources/texml/accounts/calls/recordings-json.ts">retrieveRecordingsJson</a>(callSid, { ...params }) -> RecordingsJsonRetrieveRecordingsJsonResponse</code>
+- <code title="get /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json">client.texml.accounts.calls.recordingsJson.<a href="./src/resources/texml/accounts/calls/recordings-json.ts">retrieveRecordingsJson</a>(callSid, { ...params }) -> TexmlGetCallRecordingsResponseBody</code>
+- <code title="post /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings.json">client.texml.accounts.calls.recordingsJson.<a href="./src/resources/texml/accounts/calls/recordings-json.ts">recordingsJson</a>(callSid, { ...params }) -> TexmlCreateCallRecordingResponseBody</code>
 
 #### Recordings
 
-Types:
-
-- <code><a href="./src/resources/texml/accounts/calls/recordings.ts">RecordingRecordingSidJsonResponse</a></code>
-
 Methods:
 
-- <code title="post /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{recording_sid}.json">client.texml.accounts.calls.recordings.<a href="./src/resources/texml/accounts/calls/recordings.ts">recordingSidJson</a>(recordingSid, { ...params }) -> RecordingRecordingSidJsonResponse</code>
+- <code title="post /texml/Accounts/{account_sid}/Calls/{call_sid}/Recordings/{recording_sid}.json">client.texml.accounts.calls.recordings.<a href="./src/resources/texml/accounts/calls/recordings.ts">recordingSidJson</a>(recordingSid, { ...params }) -> TexmlCreateCallRecordingResponseBody</code>
 
 #### Siprec
 
@@ -3890,36 +3991,33 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/texml/accounts/conferences/conferences.ts">ConferenceRetrieveResponse</a></code>
-- <code><a href="./src/resources/texml/accounts/conferences/conferences.ts">ConferenceUpdateResponse</a></code>
+- <code><a href="./src/resources/texml/accounts/conferences/conferences.ts">ConferenceResource</a></code>
 - <code><a href="./src/resources/texml/accounts/conferences/conferences.ts">ConferenceRetrieveConferencesResponse</a></code>
 - <code><a href="./src/resources/texml/accounts/conferences/conferences.ts">ConferenceRetrieveRecordingsResponse</a></code>
-- <code><a href="./src/resources/texml/accounts/conferences/conferences.ts">ConferenceRetrieveRecordingsJsonResponse</a></code>
 
 Methods:
 
-- <code title="get /texml/Accounts/{account_sid}/Conferences/{conference_sid}">client.texml.accounts.conferences.<a href="./src/resources/texml/accounts/conferences/conferences.ts">retrieve</a>(conferenceSid, { ...params }) -> ConferenceRetrieveResponse</code>
-- <code title="post /texml/Accounts/{account_sid}/Conferences/{conference_sid}">client.texml.accounts.conferences.<a href="./src/resources/texml/accounts/conferences/conferences.ts">update</a>(conferenceSid, { ...params }) -> ConferenceUpdateResponse</code>
 - <code title="get /texml/Accounts/{account_sid}/Conferences">client.texml.accounts.conferences.<a href="./src/resources/texml/accounts/conferences/conferences.ts">retrieveConferences</a>(accountSid, { ...params }) -> ConferenceRetrieveConferencesResponse</code>
+- <code title="get /texml/Accounts/{account_sid}/Conferences/{conference_sid}">client.texml.accounts.conferences.<a href="./src/resources/texml/accounts/conferences/conferences.ts">retrieve</a>(conferenceSid, { ...params }) -> ConferenceResource</code>
+- <code title="post /texml/Accounts/{account_sid}/Conferences/{conference_sid}">client.texml.accounts.conferences.<a href="./src/resources/texml/accounts/conferences/conferences.ts">update</a>(conferenceSid, { ...params }) -> ConferenceResource</code>
 - <code title="get /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings">client.texml.accounts.conferences.<a href="./src/resources/texml/accounts/conferences/conferences.ts">retrieveRecordings</a>(conferenceSid, { ...params }) -> ConferenceRetrieveRecordingsResponse</code>
-- <code title="get /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings.json">client.texml.accounts.conferences.<a href="./src/resources/texml/accounts/conferences/conferences.ts">retrieveRecordingsJson</a>(conferenceSid, { ...params }) -> ConferenceRetrieveRecordingsJsonResponse</code>
+- <code title="get /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Recordings.json">client.texml.accounts.conferences.<a href="./src/resources/texml/accounts/conferences/conferences.ts">retrieveRecordingsJson</a>(conferenceSid, { ...params }) -> TexmlGetCallRecordingsResponseBody</code>
 
 #### Participants
 
 Types:
 
-- <code><a href="./src/resources/texml/accounts/conferences/participants.ts">ParticipantRetrieveResponse</a></code>
-- <code><a href="./src/resources/texml/accounts/conferences/participants.ts">ParticipantUpdateResponse</a></code>
+- <code><a href="./src/resources/texml/accounts/conferences/participants.ts">ParticipantResource</a></code>
 - <code><a href="./src/resources/texml/accounts/conferences/participants.ts">ParticipantParticipantsResponse</a></code>
 - <code><a href="./src/resources/texml/accounts/conferences/participants.ts">ParticipantRetrieveParticipantsResponse</a></code>
 
 Methods:
 
-- <code title="get /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}">client.texml.accounts.conferences.participants.<a href="./src/resources/texml/accounts/conferences/participants.ts">retrieve</a>(callSidOrParticipantLabel, { ...params }) -> ParticipantRetrieveResponse</code>
-- <code title="post /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}">client.texml.accounts.conferences.participants.<a href="./src/resources/texml/accounts/conferences/participants.ts">update</a>(callSidOrParticipantLabel, { ...params }) -> ParticipantUpdateResponse</code>
-- <code title="delete /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}">client.texml.accounts.conferences.participants.<a href="./src/resources/texml/accounts/conferences/participants.ts">delete</a>(callSidOrParticipantLabel, { ...params }) -> void</code>
-- <code title="post /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants">client.texml.accounts.conferences.participants.<a href="./src/resources/texml/accounts/conferences/participants.ts">participants</a>(conferenceSid, { ...params }) -> ParticipantParticipantsResponse</code>
 - <code title="get /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants">client.texml.accounts.conferences.participants.<a href="./src/resources/texml/accounts/conferences/participants.ts">retrieveParticipants</a>(conferenceSid, { ...params }) -> ParticipantRetrieveParticipantsResponse</code>
+- <code title="post /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants">client.texml.accounts.conferences.participants.<a href="./src/resources/texml/accounts/conferences/participants.ts">participants</a>(conferenceSid, { ...params }) -> ParticipantParticipantsResponse</code>
+- <code title="delete /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}">client.texml.accounts.conferences.participants.<a href="./src/resources/texml/accounts/conferences/participants.ts">delete</a>(callSidOrParticipantLabel, { ...params }) -> void</code>
+- <code title="get /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}">client.texml.accounts.conferences.participants.<a href="./src/resources/texml/accounts/conferences/participants.ts">retrieve</a>(callSidOrParticipantLabel, { ...params }) -> ParticipantResource</code>
+- <code title="post /texml/Accounts/{account_sid}/Conferences/{conference_sid}/Participants/{call_sid_or_participant_label}">client.texml.accounts.conferences.participants.<a href="./src/resources/texml/accounts/conferences/participants.ts">update</a>(callSidOrParticipantLabel, { ...params }) -> ParticipantResource</code>
 
 ### Recordings
 
@@ -3936,29 +4034,26 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/texml/accounts/transcriptions/json.ts">JsonRetrieveRecordingTranscriptionSidJsonResponse</a></code>
+- <code><a href="./src/resources/texml/accounts/transcriptions/json.ts">TexmlRecordingTranscription</a></code>
 
 Methods:
 
 - <code title="delete /texml/Accounts/{account_sid}/Transcriptions/{recording_transcription_sid}.json">client.texml.accounts.transcriptions.json.<a href="./src/resources/texml/accounts/transcriptions/json.ts">deleteRecordingTranscriptionSidJson</a>(recordingTranscriptionSid, { ...params }) -> void</code>
-- <code title="get /texml/Accounts/{account_sid}/Transcriptions/{recording_transcription_sid}.json">client.texml.accounts.transcriptions.json.<a href="./src/resources/texml/accounts/transcriptions/json.ts">retrieveRecordingTranscriptionSidJson</a>(recordingTranscriptionSid, { ...params }) -> JsonRetrieveRecordingTranscriptionSidJsonResponse</code>
+- <code title="get /texml/Accounts/{account_sid}/Transcriptions/{recording_transcription_sid}.json">client.texml.accounts.transcriptions.json.<a href="./src/resources/texml/accounts/transcriptions/json.ts">retrieveRecordingTranscriptionSidJson</a>(recordingTranscriptionSid, { ...params }) -> TexmlRecordingTranscription</code>
 
 ### Queues
 
 Types:
 
-- <code><a href="./src/resources/texml/accounts/queues.ts">QueueCreateResponse</a></code>
-- <code><a href="./src/resources/texml/accounts/queues.ts">QueueRetrieveResponse</a></code>
-- <code><a href="./src/resources/texml/accounts/queues.ts">QueueUpdateResponse</a></code>
-- <code><a href="./src/resources/texml/accounts/queues.ts">QueueListResponse</a></code>
+- <code><a href="./src/resources/texml/accounts/queues.ts">QueueResource</a></code>
 
 Methods:
 
-- <code title="post /texml/Accounts/{account_sid}/Queues">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">create</a>(accountSid, { ...params }) -> QueueCreateResponse</code>
-- <code title="get /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">retrieve</a>(queueSid, { ...params }) -> QueueRetrieveResponse</code>
-- <code title="post /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">update</a>(queueSid, { ...params }) -> QueueUpdateResponse</code>
-- <code title="get /texml/Accounts/{account_sid}/Queues">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">list</a>(accountSid, { ...params }) -> QueueListResponsesDefaultPaginationForQueues</code>
+- <code title="post /texml/Accounts/{account_sid}/Queues">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">create</a>(accountSid, { ...params }) -> QueueResource</code>
 - <code title="delete /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">delete</a>(queueSid, { ...params }) -> void</code>
+- <code title="get /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">retrieve</a>(queueSid, { ...params }) -> QueueResource</code>
+- <code title="post /texml/Accounts/{account_sid}/Queues/{queue_sid}">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">update</a>(queueSid, { ...params }) -> QueueResource</code>
+- <code title="get /texml/Accounts/{account_sid}/Queues">client.texml.accounts.queues.<a href="./src/resources/texml/accounts/queues.ts">list</a>(accountSid, { ...params }) -> QueueResourcesDefaultPaginationForQueues</code>
 
 # TexmlApplications
 
@@ -3972,25 +4067,26 @@ Types:
 
 Methods:
 
+- <code title="get /texml_applications">client.texmlApplications.<a href="./src/resources/texml-applications.ts">list</a>({ ...params }) -> TexmlApplicationsDefaultFlatPagination</code>
 - <code title="post /texml_applications">client.texmlApplications.<a href="./src/resources/texml-applications.ts">create</a>({ ...params }) -> TexmlApplicationCreateResponse</code>
+- <code title="delete /texml_applications/{id}">client.texmlApplications.<a href="./src/resources/texml-applications.ts">delete</a>(id) -> TexmlApplicationDeleteResponse</code>
 - <code title="get /texml_applications/{id}">client.texmlApplications.<a href="./src/resources/texml-applications.ts">retrieve</a>(id) -> TexmlApplicationRetrieveResponse</code>
 - <code title="patch /texml_applications/{id}">client.texmlApplications.<a href="./src/resources/texml-applications.ts">update</a>(id, { ...params }) -> TexmlApplicationUpdateResponse</code>
-- <code title="get /texml_applications">client.texmlApplications.<a href="./src/resources/texml-applications.ts">list</a>({ ...params }) -> TexmlApplicationsDefaultFlatPagination</code>
-- <code title="delete /texml_applications/{id}">client.texmlApplications.<a href="./src/resources/texml-applications.ts">delete</a>(id) -> TexmlApplicationDeleteResponse</code>
 
 # TextToSpeech
 
 Types:
 
-- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateResponse</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateSpeechResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamClientEvent</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamServerEvent</a></code>
 
 Methods:
 
-- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generate</a>({ ...params }) -> TextToSpeechGenerateResponse</code>
 - <code title="get /text-to-speech/voices">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">listVoices</a>({ ...params }) -> TextToSpeechListVoicesResponse</code>
+- <code title="post /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">generateSpeech</a>({ ...params }) -> TextToSpeechGenerateSpeechResponse</code>
+- <code title="get /text-to-speech/speech">client.textToSpeech.<a href="./src/resources/text-to-speech.ts">retrieveSpeech</a>({ ...params }) -> void</code>
 
 # UsageReports
 
@@ -4014,9 +4110,9 @@ Types:
 
 Methods:
 
+- <code title="get /user_addresses">client.userAddresses.<a href="./src/resources/user-addresses.ts">list</a>({ ...params }) -> UserAddressesDefaultFlatPagination</code>
 - <code title="post /user_addresses">client.userAddresses.<a href="./src/resources/user-addresses.ts">create</a>({ ...params }) -> UserAddressCreateResponse</code>
 - <code title="get /user_addresses/{id}">client.userAddresses.<a href="./src/resources/user-addresses.ts">retrieve</a>(id) -> UserAddressRetrieveResponse</code>
-- <code title="get /user_addresses">client.userAddresses.<a href="./src/resources/user-addresses.ts">list</a>({ ...params }) -> UserAddressesDefaultFlatPagination</code>
 
 # UserTags
 
@@ -4032,16 +4128,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/verifications/verifications.ts">CreateVerificationRequestSMS</a></code>
 - <code><a href="./src/resources/verifications/verifications.ts">CreateVerificationResponse</a></code>
 - <code><a href="./src/resources/verifications/verifications.ts">Verification</a></code>
 - <code><a href="./src/resources/verifications/verifications.ts">VerificationRetrieveResponse</a></code>
 
 Methods:
 
-- <code title="get /verifications/{verification_id}">client.verifications.<a href="./src/resources/verifications/verifications.ts">retrieve</a>(verificationID) -> VerificationRetrieveResponse</code>
 - <code title="post /verifications/call">client.verifications.<a href="./src/resources/verifications/verifications.ts">triggerCall</a>({ ...params }) -> CreateVerificationResponse</code>
 - <code title="post /verifications/flashcall">client.verifications.<a href="./src/resources/verifications/verifications.ts">triggerFlashcall</a>({ ...params }) -> CreateVerificationResponse</code>
 - <code title="post /verifications/sms">client.verifications.<a href="./src/resources/verifications/verifications.ts">triggerSMS</a>({ ...params }) -> CreateVerificationResponse</code>
+- <code title="get /verifications/{verification_id}">client.verifications.<a href="./src/resources/verifications/verifications.ts">retrieve</a>(verificationID) -> VerificationRetrieveResponse</code>
 - <code title="post /verifications/whatsapp">client.verifications.<a href="./src/resources/verifications/verifications.ts">triggerWhatsappVerification</a>({ ...params }) -> CreateVerificationResponse</code>
 
 ## ByPhoneNumber
@@ -4081,10 +4178,10 @@ Types:
 
 Methods:
 
-- <code title="post /verified_numbers">client.verifiedNumbers.<a href="./src/resources/verified-numbers/verified-numbers.ts">create</a>({ ...params }) -> VerifiedNumberCreateResponse</code>
-- <code title="get /verified_numbers/{phone_number}">client.verifiedNumbers.<a href="./src/resources/verified-numbers/verified-numbers.ts">retrieve</a>(phoneNumber) -> VerifiedNumberDataWrapper</code>
 - <code title="get /verified_numbers">client.verifiedNumbers.<a href="./src/resources/verified-numbers/verified-numbers.ts">list</a>({ ...params }) -> VerifiedNumbersDefaultFlatPagination</code>
+- <code title="post /verified_numbers">client.verifiedNumbers.<a href="./src/resources/verified-numbers/verified-numbers.ts">create</a>({ ...params }) -> VerifiedNumberCreateResponse</code>
 - <code title="delete /verified_numbers/{phone_number}">client.verifiedNumbers.<a href="./src/resources/verified-numbers/verified-numbers.ts">delete</a>(phoneNumber) -> VerifiedNumberDataWrapper</code>
+- <code title="get /verified_numbers/{phone_number}">client.verifiedNumbers.<a href="./src/resources/verified-numbers/verified-numbers.ts">retrieve</a>(phoneNumber) -> VerifiedNumberDataWrapper</code>
 
 ## Actions
 
@@ -4104,20 +4201,23 @@ Types:
 
 Methods:
 
+- <code title="get /verify_profiles">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">list</a>({ ...params }) -> VerifyProfilesDefaultFlatPagination</code>
 - <code title="post /verify_profiles">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">create</a>({ ...params }) -> VerifyProfileData</code>
+- <code title="get /verify_profiles/templates">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">retrieveTemplates</a>() -> VerifyProfileRetrieveTemplatesResponse</code>
+- <code title="delete /verify_profiles/{verify_profile_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">delete</a>(verifyProfileID) -> VerifyProfileData</code>
 - <code title="get /verify_profiles/{verify_profile_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">retrieve</a>(verifyProfileID) -> VerifyProfileData</code>
 - <code title="patch /verify_profiles/{verify_profile_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">update</a>(verifyProfileID, { ...params }) -> VerifyProfileData</code>
-- <code title="get /verify_profiles">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">list</a>({ ...params }) -> VerifyProfilesDefaultFlatPagination</code>
-- <code title="delete /verify_profiles/{verify_profile_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">delete</a>(verifyProfileID) -> VerifyProfileData</code>
 - <code title="post /verify_profiles/templates">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">createTemplate</a>({ ...params }) -> MessageTemplate</code>
-- <code title="get /verify_profiles/templates">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">retrieveTemplates</a>() -> VerifyProfileRetrieveTemplatesResponse</code>
 - <code title="patch /verify_profiles/templates/{template_id}">client.verifyProfiles.<a href="./src/resources/verify-profiles.ts">updateTemplate</a>(templateID, { ...params }) -> MessageTemplate</code>
 
 # VirtualCrossConnects
 
 Types:
 
+- <code><a href="./src/resources/virtual-cross-connects.ts">RegionOut</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectCombined</a></code>
+- <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectCreate</a></code>
+- <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectPatch</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectCreateResponse</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectRetrieveResponse</a></code>
 - <code><a href="./src/resources/virtual-cross-connects.ts">VirtualCrossConnectUpdateResponse</a></code>
@@ -4125,11 +4225,11 @@ Types:
 
 Methods:
 
+- <code title="get /virtual_cross_connects">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">list</a>({ ...params }) -> VirtualCrossConnectCombinedsDefaultFlatPagination</code>
 - <code title="post /virtual_cross_connects">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">create</a>({ ...params }) -> VirtualCrossConnectCreateResponse</code>
+- <code title="delete /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">delete</a>(id) -> VirtualCrossConnectDeleteResponse</code>
 - <code title="get /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">retrieve</a>(id) -> VirtualCrossConnectRetrieveResponse</code>
 - <code title="patch /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">update</a>(id, { ...params }) -> VirtualCrossConnectUpdateResponse</code>
-- <code title="get /virtual_cross_connects">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">list</a>({ ...params }) -> VirtualCrossConnectCombinedsDefaultFlatPagination</code>
-- <code title="delete /virtual_cross_connects/{id}">client.virtualCrossConnects.<a href="./src/resources/virtual-cross-connects.ts">delete</a>(id) -> VirtualCrossConnectDeleteResponse</code>
 
 # VirtualCrossConnectsCoverage
 
@@ -4147,18 +4247,19 @@ Types:
 
 - <code><a href="./src/resources/webhook-deliveries.ts">Attempt</a></code>
 - <code><a href="./src/resources/webhook-deliveries.ts">HTTP</a></code>
+- <code><a href="./src/resources/webhook-deliveries.ts">WebhookDelivery</a></code>
 - <code><a href="./src/resources/webhook-deliveries.ts">WebhookDeliveryRetrieveResponse</a></code>
-- <code><a href="./src/resources/webhook-deliveries.ts">WebhookDeliveryListResponse</a></code>
 
 Methods:
 
+- <code title="get /webhook_deliveries">client.webhookDeliveries.<a href="./src/resources/webhook-deliveries.ts">list</a>({ ...params }) -> WebhookDeliveriesDefaultFlatPagination</code>
 - <code title="get /webhook_deliveries/{id}">client.webhookDeliveries.<a href="./src/resources/webhook-deliveries.ts">retrieve</a>(id) -> WebhookDeliveryRetrieveResponse</code>
-- <code title="get /webhook_deliveries">client.webhookDeliveries.<a href="./src/resources/webhook-deliveries.ts">list</a>({ ...params }) -> WebhookDeliveryListResponsesDefaultFlatPagination</code>
 
 # WireguardInterfaces
 
 Types:
 
+- <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterface</a></code>
 - <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceRead</a></code>
 - <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceCreateResponse</a></code>
 - <code><a href="./src/resources/wireguard-interfaces.ts">WireguardInterfaceRetrieveResponse</a></code>
@@ -4166,30 +4267,30 @@ Types:
 
 Methods:
 
-- <code title="post /wireguard_interfaces">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">create</a>({ ...params }) -> WireguardInterfaceCreateResponse</code>
-- <code title="get /wireguard_interfaces/{id}">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">retrieve</a>(id) -> WireguardInterfaceRetrieveResponse</code>
 - <code title="get /wireguard_interfaces">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">list</a>({ ...params }) -> WireguardInterfaceReadsDefaultFlatPagination</code>
+- <code title="post /wireguard_interfaces">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">create</a>({ ...params }) -> WireguardInterfaceCreateResponse</code>
 - <code title="delete /wireguard_interfaces/{id}">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">delete</a>(id) -> WireguardInterfaceDeleteResponse</code>
+- <code title="get /wireguard_interfaces/{id}">client.wireguardInterfaces.<a href="./src/resources/wireguard-interfaces.ts">retrieve</a>(id) -> WireguardInterfaceRetrieveResponse</code>
 
 # WireguardPeers
 
 Types:
 
+- <code><a href="./src/resources/wireguard-peers.ts">WireguardPeer</a></code>
 - <code><a href="./src/resources/wireguard-peers.ts">WireguardPeerPatch</a></code>
 - <code><a href="./src/resources/wireguard-peers.ts">WireguardPeerCreateResponse</a></code>
 - <code><a href="./src/resources/wireguard-peers.ts">WireguardPeerRetrieveResponse</a></code>
 - <code><a href="./src/resources/wireguard-peers.ts">WireguardPeerUpdateResponse</a></code>
-- <code><a href="./src/resources/wireguard-peers.ts">WireguardPeerListResponse</a></code>
 - <code><a href="./src/resources/wireguard-peers.ts">WireguardPeerDeleteResponse</a></code>
 - <code><a href="./src/resources/wireguard-peers.ts">WireguardPeerRetrieveConfigResponse</a></code>
 
 Methods:
 
+- <code title="get /wireguard_peers">client.wireguardPeers.<a href="./src/resources/wireguard-peers.ts">list</a>({ ...params }) -> WireguardPeersDefaultFlatPagination</code>
 - <code title="post /wireguard_peers">client.wireguardPeers.<a href="./src/resources/wireguard-peers.ts">create</a>({ ...params }) -> WireguardPeerCreateResponse</code>
+- <code title="delete /wireguard_peers/{id}">client.wireguardPeers.<a href="./src/resources/wireguard-peers.ts">delete</a>(id) -> WireguardPeerDeleteResponse</code>
 - <code title="get /wireguard_peers/{id}">client.wireguardPeers.<a href="./src/resources/wireguard-peers.ts">retrieve</a>(id) -> WireguardPeerRetrieveResponse</code>
 - <code title="patch /wireguard_peers/{id}">client.wireguardPeers.<a href="./src/resources/wireguard-peers.ts">update</a>(id, { ...params }) -> WireguardPeerUpdateResponse</code>
-- <code title="get /wireguard_peers">client.wireguardPeers.<a href="./src/resources/wireguard-peers.ts">list</a>({ ...params }) -> WireguardPeerListResponsesDefaultFlatPagination</code>
-- <code title="delete /wireguard_peers/{id}">client.wireguardPeers.<a href="./src/resources/wireguard-peers.ts">delete</a>(id) -> WireguardPeerDeleteResponse</code>
 - <code title="get /wireguard_peers/{id}/config">client.wireguardPeers.<a href="./src/resources/wireguard-peers.ts">retrieveConfig</a>(id) -> string</code>
 
 # Wireless
@@ -4214,10 +4315,10 @@ Types:
 
 Methods:
 
-- <code title="post /wireless/detail_records_reports">client.wireless.detailRecordsReports.<a href="./src/resources/wireless/detail-records-reports.ts">create</a>({ ...params }) -> DetailRecordsReportCreateResponse</code>
-- <code title="get /wireless/detail_records_reports/{id}">client.wireless.detailRecordsReports.<a href="./src/resources/wireless/detail-records-reports.ts">retrieve</a>(id) -> DetailRecordsReportRetrieveResponse</code>
 - <code title="get /wireless/detail_records_reports">client.wireless.detailRecordsReports.<a href="./src/resources/wireless/detail-records-reports.ts">list</a>({ ...params }) -> DetailRecordsReportListResponse</code>
+- <code title="post /wireless/detail_records_reports">client.wireless.detailRecordsReports.<a href="./src/resources/wireless/detail-records-reports.ts">create</a>({ ...params }) -> DetailRecordsReportCreateResponse</code>
 - <code title="delete /wireless/detail_records_reports/{id}">client.wireless.detailRecordsReports.<a href="./src/resources/wireless/detail-records-reports.ts">delete</a>(id) -> DetailRecordsReportDeleteResponse</code>
+- <code title="get /wireless/detail_records_reports/{id}">client.wireless.detailRecordsReports.<a href="./src/resources/wireless/detail-records-reports.ts">retrieve</a>(id) -> DetailRecordsReportRetrieveResponse</code>
 
 # WirelessBlocklistValues
 
@@ -4241,11 +4342,11 @@ Types:
 
 Methods:
 
-- <code title="post /wireless_blocklists">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">create</a>({ ...params }) -> WirelessBlocklistCreateResponse</code>
-- <code title="get /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">retrieve</a>(id) -> WirelessBlocklistRetrieveResponse</code>
-- <code title="patch /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">update</a>(id, { ...params }) -> WirelessBlocklistUpdateResponse</code>
 - <code title="get /wireless_blocklists">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">list</a>({ ...params }) -> WirelessBlocklistsDefaultFlatPagination</code>
+- <code title="patch /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">update</a>(id, { ...params }) -> WirelessBlocklistUpdateResponse</code>
+- <code title="post /wireless_blocklists">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">create</a>({ ...params }) -> WirelessBlocklistCreateResponse</code>
 - <code title="delete /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">delete</a>(id) -> WirelessBlocklistDeleteResponse</code>
+- <code title="get /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">retrieve</a>(id) -> WirelessBlocklistRetrieveResponse</code>
 
 # WellKnown
 
@@ -4269,9 +4370,9 @@ Types:
 
 Methods:
 
+- <code title="get /inexplicit_number_orders">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">list</a>({ ...params }) -> InexplicitNumberOrderResponsesDefaultFlatPaginationForInexplicitNumberOrders</code>
 - <code title="post /inexplicit_number_orders">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">create</a>({ ...params }) -> InexplicitNumberOrderCreateResponse</code>
 - <code title="get /inexplicit_number_orders/{id}">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">retrieve</a>(id) -> InexplicitNumberOrderRetrieveResponse</code>
-- <code title="get /inexplicit_number_orders">client.inexplicitNumberOrders.<a href="./src/resources/inexplicit-number-orders.ts">list</a>({ ...params }) -> InexplicitNumberOrderResponsesDefaultFlatPaginationForInexplicitNumberOrders</code>
 
 # MobilePhoneNumbers
 
@@ -4283,21 +4384,21 @@ Types:
 
 Methods:
 
+- <code title="get /v2/mobile_phone_numbers">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">list</a>({ ...params }) -> MobilePhoneNumbersDefaultFlatPagination</code>
 - <code title="get /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">retrieve</a>(id) -> MobilePhoneNumberRetrieveResponse</code>
 - <code title="patch /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">update</a>(id, { ...params }) -> MobilePhoneNumberUpdateResponse</code>
-- <code title="get /v2/mobile_phone_numbers">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">list</a>({ ...params }) -> MobilePhoneNumbersDefaultFlatPagination</code>
 
 ## Messaging
 
 Types:
 
+- <code><a href="./src/resources/mobile-phone-numbers/messaging.ts">MobilePhoneNumberWithMessagingSettings</a></code>
 - <code><a href="./src/resources/mobile-phone-numbers/messaging.ts">MessagingRetrieveResponse</a></code>
-- <code><a href="./src/resources/mobile-phone-numbers/messaging.ts">MessagingListResponse</a></code>
 
 Methods:
 
+- <code title="get /mobile_phone_numbers/messaging">client.mobilePhoneNumbers.messaging.<a href="./src/resources/mobile-phone-numbers/messaging.ts">list</a>({ ...params }) -> MobilePhoneNumberWithMessagingSettingsDefaultFlatPagination</code>
 - <code title="get /mobile_phone_numbers/{id}/messaging">client.mobilePhoneNumbers.messaging.<a href="./src/resources/mobile-phone-numbers/messaging.ts">retrieve</a>(id) -> MessagingRetrieveResponse</code>
-- <code title="get /mobile_phone_numbers/messaging">client.mobilePhoneNumbers.messaging.<a href="./src/resources/mobile-phone-numbers/messaging.ts">list</a>({ ...params }) -> MessagingListResponsesDefaultFlatPagination</code>
 
 # MobileVoiceConnections
 
@@ -4311,11 +4412,11 @@ Types:
 
 Methods:
 
+- <code title="get /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">list</a>({ ...params }) -> MobileVoiceConnectionsDefaultFlatPagination</code>
 - <code title="post /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">create</a>({ ...params }) -> MobileVoiceConnectionCreateResponse</code>
+- <code title="delete /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">delete</a>(id) -> MobileVoiceConnectionDeleteResponse</code>
 - <code title="get /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">retrieve</a>(id) -> MobileVoiceConnectionRetrieveResponse</code>
 - <code title="patch /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">update</a>(id, { ...params }) -> MobileVoiceConnectionUpdateResponse</code>
-- <code title="get /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">list</a>({ ...params }) -> MobileVoiceConnectionsDefaultFlatPagination</code>
-- <code title="delete /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">delete</a>(id) -> MobileVoiceConnectionDeleteResponse</code>
 
 # Messaging10dlc
 
@@ -4334,6 +4435,7 @@ Types:
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">AltBusinessIDType</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandIdentityStatus</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandOptionalAttributes</a></code>
+- <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandSMSOtpStatus</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">EntityType</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">StockExchange</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">TelnyxBrand</a></code>
@@ -4341,38 +4443,35 @@ Types:
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandRetrieveResponse</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandListResponse</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandGetFeedbackResponse</a></code>
-- <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandGetSMSOtpByReferenceResponse</a></code>
-- <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandRetrieveSMSOtpStatusResponse</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/brand.ts">BrandTriggerSMSOtpResponse</a></code>
 
 Methods:
 
+- <code title="get /10dlc/brand">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">list</a>({ ...params }) -> BrandListResponsesPerPagePaginationV2</code>
 - <code title="post /10dlc/brand">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">create</a>({ ...params }) -> TelnyxBrand</code>
+- <code title="get /10dlc/brand/feedback/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">getFeedback</a>(brandID) -> BrandGetFeedbackResponse</code>
+- <code title="delete /10dlc/brand/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">delete</a>(brandID) -> void</code>
 - <code title="get /10dlc/brand/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">retrieve</a>(brandID) -> BrandRetrieveResponse</code>
 - <code title="put /10dlc/brand/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">update</a>(brandID, { ...params }) -> TelnyxBrand</code>
-- <code title="get /10dlc/brand">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">list</a>({ ...params }) -> BrandListResponsesPerPagePaginationV2</code>
-- <code title="delete /10dlc/brand/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">delete</a>(brandID) -> void</code>
-- <code title="get /10dlc/brand/feedback/{brandId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">getFeedback</a>(brandID) -> BrandGetFeedbackResponse</code>
-- <code title="get /10dlc/brand/smsOtp/{referenceId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">getSMSOtpByReference</a>(referenceID, { ...params }) -> BrandGetSMSOtpByReferenceResponse</code>
 - <code title="post /10dlc/brand/{brandId}/2faEmail">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">resend2faEmail</a>(brandID) -> void</code>
-- <code title="get /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">retrieveSMSOtpStatus</a>(brandID) -> BrandRetrieveSMSOtpStatusResponse</code>
 - <code title="put /10dlc/brand/{brandId}/revet">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">revet</a>(brandID) -> TelnyxBrand</code>
+- <code title="get /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">retrieveSMSOtpStatus</a>(brandID) -> BrandSMSOtpStatus</code>
 - <code title="post /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">triggerSMSOtp</a>(brandID, { ...params }) -> BrandTriggerSMSOtpResponse</code>
 - <code title="put /10dlc/brand/{brandId}/smsOtp">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">verifySMSOtp</a>(brandID, { ...params }) -> void</code>
+- <code title="get /10dlc/brand/smsOtp/{referenceId}">client.messaging10dlc.brand.<a href="./src/resources/messaging-10dlc/brand/brand.ts">getSMSOtpByReference</a>(referenceID, { ...params }) -> BrandSMSOtpStatus</code>
 
 ### ExternalVetting
 
 Types:
 
+- <code><a href="./src/resources/messaging-10dlc/brand/external-vetting.ts">ExternalVetting</a></code>
 - <code><a href="./src/resources/messaging-10dlc/brand/external-vetting.ts">ExternalVettingListResponse</a></code>
-- <code><a href="./src/resources/messaging-10dlc/brand/external-vetting.ts">ExternalVettingImportsResponse</a></code>
-- <code><a href="./src/resources/messaging-10dlc/brand/external-vetting.ts">ExternalVettingOrderResponse</a></code>
 
 Methods:
 
 - <code title="get /10dlc/brand/{brandId}/externalVetting">client.messaging10dlc.brand.externalVetting.<a href="./src/resources/messaging-10dlc/brand/external-vetting.ts">list</a>(brandID) -> ExternalVettingListResponse</code>
-- <code title="put /10dlc/brand/{brandId}/externalVetting">client.messaging10dlc.brand.externalVetting.<a href="./src/resources/messaging-10dlc/brand/external-vetting.ts">imports</a>(brandID, { ...params }) -> ExternalVettingImportsResponse</code>
-- <code title="post /10dlc/brand/{brandId}/externalVetting">client.messaging10dlc.brand.externalVetting.<a href="./src/resources/messaging-10dlc/brand/external-vetting.ts">order</a>(brandID, { ...params }) -> ExternalVettingOrderResponse</code>
+- <code title="post /10dlc/brand/{brandId}/externalVetting">client.messaging10dlc.brand.externalVetting.<a href="./src/resources/messaging-10dlc/brand/external-vetting.ts">order</a>(brandID, { ...params }) -> ExternalVetting</code>
+- <code title="put /10dlc/brand/{brandId}/externalVetting">client.messaging10dlc.brand.externalVetting.<a href="./src/resources/messaging-10dlc/brand/external-vetting.ts">imports</a>(brandID, { ...params }) -> ExternalVetting</code>
 
 ## Campaign
 
@@ -4390,15 +4489,15 @@ Types:
 
 Methods:
 
-- <code title="get /10dlc/campaign/{campaignId}">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">retrieve</a>(campaignID) -> TelnyxCampaignCsp</code>
-- <code title="put /10dlc/campaign/{campaignId}">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">update</a>(campaignID, { ...params }) -> TelnyxCampaignCsp</code>
 - <code title="get /10dlc/campaign">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">list</a>({ ...params }) -> CampaignListResponsesPerPagePaginationV2</code>
 - <code title="post /10dlc/campaign/acceptSharing/{campaignId}">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">acceptSharing</a>(campaignID) -> CampaignAcceptSharingResponse</code>
 - <code title="delete /10dlc/campaign/{campaignId}">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">deactivate</a>(campaignID) -> CampaignDeactivateResponse</code>
+- <code title="get /10dlc/campaign/{campaignId}">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">retrieve</a>(campaignID) -> TelnyxCampaignCsp</code>
+- <code title="put /10dlc/campaign/{campaignId}">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">update</a>(campaignID, { ...params }) -> TelnyxCampaignCsp</code>
+- <code title="post /10dlc/campaign/{campaignId}/appeal">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">submitAppeal</a>(campaignID, { ...params }) -> CampaignSubmitAppealResponse</code>
 - <code title="get /10dlc/campaign/{campaignId}/mnoMetadata">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">getMnoMetadata</a>(campaignID) -> CampaignGetMnoMetadataResponse</code>
 - <code title="get /10dlc/campaign/{campaignId}/operationStatus">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">getOperationStatus</a>(campaignID) -> CampaignGetOperationStatusResponse</code>
 - <code title="get /10dlc/campaign/{campaignId}/sharing">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">getSharingStatus</a>(campaignID) -> CampaignGetSharingStatusResponse</code>
-- <code title="post /10dlc/campaign/{campaignId}/appeal">client.messaging10dlc.campaign.<a href="./src/resources/messaging-10dlc/campaign/campaign.ts">submitAppeal</a>(campaignID, { ...params }) -> CampaignSubmitAppealResponse</code>
 
 ### Usecase
 
@@ -4446,11 +4545,11 @@ Types:
 
 Methods:
 
-- <code title="get /10dlc/partner_campaigns/{campaignId}">client.messaging10dlc.partnerCampaigns.<a href="./src/resources/messaging-10dlc/partner-campaigns.ts">retrieve</a>(campaignID) -> TelnyxDownstreamCampaign</code>
-- <code title="patch /10dlc/partner_campaigns/{campaignId}">client.messaging10dlc.partnerCampaigns.<a href="./src/resources/messaging-10dlc/partner-campaigns.ts">update</a>(campaignID, { ...params }) -> TelnyxDownstreamCampaign</code>
-- <code title="get /10dlc/partner_campaigns">client.messaging10dlc.partnerCampaigns.<a href="./src/resources/messaging-10dlc/partner-campaigns.ts">list</a>({ ...params }) -> TelnyxDownstreamCampaignsPerPagePaginationV2</code>
 - <code title="get /10dlc/partnerCampaign/sharedByMe">client.messaging10dlc.partnerCampaigns.<a href="./src/resources/messaging-10dlc/partner-campaigns.ts">listSharedByMe</a>({ ...params }) -> PartnerCampaignListSharedByMeResponsesPerPagePaginationV2</code>
 - <code title="get /10dlc/partnerCampaign/{campaignId}/sharing">client.messaging10dlc.partnerCampaigns.<a href="./src/resources/messaging-10dlc/partner-campaigns.ts">retrieveSharingStatus</a>(campaignID) -> PartnerCampaignRetrieveSharingStatusResponse</code>
+- <code title="get /10dlc/partner_campaigns">client.messaging10dlc.partnerCampaigns.<a href="./src/resources/messaging-10dlc/partner-campaigns.ts">list</a>({ ...params }) -> TelnyxDownstreamCampaignsPerPagePaginationV2</code>
+- <code title="get /10dlc/partner_campaigns/{campaignId}">client.messaging10dlc.partnerCampaigns.<a href="./src/resources/messaging-10dlc/partner-campaigns.ts">retrieve</a>(campaignID) -> TelnyxDownstreamCampaign</code>
+- <code title="patch /10dlc/partner_campaigns/{campaignId}">client.messaging10dlc.partnerCampaigns.<a href="./src/resources/messaging-10dlc/partner-campaigns.ts">update</a>(campaignID, { ...params }) -> TelnyxDownstreamCampaign</code>
 
 ## PhoneNumberCampaigns
 
@@ -4461,11 +4560,11 @@ Types:
 
 Methods:
 
+- <code title="get /10dlc/phone_number_campaigns">client.messaging10dlc.phoneNumberCampaigns.<a href="./src/resources/messaging-10dlc/phone-number-campaigns.ts">list</a>({ ...params }) -> PhoneNumberCampaignsPerPagePaginationV2</code>
 - <code title="post /10dlc/phone_number_campaigns">client.messaging10dlc.phoneNumberCampaigns.<a href="./src/resources/messaging-10dlc/phone-number-campaigns.ts">create</a>({ ...params }) -> PhoneNumberCampaign</code>
+- <code title="delete /10dlc/phone_number_campaigns/{phoneNumber}">client.messaging10dlc.phoneNumberCampaigns.<a href="./src/resources/messaging-10dlc/phone-number-campaigns.ts">delete</a>(phoneNumber) -> PhoneNumberCampaign</code>
 - <code title="get /10dlc/phone_number_campaigns/{phoneNumber}">client.messaging10dlc.phoneNumberCampaigns.<a href="./src/resources/messaging-10dlc/phone-number-campaigns.ts">retrieve</a>(phoneNumber) -> PhoneNumberCampaign</code>
 - <code title="put /10dlc/phone_number_campaigns/{phoneNumber}">client.messaging10dlc.phoneNumberCampaigns.<a href="./src/resources/messaging-10dlc/phone-number-campaigns.ts">update</a>(campaignPhoneNumber, { ...params }) -> PhoneNumberCampaign</code>
-- <code title="get /10dlc/phone_number_campaigns">client.messaging10dlc.phoneNumberCampaigns.<a href="./src/resources/messaging-10dlc/phone-number-campaigns.ts">list</a>({ ...params }) -> PhoneNumberCampaignsPerPagePaginationV2</code>
-- <code title="delete /10dlc/phone_number_campaigns/{phoneNumber}">client.messaging10dlc.phoneNumberCampaigns.<a href="./src/resources/messaging-10dlc/phone-number-campaigns.ts">delete</a>(phoneNumber) -> PhoneNumberCampaign</code>
 
 ## PhoneNumberAssignmentByProfile
 
@@ -4481,9 +4580,9 @@ Types:
 Methods:
 
 - <code title="post /10dlc/phoneNumberAssignmentByProfile">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">assign</a>({ ...params }) -> PhoneNumberAssignmentByProfileAssignResponse</code>
-- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">listPhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse</code>
-- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">retrievePhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse</code>
 - <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">retrieveStatus</a>(taskID) -> PhoneNumberAssignmentByProfileRetrieveStatusResponse</code>
+- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">retrievePhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileRetrievePhoneNumberStatusResponse</code>
+- <code title="get /10dlc/phoneNumberAssignmentByProfile/{taskId}/phoneNumbers">client.messaging10dlc.phoneNumberAssignmentByProfile.<a href="./src/resources/messaging-10dlc/phone-number-assignment-by-profile.ts">listPhoneNumberStatus</a>(taskID, { ...params }) -> PhoneNumberAssignmentByProfileListPhoneNumberStatusResponse</code>
 
 # Organizations
 
@@ -4498,9 +4597,9 @@ Types:
 
 Methods:
 
-- <code title="get /organizations/users/{id}">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">retrieve</a>(id, { ...params }) -> UserRetrieveResponse</code>
 - <code title="get /organizations/users">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">list</a>({ ...params }) -> OrganizationUsersDefaultFlatPagination</code>
 - <code title="get /organizations/users/users_groups_report">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">getGroupsReport</a>({ ...params }) -> UserGetGroupsReportResponse</code>
+- <code title="get /organizations/users/{id}">client.organizations.users.<a href="./src/resources/organizations/users/users.ts">retrieve</a>(id, { ...params }) -> UserRetrieveResponse</code>
 
 ### Actions
 
@@ -4523,15 +4622,16 @@ Types:
 
 Methods:
 
-- <code title="post /alphanumeric_sender_ids">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">create</a>({ ...params }) -> AlphanumericSenderIDCreateResponse</code>
-- <code title="get /alphanumeric_sender_ids/{id}">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">retrieve</a>(id) -> AlphanumericSenderIDRetrieveResponse</code>
 - <code title="get /alphanumeric_sender_ids">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">list</a>({ ...params }) -> AlphanumericSenderIDsDefaultFlatPagination</code>
+- <code title="post /alphanumeric_sender_ids">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">create</a>({ ...params }) -> AlphanumericSenderIDCreateResponse</code>
 - <code title="delete /alphanumeric_sender_ids/{id}">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">delete</a>(id) -> AlphanumericSenderIDDeleteResponse</code>
+- <code title="get /alphanumeric_sender_ids/{id}">client.alphanumericSenderIDs.<a href="./src/resources/alphanumeric-sender-ids.ts">retrieve</a>(id) -> AlphanumericSenderIDRetrieveResponse</code>
 
 # MessagingProfileMetrics
 
 Types:
 
+- <code><a href="./src/resources/messaging-profile-metrics.ts">MessagingMetricsTimeFrame</a></code>
 - <code><a href="./src/resources/messaging-profile-metrics.ts">MessagingProfileMetricListResponse</a></code>
 
 Methods:
@@ -4575,9 +4675,9 @@ Types:
 
 Methods:
 
-- <code title="get /v2/whatsapp/business_accounts/{id}">client.whatsapp.businessAccounts.<a href="./src/resources/whatsapp/business-accounts/business-accounts.ts">retrieve</a>(id) -> BusinessAccountRetrieveResponse</code>
 - <code title="get /v2/whatsapp/business_accounts">client.whatsapp.businessAccounts.<a href="./src/resources/whatsapp/business-accounts/business-accounts.ts">list</a>({ ...params }) -> BusinessAccountListResponsesDefaultFlatPagination</code>
 - <code title="delete /v2/whatsapp/business_accounts/{id}">client.whatsapp.businessAccounts.<a href="./src/resources/whatsapp/business-accounts/business-accounts.ts">delete</a>(id) -> void</code>
+- <code title="get /v2/whatsapp/business_accounts/{id}">client.whatsapp.businessAccounts.<a href="./src/resources/whatsapp/business-accounts/business-accounts.ts">retrieve</a>(id) -> BusinessAccountRetrieveResponse</code>
 
 ### PhoneNumbers
 
@@ -4607,18 +4707,24 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/templates.ts">WhatsappTemplateBodyComponent</a></code>
+- <code><a href="./src/resources/whatsapp/templates.ts">WhatsappTemplateButtonsComponent</a></code>
+- <code><a href="./src/resources/whatsapp/templates.ts">WhatsappTemplateCarouselComponent</a></code>
+- <code><a href="./src/resources/whatsapp/templates.ts">WhatsappTemplateFooterComponent</a></code>
+- <code><a href="./src/resources/whatsapp/templates.ts">WhatsappTemplateHeaderComponent</a></code>
 - <code><a href="./src/resources/whatsapp/templates.ts">TemplateCreateResponse</a></code>
 
 Methods:
 
-- <code title="post /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">create</a>({ ...params }) -> TemplateCreateResponse</code>
 - <code title="get /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">list</a>({ ...params }) -> WhatsappTemplateDataDefaultFlatPagination</code>
+- <code title="post /v2/whatsapp/message_templates">client.whatsapp.templates.<a href="./src/resources/whatsapp/templates.ts">create</a>({ ...params }) -> TemplateCreateResponse</code>
 
 ## PhoneNumbers
 
 Types:
 
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberRetrieveConversationWindowResponse</a></code>
 
 Methods:
 
@@ -4626,6 +4732,7 @@ Methods:
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/resend_verification">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">resendVerification</a>(phoneNumber, { ...params }) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/verify">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">verify</a>(phoneNumber, { ...params }) -> void</code>
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversation_window">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">retrieveConversationWindow</a>(phoneNumber, { ...params }) -> PhoneNumberRetrieveConversationWindowResponse</code>
 
 ### CallingSettings
 
@@ -4662,9 +4769,34 @@ Types:
 
 Methods:
 
-- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">retrieve</a>(phoneNumber) -> PhotoRetrieveResponse</code>
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">upload</a>(phoneNumber, { ...params }) -> PhotoUploadResponse</code>
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/profile/photo">client.whatsapp.phoneNumbers.profile.photo.<a href="./src/resources/whatsapp/phone-numbers/profile/photo.ts">retrieve</a>(phoneNumber) -> PhotoRetrieveResponse</code>
+
+### ConversationalComponents
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">ConversationalComponentListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">ConversationalComponentPatchAllResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversational_components">client.whatsapp.phoneNumbers.conversationalComponents.<a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">list</a>(phoneNumber) -> ConversationalComponentListResponse</code>
+- <code title="patch /v2/whatsapp/phone_numbers/{phone_number}/conversational_components">client.whatsapp.phoneNumbers.conversationalComponents.<a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">patchAll</a>(phoneNumber, { ...params }) -> ConversationalComponentPatchAllResponse</code>
+
+## UserData
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/user-data.ts">WhatsappUserData</a></code>
+- <code><a href="./src/resources/whatsapp/user-data.ts">UserDataRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp/user-data.ts">UserDataUpdateResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/whatsapp/user_data">client.whatsapp.userData.<a href="./src/resources/whatsapp/user-data.ts">retrieve</a>() -> UserDataRetrieveResponse</code>
+- <code title="patch /v2/whatsapp/user_data">client.whatsapp.userData.<a href="./src/resources/whatsapp/user-data.ts">update</a>({ ...params }) -> UserDataUpdateResponse</code>
 
 # WhatsappMessageTemplates
 
@@ -4675,9 +4807,9 @@ Types:
 
 Methods:
 
+- <code title="delete /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">delete</a>(id) -> void</code>
 - <code title="get /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">retrieve</a>(id) -> WhatsappMessageTemplateRetrieveResponse</code>
 - <code title="patch /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">update</a>(id, { ...params }) -> WhatsappMessageTemplateUpdateResponse</code>
-- <code title="delete /v2/whatsapp_message_templates/{id}">client.whatsappMessageTemplates.<a href="./src/resources/whatsapp-message-templates.ts">delete</a>(id) -> void</code>
 
 # X402
 
@@ -4690,25 +4822,24 @@ Types:
 
 Methods:
 
-- <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">createQuote</a>({ ...params }) -> CreditAccountCreateQuoteResponse</code>
 - <code title="post /v2/x402/credit_account">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">settle</a>({ ...params }) -> CreditAccountSettleResponse</code>
+- <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">createQuote</a>({ ...params }) -> CreditAccountCreateQuoteResponse</code>
 
 # VoiceClones
 
 Types:
 
 - <code><a href="./src/resources/voice-clones.ts">VoiceCloneData</a></code>
-- <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateResponse</a></code>
-- <code><a href="./src/resources/voice-clones.ts">VoiceCloneUpdateResponse</a></code>
-- <code><a href="./src/resources/voice-clones.ts">VoiceCloneCreateFromUploadResponse</a></code>
+- <code><a href="./src/resources/voice-clones.ts">VoiceCloneResponse</a></code>
+- <code><a href="./src/resources/voice-clones.ts">VoiceDesignsPaginationMeta</a></code>
 
 Methods:
 
-- <code title="post /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">create</a>({ ...params }) -> VoiceCloneCreateResponse</code>
-- <code title="patch /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">update</a>(id, { ...params }) -> VoiceCloneUpdateResponse</code>
 - <code title="get /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">list</a>({ ...params }) -> VoiceCloneDataDefaultFlatPagination</code>
+- <code title="post /voice_clones">client.voiceClones.<a href="./src/resources/voice-clones.ts">create</a>({ ...params }) -> VoiceCloneResponse</code>
+- <code title="post /voice_clones/from_upload">client.voiceClones.<a href="./src/resources/voice-clones.ts">createFromUpload</a>({ ...params }) -> VoiceCloneResponse</code>
 - <code title="delete /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">delete</a>(id) -> void</code>
-- <code title="post /voice_clones/from_upload">client.voiceClones.<a href="./src/resources/voice-clones.ts">createFromUpload</a>({ ...params }) -> VoiceCloneCreateFromUploadResponse</code>
+- <code title="patch /voice_clones/{id}">client.voiceClones.<a href="./src/resources/voice-clones.ts">update</a>(id, { ...params }) -> VoiceCloneResponse</code>
 - <code title="get /voice_clones/{id}/sample">client.voiceClones.<a href="./src/resources/voice-clones.ts">downloadSample</a>(id) -> Response</code>
 
 # VoiceDesigns
@@ -4716,20 +4847,19 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignData</a></code>
-- <code><a href="./src/resources/voice-designs.ts">VoiceDesignCreateResponse</a></code>
-- <code><a href="./src/resources/voice-designs.ts">VoiceDesignRetrieveResponse</a></code>
-- <code><a href="./src/resources/voice-designs.ts">VoiceDesignListResponse</a></code>
+- <code><a href="./src/resources/voice-designs.ts">VoiceDesignResponse</a></code>
+- <code><a href="./src/resources/voice-designs.ts">VoiceDesignSummaryData</a></code>
 - <code><a href="./src/resources/voice-designs.ts">VoiceDesignRenameResponse</a></code>
 
 Methods:
 
-- <code title="post /voice_designs">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">create</a>({ ...params }) -> VoiceDesignCreateResponse</code>
-- <code title="get /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">retrieve</a>(id, { ...params }) -> VoiceDesignRetrieveResponse</code>
-- <code title="get /voice_designs">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">list</a>({ ...params }) -> VoiceDesignListResponsesDefaultFlatPagination</code>
+- <code title="get /voice_designs">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">list</a>({ ...params }) -> VoiceDesignSummaryDataDefaultFlatPagination</code>
+- <code title="post /voice_designs">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">create</a>({ ...params }) -> VoiceDesignResponse</code>
 - <code title="delete /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">delete</a>(id) -> void</code>
-- <code title="delete /voice_designs/{id}/versions/{version}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">deleteVersion</a>(version, { ...params }) -> void</code>
-- <code title="get /voice_designs/{id}/sample">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">downloadSample</a>(id, { ...params }) -> Response</code>
+- <code title="get /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">retrieve</a>(id, { ...params }) -> VoiceDesignResponse</code>
 - <code title="patch /voice_designs/{id}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">rename</a>(id, { ...params }) -> VoiceDesignRenameResponse</code>
+- <code title="get /voice_designs/{id}/sample">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">downloadSample</a>(id, { ...params }) -> Response</code>
+- <code title="delete /voice_designs/{id}/versions/{version}">client.voiceDesigns.<a href="./src/resources/voice-designs.ts">deleteVersion</a>(version, { ...params }) -> void</code>
 
 # TrafficPolicyProfiles
 
@@ -4744,12 +4874,12 @@ Types:
 
 Methods:
 
+- <code title="get /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">list</a>({ ...params }) -> TrafficPolicyProfilesDefaultFlatPagination</code>
 - <code title="post /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">create</a>({ ...params }) -> TrafficPolicyProfileCreateResponse</code>
+- <code title="get /traffic_policy_profiles/services">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">listServices</a>({ ...params }) -> TrafficPolicyProfileListServicesResponsesDefaultFlatPagination</code>
+- <code title="delete /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">delete</a>(id) -> TrafficPolicyProfileDeleteResponse</code>
 - <code title="get /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">retrieve</a>(id) -> TrafficPolicyProfileRetrieveResponse</code>
 - <code title="patch /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">update</a>(id, { ...params }) -> TrafficPolicyProfileUpdateResponse</code>
-- <code title="get /traffic_policy_profiles">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">list</a>({ ...params }) -> TrafficPolicyProfilesDefaultFlatPagination</code>
-- <code title="delete /traffic_policy_profiles/{id}">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">delete</a>(id) -> TrafficPolicyProfileDeleteResponse</code>
-- <code title="get /traffic_policy_profiles/services">client.trafficPolicyProfiles.<a href="./src/resources/traffic-policy-profiles.ts">listServices</a>({ ...params }) -> TrafficPolicyProfileListServicesResponsesDefaultFlatPagination</code>
 
 # Enterprises
 
@@ -4758,71 +4888,131 @@ Types:
 - <code><a href="./src/resources/enterprises/enterprises.ts">BillingAddress</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">BillingContact</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterprisePublic</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">EnterprisePublicWrapped</a></code>
+- <code><a href="./src/resources/enterprises/enterprises.ts">NumberReputationPaginationMeta</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">OrganizationContact</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">PhysicalAddress</a></code>
-- <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseCreateResponse</a></code>
-- <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseRetrieveResponse</a></code>
-- <code><a href="./src/resources/enterprises/enterprises.ts">EnterpriseUpdateResponse</a></code>
 
 Methods:
 
-- <code title="post /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">create</a>({ ...params }) -> EnterpriseCreateResponse</code>
-- <code title="get /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">retrieve</a>(enterpriseID) -> EnterpriseRetrieveResponse</code>
-- <code title="put /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">update</a>(enterpriseID, { ...params }) -> EnterpriseUpdateResponse</code>
 - <code title="get /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">list</a>({ ...params }) -> EnterprisePublicsDefaultFlatPagination</code>
+- <code title="post /enterprises">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">create</a>({ ...params }) -> EnterprisePublicWrapped</code>
 - <code title="delete /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">delete</a>(enterpriseID) -> void</code>
+- <code title="get /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">retrieve</a>(enterpriseID) -> EnterprisePublicWrapped</code>
+- <code title="put /enterprises/{enterprise_id}">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">update</a>(enterpriseID, { ...params }) -> EnterprisePublicWrapped</code>
+- <code title="post /enterprises/{enterprise_id}/branded_calling">client.enterprises.<a href="./src/resources/enterprises/enterprises.ts">brandedCalling</a>(enterpriseID) -> EnterprisePublicWrapped</code>
 
 ## Reputation
 
 Types:
 
 - <code><a href="./src/resources/enterprises/reputation/reputation.ts">EnterpriseReputationPublic</a></code>
-- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationRetrieveResponse</a></code>
-- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationEnableResponse</a></code>
-- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationUpdateFrequencyResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/reputation.ts">EnterpriseReputationPublicWrapped</a></code>
+- <code><a href="./src/resources/enterprises/reputation/reputation.ts">ReputationCheckFrequency</a></code>
 
 Methods:
 
-- <code title="get /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">retrieve</a>(enterpriseID) -> ReputationRetrieveResponse</code>
 - <code title="delete /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">disable</a>(enterpriseID) -> void</code>
-- <code title="post /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">enable</a>(enterpriseID, { ...params }) -> ReputationEnableResponse</code>
-- <code title="patch /enterprises/{enterprise_id}/reputation/frequency">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">updateFrequency</a>(enterpriseID, { ...params }) -> ReputationUpdateFrequencyResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">retrieve</a>(enterpriseID) -> EnterpriseReputationPublicWrapped</code>
+- <code title="post /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">enable</a>(enterpriseID, { ...params }) -> EnterpriseReputationPublicWrapped</code>
+- <code title="patch /enterprises/{enterprise_id}/reputation/frequency">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">updateFrequency</a>(enterpriseID, { ...params }) -> EnterpriseReputationPublicWrapped</code>
 
 ### Numbers
 
 Types:
 
-- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRetrieveResponse</a></code>
-- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberAssociateResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumber</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumberList</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumberListWithReputation</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumberWithReputation</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRefreshResponse</a></code>
 
 Methods:
 
-- <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> NumberRetrieveResponse</code>
-- <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">list</a>(enterpriseID, { ...params }) -> ReputationPhoneNumberWithReputationDataDefaultFlatPagination</code>
-- <code title="post /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">associate</a>(enterpriseID, { ...params }) -> NumberAssociateResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">list</a>(enterpriseID, { ...params }) -> ReputationPhoneNumbersDefaultFlatPagination</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/numbers">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">associate</a>(enterpriseID, { ...params }) -> ReputationPhoneNumberList</code>
 - <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">disassociate</a>(phoneNumber, { ...params }) -> void</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> ReputationPhoneNumberWithReputation</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/numbers/refresh">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">refresh</a>(enterpriseID, { ...params }) -> NumberRefreshResponse</code>
+
+### Loa
+
+Types:
+
+- <code><a href="./src/resources/enterprises/reputation/loa.ts">AgentInput</a></code>
+
+Methods:
+
+- <code title="patch /enterprises/{enterprise_id}/reputation/loa">client.enterprises.reputation.loa.<a href="./src/resources/enterprises/reputation/loa.ts">update</a>(enterpriseID, { ...params }) -> EnterpriseReputationPublicWrapped</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/loa">client.enterprises.reputation.loa.<a href="./src/resources/enterprises/reputation/loa.ts">render</a>(enterpriseID, { ...params }) -> Response</code>
+
+### Remediation
+
+Types:
+
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationRequestWrapped</a></code>
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationStatus</a></code>
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationListResponse</a></code>
+
+Methods:
+
+- <code title="get /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">list</a>(enterpriseID, { ...params }) -> RemediationListResponsesDefaultFlatPagination</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">create</a>(enterpriseID, { ...params }) -> RemediationRequestWrapped</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/remediation/{remediation_id}">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">retrieve</a>(remediationID, { ...params }) -> RemediationRequestWrapped</code>
+
+## Dir
+
+Methods:
+
+- <code title="get /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir.ts">list</a>(enterpriseID, { ...params }) -> DirsDefaultFlatPagination</code>
+- <code title="post /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir.ts">create</a>(enterpriseID, { ...params }) -> DirWrapped</code>
 
 # Reputation
 
 ## Numbers
 
+Methods:
+
+- <code title="get /reputation/numbers">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">list</a>({ ...params }) -> ReputationPhoneNumbersDefaultFlatPagination</code>
+- <code title="delete /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">delete</a>(phoneNumber) -> void</code>
+- <code title="get /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> ReputationPhoneNumberWithReputation</code>
+
+# TermsOfService
+
 Types:
 
-- <code><a href="./src/resources/reputation/numbers.ts">NumberRetrieveResponse</a></code>
+- <code><a href="./src/resources/terms-of-service/terms-of-service.ts">TermsOfServiceRetrieveInfoResponse</a></code>
+- <code><a href="./src/resources/terms-of-service/terms-of-service.ts">TermsOfServiceRetrieveStatusResponse</a></code>
 
 Methods:
 
-- <code title="get /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> NumberRetrieveResponse</code>
-- <code title="get /reputation/numbers">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">list</a>({ ...params }) -> ReputationPhoneNumberWithReputationDataDefaultFlatPagination</code>
-- <code title="delete /reputation/numbers/{phone_number}">client.reputation.numbers.<a href="./src/resources/reputation/numbers.ts">delete</a>(phoneNumber) -> void</code>
-
-# TermsOfService
+- <code title="get /terms_of_service/status">client.termsOfService.<a href="./src/resources/terms-of-service/terms-of-service.ts">retrieveStatus</a>({ ...params }) -> TermsOfServiceRetrieveStatusResponse</code>
+- <code title="get /terms_of_service/info">client.termsOfService.<a href="./src/resources/terms-of-service/terms-of-service.ts">retrieveInfo</a>({ ...params }) -> TermsOfServiceRetrieveInfoResponse</code>
 
 ## NumberReputation
 
 Methods:
 
-- <code title="post /terms_of_service/number_reputation/agree">client.termsOfService.numberReputation.<a href="./src/resources/terms-of-service/number-reputation.ts">agree</a>() -> void</code>
+- <code title="post /terms_of_service/number_reputation/agree">client.termsOfService.numberReputation.<a href="./src/resources/terms-of-service/number-reputation.ts">agree</a>() -> TosAgreementWrapped</code>
+
+## Agreements
+
+Types:
+
+- <code><a href="./src/resources/terms-of-service/agreements.ts">TosAgreement</a></code>
+- <code><a href="./src/resources/terms-of-service/agreements.ts">TosAgreementWrapped</a></code>
+- <code><a href="./src/resources/terms-of-service/agreements.ts">TosProductType</a></code>
+
+Methods:
+
+- <code title="get /terms_of_service/agreements">client.termsOfService.agreements.<a href="./src/resources/terms-of-service/agreements.ts">list</a>({ ...params }) -> TosAgreementsDefaultFlatPagination</code>
+- <code title="get /terms_of_service/agreements/{agreement_id}">client.termsOfService.agreements.<a href="./src/resources/terms-of-service/agreements.ts">retrieve</a>(agreementID) -> TosAgreementWrapped</code>
+
+## BrandedCalling
+
+Methods:
+
+- <code title="post /terms_of_service/branded_calling/agree">client.termsOfService.brandedCalling.<a href="./src/resources/terms-of-service/branded-calling.ts">agree</a>() -> TosAgreementWrapped</code>
 
 # PronunciationDicts
 
@@ -4830,18 +5020,17 @@ Types:
 
 - <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictAliasItem</a></code>
 - <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictData</a></code>
+- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictItem</a></code>
 - <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictPhonemeItem</a></code>
-- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictCreateResponse</a></code>
-- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictRetrieveResponse</a></code>
-- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictUpdateResponse</a></code>
+- <code><a href="./src/resources/pronunciation-dicts.ts">PronunciationDictResponse</a></code>
 
 Methods:
 
-- <code title="post /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">create</a>({ ...params }) -> PronunciationDictCreateResponse</code>
-- <code title="get /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">retrieve</a>(id) -> PronunciationDictRetrieveResponse</code>
-- <code title="patch /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">update</a>(id, { ...params }) -> PronunciationDictUpdateResponse</code>
 - <code title="get /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">list</a>({ ...params }) -> PronunciationDictDataDefaultFlatPagination</code>
+- <code title="post /pronunciation_dicts">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">create</a>({ ...params }) -> PronunciationDictResponse</code>
 - <code title="delete /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">delete</a>(id) -> void</code>
+- <code title="get /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">retrieve</a>(id) -> PronunciationDictResponse</code>
+- <code title="patch /pronunciation_dicts/{id}">client.pronunciationDicts.<a href="./src/resources/pronunciation-dicts.ts">update</a>(id, { ...params }) -> PronunciationDictResponse</code>
 
 # UacConnections
 
@@ -4850,6 +5039,7 @@ Types:
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnection</a></code>
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacExternalSettings</a></code>
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacInbound</a></code>
+- <code><a href="./src/resources/uac-connections/uac-connections.ts">UacInboundRequest</a></code>
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacInternalSettings</a></code>
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacOutbound</a></code>
 - <code><a href="./src/resources/uac-connections/uac-connections.ts">UacConnectionCreateResponse</a></code>
@@ -4859,11 +5049,11 @@ Types:
 
 Methods:
 
+- <code title="get /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">list</a>({ ...params }) -> UacConnectionsDefaultFlatPagination</code>
 - <code title="post /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">create</a>({ ...params }) -> UacConnectionCreateResponse</code>
+- <code title="delete /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">delete</a>(id) -> UacConnectionDeleteResponse</code>
 - <code title="get /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">retrieve</a>(id) -> UacConnectionRetrieveResponse</code>
 - <code title="patch /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">update</a>(id, { ...params }) -> UacConnectionUpdateResponse</code>
-- <code title="get /uac_connections">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">list</a>({ ...params }) -> UacConnectionsDefaultFlatPagination</code>
-- <code title="delete /uac_connections/{id}">client.uacConnections.<a href="./src/resources/uac-connections/uac-connections.ts">delete</a>(id) -> UacConnectionDeleteResponse</code>
 
 ## Actions
 
@@ -4874,3 +5064,142 @@ Types:
 Methods:
 
 - <code title="post /uac_connections/{id}/actions/check_registration_status">client.uacConnections.actions.<a href="./src/resources/uac-connections/actions.ts">checkRegistrationStatus</a>(id) -> ActionCheckRegistrationStatusResponse</code>
+
+# VoiceSDKCallReports
+
+Types:
+
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReport</a></code>
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportLogEntry</a></code>
+- <code><a href="./src/resources/voice-sdk-call-reports.ts">VoiceSDKCallReportRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /voice_sdk_call_reports">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">list</a>({ ...params }) -> VoiceSDKCallReportsDefaultFlatPagination</code>
+- <code title="get /voice_sdk_call_reports/{call_id}">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">retrieve</a>(callID) -> VoiceSDKCallReportRetrieveResponse</code>
+
+# SipRegistrationStatus
+
+Types:
+
+- <code><a href="./src/resources/sip-registration-status.ts">SipRegistrationStatusRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">retrieve</a>({ ...params }) -> SipRegistrationStatusRetrieveResponse</code>
+
+# CallReasons
+
+Types:
+
+- <code><a href="./src/resources/call-reasons.ts">BrandedCallingPaginationMeta</a></code>
+- <code><a href="./src/resources/call-reasons.ts">CallReasonListResponse</a></code>
+- <code><a href="./src/resources/call-reasons.ts">CallReasonValidateResponse</a></code>
+
+Methods:
+
+- <code title="get /call_reasons">client.callReasons.<a href="./src/resources/call-reasons.ts">list</a>({ ...params }) -> CallReasonListResponsesDefaultFlatPagination</code>
+- <code title="post /call_reasons/validate">client.callReasons.<a href="./src/resources/call-reasons.ts">validate</a>([ ...body ]) -> CallReasonValidateResponse</code>
+
+# Dir
+
+Types:
+
+- <code><a href="./src/resources/dir/dir.ts">Dir</a></code>
+- <code><a href="./src/resources/dir/dir.ts">DirList</a></code>
+- <code><a href="./src/resources/dir/dir.ts">DirStatus</a></code>
+- <code><a href="./src/resources/dir/dir.ts">DirWrapped</a></code>
+- <code><a href="./src/resources/dir/dir.ts">Document</a></code>
+- <code><a href="./src/resources/dir/dir.ts">DirListDocumentTypesResponse</a></code>
+
+Methods:
+
+- <code title="get /dir">client.dir.<a href="./src/resources/dir/dir.ts">list</a>({ ...params }) -> DirsDefaultFlatPagination</code>
+- <code title="get /dir/document_types">client.dir.<a href="./src/resources/dir/dir.ts">listDocumentTypes</a>() -> DirListDocumentTypesResponse</code>
+- <code title="delete /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">delete</a>(dirID) -> void</code>
+- <code title="get /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">retrieve</a>(dirID) -> DirWrapped</code>
+- <code title="patch /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">update</a>(dirID, { ...params }) -> DirWrapped</code>
+- <code title="get /dir/{dir_id}/infringement_claims">client.dir.<a href="./src/resources/dir/dir.ts">listInfringementClaims</a>(dirID, { ...params }) -> InfringementClaimsDefaultFlatPagination</code>
+- <code title="put /dir/{dir_id}/infringement_update">client.dir.<a href="./src/resources/dir/dir.ts">updateInfringement</a>(dirID, { ...params }) -> DirWrapped</code>
+- <code title="post /dir/{dir_id}/submit">client.dir.<a href="./src/resources/dir/dir.ts">submit</a>(dirID) -> DirWrapped</code>
+- <code title="post /dir/{dir_id}/loa">client.dir.<a href="./src/resources/dir/dir.ts">newLoa</a>(dirID, { ...params }) -> Response</code>
+
+## Comments
+
+Types:
+
+- <code><a href="./src/resources/dir/comments.ts">CommentType</a></code>
+- <code><a href="./src/resources/dir/comments.ts">DirComment</a></code>
+- <code><a href="./src/resources/dir/comments.ts">CommentCreateResponse</a></code>
+
+Methods:
+
+- <code title="get /dir/{dir_id}/comments">client.dir.comments.<a href="./src/resources/dir/comments.ts">list</a>(dirID, { ...params }) -> DirCommentsDefaultFlatPagination</code>
+- <code title="post /dir/{dir_id}/comments">client.dir.comments.<a href="./src/resources/dir/comments.ts">create</a>(dirID, { ...params }) -> CommentCreateResponse</code>
+
+## PhoneNumberBatches
+
+Types:
+
+- <code><a href="./src/resources/dir/phone-number-batches.ts">DirPhoneNumberStatus</a></code>
+- <code><a href="./src/resources/dir/phone-number-batches.ts">PhoneNumberBatch</a></code>
+- <code><a href="./src/resources/dir/phone-number-batches.ts">PhoneNumberBatchRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /dir/{dir_id}/phone_number_batches">client.dir.phoneNumberBatches.<a href="./src/resources/dir/phone-number-batches.ts">list</a>(dirID, { ...params }) -> PhoneNumberBatchesDefaultFlatPagination</code>
+- <code title="get /dir/{dir_id}/phone_number_batches/{batch_id}">client.dir.phoneNumberBatches.<a href="./src/resources/dir/phone-number-batches.ts">retrieve</a>(batchID, { ...params }) -> PhoneNumberBatchRetrieveResponse</code>
+
+## PhoneNumbers
+
+Types:
+
+- <code><a href="./src/resources/dir/phone-numbers.ts">DirPhoneNumber</a></code>
+- <code><a href="./src/resources/dir/phone-numbers.ts">RejectionReason</a></code>
+- <code><a href="./src/resources/dir/phone-numbers.ts">PhoneNumberAddResponse</a></code>
+- <code><a href="./src/resources/dir/phone-numbers.ts">PhoneNumberRemoveResponse</a></code>
+
+Methods:
+
+- <code title="delete /dir/{dir_id}/phone_numbers">client.dir.phoneNumbers.<a href="./src/resources/dir/phone-numbers.ts">remove</a>(dirID, { ...params }) -> PhoneNumberRemoveResponse</code>
+- <code title="get /dir/{dir_id}/phone_numbers">client.dir.phoneNumbers.<a href="./src/resources/dir/phone-numbers.ts">list</a>(dirID, { ...params }) -> DirPhoneNumbersDefaultFlatPagination</code>
+- <code title="post /dir/{dir_id}/phone_numbers">client.dir.phoneNumbers.<a href="./src/resources/dir/phone-numbers.ts">add</a>(dirID, { ...params }) -> PhoneNumberAddResponse</code>
+
+## References
+
+Types:
+
+- <code><a href="./src/resources/dir/references.ts">Reference</a></code>
+- <code><a href="./src/resources/dir/references.ts">ReferenceInput</a></code>
+- <code><a href="./src/resources/dir/references.ts">ReferenceList</a></code>
+- <code><a href="./src/resources/dir/references.ts">ReferenceUpdateResponse</a></code>
+
+Methods:
+
+- <code title="get /dir/{dir_id}/references">client.dir.references.<a href="./src/resources/dir/references.ts">list</a>(dirID) -> ReferenceList</code>
+- <code title="post /dir/{dir_id}/references">client.dir.references.<a href="./src/resources/dir/references.ts">create</a>(dirID, { ...params }) -> ReferenceList</code>
+- <code title="patch /dir/{dir_id}/references/{ref_type}/{slot}">client.dir.references.<a href="./src/resources/dir/references.ts">update</a>(slot, { ...params }) -> ReferenceUpdateResponse</code>
+
+## VerifyEmail
+
+Types:
+
+- <code><a href="./src/resources/dir/verify-email.ts">EmailVerificationStatusWrapped</a></code>
+
+Methods:
+
+- <code title="get /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">list</a>(dirID) -> EmailVerificationStatusWrapped</code>
+- <code title="post /dir/{dir_id}/verify_email">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">create</a>(dirID) -> EmailVerificationStatusWrapped</code>
+- <code title="post /dir/{dir_id}/verify_email/confirm">client.dir.verifyEmail.<a href="./src/resources/dir/verify-email.ts">confirm</a>(dirID, { ...params }) -> EmailVerificationStatusWrapped</code>
+
+# InfringementClaims
+
+Types:
+
+- <code><a href="./src/resources/infringement-claims.ts">InfringementClaim</a></code>
+- <code><a href="./src/resources/infringement-claims.ts">InfringementClaimWrapped</a></code>
+
+Methods:
+
+- <code title="get /infringement_claims/{claim_id}">client.infringementClaims.<a href="./src/resources/infringement-claims.ts">retrieve</a>(claimID) -> InfringementClaimWrapped</code>
+- <code title="post /infringement_claims/{claim_id}/contest">client.infringementClaims.<a href="./src/resources/infringement-claims.ts">contest</a>(claimID, { ...params }) -> InfringementClaimWrapped</code>

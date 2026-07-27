@@ -8,11 +8,11 @@ export {
   type AutoRespConfigResponse,
   type AutorespConfigListResponse,
   type AutorespConfigDeleteResponse,
+  type AutorespConfigListParams,
   type AutorespConfigCreateParams,
+  type AutorespConfigDeleteParams,
   type AutorespConfigRetrieveParams,
   type AutorespConfigUpdateParams,
-  type AutorespConfigListParams,
-  type AutorespConfigDeleteParams,
 } from './autoresp-configs';
 export {
   MessagingProfiles,
@@ -24,12 +24,12 @@ export {
   type MessagingProfileUpdateResponse,
   type MessagingProfileDeleteResponse,
   type MessagingProfileRetrieveMetricsResponse,
+  type MessagingProfileListParams,
   type MessagingProfileCreateParams,
   type MessagingProfileUpdateParams,
-  type MessagingProfileListParams,
-  type MessagingProfileListAlphanumericSenderIDsParams,
   type MessagingProfileListPhoneNumbersParams,
   type MessagingProfileListShortCodesParams,
+  type MessagingProfileListAlphanumericSenderIDsParams,
   type MessagingProfileRetrieveMetricsParams,
   type MessagingProfilesDefaultFlatPagination,
 } from './messaging-profiles';

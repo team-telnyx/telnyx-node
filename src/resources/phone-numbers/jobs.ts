@@ -14,18 +14,6 @@ import { path } from '../../internal/utils/path';
  */
 export class Jobs extends APIResource {
   /**
-   * Retrieve a phone numbers job
-   *
-   * @example
-   * ```ts
-   * const job = await client.phoneNumbers.jobs.retrieve('id');
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<JobRetrieveResponse> {
-    return this._client.get(path`/phone_numbers/jobs/${id}`, options);
-  }
-
-  /**
    * Lists the phone numbers jobs
    *
    * @example
@@ -68,6 +56,32 @@ export class Jobs extends APIResource {
   }
 
   /**
+   * Creates a background job to update the emergency settings of a collection of
+   * phone numbers. At most one thousand numbers can be updated per API call.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.phoneNumbers.jobs.updateEmergencySettingsBatch(
+   *     {
+   *       emergency_enabled: true,
+   *       phone_numbers: [
+   *         '+19705555098',
+   *         '+19715555098',
+   *         '32873127836',
+   *       ],
+   *     },
+   *   );
+   * ```
+   */
+  updateEmergencySettingsBatch(
+    body: JobUpdateEmergencySettingsBatchParams,
+    options?: RequestOptions,
+  ): APIPromise<JobUpdateEmergencySettingsBatchResponse> {
+    return this._client.post('/phone_numbers/jobs/update_emergency_settings', { body, ...options });
+  }
+
+  /**
    * Creates a new background job to update a batch of numbers. At most one thousand
    * numbers can be updated per API call. At least one of the updateable fields must
    * be submitted. IMPORTANT: You must either specify filters (using the filter
@@ -97,29 +111,15 @@ export class Jobs extends APIResource {
   }
 
   /**
-   * Creates a background job to update the emergency settings of a collection of
-   * phone numbers. At most one thousand numbers can be updated per API call.
+   * Retrieve a phone numbers job
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.phoneNumbers.jobs.updateEmergencySettingsBatch(
-   *     {
-   *       emergency_enabled: true,
-   *       phone_numbers: [
-   *         '+19705555098',
-   *         '+19715555098',
-   *         '32873127836',
-   *       ],
-   *     },
-   *   );
+   * const job = await client.phoneNumbers.jobs.retrieve('id');
    * ```
    */
-  updateEmergencySettingsBatch(
-    body: JobUpdateEmergencySettingsBatchParams,
-    options?: RequestOptions,
-  ): APIPromise<JobUpdateEmergencySettingsBatchResponse> {
-    return this._client.post('/phone_numbers/jobs/update_emergency_settings', { body, ...options });
+  retrieve(id: string, options?: RequestOptions): APIPromise<JobRetrieveResponse> {
+    return this._client.get(path`/phone_numbers/jobs/${id}`, options);
   }
 }
 
@@ -262,6 +262,22 @@ export namespace JobListParams {
 
 export interface JobDeleteBatchParams {
   phone_numbers: Array<string>;
+}
+
+export interface JobUpdateEmergencySettingsBatchParams {
+  /**
+   * Indicates whether to enable or disable emergency services on the numbers.
+   */
+  emergency_enabled: boolean;
+
+  phone_numbers: Array<string>;
+
+  /**
+   * Identifies the address to be used with emergency services. Required if
+   * emergency_enabled is true, must be null or omitted if emergency_enabled is
+   * false.
+   */
+  emergency_address_id?: string | null;
 }
 
 export interface JobUpdateBatchParams {
@@ -433,22 +449,6 @@ export namespace JobUpdateBatchParams {
   }
 }
 
-export interface JobUpdateEmergencySettingsBatchParams {
-  /**
-   * Indicates whether to enable or disable emergency services on the numbers.
-   */
-  emergency_enabled: boolean;
-
-  phone_numbers: Array<string>;
-
-  /**
-   * Identifies the address to be used with emergency services. Required if
-   * emergency_enabled is true, must be null or omitted if emergency_enabled is
-   * false.
-   */
-  emergency_address_id?: string | null;
-}
-
 export declare namespace Jobs {
   export {
     type PhoneNumbersJob as PhoneNumbersJob,
@@ -459,7 +459,7 @@ export declare namespace Jobs {
     type PhoneNumbersJobsDefaultFlatPagination as PhoneNumbersJobsDefaultFlatPagination,
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
-    type JobUpdateBatchParams as JobUpdateBatchParams,
     type JobUpdateEmergencySettingsBatchParams as JobUpdateEmergencySettingsBatchParams,
+    type JobUpdateBatchParams as JobUpdateBatchParams,
   };
 }

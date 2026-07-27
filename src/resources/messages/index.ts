@@ -2,7 +2,6 @@
 
 export {
   Messages,
-  type MessagingError,
   type OutboundMessagePayload,
   type RcsAgentMessage,
   type RcsCardContent,
@@ -24,15 +23,13 @@ export {
   type MessageSendLongCodeResponse,
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
-  type MessageSendWhatsappResponse,
   type MessageSendWithAlphanumericSenderResponse,
-  type MessageScheduleParams,
   type MessageSendParams,
-  type MessageSendGroupMmsParams,
   type MessageSendLongCodeParams,
   type MessageSendNumberPoolParams,
   type MessageSendShortCodeParams,
-  type MessageSendWhatsappParams,
+  type MessageSendGroupMmsParams,
+  type MessageScheduleParams,
   type MessageSendWithAlphanumericSenderParams,
 } from './messages';
 export {

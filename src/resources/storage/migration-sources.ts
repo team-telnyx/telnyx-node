@@ -11,6 +11,19 @@ import { path } from '../../internal/utils/path';
  */
 export class MigrationSources extends APIResource {
   /**
+   * List all Migration Sources
+   *
+   * @example
+   * ```ts
+   * const migrationSources =
+   *   await client.storage.migrationSources.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<MigrationSourceListResponse> {
+    return this._client.get('/storage/migration_sources', options);
+  }
+
+  /**
    * Create a source from which data can be migrated from.
    *
    * @example
@@ -31,32 +44,6 @@ export class MigrationSources extends APIResource {
   }
 
   /**
-   * Get a Migration Source
-   *
-   * @example
-   * ```ts
-   * const migrationSource =
-   *   await client.storage.migrationSources.retrieve('');
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<MigrationSourceRetrieveResponse> {
-    return this._client.get(path`/storage/migration_sources/${id}`, options);
-  }
-
-  /**
-   * List all Migration Sources
-   *
-   * @example
-   * ```ts
-   * const migrationSources =
-   *   await client.storage.migrationSources.list();
-   * ```
-   */
-  list(options?: RequestOptions): APIPromise<MigrationSourceListResponse> {
-    return this._client.get('/storage/migration_sources', options);
-  }
-
-  /**
    * Delete a Migration Source
    *
    * @example
@@ -67,6 +54,19 @@ export class MigrationSources extends APIResource {
    */
   delete(id: string, options?: RequestOptions): APIPromise<MigrationSourceDeleteResponse> {
     return this._client.delete(path`/storage/migration_sources/${id}`, options);
+  }
+
+  /**
+   * Get a Migration Source
+   *
+   * @example
+   * ```ts
+   * const migrationSource =
+   *   await client.storage.migrationSources.retrieve('');
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<MigrationSourceRetrieveResponse> {
+    return this._client.get(path`/storage/migration_sources/${id}`, options);
   }
 }
 

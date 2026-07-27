@@ -9,9 +9,9 @@ export {
   type MessagingHostedNumberOrderCheckEligibilityResponse,
   type MessagingHostedNumberOrderCreateVerificationCodesResponse,
   type MessagingHostedNumberOrderValidateCodesResponse,
-  type MessagingHostedNumberOrderCreateParams,
   type MessagingHostedNumberOrderListParams,
+  type MessagingHostedNumberOrderCreateParams,
   type MessagingHostedNumberOrderCheckEligibilityParams,
-  type MessagingHostedNumberOrderCreateVerificationCodesParams,
   type MessagingHostedNumberOrderValidateCodesParams,
+  type MessagingHostedNumberOrderCreateVerificationCodesParams,
 } from './messaging-hosted-number-orders';

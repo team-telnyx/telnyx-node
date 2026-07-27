@@ -1,18 +1,17 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../../core/resource';
-import * as AccountsAPI from '../accounts';
+import * as RecordingsJsonAPI from '../calls/recordings-json';
 import * as ParticipantsAPI from './participants';
 import {
   ParticipantDeleteParams,
   ParticipantParticipantsParams,
   ParticipantParticipantsResponse,
+  ParticipantResource,
   ParticipantRetrieveParams,
   ParticipantRetrieveParticipantsParams,
   ParticipantRetrieveParticipantsResponse,
-  ParticipantRetrieveResponse,
   ParticipantUpdateParams,
-  ParticipantUpdateResponse,
   Participants,
 } from './participants';
 import { APIPromise } from '../../../../core/api-promise';
@@ -25,52 +24,6 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Conferences extends APIResource {
   participants: ParticipantsAPI.Participants = new ParticipantsAPI.Participants(this._client);
-
-  /**
-   * Returns a conference resource.
-   *
-   * @example
-   * ```ts
-   * const conference =
-   *   await client.texml.accounts.conferences.retrieve(
-   *     'conference_sid',
-   *     { account_sid: 'account_sid' },
-   *   );
-   * ```
-   */
-  retrieve(
-    conferenceSid: string,
-    params: ConferenceRetrieveParams,
-    options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveResponse> {
-    const { account_sid } = params;
-    return this._client.get(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}`, options);
-  }
-
-  /**
-   * Updates a conference resource.
-   *
-   * @example
-   * ```ts
-   * const conference =
-   *   await client.texml.accounts.conferences.update(
-   *     'conference_sid',
-   *     { account_sid: 'account_sid' },
-   *   );
-   * ```
-   */
-  update(
-    conferenceSid: string,
-    params: ConferenceUpdateParams,
-    options?: RequestOptions,
-  ): APIPromise<ConferenceUpdateResponse> {
-    const { account_sid, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}`, {
-      body,
-      ...options,
-      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
-    });
-  }
 
   /**
    * Lists conference resources.
@@ -89,6 +42,52 @@ export class Conferences extends APIResource {
     options?: RequestOptions,
   ): APIPromise<ConferenceRetrieveConferencesResponse> {
     return this._client.get(path`/texml/Accounts/${accountSid}/Conferences`, { query, ...options });
+  }
+
+  /**
+   * Returns a conference resource.
+   *
+   * @example
+   * ```ts
+   * const conferenceResource =
+   *   await client.texml.accounts.conferences.retrieve(
+   *     'conference_sid',
+   *     { account_sid: 'account_sid' },
+   *   );
+   * ```
+   */
+  retrieve(
+    conferenceSid: string,
+    params: ConferenceRetrieveParams,
+    options?: RequestOptions,
+  ): APIPromise<ConferenceResource> {
+    const { account_sid } = params;
+    return this._client.get(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}`, options);
+  }
+
+  /**
+   * Updates a conference resource.
+   *
+   * @example
+   * ```ts
+   * const conferenceResource =
+   *   await client.texml.accounts.conferences.update(
+   *     'conference_sid',
+   *     { account_sid: 'account_sid' },
+   *   );
+   * ```
+   */
+  update(
+    conferenceSid: string,
+    params: ConferenceUpdateParams,
+    options?: RequestOptions,
+  ): APIPromise<ConferenceResource> {
+    const { account_sid, ...body } = params;
+    return this._client.post(path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ 'Content-Type': 'application/x-www-form-urlencoded' }, options?.headers]),
+    });
   }
 
   /**
@@ -120,7 +119,7 @@ export class Conferences extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
+   * const texmlGetCallRecordingsResponseBody =
    *   await client.texml.accounts.conferences.retrieveRecordingsJson(
    *     'conference_sid',
    *     { account_sid: 'account_sid' },
@@ -131,7 +130,7 @@ export class Conferences extends APIResource {
     conferenceSid: string,
     params: ConferenceRetrieveRecordingsJsonParams,
     options?: RequestOptions,
-  ): APIPromise<ConferenceRetrieveRecordingsJsonResponse> {
+  ): APIPromise<RecordingsJsonAPI.TexmlGetCallRecordingsResponseBody> {
     const { account_sid } = params;
     return this._client.get(
       path`/texml/Accounts/${account_sid}/Conferences/${conferenceSid}/Recordings.json`,
@@ -140,74 +139,7 @@ export class Conferences extends APIResource {
   }
 }
 
-export interface ConferenceRetrieveResponse {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid?: string;
-
-  /**
-   * The version of the API that was used to make the request.
-   */
-  api_version?: string;
-
-  /**
-   * Caller ID, if present.
-   */
-  call_sid_ending_conference?: string;
-
-  /**
-   * The timestamp of when the resource was created.
-   */
-  date_created?: string;
-
-  /**
-   * The timestamp of when the resource was last updated.
-   */
-  date_updated?: string;
-
-  /**
-   * A string that you assigned to describe this conference room.
-   */
-  friendly_name?: string;
-
-  /**
-   * The reason why a conference ended. When a conference is in progress, will be
-   * null.
-   */
-  reason_conference_ended?:
-    | 'participant-with-end-conference-on-exit-left'
-    | 'last-participant-left'
-    | 'conference-ended-via-api'
-    | 'time-exceeded';
-
-  /**
-   * A string representing the region where the conference is hosted.
-   */
-  region?: string;
-
-  /**
-   * The unique identifier of the conference.
-   */
-  sid?: string;
-
-  /**
-   * The status of this conference.
-   */
-  status?: 'init' | 'in-progress' | 'completed';
-
-  /**
-   * A list of related resources identified by their relative URIs.
-   */
-  subresource_uris?: { [key: string]: unknown };
-
-  /**
-   * The relative URI for this conference.
-   */
-  uri?: string;
-}
-
-export interface ConferenceUpdateResponse {
+export interface ConferenceResource {
   /**
    * The id of the account the resource belongs to.
    */
@@ -275,7 +207,7 @@ export interface ConferenceUpdateResponse {
 }
 
 export interface ConferenceRetrieveConferencesResponse {
-  conferences?: Array<ConferenceRetrieveConferencesResponse.Conference>;
+  conferences?: Array<ConferenceResource>;
 
   /**
    * The number of the last element on the page, zero-indexed.
@@ -311,75 +243,6 @@ export interface ConferenceRetrieveConferencesResponse {
    * The URI of the current page.
    */
   uri?: string;
-}
-
-export namespace ConferenceRetrieveConferencesResponse {
-  export interface Conference {
-    /**
-     * The id of the account the resource belongs to.
-     */
-    account_sid?: string;
-
-    /**
-     * The version of the API that was used to make the request.
-     */
-    api_version?: string;
-
-    /**
-     * Caller ID, if present.
-     */
-    call_sid_ending_conference?: string;
-
-    /**
-     * The timestamp of when the resource was created.
-     */
-    date_created?: string;
-
-    /**
-     * The timestamp of when the resource was last updated.
-     */
-    date_updated?: string;
-
-    /**
-     * A string that you assigned to describe this conference room.
-     */
-    friendly_name?: string;
-
-    /**
-     * The reason why a conference ended. When a conference is in progress, will be
-     * null.
-     */
-    reason_conference_ended?:
-      | 'participant-with-end-conference-on-exit-left'
-      | 'last-participant-left'
-      | 'conference-ended-via-api'
-      | 'time-exceeded';
-
-    /**
-     * A string representing the region where the conference is hosted.
-     */
-    region?: string;
-
-    /**
-     * The unique identifier of the conference.
-     */
-    sid?: string;
-
-    /**
-     * The status of this conference.
-     */
-    status?: 'init' | 'in-progress' | 'completed';
-
-    /**
-     * A list of related resources identified by their relative URIs.
-     */
-    subresource_uris?: { [key: string]: unknown };
-
-    /**
-     * The relative URI for this conference.
-     */
-    uri?: string;
-  }
 }
 
 export interface ConferenceRetrieveRecordingsResponse {
@@ -512,82 +375,6 @@ export namespace ConferenceRetrieveRecordingsResponse {
   }
 }
 
-export interface ConferenceRetrieveRecordingsJsonResponse {
-  /**
-   * The number of the last element on the page, zero-indexed.
-   */
-  end?: number;
-
-  /**
-   * Relative uri to the first page of the query results
-   */
-  first_page_uri?: string;
-
-  /**
-   * Relative uri to the next page of the query results
-   */
-  next_page_uri?: string;
-
-  /**
-   * Current page number, zero-indexed.
-   */
-  page?: number;
-
-  /**
-   * The number of items on the page
-   */
-  page_size?: number;
-
-  /**
-   * Relative uri to the previous page of the query results
-   */
-  previous_page_uri?: string;
-
-  recordings?: Array<AccountsAPI.TexmlGetCallRecordingResponseBody>;
-
-  /**
-   * The number of the first element on the page, zero-indexed.
-   */
-  start?: number;
-
-  /**
-   * The URI of the current page.
-   */
-  uri?: string;
-}
-
-export interface ConferenceRetrieveParams {
-  /**
-   * The id of the account the resource belongs to.
-   */
-  account_sid: string;
-}
-
-export interface ConferenceUpdateParams {
-  /**
-   * Path param: The id of the account the resource belongs to.
-   */
-  account_sid: string;
-
-  /**
-   * Body param: The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
-   */
-  AnnounceMethod?: 'GET' | 'POST';
-
-  /**
-   * Body param: The URL we should call to announce something into the conference.
-   * The URL may return an MP3 file, a WAV file, or a TwiML document that contains
-   * `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
-   */
-  AnnounceUrl?: string;
-
-  /**
-   * Body param: The new status of the resource. Specifying `completed` will end the
-   * conference and hang up all participants.
-   */
-  Status?: string;
-}
-
 export interface ConferenceRetrieveConferencesParams {
   /**
    * Filters conferences by the creation date. Expected format is YYYY-MM-DD. Also
@@ -628,6 +415,38 @@ export interface ConferenceRetrieveConferencesParams {
   Status?: 'init' | 'in-progress' | 'completed';
 }
 
+export interface ConferenceRetrieveParams {
+  /**
+   * The id of the account the resource belongs to.
+   */
+  account_sid: string;
+}
+
+export interface ConferenceUpdateParams {
+  /**
+   * Path param: The id of the account the resource belongs to.
+   */
+  account_sid: string;
+
+  /**
+   * Body param: The HTTP method used to call the `AnnounceUrl`. Defaults to `POST`.
+   */
+  AnnounceMethod?: 'GET' | 'POST';
+
+  /**
+   * Body param: The URL we should call to announce something into the conference.
+   * The URL may return an MP3 file, a WAV file, or a TwiML document that contains
+   * `<Play>`, `<Say>`, `<Pause>`, or `<Redirect>` verbs.
+   */
+  AnnounceUrl?: string;
+
+  /**
+   * Body param: The new status of the resource. Specifying `completed` will end the
+   * conference and hang up all participants.
+   */
+  Status?: string;
+}
+
 export interface ConferenceRetrieveRecordingsParams {
   /**
    * The id of the account the resource belongs to.
@@ -646,28 +465,25 @@ Conferences.Participants = Participants;
 
 export declare namespace Conferences {
   export {
-    type ConferenceRetrieveResponse as ConferenceRetrieveResponse,
-    type ConferenceUpdateResponse as ConferenceUpdateResponse,
+    type ConferenceResource as ConferenceResource,
     type ConferenceRetrieveConferencesResponse as ConferenceRetrieveConferencesResponse,
     type ConferenceRetrieveRecordingsResponse as ConferenceRetrieveRecordingsResponse,
-    type ConferenceRetrieveRecordingsJsonResponse as ConferenceRetrieveRecordingsJsonResponse,
+    type ConferenceRetrieveConferencesParams as ConferenceRetrieveConferencesParams,
     type ConferenceRetrieveParams as ConferenceRetrieveParams,
     type ConferenceUpdateParams as ConferenceUpdateParams,
-    type ConferenceRetrieveConferencesParams as ConferenceRetrieveConferencesParams,
     type ConferenceRetrieveRecordingsParams as ConferenceRetrieveRecordingsParams,
     type ConferenceRetrieveRecordingsJsonParams as ConferenceRetrieveRecordingsJsonParams,
   };
 
   export {
     Participants as Participants,
-    type ParticipantRetrieveResponse as ParticipantRetrieveResponse,
-    type ParticipantUpdateResponse as ParticipantUpdateResponse,
+    type ParticipantResource as ParticipantResource,
     type ParticipantParticipantsResponse as ParticipantParticipantsResponse,
     type ParticipantRetrieveParticipantsResponse as ParticipantRetrieveParticipantsResponse,
+    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
+    type ParticipantParticipantsParams as ParticipantParticipantsParams,
+    type ParticipantDeleteParams as ParticipantDeleteParams,
     type ParticipantRetrieveParams as ParticipantRetrieveParams,
     type ParticipantUpdateParams as ParticipantUpdateParams,
-    type ParticipantDeleteParams as ParticipantDeleteParams,
-    type ParticipantParticipantsParams as ParticipantParticipantsParams,
-    type ParticipantRetrieveParticipantsParams as ParticipantRetrieveParticipantsParams,
   };
 }

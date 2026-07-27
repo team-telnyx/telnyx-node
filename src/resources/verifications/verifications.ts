@@ -17,20 +17,6 @@ export class Verifications extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Retrieve verification
-   *
-   * @example
-   * ```ts
-   * const verification = await client.verifications.retrieve(
-   *   '12ade33a-21c0-473b-b055-b3c836e1c292',
-   * );
-   * ```
-   */
-  retrieve(verificationID: string, options?: RequestOptions): APIPromise<VerificationRetrieveResponse> {
-    return this._client.get(path`/verifications/${verificationID}`, options);
-  }
-
-  /**
    * Trigger Call verification
    *
    * @example
@@ -91,6 +77,20 @@ export class Verifications extends APIResource {
   }
 
   /**
+   * Retrieve verification
+   *
+   * @example
+   * ```ts
+   * const verification = await client.verifications.retrieve(
+   *   '12ade33a-21c0-473b-b055-b3c836e1c292',
+   * );
+   * ```
+   */
+  retrieve(verificationID: string, options?: RequestOptions): APIPromise<VerificationRetrieveResponse> {
+    return this._client.get(path`/verifications/${verificationID}`, options);
+  }
+
+  /**
    * Trigger WhatsApp verification
    *
    * @example
@@ -109,6 +109,31 @@ export class Verifications extends APIResource {
   ): APIPromise<CreateVerificationResponse> {
     return this._client.post('/verifications/whatsapp', { body, ...options });
   }
+}
+
+/**
+ * The request body when creating a verification.
+ */
+export interface CreateVerificationRequestSMS {
+  /**
+   * +E164 formatted phone number.
+   */
+  phone_number: string;
+
+  /**
+   * The identifier of the associated Verify profile.
+   */
+  verify_profile_id: string;
+
+  /**
+   * Send a self-generated numeric code to the end-user
+   */
+  custom_code?: string | null;
+
+  /**
+   * The number of seconds the verification code is valid for.
+   */
+  timeout_secs?: number;
 }
 
 export interface CreateVerificationResponse {
@@ -258,6 +283,7 @@ Verifications.Actions = Actions;
 
 export declare namespace Verifications {
   export {
+    type CreateVerificationRequestSMS as CreateVerificationRequestSMS,
     type CreateVerificationResponse as CreateVerificationResponse,
     type Verification as Verification,
     type VerificationRetrieveResponse as VerificationRetrieveResponse,

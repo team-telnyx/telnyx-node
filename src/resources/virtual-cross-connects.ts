@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as GlobalIPAssignmentsAPI from './global-ip-assignments';
+import * as PublicInternetGatewaysAPI from './public-internet-gateways';
 import * as NetworksAPI from './networks/networks';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
@@ -11,6 +13,28 @@ import { path } from '../internal/utils/path';
  * Virtual Cross Connect operations
  */
 export class VirtualCrossConnects extends APIResource {
+  /**
+   * List all Virtual Cross Connects.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const virtualCrossConnectCombined of client.virtualCrossConnects.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: VirtualCrossConnectListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<VirtualCrossConnectCombinedsDefaultFlatPagination, VirtualCrossConnectCombined> {
+    return this._client.getAPIList(
+      '/virtual_cross_connects',
+      DefaultFlatPagination<VirtualCrossConnectCombined>,
+      { query, ...options },
+    );
+  }
+
   /**
    * Create a new Virtual Cross Connect.<br /><br />For AWS and GCE, you have the
    * option of creating the primary connection first and the secondary connection
@@ -32,6 +56,21 @@ export class VirtualCrossConnects extends APIResource {
     options?: RequestOptions,
   ): APIPromise<VirtualCrossConnectCreateResponse> {
     return this._client.post('/virtual_cross_connects', { body, ...options });
+  }
+
+  /**
+   * Delete a Virtual Cross Connect.
+   *
+   * @example
+   * ```ts
+   * const virtualCrossConnect =
+   *   await client.virtualCrossConnects.delete(
+   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   *   );
+   * ```
+   */
+  delete(id: string, options?: RequestOptions): APIPromise<VirtualCrossConnectDeleteResponse> {
+    return this._client.delete(path`/virtual_cross_connects/${id}`, options);
   }
 
   /**
@@ -73,47 +112,38 @@ export class VirtualCrossConnects extends APIResource {
   ): APIPromise<VirtualCrossConnectUpdateResponse> {
     return this._client.patch(path`/virtual_cross_connects/${id}`, { body, ...options });
   }
-
-  /**
-   * List all Virtual Cross Connects.
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const virtualCrossConnectCombined of client.virtualCrossConnects.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: VirtualCrossConnectListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<VirtualCrossConnectCombinedsDefaultFlatPagination, VirtualCrossConnectCombined> {
-    return this._client.getAPIList(
-      '/virtual_cross_connects',
-      DefaultFlatPagination<VirtualCrossConnectCombined>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * Delete a Virtual Cross Connect.
-   *
-   * @example
-   * ```ts
-   * const virtualCrossConnect =
-   *   await client.virtualCrossConnects.delete(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
-   * ```
-   */
-  delete(id: string, options?: RequestOptions): APIPromise<VirtualCrossConnectDeleteResponse> {
-    return this._client.delete(path`/virtual_cross_connects/${id}`, options);
-  }
 }
 
 export type VirtualCrossConnectCombinedsDefaultFlatPagination =
   DefaultFlatPagination<VirtualCrossConnectCombined>;
+
+export interface RegionOut {
+  region?: RegionOut.Region;
+
+  /**
+   * The region interface is deployed to.
+   */
+  region_code?: string;
+}
+
+export namespace RegionOut {
+  export interface Region {
+    /**
+     * Region code of the interface.
+     */
+    code?: string;
+
+    /**
+     * Region name of the interface.
+     */
+    name?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: string;
+  }
+}
 
 export interface VirtualCrossConnectCombined {
   /**
@@ -230,6 +260,146 @@ export namespace VirtualCrossConnectCombined {
   }
 }
 
+export interface VirtualCrossConnectCreate
+  extends GlobalIPAssignmentsAPI.Record,
+    PublicInternetGatewaysAPI.NetworkInterface {
+  /**
+   * The region the interface should be deployed to.
+   */
+  region_code: string;
+
+  /**
+   * The desired throughput in Megabits per Second (Mbps) for your Virtual Cross
+   * Connect.<br /><br />The available bandwidths can be found using the
+   * /virtual_cross_connect_regions endpoint.
+   */
+  bandwidth_mbps?: number;
+
+  /**
+   * The Border Gateway Protocol (BGP) Autonomous System Number (ASN). If null, value
+   * will be assigned by Telnyx.
+   */
+  bgp_asn?: number;
+
+  /**
+   * The Virtual Private Cloud with which you would like to establish a cross
+   * connect.
+   */
+  cloud_provider?: 'aws' | 'azure' | 'gce';
+
+  /**
+   * The region where your Virtual Private Cloud hosts are located.<br /><br />The
+   * available regions can be found using the /virtual_cross_connect_regions
+   * endpoint.
+   */
+  cloud_provider_region?: string;
+
+  /**
+   * The authentication key for BGP peer configuration.
+   */
+  primary_bgp_key?: string;
+
+  /**
+   * The identifier for your Virtual Private Cloud. The number will be different
+   * based upon your Cloud provider.
+   */
+  primary_cloud_account_id?: string;
+
+  /**
+   * The IP address assigned for your side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value should be null for GCE as Google will only inform you
+   * of your assigned IP once the connection has been accepted.
+   */
+  primary_cloud_ip?: string;
+
+  /**
+   * Indicates whether the primary circuit is enabled. Setting this to `false` will
+   * disable the circuit.
+   */
+  primary_enabled?: boolean;
+
+  /**
+   * The IP address assigned to the Telnyx side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value should be null for GCE as Google will only inform you
+   * of your assigned IP once the connection has been accepted.
+   */
+  primary_telnyx_ip?: string;
+
+  /**
+   * The authentication key for BGP peer configuration.
+   */
+  secondary_bgp_key?: string;
+
+  /**
+   * The identifier for your Virtual Private Cloud. The number will be different
+   * based upon your Cloud provider.<br /><br />This attribute is only necessary for
+   * GCE.
+   */
+  secondary_cloud_account_id?: string;
+
+  /**
+   * The IP address assigned for your side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value should be null for GCE as Google will only inform you
+   * of your assigned IP once the connection has been accepted.
+   */
+  secondary_cloud_ip?: string;
+
+  /**
+   * Indicates whether the secondary circuit is enabled. Setting this to `false` will
+   * disable the circuit.
+   */
+  secondary_enabled?: boolean;
+
+  /**
+   * The IP address assigned to the Telnyx side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value should be null for GCE as Google will only inform you
+   * of your assigned IP once the connection has been accepted.
+   */
+  secondary_telnyx_ip?: string;
+}
+
+export interface VirtualCrossConnectPatch {
+  /**
+   * The IP address assigned for your side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
+   */
+  primary_cloud_ip?: string;
+
+  /**
+   * Indicates whether the primary circuit is enabled. Setting this to `false` will
+   * disable the circuit.
+   */
+  primary_enabled?: boolean;
+
+  /**
+   * Whether the primary BGP route is being announced.
+   */
+  primary_routing_announcement?: boolean;
+
+  /**
+   * The IP address assigned for your side of the Virtual Cross
+   * Connect.<br /><br />If none is provided, one will be generated for
+   * you.<br /><br />This value can not be patched once the VXC has bene provisioned.
+   */
+  secondary_cloud_ip?: string;
+
+  /**
+   * Indicates whether the secondary circuit is enabled. Setting this to `false` will
+   * disable the circuit.
+   */
+  secondary_enabled?: boolean;
+
+  /**
+   * Whether the secondary BGP route is being announced.
+   */
+  secondary_routing_announcement?: boolean;
+}
+
 export interface VirtualCrossConnectCreateResponse {
   data?: VirtualCrossConnectCombined;
 }
@@ -244,6 +414,25 @@ export interface VirtualCrossConnectUpdateResponse {
 
 export interface VirtualCrossConnectDeleteResponse {
   data?: VirtualCrossConnectCombined;
+}
+
+export interface VirtualCrossConnectListParams extends DefaultFlatPaginationParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
+   */
+  filter?: VirtualCrossConnectListParams.Filter;
+}
+
+export namespace VirtualCrossConnectListParams {
+  /**
+   * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
+   */
+  export interface Filter {
+    /**
+     * The associated network id to filter on.
+     */
+    network_id?: string;
+  }
 }
 
 export interface VirtualCrossConnectCreateParams {
@@ -382,35 +571,19 @@ export interface VirtualCrossConnectUpdateParams {
   secondary_routing_announcement?: boolean;
 }
 
-export interface VirtualCrossConnectListParams extends DefaultFlatPaginationParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
-   */
-  filter?: VirtualCrossConnectListParams.Filter;
-}
-
-export namespace VirtualCrossConnectListParams {
-  /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[network_id]
-   */
-  export interface Filter {
-    /**
-     * The associated network id to filter on.
-     */
-    network_id?: string;
-  }
-}
-
 export declare namespace VirtualCrossConnects {
   export {
+    type RegionOut as RegionOut,
     type VirtualCrossConnectCombined as VirtualCrossConnectCombined,
+    type VirtualCrossConnectCreate as VirtualCrossConnectCreate,
+    type VirtualCrossConnectPatch as VirtualCrossConnectPatch,
     type VirtualCrossConnectCreateResponse as VirtualCrossConnectCreateResponse,
     type VirtualCrossConnectRetrieveResponse as VirtualCrossConnectRetrieveResponse,
     type VirtualCrossConnectUpdateResponse as VirtualCrossConnectUpdateResponse,
     type VirtualCrossConnectDeleteResponse as VirtualCrossConnectDeleteResponse,
     type VirtualCrossConnectCombinedsDefaultFlatPagination as VirtualCrossConnectCombinedsDefaultFlatPagination,
+    type VirtualCrossConnectListParams as VirtualCrossConnectListParams,
     type VirtualCrossConnectCreateParams as VirtualCrossConnectCreateParams,
     type VirtualCrossConnectUpdateParams as VirtualCrossConnectUpdateParams,
-    type VirtualCrossConnectListParams as VirtualCrossConnectListParams,
   };
 }

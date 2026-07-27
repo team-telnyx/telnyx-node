@@ -17,9 +17,39 @@ export class Faxes extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
+   * View a list of faxes
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const fax of client.faxes.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: FaxListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FaxesDefaultFlatPagination, Fax> {
+    return this._client.getAPIList('/faxes', DefaultFlatPagination<Fax>, { query, ...options });
+  }
+
+  /**
    * Send a fax. Files have size limits and page count limit validations. If a file
    * is bigger than 50MB or has more than 350 pages it will fail with
    * `file_size_limit_exceeded` and `page_count_limit_exceeded` respectively.
+   *
+   * **Supported file formats:**
+   *
+   * - PDF (`application/pdf`)
+   * - TIFF (`application/tiff`, `image/tiff`)
+   * - JPEG (`image/jpeg`)
+   * - PNG (`image/png`)
+   * - Microsoft Word `.doc` (`application/msword`)
+   * - Microsoft Word `.docx`
+   *   (`application/vnd.openxmlformats-officedocument.wordprocessingml.document`)
+   * - Rich Text Format `.rtf` (`application/rtf`)
+   * - Plain text `.txt` (`text/plain`)
    *
    * **Expected Webhooks:**
    *
@@ -43,38 +73,6 @@ export class Faxes extends APIResource {
   }
 
   /**
-   * View a fax
-   *
-   * @example
-   * ```ts
-   * const fax = await client.faxes.retrieve(
-   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
-   * ```
-   */
-  retrieve(id: string, options?: RequestOptions): APIPromise<FaxRetrieveResponse> {
-    return this._client.get(path`/faxes/${id}`, options);
-  }
-
-  /**
-   * View a list of faxes
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const fax of client.faxes.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: FaxListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<FaxesDefaultFlatPagination, Fax> {
-    return this._client.getAPIList('/faxes', DefaultFlatPagination<Fax>, { query, ...options });
-  }
-
-  /**
    * Delete a fax
    *
    * @example
@@ -89,6 +87,20 @@ export class Faxes extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
+  }
+
+  /**
+   * View a fax
+   *
+   * @example
+   * ```ts
+   * const fax = await client.faxes.retrieve(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  retrieve(id: string, options?: RequestOptions): APIPromise<FaxRetrieveResponse> {
+    return this._client.get(path`/faxes/${id}`, options);
   }
 }
 
@@ -121,6 +133,28 @@ export interface Fax {
   direction?: 'inbound' | 'outbound';
 
   /**
+   * Customer-facing failure reason for the fax. Present on every fax object (null
+   * when the fax has not failed). Mapped from the more granular
+   * `internal_failure_reason`. Common values include: `receiver_call_dropped`,
+   * `sender_call_dropped`, `sender_canceled`, `carrier_lost`, `service_unavailable`,
+   * `fax_signaling_error`, `receiver_communication_error`,
+   * `sender_communication_error`, `receiver_decline`,
+   * `receiver_recovery_on_timer_expire`, `receiver_no_response`,
+   * `receiver_invalid_number_format`, `receiver_no_answer`,
+   * `receiver_incompatible_destination`, `receiver_unallocated_number`,
+   * `destination_unreachable`, `user_busy`, `invalid_ecm_response_from_receiver`,
+   * `fax_initial_communication_timeout`, `destination_not_in_service_plan`,
+   * `account_disabled`, `destination_invalid`, `no_outbound_profile`,
+   * `destination_not_in_countries_whitelist`, `user_channel_limit_exceeded`,
+   * `outbound_profile_channel_limit_exceeded`, `connection_channel_limit_exceeded`,
+   * `outbound_profile_daily_spend_limit_exceeded`, `unverified_origination_number`,
+   * `unverified_destination_not_allowed`, `file_format_invalid`,
+   * `file_download_failed`, `file_size_limit_exceeded`, `page_count_limit_exceeded`,
+   * `media_processing_exception`.
+   */
+  failure_reason?: string | null;
+
+  /**
    * The phone number, in E.164 format, the fax will be sent from.
    */
   from?: string;
@@ -132,15 +166,24 @@ export interface Fax {
   from_display_name?: string;
 
   /**
+   * Internal, more granular failure reason for the fax. Present on every fax object
+   * (null when the fax has not failed). Useful for deeper debugging beyond the
+   * customer-facing `failure_reason`.
+   */
+  internal_failure_reason?: string | null;
+
+  /**
    * The media_name used for the fax's media. Must point to a file previously
-   * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-   * and media_url/contents can't be submitted together.
+   * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+   * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+   * media_url/contents can't be submitted together.
    */
   media_name?: string;
 
   /**
-   * The URL (or list of URLs) to the PDF used for the fax's media. media_url and
-   * media_name/contents can't be submitted together.
+   * The URL (or list of URLs) to the fax document. Supported formats: PDF, TIFF,
+   * JPEG, PNG, DOC, DOCX, RTF, and TXT. media_url and media_name/contents can't be
+   * submitted together.
    */
   media_url?: string;
 
@@ -155,7 +198,7 @@ export interface Fax {
    * available, but also present longer fax processing times. `ultra_light` is best
    * suited for images, wihle `ultra_dark` is best suited for text.
    */
-  quality?: 'normal' | 'high' | 'very_high' | 'ultra_light' | 'ultra_dark';
+  quality?: Quality;
 
   /**
    * Identifies the type of the resource.
@@ -210,102 +253,19 @@ export interface Fax {
   webhook_url?: string;
 }
 
+/**
+ * The quality of the fax. The `ultra` settings provides the highest quality
+ * available, but also present longer fax processing times. `ultra_light` is best
+ * suited for images, wihle `ultra_dark` is best suited for text.
+ */
+export type Quality = 'normal' | 'high' | 'very_high' | 'ultra_light' | 'ultra_dark';
+
 export interface FaxCreateResponse {
   data?: Fax;
 }
 
 export interface FaxRetrieveResponse {
   data?: Fax;
-}
-
-export interface FaxCreateParams {
-  /**
-   * The connection ID to send the fax with.
-   */
-  connection_id: string;
-
-  /**
-   * The phone number, in E.164 format, the fax will be sent from.
-   */
-  from: string;
-
-  /**
-   * The phone number, in E.164 format, the fax will be sent to or SIP URI
-   */
-  to: string;
-
-  /**
-   * The black threshold percentage for monochrome faxes. Only applicable if
-   * `monochrome` is set to `true`.
-   */
-  black_threshold?: number;
-
-  /**
-   * Use this field to add state to every subsequent webhook. It must be a valid
-   * Base-64 encoded string.
-   */
-  client_state?: string;
-
-  /**
-   * The `from_display_name` string to be used as the caller id name (SIP From
-   * Display Name) presented to the destination (`to` number). The string should have
-   * a maximum of 128 characters, containing only letters, numbers, spaces, and
-   * -\_~!.+ special characters. If ommited, the display name will be the same as the
-   * number in the `from` field.
-   */
-  from_display_name?: string;
-
-  /**
-   * The media_name used for the fax's media. Must point to a file previously
-   * uploaded to api.telnyx.com/v2/media by the same user/organization. media_name
-   * and media_url/contents can't be submitted together.
-   */
-  media_name?: string;
-
-  /**
-   * The URL (or list of URLs) to the PDF used for the fax's media. media_url and
-   * media_name/contents can't be submitted together.
-   */
-  media_url?: string;
-
-  /**
-   * The flag to enable monochrome, true black and white fax results.
-   */
-  monochrome?: boolean;
-
-  /**
-   * The format for the preview file in case the `store_preview` is `true`.
-   */
-  preview_format?: 'pdf' | 'tiff';
-
-  /**
-   * The quality of the fax. The `ultra` settings provides the highest quality
-   * available, but also present longer fax processing times. `ultra_light` is best
-   * suited for images, wihle `ultra_dark` is best suited for text.
-   */
-  quality?: 'normal' | 'high' | 'very_high' | 'ultra_light' | 'ultra_dark';
-
-  /**
-   * Should fax media be stored on temporary URL. It does not support media_name,
-   * they can't be submitted together.
-   */
-  store_media?: boolean;
-
-  /**
-   * Should fax preview be stored on temporary URL.
-   */
-  store_preview?: boolean;
-
-  /**
-   * The flag to disable the T.38 protocol.
-   */
-  t38_enabled?: boolean;
-
-  /**
-   * Use this field to override the URL to which Telnyx will send subsequent webhooks
-   * for this fax.
-   */
-  webhook_url?: string;
 }
 
 export interface FaxListParams extends DefaultFlatPaginationParams {
@@ -403,16 +363,109 @@ export namespace FaxListParams {
   }
 }
 
+export interface FaxCreateParams {
+  /**
+   * The connection ID to send the fax with.
+   */
+  connection_id: string;
+
+  /**
+   * The phone number, in E.164 format, the fax will be sent from.
+   */
+  from: string;
+
+  /**
+   * The phone number, in E.164 format, the fax will be sent to or SIP URI
+   */
+  to: string;
+
+  /**
+   * The black threshold percentage for monochrome faxes. Only applicable if
+   * `monochrome` is set to `true`.
+   */
+  black_threshold?: number;
+
+  /**
+   * Use this field to add state to every subsequent webhook. It must be a valid
+   * Base-64 encoded string.
+   */
+  client_state?: string;
+
+  /**
+   * The `from_display_name` string to be used as the caller id name (SIP From
+   * Display Name) presented to the destination (`to` number). The string should have
+   * a maximum of 128 characters, containing only letters, numbers, spaces, and
+   * -\_~!.+ special characters. If ommited, the display name will be the same as the
+   * number in the `from` field.
+   */
+  from_display_name?: string;
+
+  /**
+   * The media_name used for the fax's media. Must point to a file previously
+   * uploaded to api.telnyx.com/v2/media by the same user/organization. Supported
+   * formats: PDF, TIFF, JPEG, PNG, DOC, DOCX, RTF, and TXT. media_name and
+   * media_url/contents can't be submitted together.
+   */
+  media_name?: string;
+
+  /**
+   * The URL (or list of URLs) to the fax document. Supported formats: PDF, TIFF,
+   * JPEG, PNG, DOC, DOCX, RTF, and TXT. media_url and media_name/contents can't be
+   * submitted together.
+   */
+  media_url?: string;
+
+  /**
+   * The flag to enable monochrome, true black and white fax results.
+   */
+  monochrome?: boolean;
+
+  /**
+   * The format for the preview file in case the `store_preview` is `true`.
+   */
+  preview_format?: 'pdf' | 'tiff';
+
+  /**
+   * The quality of the fax. The `ultra` settings provides the highest quality
+   * available, but also present longer fax processing times. `ultra_light` is best
+   * suited for images, wihle `ultra_dark` is best suited for text.
+   */
+  quality?: Quality;
+
+  /**
+   * Should fax media be stored on temporary URL. It does not support media_name,
+   * they can't be submitted together.
+   */
+  store_media?: boolean;
+
+  /**
+   * Should fax preview be stored on temporary URL.
+   */
+  store_preview?: boolean;
+
+  /**
+   * The flag to disable the T.38 protocol.
+   */
+  t38_enabled?: boolean;
+
+  /**
+   * Use this field to override the URL to which Telnyx will send subsequent webhooks
+   * for this fax.
+   */
+  webhook_url?: string;
+}
+
 Faxes.Actions = Actions;
 
 export declare namespace Faxes {
   export {
     type Fax as Fax,
+    type Quality as Quality,
     type FaxCreateResponse as FaxCreateResponse,
     type FaxRetrieveResponse as FaxRetrieveResponse,
     type FaxesDefaultFlatPagination as FaxesDefaultFlatPagination,
-    type FaxCreateParams as FaxCreateParams,
     type FaxListParams as FaxListParams,
+    type FaxCreateParams as FaxCreateParams,
   };
 
   export {

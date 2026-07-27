@@ -26,8 +26,8 @@ export declare namespace Messaging {
     type RcInviteTestNumberResponse as RcInviteTestNumberResponse,
     type RcListBulkCapabilitiesResponse as RcListBulkCapabilitiesResponse,
     type RcRetrieveCapabilitiesResponse as RcRetrieveCapabilitiesResponse,
-    type RcInviteTestNumberParams as RcInviteTestNumberParams,
     type RcListBulkCapabilitiesParams as RcListBulkCapabilitiesParams,
     type RcRetrieveCapabilitiesParams as RcRetrieveCapabilitiesParams,
+    type RcInviteTestNumberParams as RcInviteTestNumberParams,
   };
 }

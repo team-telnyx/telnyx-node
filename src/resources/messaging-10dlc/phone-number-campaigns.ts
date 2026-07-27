@@ -11,6 +11,28 @@ import { path } from '../../internal/utils/path';
  */
 export class PhoneNumberCampaigns extends APIResource {
   /**
+   * List phone number campaigns
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const phoneNumberCampaign of client.messaging10dlc.phoneNumberCampaigns.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: PhoneNumberCampaignListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<PhoneNumberCampaignsPerPagePaginationV2, PhoneNumberCampaign> {
+    return this._client.getAPIList(
+      '/10dlc/phone_number_campaigns',
+      PerPagePaginationV2<PhoneNumberCampaign>,
+      { query, ...options },
+    );
+  }
+
+  /**
    * Create New Phone Number Campaign
    *
    * @example
@@ -24,6 +46,22 @@ export class PhoneNumberCampaigns extends APIResource {
    */
   create(body: PhoneNumberCampaignCreateParams, options?: RequestOptions): APIPromise<PhoneNumberCampaign> {
     return this._client.post('/10dlc/phone_number_campaigns', { body, ...options });
+  }
+
+  /**
+   * This endpoint allows you to remove a campaign assignment from the supplied
+   * `phoneNumber`.
+   *
+   * @example
+   * ```ts
+   * const phoneNumberCampaign =
+   *   await client.messaging10dlc.phoneNumberCampaigns.delete(
+   *     'phoneNumber',
+   *   );
+   * ```
+   */
+  delete(phoneNumber: string, options?: RequestOptions): APIPromise<PhoneNumberCampaign> {
+    return this._client.delete(path`/10dlc/phone_number_campaigns/${phoneNumber}`, options);
   }
 
   /**
@@ -62,44 +100,6 @@ export class PhoneNumberCampaigns extends APIResource {
     options?: RequestOptions,
   ): APIPromise<PhoneNumberCampaign> {
     return this._client.put(path`/10dlc/phone_number_campaigns/${campaignPhoneNumber}`, { body, ...options });
-  }
-
-  /**
-   * List phone number campaigns
-   *
-   * @example
-   * ```ts
-   * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberCampaign of client.messaging10dlc.phoneNumberCampaigns.list()) {
-   *   // ...
-   * }
-   * ```
-   */
-  list(
-    query: PhoneNumberCampaignListParams | null | undefined = {},
-    options?: RequestOptions,
-  ): PagePromise<PhoneNumberCampaignsPerPagePaginationV2, PhoneNumberCampaign> {
-    return this._client.getAPIList(
-      '/10dlc/phone_number_campaigns',
-      PerPagePaginationV2<PhoneNumberCampaign>,
-      { query, ...options },
-    );
-  }
-
-  /**
-   * This endpoint allows you to remove a campaign assignment from the supplied
-   * `phoneNumber`.
-   *
-   * @example
-   * ```ts
-   * const phoneNumberCampaign =
-   *   await client.messaging10dlc.phoneNumberCampaigns.delete(
-   *     'phoneNumber',
-   *   );
-   * ```
-   */
-  delete(phoneNumber: string, options?: RequestOptions): APIPromise<PhoneNumberCampaign> {
-    return this._client.delete(path`/10dlc/phone_number_campaigns/${phoneNumber}`, options);
   }
 }
 
@@ -140,6 +140,11 @@ export interface PhoneNumberCampaign {
   failureReasons?: string;
 
   /**
+   * The assignment status of the number towards other carriers.
+   */
+  nonTmobileNumberMappingStatus?: string;
+
+  /**
    * TCR's alphanumeric ID for the brand.
    */
   tcrBrandId?: string;
@@ -153,33 +158,14 @@ export interface PhoneNumberCampaign {
    * Campaign ID. Empty if the number is associated to a shared campaign.
    */
   telnyxCampaignId?: string;
+
+  /**
+   * The T-Mobile assignment status of the number.
+   */
+  tmobileNumberMappingStatus?: string;
 }
 
 export interface PhoneNumberCampaignCreate {
-  /**
-   * The ID of the campaign you want to link to the specified phone number.
-   */
-  campaignId: string;
-
-  /**
-   * The phone number you want to link to a specified campaign.
-   */
-  phoneNumber: string;
-}
-
-export interface PhoneNumberCampaignCreateParams {
-  /**
-   * The ID of the campaign you want to link to the specified phone number.
-   */
-  campaignId: string;
-
-  /**
-   * The phone number you want to link to a specified campaign.
-   */
-  phoneNumber: string;
-}
-
-export interface PhoneNumberCampaignUpdateParams {
   /**
    * The ID of the campaign you want to link to the specified phone number.
    */
@@ -241,13 +227,37 @@ export namespace PhoneNumberCampaignListParams {
   }
 }
 
+export interface PhoneNumberCampaignCreateParams {
+  /**
+   * The ID of the campaign you want to link to the specified phone number.
+   */
+  campaignId: string;
+
+  /**
+   * The phone number you want to link to a specified campaign.
+   */
+  phoneNumber: string;
+}
+
+export interface PhoneNumberCampaignUpdateParams {
+  /**
+   * The ID of the campaign you want to link to the specified phone number.
+   */
+  campaignId: string;
+
+  /**
+   * The phone number you want to link to a specified campaign.
+   */
+  phoneNumber: string;
+}
+
 export declare namespace PhoneNumberCampaigns {
   export {
     type PhoneNumberCampaign as PhoneNumberCampaign,
     type PhoneNumberCampaignCreate as PhoneNumberCampaignCreate,
     type PhoneNumberCampaignsPerPagePaginationV2 as PhoneNumberCampaignsPerPagePaginationV2,
+    type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams,
     type PhoneNumberCampaignCreateParams as PhoneNumberCampaignCreateParams,
     type PhoneNumberCampaignUpdateParams as PhoneNumberCampaignUpdateParams,
-    type PhoneNumberCampaignListParams as PhoneNumberCampaignListParams,
   };
 }

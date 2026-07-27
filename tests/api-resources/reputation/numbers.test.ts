@@ -9,30 +9,6 @@ const client = new Telnyx({
 
 describe('resource numbers', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.reputation.numbers.retrieve('+16035551234');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: request options and params are passed correctly', async () => {
-    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
-    await expect(
-      client.reputation.numbers.retrieve(
-        '+16035551234',
-        { fresh: true },
-        { path: '/_stainless_unknown_path' },
-      ),
-    ).rejects.toThrow(Telnyx.NotFoundError);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.reputation.numbers.list();
     const rawResponse = await responsePromise.asResponse();
@@ -50,9 +26,11 @@ describe('resource numbers', () => {
     await expect(
       client.reputation.numbers.list(
         {
+          'filter[enterprise_id]': '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          'filter[phone_number][contains]': '+16035551234',
+          'filter[phone_number][eq]': '+16035551234',
           'page[number]': 1,
-          'page[size]': 1,
-          phone_number: '+16035551234',
+          'page[size]': 20,
         },
         { path: '/_stainless_unknown_path' },
       ),
@@ -61,7 +39,7 @@ describe('resource numbers', () => {
 
   // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.reputation.numbers.delete('+16035551234');
+    const responsePromise = client.reputation.numbers.delete('+19493253498');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -69,5 +47,29 @@ describe('resource numbers', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.reputation.numbers.retrieve('+19493253498');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.reputation.numbers.retrieve(
+        '+19493253498',
+        { fresh: true },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

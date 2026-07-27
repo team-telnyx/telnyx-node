@@ -6,6 +6,24 @@ export {
   type BucketCreatePresignedURLParams,
 } from './buckets/index';
 export {
+  Cloudfs,
+  type CloudfsFilesystemDetailResponseWrapper,
+  type CloudfsFilesystemResponseWrapper,
+  type CloudfsFilesystemStatus,
+  type CloudfListResponse,
+  type CloudfListParams,
+  type CloudfCreateParams,
+  type CloudfUpdateParams,
+} from './cloudfs/index';
+export {
+  Kvs,
+  type KvNamespace,
+  type KvNamespaceResponseWrapper,
+  type KvListParams,
+  type KvCreateParams,
+  type KvNamespacesDefaultFlatPagination,
+} from './kvs/index';
+export {
   MigrationSources,
   type MigrationSourceParams,
   type MigrationSourceCreateResponse,

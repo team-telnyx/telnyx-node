@@ -9,18 +9,6 @@ const client = new Telnyx({
 
 describe('resource numberOrderPhoneNumbers', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.numberOrderPhoneNumbers.retrieve('number_order_phone_number_id');
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
   test.skip('list', async () => {
     const responsePromise = client.numberOrderPhoneNumbers.list();
     const rawResponse = await responsePromise.asResponse();
@@ -64,6 +52,18 @@ describe('resource numberOrderPhoneNumbers', () => {
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       { requirement_group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
     );
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieve', async () => {
+    const responsePromise = client.numberOrderPhoneNumbers.retrieve('number_order_phone_number_id');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 
   // Mock server tests are disabled

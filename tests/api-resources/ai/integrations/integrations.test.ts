@@ -9,8 +9,8 @@ const client = new Telnyx({
 
 describe('resource integrations', () => {
   // Mock server tests are disabled
-  test.skip('retrieve', async () => {
-    const responsePromise = client.ai.integrations.retrieve('integration_id');
+  test.skip('list', async () => {
+    const responsePromise = client.ai.integrations.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -21,8 +21,8 @@ describe('resource integrations', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('list', async () => {
-    const responsePromise = client.ai.integrations.list();
+  test.skip('retrieve', async () => {
+    const responsePromise = client.ai.integrations.retrieve('integration_id');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
