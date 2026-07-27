@@ -71,5 +71,8 @@ jobs:
       - name: Check build
         run: ./scripts/build
 
+      - name: Check package imports without optional dependencies
+        run: ./scripts/test-package-imports
+
       - name: Check MCP Deno execute
         run: pnpm --dir packages/mcp-server test:deno-execute
