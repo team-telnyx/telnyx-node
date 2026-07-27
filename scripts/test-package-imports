@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+repo_root=$(cd "$(dirname "$0")/.." && pwd)
+temp_root=${RUNNER_TEMP:-${TMPDIR:-/tmp}}
+test_root=$(mktemp -d "${temp_root%/}/telnyx-package-imports.XXXXXX")
+trap 'rm -rf "$test_root"' EXIT
+
+consumer="$test_root/consumer"
+mkdir -p "$consumer"
+
+if [[ ! -f "$repo_root/dist/package.json" ]]; then
+  echo "dist is missing; run ./scripts/build first" >&2
+  exit 1
+fi
+
+tarball_name=$(cd "$repo_root/dist" && npm pack --silent --pack-destination "$test_root")
+tarball="$test_root/$tarball_name"
+
+printf '%s\n' '{"name":"telnyx-package-import-consumer","private":true}' > "$consumer/package.json"
+(
+  cd "$consumer"
+  npm install --ignore-scripts --omit=optional --package-lock=false "$tarball"
+)
+
+assert_ws_absent() {
+  if [[ -e "$consumer/node_modules/ws" ]]; then
+    echo "unexpected ws installation at $consumer/node_modules/ws" >&2
+    exit 1
+  fi
+
+  (
+    cd "$consumer"
+    NODE_PATH= node --no-global-search-paths <<'NODE'
+const assert = require('node:assert/strict');
+assert.throws(() => require.resolve('ws'), { code: 'MODULE_NOT_FOUND' });
+NODE
+  )
+}
+
+assert_ws_absent
+
+(
+  cd "$consumer"
+  NODE_PATH= node --no-global-search-paths <<'NODE'
+const assert = require('node:assert/strict');
+const Telnyx = require('telnyx');
+assert.equal(typeof Telnyx, 'function');
+console.log('CommonJS package import: ok');
+NODE
+
+  NODE_PATH= node --no-global-search-paths --input-type=module <<'NODE'
+import assert from 'node:assert/strict';
+const { default: Telnyx } = await import('telnyx');
+assert.equal(typeof Telnyx, 'function');
+console.log('native ESM package import: ok');
+NODE
+
+  DENO_DIR="$test_root/deno-dir" deno eval \
+    --no-config \
+    --no-lock \
+    --node-modules-dir=manual \
+    'import Telnyx from "npm:telnyx";
+if (typeof Telnyx !== "function") throw new Error("unexpected telnyx default export");
+console.log("Deno package import: ok");'
+)
+
+assert_ws_absent
+printf '%s\n' 'packed package imports pass without ws'
