@@ -15,7 +15,9 @@ try {
 
 const packageRoot = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const arbitrarySecretName = 'MCP_TEST_SERVER_SECRET';
-const allowlistedSecretName = 'TELNYX_CLIENT_SECRET';
+const primaryClientEnvName = 'TELNYX_API_KEY';
+const allowlistedSecretName = 'TELNYX_PUBLIC_KEY';
+const hasDistinctAllowlistedSecret = allowlistedSecretName !== primaryClientEnvName;
 let temporaryRoot;
 let client;
 let stderr = '';
@@ -23,7 +25,7 @@ let stderr = '';
 try {
   let serverPath = process.env.MCP_SERVER_PATH;
   if (!serverPath) {
-    temporaryRoot = mkdtempSync(path.join(tmpdir(), 'telnyx-mcp-deno-execute-'));
+    temporaryRoot = mkdtempSync(path.join(tmpdir(), 'sdk-mcp-deno-execute-'));
     const packResult = JSON.parse(
       execFileSync(
         'npm',
@@ -56,8 +58,10 @@ try {
     args: [serverPath],
     env: {
       ...process.env,
-      TELNYX_API_KEY: 'test-only-not-a-real-credential',
-      [allowlistedSecretName]: 'allowlisted-name-must-not-reach-the-code-worker',
+      [primaryClientEnvName]: 'test-only-not-a-real-credential',
+      ...(hasDistinctAllowlistedSecret ?
+        { [allowlistedSecretName]: 'allowlisted-name-must-not-reach-the-code-worker' }
+      : {}),
       [arbitrarySecretName]: 'arbitrary-name-must-not-reach-the-code-worker',
     },
     stderr: 'pipe',
@@ -78,8 +82,11 @@ try {
   } catch {
     arbitraryServerSecret = "denied";
   }
-  const allowlistedServerSecret =
-    (globalThis as any).Deno.env.get("${allowlistedSecretName}") ?? "missing";
+  const allowlistedServerSecret = ${
+    hasDistinctAllowlistedSecret ?
+      `(globalThis as any).Deno.env.get("${allowlistedSecretName}") ?? "missing"`
+    : `"not-applicable"`
+  };
   return { value: 42, arbitraryServerSecret, allowlistedServerSecret };
 }`,
     },
@@ -92,7 +99,7 @@ try {
       text: JSON.stringify({
         value: 42,
         arbitraryServerSecret: 'denied',
-        allowlistedServerSecret: 'missing',
+        allowlistedServerSecret: hasDistinctAllowlistedSecret ? 'missing' : 'not-applicable',
       }),
     },
   ]);

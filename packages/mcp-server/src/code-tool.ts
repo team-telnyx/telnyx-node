@@ -122,6 +122,26 @@ export function codeTool({
   return { metadata, tool, handler };
 }
 
+const codeWorkerRuntimeEnvNames = [
+  'TSC_WATCHFILE',
+  'TSC_NONPOLLING_WATCHER',
+  'TSC_WATCHDIRECTORY',
+  'NODE_INSPECTOR_IPC',
+  'VSCODE_INSPECTOR_OPTIONS',
+  'NODE_ENV',
+  'TSC_WATCH_POLLINGINTERVAL_LOW',
+  'TSC_WATCH_POLLINGINTERVAL_MEDIUM',
+  'TSC_WATCH_POLLINGINTERVAL_HIGH',
+  'TSC_WATCH_POLLINGCHUNKSIZE_LOW',
+  'TSC_WATCH_POLLINGCHUNKSIZE_MEDIUM',
+  'TSC_WATCH_POLLINGCHUNKSIZE_HIGH',
+  'TSC_WATCH_UNCHANGEDPOLLTHRESHOLDS_LOW',
+  'TSC_WATCH_UNCHANGEDPOLLTHRESHOLDS_MEDIUM',
+  'TSC_WATCH_UNCHANGEDPOLLTHRESHOLDS_HIGH',
+  'TELNYX_LOG',
+  'TELNYX_CUSTOM_HEADERS',
+] as const;
+
 export const buildCodeWorkerEnvironment = ({
   serverEnv,
   clientEnv,
@@ -150,6 +170,14 @@ export const buildCodeWorkerEnvironment = ({
   };
 };
 
+const codeWorkerClientEnvNames = [
+  'TELNYX_API_KEY',
+  'TELNYX_PUBLIC_KEY',
+  'TELNYX_CLIENT_ID',
+  'TELNYX_CLIENT_SECRET',
+  'TELNYX_BASE_URL',
+] as const;
+
 const localDenoHandler = async ({
   reqContext,
   args,
@@ -174,7 +202,7 @@ const localDenoHandler = async ({
   const packageNodeModulesPath = path.resolve(packageRoot, 'node_modules');
 
   // Check if deno is in PATH
-  const { execSync } = await import('node:child_process');
+  const { execSync, spawn } = await import('node:child_process');
   try {
     denoPath = execSync('command -v deno', { encoding: 'utf8' }).trim();
   } catch {
@@ -211,16 +239,10 @@ const localDenoHandler = async ({
 
   const allowRead = allowReadPaths.join(',');
 
-  const { env: workerEnv, readableClientEnvNames } = buildCodeWorkerEnvironment({
+  const { env: workerEnv } = buildCodeWorkerEnvironment({
     serverEnv: process.env,
     clientEnv: reqContext.upstreamClientEnvs,
-    allowedClientEnvNames: [
-      'TELNYX_API_KEY',
-      'TELNYX_PUBLIC_KEY',
-      'TELNYX_CLIENT_ID',
-      'TELNYX_CLIENT_SECRET',
-      'TELNYX_BASE_URL',
-    ],
+    allowedClientEnvNames: codeWorkerClientEnvNames,
   });
 
   const worker = await newDenoHTTPWorker(url.pathToFileURL(workerPath), {
@@ -229,9 +251,21 @@ const localDenoHandler = async ({
       `--node-modules-dir=manual`,
       `--allow-read=${allowRead}`,
       `--allow-net=${baseURLHostname}`,
-      ...(readableClientEnvNames.length > 0 ? [`--allow-env=${readableClientEnvNames.join(',')}`] : []),
+      `--allow-env=${[...codeWorkerRuntimeEnvNames, ...codeWorkerClientEnvNames].join(',')}`,
     ],
     printOutput: true,
+    spawnFunc: (command, commandArgs, options) => {
+      // Deno 2 requires net permission for the private Unix socket. Grant only the
+      // socket path generated internally by deno-http-worker.
+      const socketPath = commandArgs.find((arg) => path.isAbsolute(arg) && arg.endsWith('-deno-http.sock'));
+      const allowNetIndex = commandArgs.findIndex((arg) => arg.startsWith('--allow-net='));
+      if (!socketPath || allowNetIndex < 0) {
+        throw new Error('Could not determine Deno worker socket permissions');
+      }
+      const spawnArgs = [...commandArgs];
+      spawnArgs[allowNetIndex] += `,unix:${socketPath}`;
+      return spawn(command, spawnArgs, options);
+    },
     spawnOptions: {
       cwd: path.dirname(workerPath),
       // Do not expose the MCP server's inherited environment to executed code.
