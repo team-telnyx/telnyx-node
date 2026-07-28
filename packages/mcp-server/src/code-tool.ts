@@ -42,9 +42,9 @@ Always type dynamic key-value stores explicitly as Record<string, YourValueType>
  * we expose a single tool that can be used to search for endpoints by name, resource, operation, or tag, and then
  * a generic endpoint that can be used to invoke any endpoint with the provided arguments.
  *
- * @param blockedMethods - The methods to block for code execution. Blocking is done by simple string
- * matching, so it is not secure against obfuscation. For stronger security, block in the downstream API
- * with limited API keys.
+ * @param blockedMethods - The SDK methods to reject at invocation time during local code execution.
+ * Downstream API authorization remains the security boundary for direct HTTP requests or other code
+ * that does not use the provided SDK client.
  * @param codeExecutionMode - Whether to execute code in a local Deno environment or in a remote
  * sandbox environment hosted by Stainless.
  */
@@ -84,28 +84,11 @@ export function codeTool({
     reqContext: McpRequestContext;
     args: any;
   }): Promise<ToolCallResult> => {
-    const code = args.code as string;
-    // Do very basic blocking of code that includes forbidden method names.
-    //
-    // WARNING: This is not secure against obfuscation and other evasion methods. If
-    // stronger security blocks are required, then these should be enforced in the downstream
-    // API (e.g., by having users call the MCP server with API keys with limited permissions).
-    if (blockedMethods) {
-      const blockedMatches = blockedMethods.filter((method) => code.includes(method.fullyQualifiedName));
-      if (blockedMatches.length > 0) {
-        return asErrorResult(
-          `The following methods have been blocked by the MCP server and cannot be used in code execution: ${blockedMatches
-            .map((m) => m.fullyQualifiedName)
-            .join(', ')}`,
-        );
-      }
-    }
-
     let result: ToolCallResult;
     const startTime = Date.now();
 
     logger.debug('Executing code in local Deno environment');
-    result = await localDenoHandler({ reqContext, args });
+    result = await localDenoHandler({ reqContext, args, blockedMethods });
 
     logger.info(
       {
@@ -181,9 +164,11 @@ const codeWorkerClientEnvNames = [
 const localDenoHandler = async ({
   reqContext,
   args,
+  blockedMethods,
 }: {
   reqContext: McpRequestContext;
   args: unknown;
+  blockedMethods: SdkMethod[] | undefined;
 }): Promise<ToolCallResult> => {
   const fs = await import('node:fs');
   const path = await import('node:path');
@@ -323,6 +308,7 @@ const localDenoHandler = async ({
       const body = JSON.stringify({
         opts,
         code,
+        blockedMethods: blockedMethods?.map((method) => method.fullyQualifiedName) ?? [],
       });
 
       req.write(body, (err) => {
