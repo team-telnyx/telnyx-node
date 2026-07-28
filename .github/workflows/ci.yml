@@ -55,6 +55,11 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Set up Deno
+        uses: denoland/setup-deno@22d081ff2d3a40755e97629de92e3bcbfa7cf2ed # v2.0.5
+        with:
+          deno-version: v2.x
+
       - name: Set up pnpm
         uses: pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1 # v4.3.0
         with:
@@ -65,3 +70,11 @@ jobs:
 
       - name: Check build
         run: ./scripts/build
+
+      - name: Check package imports without optional dependencies
+        run: ./scripts/test-package-imports
+
+      - name: Check MCP Deno execute
+        env:
+          MCP_SERVER_PATH: ${{ github.workspace }}/packages/mcp-server/dist/index.js
+        run: pnpm --dir packages/mcp-server test:deno-execute
