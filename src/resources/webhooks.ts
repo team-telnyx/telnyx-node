@@ -5,6 +5,7 @@ import * as NumberOrdersAPI from './number-orders';
 import * as Shared from './shared';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
+import * as ThreadsAPI from './email-inboxes/threads/threads';
 import { Webhook } from 'standardwebhooks';
 
 export class Webhooks extends APIResource {
@@ -4344,117 +4345,10 @@ export namespace FaxSendingStarted {
   }
 }
 
-export interface InboundMessage {
-  id: string;
+export interface InboundMessage extends Omit<ThreadsAPI.ThreadMessage, 'direction' | 'status'> {
+  direction?: 'inbound';
 
-  attachments: Array<{ [key: string]: unknown }>;
-
-  bcc: Array<InboundMessage.Bcc>;
-
-  cc: Array<InboundMessage.Cc>;
-
-  created_at: string;
-
-  direction: 'inbound';
-
-  from: InboundMessage.From;
-
-  /**
-   * Whether conservative plain-text extraction detected a quoted tail. False does
-   * not prove that the source contains no quoted content.
-   */
-  has_quoted_text: boolean;
-
-  headers: { [key: string]: unknown };
-
-  /**
-   * URL for an offloaded HTML body. Null means the body is not offloaded to a URL;
-   * an inline HTML body may still exist but is not returned on list reads.
-   * `reply_text` and `has_quoted_text` are computed from the inline plain-text body
-   * when present.
-   */
-  html_body_url: string | null;
-
-  in_reply_to: string | null;
-
-  inbox_id: string;
-
-  inline_files: Array<{ [key: string]: unknown }>;
-
-  /**
-   * RFC Message-ID header.
-   */
-  message_id: string;
-
-  read_at: string | null;
-
-  received_at: string;
-
-  record_type: 'email_message';
-
-  /**
-   * Ordered RFC Message-ID values from the References header.
-   */
-  references: Array<string>;
-
-  /**
-   * Conservatively extracted new-reply content from the available plain-text body.
-   * Null means no plain-text body was available because it was absent or offloaded;
-   * HTML bodies are not parsed.
-   */
-  reply_text: string | null;
-
-  reply_to: Array<InboundMessage.ReplyTo>;
-
-  status: 'received';
-
-  subject: string | null;
-
-  /**
-   * URL for an offloaded plain-text body. Null means the body is not offloaded to a
-   * URL; an inline plain-text body may still exist but is not returned on list
-   * reads. `reply_text` and `has_quoted_text` are computed from the inline
-   * plain-text body when present.
-   */
-  text_body_url: string | null;
-
-  thread_id: string;
-
-  to: Array<InboundMessage.To>;
-
-  updated_at: string;
-}
-
-export namespace InboundMessage {
-  export interface Bcc {
-    email: string;
-
-    name?: string;
-  }
-
-  export interface Cc {
-    email: string;
-
-    name?: string;
-  }
-
-  export interface From {
-    email: string;
-
-    name?: string;
-  }
-
-  export interface ReplyTo {
-    email: string;
-
-    name?: string;
-  }
-
-  export interface To {
-    email: string;
-
-    name?: string;
-  }
+  status?: 'received';
 }
 
 export interface NumberOrderStatusUpdate {
