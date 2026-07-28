@@ -1,5 +1,7 @@
 # Telnyx TypeScript API Library
 
+[![MCP Toplist](https://mcptoplist.com/badge/io.github.team-telnyx%2Ftelnyx.svg)](https://mcptoplist.com/server/io.github.team-telnyx%2Ftelnyx)
+
 [![NPM version](<https://img.shields.io/npm/v/telnyx.svg?label=npm%20(stable)>)](https://npmjs.org/package/telnyx) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/telnyx)
 
 This library provides convenient access to the Telnyx REST API from server-side TypeScript or JavaScript.
