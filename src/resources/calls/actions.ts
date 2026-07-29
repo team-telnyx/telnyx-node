@@ -5109,6 +5109,13 @@ export interface ActionAddAIAssistantMessagesParams {
    * The messages to add to the conversation.
    */
   messages?: Array<UserMessage | AssistantMessage | ToolMessage | SystemMessage | DeveloperMessage>;
+
+  /**
+   * When `true`, the injected messages immediately trigger an assistant
+   * response/turn instead of waiting for the next natural turn or idle timeout. This
+   * may interrupt a user who is still speaking.
+   */
+  trigger_response?: boolean;
 }
 
 export interface ActionJoinAIAssistantParams {
