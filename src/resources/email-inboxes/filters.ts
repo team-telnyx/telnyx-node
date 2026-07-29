@@ -51,17 +51,14 @@ export class Filters extends APIResource {
   }
 
   /**
-   * Replaces both sender filter lists atomically. Omitting either list clears that
-   * list. Use `POST` or `DELETE` for incremental changes.
+   * Adds entries to either the allowlist or blocklist. The operation is an
+   * idempotent set union: entries already present remain unchanged.
    *
    * @example
    * ```ts
    * const filter = await client.emailInboxes.filters.create(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   {
-   *     allowlist: ['trusted@example.com', '@partner.example'],
-   *     blocklist: ['@spam.example'],
-   *   },
+   *   { entries: ['@spam.example'], type: 'blocklist' },
    * );
    * ```
    */
@@ -70,7 +67,7 @@ export class Filters extends APIResource {
     body: FilterCreateParams,
     options?: RequestOptions,
   ): APIPromise<FilterCreateResponse> {
-    return this._client.put(path`/email_inboxes/${inboxID}/filters`, { body, ...options });
+    return this._client.post(path`/email_inboxes/${inboxID}/filters`, { body, ...options });
   }
 }
 
@@ -135,9 +132,12 @@ export interface FilterDeleteAllParams {
 }
 
 export interface FilterCreateParams {
-  allowlist?: Array<string>;
+  entries: Array<string>;
 
-  blocklist?: Array<string>;
+  /**
+   * The list to change.
+   */
+  type: 'allowlist' | 'blocklist';
 }
 
 export declare namespace Filters {

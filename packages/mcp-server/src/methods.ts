@@ -6854,7 +6854,7 @@ export const sdkMethods: SdkMethod[] = [
   {
     clientCallName: 'client.emailInboxes.drafts.update',
     fullyQualifiedName: 'emailInboxes.drafts.update',
-    httpMethod: 'put',
+    httpMethod: 'patch',
     httpPath: '/email_inboxes/{inbox_id}/drafts/{draft_id}',
   },
   {
@@ -6878,7 +6878,7 @@ export const sdkMethods: SdkMethod[] = [
   {
     clientCallName: 'client.emailInboxes.filters.create',
     fullyQualifiedName: 'emailInboxes.filters.create',
-    httpMethod: 'put',
+    httpMethod: 'post',
     httpPath: '/email_inboxes/{inbox_id}/filters',
   },
   {
@@ -7040,7 +7040,7 @@ export const sdkMethods: SdkMethod[] = [
   {
     clientCallName: 'client.emailTemplates.update',
     fullyQualifiedName: 'emailTemplates.update',
-    httpMethod: 'put',
+    httpMethod: 'patch',
     httpPath: '/email_templates/{id}',
   },
   {

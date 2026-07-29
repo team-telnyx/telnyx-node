@@ -109,24 +109,14 @@ export class Drafts extends APIResource {
   }
 
   /**
-   * Updates the supplied fields on a draft. `account_id` and `inbox_id` are
-   * server-owned and ignored if present in the body, so a draft can never be moved
-   * between accounts or inboxes.
-   *
-   * A draft that is being sent or has already been sent is immutable and returns 422
-   * — modifying it would race with delivery or rewrite the record of what was
-   * actually sent.
+   * Identical to `PUT`; both apply a partial update to the supplied fields.
    *
    * @example
    * ```ts
    * const emailDraftResponse =
    *   await client.emailInboxes.drafts.update(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     {
-   *       inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *       subject: 'Quarterly update (revised)',
-   *       text_body: 'Updated body.',
-   *     },
+   *     { inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
    *   );
    * ```
    */
@@ -136,7 +126,7 @@ export class Drafts extends APIResource {
     options?: RequestOptions,
   ): APIPromise<EmailDraftResponse> {
     const { inbox_id, ...body } = params;
-    return this._client.put(path`/email_inboxes/${inbox_id}/drafts/${draftID}`, { body, ...options });
+    return this._client.patch(path`/email_inboxes/${inbox_id}/drafts/${draftID}`, { body, ...options });
   }
 
   /**

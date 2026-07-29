@@ -86,8 +86,7 @@ export class EmailTemplates extends APIResource {
   }
 
   /**
-   * Replaces template fields. Behaves identically to PATCH; provided for
-   * compatibility with Phoenix resource routes.
+   * Updates one or more template fields.
    *
    * @example
    * ```ts
@@ -102,7 +101,7 @@ export class EmailTemplates extends APIResource {
     body: EmailTemplateUpdateParams,
     options?: RequestOptions,
   ): APIPromise<EmailTemplateResponse> {
-    return this._client.put(path`/email_templates/${id}`, { body, ...options });
+    return this._client.patch(path`/email_templates/${id}`, { body, ...options });
   }
 
   /**

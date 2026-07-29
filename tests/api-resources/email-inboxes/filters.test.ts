@@ -44,8 +44,11 @@ describe('resource filters', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('create', async () => {
-    const responsePromise = client.emailInboxes.filters.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+  test.skip('create: only required params', async () => {
+    const responsePromise = client.emailInboxes.filters.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      entries: ['@spam.example'],
+      type: 'blocklist',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -53,5 +56,13 @@ describe('resource filters', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('create: required and optional params', async () => {
+    const response = await client.emailInboxes.filters.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      entries: ['@spam.example'],
+      type: 'blocklist',
+    });
   });
 });
