@@ -1669,6 +1669,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/calls/{call_control_id}/actions/conversation_relay_stop',
   },
   {
+    clientCallName: 'client.calls.actions.pay',
+    fullyQualifiedName: 'calls.actions.pay',
+    httpMethod: 'post',
+    httpPath: '/calls/{call_control_id}/actions/pay',
+  },
+  {
     clientCallName: 'client.channelZones.list',
     fullyQualifiedName: 'channelZones.list',
     httpMethod: 'get',

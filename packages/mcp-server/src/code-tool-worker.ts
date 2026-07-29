@@ -358,6 +358,7 @@ const fuse = new Fuse(
     'client.calls.actions.joinAIAssistant',
     'client.calls.actions.leaveQueue',
     'client.calls.actions.pauseRecording',
+    'client.calls.actions.pay',
     'client.calls.actions.refer',
     'client.calls.actions.reject',
     'client.calls.actions.resumeRecording',

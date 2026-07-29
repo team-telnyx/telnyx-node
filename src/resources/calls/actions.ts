@@ -997,6 +997,38 @@ export class Actions extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * Collect payment details from the caller using DTMF and either charge or tokenize
+   * the payment method through a configured Pay connector. Pay pauses active call
+   * recordings while sensitive payment details are collected.
+   *
+   * When `payment_token` is supplied, the DTMF collection steps are skipped and the
+   * existing token is sent to the connector.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.payment.progress`
+   * - `call.payment.completed`
+   *
+   * **Test mode card numbers:** `4111111111111111` (Visa), `5555555555554444`
+   * (Mastercard), `378282246310005` (American Express), `6011111111111117`
+   * (Discover), `3065930009020004` (Diners Club), `3566002020360505` (JCB),
+   * `6200000000000005` (UnionPay), and `6771798021000008` (Maestro). Test-mode
+   * connectors reject other card numbers before contacting the configured processor.
+   * The UnionPay and Maestro numbers are accepted for processor testing, but Pay
+   * currently does not emit a card type for them.
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.pay(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  pay(callControlID: string, body: ActionPayParams, options?: RequestOptions): APIPromise<ActionPayResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/pay`, { body, ...options });
+  }
 }
 
 export interface AIAssistantJoinParticipant {
@@ -1392,6 +1424,48 @@ export interface InterruptionSettings {
 }
 
 export type Loopcount = string | number;
+
+/**
+ * A default prompt string or an ordered list of qualified prompts.
+ */
+export type PayPromptValue = string | Array<PayPromptValue.UnionMember1>;
+
+export namespace PayPromptValue {
+  /**
+   * A text-to-speech prompt with optional matching qualifiers.
+   */
+  export interface UnionMember1 {
+    /**
+     * Text spoken for the payment collection step.
+     */
+    text: string;
+
+    /**
+     * Space-separated 1-based attempt numbers for which this prompt applies.
+     */
+    attempt?: string;
+
+    /**
+     * Lowercase, case-sensitive detected card type for which this prompt applies. Only
+     * the listed brands are currently detected; accepted UnionPay and Maestro test
+     * cards do not produce a card-type qualifier.
+     */
+    card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+
+    /**
+     * Step error for which this prompt applies.
+     */
+    error_type?:
+      | 'timeout'
+      | 'invalid-card-number'
+      | 'invalid-date'
+      | 'invalid-security-code'
+      | 'invalid-postal-code'
+      | 'invalid-bank-routing-number'
+      | 'invalid-bank-account-number'
+      | 'input-matching-failed';
+  }
+}
 
 export interface StopRecordingRequest {
   /**
@@ -2244,6 +2318,10 @@ export interface ActionLeaveQueueResponse {
 }
 
 export interface ActionPauseRecordingResponse {
+  data?: CallControlCommandResult;
+}
+
+export interface ActionPayResponse {
   data?: CallControlCommandResult;
 }
 
@@ -5314,6 +5392,140 @@ export interface ActionStopConversationRelayParams {
   command_id?: string;
 }
 
+export interface ActionPayParams {
+  /**
+   * Amount to charge. Required when `transaction_type` is `charge`.
+   */
+  amount?: number;
+
+  /**
+   * Base64-encoded state included in subsequent webhooks.
+   */
+  client_state?: string;
+
+  /**
+   * Idempotency key for the command. Telnyx ignores a duplicate command with the
+   * same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Name of the Pay connector used to process the transaction.
+   */
+  connector_name?: string;
+
+  /**
+   * Currency used for the transaction. Pay currently supports USD only.
+   */
+  currency?: 'USD' | 'usd';
+
+  /**
+   * Optional description forwarded with the payment transaction.
+   */
+  description?: string;
+
+  /**
+   * Time in milliseconds to wait between consecutive DTMF digits.
+   */
+  inter_digit_timeout_millis?: number;
+
+  /**
+   * Language used for payment prompts.
+   */
+  language?: string;
+
+  /**
+   * Maximum number of attempts for each payment collection step.
+   */
+  max_attempts?: number;
+
+  /**
+   * Metadata forwarded to the Pay connector.
+   */
+  metadata?: { [key: string]: unknown };
+
+  /**
+   * Additional parameters forwarded to the Pay connector.
+   */
+  parameters?: { [key: string]: unknown };
+
+  /**
+   * Payment method to collect.
+   */
+  payment_method?: 'credit-card' | 'ach-debit';
+
+  /**
+   * Existing payment token. When supplied, payment-detail collection is skipped.
+   */
+  payment_token?: string;
+
+  /**
+   * Custom text-to-speech prompts keyed by payment collection step.
+   */
+  prompts?: ActionPayParams.Prompts;
+
+  /**
+   * Speech synthesis service level used for payment prompts. Pay defaults to
+   * `premium`.
+   */
+  service_level?: string;
+
+  /**
+   * Time in milliseconds to wait for DTMF input for each collection step.
+   */
+  timeout_millis?: number;
+
+  /**
+   * Transaction to perform. If omitted, Pay infers `tokenize` when `amount` is
+   * absent or zero and `charge` when `amount` is positive.
+   */
+  transaction_type?: 'charge' | 'tokenize';
+
+  /**
+   * Voice used for payment prompts. Accepts `male`, `female`, or a provider voice in
+   * `<Provider>.<Model>.<VoiceId>` format, for example `AWS.Polly.Joanna` or
+   * `Telnyx.KokoroTTS.af`.
+   */
+  voice?: string;
+}
+
+export namespace ActionPayParams {
+  /**
+   * Custom text-to-speech prompts keyed by payment collection step.
+   */
+  export interface Prompts {
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'bank-account-number'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'bank-routing-number'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'expiration-date'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'payment-card-number'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'postal-code'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'security-code'?: ActionsAPI.PayPromptValue;
+  }
+}
+
 export declare namespace Actions {
   export {
     type AIAssistantJoinParticipant as AIAssistantJoinParticipant,
@@ -5329,6 +5541,7 @@ export declare namespace Actions {
     type GoogleTranscriptionLanguage as GoogleTranscriptionLanguage,
     type InterruptionSettings as InterruptionSettings,
     type Loopcount as Loopcount,
+    type PayPromptValue as PayPromptValue,
     type StopRecordingRequest as StopRecordingRequest,
     type SystemMessage as SystemMessage,
     type TelnyxTranscriptionLanguage as TelnyxTranscriptionLanguage,
@@ -5360,6 +5573,7 @@ export declare namespace Actions {
     type ActionJoinAIAssistantResponse as ActionJoinAIAssistantResponse,
     type ActionLeaveQueueResponse as ActionLeaveQueueResponse,
     type ActionPauseRecordingResponse as ActionPauseRecordingResponse,
+    type ActionPayResponse as ActionPayResponse,
     type ActionReferResponse as ActionReferResponse,
     type ActionRejectResponse as ActionRejectResponse,
     type ActionResumeRecordingResponse as ActionResumeRecordingResponse,
@@ -5428,5 +5642,6 @@ export declare namespace Actions {
     type ActionJoinAIAssistantParams as ActionJoinAIAssistantParams,
     type ActionStartConversationRelayParams as ActionStartConversationRelayParams,
     type ActionStopConversationRelayParams as ActionStopConversationRelayParams,
+    type ActionPayParams as ActionPayParams,
   };
 }

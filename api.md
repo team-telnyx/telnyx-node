@@ -309,6 +309,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPlaybackEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPlaybackStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallRecordingErrorWebhookEvent</a></code>
@@ -367,6 +369,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPlaybackEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPlaybackStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallRecordingErrorWebhookEvent</a></code>
@@ -1322,6 +1326,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">GoogleTranscriptionLanguage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">InterruptionSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">Loopcount</a></code>
+- <code><a href="./src/resources/calls/actions.ts">PayPromptValue</a></code>
 - <code><a href="./src/resources/calls/actions.ts">StopRecordingRequest</a></code>
 - <code><a href="./src/resources/calls/actions.ts">SystemMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TelnyxTranscriptionLanguage</a></code>
@@ -1353,6 +1358,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">ActionJoinAIAssistantResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionLeaveQueueResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionPauseRecordingResponse</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ActionPayResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionReferResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionRejectResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionResumeRecordingResponse</a></code>
@@ -1424,6 +1430,7 @@ Methods:
 - <code title="post /calls/{call_control_id}/actions/ai_assistant_join">client.calls.actions.<a href="./src/resources/calls/actions.ts">joinAIAssistant</a>(callControlID, { ...params }) -> ActionJoinAIAssistantResponse</code>
 - <code title="post /calls/{call_control_id}/actions/conversation_relay_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startConversationRelay</a>(callControlID, { ...params }) -> ActionStartConversationRelayResponse</code>
 - <code title="post /calls/{call_control_id}/actions/conversation_relay_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopConversationRelay</a>(callControlID, { ...params }) -> ActionStopConversationRelayResponse</code>
+- <code title="post /calls/{call_control_id}/actions/pay">client.calls.actions.<a href="./src/resources/calls/actions.ts">pay</a>(callControlID, { ...params }) -> ActionPayResponse</code>
 
 # ChannelZones
 

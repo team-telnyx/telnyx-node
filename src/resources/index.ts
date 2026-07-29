@@ -1613,6 +1613,8 @@ export {
   type CallMachineGreetingEndedWebhookEvent,
   type CallMachinePremiumDetectionEndedWebhookEvent,
   type CallMachinePremiumGreetingEndedWebhookEvent,
+  type CallPaymentCompletedWebhookEvent,
+  type CallPaymentProgressWebhookEvent,
   type CallPlaybackEndedWebhookEvent,
   type CallPlaybackStartedWebhookEvent,
   type CallRecordingErrorWebhookEvent,
