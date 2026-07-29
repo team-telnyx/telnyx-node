@@ -1301,6 +1301,8 @@ const fuse = new Fuse(
     'client.emailValidations.create',
     'client.emailValidations.batch.create',
     'client.emailValidations.batch.retrieve',
+    'client.pricing.products.list',
+    'client.pricing.products.retrieve',
   ],
   { threshold: 1, shouldSort: true },
 );

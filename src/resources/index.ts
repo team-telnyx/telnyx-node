@@ -1068,6 +1068,7 @@ export {
   type PortoutUpdateStatusParams,
   type PortoutDetailsDefaultFlatPagination,
 } from './portouts/portouts';
+export { Pricing } from './pricing/pricing';
 export {
   PrivateWirelessGateways,
   type PrivateWirelessGateway,

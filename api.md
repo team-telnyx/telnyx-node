@@ -5536,3 +5536,19 @@ Methods:
 
 - <code title="post /email_validations/batch">client.emailValidations.batch.<a href="./src/resources/email-validations/batch.ts">create</a>({ ...params }) -> BatchCreateResponse</code>
 - <code title="get /email_validations/batch/{id}">client.emailValidations.batch.<a href="./src/resources/email-validations/batch.ts">retrieve</a>(id) -> BatchRetrieveResponse</code>
+
+# Pricing
+
+## Products
+
+Types:
+
+- <code><a href="./src/resources/pricing/products.ts">PricingPaginationMeta</a></code>
+- <code><a href="./src/resources/pricing/products.ts">PricingTier</a></code>
+- <code><a href="./src/resources/pricing/products.ts">ProductRetrieveResponse</a></code>
+- <code><a href="./src/resources/pricing/products.ts">ProductListResponse</a></code>
+
+Methods:
+
+- <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders</code>
+- <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponse</code>

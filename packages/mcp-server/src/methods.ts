@@ -7151,6 +7151,18 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/email_validations/batch/{id}',
   },
+  {
+    clientCallName: 'client.pricing.products.list',
+    fullyQualifiedName: 'pricing.products.list',
+    httpMethod: 'get',
+    httpPath: '/pricing/products',
+  },
+  {
+    clientCallName: 'client.pricing.products.retrieve',
+    fullyQualifiedName: 'pricing.products.retrieve',
+    httpMethod: 'get',
+    httpPath: '/pricing/products/{slug}',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

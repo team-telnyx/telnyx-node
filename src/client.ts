@@ -1587,6 +1587,7 @@ import {
   PortoutUpdateStatusResponse,
   Portouts,
 } from './resources/portouts/portouts';
+import { Pricing } from './resources/pricing/pricing';
 import {
   Queue,
   QueueCreateParams,
@@ -3194,6 +3195,7 @@ export class Telnyx {
    * Validate email addresses synchronously or in asynchronous batches.
    */
   emailValidations: API.EmailValidations = new API.EmailValidations(this);
+  pricing: API.Pricing = new API.Pricing(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3375,6 +3377,7 @@ Telnyx.EmailTemplates = EmailTemplates;
 Telnyx.EmailThreads = EmailThreads;
 Telnyx.EmailUnsubscribeGroups = EmailUnsubscribeGroups;
 Telnyx.EmailValidations = EmailValidations;
+Telnyx.Pricing = Pricing;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5335,6 +5338,8 @@ export declare namespace Telnyx {
     type EmailValidationCreateResponse as EmailValidationCreateResponse,
     type EmailValidationCreateParams as EmailValidationCreateParams,
   };
+
+  export { Pricing as Pricing };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
