@@ -14,6 +14,7 @@ export {
   type DraftDeleteParams,
   type DraftRetrieveParams,
   type DraftUpdateParams,
+  type DraftPatchParams,
   type DraftSendParams,
 } from './drafts';
 export {
@@ -27,11 +28,13 @@ export {
 export {
   Filters,
   type MutateInboxFiltersRequest,
-  type FilterCreateResponse,
   type FilterListResponse,
+  type FilterAddResponse,
   type FilterDeleteAllResponse,
+  type FilterReplaceResponse,
   type FilterDeleteAllParams,
-  type FilterCreateParams,
+  type FilterAddParams,
+  type FilterReplaceParams,
 } from './filters';
 export {
   Messages,

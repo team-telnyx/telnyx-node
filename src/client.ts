@@ -288,6 +288,7 @@ import {
   EmailTemplateListResponse,
   EmailTemplateRenderParams,
   EmailTemplateRenderResponse,
+  EmailTemplateReplaceParams,
   EmailTemplateResponse,
   EmailTemplateUpdateParams,
   EmailTemplates,
@@ -5300,6 +5301,7 @@ export declare namespace Telnyx {
     type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
     type EmailTemplateListParams as EmailTemplateListParams,
     type EmailTemplateCreateParams as EmailTemplateCreateParams,
+    type EmailTemplateReplaceParams as EmailTemplateReplaceParams,
     type EmailTemplateUpdateParams as EmailTemplateUpdateParams,
     type EmailTemplateRenderParams as EmailTemplateRenderParams,
   };

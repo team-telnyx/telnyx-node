@@ -44,8 +44,8 @@ describe('resource filters', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('create: only required params', async () => {
-    const responsePromise = client.emailInboxes.filters.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+  test.skip('add: only required params', async () => {
+    const responsePromise = client.emailInboxes.filters.add('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       entries: ['@spam.example'],
       type: 'blocklist',
     });
@@ -59,10 +59,22 @@ describe('resource filters', () => {
   });
 
   // Mock server tests are disabled
-  test.skip('create: required and optional params', async () => {
-    const response = await client.emailInboxes.filters.create('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+  test.skip('add: required and optional params', async () => {
+    const response = await client.emailInboxes.filters.add('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       entries: ['@spam.example'],
       type: 'blocklist',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('replace', async () => {
+    const responsePromise = client.emailInboxes.filters.replace('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {});
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

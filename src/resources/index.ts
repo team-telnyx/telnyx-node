@@ -398,6 +398,7 @@ export {
   type EmailTemplateRenderResponse,
   type EmailTemplateListParams,
   type EmailTemplateCreateParams,
+  type EmailTemplateReplaceParams,
   type EmailTemplateUpdateParams,
   type EmailTemplateRenderParams,
 } from './email-templates';

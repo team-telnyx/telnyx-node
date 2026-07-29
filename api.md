@@ -5324,7 +5324,8 @@ Methods:
 - <code title="post /email_inboxes/{inbox_id}/drafts">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">create</a>(inboxID, { ...params }) -> EmailDraftResponse</code>
 - <code title="delete /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">delete</a>(draftID, { ...params }) -> void</code>
 - <code title="get /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">retrieve</a>(draftID, { ...params }) -> EmailDraftResponse</code>
-- <code title="patch /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">update</a>(draftID, { ...params }) -> EmailDraftResponse</code>
+- <code title="put /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">update</a>(draftID, { ...params }) -> EmailDraftResponse</code>
+- <code title="patch /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">patch</a>(draftID, { ...params }) -> EmailDraftResponse</code>
 - <code title="post /email_inboxes/{inbox_id}/drafts/{draft_id}/send">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">send</a>(draftID, { ...params }) -> EmailMessageResponse</code>
 
 ## Filters
@@ -5332,15 +5333,17 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/email-inboxes/filters.ts">MutateInboxFiltersRequest</a></code>
-- <code><a href="./src/resources/email-inboxes/filters.ts">FilterCreateResponse</a></code>
 - <code><a href="./src/resources/email-inboxes/filters.ts">FilterListResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/filters.ts">FilterAddResponse</a></code>
 - <code><a href="./src/resources/email-inboxes/filters.ts">FilterDeleteAllResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/filters.ts">FilterReplaceResponse</a></code>
 
 Methods:
 
 - <code title="delete /email_inboxes/{inbox_id}/filters">client.emailInboxes.filters.<a href="./src/resources/email-inboxes/filters.ts">deleteAll</a>(inboxID, { ...params }) -> FilterDeleteAllResponse</code>
 - <code title="get /email_inboxes/{inbox_id}/filters">client.emailInboxes.filters.<a href="./src/resources/email-inboxes/filters.ts">list</a>(inboxID) -> FilterListResponse</code>
-- <code title="post /email_inboxes/{inbox_id}/filters">client.emailInboxes.filters.<a href="./src/resources/email-inboxes/filters.ts">create</a>(inboxID, { ...params }) -> FilterCreateResponse</code>
+- <code title="post /email_inboxes/{inbox_id}/filters">client.emailInboxes.filters.<a href="./src/resources/email-inboxes/filters.ts">add</a>(inboxID, { ...params }) -> FilterAddResponse</code>
+- <code title="put /email_inboxes/{inbox_id}/filters">client.emailInboxes.filters.<a href="./src/resources/email-inboxes/filters.ts">replace</a>(inboxID, { ...params }) -> FilterReplaceResponse</code>
 
 ## Messages
 
@@ -5464,6 +5467,7 @@ Methods:
 - <code title="post /email_templates">client.emailTemplates.<a href="./src/resources/email-templates.ts">create</a>({ ...params }) -> EmailTemplateResponse</code>
 - <code title="delete /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">delete</a>(id) -> void</code>
 - <code title="get /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">retrieve</a>(id) -> EmailTemplateResponse</code>
+- <code title="put /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">replace</a>(id, { ...params }) -> EmailTemplateResponse</code>
 - <code title="patch /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">update</a>(id, { ...params }) -> EmailTemplateResponse</code>
 - <code title="post /email_templates/{id}/render">client.emailTemplates.<a href="./src/resources/email-templates.ts">render</a>(id, { ...params }) -> EmailTemplateRenderResponse</code>
 

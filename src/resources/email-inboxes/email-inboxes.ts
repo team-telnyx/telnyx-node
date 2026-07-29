@@ -7,6 +7,7 @@ import {
   DraftDeleteParams,
   DraftListParams,
   DraftListResponse,
+  DraftPatchParams,
   DraftRetrieveParams,
   DraftSendParams,
   DraftUpdateParams,
@@ -20,11 +21,13 @@ import {
 } from './drafts';
 import * as FiltersAPI from './filters';
 import {
-  FilterCreateParams,
-  FilterCreateResponse,
+  FilterAddParams,
+  FilterAddResponse,
   FilterDeleteAllParams,
   FilterDeleteAllResponse,
   FilterListResponse,
+  FilterReplaceParams,
+  FilterReplaceResponse,
   Filters,
   MutateInboxFiltersRequest,
 } from './filters';
@@ -233,17 +236,20 @@ export declare namespace EmailInboxes {
     type DraftDeleteParams as DraftDeleteParams,
     type DraftRetrieveParams as DraftRetrieveParams,
     type DraftUpdateParams as DraftUpdateParams,
+    type DraftPatchParams as DraftPatchParams,
     type DraftSendParams as DraftSendParams,
   };
 
   export {
     Filters as Filters,
     type MutateInboxFiltersRequest as MutateInboxFiltersRequest,
-    type FilterCreateResponse as FilterCreateResponse,
     type FilterListResponse as FilterListResponse,
+    type FilterAddResponse as FilterAddResponse,
     type FilterDeleteAllResponse as FilterDeleteAllResponse,
+    type FilterReplaceResponse as FilterReplaceResponse,
     type FilterDeleteAllParams as FilterDeleteAllParams,
-    type FilterCreateParams as FilterCreateParams,
+    type FilterAddParams as FilterAddParams,
+    type FilterReplaceParams as FilterReplaceParams,
   };
 
   export {

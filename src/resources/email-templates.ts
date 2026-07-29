@@ -86,6 +86,26 @@ export class EmailTemplates extends APIResource {
   }
 
   /**
+   * Replaces template fields. Behaves identically to PATCH; provided for
+   * compatibility with Phoenix resource routes.
+   *
+   * @example
+   * ```ts
+   * const emailTemplateResponse =
+   *   await client.emailTemplates.replace(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
+   */
+  replace(
+    id: string,
+    body: EmailTemplateReplaceParams,
+    options?: RequestOptions,
+  ): APIPromise<EmailTemplateResponse> {
+    return this._client.put(path`/email_templates/${id}`, { body, ...options });
+  }
+
+  /**
    * Updates one or more template fields.
    *
    * @example
@@ -247,6 +267,27 @@ export interface EmailTemplateCreateParams {
   'Idempotency-Key'?: string;
 }
 
+export interface EmailTemplateReplaceParams {
+  /**
+   * Liquid template HTML body.
+   */
+  html_body?: string | null;
+
+  name?: string;
+
+  /**
+   * Liquid template subject.
+   */
+  subject?: string | null;
+
+  /**
+   * Liquid template text body.
+   */
+  text_body?: string | null;
+
+  variables?: Array<string>;
+}
+
 export interface EmailTemplateUpdateParams {
   /**
    * Liquid template HTML body.
@@ -285,6 +326,7 @@ export declare namespace EmailTemplates {
     type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
     type EmailTemplateListParams as EmailTemplateListParams,
     type EmailTemplateCreateParams as EmailTemplateCreateParams,
+    type EmailTemplateReplaceParams as EmailTemplateReplaceParams,
     type EmailTemplateUpdateParams as EmailTemplateUpdateParams,
     type EmailTemplateRenderParams as EmailTemplateRenderParams,
   };

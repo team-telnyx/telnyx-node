@@ -56,18 +56,37 @@ export class Filters extends APIResource {
    *
    * @example
    * ```ts
-   * const filter = await client.emailInboxes.filters.create(
+   * const response = await client.emailInboxes.filters.add(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   { entries: ['@spam.example'], type: 'blocklist' },
    * );
    * ```
    */
-  create(
-    inboxID: string,
-    body: FilterCreateParams,
-    options?: RequestOptions,
-  ): APIPromise<FilterCreateResponse> {
+  add(inboxID: string, body: FilterAddParams, options?: RequestOptions): APIPromise<FilterAddResponse> {
     return this._client.post(path`/email_inboxes/${inboxID}/filters`, { body, ...options });
+  }
+
+  /**
+   * Replaces both sender filter lists atomically. Omitting either list clears that
+   * list. Use `POST` or `DELETE` for incremental changes.
+   *
+   * @example
+   * ```ts
+   * const response = await client.emailInboxes.filters.replace(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     allowlist: ['trusted@example.com', '@partner.example'],
+   *     blocklist: ['@spam.example'],
+   *   },
+   * );
+   * ```
+   */
+  replace(
+    inboxID: string,
+    body: FilterReplaceParams,
+    options?: RequestOptions,
+  ): APIPromise<FilterReplaceResponse> {
+    return this._client.put(path`/email_inboxes/${inboxID}/filters`, { body, ...options });
   }
 }
 
@@ -80,11 +99,11 @@ export interface MutateInboxFiltersRequest {
   type: 'allowlist' | 'blocklist';
 }
 
-export interface FilterCreateResponse {
-  data: FilterCreateResponse.Data;
+export interface FilterListResponse {
+  data: FilterListResponse.Data;
 }
 
-export namespace FilterCreateResponse {
+export namespace FilterListResponse {
   export interface Data {
     allowlist: Array<string>;
 
@@ -94,11 +113,11 @@ export namespace FilterCreateResponse {
   }
 }
 
-export interface FilterListResponse {
-  data: FilterListResponse.Data;
+export interface FilterAddResponse {
+  data: FilterAddResponse.Data;
 }
 
-export namespace FilterListResponse {
+export namespace FilterAddResponse {
   export interface Data {
     allowlist: Array<string>;
 
@@ -122,6 +141,20 @@ export namespace FilterDeleteAllResponse {
   }
 }
 
+export interface FilterReplaceResponse {
+  data: FilterReplaceResponse.Data;
+}
+
+export namespace FilterReplaceResponse {
+  export interface Data {
+    allowlist: Array<string>;
+
+    blocklist: Array<string>;
+
+    record_type: 'email_inbox_filters';
+  }
+}
+
 export interface FilterDeleteAllParams {
   entries: Array<string>;
 
@@ -131,7 +164,7 @@ export interface FilterDeleteAllParams {
   type: 'allowlist' | 'blocklist';
 }
 
-export interface FilterCreateParams {
+export interface FilterAddParams {
   entries: Array<string>;
 
   /**
@@ -140,13 +173,21 @@ export interface FilterCreateParams {
   type: 'allowlist' | 'blocklist';
 }
 
+export interface FilterReplaceParams {
+  allowlist?: Array<string>;
+
+  blocklist?: Array<string>;
+}
+
 export declare namespace Filters {
   export {
     type MutateInboxFiltersRequest as MutateInboxFiltersRequest,
-    type FilterCreateResponse as FilterCreateResponse,
     type FilterListResponse as FilterListResponse,
+    type FilterAddResponse as FilterAddResponse,
     type FilterDeleteAllResponse as FilterDeleteAllResponse,
+    type FilterReplaceResponse as FilterReplaceResponse,
     type FilterDeleteAllParams as FilterDeleteAllParams,
-    type FilterCreateParams as FilterCreateParams,
+    type FilterAddParams as FilterAddParams,
+    type FilterReplaceParams as FilterReplaceParams,
   };
 }

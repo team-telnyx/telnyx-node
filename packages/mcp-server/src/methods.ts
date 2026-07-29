@@ -6854,6 +6854,12 @@ export const sdkMethods: SdkMethod[] = [
   {
     clientCallName: 'client.emailInboxes.drafts.update',
     fullyQualifiedName: 'emailInboxes.drafts.update',
+    httpMethod: 'put',
+    httpPath: '/email_inboxes/{inbox_id}/drafts/{draft_id}',
+  },
+  {
+    clientCallName: 'client.emailInboxes.drafts.patch',
+    fullyQualifiedName: 'emailInboxes.drafts.patch',
     httpMethod: 'patch',
     httpPath: '/email_inboxes/{inbox_id}/drafts/{draft_id}',
   },
@@ -6876,9 +6882,15 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/email_inboxes/{inbox_id}/filters',
   },
   {
-    clientCallName: 'client.emailInboxes.filters.create',
-    fullyQualifiedName: 'emailInboxes.filters.create',
+    clientCallName: 'client.emailInboxes.filters.add',
+    fullyQualifiedName: 'emailInboxes.filters.add',
     httpMethod: 'post',
+    httpPath: '/email_inboxes/{inbox_id}/filters',
+  },
+  {
+    clientCallName: 'client.emailInboxes.filters.replace',
+    fullyQualifiedName: 'emailInboxes.filters.replace',
+    httpMethod: 'put',
     httpPath: '/email_inboxes/{inbox_id}/filters',
   },
   {
@@ -7035,6 +7047,12 @@ export const sdkMethods: SdkMethod[] = [
     clientCallName: 'client.emailTemplates.retrieve',
     fullyQualifiedName: 'emailTemplates.retrieve',
     httpMethod: 'get',
+    httpPath: '/email_templates/{id}',
+  },
+  {
+    clientCallName: 'client.emailTemplates.replace',
+    fullyQualifiedName: 'emailTemplates.replace',
+    httpMethod: 'put',
     httpPath: '/email_templates/{id}',
   },
   {

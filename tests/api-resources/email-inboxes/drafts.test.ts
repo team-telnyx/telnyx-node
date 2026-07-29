@@ -148,6 +148,43 @@ describe('resource drafts', () => {
       labels: ['string'],
       metadata: {},
       reply_to: 'reply_to',
+      subject: 'Quarterly update (revised)',
+      tags: ['string'],
+      text: 'text',
+      text_body: 'Updated body.',
+      to: ['string'],
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('patch: only required params', async () => {
+    const responsePromise = client.emailInboxes.drafts.patch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('patch: required and optional params', async () => {
+    const response = await client.emailInboxes.drafts.patch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      attachments: [{}],
+      bcc: ['string'],
+      cc: ['string'],
+      from_email: 'from_email',
+      from_name: 'from_name',
+      headers: { foo: 'string' },
+      html: 'html',
+      html_body: 'html_body',
+      labels: ['string'],
+      metadata: {},
+      reply_to: 'reply_to',
       subject: 'subject',
       tags: ['string'],
       text: 'text',

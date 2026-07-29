@@ -109,14 +109,24 @@ export class Drafts extends APIResource {
   }
 
   /**
-   * Identical to `PUT`; both apply a partial update to the supplied fields.
+   * Updates the supplied fields on a draft. `account_id` and `inbox_id` are
+   * server-owned and ignored if present in the body, so a draft can never be moved
+   * between accounts or inboxes.
+   *
+   * A draft that is being sent or has already been sent is immutable and returns 422
+   * — modifying it would race with delivery or rewrite the record of what was
+   * actually sent.
    *
    * @example
    * ```ts
    * const emailDraftResponse =
    *   await client.emailInboxes.drafts.update(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     { inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *     {
+   *       inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *       subject: 'Quarterly update (revised)',
+   *       text_body: 'Updated body.',
+   *     },
    *   );
    * ```
    */
@@ -125,6 +135,23 @@ export class Drafts extends APIResource {
     params: DraftUpdateParams,
     options?: RequestOptions,
   ): APIPromise<EmailDraftResponse> {
+    const { inbox_id, ...body } = params;
+    return this._client.put(path`/email_inboxes/${inbox_id}/drafts/${draftID}`, { body, ...options });
+  }
+
+  /**
+   * Identical to `PUT`; both apply a partial update to the supplied fields.
+   *
+   * @example
+   * ```ts
+   * const emailDraftResponse =
+   *   await client.emailInboxes.drafts.patch(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *   );
+   * ```
+   */
+  patch(draftID: string, params: DraftPatchParams, options?: RequestOptions): APIPromise<EmailDraftResponse> {
     const { inbox_id, ...body } = params;
     return this._client.patch(path`/email_inboxes/${inbox_id}/drafts/${draftID}`, { body, ...options });
   }
@@ -605,6 +632,93 @@ export interface DraftUpdateParams {
   to?: Array<EmailMessagesAPI.EmailAddressInput>;
 }
 
+export interface DraftPatchParams {
+  /**
+   * Path param: Email inbox UUID.
+   */
+  inbox_id: string;
+
+  /**
+   * Body param
+   */
+  attachments?: Array<unknown>;
+
+  /**
+   * Body param
+   */
+  bcc?: Array<EmailMessagesAPI.EmailAddressInput>;
+
+  /**
+   * Body param
+   */
+  cc?: Array<EmailMessagesAPI.EmailAddressInput>;
+
+  /**
+   * Body param
+   */
+  from_email?: string;
+
+  /**
+   * Body param
+   */
+  from_name?: string;
+
+  /**
+   * Body param
+   */
+  headers?: { [key: string]: string };
+
+  /**
+   * Body param: Alias for `html_body`, matching the send endpoint.
+   */
+  html?: string;
+
+  /**
+   * Body param
+   */
+  html_body?: string;
+
+  /**
+   * Body param
+   */
+  labels?: Array<string>;
+
+  /**
+   * Body param
+   */
+  metadata?: unknown;
+
+  /**
+   * Body param
+   */
+  reply_to?: string;
+
+  /**
+   * Body param
+   */
+  subject?: string;
+
+  /**
+   * Body param
+   */
+  tags?: Array<string>;
+
+  /**
+   * Body param: Alias for `text_body`, matching the send endpoint.
+   */
+  text?: string;
+
+  /**
+   * Body param
+   */
+  text_body?: string;
+
+  /**
+   * Body param
+   */
+  to?: Array<EmailMessagesAPI.EmailAddressInput>;
+}
+
 export interface DraftSendParams {
   /**
    * Email inbox UUID.
@@ -626,6 +740,7 @@ export declare namespace Drafts {
     type DraftDeleteParams as DraftDeleteParams,
     type DraftRetrieveParams as DraftRetrieveParams,
     type DraftUpdateParams as DraftUpdateParams,
+    type DraftPatchParams as DraftPatchParams,
     type DraftSendParams as DraftSendParams,
   };
 }
