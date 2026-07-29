@@ -378,6 +378,13 @@ export interface ModelMetadata {
   regions?: Array<string>;
 
   /**
+   * Service tiers supported by this Telnyx-hosted model. Use one of these values as
+   * `service_tier` in Chat Completions or Responses requests. This field is omitted
+   * for externally hosted models.
+   */
+  service_tiers?: Array<'default' | 'priority' | 'flex'>;
+
+  /**
    * Primary task the model is intended for, e.g. `text-generation`,
    * `audio-text-to-text`, `feature-extraction` (embeddings).
    */

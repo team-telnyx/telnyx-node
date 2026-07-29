@@ -144,6 +144,13 @@ export interface ChatCreateCompletionParams {
   seed?: number;
 
   /**
+   * The service tier to use for this request. Supported values vary by model; use
+   * `GET /v2/ai/openai/models` and inspect the model's `service_tiers` field. If
+   * omitted, Telnyx-hosted models use `default`.
+   */
+  service_tier?: string;
+
+  /**
    * Up to 4 sequences where the API will stop generating further tokens. The
    * returned text will not contain the stop sequence.
    */
