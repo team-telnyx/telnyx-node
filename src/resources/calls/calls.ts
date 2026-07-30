@@ -277,6 +277,8 @@ export interface CallAssistantRequest {
     | AssistantsAPI.TransferTool
     | Shared.CallControlRetrievalTool
   >;
+
+  voice_settings?: AssistantsAPI.VoiceSettings;
 }
 
 export namespace CallAssistantRequest {
