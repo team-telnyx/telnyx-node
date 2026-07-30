@@ -66,11 +66,10 @@ const post =
     const server = newServer({ ...options, req, res });
     // If we return null, we already set the authorization error.
     if (server === null) return;
-    const transport = new StreamableHTTPServerTransport({
-      // Stateless server
-      sessionIdGenerator: undefined,
-    });
-    await server.connect(transport);
+    // Omitting options selects stateless mode. The SDK's Node transport currently
+    // exposes exact-optional callback types that are narrower than Transport.
+    const transport = new StreamableHTTPServerTransport();
+    await server.connect(transport as Parameters<typeof server.connect>[0]);
     await transport.handleRequest(req, res, req.body);
   };
 

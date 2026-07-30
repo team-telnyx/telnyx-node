@@ -1,0 +1,17 @@
+diff --git a/dist/commonjs/index.js b/dist/commonjs/index.js
+index 869a6bee23807b9f01c18c99ab8e952b4b242f97..3aac3c7c5340c2abd1552fbc4298f5bcfd413958 100644
+--- a/dist/commonjs/index.js
++++ b/dist/commonjs/index.js
+@@ -286,4 +286,12 @@ function expand_(str, max, maxLength, isTop) {
+     }
+     return acc;
+ }
++// Versions of minimatch before v10 require brace-expansion as a callable
++// CommonJS default export. Keep the patched v5 expansion bounds while
++// preserving that legacy contract for transitive build tooling.
++module.exports = Object.assign(expand, {
++    expand,
++    EXPANSION_MAX: exports.EXPANSION_MAX,
++    EXPANSION_MAX_LENGTH: exports.EXPANSION_MAX_LENGTH,
++});
+ //# sourceMappingURL=index.js.map

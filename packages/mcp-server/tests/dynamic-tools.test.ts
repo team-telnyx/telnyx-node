@@ -16,6 +16,7 @@ describe('dynamicTools', () => {
   const toolsMap = {
     list_api_endpoints: toolOrError('list_api_endpoints'),
     get_api_endpoint_schema: toolOrError('get_api_endpoint_schema'),
+    read_api_endpoint: toolOrError('read_api_endpoint'),
     invoke_api_endpoint: toolOrError('invoke_api_endpoint'),
   };
 
@@ -29,6 +30,12 @@ describe('dynamicTools', () => {
       expect(result.tools.map((t: { name: string }) => t.name)).toContain('test_write_endpoint');
       expect(result.tools.map((t: { name: string }) => t.name)).toContain('user_endpoint');
       expect(result.tools.map((t: { name: string }) => t.name)).toContain('admin_endpoint');
+      expect(
+        result.tools.find((t: { name: string }) => t.name === 'test_read_endpoint').invocation_tool,
+      ).toBe('read_api_endpoint');
+      expect(
+        result.tools.find((t: { name: string }) => t.name === 'test_write_endpoint').invocation_tool,
+      ).toBe('invoke_api_endpoint');
     });
 
     it('should filter endpoints by name', async () => {
@@ -96,7 +103,20 @@ describe('dynamicTools', () => {
       });
       const result = JSON.parse(content.content[0].text);
 
-      expect(result).toEqual(endpoints[0]?.tool);
+      expect(result).toEqual({
+        ...endpoints[0]?.tool,
+        inputSchema: {
+          ...endpoints[0]?.tool.inputSchema,
+          properties: {
+            ...endpoints[0]?.tool.inputSchema.properties,
+            nested: {
+              ...(endpoints[0]?.tool.inputSchema.properties?.nested as Record<string, unknown>),
+              additionalProperties: false,
+            },
+          },
+          additionalProperties: false,
+        },
+      });
     });
 
     it('should throw error for non-existent endpoint', async () => {
@@ -112,17 +132,58 @@ describe('dynamicTools', () => {
     });
   });
 
-  describe('invoke_api_endpoint', () => {
-    it('should successfully invoke endpoint with valid arguments', async () => {
+  describe('read_api_endpoint', () => {
+    it('should successfully invoke a read endpoint with valid arguments', async () => {
       const mockHandler = endpoints[0]?.handler as jest.Mock;
       mockHandler.mockClear();
 
-      await toolsMap.invoke_api_endpoint.handler(fakeClient, {
+      await toolsMap.read_api_endpoint.handler(fakeClient, {
         endpoint_name: 'test_read_endpoint',
         args: { testParam: 'test value' },
       });
 
       expect(mockHandler).toHaveBeenCalledWith(fakeClient, { testParam: 'test value' });
+    });
+
+    it('should reject write endpoints', async () => {
+      await expect(
+        toolsMap.read_api_endpoint.handler(fakeClient, {
+          endpoint_name: 'test_write_endpoint',
+          args: { testParam: 'test value' },
+        }),
+      ).rejects.toThrow(/write endpoint.*invoke_api_endpoint/);
+    });
+
+    it('advertises an explicit read-only contract', () => {
+      expect(toolsMap.read_api_endpoint.tool.annotations).toMatchObject({
+        readOnlyHint: true,
+        destructiveHint: false,
+        openWorldHint: true,
+      });
+      expect(toolsMap.read_api_endpoint.tool.title).toBeTruthy();
+    });
+  });
+
+  describe('invoke_api_endpoint', () => {
+    it('should successfully invoke a write endpoint with valid arguments', async () => {
+      const mockHandler = endpoints[1]?.handler as jest.Mock;
+      mockHandler.mockClear();
+
+      await toolsMap.invoke_api_endpoint.handler(fakeClient, {
+        endpoint_name: 'test_write_endpoint',
+        args: { testParam: 'test value' },
+      });
+
+      expect(mockHandler).toHaveBeenCalledWith(fakeClient, { testParam: 'test value' });
+    });
+
+    it('should reject read endpoints', async () => {
+      await expect(
+        toolsMap.invoke_api_endpoint.handler(fakeClient, {
+          endpoint_name: 'test_read_endpoint',
+          args: { testParam: 'test value' },
+        }),
+      ).rejects.toThrow(/read endpoint.*read_api_endpoint/);
     });
 
     it('should throw error for non-existent endpoint', async () => {
@@ -143,10 +204,63 @@ describe('dynamicTools', () => {
     it('should throw error for invalid argument schema', async () => {
       await expect(
         toolsMap.invoke_api_endpoint.handler(fakeClient, {
-          endpoint_name: 'test_read_endpoint',
+          endpoint_name: 'test_write_endpoint',
           args: { wrongParam: 'test value' }, // Missing required testParam
         }),
       ).rejects.toThrow(/Invalid arguments for endpoint/);
+    });
+
+    it('rejects undocumented fields instead of forwarding them to the SDK', async () => {
+      const mockHandler = endpoints[1]?.handler as jest.Mock;
+      mockHandler.mockClear();
+
+      await expect(
+        toolsMap.invoke_api_endpoint.handler(fakeClient, {
+          endpoint_name: 'test_write_endpoint',
+          args: {
+            testParam: 'test value',
+            planted_webhook_url: 'https://attacker.example/capture',
+          },
+        }),
+      ).rejects.toThrow(/Invalid arguments for endpoint/);
+      expect(mockHandler).not.toHaveBeenCalled();
+    });
+
+    it('rejects undocumented nested fields while preserving documented free-form maps', async () => {
+      const mockHandler = endpoints[1]?.handler as jest.Mock;
+      mockHandler.mockClear();
+
+      await expect(
+        toolsMap.invoke_api_endpoint.handler(fakeClient, {
+          endpoint_name: 'test_write_endpoint',
+          args: {
+            testParam: 'test value',
+            nested: { known: 'safe', planted: 'blocked' },
+          },
+        }),
+      ).rejects.toThrow(/Invalid arguments for endpoint/);
+      expect(mockHandler).not.toHaveBeenCalled();
+
+      await toolsMap.invoke_api_endpoint.handler(fakeClient, {
+        endpoint_name: 'test_write_endpoint',
+        args: {
+          testParam: 'test value',
+          freeForm: { documentedByMapContract: 'allowed' },
+        },
+      });
+      expect(mockHandler).toHaveBeenCalledWith(fakeClient, {
+        testParam: 'test value',
+        freeForm: { documentedByMapContract: 'allowed' },
+      });
+    });
+
+    it('advertises a conservative write contract', () => {
+      expect(toolsMap.invoke_api_endpoint.tool.annotations).toMatchObject({
+        readOnlyHint: false,
+        destructiveHint: true,
+        openWorldHint: true,
+      });
+      expect(toolsMap.invoke_api_endpoint.tool.title).toBeTruthy();
     });
   });
 
@@ -176,6 +290,16 @@ function makeEndpoint(
         type: 'object',
         properties: {
           testParam: { type: 'string' },
+          nested: {
+            type: 'object',
+            properties: {
+              known: { type: 'string' },
+            },
+          },
+          freeForm: {
+            type: 'object',
+            additionalProperties: true,
+          },
         },
         required: ['testParam'],
       },
