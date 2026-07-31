@@ -90,7 +90,7 @@ describe('resource references', () => {
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.dir.references.update(0, {
+    const responsePromise = client.dir.references.update(1, {
       dir_id: '16635d38-75a6-4481-82e8-69af60e05011',
       ref_type: 'business',
     });
@@ -105,7 +105,7 @@ describe('resource references', () => {
 
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
-    const response = await client.dir.references.update(0, {
+    const response = await client.dir.references.update(1, {
       dir_id: '16635d38-75a6-4481-82e8-69af60e05011',
       ref_type: 'business',
       email: 'dana.reyes@example.com',
