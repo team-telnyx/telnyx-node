@@ -4,8 +4,8 @@ import path from 'node:path';
 import util from 'node:util';
 import Fuse from 'fuse.js';
 import ts from 'typescript';
-import { WorkerOutput } from './code-tool-types';
-import { Telnyx, ClientOptions } from 'telnyx';
+import { LocalWorkerInput, WorkerOutput } from './code-tool-types';
+import { Telnyx } from 'telnyx';
 
 async function tseval(code: string) {
   return import('data:application/typescript;charset=utf-8;base64,' + Buffer.from(code).toString('base64'));
@@ -358,6 +358,7 @@ const fuse = new Fuse(
     'client.calls.actions.joinAIAssistant',
     'client.calls.actions.leaveQueue',
     'client.calls.actions.pauseRecording',
+    'client.calls.actions.pay',
     'client.calls.actions.refer',
     'client.calls.actions.reject',
     'client.calls.actions.resumeRecording',
@@ -1220,6 +1221,88 @@ const fuse = new Fuse(
     'client.dir.verifyEmail.list',
     'client.infringementClaims.contest',
     'client.infringementClaims.retrieve',
+    'client.emailBlocks.create',
+    'client.emailBlocks.delete',
+    'client.emailBlocks.list',
+    'client.emailBlocks.retrieve',
+    'client.emailBlocks.retrieveEvents',
+    'client.emailBlocks.retrieveExport',
+    'client.emailBlocks.import.create',
+    'client.emailBlocks.import.retrieve',
+    'client.emailDomains.create',
+    'client.emailDomains.delete',
+    'client.emailDomains.list',
+    'client.emailDomains.retrieve',
+    'client.emailDomains.retrieveDNSRecords',
+    'client.emailDomains.retrieveHealth',
+    'client.emailDomains.update',
+    'client.emailDomains.verify',
+    'client.emailDomains.webhooks.create',
+    'client.emailDomains.webhooks.delete',
+    'client.emailDomains.webhooks.list',
+    'client.emailDomains.webhooks.retrieve',
+    'client.emailDomains.webhooks.update',
+    'client.emailEvents.list',
+    'client.emailEvents.retrieveStats',
+    'client.emailInboxes.create',
+    'client.emailInboxes.delete',
+    'client.emailInboxes.list',
+    'client.emailInboxes.retrieve',
+    'client.emailInboxes.drafts.create',
+    'client.emailInboxes.drafts.delete',
+    'client.emailInboxes.drafts.list',
+    'client.emailInboxes.drafts.patch',
+    'client.emailInboxes.drafts.retrieve',
+    'client.emailInboxes.drafts.send',
+    'client.emailInboxes.drafts.update',
+    'client.emailInboxes.filters.add',
+    'client.emailInboxes.filters.deleteAll',
+    'client.emailInboxes.filters.list',
+    'client.emailInboxes.filters.replace',
+    'client.emailInboxes.messages.drafts',
+    'client.emailInboxes.messages.list',
+    'client.emailInboxes.messages.update',
+    'client.emailInboxes.messages.actions.forward',
+    'client.emailInboxes.messages.actions.reply',
+    'client.emailInboxes.messages.actions.replyAll',
+    'client.emailInboxes.messages.labels.create',
+    'client.emailInboxes.messages.labels.deleteAll',
+    'client.emailInboxes.threads.list',
+    'client.emailInboxes.threads.retrieve',
+    'client.emailInboxes.threads.labels.create',
+    'client.emailInboxes.threads.labels.deleteAll',
+    'client.emailMessages.batch',
+    'client.emailMessages.create',
+    'client.emailMessages.delete',
+    'client.emailMessages.deleteAll',
+    'client.emailMessages.deleteSchedule',
+    'client.emailMessages.list',
+    'client.emailMessages.retrieve',
+    'client.emailMessages.retrieveEvents',
+    'client.emailMessages.recipients.list',
+    'client.emailMessages.recipients.retrieve',
+    'client.emailTemplates.create',
+    'client.emailTemplates.delete',
+    'client.emailTemplates.list',
+    'client.emailTemplates.render',
+    'client.emailTemplates.replace',
+    'client.emailTemplates.retrieve',
+    'client.emailTemplates.update',
+    'client.emailThreads.list',
+    'client.emailThreads.retrieve',
+    'client.emailUnsubscribeGroups.create',
+    'client.emailUnsubscribeGroups.delete',
+    'client.emailUnsubscribeGroups.list',
+    'client.emailUnsubscribeGroups.retrieve',
+    'client.emailUnsubscribeGroups.update',
+    'client.emailUnsubscribeGroups.suppressions.create',
+    'client.emailUnsubscribeGroups.suppressions.delete',
+    'client.emailUnsubscribeGroups.suppressions.list',
+    'client.emailValidations.create',
+    'client.emailValidations.batch.create',
+    'client.emailValidations.batch.retrieve',
+    'client.pricing.products.list',
+    'client.pricing.products.retrieve',
   ],
   { threshold: 1, shouldSort: true },
 );
@@ -1231,16 +1314,34 @@ function getMethodSuggestions(fullyQualifiedMethodName: string): string[] {
     .slice(0, 5);
 }
 
-const proxyToObj = new WeakMap<any, any>();
-const objToProxy = new WeakMap<any, any>();
+const proxyToObj = new WeakMap<object, object>();
+const objToPolicyProxies = new WeakMap<object, WeakMap<object, Map<string, object>>>();
 
 type ClientProxyConfig = {
   path: string[];
+  rootPath: string[];
+  blockedMethodNames: ReadonlySet<string>;
   isBelievedBad?: boolean;
 };
 
-function makeSdkProxy<T extends object>(obj: T, { path, isBelievedBad = false }: ClientProxyConfig): T {
-  let proxy: T = objToProxy.get(obj);
+export function makeSdkProxy<T extends object>(
+  obj: T,
+  { path, rootPath, blockedMethodNames, isBelievedBad = false }: ClientProxyConfig,
+): T {
+  let policyProxies = objToPolicyProxies.get(obj);
+  if (!policyProxies) {
+    policyProxies = new WeakMap();
+    objToPolicyProxies.set(obj, policyProxies);
+  }
+
+  let pathProxies = policyProxies.get(blockedMethodNames);
+  if (!pathProxies) {
+    pathProxies = new Map();
+    policyProxies.set(blockedMethodNames, pathProxies);
+  }
+
+  const cacheKey = `${isBelievedBad ? 'bad' : 'ok'}:${rootPath.length}:${path.join('\u0000')}`;
+  let proxy = pathProxies.get(cacheKey) as T | undefined;
 
   if (!proxy) {
     proxy = new Proxy(obj, {
@@ -1248,30 +1349,91 @@ function makeSdkProxy<T extends object>(obj: T, { path, isBelievedBad = false }:
         const propPath = [...path, String(prop)];
         const value = Reflect.get(target, prop, receiver);
 
+        // Returning these built-ins directly preserves the function proxy as their
+        // receiver, so .call(), .apply(), and .bind() still enter our apply trap.
+        if (typeof target === 'function' && (prop === 'call' || prop === 'apply' || prop === 'bind')) {
+          return value;
+        }
+
         if (isBelievedBad || (!(prop in target) && value === undefined)) {
           // If we're accessing a path that doesn't exist, it will probably eventually error.
           // Let's proxy it and mark it bad so that we can control the error message.
           // We proxy an empty class so that an invocation or construction attempt is possible.
-          return makeSdkProxy(class {}, { path: propPath, isBelievedBad: true });
+          return makeSdkProxy(class {}, {
+            path: propPath,
+            rootPath,
+            blockedMethodNames,
+            isBelievedBad: true,
+          });
         }
 
         if (value !== null && (typeof value === 'object' || typeof value === 'function')) {
-          return makeSdkProxy(value, { path: propPath, isBelievedBad });
+          return makeSdkProxy(value, { path: propPath, rootPath, blockedMethodNames, isBelievedBad });
         }
 
         return value;
       },
 
+      getOwnPropertyDescriptor(target, prop) {
+        const descriptor = Reflect.getOwnPropertyDescriptor(target, prop);
+        if (!descriptor || !descriptor.configurable || !('value' in descriptor)) {
+          return descriptor;
+        }
+
+        const value = descriptor.value;
+        if (value !== null && (typeof value === 'object' || typeof value === 'function')) {
+          return {
+            ...descriptor,
+            value: makeSdkProxy(value, {
+              path: [...path, String(prop)],
+              rootPath,
+              blockedMethodNames,
+              isBelievedBad,
+            }),
+          };
+        }
+        return descriptor;
+      },
+
+      getPrototypeOf(target) {
+        const prototype = Reflect.getPrototypeOf(target);
+        if (!prototype || !Reflect.isExtensible(target)) {
+          return prototype;
+        }
+        return makeSdkProxy(prototype, { path, rootPath, blockedMethodNames, isBelievedBad });
+      },
+
+      preventExtensions() {
+        throw new Error('The SDK client proxy cannot be made non-extensible during code execution.');
+      },
+
+      setPrototypeOf() {
+        throw new Error('The SDK client proxy prototype cannot be changed during code execution.');
+      },
+
       apply(target, thisArg, args) {
-        if (isBelievedBad || typeof target !== 'function') {
-          const fullyQualifiedMethodName = path.join('.');
-          const suggestions = getMethodSuggestions(fullyQualifiedMethodName);
+        const fullyQualifiedMethodName = path.slice(rootPath.length).join('.');
+        if (blockedMethodNames.has(fullyQualifiedMethodName)) {
           throw new Error(
-            `${fullyQualifiedMethodName} is not a function. Did you mean: ${suggestions.join(', ')}`,
+            `The SDK method ${fullyQualifiedMethodName} has been blocked by the MCP server and cannot be used in code execution.`,
           );
         }
 
-        return Reflect.apply(target, proxyToObj.get(thisArg) ?? thisArg, args);
+        if (isBelievedBad || typeof target !== 'function') {
+          const clientCallName = path.join('.');
+          const suggestions = getMethodSuggestions(clientCallName);
+          throw new Error(`${clientCallName} is not a function. Did you mean: ${suggestions.join(', ')}`);
+        }
+
+        const result = Reflect.apply(target, proxyToObj.get(thisArg as object) ?? thisArg, args);
+        if (
+          result !== null &&
+          (typeof result === 'object' || typeof result === 'function') &&
+          typeof Reflect.get(result, 'then') !== 'function'
+        ) {
+          return makeSdkProxy(result, { path: rootPath, rootPath, blockedMethodNames });
+        }
+        return result;
       },
 
       construct(target, args, newTarget) {
@@ -1283,11 +1445,12 @@ function makeSdkProxy<T extends object>(obj: T, { path, isBelievedBad = false }:
           );
         }
 
-        return Reflect.construct(target, args, newTarget);
+        const result = Reflect.construct(target, args, newTarget);
+        return makeSdkProxy(result, { path: rootPath, rootPath, blockedMethodNames });
       },
     });
 
-    objToProxy.set(obj, proxy);
+    pathProxies.set(cacheKey, proxy);
     proxyToObj.set(proxy, obj);
   }
 
@@ -1315,7 +1478,7 @@ function parseError(code: string, error: unknown): string | undefined {
 }
 
 const fetch = async (req: Request): Promise<Response> => {
-  const { opts, code } = (await req.json()) as { opts: ClientOptions; code: string };
+  const { opts, code, blockedMethods = [] } = (await req.json()) as LocalWorkerInput;
 
   const runFunctionSource = code ? getRunFunctionSource(code) : null;
   if (!runFunctionSource) {
@@ -1366,7 +1529,14 @@ const fetch = async (req: Request): Promise<Response> => {
   try {
     let run_ = async (client: any) => {};
     run_ = (await tseval(`${code}\nexport default run;`)).default;
-    const result = await run_(makeSdkProxy(client, { path: ['client'] }));
+    const rootPath = ['client'];
+    const result = await run_(
+      makeSdkProxy(client, {
+        path: rootPath,
+        rootPath,
+        blockedMethodNames: new Set(blockedMethods),
+      }),
+    );
     return Response.json({
       is_error: false,
       result,

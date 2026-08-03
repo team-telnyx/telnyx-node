@@ -29,6 +29,8 @@ import {
   ActionLeaveQueueResponse,
   ActionPauseRecordingParams,
   ActionPauseRecordingResponse,
+  ActionPayParams,
+  ActionPayResponse,
   ActionReferParams,
   ActionReferResponse,
   ActionRejectParams,
@@ -98,6 +100,7 @@ import {
   GoogleTranscriptionLanguage,
   InterruptionSettings,
   Loopcount,
+  PayPromptValue,
   StopRecordingRequest,
   SystemMessage,
   TelnyxTranscriptionLanguage,
@@ -274,6 +277,8 @@ export interface CallAssistantRequest {
     | AssistantsAPI.TransferTool
     | Shared.CallControlRetrievalTool
   >;
+
+  voice_settings?: AssistantsAPI.VoiceSettings;
 }
 
 export namespace CallAssistantRequest {
@@ -1532,6 +1537,7 @@ export declare namespace Calls {
     type GoogleTranscriptionLanguage as GoogleTranscriptionLanguage,
     type InterruptionSettings as InterruptionSettings,
     type Loopcount as Loopcount,
+    type PayPromptValue as PayPromptValue,
     type StopRecordingRequest as StopRecordingRequest,
     type SystemMessage as SystemMessage,
     type TelnyxTranscriptionLanguage as TelnyxTranscriptionLanguage,
@@ -1563,6 +1569,7 @@ export declare namespace Calls {
     type ActionJoinAIAssistantResponse as ActionJoinAIAssistantResponse,
     type ActionLeaveQueueResponse as ActionLeaveQueueResponse,
     type ActionPauseRecordingResponse as ActionPauseRecordingResponse,
+    type ActionPayResponse as ActionPayResponse,
     type ActionReferResponse as ActionReferResponse,
     type ActionRejectResponse as ActionRejectResponse,
     type ActionResumeRecordingResponse as ActionResumeRecordingResponse,
@@ -1631,5 +1638,6 @@ export declare namespace Calls {
     type ActionJoinAIAssistantParams as ActionJoinAIAssistantParams,
     type ActionStartConversationRelayParams as ActionStartConversationRelayParams,
     type ActionStopConversationRelayParams as ActionStopConversationRelayParams,
+    type ActionPayParams as ActionPayParams,
   };
 }

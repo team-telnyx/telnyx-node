@@ -12,10 +12,12 @@ export class References extends APIResource {
   /**
    * List the business and financial references submitted for a DIR.
    *
-   * Returns the two business references (slots 0 and 1) followed by the single
-   * financial reference. Each entry carries only the customer-supplied details
-   * (name, title, organization, relationship, phone, email, timezone). Returns an
-   * empty list when no references were submitted.
+   * Returns the two business references (slots 1 and 2) followed by the single
+   * financial reference. Each entry carries its `ref_type` and `slot`, which
+   * together address the reference when updating it, alongside the details supplied
+   * when it was submitted (name, title, organization, relationship, phone, email,
+   * timezone). No internal identifiers are exposed. Returns an empty list when no
+   * references were submitted.
    *
    * @example
    * ```ts
@@ -35,9 +37,29 @@ export class References extends APIResource {
    * endpoint). Until it is, this returns `409` and no references are stored.
    *
    * The request body carries exactly two business references plus one financial
-   * reference. On success the references are stored and the response echoes them in
-   * the same shape as the GET. Submitting again converges on the already-stored
-   * references rather than erroring.
+   * reference. The first submission stores them and returns `201`. Resubmitting
+   * returns `200`: identical values are simply confirmed and nothing is written,
+   * while changed values replace those references.
+   *
+   * Replacing a reference is allowed only while the DIR itself is still editable,
+   * the same window in which a single reference may be updated; once the DIR has
+   * been submitted for vetting this returns `400`. A replaced reference's pending
+   * verification call is cancelled and its dial-in code stops working, and the
+   * replacement contact is emailed fresh scheduling details. References whose
+   * details did not change keep their existing call, code, and the notice already
+   * sent to them.
+   *
+   * The response always echoes the stored references in the same shape as the GET.
+   *
+   * Who qualifies: the two business references confirm the company's reputation and
+   * operations. Each should be a senior contact at an organization the business
+   * works with, such as a vendor, partner, or client: a C-suite executive (CEO, CFO,
+   * CTO, COO), an owner or founder as reflected in the company's corporate records,
+   * or a senior manager, director, or executive. The financial reference confirms
+   * the company pays its bills and should be a licensed certified public accountant
+   * (CPA) the company uses, a contact at a bank or financial institution that has a
+   * relationship with the company, or a reasonable alternative banking or financial
+   * reference.
    *
    * @example
    * ```ts
@@ -84,7 +106,7 @@ export class References extends APIResource {
    *
    * @example
    * ```ts
-   * const reference = await client.dir.references.update(0, {
+   * const reference = await client.dir.references.update(1, {
    *   dir_id: '16635d38-75a6-4481-82e8-69af60e05011',
    *   ref_type: 'business',
    * });
@@ -126,8 +148,10 @@ export interface Reference {
   ref_type: 'business' | 'financial';
 
   /**
-   * Position within the reference type. Business references occupy slots 0 and 1;
-   * the financial reference occupies slot 0.
+   * Position within the reference type, counting from 1. Business references occupy
+   * slots 1 and 2, in the order they were sent in the `business_references` array;
+   * the financial reference occupies slot 1. Use this value together with `ref_type`
+   * to address the reference when updating it.
    */
   slot: number;
 
@@ -215,7 +239,13 @@ export interface ReferenceUpdateResponse {
 
 export interface ReferenceCreateParams {
   /**
-   * Exactly two business references.
+   * Exactly two business references. Array order determines each one's slot: the
+   * first entry becomes slot 1 and the second becomes slot 2. Those slots are what
+   * you pass when updating a single reference later. Each should be a senior contact
+   * who can speak to your company's reputation and operations: a C-suite executive
+   * (CEO, CFO, CTO, COO), an owner or founder as reflected in your corporate
+   * records, or a senior manager, director, or executive at an organization you work
+   * with, such as a vendor, partner, or client.
    */
   business_references: Array<ReferenceInput>;
 

@@ -49,6 +49,7 @@ describe('resource chat', () => {
       presence_penalty: 0,
       response_format: { type: 'text' },
       seed: 0,
+      service_tier: 'service_tier',
       stop: 'string',
       stream: true,
       temperature: 0,

@@ -15,6 +15,7 @@ export {
   type GoogleTranscriptionLanguage,
   type InterruptionSettings,
   type Loopcount,
+  type PayPromptValue,
   type StopRecordingRequest,
   type SystemMessage,
   type TelnyxTranscriptionLanguage,
@@ -46,6 +47,7 @@ export {
   type ActionJoinAIAssistantResponse,
   type ActionLeaveQueueResponse,
   type ActionPauseRecordingResponse,
+  type ActionPayResponse,
   type ActionReferResponse,
   type ActionRejectResponse,
   type ActionResumeRecordingResponse,
@@ -114,6 +116,7 @@ export {
   type ActionJoinAIAssistantParams,
   type ActionStartConversationRelayParams,
   type ActionStopConversationRelayParams,
+  type ActionPayParams,
 } from './actions';
 export {
   Calls,

@@ -92,7 +92,9 @@ export interface V1MessagesParams {
   metadata?: { [key: string]: unknown };
 
   /**
-   * Service tier for the request.
+   * The service tier to use for this request. Supported values vary by model; use
+   * the Telnyx models endpoint and inspect the model's `service_tiers` field. If
+   * omitted, Telnyx-hosted models use `default`.
    */
   service_tier?: string;
 

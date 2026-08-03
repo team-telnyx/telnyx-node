@@ -5,6 +5,7 @@ import * as NumberOrdersAPI from './number-orders';
 import * as Shared from './shared';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
+import * as ThreadsAPI from './email-inboxes/threads/threads';
 import { Webhook } from 'standardwebhooks';
 
 export class Webhooks extends APIResource {
@@ -4344,117 +4345,10 @@ export namespace FaxSendingStarted {
   }
 }
 
-export interface InboundMessage {
-  id: string;
+export interface InboundMessage extends Omit<ThreadsAPI.ThreadMessage, 'direction' | 'status'> {
+  direction?: 'inbound';
 
-  attachments: Array<{ [key: string]: unknown }>;
-
-  bcc: Array<InboundMessage.Bcc>;
-
-  cc: Array<InboundMessage.Cc>;
-
-  created_at: string;
-
-  direction: 'inbound';
-
-  from: InboundMessage.From;
-
-  /**
-   * Whether conservative plain-text extraction detected a quoted tail. False does
-   * not prove that the source contains no quoted content.
-   */
-  has_quoted_text: boolean;
-
-  headers: { [key: string]: unknown };
-
-  /**
-   * URL for an offloaded HTML body. Null means the body is not offloaded to a URL;
-   * an inline HTML body may still exist but is not returned on list reads.
-   * `reply_text` and `has_quoted_text` are computed from the inline plain-text body
-   * when present.
-   */
-  html_body_url: string | null;
-
-  in_reply_to: string | null;
-
-  inbox_id: string;
-
-  inline_files: Array<{ [key: string]: unknown }>;
-
-  /**
-   * RFC Message-ID header.
-   */
-  message_id: string;
-
-  read_at: string | null;
-
-  received_at: string;
-
-  record_type: 'email_message';
-
-  /**
-   * Ordered RFC Message-ID values from the References header.
-   */
-  references: Array<string>;
-
-  /**
-   * Conservatively extracted new-reply content from the available plain-text body.
-   * Null means no plain-text body was available because it was absent or offloaded;
-   * HTML bodies are not parsed.
-   */
-  reply_text: string | null;
-
-  reply_to: Array<InboundMessage.ReplyTo>;
-
-  status: 'received';
-
-  subject: string | null;
-
-  /**
-   * URL for an offloaded plain-text body. Null means the body is not offloaded to a
-   * URL; an inline plain-text body may still exist but is not returned on list
-   * reads. `reply_text` and `has_quoted_text` are computed from the inline
-   * plain-text body when present.
-   */
-  text_body_url: string | null;
-
-  thread_id: string;
-
-  to: Array<InboundMessage.To>;
-
-  updated_at: string;
-}
-
-export namespace InboundMessage {
-  export interface Bcc {
-    email: string;
-
-    name?: string;
-  }
-
-  export interface Cc {
-    email: string;
-
-    name?: string;
-  }
-
-  export interface From {
-    email: string;
-
-    name?: string;
-  }
-
-  export interface ReplyTo {
-    email: string;
-
-    name?: string;
-  }
-
-  export interface To {
-    email: string;
-
-    name?: string;
-  }
+  status?: 'received';
 }
 
 export interface NumberOrderStatusUpdate {
@@ -5054,6 +4948,319 @@ export interface CallMachinePremiumGreetingEndedWebhookEvent {
   data?: CallMachinePremiumGreetingEnded;
 }
 
+export interface CallPaymentCompletedWebhookEvent {
+  data?: CallPaymentCompletedWebhookEvent.Data;
+}
+
+export namespace CallPaymentCompletedWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.payment.completed';
+
+    /**
+     * ISO 8601 datetime when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Masked bank account number with only the last two digits visible.
+       */
+      bank_account_number?: string;
+
+      /**
+       * Bank account type, when available.
+       */
+      bank_account_type?: string;
+
+      /**
+       * Bank routing number collected from the caller.
+       */
+      bank_routing_number?: string;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID unique to the call leg.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID shared by related call legs in the same call session.
+       */
+      call_session_id?: string;
+
+      /**
+       * Charge identifier returned for a successful charge transaction.
+       */
+      charge_id?: string;
+
+      /**
+       * Base64-encoded state received from the command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Additional connector error information, when supplied by the processor.
+       */
+      connector_error?: string | { [key: string]: unknown };
+
+      /**
+       * Card expiration date in MMYY format.
+       */
+      expiration_date?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Error code returned by the payment connector or processor.
+       */
+      pay_error_code?: string;
+
+      /**
+       * Masked card number with only the last four digits visible.
+       */
+      payment_card_number?: string;
+
+      /**
+       * Billing postal code collected from the caller.
+       */
+      payment_card_postal_code?: string;
+
+      /**
+       * Detected card type. Present only for the recognized card brands listed below.
+       */
+      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+
+      /**
+       * Payment confirmation code returned by the processor, when available.
+       */
+      payment_confirmation_code?: string;
+
+      /**
+       * Name of the Pay connector used.
+       */
+      payment_connector?: string;
+
+      /**
+       * Step-level or processor error associated with the final result.
+       */
+      payment_error?: string;
+
+      /**
+       * Payment method being collected.
+       */
+      payment_method?: 'credit-card' | 'ach-debit';
+
+      /**
+       * Final Pay session result.
+       */
+      result?:
+        | 'success'
+        | 'payment-connector-error'
+        | 'internal-error'
+        | 'too-many-failed-attempts'
+        | 'cancelled';
+
+      /**
+       * Fully masked card security code.
+       */
+      security_code?: string;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+
+      /**
+       * Token identifier returned for a successful tokenize transaction.
+       */
+      token_id?: string;
+    }
+  }
+}
+
+export interface CallPaymentProgressWebhookEvent {
+  data?: CallPaymentProgressWebhookEvent.Data;
+}
+
+export namespace CallPaymentProgressWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.payment.progress';
+
+    /**
+     * ISO 8601 datetime when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Current 1-based attempt number for the step.
+       */
+      attempt?: number;
+
+      /**
+       * Masked bank account number with only the last two digits visible.
+       */
+      bank_account_number?: string;
+
+      /**
+       * Bank account type, when available.
+       */
+      bank_account_type?: string;
+
+      /**
+       * Bank routing number collected from the caller.
+       */
+      bank_routing_number?: string;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID unique to the call leg.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID shared by related call legs in the same call session.
+       */
+      call_session_id?: string;
+
+      /**
+       * Base64-encoded state received from the command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Step-level error when payment collection fails.
+       */
+      error_type?:
+        | 'timeout'
+        | 'invalid-card-number'
+        | 'invalid-date'
+        | 'invalid-security-code'
+        | 'invalid-postal-code'
+        | 'invalid-bank-routing-number'
+        | 'invalid-bank-account-number'
+        | 'input-matching-failed';
+
+      /**
+       * Card expiration date in MMYY format.
+       */
+      expiration_date?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Masked card number with only the last four digits visible.
+       */
+      payment_card_number?: string;
+
+      /**
+       * Billing postal code collected from the caller.
+       */
+      payment_card_postal_code?: string;
+
+      /**
+       * Detected card type. Present only for the recognized card brands listed below.
+       */
+      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+
+      /**
+       * Name of the Pay connector used.
+       */
+      payment_connector?: string;
+
+      /**
+       * Payment method being collected.
+       */
+      payment_method?: 'credit-card' | 'ach-debit';
+
+      /**
+       * Status of the current payment step.
+       */
+      payment_status?: 'completed' | 'failed' | 'processing';
+
+      /**
+       * Current payment collection or processing step.
+       */
+      payment_step?:
+        | 'payment-card-number'
+        | 'expiration-date'
+        | 'postal-code'
+        | 'security-code'
+        | 'bank-routing-number'
+        | 'bank-account-number'
+        | 'payment-processing';
+
+      /**
+       * Fully masked card security code.
+       */
+      security_code?: string;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
+}
+
 export interface CallPlaybackEndedWebhookEvent {
   data?: CallPlaybackEnded;
 }
@@ -5844,6 +6051,319 @@ export interface CallMachinePremiumGreetingEndedWebhookEvent {
   data?: CallMachinePremiumGreetingEnded;
 }
 
+export interface CallPaymentCompletedWebhookEvent {
+  data?: CallPaymentCompletedWebhookEvent.Data;
+}
+
+export namespace CallPaymentCompletedWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.payment.completed';
+
+    /**
+     * ISO 8601 datetime when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Masked bank account number with only the last two digits visible.
+       */
+      bank_account_number?: string;
+
+      /**
+       * Bank account type, when available.
+       */
+      bank_account_type?: string;
+
+      /**
+       * Bank routing number collected from the caller.
+       */
+      bank_routing_number?: string;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID unique to the call leg.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID shared by related call legs in the same call session.
+       */
+      call_session_id?: string;
+
+      /**
+       * Charge identifier returned for a successful charge transaction.
+       */
+      charge_id?: string;
+
+      /**
+       * Base64-encoded state received from the command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Additional connector error information, when supplied by the processor.
+       */
+      connector_error?: string | { [key: string]: unknown };
+
+      /**
+       * Card expiration date in MMYY format.
+       */
+      expiration_date?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Error code returned by the payment connector or processor.
+       */
+      pay_error_code?: string;
+
+      /**
+       * Masked card number with only the last four digits visible.
+       */
+      payment_card_number?: string;
+
+      /**
+       * Billing postal code collected from the caller.
+       */
+      payment_card_postal_code?: string;
+
+      /**
+       * Detected card type. Present only for the recognized card brands listed below.
+       */
+      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+
+      /**
+       * Payment confirmation code returned by the processor, when available.
+       */
+      payment_confirmation_code?: string;
+
+      /**
+       * Name of the Pay connector used.
+       */
+      payment_connector?: string;
+
+      /**
+       * Step-level or processor error associated with the final result.
+       */
+      payment_error?: string;
+
+      /**
+       * Payment method being collected.
+       */
+      payment_method?: 'credit-card' | 'ach-debit';
+
+      /**
+       * Final Pay session result.
+       */
+      result?:
+        | 'success'
+        | 'payment-connector-error'
+        | 'internal-error'
+        | 'too-many-failed-attempts'
+        | 'cancelled';
+
+      /**
+       * Fully masked card security code.
+       */
+      security_code?: string;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+
+      /**
+       * Token identifier returned for a successful tokenize transaction.
+       */
+      token_id?: string;
+    }
+  }
+}
+
+export interface CallPaymentProgressWebhookEvent {
+  data?: CallPaymentProgressWebhookEvent.Data;
+}
+
+export namespace CallPaymentProgressWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.payment.progress';
+
+    /**
+     * ISO 8601 datetime when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Current 1-based attempt number for the step.
+       */
+      attempt?: number;
+
+      /**
+       * Masked bank account number with only the last two digits visible.
+       */
+      bank_account_number?: string;
+
+      /**
+       * Bank account type, when available.
+       */
+      bank_account_type?: string;
+
+      /**
+       * Bank routing number collected from the caller.
+       */
+      bank_routing_number?: string;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID unique to the call leg.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID shared by related call legs in the same call session.
+       */
+      call_session_id?: string;
+
+      /**
+       * Base64-encoded state received from the command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * Step-level error when payment collection fails.
+       */
+      error_type?:
+        | 'timeout'
+        | 'invalid-card-number'
+        | 'invalid-date'
+        | 'invalid-security-code'
+        | 'invalid-postal-code'
+        | 'invalid-bank-routing-number'
+        | 'invalid-bank-account-number'
+        | 'input-matching-failed';
+
+      /**
+       * Card expiration date in MMYY format.
+       */
+      expiration_date?: string;
+
+      /**
+       * Number or SIP URI placing the call.
+       */
+      from?: string;
+
+      /**
+       * Masked card number with only the last four digits visible.
+       */
+      payment_card_number?: string;
+
+      /**
+       * Billing postal code collected from the caller.
+       */
+      payment_card_postal_code?: string;
+
+      /**
+       * Detected card type. Present only for the recognized card brands listed below.
+       */
+      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+
+      /**
+       * Name of the Pay connector used.
+       */
+      payment_connector?: string;
+
+      /**
+       * Payment method being collected.
+       */
+      payment_method?: 'credit-card' | 'ach-debit';
+
+      /**
+       * Status of the current payment step.
+       */
+      payment_status?: 'completed' | 'failed' | 'processing';
+
+      /**
+       * Current payment collection or processing step.
+       */
+      payment_step?:
+        | 'payment-card-number'
+        | 'expiration-date'
+        | 'postal-code'
+        | 'security-code'
+        | 'bank-routing-number'
+        | 'bank-account-number'
+        | 'payment-processing';
+
+      /**
+       * Fully masked card security code.
+       */
+      security_code?: string;
+
+      /**
+       * Destination number or SIP URI of the call.
+       */
+      to?: string;
+    }
+  }
+}
+
 export interface CallPlaybackEndedWebhookEvent {
   data?: CallPlaybackEnded;
 }
@@ -6240,6 +6760,8 @@ export type UnsafeUnwrapWebhookEvent =
   | CallMachineGreetingEndedWebhookEvent
   | CallMachinePremiumDetectionEndedWebhookEvent
   | CallMachinePremiumGreetingEndedWebhookEvent
+  | CallPaymentCompletedWebhookEvent
+  | CallPaymentProgressWebhookEvent
   | CallPlaybackEndedWebhookEvent
   | CallPlaybackStartedWebhookEvent
   | CallRecordingErrorWebhookEvent
@@ -6308,6 +6830,8 @@ export type UnwrapWebhookEvent =
   | CallMachineGreetingEndedWebhookEvent
   | CallMachinePremiumDetectionEndedWebhookEvent
   | CallMachinePremiumGreetingEndedWebhookEvent
+  | CallPaymentCompletedWebhookEvent
+  | CallPaymentProgressWebhookEvent
   | CallPlaybackEndedWebhookEvent
   | CallPlaybackStartedWebhookEvent
   | CallRecordingErrorWebhookEvent
@@ -6437,6 +6961,8 @@ export declare namespace Webhooks {
     type CallMachineGreetingEndedWebhookEvent as CallMachineGreetingEndedWebhookEvent,
     type CallMachinePremiumDetectionEndedWebhookEvent as CallMachinePremiumDetectionEndedWebhookEvent,
     type CallMachinePremiumGreetingEndedWebhookEvent as CallMachinePremiumGreetingEndedWebhookEvent,
+    type CallPaymentCompletedWebhookEvent as CallPaymentCompletedWebhookEvent,
+    type CallPaymentProgressWebhookEvent as CallPaymentProgressWebhookEvent,
     type CallPlaybackEndedWebhookEvent as CallPlaybackEndedWebhookEvent,
     type CallPlaybackStartedWebhookEvent as CallPlaybackStartedWebhookEvent,
     type CallRecordingErrorWebhookEvent as CallRecordingErrorWebhookEvent,

@@ -273,6 +273,34 @@ import {
   DynamicEmergencyEndpointsDefaultFlatPagination,
 } from './resources/dynamic-emergency-endpoints';
 import {
+  EmailEventListParams,
+  EmailEventListResponse,
+  EmailEventRetrieveStatsParams,
+  EmailEventRetrieveStatsResponse,
+  EmailEventType,
+  EmailEvents,
+  TimeRange,
+} from './resources/email-events';
+import {
+  EmailTemplate,
+  EmailTemplateCreateParams,
+  EmailTemplateListParams,
+  EmailTemplateListResponse,
+  EmailTemplateRenderParams,
+  EmailTemplateRenderResponse,
+  EmailTemplateReplaceParams,
+  EmailTemplateResponse,
+  EmailTemplateUpdateParams,
+  EmailTemplates,
+  UpdateEmailTemplateRequest,
+} from './resources/email-templates';
+import {
+  EmailThreadListParams,
+  EmailThreadRetrieveParams,
+  EmailThreadRetrieveResponse,
+  EmailThreads,
+} from './resources/email-threads';
+import {
   FaxApplication,
   FaxApplicationCreateParams,
   FaxApplicationCreateResponse,
@@ -1037,6 +1065,8 @@ import {
   CallMachinePremiumDetectionEndedWebhookEvent,
   CallMachinePremiumGreetingEnded,
   CallMachinePremiumGreetingEndedWebhookEvent,
+  CallPaymentCompletedWebhookEvent,
+  CallPaymentProgressWebhookEvent,
   CallPlaybackEnded,
   CallPlaybackEndedWebhookEvent,
   CallPlaybackStarted,
@@ -1262,6 +1292,78 @@ import {
   Document,
 } from './resources/dir/dir';
 import {
+  EmailBlock,
+  EmailBlockCreateParams,
+  EmailBlockListParams,
+  EmailBlockResponse,
+  EmailBlockRetrieveEventsParams,
+  EmailBlockRetrieveEventsResponse,
+  EmailBlockRetrieveExportParams,
+  EmailBlockRetrieveExportResponse,
+  EmailBlocks,
+  EmailBlocksDefaultFlatPagination,
+  OffsetMeta,
+} from './resources/email-blocks/email-blocks';
+import {
+  DNSRecord,
+  DomainsTrackingSettings,
+  EmailDmarcPolicy,
+  EmailDomain,
+  EmailDomainCreateParams,
+  EmailDomainDeleteParams,
+  EmailDomainListParams,
+  EmailDomainResponse,
+  EmailDomainRetrieveDNSRecordsResponse,
+  EmailDomainRetrieveHealthResponse,
+  EmailDomainStatus,
+  EmailDomainType,
+  EmailDomainUpdateParams,
+  EmailDomainVerification,
+  EmailDomains,
+  EmailDomainsDefaultFlatPagination,
+} from './resources/email-domains/email-domains';
+import {
+  EmailInbox,
+  EmailInboxCreateParams,
+  EmailInboxListParams,
+  EmailInboxListResponse,
+  EmailInboxResponse,
+  EmailInboxes,
+} from './resources/email-inboxes/email-inboxes';
+import {
+  AttachmentRequest,
+  EmailAddressInput,
+  EmailMessageBatchParams,
+  EmailMessageBatchResponse,
+  EmailMessageCreateParams,
+  EmailMessageDeleteAllParams,
+  EmailMessageListParams,
+  EmailMessageListResponse,
+  EmailMessageRetrieveEventsParams,
+  EmailMessageRetrieveEventsResponse,
+  EmailMessageRetrieveResponse,
+  EmailMessages,
+  MessageEvent,
+  TrackingSettings,
+} from './resources/email-messages/email-messages';
+import {
+  EmailUnsubscribeGroupCreateParams,
+  EmailUnsubscribeGroupDeleteParams,
+  EmailUnsubscribeGroupListParams,
+  EmailUnsubscribeGroupUpdateParams,
+  EmailUnsubscribeGroups,
+  GroupListMeta,
+  UnsubscribeGroup,
+  UnsubscribeGroupResponse,
+  UnsubscribeGroupsDefaultFlatPagination,
+} from './resources/email-unsubscribe-groups/email-unsubscribe-groups';
+import {
+  EmailValidationCheck,
+  EmailValidationCreateParams,
+  EmailValidationCreateResponse,
+  EmailValidations,
+} from './resources/email-validations/email-validations';
+import {
   BillingAddress,
   BillingContact,
   EnterpriseCreateParams,
@@ -1485,6 +1587,7 @@ import {
   PortoutUpdateStatusResponse,
   Portouts,
 } from './resources/portouts/portouts';
+import { Pricing } from './resources/pricing/pricing';
 import {
   Queue,
   QueueCreateParams,
@@ -3059,6 +3162,40 @@ export class Telnyx {
    * Trademark or impersonation claims filed against your DIR. Customers may contest a claim with supporting evidence.
    */
   infringementClaims: API.InfringementClaims = new API.InfringementClaims(this);
+  /**
+   * Recipient suppression records (`/v2/email_blocks`).
+   */
+  emailBlocks: API.EmailBlocks = new API.EmailBlocks(this);
+  emailDomains: API.EmailDomains = new API.EmailDomains(this);
+  /**
+   * Retrieve account-level email events and event statistics.
+   */
+  emailEvents: API.EmailEvents = new API.EmailEvents(this);
+  /**
+   * Create and manage agent inboxes, retrieve inbound messages and threads, and reply to or forward messages.
+   */
+  emailInboxes: API.EmailInboxes = new API.EmailInboxes(this);
+  /**
+   * Send and manage email messages. Legacy `/v2/emails` routes are aliases for these endpoints.
+   */
+  emailMessages: API.EmailMessages = new API.EmailMessages(this);
+  /**
+   * Create, list, retrieve, update, delete, and render Liquid email templates.
+   */
+  emailTemplates: API.EmailTemplates = new API.EmailTemplates(this);
+  /**
+   * Account-wide conversation threads across every inbox, for agents operating many inboxes at once.
+   */
+  emailThreads: API.EmailThreads = new API.EmailThreads(this);
+  /**
+   * Named groups and group-scoped suppressions.
+   */
+  emailUnsubscribeGroups: API.EmailUnsubscribeGroups = new API.EmailUnsubscribeGroups(this);
+  /**
+   * Validate email addresses synchronously or in asynchronous batches.
+   */
+  emailValidations: API.EmailValidations = new API.EmailValidations(this);
+  pricing: API.Pricing = new API.Pricing(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3231,6 +3368,16 @@ Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 Telnyx.CallReasons = CallReasons;
 Telnyx.DirResource = DirResource;
 Telnyx.InfringementClaims = InfringementClaims;
+Telnyx.EmailBlocks = EmailBlocks;
+Telnyx.EmailDomains = EmailDomains;
+Telnyx.EmailEvents = EmailEvents;
+Telnyx.EmailInboxes = EmailInboxes;
+Telnyx.EmailMessages = EmailMessages;
+Telnyx.EmailTemplates = EmailTemplates;
+Telnyx.EmailThreads = EmailThreads;
+Telnyx.EmailUnsubscribeGroups = EmailUnsubscribeGroups;
+Telnyx.EmailValidations = EmailValidations;
+Telnyx.Pricing = Pricing;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3413,6 +3560,8 @@ export declare namespace Telnyx {
     type CallMachineGreetingEndedWebhookEvent as CallMachineGreetingEndedWebhookEvent,
     type CallMachinePremiumDetectionEndedWebhookEvent as CallMachinePremiumDetectionEndedWebhookEvent,
     type CallMachinePremiumGreetingEndedWebhookEvent as CallMachinePremiumGreetingEndedWebhookEvent,
+    type CallPaymentCompletedWebhookEvent as CallPaymentCompletedWebhookEvent,
+    type CallPaymentProgressWebhookEvent as CallPaymentProgressWebhookEvent,
     type CallPlaybackEndedWebhookEvent as CallPlaybackEndedWebhookEvent,
     type CallPlaybackStartedWebhookEvent as CallPlaybackStartedWebhookEvent,
     type CallRecordingErrorWebhookEvent as CallRecordingErrorWebhookEvent,
@@ -5080,6 +5229,117 @@ export declare namespace Telnyx {
     type InfringementClaimWrapped as InfringementClaimWrapped,
     type InfringementClaimContestParams as InfringementClaimContestParams,
   };
+
+  export {
+    EmailBlocks as EmailBlocks,
+    type EmailBlock as EmailBlock,
+    type EmailBlockResponse as EmailBlockResponse,
+    type OffsetMeta as OffsetMeta,
+    type EmailBlockRetrieveEventsResponse as EmailBlockRetrieveEventsResponse,
+    type EmailBlockRetrieveExportResponse as EmailBlockRetrieveExportResponse,
+    type EmailBlocksDefaultFlatPagination as EmailBlocksDefaultFlatPagination,
+    type EmailBlockListParams as EmailBlockListParams,
+    type EmailBlockCreateParams as EmailBlockCreateParams,
+    type EmailBlockRetrieveExportParams as EmailBlockRetrieveExportParams,
+    type EmailBlockRetrieveEventsParams as EmailBlockRetrieveEventsParams,
+  };
+
+  export {
+    EmailDomains as EmailDomains,
+    type DNSRecord as DNSRecord,
+    type DomainsTrackingSettings as DomainsTrackingSettings,
+    type EmailDmarcPolicy as EmailDmarcPolicy,
+    type EmailDomain as EmailDomain,
+    type EmailDomainResponse as EmailDomainResponse,
+    type EmailDomainStatus as EmailDomainStatus,
+    type EmailDomainType as EmailDomainType,
+    type EmailDomainVerification as EmailDomainVerification,
+    type EmailDomainRetrieveDNSRecordsResponse as EmailDomainRetrieveDNSRecordsResponse,
+    type EmailDomainRetrieveHealthResponse as EmailDomainRetrieveHealthResponse,
+    type EmailDomainsDefaultFlatPagination as EmailDomainsDefaultFlatPagination,
+    type EmailDomainListParams as EmailDomainListParams,
+    type EmailDomainCreateParams as EmailDomainCreateParams,
+    type EmailDomainDeleteParams as EmailDomainDeleteParams,
+    type EmailDomainUpdateParams as EmailDomainUpdateParams,
+  };
+
+  export {
+    EmailEvents as EmailEvents,
+    type EmailEventType as EmailEventType,
+    type TimeRange as TimeRange,
+    type EmailEventListResponse as EmailEventListResponse,
+    type EmailEventRetrieveStatsResponse as EmailEventRetrieveStatsResponse,
+    type EmailEventListParams as EmailEventListParams,
+    type EmailEventRetrieveStatsParams as EmailEventRetrieveStatsParams,
+  };
+
+  export {
+    EmailInboxes as EmailInboxes,
+    type EmailInbox as EmailInbox,
+    type EmailInboxResponse as EmailInboxResponse,
+    type EmailInboxListResponse as EmailInboxListResponse,
+    type EmailInboxListParams as EmailInboxListParams,
+    type EmailInboxCreateParams as EmailInboxCreateParams,
+  };
+
+  export {
+    EmailMessages as EmailMessages,
+    type AttachmentRequest as AttachmentRequest,
+    type EmailAddressInput as EmailAddressInput,
+    type MessageEvent as MessageEvent,
+    type TrackingSettings as TrackingSettings,
+    type EmailMessageRetrieveResponse as EmailMessageRetrieveResponse,
+    type EmailMessageListResponse as EmailMessageListResponse,
+    type EmailMessageBatchResponse as EmailMessageBatchResponse,
+    type EmailMessageRetrieveEventsResponse as EmailMessageRetrieveEventsResponse,
+    type EmailMessageDeleteAllParams as EmailMessageDeleteAllParams,
+    type EmailMessageListParams as EmailMessageListParams,
+    type EmailMessageCreateParams as EmailMessageCreateParams,
+    type EmailMessageBatchParams as EmailMessageBatchParams,
+    type EmailMessageRetrieveEventsParams as EmailMessageRetrieveEventsParams,
+  };
+
+  export {
+    EmailTemplates as EmailTemplates,
+    type EmailTemplate as EmailTemplate,
+    type EmailTemplateResponse as EmailTemplateResponse,
+    type UpdateEmailTemplateRequest as UpdateEmailTemplateRequest,
+    type EmailTemplateListResponse as EmailTemplateListResponse,
+    type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
+    type EmailTemplateListParams as EmailTemplateListParams,
+    type EmailTemplateCreateParams as EmailTemplateCreateParams,
+    type EmailTemplateReplaceParams as EmailTemplateReplaceParams,
+    type EmailTemplateUpdateParams as EmailTemplateUpdateParams,
+    type EmailTemplateRenderParams as EmailTemplateRenderParams,
+  };
+
+  export {
+    EmailThreads as EmailThreads,
+    type EmailThreadRetrieveResponse as EmailThreadRetrieveResponse,
+    type EmailThreadListParams as EmailThreadListParams,
+    type EmailThreadRetrieveParams as EmailThreadRetrieveParams,
+  };
+
+  export {
+    EmailUnsubscribeGroups as EmailUnsubscribeGroups,
+    type GroupListMeta as GroupListMeta,
+    type UnsubscribeGroup as UnsubscribeGroup,
+    type UnsubscribeGroupResponse as UnsubscribeGroupResponse,
+    type UnsubscribeGroupsDefaultFlatPagination as UnsubscribeGroupsDefaultFlatPagination,
+    type EmailUnsubscribeGroupListParams as EmailUnsubscribeGroupListParams,
+    type EmailUnsubscribeGroupCreateParams as EmailUnsubscribeGroupCreateParams,
+    type EmailUnsubscribeGroupDeleteParams as EmailUnsubscribeGroupDeleteParams,
+    type EmailUnsubscribeGroupUpdateParams as EmailUnsubscribeGroupUpdateParams,
+  };
+
+  export {
+    EmailValidations as EmailValidations,
+    type EmailValidationCheck as EmailValidationCheck,
+    type EmailValidationCreateResponse as EmailValidationCreateResponse,
+    type EmailValidationCreateParams as EmailValidationCreateParams,
+  };
+
+  export { Pricing as Pricing };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
