@@ -72,6 +72,7 @@ describe('resource uacConnections', () => {
         password: 'testtesttest',
         proxy: 'sip-pbx.acme.example',
         transport: 'TLS',
+        user_agent: 'Telnyx-Usage-Voice-Trunk/1.0',
         username: 'ext8492',
       },
       inbound: {
