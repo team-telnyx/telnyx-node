@@ -1109,6 +1109,7 @@ Types:
 
 - <code><a href="./src/resources/ai/tools.ts">PayToolParams</a></code>
 - <code><a href="./src/resources/ai/tools.ts">SharedToolResponse</a></code>
+- <code><a href="./src/resources/ai/tools.ts">UpdateDynamicVariablesToolParams</a></code>
 - <code><a href="./src/resources/ai/tools.ts">ToolDeleteResponse</a></code>
 
 Methods:
@@ -5568,5 +5569,5 @@ Types:
 
 Methods:
 
-- <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders</code>
+- <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPagination</code>
 - <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponse</code>

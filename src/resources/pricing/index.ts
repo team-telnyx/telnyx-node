@@ -9,5 +9,5 @@ export {
   type ProductListResponse,
   type ProductListParams,
   type ProductRetrieveParams,
-  type ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders,
+  type ProductListResponsesDefaultFlatPagination,
 } from './products';

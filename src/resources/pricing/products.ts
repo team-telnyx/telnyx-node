@@ -3,11 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as ProductsAPI from './products';
 import { APIPromise } from '../../core/api-promise';
-import {
-  DefaultFlatPaginationForInexplicitNumberOrders,
-  type DefaultFlatPaginationForInexplicitNumberOrdersParams,
-  PagePromise,
-} from '../../core/pagination';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -23,12 +19,11 @@ export class Products extends APIResource {
   list(
     query: ProductListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders, ProductListResponse> {
-    return this._client.getAPIList(
-      '/pricing/products',
-      DefaultFlatPaginationForInexplicitNumberOrders<ProductListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<ProductListResponsesDefaultFlatPagination, ProductListResponse> {
+    return this._client.getAPIList('/pricing/products', DefaultFlatPagination<ProductListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -47,8 +42,7 @@ export class Products extends APIResource {
   }
 }
 
-export type ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders =
-  DefaultFlatPaginationForInexplicitNumberOrders<ProductListResponse>;
+export type ProductListResponsesDefaultFlatPagination = DefaultFlatPagination<ProductListResponse>;
 
 export interface PricingPaginationMeta {
   page_number: number;
@@ -199,18 +193,20 @@ export interface ProductListResponse {
   slug: string;
 }
 
-export interface ProductListParams extends DefaultFlatPaginationForInexplicitNumberOrdersParams {}
+export interface ProductListParams extends DefaultFlatPaginationParams {}
 
 export interface ProductRetrieveParams {
+  'filter[country_iso]'?: string | null;
+
   /**
    * Page number (1-based).
    */
-  page_number?: number;
+  'page[number]'?: number;
 
   /**
    * Number of items per page (max 100).
    */
-  page_size?: number;
+  'page[size]'?: number;
 }
 
 export declare namespace Products {
@@ -219,7 +215,7 @@ export declare namespace Products {
     type PricingTier as PricingTier,
     type ProductRetrieveResponse as ProductRetrieveResponse,
     type ProductListResponse as ProductListResponse,
-    type ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders as ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders,
+    type ProductListResponsesDefaultFlatPagination as ProductListResponsesDefaultFlatPagination,
     type ProductListParams as ProductListParams,
     type ProductRetrieveParams as ProductRetrieveParams,
   };

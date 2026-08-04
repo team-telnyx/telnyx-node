@@ -24,7 +24,10 @@ describe('resource products', () => {
   test.skip('list: request options and params are passed correctly', async () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
-      client.pricing.products.list({ page_number: 1, page_size: 1 }, { path: '/_stainless_unknown_path' }),
+      client.pricing.products.list(
+        { 'page[number]': 1, 'page[size]': 1 },
+        { path: '/_stainless_unknown_path' },
+      ),
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
 
@@ -46,7 +49,11 @@ describe('resource products', () => {
     await expect(
       client.pricing.products.retrieve(
         'slug',
-        { page_number: 1, page_size: 1 },
+        {
+          'filter[country_iso]': 'SE',
+          'page[number]': 1,
+          'page[size]': 1,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

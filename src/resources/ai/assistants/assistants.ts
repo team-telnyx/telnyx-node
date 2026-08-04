@@ -386,7 +386,8 @@ export type AssistantTool =
   | AssistantTool.SendDtmf
   | AssistantTool.SendMessage
   | AssistantTool.SkipTurn
-  | AssistantTool.Pay;
+  | AssistantTool.Pay
+  | AssistantTool.UpdateDynamicVariables;
 
 export namespace AssistantTool {
   export interface ClientSideTool {
@@ -912,6 +913,22 @@ export namespace AssistantTool {
     pay: ToolsAPI.PayToolParams;
 
     type: 'pay';
+  }
+
+  /**
+   * The update_dynamic_variables tool lets the assistant write values into the
+   * conversation's dynamic-variables context during the call. Updated variables are
+   * available to later `{{variable}}` interpolation (prompts, speak nodes, message
+   * templates) and to flow edge conditions. Declare each variable the assistant is
+   * allowed to set under `updatable_variables`.
+   */
+  export interface UpdateDynamicVariables {
+    type: 'update_dynamic_variables';
+
+    /**
+     * Configuration for an update_dynamic_variables tool.
+     */
+    update_dynamic_variables: ToolsAPI.UpdateDynamicVariablesToolParams;
   }
 }
 

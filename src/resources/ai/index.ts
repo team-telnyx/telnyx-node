@@ -133,6 +133,7 @@ export {
   Tools,
   type PayToolParams,
   type SharedToolResponse,
+  type UpdateDynamicVariablesToolParams,
   type ToolDeleteResponse,
   type ToolListParams,
   type ToolCreateParams,
