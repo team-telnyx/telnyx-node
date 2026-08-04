@@ -9,6 +9,12 @@ export type WorkerInput = {
   intent?: string | undefined;
 };
 
+export type LocalWorkerInput = {
+  opts: ClientOptions;
+  code: string;
+  blockedMethods: string[];
+};
+
 export type WorkerOutput = {
   is_error: boolean;
   result: unknown | null;

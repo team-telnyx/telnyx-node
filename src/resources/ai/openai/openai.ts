@@ -129,6 +129,13 @@ export interface OpenAICreateResponseParams {
   model?: string;
 
   /**
+   * The service tier to use for this request. Supported values vary by model; use
+   * `GET /v2/ai/openai/models` and inspect the model's `service_tiers` field. If
+   * omitted, Telnyx-hosted models use `default`.
+   */
+  service_tier?: string;
+
+  /**
    * Set to `true` to stream Server-Sent Events, matching OpenAI's Responses
    * streaming format.
    */

@@ -309,6 +309,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPlaybackEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPlaybackStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallRecordingErrorWebhookEvent</a></code>
@@ -367,6 +369,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPlaybackEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPlaybackStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallRecordingErrorWebhookEvent</a></code>
@@ -1322,6 +1326,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">GoogleTranscriptionLanguage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">InterruptionSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">Loopcount</a></code>
+- <code><a href="./src/resources/calls/actions.ts">PayPromptValue</a></code>
 - <code><a href="./src/resources/calls/actions.ts">StopRecordingRequest</a></code>
 - <code><a href="./src/resources/calls/actions.ts">SystemMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TelnyxTranscriptionLanguage</a></code>
@@ -1353,6 +1358,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">ActionJoinAIAssistantResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionLeaveQueueResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionPauseRecordingResponse</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ActionPayResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionReferResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionRejectResponse</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ActionResumeRecordingResponse</a></code>
@@ -1424,6 +1430,7 @@ Methods:
 - <code title="post /calls/{call_control_id}/actions/ai_assistant_join">client.calls.actions.<a href="./src/resources/calls/actions.ts">joinAIAssistant</a>(callControlID, { ...params }) -> ActionJoinAIAssistantResponse</code>
 - <code title="post /calls/{call_control_id}/actions/conversation_relay_start">client.calls.actions.<a href="./src/resources/calls/actions.ts">startConversationRelay</a>(callControlID, { ...params }) -> ActionStartConversationRelayResponse</code>
 - <code title="post /calls/{call_control_id}/actions/conversation_relay_stop">client.calls.actions.<a href="./src/resources/calls/actions.ts">stopConversationRelay</a>(callControlID, { ...params }) -> ActionStopConversationRelayResponse</code>
+- <code title="post /calls/{call_control_id}/actions/pay">client.calls.actions.<a href="./src/resources/calls/actions.ts">pay</a>(callControlID, { ...params }) -> ActionPayResponse</code>
 
 # ChannelZones
 
@@ -5203,3 +5210,345 @@ Methods:
 
 - <code title="get /infringement_claims/{claim_id}">client.infringementClaims.<a href="./src/resources/infringement-claims.ts">retrieve</a>(claimID) -> InfringementClaimWrapped</code>
 - <code title="post /infringement_claims/{claim_id}/contest">client.infringementClaims.<a href="./src/resources/infringement-claims.ts">contest</a>(claimID, { ...params }) -> InfringementClaimWrapped</code>
+
+# EmailBlocks
+
+Types:
+
+- <code><a href="./src/resources/email-blocks/email-blocks.ts">EmailBlock</a></code>
+- <code><a href="./src/resources/email-blocks/email-blocks.ts">EmailBlockResponse</a></code>
+- <code><a href="./src/resources/email-blocks/email-blocks.ts">OffsetMeta</a></code>
+- <code><a href="./src/resources/email-blocks/email-blocks.ts">EmailBlockRetrieveEventsResponse</a></code>
+- <code><a href="./src/resources/email-blocks/email-blocks.ts">EmailBlockRetrieveExportResponse</a></code>
+
+Methods:
+
+- <code title="get /email_blocks">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">list</a>({ ...params }) -> EmailBlocksDefaultFlatPagination</code>
+- <code title="post /email_blocks">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">create</a>({ ...params }) -> EmailBlockResponse</code>
+- <code title="get /email_blocks/export">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieveExport</a>({ ...params }) -> string</code>
+- <code title="delete /email_blocks/{id}">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">delete</a>(id) -> EmailBlockResponse</code>
+- <code title="get /email_blocks/{id}">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieve</a>(id) -> EmailBlockResponse</code>
+- <code title="get /email_blocks/{id}/events">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieveEvents</a>(id, { ...params }) -> EmailBlockRetrieveEventsResponse</code>
+
+## Import
+
+Types:
+
+- <code><a href="./src/resources/email-blocks/import.ts">EmailBlockImportResponse</a></code>
+
+Methods:
+
+- <code title="post /email_blocks/import">client.emailBlocks.import.<a href="./src/resources/email-blocks/import.ts">create</a>({ ...params }) -> EmailBlockImportResponse</code>
+- <code title="get /email_blocks/import/{id}">client.emailBlocks.import.<a href="./src/resources/email-blocks/import.ts">retrieve</a>(id) -> EmailBlockImportResponse</code>
+
+# EmailDomains
+
+Types:
+
+- <code><a href="./src/resources/email-domains/email-domains.ts">DNSRecord</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">DomainsTrackingSettings</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDmarcPolicy</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomain</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainResponse</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainStatus</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainType</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainVerification</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainRetrieveDNSRecordsResponse</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainRetrieveHealthResponse</a></code>
+
+Methods:
+
+- <code title="get /email_domains">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">list</a>({ ...params }) -> EmailDomainsDefaultFlatPagination</code>
+- <code title="post /email_domains">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">create</a>({ ...params }) -> EmailDomainResponse</code>
+- <code title="get /email_domains/{domain_id}/dns_records">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">retrieveDNSRecords</a>(domainID) -> EmailDomainRetrieveDNSRecordsResponse</code>
+- <code title="post /email_domains/{domain_id}/verify">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">verify</a>(domainID) -> EmailDomainResponse</code>
+- <code title="delete /email_domains/{id}">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">delete</a>(id, { ...params }) -> EmailDomainResponse</code>
+- <code title="get /email_domains/{id}">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">retrieve</a>(id) -> EmailDomainResponse</code>
+- <code title="patch /email_domains/{id}">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">update</a>(id, { ...params }) -> EmailDomainResponse</code>
+- <code title="get /email_domains/{id}/health">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">retrieveHealth</a>(id) -> EmailDomainRetrieveHealthResponse</code>
+
+## Webhooks
+
+Types:
+
+- <code><a href="./src/resources/email-domains/webhooks.ts">EmailWebhook</a></code>
+- <code><a href="./src/resources/email-domains/webhooks.ts">EmailWebhookEvent</a></code>
+- <code><a href="./src/resources/email-domains/webhooks.ts">EmailWebhookResponse</a></code>
+- <code><a href="./src/resources/email-domains/webhooks.ts">OffsetPaginationMeta</a></code>
+
+Methods:
+
+- <code title="get /email_domains/{domain_id}/webhooks">client.emailDomains.webhooks.<a href="./src/resources/email-domains/webhooks.ts">list</a>(domainID, { ...params }) -> EmailWebhooksDefaultFlatPagination</code>
+- <code title="post /email_domains/{domain_id}/webhooks">client.emailDomains.webhooks.<a href="./src/resources/email-domains/webhooks.ts">create</a>(domainID, { ...params }) -> EmailWebhookResponse</code>
+- <code title="delete /email_domains/{domain_id}/webhooks/{id}">client.emailDomains.webhooks.<a href="./src/resources/email-domains/webhooks.ts">delete</a>(id, { ...params }) -> EmailWebhookResponse</code>
+- <code title="get /email_domains/{domain_id}/webhooks/{id}">client.emailDomains.webhooks.<a href="./src/resources/email-domains/webhooks.ts">retrieve</a>(id, { ...params }) -> EmailWebhookResponse</code>
+- <code title="patch /email_domains/{domain_id}/webhooks/{id}">client.emailDomains.webhooks.<a href="./src/resources/email-domains/webhooks.ts">update</a>(id, { ...params }) -> EmailWebhookResponse</code>
+
+# EmailEvents
+
+Types:
+
+- <code><a href="./src/resources/email-events.ts">EmailEventType</a></code>
+- <code><a href="./src/resources/email-events.ts">TimeRange</a></code>
+- <code><a href="./src/resources/email-events.ts">EmailEventListResponse</a></code>
+- <code><a href="./src/resources/email-events.ts">EmailEventRetrieveStatsResponse</a></code>
+
+Methods:
+
+- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponse</code>
+- <code title="get /email_events/stats">client.emailEvents.<a href="./src/resources/email-events.ts">retrieveStats</a>({ ...params }) -> EmailEventRetrieveStatsResponse</code>
+
+# EmailInboxes
+
+Types:
+
+- <code><a href="./src/resources/email-inboxes/email-inboxes.ts">EmailInbox</a></code>
+- <code><a href="./src/resources/email-inboxes/email-inboxes.ts">EmailInboxResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/email-inboxes.ts">EmailInboxListResponse</a></code>
+
+Methods:
+
+- <code title="get /email_inboxes">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">list</a>({ ...params }) -> EmailInboxListResponse</code>
+- <code title="post /email_inboxes">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">create</a>({ ...params }) -> EmailInboxResponse</code>
+- <code title="delete /email_inboxes/{id}">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">delete</a>(id) -> void</code>
+- <code title="get /email_inboxes/{id}">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">retrieve</a>(id) -> EmailInboxResponse</code>
+
+## Drafts
+
+Types:
+
+- <code><a href="./src/resources/email-inboxes/drafts.ts">EmailAddress</a></code>
+- <code><a href="./src/resources/email-inboxes/drafts.ts">EmailDraft</a></code>
+- <code><a href="./src/resources/email-inboxes/drafts.ts">EmailDraftRequest</a></code>
+- <code><a href="./src/resources/email-inboxes/drafts.ts">EmailDraftResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/drafts.ts">EmailMessage</a></code>
+- <code><a href="./src/resources/email-inboxes/drafts.ts">EmailMessageResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/drafts.ts">DraftListResponse</a></code>
+
+Methods:
+
+- <code title="get /email_inboxes/{inbox_id}/drafts">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">list</a>(inboxID, { ...params }) -> DraftListResponse</code>
+- <code title="post /email_inboxes/{inbox_id}/drafts">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">create</a>(inboxID, { ...params }) -> EmailDraftResponse</code>
+- <code title="delete /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">delete</a>(draftID, { ...params }) -> void</code>
+- <code title="get /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">retrieve</a>(draftID, { ...params }) -> EmailDraftResponse</code>
+- <code title="put /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">update</a>(draftID, { ...params }) -> EmailDraftResponse</code>
+- <code title="patch /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">patch</a>(draftID, { ...params }) -> EmailDraftResponse</code>
+- <code title="post /email_inboxes/{inbox_id}/drafts/{draft_id}/send">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">send</a>(draftID, { ...params }) -> EmailMessageResponse</code>
+
+## Filters
+
+Types:
+
+- <code><a href="./src/resources/email-inboxes/filters.ts">MutateInboxFiltersRequest</a></code>
+- <code><a href="./src/resources/email-inboxes/filters.ts">FilterListResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/filters.ts">FilterAddResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/filters.ts">FilterDeleteAllResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/filters.ts">FilterReplaceResponse</a></code>
+
+Methods:
+
+- <code title="delete /email_inboxes/{inbox_id}/filters">client.emailInboxes.filters.<a href="./src/resources/email-inboxes/filters.ts">deleteAll</a>(inboxID, { ...params }) -> FilterDeleteAllResponse</code>
+- <code title="get /email_inboxes/{inbox_id}/filters">client.emailInboxes.filters.<a href="./src/resources/email-inboxes/filters.ts">list</a>(inboxID) -> FilterListResponse</code>
+- <code title="post /email_inboxes/{inbox_id}/filters">client.emailInboxes.filters.<a href="./src/resources/email-inboxes/filters.ts">add</a>(inboxID, { ...params }) -> FilterAddResponse</code>
+- <code title="put /email_inboxes/{inbox_id}/filters">client.emailInboxes.filters.<a href="./src/resources/email-inboxes/filters.ts">replace</a>(inboxID, { ...params }) -> FilterReplaceResponse</code>
+
+## Messages
+
+Types:
+
+- <code><a href="./src/resources/email-inboxes/messages/messages.ts">MessageUpdateResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/messages/messages.ts">MessageListResponse</a></code>
+
+Methods:
+
+- <code title="get /email_inboxes/{inbox_id}/messages">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">list</a>(inboxID, { ...params }) -> MessageListResponse</code>
+- <code title="patch /email_inboxes/{inbox_id}/messages/{message_id}">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">update</a>(messageID, { ...params }) -> MessageUpdateResponse</code>
+- <code title="post /email_inboxes/{inbox_id}/messages/{message_id}/drafts">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">drafts</a>(messageID, { ...params }) -> EmailDraftResponse</code>
+
+### Actions
+
+Types:
+
+- <code><a href="./src/resources/email-inboxes/messages/actions.ts">InboxActionEmailAddressInput</a></code>
+- <code><a href="./src/resources/email-inboxes/messages/actions.ts">InboxActionRecipientInput</a></code>
+- <code><a href="./src/resources/email-inboxes/messages/actions.ts">ReplyEmailInboxMessageRequest</a></code>
+
+Methods:
+
+- <code title="post /email_inboxes/{inbox_id}/messages/{message_id}/actions/forward">client.emailInboxes.messages.actions.<a href="./src/resources/email-inboxes/messages/actions.ts">forward</a>(messageID, { ...params }) -> EmailMessageResponse</code>
+- <code title="post /email_inboxes/{inbox_id}/messages/{message_id}/actions/reply">client.emailInboxes.messages.actions.<a href="./src/resources/email-inboxes/messages/actions.ts">reply</a>(messageID, { ...params }) -> EmailMessageResponse</code>
+- <code title="post /email_inboxes/{inbox_id}/messages/{message_id}/actions/reply_all">client.emailInboxes.messages.actions.<a href="./src/resources/email-inboxes/messages/actions.ts">replyAll</a>(messageID, { ...params }) -> EmailMessageResponse</code>
+
+### Labels
+
+Types:
+
+- <code><a href="./src/resources/email-inboxes/messages/labels.ts">LabelMutationRequest</a></code>
+- <code><a href="./src/resources/email-inboxes/messages/labels.ts">LabelCreateResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/messages/labels.ts">LabelDeleteAllResponse</a></code>
+
+Methods:
+
+- <code title="delete /email_inboxes/{inbox_id}/messages/{message_id}/labels">client.emailInboxes.messages.labels.<a href="./src/resources/email-inboxes/messages/labels.ts">deleteAll</a>(messageID, { ...params }) -> LabelDeleteAllResponse</code>
+- <code title="post /email_inboxes/{inbox_id}/messages/{message_id}/labels">client.emailInboxes.messages.labels.<a href="./src/resources/email-inboxes/messages/labels.ts">create</a>(messageID, { ...params }) -> LabelCreateResponse</code>
+
+## Threads
+
+Types:
+
+- <code><a href="./src/resources/email-inboxes/threads/threads.ts">EmailPaginationMeta</a></code>
+- <code><a href="./src/resources/email-inboxes/threads/threads.ts">InboundEmailAddress</a></code>
+- <code><a href="./src/resources/email-inboxes/threads/threads.ts">InboundThread</a></code>
+- <code><a href="./src/resources/email-inboxes/threads/threads.ts">InboundThreadDetail</a></code>
+- <code><a href="./src/resources/email-inboxes/threads/threads.ts">InboundThreadListResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/threads/threads.ts">ThreadMessage</a></code>
+- <code><a href="./src/resources/email-inboxes/threads/threads.ts">ThreadRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /email_inboxes/{inbox_id}/threads">client.emailInboxes.threads.<a href="./src/resources/email-inboxes/threads/threads.ts">list</a>(inboxID, { ...params }) -> InboundThreadListResponse</code>
+- <code title="get /email_inboxes/{inbox_id}/threads/{thread_id}">client.emailInboxes.threads.<a href="./src/resources/email-inboxes/threads/threads.ts">retrieve</a>(threadID, { ...params }) -> ThreadRetrieveResponse</code>
+
+### Labels
+
+Types:
+
+- <code><a href="./src/resources/email-inboxes/threads/labels.ts">LabelCreateResponse</a></code>
+- <code><a href="./src/resources/email-inboxes/threads/labels.ts">LabelDeleteAllResponse</a></code>
+
+Methods:
+
+- <code title="delete /email_inboxes/{inbox_id}/threads/{thread_id}/labels">client.emailInboxes.threads.labels.<a href="./src/resources/email-inboxes/threads/labels.ts">deleteAll</a>(threadID, { ...params }) -> LabelDeleteAllResponse</code>
+- <code title="post /email_inboxes/{inbox_id}/threads/{thread_id}/labels">client.emailInboxes.threads.labels.<a href="./src/resources/email-inboxes/threads/labels.ts">create</a>(threadID, { ...params }) -> LabelCreateResponse</code>
+
+# EmailMessages
+
+Types:
+
+- <code><a href="./src/resources/email-messages/email-messages.ts">AttachmentRequest</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">EmailAddressInput</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">MessageEvent</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">TrackingSettings</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageRetrieveResponse</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageListResponse</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageBatchResponse</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageRetrieveEventsResponse</a></code>
+
+Methods:
+
+- <code title="delete /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">deleteAll</a>({ ...params }) -> void</code>
+- <code title="get /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">list</a>({ ...params }) -> EmailMessageListResponse</code>
+- <code title="post /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">create</a>({ ...params }) -> EmailMessageResponse</code>
+- <code title="post /email_messages/batch">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">batch</a>({ ...params }) -> EmailMessageBatchResponse</code>
+- <code title="get /email_messages/{email_id}/events">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieveEvents</a>(emailID, { ...params }) -> EmailMessageRetrieveEventsResponse</code>
+- <code title="delete /email_messages/{email_id}/schedule">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">deleteSchedule</a>(emailID) -> EmailMessageResponse</code>
+- <code title="delete /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">delete</a>(id) -> void</code>
+- <code title="get /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieve</a>(id) -> EmailMessageRetrieveResponse</code>
+
+## Recipients
+
+Types:
+
+- <code><a href="./src/resources/email-messages/recipients.ts">EmailRecipient</a></code>
+- <code><a href="./src/resources/email-messages/recipients.ts">RecipientRetrieveResponse</a></code>
+- <code><a href="./src/resources/email-messages/recipients.ts">RecipientListResponse</a></code>
+
+Methods:
+
+- <code title="get /email_messages/{email_id}/recipients">client.emailMessages.recipients.<a href="./src/resources/email-messages/recipients.ts">list</a>(emailID, { ...params }) -> RecipientListResponse</code>
+- <code title="get /email_messages/{email_id}/recipients/{recipient_id}">client.emailMessages.recipients.<a href="./src/resources/email-messages/recipients.ts">retrieve</a>(recipientID, { ...params }) -> RecipientRetrieveResponse</code>
+
+# EmailTemplates
+
+Types:
+
+- <code><a href="./src/resources/email-templates.ts">EmailTemplate</a></code>
+- <code><a href="./src/resources/email-templates.ts">EmailTemplateResponse</a></code>
+- <code><a href="./src/resources/email-templates.ts">UpdateEmailTemplateRequest</a></code>
+- <code><a href="./src/resources/email-templates.ts">EmailTemplateListResponse</a></code>
+- <code><a href="./src/resources/email-templates.ts">EmailTemplateRenderResponse</a></code>
+
+Methods:
+
+- <code title="get /email_templates">client.emailTemplates.<a href="./src/resources/email-templates.ts">list</a>({ ...params }) -> EmailTemplateListResponse</code>
+- <code title="post /email_templates">client.emailTemplates.<a href="./src/resources/email-templates.ts">create</a>({ ...params }) -> EmailTemplateResponse</code>
+- <code title="delete /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">delete</a>(id) -> void</code>
+- <code title="get /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">retrieve</a>(id) -> EmailTemplateResponse</code>
+- <code title="put /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">replace</a>(id, { ...params }) -> EmailTemplateResponse</code>
+- <code title="patch /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">update</a>(id, { ...params }) -> EmailTemplateResponse</code>
+- <code title="post /email_templates/{id}/render">client.emailTemplates.<a href="./src/resources/email-templates.ts">render</a>(id, { ...params }) -> EmailTemplateRenderResponse</code>
+
+# EmailThreads
+
+Types:
+
+- <code><a href="./src/resources/email-threads.ts">EmailThreadRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /email_threads">client.emailThreads.<a href="./src/resources/email-threads.ts">list</a>({ ...params }) -> InboundThreadListResponse</code>
+- <code title="get /email_threads/{thread_id}">client.emailThreads.<a href="./src/resources/email-threads.ts">retrieve</a>(threadID, { ...params }) -> EmailThreadRetrieveResponse</code>
+
+# EmailUnsubscribeGroups
+
+Types:
+
+- <code><a href="./src/resources/email-unsubscribe-groups/email-unsubscribe-groups.ts">GroupListMeta</a></code>
+- <code><a href="./src/resources/email-unsubscribe-groups/email-unsubscribe-groups.ts">UnsubscribeGroup</a></code>
+- <code><a href="./src/resources/email-unsubscribe-groups/email-unsubscribe-groups.ts">UnsubscribeGroupResponse</a></code>
+
+Methods:
+
+- <code title="get /email_unsubscribe_groups">client.emailUnsubscribeGroups.<a href="./src/resources/email-unsubscribe-groups/email-unsubscribe-groups.ts">list</a>({ ...params }) -> UnsubscribeGroupsDefaultFlatPagination</code>
+- <code title="post /email_unsubscribe_groups">client.emailUnsubscribeGroups.<a href="./src/resources/email-unsubscribe-groups/email-unsubscribe-groups.ts">create</a>({ ...params }) -> UnsubscribeGroupResponse</code>
+- <code title="delete /email_unsubscribe_groups/{id}">client.emailUnsubscribeGroups.<a href="./src/resources/email-unsubscribe-groups/email-unsubscribe-groups.ts">delete</a>(id, { ...params }) -> void</code>
+- <code title="get /email_unsubscribe_groups/{id}">client.emailUnsubscribeGroups.<a href="./src/resources/email-unsubscribe-groups/email-unsubscribe-groups.ts">retrieve</a>(id) -> UnsubscribeGroupResponse</code>
+- <code title="patch /email_unsubscribe_groups/{id}">client.emailUnsubscribeGroups.<a href="./src/resources/email-unsubscribe-groups/email-unsubscribe-groups.ts">update</a>(id, { ...params }) -> UnsubscribeGroupResponse</code>
+
+## Suppressions
+
+Methods:
+
+- <code title="get /email_unsubscribe_groups/{id}/suppressions">client.emailUnsubscribeGroups.suppressions.<a href="./src/resources/email-unsubscribe-groups/suppressions.ts">list</a>(id, { ...params }) -> EmailBlocksDefaultFlatPagination</code>
+- <code title="post /email_unsubscribe_groups/{id}/suppressions">client.emailUnsubscribeGroups.suppressions.<a href="./src/resources/email-unsubscribe-groups/suppressions.ts">create</a>(id, { ...params }) -> EmailBlockResponse</code>
+- <code title="delete /email_unsubscribe_groups/{id}/suppressions/{email}">client.emailUnsubscribeGroups.suppressions.<a href="./src/resources/email-unsubscribe-groups/suppressions.ts">delete</a>(email, { ...params }) -> void</code>
+
+# EmailValidations
+
+Types:
+
+- <code><a href="./src/resources/email-validations/email-validations.ts">EmailValidationCheck</a></code>
+- <code><a href="./src/resources/email-validations/email-validations.ts">EmailValidationCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /email_validations">client.emailValidations.<a href="./src/resources/email-validations/email-validations.ts">create</a>({ ...params }) -> EmailValidationCreateResponse</code>
+
+## Batch
+
+Types:
+
+- <code><a href="./src/resources/email-validations/batch.ts">EmailValidationBatchStatus</a></code>
+- <code><a href="./src/resources/email-validations/batch.ts">BatchCreateResponse</a></code>
+- <code><a href="./src/resources/email-validations/batch.ts">BatchRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="post /email_validations/batch">client.emailValidations.batch.<a href="./src/resources/email-validations/batch.ts">create</a>({ ...params }) -> BatchCreateResponse</code>
+- <code title="get /email_validations/batch/{id}">client.emailValidations.batch.<a href="./src/resources/email-validations/batch.ts">retrieve</a>(id) -> BatchRetrieveResponse</code>
+
+# Pricing
+
+## Products
+
+Types:
+
+- <code><a href="./src/resources/pricing/products.ts">PricingPaginationMeta</a></code>
+- <code><a href="./src/resources/pricing/products.ts">PricingTier</a></code>
+- <code><a href="./src/resources/pricing/products.ts">ProductRetrieveResponse</a></code>
+- <code><a href="./src/resources/pricing/products.ts">ProductListResponse</a></code>
+
+Methods:
+
+- <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders</code>
+- <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponse</code>

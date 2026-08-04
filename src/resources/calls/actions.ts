@@ -997,6 +997,38 @@ export class Actions extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * Collect payment details from the caller using DTMF and either charge or tokenize
+   * the payment method through a configured Pay connector. Pay pauses active call
+   * recordings while sensitive payment details are collected.
+   *
+   * When `payment_token` is supplied, the DTMF collection steps are skipped and the
+   * existing token is sent to the connector.
+   *
+   * **Expected Webhooks:**
+   *
+   * - `call.payment.progress`
+   * - `call.payment.completed`
+   *
+   * **Test mode card numbers:** `4111111111111111` (Visa), `5555555555554444`
+   * (Mastercard), `378282246310005` (American Express), `6011111111111117`
+   * (Discover), `3065930009020004` (Diners Club), `3566002020360505` (JCB),
+   * `6200000000000005` (UnionPay), and `6771798021000008` (Maestro). Test-mode
+   * connectors reject other card numbers before contacting the configured processor.
+   * The UnionPay and Maestro numbers are accepted for processor testing, but Pay
+   * currently does not emit a card type for them.
+   *
+   * @example
+   * ```ts
+   * const response = await client.calls.actions.pay(
+   *   'call_control_id',
+   * );
+   * ```
+   */
+  pay(callControlID: string, body: ActionPayParams, options?: RequestOptions): APIPromise<ActionPayResponse> {
+    return this._client.post(path`/calls/${callControlID}/actions/pay`, { body, ...options });
+  }
 }
 
 export interface AIAssistantJoinParticipant {
@@ -1393,6 +1425,48 @@ export interface InterruptionSettings {
 
 export type Loopcount = string | number;
 
+/**
+ * A default prompt string or an ordered list of qualified prompts.
+ */
+export type PayPromptValue = string | Array<PayPromptValue.UnionMember1>;
+
+export namespace PayPromptValue {
+  /**
+   * A text-to-speech prompt with optional matching qualifiers.
+   */
+  export interface UnionMember1 {
+    /**
+     * Text spoken for the payment collection step.
+     */
+    text: string;
+
+    /**
+     * Space-separated 1-based attempt numbers for which this prompt applies.
+     */
+    attempt?: string;
+
+    /**
+     * Lowercase, case-sensitive detected card type for which this prompt applies. Only
+     * the listed brands are currently detected; accepted UnionPay and Maestro test
+     * cards do not produce a card-type qualifier.
+     */
+    card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+
+    /**
+     * Step error for which this prompt applies.
+     */
+    error_type?:
+      | 'timeout'
+      | 'invalid-card-number'
+      | 'invalid-date'
+      | 'invalid-security-code'
+      | 'invalid-postal-code'
+      | 'invalid-bank-routing-number'
+      | 'invalid-bank-account-number'
+      | 'input-matching-failed';
+  }
+}
+
 export interface StopRecordingRequest {
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -1596,7 +1670,10 @@ export interface TranscriptionConfig {
    * that language. For `humain/realtime`, supported values are `ar`, `en`,
    * `codeswitch` (Arabic/English code-switching), and `auto` (resolves server-side
    * to code-switching). Unlike other models, `humain/realtime` does not fall back to
-   * `auto` when `language` is omitted — omitting it applies `en` instead.
+   * `auto` when `language` is omitted — omitting it applies `en` instead. For
+   * `reson8/turns`, supported values are `auto` (or unset) for automatic language
+   * detection, and the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`,
+   * `pt`, `es`, and `sv` to fix the transcription language.
    */
   language?: string;
 
@@ -1616,6 +1693,8 @@ export interface TranscriptionConfig {
    *   detection.
    * - `humain/realtime` for live streaming transcription with native Arabic and
    *   Arabic/English code-switching support.
+   * - `reson8/turns` for live streaming turn-based transcription of 10 European
+   *   languages with automatic language detection.
    * - `azure/fast` and `azure/realtime`; Azure models require `region`, and
    *   unsupported regions require `api_key_ref`.
    * - `google/latest_long` for non-streaming multilingual transcription.
@@ -1636,6 +1715,7 @@ export interface TranscriptionConfig {
     | 'soniox/stt-rt-v4'
     | 'nvidia/parakeet-v3'
     | 'humain/realtime'
+    | 'reson8/turns'
     | 'azure/fast'
     | 'azure/realtime'
     | 'google/latest_long'
@@ -2121,6 +2201,7 @@ export interface TranscriptionStartRequest {
     | 'Soniox'
     | 'Parakeet'
     | 'Humain'
+    | 'Reson8'
     | 'A'
     | 'B';
 
@@ -2134,6 +2215,7 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
     | TranscriptionStartRequest.TranscriptionEngineHumainConfig
+    | TranscriptionStartRequest.TranscriptionEngineReson8Config
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -2164,6 +2246,24 @@ export namespace TranscriptionStartRequest {
      * The model to use for transcription.
      */
     transcription_model?: 'humain/realtime';
+  }
+
+  export interface TranscriptionEngineReson8Config {
+    /**
+     * The language of the audio to be transcribed. `auto` (the default, also applied
+     * when `language` is omitted) enables automatic language detection.
+     */
+    language?: 'auto' | 'nl' | 'en' | 'fr' | 'fy' | 'de' | 'it' | 'pl' | 'pt' | 'es' | 'sv';
+
+    /**
+     * Engine identifier for Reson8 transcription service
+     */
+    transcription_engine?: 'Reson8';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'reson8/turns';
   }
 }
 
@@ -2244,6 +2344,10 @@ export interface ActionLeaveQueueResponse {
 }
 
 export interface ActionPauseRecordingResponse {
+  data?: CallControlCommandResult;
+}
+
+export interface ActionPayResponse {
   data?: CallControlCommandResult;
 }
 
@@ -2426,56 +2530,6 @@ export interface ActionStartAIAssistantParams {
    * ignore this field.
    */
   transcription?: TranscriptionConfig;
-
-  /**
-   * The voice to be used by the voice assistant. Currently we support ElevenLabs,
-   * Telnyx and AWS voices.
-   *
-   * **Supported Providers:**
-   *
-   * - **AWS:** Use `AWS.Polly.<VoiceId>` (e.g., `AWS.Polly.Joanna`). For neural
-   *   voices, which provide more realistic, human-like speech, append `-Neural` to
-   *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
-   *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
-   *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
-   * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
-   *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
-   *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
-   *   under `"voice_settings": {"api_key_ref": "<secret_id>"}`. See
-   *   [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   *   for details. Check
-   *   [available voices](https://elevenlabs.io/docs/api-reference/get-voices).
-   * - **Telnyx:** Use `Telnyx.<model_id>.<voice_id>`
-   * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
-   *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,
-   *   `Max`, `TTS2`.
-   * - **Fish Audio:** Use `FishAudio.<ModelId>.<VoiceId>` (e.g.,
-   *   `FishAudio.s2.1-pro.<reference_id>`). Supported models: `s2.1-pro`, `s2-pro`,
-   *   `s1`. `VoiceId` is a Fish Voice-Library reference ID.
-   * - **xAI:** Use `xAI.<VoiceId>` (e.g., `xAI.eve`). Available voices: `eve`,
-   *   `ara`, `rex`, `sal`, `leo`.
-   * - **Humain:** Use `Humain.<VoiceId>` (e.g., `Humain.sara-ar`). Available voices:
-   *   `sara-en`, `abdulaziz-en`, `sara-ar`, `abdulaziz-ar`, `nourah-ar`,
-   *   `abdullah-ar`. Native Arabic (Saudi dialect) and English voices only — no
-   *   `ModelId` segment.
-   */
-  voice?: string;
-
-  /**
-   * The settings associated with the voice selected
-   */
-  voice_settings?:
-    | ElevenLabsVoiceSettings
-    | TelnyxVoiceSettings
-    | AwsVoiceSettings
-    | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
-    | Shared.ResembleVoiceSettings
-    | Shared.XaiVoiceSettings;
 }
 
 export interface ActionStopAIAssistantParams {
@@ -4595,6 +4649,7 @@ export interface ActionStartTranscriptionParams {
     | 'Soniox'
     | 'Parakeet'
     | 'Humain'
+    | 'Reson8'
     | 'A'
     | 'B';
 
@@ -4608,6 +4663,7 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
     | ActionStartTranscriptionParams.TranscriptionEngineHumainConfig
+    | ActionStartTranscriptionParams.TranscriptionEngineReson8Config
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4638,6 +4694,24 @@ export namespace ActionStartTranscriptionParams {
      * The model to use for transcription.
      */
     transcription_model?: 'humain/realtime';
+  }
+
+  export interface TranscriptionEngineReson8Config {
+    /**
+     * The language of the audio to be transcribed. `auto` (the default, also applied
+     * when `language` is omitted) enables automatic language detection.
+     */
+    language?: 'auto' | 'nl' | 'en' | 'fr' | 'fy' | 'de' | 'it' | 'pl' | 'pt' | 'es' | 'sv';
+
+    /**
+     * Engine identifier for Reson8 transcription service
+     */
+    transcription_engine?: 'Reson8';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'reson8/turns';
   }
 }
 
@@ -5031,6 +5105,13 @@ export interface ActionAddAIAssistantMessagesParams {
    * The messages to add to the conversation.
    */
   messages?: Array<UserMessage | AssistantMessage | ToolMessage | SystemMessage | DeveloperMessage>;
+
+  /**
+   * When `true`, the injected messages immediately trigger an assistant
+   * response/turn instead of waiting for the next natural turn or idle timeout. This
+   * may interrupt a user who is still speaking.
+   */
+  trigger_response?: boolean;
 }
 
 export interface ActionJoinAIAssistantParams {
@@ -5314,6 +5395,140 @@ export interface ActionStopConversationRelayParams {
   command_id?: string;
 }
 
+export interface ActionPayParams {
+  /**
+   * Amount to charge. Required when `transaction_type` is `charge`.
+   */
+  amount?: number;
+
+  /**
+   * Base64-encoded state included in subsequent webhooks.
+   */
+  client_state?: string;
+
+  /**
+   * Idempotency key for the command. Telnyx ignores a duplicate command with the
+   * same `command_id` for the same `call_control_id`.
+   */
+  command_id?: string;
+
+  /**
+   * Name of the Pay connector used to process the transaction.
+   */
+  connector_name?: string;
+
+  /**
+   * Currency used for the transaction. Pay currently supports USD only.
+   */
+  currency?: 'USD' | 'usd';
+
+  /**
+   * Optional description forwarded with the payment transaction.
+   */
+  description?: string;
+
+  /**
+   * Time in milliseconds to wait between consecutive DTMF digits.
+   */
+  inter_digit_timeout_millis?: number;
+
+  /**
+   * Language used for payment prompts.
+   */
+  language?: string;
+
+  /**
+   * Maximum number of attempts for each payment collection step.
+   */
+  max_attempts?: number;
+
+  /**
+   * Metadata forwarded to the Pay connector.
+   */
+  metadata?: { [key: string]: unknown };
+
+  /**
+   * Additional parameters forwarded to the Pay connector.
+   */
+  parameters?: { [key: string]: unknown };
+
+  /**
+   * Payment method to collect.
+   */
+  payment_method?: 'credit-card' | 'ach-debit';
+
+  /**
+   * Existing payment token. When supplied, payment-detail collection is skipped.
+   */
+  payment_token?: string;
+
+  /**
+   * Custom text-to-speech prompts keyed by payment collection step.
+   */
+  prompts?: ActionPayParams.Prompts;
+
+  /**
+   * Speech synthesis service level used for payment prompts. Pay defaults to
+   * `premium`.
+   */
+  service_level?: string;
+
+  /**
+   * Time in milliseconds to wait for DTMF input for each collection step.
+   */
+  timeout_millis?: number;
+
+  /**
+   * Transaction to perform. If omitted, Pay infers `tokenize` when `amount` is
+   * absent or zero and `charge` when `amount` is positive.
+   */
+  transaction_type?: 'charge' | 'tokenize';
+
+  /**
+   * Voice used for payment prompts. Accepts `male`, `female`, or a provider voice in
+   * `<Provider>.<Model>.<VoiceId>` format, for example `AWS.Polly.Joanna` or
+   * `Telnyx.KokoroTTS.af`.
+   */
+  voice?: string;
+}
+
+export namespace ActionPayParams {
+  /**
+   * Custom text-to-speech prompts keyed by payment collection step.
+   */
+  export interface Prompts {
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'bank-account-number'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'bank-routing-number'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'expiration-date'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'payment-card-number'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'postal-code'?: ActionsAPI.PayPromptValue;
+
+    /**
+     * A default prompt string or an ordered list of qualified prompts.
+     */
+    'security-code'?: ActionsAPI.PayPromptValue;
+  }
+}
+
 export declare namespace Actions {
   export {
     type AIAssistantJoinParticipant as AIAssistantJoinParticipant,
@@ -5329,6 +5544,7 @@ export declare namespace Actions {
     type GoogleTranscriptionLanguage as GoogleTranscriptionLanguage,
     type InterruptionSettings as InterruptionSettings,
     type Loopcount as Loopcount,
+    type PayPromptValue as PayPromptValue,
     type StopRecordingRequest as StopRecordingRequest,
     type SystemMessage as SystemMessage,
     type TelnyxTranscriptionLanguage as TelnyxTranscriptionLanguage,
@@ -5360,6 +5576,7 @@ export declare namespace Actions {
     type ActionJoinAIAssistantResponse as ActionJoinAIAssistantResponse,
     type ActionLeaveQueueResponse as ActionLeaveQueueResponse,
     type ActionPauseRecordingResponse as ActionPauseRecordingResponse,
+    type ActionPayResponse as ActionPayResponse,
     type ActionReferResponse as ActionReferResponse,
     type ActionRejectResponse as ActionRejectResponse,
     type ActionResumeRecordingResponse as ActionResumeRecordingResponse,
@@ -5428,5 +5645,6 @@ export declare namespace Actions {
     type ActionJoinAIAssistantParams as ActionJoinAIAssistantParams,
     type ActionStartConversationRelayParams as ActionStartConversationRelayParams,
     type ActionStopConversationRelayParams as ActionStopConversationRelayParams,
+    type ActionPayParams as ActionPayParams,
   };
 }

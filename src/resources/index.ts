@@ -326,6 +326,106 @@ export {
   type DynamicEmergencyEndpointsDefaultFlatPagination,
 } from './dynamic-emergency-endpoints';
 export {
+  EmailBlocks,
+  type EmailBlock,
+  type EmailBlockResponse,
+  type OffsetMeta,
+  type EmailBlockRetrieveEventsResponse,
+  type EmailBlockRetrieveExportResponse,
+  type EmailBlockListParams,
+  type EmailBlockCreateParams,
+  type EmailBlockRetrieveExportParams,
+  type EmailBlockRetrieveEventsParams,
+  type EmailBlocksDefaultFlatPagination,
+} from './email-blocks/email-blocks';
+export {
+  EmailDomains,
+  type DNSRecord,
+  type DomainsTrackingSettings,
+  type EmailDmarcPolicy,
+  type EmailDomain,
+  type EmailDomainResponse,
+  type EmailDomainStatus,
+  type EmailDomainType,
+  type EmailDomainVerification,
+  type EmailDomainRetrieveDNSRecordsResponse,
+  type EmailDomainRetrieveHealthResponse,
+  type EmailDomainListParams,
+  type EmailDomainCreateParams,
+  type EmailDomainDeleteParams,
+  type EmailDomainUpdateParams,
+  type EmailDomainsDefaultFlatPagination,
+} from './email-domains/email-domains';
+export {
+  EmailEvents,
+  type EmailEventType,
+  type TimeRange,
+  type EmailEventListResponse,
+  type EmailEventRetrieveStatsResponse,
+  type EmailEventListParams,
+  type EmailEventRetrieveStatsParams,
+} from './email-events';
+export {
+  EmailInboxes,
+  type EmailInbox,
+  type EmailInboxResponse,
+  type EmailInboxListResponse,
+  type EmailInboxListParams,
+  type EmailInboxCreateParams,
+} from './email-inboxes/email-inboxes';
+export {
+  EmailMessages,
+  type AttachmentRequest,
+  type EmailAddressInput,
+  type MessageEvent,
+  type TrackingSettings,
+  type EmailMessageRetrieveResponse,
+  type EmailMessageListResponse,
+  type EmailMessageBatchResponse,
+  type EmailMessageRetrieveEventsResponse,
+  type EmailMessageDeleteAllParams,
+  type EmailMessageListParams,
+  type EmailMessageCreateParams,
+  type EmailMessageBatchParams,
+  type EmailMessageRetrieveEventsParams,
+} from './email-messages/email-messages';
+export {
+  EmailTemplates,
+  type EmailTemplate,
+  type EmailTemplateResponse,
+  type UpdateEmailTemplateRequest,
+  type EmailTemplateListResponse,
+  type EmailTemplateRenderResponse,
+  type EmailTemplateListParams,
+  type EmailTemplateCreateParams,
+  type EmailTemplateReplaceParams,
+  type EmailTemplateUpdateParams,
+  type EmailTemplateRenderParams,
+} from './email-templates';
+export {
+  EmailThreads,
+  type EmailThreadRetrieveResponse,
+  type EmailThreadListParams,
+  type EmailThreadRetrieveParams,
+} from './email-threads';
+export {
+  EmailUnsubscribeGroups,
+  type GroupListMeta,
+  type UnsubscribeGroup,
+  type UnsubscribeGroupResponse,
+  type EmailUnsubscribeGroupListParams,
+  type EmailUnsubscribeGroupCreateParams,
+  type EmailUnsubscribeGroupDeleteParams,
+  type EmailUnsubscribeGroupUpdateParams,
+  type UnsubscribeGroupsDefaultFlatPagination,
+} from './email-unsubscribe-groups/email-unsubscribe-groups';
+export {
+  EmailValidations,
+  type EmailValidationCheck,
+  type EmailValidationCreateResponse,
+  type EmailValidationCreateParams,
+} from './email-validations/email-validations';
+export {
   Enterprises,
   type BillingAddress,
   type BillingContact,
@@ -968,6 +1068,7 @@ export {
   type PortoutUpdateStatusParams,
   type PortoutDetailsDefaultFlatPagination,
 } from './portouts/portouts';
+export { Pricing } from './pricing/pricing';
 export {
   PrivateWirelessGateways,
   type PrivateWirelessGateway,
@@ -1513,6 +1614,8 @@ export {
   type CallMachineGreetingEndedWebhookEvent,
   type CallMachinePremiumDetectionEndedWebhookEvent,
   type CallMachinePremiumGreetingEndedWebhookEvent,
+  type CallPaymentCompletedWebhookEvent,
+  type CallPaymentProgressWebhookEvent,
   type CallPlaybackEndedWebhookEvent,
   type CallPlaybackStartedWebhookEvent,
   type CallRecordingErrorWebhookEvent,
