@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as Shared from '../../shared';
 import * as CallingSettingsAPI from './calling-settings';
 import {
   CallingSettingRetrieveResponse,
@@ -144,6 +145,22 @@ export class PhoneNumbers extends APIResource {
       ...options,
     });
   }
+
+  /**
+   * List Whatsapp phone numbers
+   *
+   * @example
+   * ```ts
+   * const phoneNumber =
+   *   await client.whatsapp.phoneNumbers.get();
+   * ```
+   */
+  get(
+    query: PhoneNumberGetParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberGetResponse> {
+    return this._client.get('/whatsapp/phone_numbers', { query, ...options });
+  }
 }
 
 export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>;
@@ -185,6 +202,53 @@ export interface PhoneNumberListResponse {
    * WABA ID of Whatsapp business account
    */
   waba_id?: string;
+}
+
+export interface PhoneNumberGetResponse {
+  data?: Array<PhoneNumberGetResponse.Data>;
+
+  meta?: Shared.MessagingPaginationMeta;
+}
+
+export namespace PhoneNumberGetResponse {
+  export interface Data {
+    calling_enabled?: boolean;
+
+    created_at?: string;
+
+    display_name?: string;
+
+    enabled?: boolean;
+
+    /**
+     * Phone number in E164 format
+     */
+    phone_number?: string;
+
+    /**
+     * Whatsapp phone number ID
+     */
+    phone_number_id?: string;
+
+    /**
+     * Whatsapp quality rating
+     */
+    quality_rating?: string;
+
+    record_type?: string;
+
+    status?: string;
+
+    /**
+     * User ID
+     */
+    user_id?: string;
+
+    /**
+     * WABA ID of Whatsapp business account
+     */
+    waba_id?: string;
+  }
 }
 
 export interface PhoneNumberRetrieveConversationWindowResponse {
@@ -232,6 +296,12 @@ export interface PhoneNumberRetrieveConversationWindowParams {
   destination_number: string;
 }
 
+export interface PhoneNumberGetParams {
+  'page[number]'?: number;
+
+  'page[size]'?: number;
+}
+
 PhoneNumbers.CallingSettings = CallingSettings;
 PhoneNumbers.Profile = Profile;
 PhoneNumbers.ConversationalComponents = ConversationalComponents;
@@ -239,12 +309,14 @@ PhoneNumbers.ConversationalComponents = ConversationalComponents;
 export declare namespace PhoneNumbers {
   export {
     type PhoneNumberListResponse as PhoneNumberListResponse,
+    type PhoneNumberGetResponse as PhoneNumberGetResponse,
     type PhoneNumberRetrieveConversationWindowResponse as PhoneNumberRetrieveConversationWindowResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
     type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
+    type PhoneNumberGetParams as PhoneNumberGetParams,
   };
 
   export {

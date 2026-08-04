@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as Shared from './shared';
+import * as NetworkCoverageAPI from './network-coverage';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
@@ -52,7 +52,7 @@ export interface VirtualCrossConnectsCoverageListResponse {
    */
   cloud_provider_region?: string;
 
-  location?: Shared.NetappsLocation;
+  location?: NetworkCoverageAPI.NetappsLocation17904fcfbc;
 
   /**
    * Identifies the type of the resource.

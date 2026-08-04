@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as Shared from '../shared';
+import * as AlphanumericSenderIDsAPI from '../alphanumeric-sender-ids';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -167,7 +167,7 @@ export interface AutoRespConfigResponse {
 export interface AutorespConfigListResponse {
   data: Array<AutoRespConfig>;
 
-  meta: Shared.MessagingPaginationMeta;
+  meta: AlphanumericSenderIDsAPI.MessagingPaginationMeta0b38e7044b;
 }
 
 export type AutorespConfigDeleteResponse = string;

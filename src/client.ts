@@ -72,6 +72,7 @@ import {
   AlphanumericSenderIDRetrieveResponse,
   AlphanumericSenderIDs,
   AlphanumericSenderIDsDefaultFlatPagination,
+  MessagingPaginationMeta0b38e7044b,
 } from './resources/alphanumeric-sender-ids';
 import {
   AuditEventListParams,
@@ -548,6 +549,7 @@ import {
 } from './resources/mobile-voice-connections';
 import {
   AvailableService,
+  NetappsLocation17904fcfbc,
   NetworkCoverage,
   NetworkCoverageListParams,
   NetworkCoverageListResponse,
@@ -667,6 +669,7 @@ import {
   OAuthClientUpdateResponse,
   OAuthClients,
   OAuthClientsDefaultFlatPagination,
+  OAuthOAuthPaginationMeta,
   PaginationMetaOAuth,
 } from './resources/oauth-clients';
 import {
@@ -942,7 +945,8 @@ import {
   UserAddressListParams,
   UserAddressRetrieveResponse,
   UserAddresses,
-  UserAddressesDefaultFlatPagination,
+  UserAddressesUserAddress,
+  UserAddressesUserAddressesDefaultFlatPagination,
 } from './resources/user-addresses';
 import { UserTagListParams, UserTagListResponse, UserTags } from './resources/user-tags';
 import {
@@ -1438,6 +1442,8 @@ import {
   MessageSendWithAlphanumericSenderParams,
   MessageSendWithAlphanumericSenderResponse,
   Messages,
+  MessagingError0b38e7044b,
+  MessagingOutboundMessagePayload,
   OutboundMessagePayload,
   RcsAgentMessage,
   RcsCardContent,
@@ -1532,9 +1538,10 @@ import {
 } from './resources/payment/payment';
 import { PhoneNumberBlocks } from './resources/phone-number-blocks/phone-number-blocks';
 import {
+  NumbersPhoneNumberDetailed,
+  NumbersPhoneNumberDetailedsDefaultFlatPagination,
   PhoneNumberDeleteResponse,
   PhoneNumberDetailed,
-  PhoneNumberDetailedsDefaultFlatPagination,
   PhoneNumberListParams,
   PhoneNumberRetrieveResponse,
   PhoneNumberSlimListParams,
@@ -3456,6 +3463,7 @@ export declare namespace Telnyx {
   export {
     OAuthClients as OAuthClients,
     type OAuthClient as OAuthClient,
+    type OAuthOAuthPaginationMeta as OAuthOAuthPaginationMeta,
     type PaginationMetaOAuth as PaginationMetaOAuth,
     type OAuthClientCreateResponse as OAuthClientCreateResponse,
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
@@ -4173,6 +4181,8 @@ export declare namespace Telnyx {
 
   export {
     Messages as Messages,
+    type MessagingError0b38e7044b as MessagingError0b38e7044b,
+    type MessagingOutboundMessagePayload as MessagingOutboundMessagePayload,
     type OutboundMessagePayload as OutboundMessagePayload,
     type RcsAgentMessage as RcsAgentMessage,
     type RcsCardContent as RcsCardContent,
@@ -4294,6 +4304,7 @@ export declare namespace Telnyx {
   export {
     NetworkCoverage as NetworkCoverage,
     type AvailableService as AvailableService,
+    type NetappsLocation17904fcfbc as NetappsLocation17904fcfbc,
     type NetworkCoverageListResponse as NetworkCoverageListResponse,
     type NetworkCoverageListResponsesDefaultFlatPagination as NetworkCoverageListResponsesDefaultFlatPagination,
     type NetworkCoverageListParams as NetworkCoverageListParams,
@@ -4465,12 +4476,13 @@ export declare namespace Telnyx {
 
   export {
     PhoneNumbers as PhoneNumbers,
+    type NumbersPhoneNumberDetailed as NumbersPhoneNumberDetailed,
     type PhoneNumberDetailed as PhoneNumberDetailed,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
     type PhoneNumberDeleteResponse as PhoneNumberDeleteResponse,
     type PhoneNumberSlimListResponse as PhoneNumberSlimListResponse,
-    type PhoneNumberDetailedsDefaultFlatPagination as PhoneNumberDetailedsDefaultFlatPagination,
+    type NumbersPhoneNumberDetailedsDefaultFlatPagination as NumbersPhoneNumberDetailedsDefaultFlatPagination,
     type PhoneNumberSlimListResponsesDefaultFlatPagination as PhoneNumberSlimListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberSlimListParams as PhoneNumberSlimListParams,
@@ -4866,9 +4878,10 @@ export declare namespace Telnyx {
   export {
     UserAddresses as UserAddresses,
     type UserAddress as UserAddress,
+    type UserAddressesUserAddress as UserAddressesUserAddress,
     type UserAddressCreateResponse as UserAddressCreateResponse,
     type UserAddressRetrieveResponse as UserAddressRetrieveResponse,
-    type UserAddressesDefaultFlatPagination as UserAddressesDefaultFlatPagination,
+    type UserAddressesUserAddressesDefaultFlatPagination as UserAddressesUserAddressesDefaultFlatPagination,
     type UserAddressListParams as UserAddressListParams,
     type UserAddressCreateParams as UserAddressCreateParams,
   };
@@ -5050,6 +5063,7 @@ export declare namespace Telnyx {
   export {
     AlphanumericSenderIDs as AlphanumericSenderIDs,
     type AlphanumericSenderID as AlphanumericSenderID,
+    type MessagingPaginationMeta0b38e7044b as MessagingPaginationMeta0b38e7044b,
     type AlphanumericSenderIDCreateResponse as AlphanumericSenderIDCreateResponse,
     type AlphanumericSenderIDRetrieveResponse as AlphanumericSenderIDRetrieveResponse,
     type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,

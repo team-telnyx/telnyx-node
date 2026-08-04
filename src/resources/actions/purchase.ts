@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import * as ActionsAPI from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -28,13 +27,39 @@ export class Purchase extends APIResource {
   }
 }
 
+export interface WirelessErrorC5290d5308 {
+  code: string;
+
+  title: string;
+
+  detail?: string;
+
+  meta?: { [key: string]: unknown };
+
+  source?: WirelessErrorC5290d5308.Source;
+}
+
+export namespace WirelessErrorC5290d5308 {
+  export interface Source {
+    /**
+     * Indicates which query parameter caused the error.
+     */
+    parameter?: string;
+
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
+  }
+}
+
 export interface PurchaseCreateResponse {
   /**
    * Successfully registered SIM cards.
    */
   data?: Array<Shared.SimpleSimCard>;
 
-  errors?: Array<ActionsAPI.WirelessError>;
+  errors?: Array<WirelessErrorC5290d5308>;
 }
 
 export interface PurchaseCreateParams {
@@ -74,6 +99,7 @@ export interface PurchaseCreateParams {
 
 export declare namespace Purchase {
   export {
+    type WirelessErrorC5290d5308 as WirelessErrorC5290d5308,
     type PurchaseCreateResponse as PurchaseCreateResponse,
     type PurchaseCreateParams as PurchaseCreateParams,
   };

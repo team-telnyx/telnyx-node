@@ -16,7 +16,7 @@ export class UserAddresses extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const userAddress of client.userAddresses.list()) {
+   * for await (const userAddressesUserAddress of client.userAddresses.list()) {
    *   // ...
    * }
    * ```
@@ -24,8 +24,8 @@ export class UserAddresses extends APIResource {
   list(
     query: UserAddressListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<UserAddressesDefaultFlatPagination, UserAddress> {
-    return this._client.getAPIList('/user_addresses', DefaultFlatPagination<UserAddress>, {
+  ): PagePromise<UserAddressesUserAddressesDefaultFlatPagination, UserAddressesUserAddress> {
+    return this._client.getAPIList('/user_addresses', DefaultFlatPagination<UserAddressesUserAddress>, {
       query,
       ...options,
     });
@@ -65,7 +65,7 @@ export class UserAddresses extends APIResource {
   }
 }
 
-export type UserAddressesDefaultFlatPagination = DefaultFlatPagination<UserAddress>;
+export type UserAddressesUserAddressesDefaultFlatPagination = DefaultFlatPagination<UserAddressesUserAddress>;
 
 export interface UserAddress {
   /**
@@ -159,12 +159,104 @@ export interface UserAddress {
   updated_at?: string;
 }
 
+export interface UserAddressesUserAddress {
+  /**
+   * Uniquely identifies the user address.
+   */
+  id?: string;
+
+  /**
+   * The locality of the user address. For US addresses, this corresponds to the
+   * state of the address.
+   */
+  administrative_area?: string;
+
+  /**
+   * The borough of the user address. This field is not used for addresses in the US
+   * but is used for some international addresses.
+   */
+  borough?: string;
+
+  /**
+   * The business name associated with the user address.
+   */
+  business_name?: string;
+
+  /**
+   * The two-character (ISO 3166-1 alpha-2) country code of the user address.
+   */
+  country_code?: string;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at?: string;
+
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string;
+
+  /**
+   * Additional street address information about the user address such as, but not
+   * limited to, unit number or apartment number.
+   */
+  extended_address?: string;
+
+  /**
+   * The first name associated with the user address.
+   */
+  first_name?: string;
+
+  /**
+   * The last name associated with the user address.
+   */
+  last_name?: string;
+
+  /**
+   * The locality of the user address. For US addresses, this corresponds to the city
+   * of the address.
+   */
+  locality?: string;
+
+  /**
+   * The neighborhood of the user address. This field is not used for addresses in
+   * the US but is used for some international addresses.
+   */
+  neighborhood?: string;
+
+  /**
+   * The phone number associated with the user address.
+   */
+  phone_number?: string;
+
+  /**
+   * The postal code of the user address.
+   */
+  postal_code?: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
+
+  /**
+   * The primary street address information about the user address.
+   */
+  street_address?: string;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   */
+  updated_at?: string;
+}
+
 export interface UserAddressCreateResponse {
-  data?: UserAddress;
+  data?: UserAddressesUserAddress;
 }
 
 export interface UserAddressRetrieveResponse {
-  data?: UserAddress;
+  data?: UserAddressesUserAddress;
 }
 
 export interface UserAddressListParams extends DefaultFlatPaginationParams {
@@ -338,9 +430,10 @@ export interface UserAddressCreateParams {
 export declare namespace UserAddresses {
   export {
     type UserAddress as UserAddress,
+    type UserAddressesUserAddress as UserAddressesUserAddress,
     type UserAddressCreateResponse as UserAddressCreateResponse,
     type UserAddressRetrieveResponse as UserAddressRetrieveResponse,
-    type UserAddressesDefaultFlatPagination as UserAddressesDefaultFlatPagination,
+    type UserAddressesUserAddressesDefaultFlatPagination as UserAddressesUserAddressesDefaultFlatPagination,
     type UserAddressListParams as UserAddressListParams,
     type UserAddressCreateParams as UserAddressCreateParams,
   };

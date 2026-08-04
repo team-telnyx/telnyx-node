@@ -136,6 +136,16 @@ export interface StandardPaginationMeta {
   total_results?: number;
 }
 
+export interface StandardPaginationMetaFfba4faa88 {
+  page_number?: number;
+
+  page_size?: number;
+
+  total_pages?: number;
+
+  total_results?: number;
+}
+
 export interface MessagingCreateResponse {
   /**
    * Legacy V2 MDR usage report response
@@ -186,6 +196,7 @@ export declare namespace Messaging {
   export {
     type MdrUsageReportResponseLegacy as MdrUsageReportResponseLegacy,
     type StandardPaginationMeta as StandardPaginationMeta,
+    type StandardPaginationMetaFfba4faa88 as StandardPaginationMetaFfba4faa88,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingDeleteResponse as MessagingDeleteResponse,

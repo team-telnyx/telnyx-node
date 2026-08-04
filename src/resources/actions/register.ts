@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
-import * as ActionsAPI from './actions';
+import * as PurchaseAPI from './purchase';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -38,7 +38,7 @@ export interface RegisterCreateResponse {
    */
   data?: Array<Shared.SimpleSimCard>;
 
-  errors?: Array<ActionsAPI.WirelessError>;
+  errors?: Array<PurchaseAPI.WirelessErrorC5290d5308>;
 }
 
 export interface RegisterCreateParams {

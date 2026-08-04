@@ -80,7 +80,7 @@ export class PhoneNumberCampaigns extends APIResource {
   }
 
   /**
-   * Create New Phone Number Campaign
+   * Update Phone Number Campaign
    *
    * @example
    * ```ts

@@ -20,6 +20,7 @@ import {
   MdrUsageReports,
   MdrUsageReportsDefaultFlatPagination,
   PaginationMetaReporting,
+  ReportingPaginationMeta77109e5d17,
 } from './mdr-usage-reports';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -71,7 +72,7 @@ export type ReportListWdrsResponsesDefaultFlatPagination = DefaultFlatPagination
 export interface ReportListMdrsResponse {
   data?: Array<ReportListMdrsResponse.Data>;
 
-  meta?: MdrUsageReportsAPI.PaginationMetaReporting;
+  meta?: MdrUsageReportsAPI.ReportingPaginationMeta77109e5d17;
 }
 
 export namespace ReportListMdrsResponse {
@@ -394,6 +395,7 @@ export declare namespace Reports {
     MdrUsageReports as MdrUsageReports,
     type MdrUsageReport as MdrUsageReport,
     type PaginationMetaReporting as PaginationMetaReporting,
+    type ReportingPaginationMeta77109e5d17 as ReportingPaginationMeta77109e5d17,
     type MdrUsageReportCreateResponse as MdrUsageReportCreateResponse,
     type MdrUsageReportRetrieveResponse as MdrUsageReportRetrieveResponse,
     type MdrUsageReportDeleteResponse as MdrUsageReportDeleteResponse,

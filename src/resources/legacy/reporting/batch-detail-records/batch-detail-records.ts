@@ -4,6 +4,7 @@ import { APIResource } from '../../../../core/resource';
 import * as MessagingAPI from './messaging';
 import {
   BatchCsvPaginationMeta,
+  BatchCsvPaginationMeta705dfa7312,
   MdrDetailReportResponse,
   Messaging,
   MessagingCreateParams,
@@ -91,6 +92,7 @@ export declare namespace BatchDetailRecords {
   export {
     Messaging as Messaging,
     type BatchCsvPaginationMeta as BatchCsvPaginationMeta,
+    type BatchCsvPaginationMeta705dfa7312 as BatchCsvPaginationMeta705dfa7312,
     type MdrDetailReportResponse as MdrDetailReportResponse,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,

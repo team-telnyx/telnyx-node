@@ -12,6 +12,7 @@ import {
   MessagingListParams,
   MessagingRetrieveResponse,
   StandardPaginationMeta,
+  StandardPaginationMetaFfba4faa88,
 } from './messaging';
 import * as NumberLookupAPI from './number-lookup';
 import {
@@ -95,6 +96,7 @@ export declare namespace UsageReports {
     Messaging as Messaging,
     type MdrUsageReportResponseLegacy as MdrUsageReportResponseLegacy,
     type StandardPaginationMeta as StandardPaginationMeta,
+    type StandardPaginationMetaFfba4faa88 as StandardPaginationMetaFfba4faa88,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,
     type MessagingDeleteResponse as MessagingDeleteResponse,

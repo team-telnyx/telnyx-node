@@ -90,7 +90,7 @@ export class PhoneNumbers extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberDetailed of client.phoneNumbers.list()) {
+   * for await (const numbersPhoneNumberDetailed of client.phoneNumbers.list()) {
    *   // ...
    * }
    * ```
@@ -98,8 +98,8 @@ export class PhoneNumbers extends APIResource {
   list(
     query: PhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumberDetailedsDefaultFlatPagination, PhoneNumberDetailed> {
-    return this._client.getAPIList('/phone_numbers', DefaultFlatPagination<PhoneNumberDetailed>, {
+  ): PagePromise<NumbersPhoneNumberDetailedsDefaultFlatPagination, NumbersPhoneNumberDetailed> {
+    return this._client.getAPIList('/phone_numbers', DefaultFlatPagination<NumbersPhoneNumberDetailed>, {
       query,
       ...options,
     });
@@ -175,10 +175,204 @@ export class PhoneNumbers extends APIResource {
   }
 }
 
-export type PhoneNumberDetailedsDefaultFlatPagination = DefaultFlatPagination<PhoneNumberDetailed>;
+export type NumbersPhoneNumberDetailedsDefaultFlatPagination =
+  DefaultFlatPagination<NumbersPhoneNumberDetailed>;
 
 export type PhoneNumberSlimListResponsesDefaultFlatPagination =
   DefaultFlatPagination<PhoneNumberSlimListResponse>;
+
+export interface NumbersPhoneNumberDetailed {
+  /**
+   * Identifies the resource.
+   */
+  id: string;
+
+  /**
+   * The ISO 3166-1 alpha-2 country code of the phone number.
+   */
+  country_iso_alpha2: string;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at: string;
+
+  /**
+   * Indicates whether deletion lock is enabled for this number. When enabled, this
+   * prevents the phone number from being deleted via the API or Telnyx portal.
+   */
+  deletion_lock_enabled: boolean;
+
+  /**
+   * If someone attempts to port your phone number away from Telnyx and your phone
+   * number has an external PIN set, Telnyx will attempt to verify that you provided
+   * the correct external PIN to the winning carrier. Note that not all carriers
+   * cooperate with this security mechanism.
+   */
+  external_pin: string | null;
+
+  /**
+   * The +E.164-formatted phone number associated with this record.
+   */
+  phone_number: string;
+
+  /**
+   * The phone number's type. Note: For numbers purchased prior to July 2023 or when
+   * fetching a number's details immediately after a purchase completes, the legacy
+   * values `tollfree`, `shortcode` or `longcode` may be returned instead.
+   */
+  phone_number_type:
+    | 'local'
+    | 'toll_free'
+    | 'mobile'
+    | 'national'
+    | 'shared_cost'
+    | 'landline'
+    | 'tollfree'
+    | 'shortcode'
+    | 'longcode';
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was purchased.
+   */
+  purchased_at: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type: string;
+
+  /**
+   * The phone number's current status.
+   */
+  status:
+    | 'purchase-pending'
+    | 'purchase-failed'
+    | 'port-pending'
+    | 'port-failed'
+    | 'active'
+    | 'deleted'
+    | 'emergency-only'
+    | 'ported-out'
+    | 'port-out-pending'
+    | 'requirement-info-pending'
+    | 'requirement-info-under-review'
+    | 'requirement-info-exception'
+    | 'provision-pending';
+
+  /**
+   * A list of user-assigned tags to help manage the phone number.
+   */
+  tags: Array<string>;
+
+  /**
+   * ISO 8601 formatted date indicating when the phone number was first activated
+   * (transitioned from purchase-pending or port-pending to active). Will be null for
+   * numbers that have not yet been activated, or for legacy numbers activated before
+   * this field was tracked.
+   */
+  activated_at?: string | null;
+
+  /**
+   * Identifies the billing group associated with the phone number.
+   */
+  billing_group_id?: string | null;
+
+  /**
+   * Indicates if call forwarding will be enabled for this number if forwards_to and
+   * forwarding_type are filled in. Defaults to true for backwards compatibility with
+   * APIV1 use of numbers endpoints.
+   */
+  call_forwarding_enabled?: boolean;
+
+  /**
+   * Indicates whether call recording is enabled for this number.
+   */
+  call_recording_enabled?: boolean;
+
+  /**
+   * Indicates whether caller ID is enabled for this number.
+   */
+  caller_id_name_enabled?: boolean;
+
+  /**
+   * Indicates whether a CNAM listing is enabled for this number.
+   */
+  cnam_listing_enabled?: boolean;
+
+  /**
+   * Identifies the connection associated with the phone number.
+   */
+  connection_id?: string | null;
+
+  /**
+   * The user-assigned name of the connection to be associated with this phone
+   * number.
+   */
+  connection_name?: string | null;
+
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string | null;
+
+  /**
+   * Identifies the emergency address associated with the phone number.
+   */
+  emergency_address_id?: string | null;
+
+  /**
+   * Indicates whether emergency services are enabled for this number.
+   */
+  emergency_enabled?: boolean;
+
+  /**
+   * Indicates the status of the provisioning of emergency services for the phone
+   * number. This field contains information about activity that may be ongoing for a
+   * number where it either is being provisioned or deprovisioned but is not yet
+   * enabled/disabled.
+   */
+  emergency_status?: 'active' | 'deprovisioning' | 'disabled' | 'provisioning' | 'provisioning-failed';
+
+  /**
+   * Indicates whether HD voice is enabled for this number.
+   */
+  hd_voice_enabled?: boolean;
+
+  /**
+   * The inbound_call_screening setting is a phone number configuration option
+   * variable that allows users to configure their settings to block or flag
+   * fraudulent calls. It can be set to disabled, reject_calls, or flag_calls. This
+   * feature has an additional per-number monthly cost associated with it.
+   */
+  inbound_call_screening?: 'disabled' | 'reject_calls' | 'flag_calls';
+
+  /**
+   * Identifies the messaging profile associated with the phone number.
+   */
+  messaging_profile_id?: string | null;
+
+  /**
+   * The name of the messaging profile associated with the phone number.
+   */
+  messaging_profile_name?: string | null;
+
+  /**
+   * Indicates if the phone number was purchased or ported in. For some numbers this
+   * information may not be available.
+   */
+  source_type?: 'number_order' | 'port_request' | null;
+
+  /**
+   * Indicates whether T38 Fax Gateway for inbound calls to this number.
+   */
+  t38_fax_gateway_enabled?: boolean;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   */
+  updated_at?: string;
+}
 
 export interface PhoneNumberDetailed {
   /**
@@ -374,11 +568,11 @@ export interface PhoneNumberDetailed {
 }
 
 export interface PhoneNumberRetrieveResponse {
-  data?: PhoneNumberDetailed;
+  data?: NumbersPhoneNumberDetailed;
 }
 
 export interface PhoneNumberUpdateResponse {
-  data?: PhoneNumberDetailed;
+  data?: NumbersPhoneNumberDetailed;
 }
 
 export interface PhoneNumberDeleteResponse {
@@ -1066,12 +1260,13 @@ PhoneNumbers.Voicemail = Voicemail;
 
 export declare namespace PhoneNumbers {
   export {
+    type NumbersPhoneNumberDetailed as NumbersPhoneNumberDetailed,
     type PhoneNumberDetailed as PhoneNumberDetailed,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
     type PhoneNumberDeleteResponse as PhoneNumberDeleteResponse,
     type PhoneNumberSlimListResponse as PhoneNumberSlimListResponse,
-    type PhoneNumberDetailedsDefaultFlatPagination as PhoneNumberDetailedsDefaultFlatPagination,
+    type NumbersPhoneNumberDetailedsDefaultFlatPagination as NumbersPhoneNumberDetailedsDefaultFlatPagination,
     type PhoneNumberSlimListResponsesDefaultFlatPagination as PhoneNumberSlimListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberSlimListParams as PhoneNumberSlimListParams,
