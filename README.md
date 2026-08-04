@@ -1,3 +1,5 @@
+[![MseeP.ai Security Assessment Badge](https://mseep.net/pr/team-telnyx-telnyx-node-badge.png)](https://mseep.ai/app/team-telnyx-telnyx-node)
+
 # Telnyx TypeScript API Library
 
 [![NPM version](<https://img.shields.io/npm/v/telnyx.svg?label=npm%20(stable)>)](https://npmjs.org/package/telnyx) ![npm bundle size](https://img.shields.io/bundlephobia/minzip/telnyx)
