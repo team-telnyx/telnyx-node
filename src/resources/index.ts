@@ -1656,6 +1656,7 @@ export {
   type DeliveryUpdateWebhookEvent,
   type HostedNumberOrderEventWebhookEvent,
   type InboundMessageWebhookEvent,
+  type NumberOrderStatusUpdateWebhookEvent,
   type ReplacedLinkClickWebhookEvent,
   type TranscriptionWebhookEvent,
   type UnsafeUnwrapWebhookEvent,

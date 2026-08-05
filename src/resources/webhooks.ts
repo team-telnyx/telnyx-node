@@ -5902,6 +5902,191 @@ export namespace InboundMessageWebhookEvent {
   }
 }
 
+export interface NumberOrderStatusUpdateWebhookEvent {
+  data: NumberOrderStatusUpdateWebhookEvent.Data;
+
+  meta: NumberOrderStatusUpdateWebhookEvent.Meta;
+}
+
+export namespace NumberOrderStatusUpdateWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event
+     */
+    id: string;
+
+    /**
+     * The type of event being sent
+     */
+    event_type: string;
+
+    /**
+     * ISO 8601 timestamp of when the event occurred
+     */
+    occurred_at: string;
+
+    /**
+     * Number order data delivered in a webhook. Server-generated fields are valid in
+     * this outbound webhook request.
+     */
+    payload: Data.Payload;
+
+    /**
+     * Type of record
+     */
+    record_type: string;
+  }
+
+  export namespace Data {
+    /**
+     * Number order data delivered in a webhook. Server-generated fields are valid in
+     * this outbound webhook request.
+     */
+    export interface Payload {
+      id?: string;
+
+      /**
+       * Identifies the messaging profile associated with the phone number.
+       */
+      billing_group_id?: string;
+
+      /**
+       * Identifies the connection associated with this phone number.
+       */
+      connection_id?: string;
+
+      /**
+       * An ISO 8901 datetime string denoting when the number order was created.
+       */
+      created_at?: string;
+
+      /**
+       * A customer reference string for customer look ups.
+       */
+      customer_reference?: string;
+
+      /**
+       * Identifies the messaging profile associated with the phone number.
+       */
+      messaging_profile_id?: string;
+
+      phone_numbers?: Array<Payload.PhoneNumber>;
+
+      /**
+       * The count of phone numbers in the number order.
+       */
+      phone_numbers_count?: number;
+
+      record_type?: string;
+
+      /**
+       * True if all requirements are met for every phone number, false otherwise.
+       */
+      requirements_met?: boolean;
+
+      /**
+       * The status of the order.
+       */
+      status?: 'pending' | 'success' | 'failure';
+
+      sub_number_orders_ids?: Array<string>;
+
+      /**
+       * An ISO 8901 datetime string for when the number order was updated.
+       */
+      updated_at?: string;
+    }
+
+    export namespace Payload {
+      /**
+       * The unique phone numbers given as arguments in the job creation.
+       */
+      export interface PhoneNumber {
+        id?: string;
+
+        bundle_id?: string;
+
+        /**
+         * Country code of the phone number
+         */
+        country_code?: string;
+
+        /**
+         * The ISO 3166-1 alpha-2 country code of the phone number.
+         */
+        country_iso_alpha2?: string;
+
+        phone_number?: string;
+
+        /**
+         * Phone number type
+         */
+        phone_number_type?: 'local' | 'mobile' | 'national' | 'shared_cost' | 'toll_free';
+
+        record_type?: string;
+
+        regulatory_requirements?: Array<PhoneNumber.RegulatoryRequirement>;
+
+        /**
+         * True if all requirements are met for a phone number, false otherwise.
+         */
+        requirements_met?: boolean;
+
+        /**
+         * Status of document requirements (if applicable)
+         */
+        requirements_status?:
+          | 'pending'
+          | 'approved'
+          | 'cancelled'
+          | 'deleted'
+          | 'requirement-info-exception'
+          | 'requirement-info-pending'
+          | 'requirement-info-under-review';
+
+        /**
+         * The status of the phone number in the order.
+         */
+        status?: 'pending' | 'success' | 'failure';
+      }
+
+      export namespace PhoneNumber {
+        /**
+         * Regulatory requirement data delivered in a number order webhook.
+         */
+        export interface RegulatoryRequirement {
+          field_type?: 'textual' | 'datetime' | 'address' | 'document';
+
+          /**
+           * The value of the requirement, this could be an id to a resource or a string
+           * value.
+           */
+          field_value?: string;
+
+          record_type?: string;
+
+          /**
+           * Unique id for a requirement.
+           */
+          requirement_id?: string;
+        }
+      }
+    }
+  }
+
+  export interface Meta {
+    /**
+     * Webhook delivery attempt number
+     */
+    attempt: number;
+
+    /**
+     * URL where the webhook was delivered
+     */
+    delivered_to: string;
+  }
+}
+
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
 }
@@ -7283,6 +7468,191 @@ export namespace InboundMessageWebhookEvent {
   }
 }
 
+export interface NumberOrderStatusUpdateWebhookEvent {
+  data: NumberOrderStatusUpdateWebhookEvent.Data;
+
+  meta: NumberOrderStatusUpdateWebhookEvent.Meta;
+}
+
+export namespace NumberOrderStatusUpdateWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event
+     */
+    id: string;
+
+    /**
+     * The type of event being sent
+     */
+    event_type: string;
+
+    /**
+     * ISO 8601 timestamp of when the event occurred
+     */
+    occurred_at: string;
+
+    /**
+     * Number order data delivered in a webhook. Server-generated fields are valid in
+     * this outbound webhook request.
+     */
+    payload: Data.Payload;
+
+    /**
+     * Type of record
+     */
+    record_type: string;
+  }
+
+  export namespace Data {
+    /**
+     * Number order data delivered in a webhook. Server-generated fields are valid in
+     * this outbound webhook request.
+     */
+    export interface Payload {
+      id?: string;
+
+      /**
+       * Identifies the messaging profile associated with the phone number.
+       */
+      billing_group_id?: string;
+
+      /**
+       * Identifies the connection associated with this phone number.
+       */
+      connection_id?: string;
+
+      /**
+       * An ISO 8901 datetime string denoting when the number order was created.
+       */
+      created_at?: string;
+
+      /**
+       * A customer reference string for customer look ups.
+       */
+      customer_reference?: string;
+
+      /**
+       * Identifies the messaging profile associated with the phone number.
+       */
+      messaging_profile_id?: string;
+
+      phone_numbers?: Array<Payload.PhoneNumber>;
+
+      /**
+       * The count of phone numbers in the number order.
+       */
+      phone_numbers_count?: number;
+
+      record_type?: string;
+
+      /**
+       * True if all requirements are met for every phone number, false otherwise.
+       */
+      requirements_met?: boolean;
+
+      /**
+       * The status of the order.
+       */
+      status?: 'pending' | 'success' | 'failure';
+
+      sub_number_orders_ids?: Array<string>;
+
+      /**
+       * An ISO 8901 datetime string for when the number order was updated.
+       */
+      updated_at?: string;
+    }
+
+    export namespace Payload {
+      /**
+       * The unique phone numbers given as arguments in the job creation.
+       */
+      export interface PhoneNumber {
+        id?: string;
+
+        bundle_id?: string;
+
+        /**
+         * Country code of the phone number
+         */
+        country_code?: string;
+
+        /**
+         * The ISO 3166-1 alpha-2 country code of the phone number.
+         */
+        country_iso_alpha2?: string;
+
+        phone_number?: string;
+
+        /**
+         * Phone number type
+         */
+        phone_number_type?: 'local' | 'mobile' | 'national' | 'shared_cost' | 'toll_free';
+
+        record_type?: string;
+
+        regulatory_requirements?: Array<PhoneNumber.RegulatoryRequirement>;
+
+        /**
+         * True if all requirements are met for a phone number, false otherwise.
+         */
+        requirements_met?: boolean;
+
+        /**
+         * Status of document requirements (if applicable)
+         */
+        requirements_status?:
+          | 'pending'
+          | 'approved'
+          | 'cancelled'
+          | 'deleted'
+          | 'requirement-info-exception'
+          | 'requirement-info-pending'
+          | 'requirement-info-under-review';
+
+        /**
+         * The status of the phone number in the order.
+         */
+        status?: 'pending' | 'success' | 'failure';
+      }
+
+      export namespace PhoneNumber {
+        /**
+         * Regulatory requirement data delivered in a number order webhook.
+         */
+        export interface RegulatoryRequirement {
+          field_type?: 'textual' | 'datetime' | 'address' | 'document';
+
+          /**
+           * The value of the requirement, this could be an id to a resource or a string
+           * value.
+           */
+          field_value?: string;
+
+          record_type?: string;
+
+          /**
+           * Unique id for a requirement.
+           */
+          requirement_id?: string;
+        }
+      }
+    }
+  }
+
+  export interface Meta {
+    /**
+     * Webhook delivery attempt number
+     */
+    attempt: number;
+
+    /**
+     * URL where the webhook was delivered
+     */
+    delivered_to: string;
+  }
+}
+
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
 }
@@ -7357,7 +7727,7 @@ export type UnsafeUnwrapWebhookEvent =
   | FaxSendingStarted
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
-  | NumberOrderStatusUpdate
+  | NumberOrderStatusUpdateWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | TranscriptionWebhookEvent;
 
@@ -7427,7 +7797,7 @@ export type UnwrapWebhookEvent =
   | FaxSendingStarted
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
-  | NumberOrderStatusUpdate
+  | NumberOrderStatusUpdateWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | TranscriptionWebhookEvent;
 
@@ -7551,6 +7921,7 @@ export declare namespace Webhooks {
     type DeliveryUpdateWebhookEvent as DeliveryUpdateWebhookEvent,
     type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
+    type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
