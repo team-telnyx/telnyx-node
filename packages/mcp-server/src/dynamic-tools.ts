@@ -30,6 +30,17 @@ function rejectUndocumentedObjectFields(schema: unknown): unknown {
   return strictSchema;
 }
 
+function compactCatalogDescription(description: string | undefined): string {
+  if (!description) return '';
+
+  const summarySection = description.split(/\n+# Response Schema\b/, 1)[0]?.trim() ?? '';
+  const paragraphs = summarySection
+    .split(/\n\s*\n/)
+    .map((paragraph) => paragraph.trim())
+    .filter(Boolean);
+  return paragraphs.at(-1) ?? summarySection;
+}
+
 /**
  * A list of tools that expose all the endpoints in the API dynamically.
  *
@@ -39,7 +50,16 @@ function rejectUndocumentedObjectFields(schema: unknown): unknown {
  *
  * @param endpoints - The endpoints to include in the list.
  */
-export function dynamicTools(endpoints: Endpoint[]): Endpoint[] {
+export function dynamicTools(
+  endpoints: Endpoint[],
+  options: {
+    includeReadExecutor?: boolean;
+    includeWriteExecutor?: boolean;
+  } = {},
+): Endpoint[] {
+  const includeReadExecutor = options.includeReadExecutor ?? true;
+  const includeWriteExecutor = options.includeWriteExecutor ?? true;
+  const catalogOnly = !includeReadExecutor && !includeWriteExecutor;
   const readEndpoints = endpoints.filter((endpoint) => endpoint.metadata.operation === 'read');
   const writeEndpoints = endpoints.filter((endpoint) => endpoint.metadata.operation === 'write');
   const listEndpointsSchema = z.object({
@@ -61,7 +81,9 @@ export function dynamicTools(endpoints: Endpoint[]): Endpoint[] {
       name: 'list_api_endpoints',
       title: 'List Telnyx API endpoints',
       description:
-        'List or search the supported Telnyx API endpoint catalog. Results identify each endpoint as read or write and name the matching invocation tool. API reference: https://developers.telnyx.com/api/.',
+        catalogOnly ?
+          'List or search Telnyx API documentation metadata. This server does not execute the returned endpoints. Use the schema tool to inspect a contract before implementing it in application code. API reference: https://developers.telnyx.com/api/.'
+        : 'List or search the supported Telnyx API endpoint catalog. Results identify each endpoint as read or write and name the matching invocation tool. API reference: https://developers.telnyx.com/api/.',
       inputSchema: zodToInputSchema(listEndpointsSchema),
       annotations: {
         title: 'List Telnyx API endpoints',
@@ -89,14 +111,21 @@ export function dynamicTools(endpoints: Endpoint[]): Endpoint[] {
         : endpoints;
 
       return asTextContentResult({
-        tools: filteredEndpoints.map(({ tool, metadata }) => ({
-          name: tool.name,
-          description: tool.description,
-          resource: metadata.resource,
-          operation: metadata.operation,
-          invocation_tool: metadata.operation === 'read' ? 'read_api_endpoint' : 'invoke_api_endpoint',
-          tags: metadata.tags,
-        })),
+        tools: filteredEndpoints.map(({ tool, metadata }) => {
+          const invocationTool =
+            metadata.operation === 'read' && includeReadExecutor ? 'read_api_endpoint'
+            : metadata.operation === 'write' && includeWriteExecutor ? 'invoke_api_endpoint'
+            : undefined;
+          return {
+            name: tool.name,
+            description: compactCatalogDescription(tool.description),
+            resource: metadata.resource,
+            operation: metadata.operation,
+            execution: invocationTool ? 'available' : 'catalog_only',
+            ...(invocationTool ? { invocation_tool: invocationTool } : {}),
+            tags: metadata.tags,
+          };
+        }),
       });
     },
   };
@@ -114,7 +143,9 @@ export function dynamicTools(endpoints: Endpoint[]): Endpoint[] {
       name: 'get_api_endpoint_schema',
       title: 'Get Telnyx API endpoint schema',
       description:
-        'Get the exact input schema and safety metadata for a supported Telnyx API endpoint. Use `read_api_endpoint` for catalog entries marked read and `invoke_api_endpoint` for entries marked write. API reference: https://developers.telnyx.com/api/.',
+        catalogOnly ?
+          'Get documentation metadata and the exact input schema for a Telnyx API endpoint. This server does not execute the endpoint. Use the contract when implementing reviewed application code. API reference: https://developers.telnyx.com/api/.'
+        : 'Get the exact input schema and safety metadata for a supported Telnyx API endpoint. Use `read_api_endpoint` for catalog entries marked read and `invoke_api_endpoint` for entries marked write. API reference: https://developers.telnyx.com/api/.',
       inputSchema: zodToInputSchema(getEndpointSchema),
       annotations: {
         title: 'Get Telnyx API endpoint schema',
@@ -136,7 +167,13 @@ export function dynamicTools(endpoints: Endpoint[]): Endpoint[] {
       }
       return asTextContentResult({
         ...endpoint.tool,
+        description: compactCatalogDescription(endpoint.tool.description),
         inputSchema: rejectUndocumentedObjectFields(endpoint.tool.inputSchema),
+        metadata: endpoint.metadata,
+        execution:
+          endpoint.metadata.operation === 'read' && includeReadExecutor ? 'read_api_endpoint'
+          : endpoint.metadata.operation === 'write' && includeWriteExecutor ? 'invoke_api_endpoint'
+          : 'catalog_only',
       });
     },
   };
@@ -239,5 +276,10 @@ export function dynamicTools(endpoints: Endpoint[]): Endpoint[] {
       invokeEndpoint(writeEndpoints, args, client),
   };
 
-  return [getEndpointTool, listEndpointsTool, readEndpointTool, invokeEndpointTool];
+  return [
+    getEndpointTool,
+    listEndpointsTool,
+    ...(includeReadExecutor ? [readEndpointTool] : []),
+    ...(includeWriteExecutor ? [invokeEndpointTool] : []),
+  ];
 }

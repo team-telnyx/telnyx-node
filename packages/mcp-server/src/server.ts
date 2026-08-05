@@ -147,18 +147,22 @@ export function initMcpServer(params: {
  */
 export async function selectTools(endpoints: Endpoint[], options?: McpOptions): Promise<Endpoint[]> {
   const filteredEndpoints = query(options?.filters ?? [], endpoints);
+  const dynamicToolOptions = {
+    includeReadExecutor: options?.includeDynamicReadExecutor ?? true,
+    includeWriteExecutor: options?.includeDynamicWriteExecutor ?? true,
+  };
 
   let includedTools = filteredEndpoints.slice();
 
   if (includedTools.length > 0) {
     if (options?.includeDynamicTools) {
-      includedTools = dynamicTools(includedTools);
+      includedTools = dynamicTools(includedTools, dynamicToolOptions);
     }
   } else {
     if (options?.includeAllTools) {
       includedTools = endpoints.slice();
     } else if (options?.includeDynamicTools) {
-      includedTools = dynamicTools(endpoints);
+      includedTools = dynamicTools(endpoints, dynamicToolOptions);
     } else if (options?.includeCodeTools) {
       includedTools = [await codeTool()];
     } else {

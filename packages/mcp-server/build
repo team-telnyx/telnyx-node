@@ -51,6 +51,7 @@ cp manifest.json dist-bundle
 npx mcpb pack dist-bundle telnyx_api.mcpb
 
 npx mcpb sign telnyx_api.mcpb --self-signed
+node scripts/verify-bundle-signature.mjs telnyx_api.mcpb
 
 # clean up
 rm -rf dist-bundle

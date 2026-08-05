@@ -183,6 +183,20 @@ describe('parseQueryOptions', () => {
     },
   };
 
+  it('preserves deployment-only dynamic executor flags', () => {
+    const result = parseQueryOptions(
+      {
+        ...defaultOptions,
+        includeDynamicReadExecutor: false,
+        includeDynamicWriteExecutor: false,
+      },
+      {},
+    );
+
+    expect(result.includeDynamicReadExecutor).toBe(false);
+    expect(result.includeDynamicWriteExecutor).toBe(false);
+  });
+
   it('should parse basic filter options from query string', () => {
     const query = 'tool=test-tool&resource=test-resource&operation=read&tag=test-tag';
     const result = parseQueryOptions(defaultOptions, query);

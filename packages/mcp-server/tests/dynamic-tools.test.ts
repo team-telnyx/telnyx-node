@@ -94,6 +94,23 @@ describe('dynamicTools', () => {
       expect(result.tools).toHaveLength(1);
       expect(result.tools[0].name).toBe('user_endpoint');
     });
+
+    it('keeps discovery compact and leaves response schemas to the schema tool', async () => {
+      const verboseEndpoint = makeEndpoint('list_widgets', 'widgets', 'read');
+      verboseEndpoint.tool.description =
+        'Use jq filtering when possible.\n\nList widgets\n\n# Response Schema\n```json\n' +
+        '{ "type": "object", "properties": { "large": { "type": "array" } } }\n```';
+      const listTool = dynamicTools([verboseEndpoint]).find(
+        (endpoint) => endpoint.tool.name === 'list_api_endpoints',
+      );
+      if (!listTool) throw new Error('list tool missing');
+
+      const content = await listTool.handler(fakeClient, {});
+      const result = JSON.parse(content.content[0].text);
+
+      expect(result.tools[0].description).toBe('List widgets');
+      expect(result.tools[0].description).not.toContain('Response Schema');
+    });
   });
 
   describe('get_api_endpoint_schema', () => {
@@ -116,6 +133,8 @@ describe('dynamicTools', () => {
           },
           additionalProperties: false,
         },
+        metadata: endpoints[0]?.metadata,
+        execution: 'read_api_endpoint',
       });
     });
 
@@ -129,6 +148,24 @@ describe('dynamicTools', () => {
       await expect(toolsMap.get_api_endpoint_schema.handler(fakeClient, undefined)).rejects.toThrow(
         'No endpoint provided',
       );
+    });
+
+    it('returns compact prose while preserving the exact structured schema', async () => {
+      const verboseEndpoint = makeEndpoint('list_widgets', 'widgets', 'read');
+      verboseEndpoint.tool.description =
+        'Use jq filtering when possible.\n\nList widgets\n\n# Response Schema\n```json\n' +
+        '{ "type": "object", "properties": { "large": { "type": "array" } } }\n```';
+      const schemaTool = dynamicTools([verboseEndpoint]).find(
+        (endpoint) => endpoint.tool.name === 'get_api_endpoint_schema',
+      );
+      if (!schemaTool) throw new Error('schema tool missing');
+
+      const content = await schemaTool.handler(fakeClient, { endpoint: 'list_widgets' });
+      const result = JSON.parse(content.content[0].text);
+
+      expect(result.description).toBe('List widgets');
+      expect(result.inputSchema.properties.testParam).toEqual({ type: 'string' });
+      expect(result.description).not.toContain('Response Schema');
     });
   });
 
@@ -269,6 +306,42 @@ describe('dynamicTools', () => {
     if (!tool) throw new Error(`Tool ${name} not found`);
     return tool;
   }
+
+  describe('catalog-only mode', () => {
+    const catalogTools = dynamicTools(endpoints, {
+      includeReadExecutor: false,
+      includeWriteExecutor: false,
+    });
+
+    it('registers only documentation tools', () => {
+      expect(catalogTools.map((endpoint) => endpoint.tool.name).sort()).toEqual([
+        'get_api_endpoint_schema',
+        'list_api_endpoints',
+      ]);
+      expect(catalogTools.every((endpoint) => endpoint.tool.annotations?.readOnlyHint === true)).toBe(true);
+    });
+
+    it('does not advertise a hidden invocation path', async () => {
+      const listTool = catalogTools.find((endpoint) => endpoint.tool.name === 'list_api_endpoints');
+      const getTool = catalogTools.find((endpoint) => endpoint.tool.name === 'get_api_endpoint_schema');
+      if (!listTool || !getTool) throw new Error('catalog-only tools missing');
+
+      const listed = await listTool.handler(fakeClient, {});
+      const listResult = JSON.parse(listed.content[0].text);
+      expect(listResult.tools).toHaveLength(endpoints.length);
+      expect(
+        listResult.tools.every(
+          (endpoint: Record<string, unknown>) =>
+            endpoint.execution === 'catalog_only' && !('invocation_tool' in endpoint),
+        ),
+      ).toBe(true);
+
+      const schema = await getTool.handler(fakeClient, { endpoint: 'test_write_endpoint' });
+      const schemaResult = JSON.parse(schema.content[0].text);
+      expect(schemaResult.execution).toBe('catalog_only');
+      expect(schemaResult.metadata.operation).toBe('write');
+    });
+  });
 });
 
 function makeEndpoint(

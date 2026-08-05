@@ -15,6 +15,8 @@ export type CLIOptions = McpOptions & {
 export type McpOptions = {
   client?: ClientType | undefined;
   includeDynamicTools?: boolean | undefined;
+  includeDynamicReadExecutor?: boolean | undefined;
+  includeDynamicWriteExecutor?: boolean | undefined;
   includeAllTools?: boolean | undefined;
   includeCodeTools?: boolean | undefined;
   includeDocsTools?: boolean | undefined;
@@ -387,6 +389,10 @@ export function parseQueryOptions(defaultOptions: McpOptions, query: unknown): M
   return {
     client: queryOptions.client ?? defaultOptions.client,
     includeDynamicTools: dynamicTools,
+    // These deployment-only flags are intentionally not query options. Preserve
+    // the configured public boundary instead of falling back to executor-on.
+    includeDynamicReadExecutor: defaultOptions.includeDynamicReadExecutor,
+    includeDynamicWriteExecutor: defaultOptions.includeDynamicWriteExecutor,
     includeAllTools: allTools,
     includeCodeTools: undefined,
     includeDocsTools: docsTools,
