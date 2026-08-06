@@ -60,7 +60,7 @@ export class VerifyProfiles extends APIResource {
   }
 
   /**
-   * Delete Verify profile
+   * Deletes the specified Verify profile and returns the deleted profile record.
    *
    * @example
    * ```ts
@@ -90,7 +90,8 @@ export class VerifyProfiles extends APIResource {
   }
 
   /**
-   * Update Verify profile
+   * Updates the specified Verify profile's name, webhook destinations, language,
+   * daily spend limits, or channel-specific settings. Returns the updated profile.
    *
    * @example
    * ```ts

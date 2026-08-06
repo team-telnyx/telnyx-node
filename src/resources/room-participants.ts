@@ -13,7 +13,8 @@ import { path } from '../internal/utils/path';
  */
 export class RoomParticipants extends APIResource {
   /**
-   * View a list of room participants.
+   * Returns a paginated list of room participants across sessions. Filter
+   * participants by session, join, update, or leave date and by participant context.
    */
   list(
     query: RoomParticipantListParams | null | undefined = {},
@@ -26,7 +27,8 @@ export class RoomParticipants extends APIResource {
   }
 
   /**
-   * View a room participant.
+   * Returns the participant identified by `room_participant_id`, including its
+   * session, context, and join, update, and leave timestamps.
    */
   retrieve(roomParticipantID: string, options?: RequestOptions): APIPromise<RoomParticipantRetrieveResponse> {
     return this._client.get(path`/room_participants/${roomParticipantID}`, options);

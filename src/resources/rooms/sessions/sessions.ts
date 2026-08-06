@@ -30,7 +30,9 @@ export class Sessions extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * View a list of room sessions.
+   * Returns a paginated list of room sessions across the account. Filter sessions by
+   * room, creation, update, or end date and active status, and use
+   * `include_participants` to include participant records.
    *
    * @example
    * ```ts
@@ -51,7 +53,9 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * View a list of room sessions.
+   * Returns a paginated list of sessions for the specified room. Filter sessions by
+   * creation, update, or end date and active status, and use `include_participants`
+   * to include participant records.
    *
    * @example
    * ```ts
@@ -76,7 +80,9 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * View a room session.
+   * Returns the room session identified by `room_session_id`, including its room,
+   * active status, and lifecycle timestamps. Use `include_participants` to include
+   * its participant records.
    *
    * @example
    * ```ts
@@ -94,7 +100,8 @@ export class Sessions extends APIResource {
   }
 
   /**
-   * View a list of room participants.
+   * Returns a paginated list of participants for the specified room session. Filter
+   * participants by join, update, or leave date and by participant context.
    *
    * @example
    * ```ts
