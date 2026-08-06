@@ -12,7 +12,8 @@ import { path } from '../internal/utils/path';
  */
 export class Comments extends APIResource {
   /**
-   * Retrieve all comments
+   * Returns comments associated with number-order records. Results can be filtered
+   * by record type and record ID and include pagination metadata.
    *
    * @example
    * ```ts
@@ -27,7 +28,8 @@ export class Comments extends APIResource {
   }
 
   /**
-   * Create a comment
+   * Creates a comment associated with a supported number-order record. The response
+   * contains the created comment.
    *
    * @example
    * ```ts
@@ -39,7 +41,8 @@ export class Comments extends APIResource {
   }
 
   /**
-   * Retrieve a comment
+   * Returns the comment identified by `id`, including its associated record and
+   * comment metadata.
    *
    * @example
    * ```ts
@@ -51,7 +54,8 @@ export class Comments extends APIResource {
   }
 
   /**
-   * Mark a comment as read
+   * Marks the specified comment as read. The response contains the updated read
+   * state for the comment.
    *
    * @example
    * ```ts

@@ -85,7 +85,9 @@ export class PhoneNumbers extends APIResource {
   voicemail: VoicemailAPI.Voicemail = new VoicemailAPI.Voicemail(this._client);
 
   /**
-   * List phone numbers
+   * Returns phone numbers associated with the account. Results support pagination,
+   * sorting, and filters for number attributes, status, source, connections, billing
+   * groups, emergency addresses, tags, and customer references.
    *
    * @example
    * ```ts
@@ -129,7 +131,8 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
-   * Delete a phone number
+   * Deletes the specified phone number from the account. The response contains the
+   * phone number's final deleted representation.
    *
    * @example
    * ```ts
@@ -143,7 +146,8 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
-   * Retrieve a phone number
+   * Returns the detailed configuration and current state of the phone number
+   * identified by `id`.
    *
    * @example
    * ```ts
@@ -157,7 +161,8 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
-   * Update a phone number
+   * Updates the configurable settings of the specified phone number. The response
+   * contains the complete updated phone-number representation.
    *
    * @example
    * ```ts

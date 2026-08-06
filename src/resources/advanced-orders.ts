@@ -7,7 +7,8 @@ import { path } from '../internal/utils/path';
 
 export class AdvancedOrders extends APIResource {
   /**
-   * List Advanced Orders
+   * Returns the advanced number orders associated with the account. Each result
+   * includes the order configuration and its current state.
    *
    * @example
    * ```ts
@@ -19,7 +20,8 @@ export class AdvancedOrders extends APIResource {
   }
 
   /**
-   * Create Advanced Order
+   * Creates an advanced number order from the requested order configuration. The
+   * response contains the resulting advanced order and its initial state.
    *
    * @example
    * ```ts
@@ -31,7 +33,8 @@ export class AdvancedOrders extends APIResource {
   }
 
   /**
-   * Get Advanced Order
+   * Returns the advanced number order identified by `order_id`, including its
+   * configuration and current state.
    *
    * @example
    * ```ts
@@ -45,7 +48,8 @@ export class AdvancedOrders extends APIResource {
   }
 
   /**
-   * Update Advanced Order
+   * Updates the requirement-group configuration for the specified advanced number
+   * order. The response contains the updated advanced order.
    *
    * @example
    * ```ts

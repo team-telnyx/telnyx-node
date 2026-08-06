@@ -54,7 +54,8 @@ export class EmailTemplates extends APIResource {
   }
 
   /**
-   * Delete an email template
+   * Deletes the account-owned template. The operation returns `204` with no body and
+   * prevents future sends or renders from using the deleted template ID.
    *
    * @example
    * ```ts
@@ -71,7 +72,8 @@ export class EmailTemplates extends APIResource {
   }
 
   /**
-   * Get an email template
+   * Returns the account-owned template identified by ID, including its Liquid
+   * subject and bodies, declared variables, and timestamps.
    *
    * @example
    * ```ts
@@ -94,6 +96,7 @@ export class EmailTemplates extends APIResource {
    * const emailTemplateResponse =
    *   await client.emailTemplates.replace(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { subject: 'Welcome aboard, {{first_name}}!' },
    *   );
    * ```
    */
@@ -113,6 +116,7 @@ export class EmailTemplates extends APIResource {
    * const emailTemplateResponse =
    *   await client.emailTemplates.update(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { subject: 'Welcome aboard, {{first_name}}!' },
    *   );
    * ```
    */

@@ -35,7 +35,7 @@ describe('resource numberOrderPhoneNumbers', () => {
   test.skip('updateRequirementGroup: only required params', async () => {
     const responsePromise = client.numberOrderPhoneNumbers.updateRequirementGroup(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { requirement_group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+      { requirement_group_id: 'a4b201f9-8646-4e54-a7d2-b2e403eeaf8c' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -50,7 +50,7 @@ describe('resource numberOrderPhoneNumbers', () => {
   test.skip('updateRequirementGroup: required and optional params', async () => {
     const response = await client.numberOrderPhoneNumbers.updateRequirementGroup(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { requirement_group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+      { requirement_group_id: 'a4b201f9-8646-4e54-a7d2-b2e403eeaf8c' },
     );
   });
 

@@ -147,7 +147,11 @@ export class Drafts extends APIResource {
    * const emailDraftResponse =
    *   await client.emailInboxes.drafts.patch(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     { inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *     {
+   *       inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *       subject: 'Quarterly update (revised)',
+   *       text_body: 'Updated body.',
+   *     },
    *   );
    * ```
    */

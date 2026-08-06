@@ -10,7 +10,8 @@ import { path } from '../internal/utils/path';
  */
 export class RequirementGroups extends APIResource {
   /**
-   * List requirement groups
+   * Returns regulatory requirement groups for the account. Results can be filtered
+   * by country, number type, action, approval status, and customer reference.
    *
    * @example
    * ```ts
@@ -26,7 +27,9 @@ export class RequirementGroups extends APIResource {
   }
 
   /**
-   * Create a new requirement group
+   * Creates a regulatory requirement group for a country, number type, and ordering
+   * or porting action. Optional customer-reference and requirement values are
+   * retained on the created group.
    *
    * @example
    * ```ts
@@ -43,7 +46,8 @@ export class RequirementGroups extends APIResource {
   }
 
   /**
-   * Delete a requirement group by ID
+   * Deletes the regulatory requirement group identified by `id`. The response
+   * contains the deleted requirement-group representation.
    *
    * @example
    * ```ts
@@ -56,7 +60,8 @@ export class RequirementGroups extends APIResource {
   }
 
   /**
-   * Get a single requirement group by ID
+   * Returns the regulatory requirement group identified by `id`, including its
+   * requirement values and current approval status.
    *
    * @example
    * ```ts
@@ -69,7 +74,8 @@ export class RequirementGroups extends APIResource {
   }
 
   /**
-   * Update requirement values in requirement group
+   * Updates the customer reference or regulatory requirement values on the specified
+   * requirement group. The response contains the updated group.
    *
    * @example
    * ```ts
@@ -86,7 +92,8 @@ export class RequirementGroups extends APIResource {
   }
 
   /**
-   * Submit a Requirement Group for Approval
+   * Submits the specified regulatory requirement group for approval. The response
+   * contains the requirement group with its resulting approval status.
    *
    * @example
    * ```ts
