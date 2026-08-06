@@ -9,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class MessagingURLDomains extends APIResource {
   /**
-   * List messaging URL domains
+   * Returns the URL domains available to the authenticated account for message URL
+   * shortening.
    */
   list(
     query: MessagingURLDomainListParams | null | undefined = {},

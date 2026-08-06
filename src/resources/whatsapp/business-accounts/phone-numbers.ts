@@ -13,7 +13,7 @@ import { path } from '../../../internal/utils/path';
 
 export class PhoneNumbers extends APIResource {
   /**
-   * List phone numbers for a WABA
+   * Returns phone numbers registered under the specified WhatsApp Business Account.
    *
    * @example
    * ```ts
@@ -38,7 +38,8 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
-   * Initialize Whatsapp phone number verification
+   * Starts verification of a phone number for the specified WhatsApp Business
+   * Account using the requested verification method.
    *
    * @example
    * ```ts

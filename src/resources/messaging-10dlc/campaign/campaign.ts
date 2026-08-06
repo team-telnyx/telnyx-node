@@ -163,7 +163,8 @@ export class Campaign extends APIResource {
   }
 
   /**
-   * Get Sharing Status
+   * Returns whether the campaign is configured for partner sharing and the current
+   * sharing state.
    *
    * @example
    * ```ts

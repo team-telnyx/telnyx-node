@@ -10,7 +10,9 @@ import { path } from '../../../internal/utils/path';
  */
 export class Osr extends APIResource {
   /**
-   * Get OSR campaign attributes
+   * Returns the optional shared-responsibility attributes recorded for the campaign.
+   * Use these values to inspect the campaign configuration submitted to the
+   * registry.
    *
    * @example
    * ```ts

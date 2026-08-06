@@ -45,7 +45,7 @@ export class PhoneNumbers extends APIResource {
     new ConversationalComponentsAPI.ConversationalComponents(this._client);
 
   /**
-   * List Whatsapp phone numbers
+   * Returns WhatsApp phone numbers linked to the authenticated Telnyx account.
    *
    * @example
    * ```ts
@@ -67,7 +67,7 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
-   * Delete a Whatsapp phone number
+   * Removes the specified phone number from Telnyx WhatsApp management.
    *
    * @example
    * ```ts
@@ -82,7 +82,7 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
-   * Resend verification code
+   * Requests a new verification code for the specified WhatsApp phone number.
    *
    * @example
    * ```ts
@@ -104,7 +104,7 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
-   * Submit verification code for a phone number
+   * Submits the verification code received for the specified WhatsApp phone number.
    *
    * @example
    * ```ts

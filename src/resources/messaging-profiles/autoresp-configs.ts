@@ -11,7 +11,7 @@ import { path } from '../../internal/utils/path';
  */
 export class AutorespConfigs extends APIResource {
   /**
-   * List Auto-Response Settings
+   * Returns the auto-response rules configured for the specified messaging profile.
    *
    * @example
    * ```ts
@@ -30,7 +30,8 @@ export class AutorespConfigs extends APIResource {
   }
 
   /**
-   * Create auto-response setting
+   * Creates an auto-response rule on the specified messaging profile. Matching
+   * inbound messages trigger the configured response.
    *
    * @example
    * ```ts
@@ -54,7 +55,7 @@ export class AutorespConfigs extends APIResource {
   }
 
   /**
-   * Delete Auto-Response Setting
+   * Deletes the specified auto-response rule from the messaging profile.
    *
    * @example
    * ```ts
@@ -78,7 +79,8 @@ export class AutorespConfigs extends APIResource {
   }
 
   /**
-   * Get Auto-Response Setting
+   * Returns the matching criteria and response content for the specified
+   * auto-response rule.
    *
    * @example
    * ```ts
@@ -102,7 +104,7 @@ export class AutorespConfigs extends APIResource {
   }
 
   /**
-   * Update Auto-Response Setting
+   * Replaces the configuration of the specified auto-response rule.
    *
    * @example
    * ```ts

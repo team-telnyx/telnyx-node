@@ -9,7 +9,8 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class UserData extends APIResource {
   /**
-   * Fetch Whatsapp user data
+   * Returns the WhatsApp user-data settings associated with the authenticated Telnyx
+   * account.
    *
    * @example
    * ```ts
@@ -21,7 +22,8 @@ export class UserData extends APIResource {
   }
 
   /**
-   * Update Whatsapp user data
+   * Updates the supplied WhatsApp user-data settings for the authenticated Telnyx
+   * account.
    *
    * @example
    * ```ts

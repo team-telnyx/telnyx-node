@@ -35,7 +35,7 @@ export class BusinessAccounts extends APIResource {
   settings: SettingsAPI.Settings = new SettingsAPI.Settings(this._client);
 
   /**
-   * List Whatsapp Business Accounts
+   * Returns WhatsApp Business Accounts linked to the authenticated Telnyx account.
    *
    * @example
    * ```ts
@@ -57,7 +57,8 @@ export class BusinessAccounts extends APIResource {
   }
 
   /**
-   * Delete a Whatsapp Business Account
+   * Unlinks and deletes the specified WhatsApp Business Account resource from
+   * Telnyx.
    *
    * @example
    * ```ts
@@ -72,7 +73,7 @@ export class BusinessAccounts extends APIResource {
   }
 
   /**
-   * Get a single Whatsapp Business Account
+   * Returns the configuration and status of the specified WhatsApp Business Account.
    *
    * @example
    * ```ts

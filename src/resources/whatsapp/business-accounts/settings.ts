@@ -10,7 +10,7 @@ import { path } from '../../../internal/utils/path';
  */
 export class Settings extends APIResource {
   /**
-   * Get WABA settings
+   * Returns account-level settings for the specified WhatsApp Business Account.
    *
    * @example
    * ```ts
@@ -25,7 +25,8 @@ export class Settings extends APIResource {
   }
 
   /**
-   * Update WABA settings
+   * Updates the supplied account-level settings for the specified WhatsApp Business
+   * Account.
    *
    * @example
    * ```ts

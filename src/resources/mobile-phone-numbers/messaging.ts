@@ -9,7 +9,7 @@ import { path } from '../../internal/utils/path';
 
 export class Messaging extends APIResource {
   /**
-   * List mobile phone numbers with messaging settings
+   * Returns mobile phone numbers with their current messaging configuration.
    */
   list(
     query: MessagingListParams | null | undefined = {},
@@ -26,7 +26,7 @@ export class Messaging extends APIResource {
   }
 
   /**
-   * Retrieve a mobile phone number with messaging settings
+   * Returns the messaging configuration for the specified mobile phone number.
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MessagingRetrieveResponse> {
     return this._client.get(path`/mobile_phone_numbers/${id}/messaging`, options);

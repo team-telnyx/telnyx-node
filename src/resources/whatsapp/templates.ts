@@ -12,7 +12,8 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class Templates extends APIResource {
   /**
-   * List Whatsapp message templates
+   * Returns WhatsApp message templates owned by the authenticated account, including
+   * their current review state.
    *
    * @example
    * ```ts
@@ -34,7 +35,8 @@ export class Templates extends APIResource {
   }
 
   /**
-   * Create a Whatsapp message template
+   * Creates a WhatsApp message template for review and subsequent use in template
+   * messages.
    *
    * @example
    * ```ts

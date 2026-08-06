@@ -13,7 +13,8 @@ import { path } from '../../internal/utils/path';
  */
 export class Messaging extends APIResource {
   /**
-   * List phone numbers with messaging settings
+   * Returns phone numbers with their current messaging product and messaging-profile
+   * assignments.
    *
    * @example
    * ```ts
@@ -38,7 +39,8 @@ export class Messaging extends APIResource {
   }
 
   /**
-   * Retrieve a phone number with messaging settings
+   * Returns the messaging product and messaging-profile assignment for the specified
+   * phone number.
    *
    * @example
    * ```ts
@@ -51,7 +53,8 @@ export class Messaging extends APIResource {
   }
 
   /**
-   * Update the messaging profile and/or messaging product of a phone number
+   * Updates the messaging product, messaging profile, or both for the specified
+   * phone number.
    *
    * @example
    * ```ts

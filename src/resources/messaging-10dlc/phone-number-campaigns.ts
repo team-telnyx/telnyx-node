@@ -11,7 +11,8 @@ import { path } from '../../internal/utils/path';
  */
 export class PhoneNumberCampaigns extends APIResource {
   /**
-   * List phone number campaigns
+   * Returns phone-number-to-campaign assignments for the authenticated account.
+   * Apply the documented filters and pagination parameters to narrow the result set.
    *
    * @example
    * ```ts
@@ -33,7 +34,8 @@ export class PhoneNumberCampaigns extends APIResource {
   }
 
   /**
-   * Create New Phone Number Campaign
+   * Assigns a phone number to a 10DLC campaign. The assignment controls which
+   * registered campaign is used for traffic from that number.
    *
    * @example
    * ```ts
@@ -80,7 +82,7 @@ export class PhoneNumberCampaigns extends APIResource {
   }
 
   /**
-   * Update Phone Number Campaign
+   * Replaces the 10DLC campaign assignment for the specified phone number.
    *
    * @example
    * ```ts
