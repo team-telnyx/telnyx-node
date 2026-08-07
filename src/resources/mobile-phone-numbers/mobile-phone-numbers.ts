@@ -21,7 +21,7 @@ export class MobilePhoneNumbers extends APIResource {
   messaging: MessagingAPI.Messaging = new MessagingAPI.Messaging(this._client);
 
   /**
-   * List Mobile Phone Numbers
+   * Retrieve a paginated list of mobile phone numbers on your account.
    */
   list(
     query: MobilePhoneNumberListParams | null | undefined = {},
@@ -34,14 +34,14 @@ export class MobilePhoneNumbers extends APIResource {
   }
 
   /**
-   * Retrieve a Mobile Phone Number
+   * Retrieve the details of a specific mobile phone number.
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MobilePhoneNumberRetrieveResponse> {
     return this._client.get(path`/v2/mobile_phone_numbers/${id}`, options);
   }
 
   /**
-   * Update a Mobile Phone Number
+   * Update the settings of a specific mobile phone number.
    */
   update(
     id: string,

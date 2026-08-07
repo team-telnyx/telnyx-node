@@ -11,7 +11,7 @@ import { path } from '../../internal/utils/path';
  */
 export class Tools extends APIResource {
   /**
-   * List Tools
+   * Retrieve a list of the custom AI tools configured on your account.
    *
    * @example
    * ```ts
@@ -32,7 +32,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Create Tool
+   * Create a new custom AI tool that can be attached to AI assistants.
    *
    * @example
    * ```ts
@@ -47,7 +47,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Delete Tool
+   * Delete a custom AI tool.
    *
    * @example
    * ```ts
@@ -59,7 +59,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Get Tool
+   * Retrieve the details of a specific AI tool.
    *
    * @example
    * ```ts
@@ -73,7 +73,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Update Tool
+   * Update the configuration of an existing AI tool.
    *
    * @example
    * ```ts

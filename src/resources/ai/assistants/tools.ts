@@ -26,7 +26,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Remove Assistant Tool
+   * Detach a tool from an AI assistant.
    *
    * @example
    * ```ts
@@ -42,7 +42,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Add Assistant Tool
+   * Attach an existing tool to an AI assistant.
    *
    * @example
    * ```ts

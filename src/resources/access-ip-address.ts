@@ -11,7 +11,7 @@ import { path } from '../internal/utils/path';
  */
 export class AccessIPAddress extends APIResource {
   /**
-   * List all Access IP Addresses
+   * Retrieve a paginated list of access IP addresses configured on your account.
    */
   list(
     query: AccessIPAddressListParams | null | undefined = {},
@@ -24,21 +24,21 @@ export class AccessIPAddress extends APIResource {
   }
 
   /**
-   * Create new Access IP Address
+   * Create a new access IP address entry on your account.
    */
   create(body: AccessIPAddressCreateParams, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
     return this._client.post('/access_ip_address', { body, ...options });
   }
 
   /**
-   * Delete access IP address
+   * Delete an access IP address entry from your account.
    */
   delete(accessIPAddressID: string, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
     return this._client.delete(path`/access_ip_address/${accessIPAddressID}`, options);
   }
 
   /**
-   * Retrieve an access IP address
+   * Retrieve the details of a specific access IP address.
    */
   retrieve(accessIPAddressID: string, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
     return this._client.get(path`/access_ip_address/${accessIPAddressID}`, options);

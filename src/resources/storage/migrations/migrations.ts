@@ -15,7 +15,7 @@ export class Migrations extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * List all Migrations
+   * Retrieve a list of the storage migrations on your account.
    *
    * @example
    * ```ts
@@ -44,7 +44,7 @@ export class Migrations extends APIResource {
   }
 
   /**
-   * Get a Migration
+   * Retrieve the details and status of a specific storage migration.
    *
    * @example
    * ```ts

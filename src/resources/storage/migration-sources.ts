@@ -11,7 +11,9 @@ import { path } from '../../internal/utils/path';
  */
 export class MigrationSources extends APIResource {
   /**
-   * List all Migration Sources
+   * List the migration sources configured on your account. A migration source is an
+   * external storage bucket from which data can be migrated into Telnyx Cloud
+   * Storage.
    *
    * @example
    * ```ts
@@ -44,7 +46,7 @@ export class MigrationSources extends APIResource {
   }
 
   /**
-   * Delete a Migration Source
+   * Delete a migration source configuration.
    *
    * @example
    * ```ts
@@ -57,7 +59,7 @@ export class MigrationSources extends APIResource {
   }
 
   /**
-   * Get a Migration Source
+   * Retrieve the details of a specific migration source.
    *
    * @example
    * ```ts

@@ -178,7 +178,8 @@ export class ExternalConnections extends APIResource {
   }
 
   /**
-   * Update a location's static emergency address
+   * Update the static emergency address assigned to a specific location of an
+   * external connection.
    *
    * @example
    * ```ts

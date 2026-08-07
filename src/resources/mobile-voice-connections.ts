@@ -11,7 +11,7 @@ import { path } from '../internal/utils/path';
  */
 export class MobileVoiceConnections extends APIResource {
   /**
-   * List Mobile Voice Connections
+   * Retrieve a paginated list of mobile voice connections on your account.
    */
   list(
     query: MobileVoiceConnectionListParams | null | undefined = {},
@@ -25,7 +25,7 @@ export class MobileVoiceConnections extends APIResource {
   }
 
   /**
-   * Create a Mobile Voice Connection
+   * Create a new mobile voice connection.
    */
   create(
     body: MobileVoiceConnectionCreateParams,
@@ -35,21 +35,21 @@ export class MobileVoiceConnections extends APIResource {
   }
 
   /**
-   * Delete a Mobile Voice Connection
+   * Delete a mobile voice connection from your account.
    */
   delete(id: string, options?: RequestOptions): APIPromise<MobileVoiceConnectionDeleteResponse> {
     return this._client.delete(path`/v2/mobile_voice_connections/${id}`, options);
   }
 
   /**
-   * Retrieve a Mobile Voice Connection
+   * Retrieve the details of a specific mobile voice connection.
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MobileVoiceConnectionRetrieveResponse> {
     return this._client.get(path`/v2/mobile_voice_connections/${id}`, options);
   }
 
   /**
-   * Update a Mobile Voice Connection
+   * Update the settings of a specific mobile voice connection.
    */
   update(
     id: string,

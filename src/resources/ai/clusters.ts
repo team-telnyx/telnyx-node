@@ -14,7 +14,7 @@ import { path } from '../../internal/utils/path';
  */
 export class Clusters extends APIResource {
   /**
-   * List all clusters
+   * Retrieve a paginated list of clustering tasks and their statuses.
    *
    * @example
    * ```ts
@@ -51,7 +51,7 @@ export class Clusters extends APIResource {
   }
 
   /**
-   * Delete a cluster
+   * Delete a clustering task and its computed results.
    *
    * @example
    * ```ts
@@ -66,7 +66,7 @@ export class Clusters extends APIResource {
   }
 
   /**
-   * Fetch a cluster
+   * Fetch the results of a clustering task, including the discovered clusters.
    *
    * @example
    * ```ts
@@ -84,7 +84,7 @@ export class Clusters extends APIResource {
   }
 
   /**
-   * Fetch a cluster visualization
+   * Fetch a visualization image of the clusters computed by a clustering task.
    *
    * @example
    * ```ts

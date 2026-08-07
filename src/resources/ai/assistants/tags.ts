@@ -10,7 +10,7 @@ import { path } from '../../../internal/utils/path';
  */
 export class Tags extends APIResource {
   /**
-   * Get All Tags
+   * Retrieve all tags that have been applied to your AI assistants.
    *
    * @example
    * ```ts
@@ -22,7 +22,7 @@ export class Tags extends APIResource {
   }
 
   /**
-   * Add Assistant Tag
+   * Add a tag to an AI assistant. Tags help you organize and filter your assistants.
    *
    * @example
    * ```ts
@@ -37,7 +37,7 @@ export class Tags extends APIResource {
   }
 
   /**
-   * Remove Assistant Tag
+   * Remove a tag from an AI assistant.
    *
    * @example
    * ```ts

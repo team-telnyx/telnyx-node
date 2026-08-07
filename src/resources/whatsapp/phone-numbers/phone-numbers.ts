@@ -147,7 +147,7 @@ export class PhoneNumbers extends APIResource {
   }
 
   /**
-   * List Whatsapp phone numbers
+   * Retrieve a list of the phone numbers registered for WhatsApp on your account.
    *
    * @example
    * ```ts
