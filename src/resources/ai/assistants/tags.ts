@@ -28,7 +28,7 @@ export class Tags extends APIResource {
    * ```ts
    * const tagsResponse = await client.ai.assistants.tags.add(
    *   'assistant_id',
-   *   { tag: 'tag' },
+   *   { tag: 'Tag' },
    * );
    * ```
    */

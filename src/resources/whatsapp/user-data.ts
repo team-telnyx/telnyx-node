@@ -27,7 +27,10 @@ export class UserData extends APIResource {
    *
    * @example
    * ```ts
-   * const userData = await client.whatsapp.userData.update();
+   * const userData = await client.whatsapp.userData.update({
+   *   webhook_failover_url: 'https://example.com',
+   *   webhook_url: 'https://example.com',
+   * });
    * ```
    */
   update(body: UserDataUpdateParams, options?: RequestOptions): APIPromise<UserDataUpdateResponse> {

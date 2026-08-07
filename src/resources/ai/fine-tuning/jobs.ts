@@ -28,8 +28,10 @@ export class Jobs extends APIResource {
    * ```ts
    * const fineTuningJob =
    *   await client.ai.fineTuning.jobs.create({
-   *     model: 'model',
-   *     training_file: 'training_file',
+   *     model: 'string',
+   *     training_file: 'string',
+   *     hyperparameters: { n_epochs: 3 },
+   *     suffix: 'string',
    *   });
    * ```
    */

@@ -10,6 +10,14 @@ import { path } from '../../internal/utils/path';
 export class Messaging extends APIResource {
   /**
    * Returns mobile phone numbers with their current messaging configuration.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const mobilePhoneNumberWithMessagingSettings of client.mobilePhoneNumbers.messaging.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: MessagingListParams | null | undefined = {},
@@ -27,6 +35,12 @@ export class Messaging extends APIResource {
 
   /**
    * Returns the messaging configuration for the specified mobile phone number.
+   *
+   * @example
+   * ```ts
+   * const messaging =
+   *   await client.mobilePhoneNumbers.messaging.retrieve('id');
+   * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MessagingRetrieveResponse> {
     return this._client.get(path`/mobile_phone_numbers/${id}/messaging`, options);

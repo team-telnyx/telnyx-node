@@ -58,6 +58,25 @@ export class CanaryDeploys extends APIResource {
    * const canaryDeployResponse =
    *   await client.ai.assistants.canaryDeploys.create(
    *     'assistant_id',
+   *     {
+   *       rules: [
+   *         {
+   *           match: [
+   *             {
+   *               attribute: 'Attribute',
+   *               operator: 'in',
+   *               values: ['string'],
+   *             },
+   *           ],
+   *           serve: {
+   *             version_id: 'Version Id',
+   *             rollout: [
+   *               { version_id: 'Version Id', weight: 0 },
+   *             ],
+   *           },
+   *         },
+   *       ],
+   *     },
    *   );
    * ```
    */
@@ -81,6 +100,25 @@ export class CanaryDeploys extends APIResource {
    * const canaryDeployResponse =
    *   await client.ai.assistants.canaryDeploys.update(
    *     'assistant_id',
+   *     {
+   *       rules: [
+   *         {
+   *           match: [
+   *             {
+   *               attribute: 'Attribute',
+   *               operator: 'in',
+   *               values: ['string'],
+   *             },
+   *           ],
+   *           serve: {
+   *             version_id: 'Version Id',
+   *             rollout: [
+   *               { version_id: 'Version Id', weight: 0 },
+   *             ],
+   *           },
+   *         },
+   *       ],
+   *     },
    *   );
    * ```
    */

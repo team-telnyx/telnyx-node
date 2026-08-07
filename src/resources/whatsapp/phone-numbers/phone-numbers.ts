@@ -88,6 +88,7 @@ export class PhoneNumbers extends APIResource {
    * ```ts
    * await client.whatsapp.phoneNumbers.resendVerification(
    *   'phone_number',
+   *   { verification_method: 'sms' },
    * );
    * ```
    */
@@ -109,7 +110,7 @@ export class PhoneNumbers extends APIResource {
    * @example
    * ```ts
    * await client.whatsapp.phoneNumbers.verify('phone_number', {
-   *   code: 'code',
+   *   code: 'string',
    * });
    * ```
    */

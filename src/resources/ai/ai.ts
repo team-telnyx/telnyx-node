@@ -179,8 +179,9 @@ export class AI extends APIResource {
    * @example
    * ```ts
    * const response = await client.ai.summarize({
-   *   bucket: 'bucket',
-   *   filename: 'filename',
+   *   bucket: 'string',
+   *   filename: 'string',
+   *   system_prompt: 'string',
    * });
    * ```
    */

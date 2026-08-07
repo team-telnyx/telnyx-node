@@ -51,7 +51,7 @@ describe('resource oauth', () => {
 
   // Mock server tests are disabled
   test.skip('grants: only required params', async () => {
-    const responsePromise = client.oauth.grants({ allowed: true, consent_token: 'consent_token' });
+    const responsePromise = client.oauth.grants({ allowed: false, consent_token: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -63,12 +63,12 @@ describe('resource oauth', () => {
 
   // Mock server tests are disabled
   test.skip('grants: required and optional params', async () => {
-    const response = await client.oauth.grants({ allowed: true, consent_token: 'consent_token' });
+    const response = await client.oauth.grants({ allowed: false, consent_token: 'string' });
   });
 
   // Mock server tests are disabled
   test.skip('introspect: only required params', async () => {
-    const responsePromise = client.oauth.introspect({ token: 'token' });
+    const responsePromise = client.oauth.introspect({ token: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -80,7 +80,7 @@ describe('resource oauth', () => {
 
   // Mock server tests are disabled
   test.skip('introspect: required and optional params', async () => {
-    const response = await client.oauth.introspect({ token: 'token' });
+    const response = await client.oauth.introspect({ token: 'string' });
   });
 
   // Mock server tests are disabled

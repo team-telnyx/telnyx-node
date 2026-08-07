@@ -16,7 +16,11 @@ export class Tools extends APIResource {
    * ```ts
    * const response = await client.ai.assistants.tools.test(
    *   'tool_id',
-   *   { assistant_id: 'assistant_id' },
+   *   {
+   *     assistant_id: 'assistant_id',
+   *     arguments: { order_id: 'order_12345' },
+   *     dynamic_variables: { customer_name: 'Ada' },
+   *   },
    * );
    * ```
    */

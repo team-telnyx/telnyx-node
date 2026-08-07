@@ -12,6 +12,14 @@ import { path } from '../internal/utils/path';
 export class AccessIPAddress extends APIResource {
   /**
    * Retrieve a paginated list of access IP addresses configured on your account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const accessIPAddressResponse of client.accessIPAddress.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: AccessIPAddressListParams | null | undefined = {},
@@ -25,6 +33,15 @@ export class AccessIPAddress extends APIResource {
 
   /**
    * Create a new access IP address entry on your account.
+   *
+   * @example
+   * ```ts
+   * const accessIPAddressResponse =
+   *   await client.accessIPAddress.create({
+   *     ip_address: 'Ip Address',
+   *     description: 'Description',
+   *   });
+   * ```
    */
   create(body: AccessIPAddressCreateParams, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
     return this._client.post('/access_ip_address', { body, ...options });
@@ -32,6 +49,14 @@ export class AccessIPAddress extends APIResource {
 
   /**
    * Delete an access IP address entry from your account.
+   *
+   * @example
+   * ```ts
+   * const accessIPAddressResponse =
+   *   await client.accessIPAddress.delete(
+   *     'access_ip_address_id',
+   *   );
+   * ```
    */
   delete(accessIPAddressID: string, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
     return this._client.delete(path`/access_ip_address/${accessIPAddressID}`, options);
@@ -39,6 +64,14 @@ export class AccessIPAddress extends APIResource {
 
   /**
    * Retrieve the details of a specific access IP address.
+   *
+   * @example
+   * ```ts
+   * const accessIPAddressResponse =
+   *   await client.accessIPAddress.retrieve(
+   *     'access_ip_address_id',
+   *   );
+   * ```
    */
   retrieve(accessIPAddressID: string, options?: RequestOptions): APIPromise<AccessIPAddressResponse> {
     return this._client.get(path`/access_ip_address/${accessIPAddressID}`, options);

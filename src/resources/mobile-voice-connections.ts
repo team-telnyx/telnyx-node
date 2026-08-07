@@ -12,6 +12,14 @@ import { path } from '../internal/utils/path';
 export class MobileVoiceConnections extends APIResource {
   /**
    * Retrieve a paginated list of mobile voice connections on your account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const mobileVoiceConnection of client.mobileVoiceConnections.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: MobileVoiceConnectionListParams | null | undefined = {},
@@ -26,6 +34,22 @@ export class MobileVoiceConnections extends APIResource {
 
   /**
    * Create a new mobile voice connection.
+   *
+   * @example
+   * ```ts
+   * const mobileVoiceConnection =
+   *   await client.mobileVoiceConnections.create({
+   *     active: true,
+   *     connection_name: 'Telnyx Mobile Voice IMS',
+   *     inbound: { channel_limit: 0 },
+   *     outbound: {
+   *       channel_limit: 0,
+   *       outbound_voice_profile_id: 'string',
+   *     },
+   *     tags: ['string'],
+   *     webhook_api_version: '2',
+   *   });
+   * ```
    */
   create(
     body: MobileVoiceConnectionCreateParams,
@@ -36,6 +60,12 @@ export class MobileVoiceConnections extends APIResource {
 
   /**
    * Delete a mobile voice connection from your account.
+   *
+   * @example
+   * ```ts
+   * const mobileVoiceConnection =
+   *   await client.mobileVoiceConnections.delete('id');
+   * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<MobileVoiceConnectionDeleteResponse> {
     return this._client.delete(path`/v2/mobile_voice_connections/${id}`, options);
@@ -43,6 +73,12 @@ export class MobileVoiceConnections extends APIResource {
 
   /**
    * Retrieve the details of a specific mobile voice connection.
+   *
+   * @example
+   * ```ts
+   * const mobileVoiceConnection =
+   *   await client.mobileVoiceConnections.retrieve('id');
+   * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MobileVoiceConnectionRetrieveResponse> {
     return this._client.get(path`/v2/mobile_voice_connections/${id}`, options);
@@ -50,6 +86,21 @@ export class MobileVoiceConnections extends APIResource {
 
   /**
    * Update the settings of a specific mobile voice connection.
+   *
+   * @example
+   * ```ts
+   * const mobileVoiceConnection =
+   *   await client.mobileVoiceConnections.update('id', {
+   *     connection_name: 'string',
+   *     inbound: { channel_limit: 0 },
+   *     outbound: {
+   *       channel_limit: 0,
+   *       outbound_voice_profile_id: 'string',
+   *     },
+   *     tags: ['string'],
+   *     webhook_api_version: '1',
+   *   });
+   * ```
    */
   update(
     id: string,

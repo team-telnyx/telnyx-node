@@ -42,7 +42,11 @@ export class Clusters extends APIResource {
    * @example
    * ```ts
    * const response = await client.ai.clusters.compute({
-   *   bucket: 'bucket',
+   *   bucket: 'string',
+   *   files: ['string'],
+   *   min_cluster_size: 25,
+   *   min_subcluster_size: 5,
+   *   prefix: 'string',
    * });
    * ```
    */

@@ -119,8 +119,9 @@ export class Assistants extends APIResource {
    * @example
    * ```ts
    * const assistantsList = await client.ai.assistants.imports({
-   *   api_key_ref: 'api_key_ref',
+   *   api_key_ref: 'string',
    *   provider: 'elevenlabs',
+   *   import_ids: ['string'],
    * });
    * ```
    */
@@ -250,7 +251,11 @@ export class Assistants extends APIResource {
    * ```ts
    * const response = await client.ai.assistants.sendSMS(
    *   'assistant_id',
-   *   { from: 'from', to: 'to' },
+   *   {
+   *     from: 'From',
+   *     to: 'To',
+   *     text: 'Text',
+   *   },
    * );
    * ```
    */

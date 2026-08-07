@@ -116,7 +116,7 @@ export class MessagingHostedNumberOrders extends APIResource {
    *     'id',
    *     {
    *       verification_codes: [
-   *         { code: 'code', phone_number: 'phone_number' },
+   *         { phone_number: 'string', code: 'string' },
    *       ],
    *     },
    *   );

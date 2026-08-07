@@ -46,8 +46,10 @@ export class PhoneNumbers extends APIResource {
    * await client.whatsapp.businessAccounts.phoneNumbers.initializeVerification(
    *   'id',
    *   {
-   *     display_name: 'display_name',
-   *     phone_number: 'phone_number',
+   *     display_name: 'string',
+   *     phone_number: 'string',
+   *     language: 'en_US',
+   *     verification_method: 'sms',
    *   },
    * );
    * ```

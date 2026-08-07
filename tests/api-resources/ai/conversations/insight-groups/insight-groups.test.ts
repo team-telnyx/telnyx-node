@@ -33,7 +33,7 @@ describe('resource insightGroups', () => {
 
   // Mock server tests are disabled
   test.skip('insightGroups: only required params', async () => {
-    const responsePromise = client.ai.conversations.insightGroups.insightGroups({ name: 'name' });
+    const responsePromise = client.ai.conversations.insightGroups.insightGroups({ name: 'Name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -46,9 +46,9 @@ describe('resource insightGroups', () => {
   // Mock server tests are disabled
   test.skip('insightGroups: required and optional params', async () => {
     const response = await client.ai.conversations.insightGroups.insightGroups({
-      name: 'name',
-      description: 'description',
-      webhook: 'webhook',
+      name: 'Name',
+      description: 'Description',
+      webhook: '',
     });
   });
 

@@ -37,6 +37,12 @@ export class ConversationalComponents extends APIResource {
    * const response =
    *   await client.whatsapp.phoneNumbers.conversationalComponents.patchAll(
    *     'phone_number',
+   *     {
+   *       commands: [
+   *         { command: 'string', description: 'string' },
+   *       ],
+   *       ice_breakers: ['string'],
+   *     },
    *   );
    * ```
    */

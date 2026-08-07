@@ -37,6 +37,16 @@ export class Profile extends APIResource {
    * const profile =
    *   await client.whatsapp.phoneNumbers.profile.update(
    *     'phone_number',
+   *     {
+   *       about: 'string',
+   *       address: 'string',
+   *       category: 'string',
+   *       description: 'string',
+   *       display_name: 'string',
+   *       email: 'string',
+   *       profile_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+   *       website: 'string',
+   *     },
    *   );
    * ```
    */

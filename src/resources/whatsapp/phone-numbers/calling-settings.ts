@@ -32,7 +32,7 @@ export class CallingSettings extends APIResource {
    * const callingSetting =
    *   await client.whatsapp.phoneNumbers.callingSettings.update(
    *     'phone_number',
-   *     { enabled: true },
+   *     { enabled: false },
    *   );
    * ```
    */

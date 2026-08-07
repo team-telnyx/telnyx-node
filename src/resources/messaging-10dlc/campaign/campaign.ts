@@ -92,7 +92,22 @@ export class Campaign extends APIResource {
    * @example
    * ```ts
    * const telnyxCampaignCsp =
-   *   await client.messaging10dlc.campaign.update('campaignId');
+   *   await client.messaging10dlc.campaign.update(
+   *     'campaignId',
+   *     {
+   *       autoRenewal: true,
+   *       helpMessage: 'Helpmessage',
+   *       messageFlow: 'Messageflow',
+   *       resellerId: 'RESELLER',
+   *       sample1: 'Sample1',
+   *       sample2: 'Sample2',
+   *       sample3: 'Sample3',
+   *       sample4: 'Sample4',
+   *       sample5: 'Sample5',
+   *       webhookFailoverURL: 'WebhookURL',
+   *       webhookURL: 'WebhookURL',
+   *     },
+   *   );
    * ```
    */
   update(

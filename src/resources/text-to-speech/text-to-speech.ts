@@ -15,6 +15,11 @@ export class TextToSpeech extends APIResource {
    * returns voices from all providers.
    *
    * Some providers (ElevenLabs, Resemble) require an API key to list voices.
+   *
+   * @example
+   * ```ts
+   * const response = await client.textToSpeech.listVoices();
+   * ```
    */
   listVoices(
     query: TextToSpeechListVoicesParams | null | undefined = {},
@@ -42,6 +47,69 @@ export class TextToSpeech extends APIResource {
    * The Telnyx `Ultra` model supports 44 languages with emotion control, speed
    * adjustment, and volume control. Use the `telnyx` provider-specific parameters to
    * configure these features.
+   *
+   * @example
+   * ```ts
+   * const response = await client.textToSpeech.generateSpeech({
+   *   aws: {
+   *     language_code: 'string',
+   *     text_type: 'text',
+   *     lexicon_names: ['string'],
+   *     output_format: 'string',
+   *     sample_rate: 'string',
+   *   },
+   *   azure: {
+   *     language_code: 'en-US',
+   *     output_format: 'audio-24khz-160kbitrate-mono-mp3',
+   *     text_type: 'text',
+   *     api_key: 'string',
+   *     region: 'string',
+   *     deployment_id: 'string',
+   *     effect: 'string',
+   *     gender: 'string',
+   *   },
+   *   elevenlabs: { language_code: 'string', api_key: 'string' },
+   *   humain: { voice_id: 'sara-en', ttfb_eagerness: 0 },
+   *   language: 'string',
+   *   minimax: {
+   *     speed: 0,
+   *     vol: 0,
+   *     pitch: 0,
+   *     response_format: 'string',
+   *     language_boost: 'string',
+   *   },
+   *   output_type: 'binary_output',
+   *   provider: 'aws',
+   *   resemble: {
+   *     api_key: 'string',
+   *     precision: 'string',
+   *     sample_rate: 'string',
+   *     format: 'string',
+   *   },
+   *   rime: {
+   *     voice_speed: 0,
+   *     response_format: 'string',
+   *     sampling_rate: 0,
+   *   },
+   *   telnyx: {
+   *     voice_speed: 1,
+   *     response_format: 'mp3',
+   *     sampling_rate: 24000,
+   *     temperature: 0.5,
+   *     volume: 1,
+   *     emotion: 'neutral',
+   *   },
+   *   text: 'string',
+   *   text_type: 'text',
+   *   voice: 'string',
+   *   xai: {
+   *     voice_id: 'eve',
+   *     language: 'auto',
+   *     output_format: 'mp3',
+   *     sample_rate: 24000,
+   *   },
+   * });
+   * ```
    */
   generateSpeech(
     body: TextToSpeechGenerateSpeechParams,
@@ -74,6 +142,11 @@ export class TextToSpeech extends APIResource {
    *
    * **Note:** The Telnyx `Ultra` model is not available over WebSocket. Use the HTTP
    * POST `/text-to-speech/speech` endpoint instead.
+   *
+   * @example
+   * ```ts
+   * await client.textToSpeech.retrieveSpeech();
+   * ```
    */
   retrieveSpeech(
     query: TextToSpeechRetrieveSpeechParams | null | undefined = {},

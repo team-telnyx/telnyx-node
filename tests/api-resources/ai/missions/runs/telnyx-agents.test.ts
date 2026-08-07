@@ -34,7 +34,7 @@ describe('resource telnyxAgents', () => {
   test.skip('link: only required params', async () => {
     const responsePromise = client.ai.missions.runs.telnyxAgents.link(
       '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', telnyx_agent_id: 'telnyx_agent_id' },
+      { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', telnyx_agent_id: 'Telnyx Agent Id' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -49,7 +49,7 @@ describe('resource telnyxAgents', () => {
   test.skip('link: required and optional params', async () => {
     const response = await client.ai.missions.runs.telnyxAgents.link('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      telnyx_agent_id: 'telnyx_agent_id',
+      telnyx_agent_id: 'Telnyx Agent Id',
     });
   });
 

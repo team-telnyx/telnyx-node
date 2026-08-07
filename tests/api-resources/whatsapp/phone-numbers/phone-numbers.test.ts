@@ -57,7 +57,7 @@ describe('resource phoneNumbers', () => {
 
   // Mock server tests are disabled
   test.skip('verify: only required params', async () => {
-    const responsePromise = client.whatsapp.phoneNumbers.verify('phone_number', { code: 'code' });
+    const responsePromise = client.whatsapp.phoneNumbers.verify('phone_number', { code: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -69,7 +69,7 @@ describe('resource phoneNumbers', () => {
 
   // Mock server tests are disabled
   test.skip('verify: required and optional params', async () => {
-    const response = await client.whatsapp.phoneNumbers.verify('phone_number', { code: 'code' });
+    const response = await client.whatsapp.phoneNumbers.verify('phone_number', { code: 'string' });
   });
 
   // Mock server tests are disabled

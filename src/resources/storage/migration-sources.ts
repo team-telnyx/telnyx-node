@@ -32,9 +32,13 @@ export class MigrationSources extends APIResource {
    * ```ts
    * const migrationSource =
    *   await client.storage.migrationSources.create({
-   *     bucket_name: 'bucket_name',
+   *     bucket_name: 'string',
    *     provider: 'aws',
-   *     provider_auth: {},
+   *     provider_auth: {
+   *       access_key: 'string',
+   *       secret_access_key: 'string',
+   *     },
+   *     source_region: 'string',
    *   });
    * ```
    */
