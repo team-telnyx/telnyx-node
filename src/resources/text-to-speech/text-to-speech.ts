@@ -188,6 +188,12 @@ export namespace TextToSpeechListVoicesResponse {
     gender?: string;
 
     /**
+     * Whether this voice runs on Telnyx-hosted infrastructure (`true`) or is provided
+     * by a third-party vendor (`false`).
+     */
+    hosted?: boolean;
+
+    /**
      * Language code.
      */
     language?: string;

@@ -2334,6 +2334,13 @@ export interface TelephonySettings {
   default_texml_app_id?: string;
 
   /**
+   * Disable inbound DTMF for the entire call. Must be set to true if a 'pay' tool is
+   * configured anywhere on the assistant — on the main tool array or on any workflow
+   * node — enforced at write time.
+   */
+  disable_dtmf?: boolean;
+
+  /**
    * The noise suppression engine to use. Use 'disabled' to turn off noise
    * suppression.
    */

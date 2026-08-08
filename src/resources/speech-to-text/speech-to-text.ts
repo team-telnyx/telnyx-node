@@ -94,6 +94,12 @@ export namespace SpeechToTextListProvidersResponse {
    */
   export interface Data {
     /**
+     * Whether this model runs on Telnyx-hosted infrastructure (`true`) or is provided
+     * by a third-party vendor (`false`).
+     */
+    hosted: boolean;
+
+    /**
      * Provider-scoped model name.
      */
     model: string;
