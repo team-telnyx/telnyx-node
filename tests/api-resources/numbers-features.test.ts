@@ -10,7 +10,7 @@ const client = new Telnyx({
 describe('resource numbersFeatures', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.numbersFeatures.create({ phone_numbers: ['string'] });
+    const responsePromise = client.numbersFeatures.create({ phone_numbers: ['+19705555098'] });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,6 +22,6 @@ describe('resource numbersFeatures', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.numbersFeatures.create({ phone_numbers: ['string'] });
+    const response = await client.numbersFeatures.create({ phone_numbers: ['+19705555098'] });
   });
 });

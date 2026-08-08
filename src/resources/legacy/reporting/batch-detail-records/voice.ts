@@ -191,7 +191,7 @@ export interface VoiceRetrieveResponse {
 export interface VoiceListResponse {
   data?: Array<CdrDetailedReqResponse>;
 
-  meta?: MessagingAPI.BatchCsvPaginationMeta;
+  meta?: MessagingAPI.BatchCsvPaginationMeta705dfa7312;
 }
 
 export interface VoiceDeleteResponse {

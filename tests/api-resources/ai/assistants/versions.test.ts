@@ -289,6 +289,7 @@ describe('resource versions', () => {
       tags: ['string'],
       telephony_settings: {
         default_texml_app_id: 'default_texml_app_id',
+        disable_dtmf: true,
         noise_suppression: 'krisp',
         noise_suppression_config: { attenuation_limit: 0, mode: 'advanced' },
         recording_settings: {

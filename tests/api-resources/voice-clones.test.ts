@@ -76,8 +76,8 @@ describe('resource voiceClones', () => {
       voice_clone_upload_request: {
         audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
         gender: 'male',
-        language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
-        name: 'name',
+        language: 'en',
+        name: 'My cloned voice',
         provider: 'telnyx',
       },
     });
@@ -96,8 +96,8 @@ describe('resource voiceClones', () => {
       voice_clone_upload_request: {
         audio_file: await toFile(Buffer.from('Example data'), 'README.md'),
         gender: 'male',
-        language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
-        name: 'name',
+        language: 'en',
+        name: 'My cloned voice',
         provider: 'telnyx',
         label: 'label',
         model_id: 'Qwen3TTS',

@@ -243,6 +243,7 @@ describe('resource assistants', () => {
       tags: ['string'],
       telephony_settings: {
         default_texml_app_id: 'default_texml_app_id',
+        disable_dtmf: true,
         noise_suppression: 'krisp',
         noise_suppression_config: { attenuation_limit: 0, mode: 'advanced' },
         recording_settings: {
@@ -353,10 +354,7 @@ describe('resource assistants', () => {
 
   // Mock server tests are disabled
   test.skip('imports: only required params', async () => {
-    const responsePromise = client.ai.assistants.imports({
-      api_key_ref: 'api_key_ref',
-      provider: 'elevenlabs',
-    });
+    const responsePromise = client.ai.assistants.imports({ api_key_ref: 'string', provider: 'elevenlabs' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -369,7 +367,7 @@ describe('resource assistants', () => {
   // Mock server tests are disabled
   test.skip('imports: required and optional params', async () => {
     const response = await client.ai.assistants.imports({
-      api_key_ref: 'api_key_ref',
+      api_key_ref: 'string',
       provider: 'elevenlabs',
       import_ids: ['string'],
     });
@@ -479,7 +477,7 @@ describe('resource assistants', () => {
 
   // Mock server tests are disabled
   test.skip('sendSMS: only required params', async () => {
-    const responsePromise = client.ai.assistants.sendSMS('assistant_id', { from: 'from', to: 'to' });
+    const responsePromise = client.ai.assistants.sendSMS('assistant_id', { from: 'From', to: 'To' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -492,11 +490,11 @@ describe('resource assistants', () => {
   // Mock server tests are disabled
   test.skip('sendSMS: required and optional params', async () => {
     const response = await client.ai.assistants.sendSMS('assistant_id', {
-      from: 'from',
-      to: 'to',
+      from: 'From',
+      to: 'To',
       conversation_metadata: { foo: 'string' },
-      should_create_conversation: true,
-      text: 'text',
+      should_create_conversation: false,
+      text: 'Text',
     });
   });
 });

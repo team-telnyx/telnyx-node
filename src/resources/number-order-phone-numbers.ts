@@ -10,6 +10,12 @@ import { path } from '../internal/utils/path';
 export class NumberOrderPhoneNumbers extends APIResource {
   /**
    * Get a list of phone numbers associated to orders.
+   *
+   * @example
+   * ```ts
+   * const numberOrderPhoneNumbers =
+   *   await client.numberOrderPhoneNumbers.list();
+   * ```
    */
   list(
     query: NumberOrderPhoneNumberListParams | null | undefined = {},
@@ -19,7 +25,20 @@ export class NumberOrderPhoneNumbers extends APIResource {
   }
 
   /**
-   * Update requirement group for a phone number order
+   * Associates an existing requirement group with a phone number in a number order.
+   * The response contains the updated number-order phone-number details.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.numberOrderPhoneNumbers.updateRequirementGroup(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       requirement_group_id:
+   *         'a4b201f9-8646-4e54-a7d2-b2e403eeaf8c',
+   *     },
+   *   );
+   * ```
    */
   updateRequirementGroup(
     id: string,
@@ -31,6 +50,14 @@ export class NumberOrderPhoneNumbers extends APIResource {
 
   /**
    * Get an existing phone number in number order.
+   *
+   * @example
+   * ```ts
+   * const numberOrderPhoneNumber =
+   *   await client.numberOrderPhoneNumbers.retrieve(
+   *     'number_order_phone_number_id',
+   *   );
+   * ```
    */
   retrieve(
     numberOrderPhoneNumberID: string,
@@ -41,6 +68,14 @@ export class NumberOrderPhoneNumbers extends APIResource {
 
   /**
    * Updates requirements for a single phone number within a number order.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.numberOrderPhoneNumbers.updateRequirements(
+   *     'number_order_phone_number_id',
+   *   );
+   * ```
    */
   updateRequirements(
     numberOrderPhoneNumberID: string,

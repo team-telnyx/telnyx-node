@@ -11,7 +11,7 @@ import { path } from '../../internal/utils/path';
  */
 export class Tools extends APIResource {
   /**
-   * List Tools
+   * Retrieve a list of the custom AI tools configured on your account.
    *
    * @example
    * ```ts
@@ -32,7 +32,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Create Tool
+   * Create a new custom AI tool that can be attached to AI assistants.
    *
    * @example
    * ```ts
@@ -47,7 +47,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Delete Tool
+   * Delete a custom AI tool.
    *
    * @example
    * ```ts
@@ -59,7 +59,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Get Tool
+   * Retrieve the details of a specific AI tool.
    *
    * @example
    * ```ts
@@ -73,7 +73,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Update Tool
+   * Update the configuration of an existing AI tool.
    *
    * @example
    * ```ts
@@ -126,6 +126,52 @@ export interface SharedToolResponse {
   timeout_ms?: number;
 }
 
+/**
+ * Configuration for an update_dynamic_variables tool.
+ */
+export interface UpdateDynamicVariablesToolParams {
+  /**
+   * Description of the tool passed to the assistant, guiding when to call it and
+   * which variables to update.
+   */
+  description: string;
+
+  /**
+   * The function name surfaced to the LLM. Must match the OpenAI function-name
+   * pattern `^[a-zA-Z0-9_-]+$` and be unique across the assistant's function,
+   * webhook, and client_side tools.
+   */
+  name: string;
+
+  /**
+   * The dynamic variables the assistant is allowed to write. At least one is
+   * required.
+   */
+  updatable_variables: Array<UpdateDynamicVariablesToolParams.UpdatableVariable>;
+}
+
+export namespace UpdateDynamicVariablesToolParams {
+  export interface UpdatableVariable {
+    /**
+     * The dynamic-variable key to update. Must match `^[a-zA-Z0-9._-]+$` and may not
+     * start with the reserved `telnyx_` prefix (reserved for system variables). The
+     * `pattern` encodes both rules via a negative lookahead.
+     */
+    name: string;
+
+    /**
+     * Optional description of the variable, guiding the assistant on what value to
+     * capture.
+     */
+    description?: string;
+
+    /**
+     * Optional hint for the variable's value type (e.g. `string`).
+     */
+    type?: string;
+  }
+}
+
 export type ToolDeleteResponse = unknown;
 
 export interface ToolListParams extends DefaultFlatPaginationParams {
@@ -159,6 +205,11 @@ export interface ToolCreateParams {
 
   timeout_ms?: number;
 
+  /**
+   * Configuration for an update_dynamic_variables tool.
+   */
+  update_dynamic_variables?: UpdateDynamicVariablesToolParams;
+
   webhook?: { [key: string]: unknown };
 
   [k: string]: unknown;
@@ -183,6 +234,11 @@ export interface ToolUpdateParams {
 
   type?: string;
 
+  /**
+   * Configuration for an update_dynamic_variables tool.
+   */
+  update_dynamic_variables?: UpdateDynamicVariablesToolParams;
+
   webhook?: { [key: string]: unknown };
 
   [k: string]: unknown;
@@ -192,6 +248,7 @@ export declare namespace Tools {
   export {
     type PayToolParams as PayToolParams,
     type SharedToolResponse as SharedToolResponse,
+    type UpdateDynamicVariablesToolParams as UpdateDynamicVariablesToolParams,
     type ToolDeleteResponse as ToolDeleteResponse,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
     type ToolListParams as ToolListParams,

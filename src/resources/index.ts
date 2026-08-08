@@ -48,6 +48,7 @@ export {
 export {
   AlphanumericSenderIDs,
   type AlphanumericSenderID,
+  type MessagingPaginationMeta0b38e7044b,
   type AlphanumericSenderIDCreateResponse,
   type AlphanumericSenderIDRetrieveResponse,
   type AlphanumericSenderIDDeleteResponse,
@@ -670,6 +671,8 @@ export {
 } from './media';
 export {
   Messages,
+  type MessagingError0b38e7044b,
+  type MessagingOutboundMessagePayload,
   type OutboundMessagePayload,
   type RcsAgentMessage,
   type RcsCardContent,
@@ -808,6 +811,7 @@ export {
 export {
   NetworkCoverage,
   type AvailableService,
+  type NetappsLocation17904fcfbc,
   type NetworkCoverageListResponse,
   type NetworkCoverageListParams,
   type NetworkCoverageListResponsesDefaultFlatPagination,
@@ -946,6 +950,7 @@ export {
 export {
   OAuthClients,
   type OAuthClient,
+  type OAuthOAuthPaginationMeta,
   type PaginationMetaOAuth,
   type OAuthClientCreateResponse,
   type OAuthClientRetrieveResponse,
@@ -996,6 +1001,7 @@ export {
 export { PhoneNumberBlocks } from './phone-number-blocks/phone-number-blocks';
 export {
   PhoneNumbers,
+  type NumbersPhoneNumberDetailed,
   type PhoneNumberDetailed,
   type PhoneNumberRetrieveResponse,
   type PhoneNumberUpdateResponse,
@@ -1004,7 +1010,7 @@ export {
   type PhoneNumberListParams,
   type PhoneNumberSlimListParams,
   type PhoneNumberUpdateParams,
-  type PhoneNumberDetailedsDefaultFlatPagination,
+  type NumbersPhoneNumberDetailedsDefaultFlatPagination,
   type PhoneNumberSlimListResponsesDefaultFlatPagination,
 } from './phone-numbers/phone-numbers';
 export {
@@ -1425,11 +1431,12 @@ export {
 export {
   UserAddresses,
   type UserAddress,
+  type UserAddressesUserAddress,
   type UserAddressCreateResponse,
   type UserAddressRetrieveResponse,
   type UserAddressListParams,
   type UserAddressCreateParams,
-  type UserAddressesDefaultFlatPagination,
+  type UserAddressesUserAddressesDefaultFlatPagination,
 } from './user-addresses';
 export { UserTags, type UserTagListResponse, type UserTagListParams } from './user-tags';
 export {
@@ -1649,6 +1656,7 @@ export {
   type DeliveryUpdateWebhookEvent,
   type HostedNumberOrderEventWebhookEvent,
   type InboundMessageWebhookEvent,
+  type NumberOrderStatusUpdateWebhookEvent,
   type ReplacedLinkClickWebhookEvent,
   type TranscriptionWebhookEvent,
   type UnsafeUnwrapWebhookEvent,

@@ -17,7 +17,8 @@ export class MessagingHostedNumberOrders extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * List messaging hosted number orders
+   * Returns hosted-messaging orders for the authenticated account. Apply the
+   * documented filters and pagination parameters to narrow the result set.
    *
    * @example
    * ```ts
@@ -39,7 +40,8 @@ export class MessagingHostedNumberOrders extends APIResource {
   }
 
   /**
-   * Create a messaging hosted number order
+   * Creates an order to enable Telnyx messaging on phone numbers whose voice service
+   * remains with another carrier.
    *
    * @example
    * ```ts
@@ -55,7 +57,8 @@ export class MessagingHostedNumberOrders extends APIResource {
   }
 
   /**
-   * Check hosted messaging eligibility
+   * Checks whether the supplied phone numbers are eligible for hosted messaging
+   * before an order is created.
    *
    * @example
    * ```ts
@@ -89,7 +92,8 @@ export class MessagingHostedNumberOrders extends APIResource {
   }
 
   /**
-   * Retrieve a messaging hosted number order
+   * Returns the current state, phone numbers, and required actions for the specified
+   * hosted-messaging order.
    *
    * @example
    * ```ts
@@ -112,7 +116,7 @@ export class MessagingHostedNumberOrders extends APIResource {
    *     'id',
    *     {
    *       verification_codes: [
-   *         { code: 'code', phone_number: 'phone_number' },
+   *         { phone_number: 'string', code: 'string' },
    *       ],
    *     },
    *   );

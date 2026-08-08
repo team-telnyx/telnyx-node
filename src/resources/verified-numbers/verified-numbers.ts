@@ -55,7 +55,7 @@ export class VerifiedNumbers extends APIResource {
   }
 
   /**
-   * Delete a verified number
+   * Remove a verified number from your account.
    *
    * @example
    * ```ts
@@ -68,7 +68,7 @@ export class VerifiedNumbers extends APIResource {
   }
 
   /**
-   * Retrieve a verified number
+   * Retrieve the details of a verified number on your account.
    *
    * @example
    * ```ts

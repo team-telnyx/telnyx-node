@@ -11,7 +11,8 @@ import { path } from '../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
-   * Submit verification code
+   * Submit the verification code received via the selected verification method to
+   * verify a phone number.
    *
    * @example
    * ```ts

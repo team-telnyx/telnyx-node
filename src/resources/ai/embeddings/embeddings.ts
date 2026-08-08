@@ -65,7 +65,13 @@ export class Embeddings extends APIResource {
    * @example
    * ```ts
    * const embeddingResponse = await client.ai.embeddings.create(
-   *   { bucket_name: 'bucket_name' },
+   *   {
+   *     bucket_name: 'Bucket Name',
+   *     document_chunk_overlap_size: 512,
+   *     document_chunk_size: 1024,
+   *     embedding_model: 'thenlper/gte-large',
+   *     loader: 'default',
+   *   },
    * );
    * ```
    */
@@ -92,8 +98,9 @@ export class Embeddings extends APIResource {
    * ```ts
    * const response =
    *   await client.ai.embeddings.similaritySearch({
-   *     bucket_name: 'bucket_name',
-   *     query: 'query',
+   *     bucket_name: 'Bucket Name',
+   *     query: 'Query',
+   *     num_of_docs: 3,
    *   });
    * ```
    */
@@ -116,8 +123,8 @@ export class Embeddings extends APIResource {
    * @example
    * ```ts
    * const embeddingResponse = await client.ai.embeddings.url({
-   *   bucket_name: 'bucket_name',
-   *   url: 'url',
+   *   bucket_name: 'Bucket Name',
+   *   url: 'URL',
    * });
    * ```
    */

@@ -37,6 +37,7 @@ import {
   ToolListParams,
   ToolUpdateParams,
   Tools,
+  UpdateDynamicVariablesToolParams,
 } from './tools';
 import * as AnthropicAPI from './anthropic/anthropic';
 import { Anthropic } from './anthropic/anthropic';
@@ -178,8 +179,9 @@ export class AI extends APIResource {
    * @example
    * ```ts
    * const response = await client.ai.summarize({
-   *   bucket: 'bucket',
-   *   filename: 'filename',
+   *   bucket: 'string',
+   *   filename: 'string',
+   *   system_prompt: 'string',
    * });
    * ```
    */
@@ -784,6 +786,7 @@ export declare namespace AI {
     Tools as Tools,
     type PayToolParams as PayToolParams,
     type SharedToolResponse as SharedToolResponse,
+    type UpdateDynamicVariablesToolParams as UpdateDynamicVariablesToolParams,
     type ToolDeleteResponse as ToolDeleteResponse,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
     type ToolListParams as ToolListParams,

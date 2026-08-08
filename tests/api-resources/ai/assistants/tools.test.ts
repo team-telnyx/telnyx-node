@@ -24,8 +24,8 @@ describe('resource tools', () => {
   test.skip('test: required and optional params', async () => {
     const response = await client.ai.assistants.tools.test('tool_id', {
       assistant_id: 'assistant_id',
-      arguments: { foo: 'bar' },
-      dynamic_variables: { foo: 'bar' },
+      arguments: { order_id: 'bar' },
+      dynamic_variables: { customer_name: 'bar' },
     });
   });
 

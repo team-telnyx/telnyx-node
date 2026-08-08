@@ -74,7 +74,9 @@ export class Conversations extends APIResource {
    *
    * @example
    * ```ts
-   * const conversation = await client.ai.conversations.create();
+   * const conversation = await client.ai.conversations.create({
+   *   name: 'string',
+   * });
    * ```
    */
   create(body: ConversationCreateParams, options?: RequestOptions): APIPromise<Conversation> {
@@ -154,7 +156,14 @@ export class Conversations extends APIResource {
    * ```ts
    * await client.ai.conversations.addMessage(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   { role: 'role' },
+   *   {
+   *     role: 'Role',
+   *     name: 'Name',
+   *     sent_at: '2024-01-23T18:10:02.574Z',
+   *     tool_call_id: 'Tool Call Id',
+   *     tool_calls: [],
+   *     tool_choice: 'string',
+   *   },
    * );
    * ```
    */

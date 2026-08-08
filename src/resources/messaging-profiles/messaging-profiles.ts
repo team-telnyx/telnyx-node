@@ -35,7 +35,8 @@ export class MessagingProfiles extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * List messaging profiles
+   * Returns messaging profiles owned by the authenticated account. Apply the
+   * documented filters and pagination parameters to narrow the result set.
    *
    * @example
    * ```ts
@@ -56,7 +57,8 @@ export class MessagingProfiles extends APIResource {
   }
 
   /**
-   * Create a messaging profile
+   * Creates a messaging profile that controls outbound sender selection, webhook
+   * delivery, and inbound message handling for associated numbers and short codes.
    *
    * @example
    * ```ts
@@ -75,7 +77,8 @@ export class MessagingProfiles extends APIResource {
   }
 
   /**
-   * Delete a messaging profile
+   * Deletes the specified messaging profile and returns the profile's final
+   * configuration.
    *
    * @example
    * ```ts
@@ -90,7 +93,8 @@ export class MessagingProfiles extends APIResource {
   }
 
   /**
-   * Retrieve a messaging profile
+   * Returns the complete configuration of the specified messaging profile, including
+   * webhook and sender-selection settings.
    *
    * @example
    * ```ts
@@ -108,7 +112,8 @@ export class MessagingProfiles extends APIResource {
   }
 
   /**
-   * Update a messaging profile
+   * Updates the supplied settings on the specified messaging profile. Settings
+   * omitted from the request remain unchanged.
    *
    * @example
    * ```ts
@@ -127,7 +132,8 @@ export class MessagingProfiles extends APIResource {
   }
 
   /**
-   * List phone numbers associated with a messaging profile
+   * Returns the phone numbers currently associated with the specified messaging
+   * profile.
    *
    * @example
    * ```ts
@@ -155,7 +161,8 @@ export class MessagingProfiles extends APIResource {
   }
 
   /**
-   * List short codes associated with a messaging profile
+   * Returns the short codes currently associated with the specified messaging
+   * profile.
    *
    * @example
    * ```ts

@@ -7,6 +7,13 @@ import { RequestOptions } from '../internal/request-options';
 export class NumbersFeatures extends APIResource {
   /**
    * Retrieve the features for a list of numbers
+   *
+   * @example
+   * ```ts
+   * const numbersFeature = await client.numbersFeatures.create({
+   *   phone_numbers: ['+19705555098'],
+   * });
+   * ```
    */
   create(
     body: NumbersFeatureCreateParams,

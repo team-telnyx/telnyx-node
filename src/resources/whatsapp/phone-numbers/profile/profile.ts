@@ -14,7 +14,7 @@ export class Profile extends APIResource {
   photo: PhotoAPI.Photo = new PhotoAPI.Photo(this._client);
 
   /**
-   * Get phone number business profile
+   * Returns the business profile displayed for the specified WhatsApp phone number.
    *
    * @example
    * ```ts
@@ -29,13 +29,24 @@ export class Profile extends APIResource {
   }
 
   /**
-   * Update phone number business profile
+   * Updates the supplied business-profile fields for the specified WhatsApp phone
+   * number.
    *
    * @example
    * ```ts
    * const profile =
    *   await client.whatsapp.phoneNumbers.profile.update(
    *     'phone_number',
+   *     {
+   *       about: 'string',
+   *       address: 'string',
+   *       category: 'string',
+   *       description: 'string',
+   *       display_name: 'string',
+   *       email: 'string',
+   *       profile_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
+   *       website: 'string',
+   *     },
    *   );
    * ```
    */

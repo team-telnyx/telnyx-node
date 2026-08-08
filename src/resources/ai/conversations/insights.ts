@@ -43,8 +43,9 @@ export class Insights extends APIResource {
    * ```ts
    * const insightTemplateDetail =
    *   await client.ai.conversations.insights.create({
-   *     instructions: 'instructions',
-   *     name: 'name',
+   *     instructions: 'Instructions',
+   *     name: 'Name',
+   *     json_schema: 'string',
    *   });
    * ```
    */
@@ -92,6 +93,12 @@ export class Insights extends APIResource {
    * const insightTemplateDetail =
    *   await client.ai.conversations.insights.update(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       instructions: 'Instructions',
+   *       json_schema: 'string',
+   *       name: 'Name',
+   *       webhook: 'Webhook',
+   *     },
    *   );
    * ```
    */

@@ -14,7 +14,8 @@ import { path } from '../../internal/utils/path';
  */
 export class Jobs extends APIResource {
   /**
-   * Lists the phone numbers jobs
+   * Returns background jobs that operate on phone numbers. Results can be filtered
+   * by job type and sorted by creation time, and include pagination metadata.
    *
    * @example
    * ```ts
@@ -111,7 +112,8 @@ export class Jobs extends APIResource {
   }
 
   /**
-   * Retrieve a phone numbers job
+   * Returns the status and details of the phone-number background job identified by
+   * `id`.
    *
    * @example
    * ```ts

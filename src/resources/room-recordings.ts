@@ -12,7 +12,9 @@ import { path } from '../internal/utils/path';
  */
 export class RoomRecordings extends APIResource {
   /**
-   * Delete several room recordings in a bulk.
+   * Deletes the room recordings that match the supplied filters and returns the
+   * number of recordings affected. Filters support room, session, participant,
+   * recording type, status, duration, and start or end dates.
    */
   deleteBulk(
     params: RoomRecordingDeleteBulkParams | null | undefined = {},
@@ -26,7 +28,8 @@ export class RoomRecordings extends APIResource {
   }
 
   /**
-   * View a list of room recordings.
+   * Returns a paginated list of room recordings. Filter recordings by room, session,
+   * participant, recording type, status, duration, or start and end dates.
    */
   list(
     query: RoomRecordingListParams | null | undefined = {},
@@ -49,7 +52,9 @@ export class RoomRecordings extends APIResource {
   }
 
   /**
-   * View a room recording.
+   * Returns the recording identified by `room_recording_id`, including its room,
+   * session, participant, status, media details, lifecycle timestamps, and download
+   * URL.
    */
   retrieve(roomRecordingID: string, options?: RequestOptions): APIPromise<RoomRecordingRetrieveResponse> {
     return this._client.get(path`/room_recordings/${roomRecordingID}`, options);

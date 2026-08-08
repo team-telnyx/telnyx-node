@@ -22,7 +22,7 @@ describe('resource tags', () => {
 
   // Mock server tests are disabled
   test.skip('add: only required params', async () => {
-    const responsePromise = client.ai.assistants.tags.add('assistant_id', { tag: 'tag' });
+    const responsePromise = client.ai.assistants.tags.add('assistant_id', { tag: 'Tag' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -34,7 +34,7 @@ describe('resource tags', () => {
 
   // Mock server tests are disabled
   test.skip('add: required and optional params', async () => {
-    const response = await client.ai.assistants.tags.add('assistant_id', { tag: 'tag' });
+    const response = await client.ai.assistants.tags.add('assistant_id', { tag: 'Tag' });
   });
 
   // Mock server tests are disabled

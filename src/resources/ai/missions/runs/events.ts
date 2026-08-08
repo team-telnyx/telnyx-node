@@ -48,8 +48,11 @@ export class Events extends APIResource {
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     {
    *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *       summary: 'summary',
+   *       summary: 'Summary',
    *       type: 'status_change',
+   *       agent_id: 'Agent Id',
+   *       idempotency_key: 'Idempotency Key',
+   *       step_id: 'Step Id',
    *     },
    *   );
    * ```

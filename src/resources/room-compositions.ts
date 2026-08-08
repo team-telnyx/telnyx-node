@@ -12,7 +12,8 @@ import { path } from '../internal/utils/path';
  */
 export class RoomCompositions extends APIResource {
   /**
-   * View a list of room compositions.
+   * Returns a paginated list of room compositions. Filter compositions by creation
+   * date, room session, or processing status.
    *
    * @example
    * ```ts
@@ -66,7 +67,9 @@ export class RoomCompositions extends APIResource {
   }
 
   /**
-   * View a room composition.
+   * Returns the composition identified by `room_composition_id`, including its room
+   * and session, processing status, media details, video layout, lifecycle
+   * timestamps, and download URL.
    *
    * @example
    * ```ts

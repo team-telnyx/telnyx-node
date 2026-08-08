@@ -10,7 +10,7 @@ import { path } from '../../../internal/utils/path';
  */
 export class CallingSettings extends APIResource {
   /**
-   * Get calling settings for a phone number
+   * Returns the WhatsApp calling configuration for the specified phone number.
    *
    * @example
    * ```ts
@@ -25,14 +25,14 @@ export class CallingSettings extends APIResource {
   }
 
   /**
-   * Enable or disable Whatsapp calling for a phone number
+   * Enables or disables WhatsApp calling for the specified phone number.
    *
    * @example
    * ```ts
    * const callingSetting =
    *   await client.whatsapp.phoneNumbers.callingSettings.update(
    *     'phone_number',
-   *     { enabled: true },
+   *     { enabled: false },
    *   );
    * ```
    */

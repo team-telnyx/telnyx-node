@@ -14,7 +14,7 @@ import { path } from '../../internal/utils/path';
  */
 export class Clusters extends APIResource {
   /**
-   * List all clusters
+   * Retrieve a paginated list of clustering tasks and their statuses.
    *
    * @example
    * ```ts
@@ -42,7 +42,11 @@ export class Clusters extends APIResource {
    * @example
    * ```ts
    * const response = await client.ai.clusters.compute({
-   *   bucket: 'bucket',
+   *   bucket: 'string',
+   *   files: ['string'],
+   *   min_cluster_size: 25,
+   *   min_subcluster_size: 5,
+   *   prefix: 'string',
    * });
    * ```
    */
@@ -51,7 +55,7 @@ export class Clusters extends APIResource {
   }
 
   /**
-   * Delete a cluster
+   * Delete a clustering task and its computed results.
    *
    * @example
    * ```ts
@@ -66,7 +70,7 @@ export class Clusters extends APIResource {
   }
 
   /**
-   * Fetch a cluster
+   * Fetch the results of a clustering task, including the discovered clusters.
    *
    * @example
    * ```ts
@@ -84,7 +88,7 @@ export class Clusters extends APIResource {
   }
 
   /**
-   * Fetch a cluster visualization
+   * Fetch a visualization image of the clusters computed by a clustering task.
    *
    * @example
    * ```ts

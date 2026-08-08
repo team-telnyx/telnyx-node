@@ -14,7 +14,7 @@ export class Rcs extends APIResource {
   agents: AgentsAPI.Agents = new AgentsAPI.Agents(this._client);
 
   /**
-   * Check RCS capabilities (batch)
+   * Returns RCS capability information for multiple recipients in one request.
    *
    * @example
    * ```ts
@@ -33,7 +33,8 @@ export class Rcs extends APIResource {
   }
 
   /**
-   * Check RCS capabilities
+   * Returns the RCS features supported by the specified recipient for the selected
+   * agent.
    *
    * @example
    * ```ts

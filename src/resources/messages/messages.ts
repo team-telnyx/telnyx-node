@@ -41,7 +41,8 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Send a long code message
+   * Queues an outbound SMS or MMS using a long-code sender. Delivery progress and
+   * final disposition are reported asynchronously through messaging webhooks.
    *
    * @example
    * ```ts
@@ -59,7 +60,8 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Send a message using number pool
+   * Queues an outbound message using a number pool. Telnyx selects an eligible
+   * sender from the pool according to its messaging profile configuration.
    *
    * @example
    * ```ts
@@ -78,7 +80,8 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Send a short code message
+   * Queues an outbound SMS or MMS using a short-code sender. Delivery progress and
+   * final disposition are reported asynchronously through messaging webhooks.
    *
    * @example
    * ```ts
@@ -96,7 +99,8 @@ export class Messages extends APIResource {
   }
 
   /**
-   * Send a group MMS message
+   * Queues an MMS addressed to multiple recipients as a group conversation. Delivery
+   * events are reported asynchronously through messaging webhooks.
    *
    * @example
    * ```ts
@@ -202,6 +206,326 @@ export class Messages extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MessageRetrieveGroupMessagesResponse> {
     return this._client.get(path`/messages/group/${messageID}`, options);
+  }
+}
+
+export interface MessagingError0b38e7044b {
+  code: string;
+
+  title: string;
+
+  detail?: string;
+
+  meta?: unknown;
+
+  source?: MessagingError0b38e7044b.Source;
+}
+
+export namespace MessagingError0b38e7044b {
+  export interface Source {
+    /**
+     * Indicates which query parameter caused the error.
+     */
+    parameter?: string;
+
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
+  }
+}
+
+export interface MessagingOutboundMessagePayload {
+  /**
+   * Identifies the type of resource.
+   */
+  id?: string;
+
+  cc?: Array<MessagingOutboundMessagePayload.Cc>;
+
+  /**
+   * ISO 8601 formatted date indicating when the message was finalized.
+   */
+  completed_at?: string | null;
+
+  cost?: MessagingOutboundMessagePayload.Cost | null;
+
+  /**
+   * Detailed breakdown of the message cost components.
+   */
+  cost_breakdown?: MessagingOutboundMessagePayload.CostBreakdown | null;
+
+  /**
+   * The direction of the message. Inbound messages are sent to you whereas outbound
+   * messages are sent from you.
+   */
+  direction?: 'outbound';
+
+  /**
+   * Encoding scheme used for the message body.
+   */
+  encoding?: string;
+
+  /**
+   * These errors may point at addressees when referring to unsuccessful/unconfirmed
+   * delivery statuses.
+   */
+  errors?: Array<MessagingError0b38e7044b>;
+
+  from?: MessagingOutboundMessagePayload.From;
+
+  media?: Array<MessagingOutboundMessagePayload.Media>;
+
+  /**
+   * Unique identifier for a messaging profile.
+   */
+  messaging_profile_id?: string;
+
+  /**
+   * The number of characters in the message text
+   */
+  num_chars?: number;
+
+  /**
+   * The id of the organization the messaging profile belongs to.
+   */
+  organization_id?: string;
+
+  /**
+   * Number of parts into which the message's body must be split.
+   */
+  parts?: number;
+
+  /**
+   * ISO 8601 formatted date indicating when the message request was received.
+   */
+  received_at?: string;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: 'message';
+
+  /**
+   * ISO 8601 formatted date indicating when the message was sent.
+   */
+  sent_at?: string | null;
+
+  /**
+   * Indicates whether smart encoding was applied to this message. When `true`, one
+   * or more Unicode characters were automatically replaced with GSM-7 equivalents to
+   * reduce segment count and cost. The original message text is preserved in
+   * webhooks.
+   */
+  smart_encoding_applied?: boolean;
+
+  /**
+   * Subject of multimedia message
+   */
+  subject?: string | null;
+
+  /**
+   * Tags associated with the resource.
+   */
+  tags?: Array<string>;
+
+  /**
+   * Indicates whether the TCR campaign is billable.
+   */
+  tcr_campaign_billable?: boolean;
+
+  /**
+   * The Campaign Registry (TCR) campaign ID associated with the message.
+   */
+  tcr_campaign_id?: string | null;
+
+  /**
+   * The registration status of the TCR campaign.
+   */
+  tcr_campaign_registered?: string | null;
+
+  /**
+   * Message body (i.e., content) as a non-empty string.
+   *
+   * **Required for SMS**
+   */
+  text?: string;
+
+  to?: Array<MessagingOutboundMessagePayload.To>;
+
+  /**
+   * The type of message.
+   */
+  type?: 'SMS' | 'MMS';
+
+  /**
+   * Message must be out of the queue by this time or else it will be discarded and
+   * marked as 'sending_failed'. Once the message moves out of the queue, this field
+   * will be nulled
+   */
+  valid_until?: string | null;
+
+  /**
+   * Seconds the message is queued due to rate limiting before being sent to the
+   * carrier. Represents the maximum wait across all applicable rate limits (account,
+   * carrier, campaign). 0.0 = no queuing delay.
+   */
+  wait_seconds?: number | null;
+
+  /**
+   * The failover URL where webhooks related to this message will be sent if sending
+   * to the primary URL fails.
+   */
+  webhook_failover_url?: string | null;
+
+  /**
+   * The URL where webhooks related to this message will be sent.
+   */
+  webhook_url?: string | null;
+}
+
+export namespace MessagingOutboundMessagePayload {
+  export interface Cc {
+    /**
+     * The carrier of the receiver.
+     */
+    carrier?: string;
+
+    /**
+     * The line-type of the receiver.
+     */
+    line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+    /**
+     * Receiving address (+E.164 formatted phone number or short code).
+     */
+    phone_number?: string;
+
+    status?:
+      | 'queued'
+      | 'sending'
+      | 'sent'
+      | 'delivered'
+      | 'sending_failed'
+      | 'delivery_failed'
+      | 'delivery_unconfirmed';
+  }
+
+  export interface Cost {
+    /**
+     * The amount deducted from your account.
+     */
+    amount?: string;
+
+    /**
+     * The ISO 4217 currency identifier.
+     */
+    currency?: string;
+  }
+
+  /**
+   * Detailed breakdown of the message cost components.
+   */
+  export interface CostBreakdown {
+    carrier_fee?: CostBreakdown.CarrierFee;
+
+    rate?: CostBreakdown.Rate;
+  }
+
+  export namespace CostBreakdown {
+    export interface CarrierFee {
+      /**
+       * The carrier fee amount.
+       */
+      amount?: string;
+
+      /**
+       * The ISO 4217 currency identifier.
+       */
+      currency?: string;
+    }
+
+    export interface Rate {
+      /**
+       * The rate amount applied.
+       */
+      amount?: string;
+
+      /**
+       * The ISO 4217 currency identifier.
+       */
+      currency?: string;
+    }
+  }
+
+  export interface From {
+    /**
+     * The carrier of the receiver.
+     */
+    carrier?: string;
+
+    /**
+     * The line-type of the receiver.
+     */
+    line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+    /**
+     * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
+     * code).
+     */
+    phone_number?: string;
+  }
+
+  export interface Media {
+    /**
+     * The MIME type of the requested media.
+     */
+    content_type?: string | null;
+
+    /**
+     * The SHA256 hash of the requested media.
+     */
+    sha256?: string | null;
+
+    /**
+     * The size of the requested media.
+     */
+    size?: number | null;
+
+    /**
+     * The url of the media requested to be sent.
+     */
+    url?: string;
+  }
+
+  export interface To {
+    /**
+     * The carrier of the receiver.
+     */
+    carrier?: string;
+
+    /**
+     * The line-type of the receiver.
+     */
+    line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+    /**
+     * Receiving address (+E.164 formatted phone number or short code).
+     */
+    phone_number?: string;
+
+    /**
+     * The delivery status of the message.
+     */
+    status?:
+      | 'queued'
+      | 'sending'
+      | 'sent'
+      | 'expired'
+      | 'sending_failed'
+      | 'delivery_unconfirmed'
+      | 'delivered'
+      | 'delivery_failed';
   }
 }
 
@@ -1218,7 +1542,285 @@ export interface WhatsappReaction {
 }
 
 export interface MessageRetrieveResponse {
-  data?: OutboundMessagePayload | Shared.InboundMessagePayload;
+  data?: MessagingOutboundMessagePayload | MessageRetrieveResponse.Inbound;
+}
+
+export namespace MessageRetrieveResponse {
+  export interface Inbound {
+    /**
+     * Identifies the type of resource.
+     */
+    id?: string;
+
+    cc?: Array<Inbound.Cc>;
+
+    /**
+     * Not used for inbound messages.
+     */
+    completed_at?: string | null;
+
+    cost?: Inbound.Cost | null;
+
+    /**
+     * Detailed breakdown of the message cost components.
+     */
+    cost_breakdown?: Inbound.CostBreakdown | null;
+
+    /**
+     * The direction of the message. Inbound messages are sent to you whereas outbound
+     * messages are sent from you.
+     */
+    direction?: 'inbound';
+
+    /**
+     * Encoding scheme used for the message body.
+     */
+    encoding?: string;
+
+    /**
+     * These errors may point at addressees when referring to unsuccessful/unconfirmed
+     * delivery statuses.
+     */
+    errors?: Array<MessagesAPI.MessagingError0b38e7044b>;
+
+    from?: Inbound.From;
+
+    media?: Array<Inbound.Media>;
+
+    /**
+     * Unique identifier for a messaging profile.
+     */
+    messaging_profile_id?: string;
+
+    /**
+     * The number of characters in the message text
+     */
+    num_chars?: number;
+
+    /**
+     * Unique identifier for a messaging profile.
+     */
+    organization_id?: string;
+
+    /**
+     * Number of parts into which the message's body must be split.
+     */
+    parts?: number;
+
+    /**
+     * ISO 8601 formatted date indicating when the message request was received.
+     */
+    received_at?: string;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'message';
+
+    /**
+     * Not used for inbound messages.
+     */
+    sent_at?: string | null;
+
+    /**
+     * Message subject.
+     */
+    subject?: string | null;
+
+    /**
+     * Tags associated with the resource.
+     */
+    tags?: Array<string>;
+
+    /**
+     * Indicates whether the TCR campaign is billable.
+     */
+    tcr_campaign_billable?: boolean;
+
+    /**
+     * The Campaign Registry (TCR) campaign ID associated with the message.
+     */
+    tcr_campaign_id?: string | null;
+
+    /**
+     * The registration status of the TCR campaign.
+     */
+    tcr_campaign_registered?: string | null;
+
+    /**
+     * Message body (i.e., content) as a non-empty string.
+     *
+     * **Required for SMS**
+     */
+    text?: string;
+
+    to?: Array<Inbound.To>;
+
+    /**
+     * The type of message. This value can be either 'sms' or 'mms'.
+     */
+    type?: 'SMS' | 'MMS';
+
+    /**
+     * Not used for inbound messages.
+     */
+    valid_until?: string | null;
+
+    /**
+     * The failover URL where webhooks related to this message will be sent if sending
+     * to the primary URL fails.
+     */
+    webhook_failover_url?: string | null;
+
+    /**
+     * The URL where webhooks related to this message will be sent.
+     */
+    webhook_url?: string | null;
+  }
+
+  export namespace Inbound {
+    export interface Cc {
+      /**
+       * The carrier of the receiver.
+       */
+      carrier?: string;
+
+      /**
+       * The line-type of the receiver.
+       */
+      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+      /**
+       * Receiving address (+E.164 formatted phone number or short code).
+       */
+      phone_number?: string;
+
+      status?:
+        | 'queued'
+        | 'sending'
+        | 'sent'
+        | 'delivered'
+        | 'sending_failed'
+        | 'delivery_failed'
+        | 'delivery_unconfirmed';
+    }
+
+    export interface Cost {
+      /**
+       * The amount deducted from your account.
+       */
+      amount?: string;
+
+      /**
+       * The ISO 4217 currency identifier.
+       */
+      currency?: string;
+    }
+
+    /**
+     * Detailed breakdown of the message cost components.
+     */
+    export interface CostBreakdown {
+      carrier_fee?: CostBreakdown.CarrierFee;
+
+      rate?: CostBreakdown.Rate;
+    }
+
+    export namespace CostBreakdown {
+      export interface CarrierFee {
+        /**
+         * The carrier fee amount.
+         */
+        amount?: string;
+
+        /**
+         * The ISO 4217 currency identifier.
+         */
+        currency?: string;
+      }
+
+      export interface Rate {
+        /**
+         * The rate amount applied.
+         */
+        amount?: string;
+
+        /**
+         * The ISO 4217 currency identifier.
+         */
+        currency?: string;
+      }
+    }
+
+    export interface From {
+      /**
+       * The carrier of the sender.
+       */
+      carrier?: string;
+
+      /**
+       * The line-type of the sender.
+       */
+      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+      /**
+       * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
+       * code).
+       */
+      phone_number?: string;
+
+      status?: 'received' | 'delivered';
+    }
+
+    export interface Media {
+      /**
+       * The MIME type of the requested media.
+       */
+      content_type?: string;
+
+      /**
+       * The SHA256 hash of the requested media.
+       */
+      hash_sha256?: string;
+
+      /**
+       * The size of the requested media.
+       */
+      size?: number;
+
+      /**
+       * The url of the media requested to be sent.
+       */
+      url?: string;
+    }
+
+    export interface To {
+      /**
+       * The carrier of the receiver.
+       */
+      carrier?: string;
+
+      /**
+       * The line-type of the receiver.
+       */
+      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+      /**
+       * Receiving address (+E.164 formatted phone number or short code).
+       */
+      phone_number?: string;
+
+      status?:
+        | 'queued'
+        | 'sending'
+        | 'sent'
+        | 'delivered'
+        | 'sending_failed'
+        | 'delivery_failed'
+        | 'delivery_unconfirmed'
+        | 'webhook_delivered';
+    }
+  }
 }
 
 export interface MessageCancelScheduledResponse {
@@ -1256,7 +1858,7 @@ export interface MessageCancelScheduledResponse {
    * These errors may point at addressees when referring to unsuccessful/unconfirmed
    * delivery statuses.
    */
-  errors?: Array<Shared.MessagingError>;
+  errors?: Array<MessagingError0b38e7044b>;
 
   from?: MessageCancelScheduledResponse.From;
 
@@ -1517,31 +2119,31 @@ export namespace MessageCancelScheduledResponse {
 }
 
 export interface MessageRetrieveGroupMessagesResponse {
-  data?: Array<OutboundMessagePayload>;
+  data?: Array<MessagingOutboundMessagePayload>;
 }
 
 export interface MessageScheduleResponse {
-  data?: OutboundMessagePayload;
+  data?: MessagingOutboundMessagePayload;
 }
 
 export interface MessageSendResponse {
-  data?: OutboundMessagePayload;
+  data?: MessagingOutboundMessagePayload;
 }
 
 export interface MessageSendGroupMmsResponse {
-  data?: OutboundMessagePayload;
+  data?: MessagingOutboundMessagePayload;
 }
 
 export interface MessageSendLongCodeResponse {
-  data?: OutboundMessagePayload;
+  data?: MessagingOutboundMessagePayload;
 }
 
 export interface MessageSendNumberPoolResponse {
-  data?: OutboundMessagePayload;
+  data?: MessagingOutboundMessagePayload;
 }
 
 export interface MessageSendShortCodeResponse {
-  data?: OutboundMessagePayload;
+  data?: MessagingOutboundMessagePayload;
 }
 
 export interface MessageSendWithAlphanumericSenderResponse {
@@ -2004,6 +2606,8 @@ Messages.Rcs = Rcs;
 
 export declare namespace Messages {
   export {
+    type MessagingError0b38e7044b as MessagingError0b38e7044b,
+    type MessagingOutboundMessagePayload as MessagingOutboundMessagePayload,
     type OutboundMessagePayload as OutboundMessagePayload,
     type RcsAgentMessage as RcsAgentMessage,
     type RcsCardContent as RcsCardContent,
