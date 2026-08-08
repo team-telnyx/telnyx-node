@@ -116,7 +116,16 @@ export class Tests extends APIResource {
    * @example
    * ```ts
    * const assistantTest =
-   *   await client.ai.assistants.tests.update('test_id');
+   *   await client.ai.assistants.tests.update('test_id', {
+   *     description: 'Description',
+   *     destination: 'Destination',
+   *     instructions: 'Instructions',
+   *     max_duration_seconds: 30,
+   *     name: 'Name',
+   *     rubric: [{ name: 'string', criteria: 'string' }],
+   *     telnyx_conversation_channel: 'phone_call',
+   *     test_suite: 'Test Suite',
+   *   });
    * ```
    */
   update(testID: string, body: TestUpdateParams, options?: RequestOptions): APIPromise<AssistantTest> {

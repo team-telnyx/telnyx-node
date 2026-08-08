@@ -49,7 +49,7 @@ export class InsightGroups extends APIResource {
    * ```ts
    * const insightTemplateGroupDetail =
    *   await client.ai.conversations.insightGroups.insightGroups(
-   *     { name: 'name' },
+   *     { name: 'Name', description: 'Description' },
    *   );
    * ```
    */
@@ -100,6 +100,11 @@ export class InsightGroups extends APIResource {
    * const insightTemplateGroupDetail =
    *   await client.ai.conversations.insightGroups.update(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       description: 'Description',
+   *       name: 'Name',
+   *       webhook: 'Webhook',
+   *     },
    *   );
    * ```
    */

@@ -24,7 +24,8 @@ import {
   Actions,
   BulkSimCardAction,
   SimCardAction,
-  SimCardActionsDefaultFlatPagination,
+  WirelessSimCardAction,
+  WirelessSimCardActionsDefaultFlatPagination,
 } from './actions';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -771,6 +772,7 @@ export declare namespace SimCards {
     Actions as Actions,
     type BulkSimCardAction as BulkSimCardAction,
     type SimCardAction as SimCardAction,
+    type WirelessSimCardAction as WirelessSimCardAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
     type ActionBulkDisableVoiceResponse as ActionBulkDisableVoiceResponse,
     type ActionBulkEnableVoiceResponse as ActionBulkEnableVoiceResponse,
@@ -781,7 +783,7 @@ export declare namespace SimCards {
     type ActionSetPublicIPResponse as ActionSetPublicIPResponse,
     type ActionSetStandbyResponse as ActionSetStandbyResponse,
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
-    type SimCardActionsDefaultFlatPagination as SimCardActionsDefaultFlatPagination,
+    type WirelessSimCardActionsDefaultFlatPagination as WirelessSimCardActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,

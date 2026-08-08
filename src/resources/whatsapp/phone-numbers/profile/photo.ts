@@ -14,7 +14,7 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Photo extends APIResource {
   /**
-   * Delete Whatsapp profile photo
+   * Removes the business-profile photo from the specified WhatsApp phone number.
    *
    * @example
    * ```ts
@@ -31,7 +31,8 @@ export class Photo extends APIResource {
   }
 
   /**
-   * Upload Whatsapp profile photo
+   * Uploads and assigns a business-profile photo to the specified WhatsApp phone
+   * number.
    *
    * @example
    * ```ts
@@ -54,7 +55,8 @@ export class Photo extends APIResource {
   }
 
   /**
-   * Get Whatsapp profile photo
+   * Returns the current business-profile photo for the specified WhatsApp phone
+   * number.
    *
    * @example
    * ```ts

@@ -125,7 +125,12 @@ export class Runs extends APIResource {
    * const missionRunResponse =
    *   await client.ai.missions.runs.update(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *     { mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   *     {
+   *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *       result_summary:
+   *         'Processed 24 customer records successfully.',
+   *       status: 'succeeded',
+   *     },
    *   );
    * ```
    */

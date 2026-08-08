@@ -30,7 +30,7 @@ describe('resource missions', () => {
 
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.ai.missions.create({ name: 'name' });
+    const responsePromise = client.ai.missions.create({ name: 'Name' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -43,12 +43,12 @@ describe('resource missions', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.ai.missions.create({
-      name: 'name',
-      description: 'description',
+      name: 'Name',
+      description: 'Description',
       execution_mode: 'external',
-      instructions: 'instructions',
+      instructions: 'Instructions',
       metadata: { foo: 'bar' },
-      model: 'model',
+      model: 'Model',
     });
   });
 

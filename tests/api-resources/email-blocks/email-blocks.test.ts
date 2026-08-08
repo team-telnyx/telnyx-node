@@ -43,7 +43,7 @@ describe('resource emailBlocks', () => {
 
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.emailBlocks.create({ to: 'to' });
+    const responsePromise = client.emailBlocks.create({ to: 'spammer@bad.tld' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -56,9 +56,9 @@ describe('resource emailBlocks', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.emailBlocks.create({
-      to: 'to',
+      to: 'spammer@bad.tld',
       domain_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      expires_at: '2019-12-27T18:11:19.117Z',
+      expires_at: '2026-12-31T23:59:59Z',
       from: 'from',
     });
   });

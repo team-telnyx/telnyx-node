@@ -59,7 +59,7 @@ export class Storage extends APIResource {
   cloudfs: CloudfsAPI.Cloudfs = new CloudfsAPI.Cloudfs(this._client);
 
   /**
-   * List Migration Source coverage
+   * List the external storage providers and regions supported as migration sources.
    *
    * @example
    * ```ts

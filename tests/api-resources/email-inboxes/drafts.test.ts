@@ -185,10 +185,10 @@ describe('resource drafts', () => {
       labels: ['string'],
       metadata: {},
       reply_to: 'reply_to',
-      subject: 'subject',
+      subject: 'Quarterly update (revised)',
       tags: ['string'],
       text: 'text',
-      text_body: 'text_body',
+      text_body: 'Updated body.',
       to: ['string'],
     });
   });

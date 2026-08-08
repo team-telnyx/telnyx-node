@@ -6036,6 +6036,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/conversation_window',
   },
   {
+    clientCallName: 'client.whatsapp.phoneNumbers.get',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.get',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/phone_numbers',
+  },
+  {
     clientCallName: 'client.whatsapp.phoneNumbers.callingSettings.retrieve',
     fullyQualifiedName: 'whatsapp.phoneNumbers.callingSettings.retrieve',
     httpMethod: 'get',

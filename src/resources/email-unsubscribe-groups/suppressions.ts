@@ -20,6 +20,16 @@ export class Suppressions extends APIResource {
    * malformed `page` returns `400` (code `10015`), consistent with
    * `GET /v2/email_blocks`. `meta` includes `total_pages`. Rows reuse the standard
    * suppression shape (`group_id` set to this group).
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const emailBlock of client.emailUnsubscribeGroups.suppressions.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     id: string,
@@ -37,6 +47,15 @@ export class Suppressions extends APIResource {
    * Creates a suppression with `reason: unsubscribe`, `source: manual`,
    * `group_id: <this group>`. All other body fields are ignored; only `to` is read.
    * Idempotent (same dedupe key → `200`, no new event).
+   *
+   * @example
+   * ```ts
+   * const emailBlockResponse =
+   *   await client.emailUnsubscribeGroups.suppressions.create(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     { to: 'user@example.com' },
+   *   );
+   * ```
    */
   create(
     id: string,
@@ -56,6 +75,14 @@ export class Suppressions extends APIResource {
    * `10001 "The requested unsubscribe group was not found"`; a group that exists but
    * has **no active suppression** for that email returns
    * `10001 "The requested group suppression was not found"`.
+   *
+   * @example
+   * ```ts
+   * await client.emailUnsubscribeGroups.suppressions.delete(
+   *   'email',
+   *   { id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e' },
+   * );
+   * ```
    */
   delete(email: string, params: SuppressionDeleteParams, options?: RequestOptions): APIPromise<void> {
     const { id } = params;

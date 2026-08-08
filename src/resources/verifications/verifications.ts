@@ -17,7 +17,9 @@ export class Verifications extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Trigger Call verification
+   * Starts a verification for the specified phone number and delivers its code in a
+   * voice call using the selected Verify profile. Returns the pending verification
+   * record.
    *
    * @example
    * ```ts
@@ -37,7 +39,9 @@ export class Verifications extends APIResource {
   }
 
   /**
-   * Trigger Flash call verification
+   * Starts a verification for the specified phone number and places a brief call
+   * with the code embedded in the caller ID. Returns the pending verification
+   * record.
    *
    * @example
    * ```ts
@@ -57,7 +61,8 @@ export class Verifications extends APIResource {
   }
 
   /**
-   * Trigger SMS verification
+   * Starts a verification for the specified phone number and sends its code by SMS
+   * using the selected Verify profile. Returns the pending verification record.
    *
    * @example
    * ```ts
@@ -77,7 +82,8 @@ export class Verifications extends APIResource {
   }
 
   /**
-   * Retrieve verification
+   * Returns the verification identified by ID, including its channel, phone number,
+   * Verify profile, timeout, and current status.
    *
    * @example
    * ```ts
@@ -91,7 +97,9 @@ export class Verifications extends APIResource {
   }
 
   /**
-   * Trigger WhatsApp verification
+   * Starts a verification for the specified phone number and sends its code over
+   * WhatsApp using the selected Verify profile. Returns the pending verification
+   * record.
    *
    * @example
    * ```ts

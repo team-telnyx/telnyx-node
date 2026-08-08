@@ -105,8 +105,8 @@ describe('resource runs', () => {
       error: 'error',
       metadata: { foo: 'bar' },
       result_payload: { foo: 'bar' },
-      result_summary: 'result_summary',
-      status: 'pending',
+      result_summary: 'Processed 24 customer records successfully.',
+      status: 'succeeded',
     });
   });
 

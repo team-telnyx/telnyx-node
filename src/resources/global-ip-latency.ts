@@ -9,7 +9,7 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class GlobalIPLatency extends APIResource {
   /**
-   * Global IP Latency Metrics
+   * Retrieve latency metrics measured for your Global IPs.
    */
   retrieve(
     query: GlobalIPLatencyRetrieveParams | null | undefined = {},

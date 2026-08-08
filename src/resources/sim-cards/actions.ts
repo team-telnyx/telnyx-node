@@ -14,7 +14,7 @@ export class Actions extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const simCardAction of client.simCards.actions.list()) {
+   * for await (const wirelessSimCardAction of client.simCards.actions.list()) {
    *   // ...
    * }
    * ```
@@ -22,8 +22,8 @@ export class Actions extends APIResource {
   list(
     query: ActionListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<SimCardActionsDefaultFlatPagination, SimCardAction> {
-    return this._client.getAPIList('/sim_card_actions', DefaultFlatPagination<SimCardAction>, {
+  ): PagePromise<WirelessSimCardActionsDefaultFlatPagination, WirelessSimCardAction> {
+    return this._client.getAPIList('/sim_card_actions', DefaultFlatPagination<WirelessSimCardAction>, {
       query,
       ...options,
     });
@@ -246,7 +246,7 @@ export class Actions extends APIResource {
   }
 }
 
-export type SimCardActionsDefaultFlatPagination = DefaultFlatPagination<SimCardAction>;
+export type WirelessSimCardActionsDefaultFlatPagination = DefaultFlatPagination<WirelessSimCardAction>;
 
 /**
  * This object represents a bulk SIM card action. It groups SIM card actions
@@ -351,12 +351,76 @@ export namespace SimCardAction {
   }
 }
 
+/**
+ * This object represents a SIM card action. It allows tracking the current status
+ * of an operation that impacts the SIM card.
+ */
+export interface WirelessSimCardAction {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
+  /**
+   * The operation type. It can be one of the following: <br/>
+   *
+   * <ul>
+   *  <li><code>enable</code> - move the SIM card to the <code>enabled</code> status</li>
+   *  <li><code>enable_standby_sim_card</code> - move a SIM card previously on the <code>standby</code> status to the <code>enabled</code> status after it consumes data.</li>
+   *  <li><code>disable</code> - move the SIM card to the <code>disabled</code> status</li>
+   *  <li><code>set_standby</code> - move the SIM card to the <code>standby</code> status</li>
+   *  </ul>
+   */
+  action_type?: 'enable' | 'enable_standby_sim_card' | 'disable' | 'set_standby';
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
+
+  record_type?: string;
+
+  /**
+   * A JSON object representation of the action params.
+   */
+  settings?: { [key: string]: unknown } | null;
+
+  /**
+   * The related SIM card identifier.
+   */
+  sim_card_id?: string;
+
+  status?: WirelessSimCardAction.Status;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
+}
+
+export namespace WirelessSimCardAction {
+  export interface Status {
+    /**
+     * It describes why the SIM card action is in the current status. This will be
+     * <code>null</code> for self-explanatory statuses, such as
+     * <code>in-progress</code> and <code>completed</code> but will include further
+     * information on statuses like <code>interrupted</code> and <code>failed</code>.
+     */
+    reason?: string;
+
+    /**
+     * The current status of the SIM card action.
+     */
+    value?: 'in-progress' | 'completed' | 'failed' | 'interrupted';
+  }
+}
+
 export interface ActionRetrieveResponse {
   /**
    * This object represents a SIM card action. It allows tracking the current status
    * of an operation that impacts the SIM card.
    */
-  data?: SimCardAction;
+  data?: WirelessSimCardAction;
 }
 
 export interface ActionBulkDisableVoiceResponse {
@@ -388,7 +452,7 @@ export interface ActionDisableResponse {
    * This object represents a SIM card action. It allows tracking the current status
    * of an operation that impacts the SIM card.
    */
-  data?: SimCardAction;
+  data?: WirelessSimCardAction;
 }
 
 export interface ActionEnableResponse {
@@ -396,7 +460,7 @@ export interface ActionEnableResponse {
    * This object represents a SIM card action. It allows tracking the current status
    * of an operation that impacts the SIM card.
    */
-  data?: SimCardAction;
+  data?: WirelessSimCardAction;
 }
 
 export interface ActionRemovePublicIPResponse {
@@ -404,7 +468,7 @@ export interface ActionRemovePublicIPResponse {
    * This object represents a SIM card action. It allows tracking the current status
    * of an operation that impacts the SIM card.
    */
-  data?: SimCardAction;
+  data?: WirelessSimCardAction;
 }
 
 export interface ActionSetPublicIPResponse {
@@ -412,7 +476,7 @@ export interface ActionSetPublicIPResponse {
    * This object represents a SIM card action. It allows tracking the current status
    * of an operation that impacts the SIM card.
    */
-  data?: SimCardAction;
+  data?: WirelessSimCardAction;
 }
 
 export interface ActionSetStandbyResponse {
@@ -420,7 +484,7 @@ export interface ActionSetStandbyResponse {
    * This object represents a SIM card action. It allows tracking the current status
    * of an operation that impacts the SIM card.
    */
-  data?: SimCardAction;
+  data?: WirelessSimCardAction;
 }
 
 export interface ActionValidateRegistrationCodesResponse {
@@ -520,6 +584,7 @@ export declare namespace Actions {
   export {
     type BulkSimCardAction as BulkSimCardAction,
     type SimCardAction as SimCardAction,
+    type WirelessSimCardAction as WirelessSimCardAction,
     type ActionRetrieveResponse as ActionRetrieveResponse,
     type ActionBulkDisableVoiceResponse as ActionBulkDisableVoiceResponse,
     type ActionBulkEnableVoiceResponse as ActionBulkEnableVoiceResponse,
@@ -530,7 +595,7 @@ export declare namespace Actions {
     type ActionSetPublicIPResponse as ActionSetPublicIPResponse,
     type ActionSetStandbyResponse as ActionSetStandbyResponse,
     type ActionValidateRegistrationCodesResponse as ActionValidateRegistrationCodesResponse,
-    type SimCardActionsDefaultFlatPagination as SimCardActionsDefaultFlatPagination,
+    type WirelessSimCardActionsDefaultFlatPagination as WirelessSimCardActionsDefaultFlatPagination,
     type ActionListParams as ActionListParams,
     type ActionBulkSetPublicIPsParams as ActionBulkSetPublicIPsParams,
     type ActionValidateRegistrationCodesParams as ActionValidateRegistrationCodesParams,

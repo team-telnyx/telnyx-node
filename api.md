@@ -60,6 +60,7 @@ Types:
 Types:
 
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">BatchCsvPaginationMeta</a></code>
+- <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">BatchCsvPaginationMeta705dfa7312</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MdrDetailReportResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MessagingCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/batch-detail-records/messaging.ts">MessagingRetrieveResponse</a></code>
@@ -125,6 +126,7 @@ Types:
 
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MdrUsageReportResponseLegacy</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">StandardPaginationMeta</a></code>
+- <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">StandardPaginationMetaFfba4faa88</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MessagingCreateResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MessagingRetrieveResponse</a></code>
 - <code><a href="./src/resources/legacy/reporting/usage-reports/messaging.ts">MessagingDeleteResponse</a></code>
@@ -195,6 +197,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClient</a></code>
+- <code><a href="./src/resources/oauth-clients.ts">OAuthOAuthPaginationMeta</a></code>
 - <code><a href="./src/resources/oauth-clients.ts">PaginationMetaOAuth</a></code>
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClientCreateResponse</a></code>
 - <code><a href="./src/resources/oauth-clients.ts">OAuthClientRetrieveResponse</a></code>
@@ -344,6 +347,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">DeliveryUpdateWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
@@ -404,6 +408,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">DeliveryUpdateWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnsafeUnwrapWebhookEvent</a></code>
@@ -451,6 +456,7 @@ Types:
 
 Types:
 
+- <code><a href="./src/resources/actions/purchase.ts">WirelessErrorC5290d5308</a></code>
 - <code><a href="./src/resources/actions/purchase.ts">PurchaseCreateResponse</a></code>
 
 Methods:
@@ -1105,6 +1111,7 @@ Types:
 
 - <code><a href="./src/resources/ai/tools.ts">PayToolParams</a></code>
 - <code><a href="./src/resources/ai/tools.ts">SharedToolResponse</a></code>
+- <code><a href="./src/resources/ai/tools.ts">UpdateDynamicVariablesToolParams</a></code>
 - <code><a href="./src/resources/ai/tools.ts">ToolDeleteResponse</a></code>
 
 Methods:
@@ -2201,6 +2208,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/messages/messages.ts">MessagingError0b38e7044b</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessagingOutboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">OutboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">RcsAgentMessage</a></code>
 - <code><a href="./src/resources/messages/messages.ts">RcsCardContent</a></code>
@@ -2405,6 +2414,9 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">MessagingTollFreeVerificationEntityType</a></code>
+- <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">MessagingTollFreeVerificationTfVerificationRequest</a></code>
+- <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">MessagingTollFreeVerificationVerificationRequestEgress</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">TfPhoneNumber</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">TfVerificationRequest</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">TfVerificationStatus</a></code>
@@ -2414,15 +2426,16 @@ Types:
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">VerificationRequestEgress</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">VerificationRequestStatus</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">Volume</a></code>
+- <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">RequestRetrieveResponse</a></code>
 - <code><a href="./src/resources/messaging-tollfree/verification/requests.ts">RequestRetrieveStatusHistoryResponse</a></code>
 
 Methods:
 
 - <code title="get /messaging_tollfree/verification/requests">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">list</a>({ ...params }) -> VerificationRequestStatusesDefaultPaginationForMessagingTollfree</code>
-- <code title="post /messaging_tollfree/verification/requests">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">create</a>({ ...params }) -> VerificationRequestEgress</code>
+- <code title="post /messaging_tollfree/verification/requests">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">create</a>({ ...params }) -> MessagingTollFreeVerificationVerificationRequestEgress</code>
 - <code title="delete /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">delete</a>(id) -> void</code>
-- <code title="get /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">retrieve</a>(id) -> VerificationRequestStatus</code>
-- <code title="patch /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">update</a>(id, { ...params }) -> VerificationRequestEgress</code>
+- <code title="get /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">retrieve</a>(id) -> RequestRetrieveResponse</code>
+- <code title="patch /messaging_tollfree/verification/requests/{id}">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">update</a>(id, { ...params }) -> MessagingTollFreeVerificationVerificationRequestEgress</code>
 - <code title="get /messaging_tollfree/verification/requests/{id}/status_history">client.messagingTollfree.verification.requests.<a href="./src/resources/messaging-tollfree/verification/requests.ts">retrieveStatusHistory</a>(id, { ...params }) -> RequestRetrieveStatusHistoryResponse</code>
 
 # MessagingURLDomains
@@ -2464,6 +2477,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/network-coverage.ts">AvailableService</a></code>
+- <code><a href="./src/resources/network-coverage.ts">NetappsLocation17904fcfbc</a></code>
 - <code><a href="./src/resources/network-coverage.ts">NetworkCoverageListResponse</a></code>
 
 Methods:
@@ -2764,6 +2778,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/phone-numbers/phone-numbers.ts">NumbersPhoneNumberDetailed</a></code>
 - <code><a href="./src/resources/phone-numbers/phone-numbers.ts">PhoneNumberDetailed</a></code>
 - <code><a href="./src/resources/phone-numbers/phone-numbers.ts">PhoneNumberRetrieveResponse</a></code>
 - <code><a href="./src/resources/phone-numbers/phone-numbers.ts">PhoneNumberUpdateResponse</a></code>
@@ -2772,7 +2787,7 @@ Types:
 
 Methods:
 
-- <code title="get /phone_numbers">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">list</a>({ ...params }) -> PhoneNumberDetailedsDefaultFlatPagination</code>
+- <code title="get /phone_numbers">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">list</a>({ ...params }) -> NumbersPhoneNumberDetailedsDefaultFlatPagination</code>
 - <code title="get /phone_numbers/slim">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">slimList</a>({ ...params }) -> PhoneNumberSlimListResponsesDefaultFlatPagination</code>
 - <code title="delete /phone_numbers/{id}">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">delete</a>(id) -> PhoneNumberDeleteResponse</code>
 - <code title="get /phone_numbers/{id}">client.phoneNumbers.<a href="./src/resources/phone-numbers/phone-numbers.ts">retrieve</a>(id) -> PhoneNumberRetrieveResponse</code>
@@ -3371,6 +3386,7 @@ Types:
 
 - <code><a href="./src/resources/reports/mdr-usage-reports.ts">MdrUsageReport</a></code>
 - <code><a href="./src/resources/reports/mdr-usage-reports.ts">PaginationMetaReporting</a></code>
+- <code><a href="./src/resources/reports/mdr-usage-reports.ts">ReportingPaginationMeta77109e5d17</a></code>
 - <code><a href="./src/resources/reports/mdr-usage-reports.ts">MdrUsageReportCreateResponse</a></code>
 - <code><a href="./src/resources/reports/mdr-usage-reports.ts">MdrUsageReportRetrieveResponse</a></code>
 - <code><a href="./src/resources/reports/mdr-usage-reports.ts">MdrUsageReportDeleteResponse</a></code>
@@ -3676,6 +3692,7 @@ Types:
 
 - <code><a href="./src/resources/sim-cards/actions.ts">BulkSimCardAction</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">SimCardAction</a></code>
+- <code><a href="./src/resources/sim-cards/actions.ts">WirelessSimCardAction</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionRetrieveResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkDisableVoiceResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkEnableVoiceResponse</a></code>
@@ -3689,7 +3706,7 @@ Types:
 
 Methods:
 
-- <code title="get /sim_card_actions">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">list</a>({ ...params }) -> SimCardActionsDefaultFlatPagination</code>
+- <code title="get /sim_card_actions">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">list</a>({ ...params }) -> WirelessSimCardActionsDefaultFlatPagination</code>
 - <code title="get /sim_card_actions/{id}">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">retrieve</a>(id) -> ActionRetrieveResponse</code>
 - <code title="post /sim_cards/actions/bulk_set_public_ips">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkSetPublicIPs</a>({ ...params }) -> ActionBulkSetPublicIPsResponse</code>
 - <code title="post /sim_cards/actions/validate_registration_codes">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">validateRegistrationCodes</a>({ ...params }) -> ActionValidateRegistrationCodesResponse</code>
@@ -4112,12 +4129,13 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/user-addresses.ts">UserAddress</a></code>
+- <code><a href="./src/resources/user-addresses.ts">UserAddressesUserAddress</a></code>
 - <code><a href="./src/resources/user-addresses.ts">UserAddressCreateResponse</a></code>
 - <code><a href="./src/resources/user-addresses.ts">UserAddressRetrieveResponse</a></code>
 
 Methods:
 
-- <code title="get /user_addresses">client.userAddresses.<a href="./src/resources/user-addresses.ts">list</a>({ ...params }) -> UserAddressesDefaultFlatPagination</code>
+- <code title="get /user_addresses">client.userAddresses.<a href="./src/resources/user-addresses.ts">list</a>({ ...params }) -> UserAddressesUserAddressesDefaultFlatPagination</code>
 - <code title="post /user_addresses">client.userAddresses.<a href="./src/resources/user-addresses.ts">create</a>({ ...params }) -> UserAddressCreateResponse</code>
 - <code title="get /user_addresses/{id}">client.userAddresses.<a href="./src/resources/user-addresses.ts">retrieve</a>(id) -> UserAddressRetrieveResponse</code>
 
@@ -4623,6 +4641,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderID</a></code>
+- <code><a href="./src/resources/alphanumeric-sender-ids.ts">MessagingPaginationMeta0b38e7044b</a></code>
 - <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDCreateResponse</a></code>
 - <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDRetrieveResponse</a></code>
 - <code><a href="./src/resources/alphanumeric-sender-ids.ts">AlphanumericSenderIDDeleteResponse</a></code>
@@ -4731,6 +4750,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberGetResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberRetrieveConversationWindowResponse</a></code>
 
 Methods:
@@ -4740,6 +4760,7 @@ Methods:
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/resend_verification">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">resendVerification</a>(phoneNumber, { ...params }) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/verify">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">verify</a>(phoneNumber, { ...params }) -> void</code>
 - <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversation_window">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">retrieveConversationWindow</a>(phoneNumber, { ...params }) -> PhoneNumberRetrieveConversationWindowResponse</code>
+- <code title="get /whatsapp/phone_numbers">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">get</a>({ ...params }) -> PhoneNumberGetResponse</code>
 
 ### CallingSettings
 
@@ -5550,5 +5571,5 @@ Types:
 
 Methods:
 
-- <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders</code>
+- <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPagination</code>
 - <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponse</code>

@@ -9,6 +9,7 @@ export {
   MdrUsageReports,
   type MdrUsageReport,
   type PaginationMetaReporting,
+  type ReportingPaginationMeta77109e5d17,
   type MdrUsageReportCreateResponse,
   type MdrUsageReportRetrieveResponse,
   type MdrUsageReportDeleteResponse,

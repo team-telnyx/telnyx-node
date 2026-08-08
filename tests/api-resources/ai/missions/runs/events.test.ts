@@ -38,7 +38,7 @@ describe('resource events', () => {
   test.skip('log: only required params', async () => {
     const responsePromise = client.ai.missions.runs.events.log('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      summary: 'summary',
+      summary: 'Summary',
       type: 'status_change',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -54,12 +54,12 @@ describe('resource events', () => {
   test.skip('log: required and optional params', async () => {
     const response = await client.ai.missions.runs.events.log('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      summary: 'summary',
+      summary: 'Summary',
       type: 'status_change',
-      agent_id: 'agent_id',
-      idempotency_key: 'idempotency_key',
+      agent_id: 'Agent Id',
+      idempotency_key: 'Idempotency Key',
       payload: { foo: 'bar' },
-      step_id: 'step_id',
+      step_id: 'Step Id',
     });
   });
 

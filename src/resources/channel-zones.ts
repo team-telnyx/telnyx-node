@@ -16,6 +16,14 @@ export class ChannelZones extends APIResource {
    * <a href="https://support.telnyx.com/en/articles/8428806-global-channel-billing">Telnyx
    * Support Articles</a> section for full information and examples of how to utilize
    * Channel Billing.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const gcbChannelZone of client.channelZones.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: ChannelZoneListParams | null | undefined = {},
@@ -32,6 +40,14 @@ export class ChannelZones extends APIResource {
    * account to handle multiple simultaneous inbound calls to Non-US numbers. Use
    * this endpoint to increase or decrease your capacity based on expected call
    * volume.
+   *
+   * @example
+   * ```ts
+   * const gcbChannelZone = await client.channelZones.update(
+   *   'channel_zone_id',
+   *   { channels: 0 },
+   * );
+   * ```
    */
   update(
     channelZoneID: string,

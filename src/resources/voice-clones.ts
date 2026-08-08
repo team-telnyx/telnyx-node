@@ -68,8 +68,8 @@ export class VoiceClones extends APIResource {
    *     voice_clone_upload_request: {
    *       audio_file: fs.createReadStream('path/to/file'),
    *       gender: 'male',
-   *       language: 'lkf-Lz1vLbBu-9uDh-9AHaOS2D-Cbf',
-   *       name: 'name',
+   *       language: 'en',
+   *       name: 'My cloned voice',
    *       provider: 'telnyx',
    *     },
    *   });

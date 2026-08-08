@@ -13,7 +13,9 @@ import { path } from '../../internal/utils/path';
  */
 export class Voice extends APIResource {
   /**
-   * List phone numbers with voice settings
+   * Returns account phone numbers together with their voice settings. Results
+   * support pagination, sorting, and filters for number, connection name, customer
+   * reference, and voice usage payment method.
    *
    * @example
    * ```ts
@@ -35,7 +37,8 @@ export class Voice extends APIResource {
   }
 
   /**
-   * Retrieve a phone number with voice settings
+   * Returns the specified phone number together with its current voice
+   * configuration.
    *
    * @example
    * ```ts
@@ -49,7 +52,8 @@ export class Voice extends APIResource {
   }
 
   /**
-   * Update a phone number with voice settings
+   * Updates the voice configuration for the specified phone number. The response
+   * contains the phone number with its updated voice settings.
    *
    * @example
    * ```ts

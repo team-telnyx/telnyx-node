@@ -33,6 +33,10 @@ export class Instructions extends APIResource {
    * const response =
    *   await client.ai.assistants.instructions.enhance(
    *     'assistant_id',
+   *     {
+   *       enhancement_prompt: 'string',
+   *       instructions: 'string',
+   *     },
    *   );
    * ```
    */

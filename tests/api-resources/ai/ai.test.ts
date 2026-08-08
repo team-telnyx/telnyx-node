@@ -10,7 +10,7 @@ const client = new Telnyx({
 describe('resource ai', () => {
   // Mock server tests are disabled
   test.skip('summarize: only required params', async () => {
-    const responsePromise = client.ai.summarize({ bucket: 'bucket', filename: 'filename' });
+    const responsePromise = client.ai.summarize({ bucket: 'string', filename: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -23,9 +23,9 @@ describe('resource ai', () => {
   // Mock server tests are disabled
   test.skip('summarize: required and optional params', async () => {
     const response = await client.ai.summarize({
-      bucket: 'bucket',
-      filename: 'filename',
-      system_prompt: 'system_prompt',
+      bucket: 'string',
+      filename: 'string',
+      system_prompt: 'string',
     });
   });
 

@@ -45,8 +45,8 @@ export class OAuth extends APIResource {
    * @example
    * ```ts
    * const response = await client.oauth.grants({
-   *   allowed: true,
-   *   consent_token: 'consent_token',
+   *   allowed: false,
+   *   consent_token: 'string',
    * });
    * ```
    */
@@ -60,7 +60,7 @@ export class OAuth extends APIResource {
    * @example
    * ```ts
    * const response = await client.oauth.introspect({
-   *   token: 'token',
+   *   token: 'string',
    * });
    * ```
    */

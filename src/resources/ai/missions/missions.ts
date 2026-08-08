@@ -94,7 +94,11 @@ export class Missions extends APIResource {
    * @example
    * ```ts
    * const missionResponse = await client.ai.missions.create({
-   *   name: 'name',
+   *   name: 'Name',
+   *   description: 'Description',
+   *   execution_mode: 'external',
+   *   instructions: 'Instructions',
+   *   model: 'Model',
    * });
    * ```
    */
@@ -162,6 +166,13 @@ export class Missions extends APIResource {
    * const missionResponse =
    *   await client.ai.missions.updateMission(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       description: 'Description',
+   *       execution_mode: 'external',
+   *       instructions: 'Instructions',
+   *       model: 'Model',
+   *       name: 'Name',
+   *     },
    *   );
    * ```
    */

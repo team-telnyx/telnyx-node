@@ -38,9 +38,10 @@ export class Plan extends APIResource {
    *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *       steps: [
    *         {
-   *           description: 'description',
+   *           step_id: 'Step Id',
+   *           description: 'Description',
    *           sequence: 0,
-   *           step_id: 'step_id',
+   *           parent_step_id: 'Parent Step Id',
    *         },
    *       ],
    *     },
@@ -65,6 +66,7 @@ export class Plan extends APIResource {
    *   await client.ai.missions.runs.plan.updateStep('step_id', {
    *     mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     run_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     status: 'pending',
    *   });
    * ```
    */
@@ -92,9 +94,10 @@ export class Plan extends APIResource {
    *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *       steps: [
    *         {
-   *           description: 'description',
+   *           step_id: 'Step Id',
+   *           description: 'Description',
    *           sequence: 0,
-   *           step_id: 'step_id',
+   *           parent_step_id: 'Parent Step Id',
    *         },
    *       ],
    *     },

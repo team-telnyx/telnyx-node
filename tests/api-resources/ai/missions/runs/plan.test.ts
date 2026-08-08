@@ -35,9 +35,9 @@ describe('resource plan', () => {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       steps: [
         {
-          description: 'description',
+          description: 'Description',
           sequence: 0,
-          step_id: 'step_id',
+          step_id: 'Step Id',
         },
       ],
     });
@@ -56,11 +56,11 @@ describe('resource plan', () => {
       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       steps: [
         {
-          description: 'description',
+          description: 'Description',
           sequence: 0,
-          step_id: 'step_id',
+          step_id: 'Step Id',
           metadata: { foo: 'bar' },
-          parent_step_id: 'parent_step_id',
+          parent_step_id: 'Parent Step Id',
         },
       ],
     });
@@ -99,9 +99,9 @@ describe('resource plan', () => {
         mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         steps: [
           {
-            description: 'description',
+            description: 'Description',
             sequence: 0,
-            step_id: 'step_id',
+            step_id: 'Step Id',
           },
         ],
       },
@@ -123,11 +123,11 @@ describe('resource plan', () => {
         mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         steps: [
           {
-            description: 'description',
+            description: 'Description',
             sequence: 0,
-            step_id: 'step_id',
+            step_id: 'Step Id',
             metadata: { foo: 'bar' },
-            parent_step_id: 'parent_step_id',
+            parent_step_id: 'Parent Step Id',
           },
         ],
       },

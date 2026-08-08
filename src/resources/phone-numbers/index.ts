@@ -42,6 +42,7 @@ export {
 } from './messaging';
 export {
   PhoneNumbers,
+  type NumbersPhoneNumberDetailed,
   type PhoneNumberDetailed,
   type PhoneNumberRetrieveResponse,
   type PhoneNumberUpdateResponse,
@@ -50,7 +51,7 @@ export {
   type PhoneNumberListParams,
   type PhoneNumberSlimListParams,
   type PhoneNumberUpdateParams,
-  type PhoneNumberDetailedsDefaultFlatPagination,
+  type NumbersPhoneNumberDetailedsDefaultFlatPagination,
   type PhoneNumberSlimListResponsesDefaultFlatPagination,
 } from './phone-numbers';
 export {

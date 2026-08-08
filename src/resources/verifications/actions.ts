@@ -11,7 +11,9 @@ import { path } from '../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
-   * Verify verification code by ID
+   * Checks the supplied code, or the supplied status for a custom-code verification,
+   * against the verification identified by ID. The response indicates whether the
+   * verification was accepted or rejected.
    *
    * @example
    * ```ts

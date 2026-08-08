@@ -36,9 +36,9 @@ describe('resource inexplicitNumberOrders', () => {
     const responsePromise = client.inexplicitNumberOrders.create({
       ordering_groups: [
         {
-          count_requested: 'count_requested',
+          count_requested: '5',
           country_iso: 'US',
-          phone_number_type: 'phone_number_type',
+          phone_number_type: 'local',
         },
       ],
     });
@@ -56,12 +56,12 @@ describe('resource inexplicitNumberOrders', () => {
     const response = await client.inexplicitNumberOrders.create({
       ordering_groups: [
         {
-          count_requested: 'count_requested',
+          count_requested: '5',
           country_iso: 'US',
-          phone_number_type: 'phone_number_type',
-          administrative_area: 'administrative_area',
+          phone_number_type: 'local',
+          administrative_area: 'CA',
           exclude_held_numbers: true,
-          features: ['string'],
+          features: ['voice'],
           locality: 'locality',
           national_destination_code: 'national_destination_code',
           phone_number: {

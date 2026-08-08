@@ -21,7 +21,15 @@ export class MobilePhoneNumbers extends APIResource {
   messaging: MessagingAPI.Messaging = new MessagingAPI.Messaging(this._client);
 
   /**
-   * List Mobile Phone Numbers
+   * Retrieve a paginated list of mobile phone numbers on your account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const mobilePhoneNumber of client.mobilePhoneNumbers.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: MobilePhoneNumberListParams | null | undefined = {},
@@ -34,14 +42,39 @@ export class MobilePhoneNumbers extends APIResource {
   }
 
   /**
-   * Retrieve a Mobile Phone Number
+   * Retrieve the details of a specific mobile phone number.
+   *
+   * @example
+   * ```ts
+   * const mobilePhoneNumber =
+   *   await client.mobilePhoneNumbers.retrieve('id');
+   * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MobilePhoneNumberRetrieveResponse> {
     return this._client.get(path`/v2/mobile_phone_numbers/${id}`, options);
   }
 
   /**
-   * Update a Mobile Phone Number
+   * Update the settings of a specific mobile phone number.
+   *
+   * @example
+   * ```ts
+   * const mobilePhoneNumber =
+   *   await client.mobilePhoneNumbers.update('id', {
+   *     call_forwarding: {
+   *       forwarding_type: 'always',
+   *       call_forwarding_enabled: false,
+   *     },
+   *     call_recording: {
+   *       inbound_call_recording_enabled: false,
+   *       inbound_call_recording_channels: 'single',
+   *       inbound_call_recording_format: 'wav',
+   *     },
+   *     cnam_listing: { cnam_listing_enabled: false },
+   *     inbound_call_screening: 'disabled',
+   *     tags: ['string'],
+   *   });
+   * ```
    */
   update(
     id: string,

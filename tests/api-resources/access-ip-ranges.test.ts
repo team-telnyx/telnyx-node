@@ -37,7 +37,7 @@ describe('resource accessIPRanges', () => {
 
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.accessIPRanges.create({ cidr_block: 'cidr_block' });
+    const responsePromise = client.accessIPRanges.create({ cidr_block: 'Cidr Block' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -50,8 +50,8 @@ describe('resource accessIPRanges', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.accessIPRanges.create({
-      cidr_block: 'cidr_block',
-      description: 'description',
+      cidr_block: 'Cidr Block',
+      description: 'Description',
     });
   });
 

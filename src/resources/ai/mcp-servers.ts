@@ -39,9 +39,9 @@ export class McpServers extends APIResource {
    * @example
    * ```ts
    * const mcpServer = await client.ai.mcpServers.create({
-   *   name: 'name',
-   *   type: 'type',
-   *   url: 'url',
+   *   name: 'Name',
+   *   type: 'Type',
+   *   url: 'Url',
    * });
    * ```
    */
@@ -85,6 +85,13 @@ export class McpServers extends APIResource {
    * ```ts
    * const mcpServer = await client.ai.mcpServers.update(
    *   'mcp_server_id',
+   *   {
+   *     id: 'Id',
+   *     created_at: '2024-01-23T18:10:02.574Z',
+   *     name: 'Name',
+   *     type: 'Type',
+   *     url: 'Url',
+   *   },
    * );
    * ```
    */

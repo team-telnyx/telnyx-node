@@ -106,6 +106,16 @@ export interface AlphanumericSenderID {
   us_long_code_fallback?: string;
 }
 
+export interface MessagingPaginationMeta0b38e7044b {
+  page_number: number;
+
+  page_size: number;
+
+  total_pages: number;
+
+  total_results: number;
+}
+
 export interface AlphanumericSenderIDCreateResponse {
   data?: AlphanumericSenderID;
 }
@@ -145,6 +155,7 @@ export interface AlphanumericSenderIDCreateParams {
 export declare namespace AlphanumericSenderIDs {
   export {
     type AlphanumericSenderID as AlphanumericSenderID,
+    type MessagingPaginationMeta0b38e7044b as MessagingPaginationMeta0b38e7044b,
     type AlphanumericSenderIDCreateResponse as AlphanumericSenderIDCreateResponse,
     type AlphanumericSenderIDRetrieveResponse as AlphanumericSenderIDRetrieveResponse,
     type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,

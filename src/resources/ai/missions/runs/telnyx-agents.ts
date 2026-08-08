@@ -38,7 +38,7 @@ export class TelnyxAgents extends APIResource {
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     {
    *       mission_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *       telnyx_agent_id: 'telnyx_agent_id',
+   *       telnyx_agent_id: 'Telnyx Agent Id',
    *     },
    *   );
    * ```
