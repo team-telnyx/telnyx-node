@@ -85,6 +85,13 @@ export class Runs extends APIResource {
    * const missionRunResponse =
    *   await client.ai.missions.runs.create(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       input: {
+   *         objective:
+   *           "Summarize yesterday's failed call attempts",
+   *       },
+   *       metadata: { requested_by: 'docs-example' },
+   *     },
    *   );
    * ```
    */

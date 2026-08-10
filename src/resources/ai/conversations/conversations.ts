@@ -119,6 +119,7 @@ export class Conversations extends APIResource {
    * ```ts
    * const conversation = await client.ai.conversations.update(
    *   'conversation_id',
+   *   { metadata: { ai_disabled: 'true' } },
    * );
    * ```
    */

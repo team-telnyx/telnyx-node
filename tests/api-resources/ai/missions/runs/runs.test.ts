@@ -55,8 +55,8 @@ describe('resource runs', () => {
       client.ai.missions.runs.create(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          input: { foo: 'bar' },
-          metadata: { foo: 'bar' },
+          input: { objective: 'bar' },
+          metadata: { requested_by: 'bar' },
         },
         { path: '/_stainless_unknown_path' },
       ),
