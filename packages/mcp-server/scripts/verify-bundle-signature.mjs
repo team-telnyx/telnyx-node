@@ -62,9 +62,7 @@ try {
     throw verification.error;
   }
   if (verification.status !== 0) {
-    throw new Error(
-      `MCPB cryptographic signature verification failed: ${verification.stderr.trim()}`,
-    );
+    throw new Error(`MCPB cryptographic signature verification failed: ${verification.stderr.trim()}`);
   }
 } finally {
   rmSync(verificationDirectory, { recursive: true, force: true });
