@@ -178,7 +178,8 @@ export class ExternalConnections extends APIResource {
   }
 
   /**
-   * Update a location's static emergency address
+   * Update the static emergency address assigned to a specific location of an
+   * external connection.
    *
    * @example
    * ```ts
@@ -188,7 +189,7 @@ export class ExternalConnections extends APIResource {
    *     {
    *       id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *       static_emergency_address_id:
-   *         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *         '3fa85f64-5717-4562-b3fc-2c963f66afa6',
    *     },
    *   );
    * ```

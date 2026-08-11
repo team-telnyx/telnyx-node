@@ -79,7 +79,7 @@ describe('resource phoneNumbers', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.externalConnections.phoneNumbers.update('1234567889', {
       id: '1293384261075731499',
-      location_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+      location_id: '3fa85f64-5717-4562-b3fc-2c963f66afa6',
     });
   });
 });

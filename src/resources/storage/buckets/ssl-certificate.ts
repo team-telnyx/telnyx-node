@@ -44,7 +44,10 @@ export class SslCertificateResource extends APIResource {
    * @example
    * ```ts
    * const sslCertificate =
-   *   await client.storage.buckets.sslCertificate.create('');
+   *   await client.storage.buckets.sslCertificate.create('', {
+   *     certificate: fs.createReadStream('path/to/file'),
+   *     private_key: fs.createReadStream('path/to/file'),
+   *   });
    * ```
    */
   create(

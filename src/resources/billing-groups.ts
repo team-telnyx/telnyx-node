@@ -11,7 +11,7 @@ import { path } from '../internal/utils/path';
  */
 export class BillingGroups extends APIResource {
   /**
-   * List all billing groups
+   * Retrieve a paginated list of billing groups on your account.
    *
    * @example
    * ```ts
@@ -32,7 +32,8 @@ export class BillingGroups extends APIResource {
   }
 
   /**
-   * Create a billing group
+   * Create a new billing group, which can be used to organize resources for billing
+   * purposes.
    *
    * @example
    * ```ts
@@ -46,7 +47,7 @@ export class BillingGroups extends APIResource {
   }
 
   /**
-   * Delete a billing group
+   * Delete a billing group from your account.
    *
    * @example
    * ```ts
@@ -60,7 +61,7 @@ export class BillingGroups extends APIResource {
   }
 
   /**
-   * Get a billing group
+   * Retrieve the details of a specific billing group.
    *
    * @example
    * ```ts
@@ -74,7 +75,7 @@ export class BillingGroups extends APIResource {
   }
 
   /**
-   * Update a billing group
+   * Update the properties of an existing billing group.
    *
    * @example
    * ```ts

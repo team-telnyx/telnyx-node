@@ -30,7 +30,7 @@ describe('resource clusters', () => {
 
   // Mock server tests are disabled
   test.skip('compute: only required params', async () => {
-    const responsePromise = client.ai.clusters.compute({ bucket: 'bucket' });
+    const responsePromise = client.ai.clusters.compute({ bucket: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -43,11 +43,11 @@ describe('resource clusters', () => {
   // Mock server tests are disabled
   test.skip('compute: required and optional params', async () => {
     const response = await client.ai.clusters.compute({
-      bucket: 'bucket',
+      bucket: 'string',
       files: ['string'],
-      min_cluster_size: 0,
-      min_subcluster_size: 0,
-      prefix: 'prefix',
+      min_cluster_size: 25,
+      min_subcluster_size: 5,
+      prefix: 'string',
     });
   });
 

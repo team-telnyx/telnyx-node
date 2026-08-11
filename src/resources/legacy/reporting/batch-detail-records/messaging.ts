@@ -82,6 +82,16 @@ export interface BatchCsvPaginationMeta {
   total_results?: number;
 }
 
+export interface BatchCsvPaginationMeta705dfa7312 {
+  page_number?: number;
+
+  page_size?: number;
+
+  total_pages?: number;
+
+  total_results?: number;
+}
+
 export interface MdrDetailReportResponse {
   /**
    * Identifies the resource
@@ -129,7 +139,7 @@ export interface MessagingRetrieveResponse {
 export interface MessagingListResponse {
   data?: Array<MdrDetailReportResponse>;
 
-  meta?: BatchCsvPaginationMeta;
+  meta?: BatchCsvPaginationMeta705dfa7312;
 }
 
 export interface MessagingDeleteResponse {
@@ -203,6 +213,7 @@ export interface MessagingCreateParams {
 export declare namespace Messaging {
   export {
     type BatchCsvPaginationMeta as BatchCsvPaginationMeta,
+    type BatchCsvPaginationMeta705dfa7312 as BatchCsvPaginationMeta705dfa7312,
     type MdrDetailReportResponse as MdrDetailReportResponse,
     type MessagingCreateResponse as MessagingCreateResponse,
     type MessagingRetrieveResponse as MessagingRetrieveResponse,

@@ -34,8 +34,8 @@ describe('resource insights', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.ai.conversations.insights.create({
-      instructions: 'instructions',
-      name: 'name',
+      instructions: 'Instructions',
+      name: 'Name',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -49,10 +49,10 @@ describe('resource insights', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.ai.conversations.insights.create({
-      instructions: 'instructions',
-      name: 'name',
+      instructions: 'Instructions',
+      name: 'Name',
       json_schema: 'string',
-      webhook: 'webhook',
+      webhook: '',
     });
   });
 

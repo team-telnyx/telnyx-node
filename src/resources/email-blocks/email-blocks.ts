@@ -27,6 +27,14 @@ export class EmailBlocks extends APIResource {
    *
    * Sort defaults to `-created_at` (desc); only `created_at` is sortable. A `--`
    * prefix is an error. `nil`/empty filter values are silently dropped.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const emailBlock of client.emailBlocks.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: EmailBlockListParams | null | undefined = {},
@@ -46,6 +54,14 @@ export class EmailBlocks extends APIResource {
    * `bounce_category`, `dsn_code`, `meta`, and `group_id` are **not accepted** on
    * the public surface. Use the unsubscribe-group suppression endpoint or the
    * internal create surface for those.
+   *
+   * @example
+   * ```ts
+   * const emailBlockResponse = await client.emailBlocks.create({
+   *   to: 'spammer@bad.tld',
+   *   expires_at: '2026-12-31T23:59:59Z',
+   * });
+   * ```
    */
   create(body: EmailBlockCreateParams, options?: RequestOptions): APIPromise<EmailBlockResponse> {
     return this._client.post('/email_blocks', { body, ...options });
@@ -65,6 +81,11 @@ export class EmailBlocks extends APIResource {
    * `id,to,from,reason,source,scope,status,domain_id, created_at,updated_at,expires_at,group_id`.
    * The CSV carries the `group_id` column so group-scoped suppressions' group link
    * survives the export (empty for account-scope rows).
+   *
+   * @example
+   * ```ts
+   * const response = await client.emailBlocks.retrieveExport();
+   * ```
    */
   retrieveExport(
     query: EmailBlockRetrieveExportParams | null | undefined = {},
@@ -81,13 +102,29 @@ export class EmailBlocks extends APIResource {
    * Soft-deletes (status → `removed`; tombstone retained). A `removed` audit event
    * is appended unless the block was already `removed` (idempotent — returns the
    * existing row with `200` and no new event). Mutates `updated_at`.
+   *
+   * @example
+   * ```ts
+   * const emailBlockResponse = await client.emailBlocks.delete(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<EmailBlockResponse> {
     return this._client.delete(path`/email_blocks/${id}`, options);
   }
 
   /**
-   * Retrieve a suppression
+   * Returns the account-owned suppression identified by ID. Cross-account lookups
+   * and malformed IDs return `404` without exposing another account’s data.
+   *
+   * @example
+   * ```ts
+   * const emailBlockResponse =
+   *   await client.emailBlocks.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<EmailBlockResponse> {
     return this._client.get(path`/email_blocks/${id}`, options);
@@ -98,6 +135,13 @@ export class EmailBlocks extends APIResource {
    * max 100). No `sort`, no `filter`, no cursor — ordering is fixed
    * `desc occurred_at, desc id`. Verifies the block belongs to the account first
    * (cross-account → 404).
+   *
+   * @example
+   * ```ts
+   * const response = await client.emailBlocks.retrieveEvents(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   retrieveEvents(
     id: string,

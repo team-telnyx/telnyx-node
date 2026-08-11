@@ -11,7 +11,8 @@ import { path } from '../internal/utils/path';
  */
 export class OtaUpdates extends APIResource {
   /**
-   * List OTA updates
+   * Retrieve a paginated list of over-the-air (OTA) update operations for your SIM
+   * cards.
    */
   list(
     query: OtaUpdateListParams | null | undefined = {},

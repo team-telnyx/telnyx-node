@@ -2,7 +2,6 @@
 
 import { APIResource } from '../core/resource';
 import * as NetworkCoverageAPI from './network-coverage';
-import * as Shared from './shared';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
@@ -26,13 +25,40 @@ export type NetworkCoverageListResponsesDefaultFlatPagination =
 
 export type AvailableService = 'cloud_vpn' | 'private_wireless_gateway' | 'virtual_cross_connect';
 
+export interface NetappsLocation17904fcfbc {
+  /**
+   * Location code.
+   */
+  code?: string;
+
+  /**
+   * Human readable name of location.
+   */
+  name?: string;
+
+  /**
+   * Point of presence of location.
+   */
+  pop?: string;
+
+  /**
+   * Identifies the geographical region of location.
+   */
+  region?: string;
+
+  /**
+   * Site of location.
+   */
+  site?: string;
+}
+
 export interface NetworkCoverageListResponse {
   /**
    * List of interface types supported in this region.
    */
   available_services?: Array<AvailableService>;
 
-  location?: Shared.NetappsLocation;
+  location?: NetappsLocation17904fcfbc;
 
   /**
    * Identifies the type of the resource.
@@ -110,6 +136,7 @@ export namespace NetworkCoverageListParams {
 export declare namespace NetworkCoverage {
   export {
     type AvailableService as AvailableService,
+    type NetappsLocation17904fcfbc as NetappsLocation17904fcfbc,
     type NetworkCoverageListResponse as NetworkCoverageListResponse,
     type NetworkCoverageListResponsesDefaultFlatPagination as NetworkCoverageListResponsesDefaultFlatPagination,
     type NetworkCoverageListParams as NetworkCoverageListParams,

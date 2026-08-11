@@ -10,7 +10,8 @@ import { path } from '../../../internal/utils/path';
  */
 export class ConversationalComponents extends APIResource {
   /**
-   * Get phone number conversational components
+   * Returns the conversational components configured for the specified WhatsApp
+   * phone number.
    *
    * @example
    * ```ts
@@ -28,13 +29,20 @@ export class ConversationalComponents extends APIResource {
   }
 
   /**
-   * Update phone number conversational components
+   * Updates the conversational components configured for the specified WhatsApp
+   * phone number.
    *
    * @example
    * ```ts
    * const response =
    *   await client.whatsapp.phoneNumbers.conversationalComponents.patchAll(
    *     'phone_number',
+   *     {
+   *       commands: [
+   *         { command: 'string', description: 'string' },
+   *       ],
+   *       ice_breakers: ['string'],
+   *     },
    *   );
    * ```
    */

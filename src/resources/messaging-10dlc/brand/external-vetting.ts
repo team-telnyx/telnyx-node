@@ -36,7 +36,7 @@ export class ExternalVettingResource extends APIResource {
    * const externalVetting =
    *   await client.messaging10dlc.brand.externalVetting.order(
    *     'brandId',
-   *     { evpId: 'evpId', vettingClass: 'vettingClass' },
+   *     { evpId: 'Evpid', vettingClass: 'Vettingclass' },
    *   );
    * ```
    */
@@ -59,7 +59,11 @@ export class ExternalVettingResource extends APIResource {
    * const externalVetting =
    *   await client.messaging10dlc.brand.externalVetting.imports(
    *     'brandId',
-   *     { evpId: 'evpId', vettingId: 'vettingId' },
+   *     {
+   *       evpId: 'Evpid',
+   *       vettingId: 'Vettingid',
+   *       vettingToken: 'Vettingtoken',
+   *     },
    *   );
    * ```
    */

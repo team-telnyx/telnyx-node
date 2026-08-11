@@ -17,7 +17,7 @@ export class Faxes extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * View a list of faxes
+   * Retrieve a paginated list of faxes sent or received on your account.
    *
    * @example
    * ```ts
@@ -73,7 +73,7 @@ export class Faxes extends APIResource {
   }
 
   /**
-   * Delete a fax
+   * Delete a fax resource from your account.
    *
    * @example
    * ```ts
@@ -90,7 +90,7 @@ export class Faxes extends APIResource {
   }
 
   /**
-   * View a fax
+   * Retrieve the details of a single fax.
    *
    * @example
    * ```ts

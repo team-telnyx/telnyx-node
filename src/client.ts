@@ -72,6 +72,7 @@ import {
   AlphanumericSenderIDRetrieveResponse,
   AlphanumericSenderIDs,
   AlphanumericSenderIDsDefaultFlatPagination,
+  MessagingPaginationMeta0b38e7044b,
 } from './resources/alphanumeric-sender-ids';
 import {
   AuditEventListParams,
@@ -313,22 +314,6 @@ import {
   FaxApplicationsDefaultFlatPagination,
 } from './resources/fax-applications';
 import {
-  FqdnConnection,
-  FqdnConnectionCreateParams,
-  FqdnConnectionCreateResponse,
-  FqdnConnectionDeleteResponse,
-  FqdnConnectionListParams,
-  FqdnConnectionRetrieveResponse,
-  FqdnConnectionUpdateParams,
-  FqdnConnectionUpdateResponse,
-  FqdnConnections,
-  FqdnConnectionsDefaultFlatPagination,
-  InboundFqdn,
-  OutboundFqdn,
-  TransportProtocol,
-  WebhookAPIVersion,
-} from './resources/fqdn-connections';
-import {
   Fqdn,
   FqdnCreateParams,
   FqdnCreateResponse,
@@ -548,6 +533,7 @@ import {
 } from './resources/mobile-voice-connections';
 import {
   AvailableService,
+  NetappsLocation17904fcfbc,
   NetworkCoverage,
   NetworkCoverageListParams,
   NetworkCoverageListResponse,
@@ -667,6 +653,7 @@ import {
   OAuthClientUpdateResponse,
   OAuthClients,
   OAuthClientsDefaultFlatPagination,
+  OAuthOAuthPaginationMeta,
   PaginationMetaOAuth,
 } from './resources/oauth-clients';
 import {
@@ -754,7 +741,6 @@ import {
   PublicInternetGatewayRetrieveResponse,
   PublicInternetGateways,
 } from './resources/public-internet-gateways';
-import { RcsAgent, RcsAgentResponse, RcsAgents } from './resources/rcs-agents';
 import {
   RecordingTranscription,
   RecordingTranscriptionDeleteResponse,
@@ -942,7 +928,8 @@ import {
   UserAddressListParams,
   UserAddressRetrieveResponse,
   UserAddresses,
-  UserAddressesDefaultFlatPagination,
+  UserAddressesUserAddress,
+  UserAddressesUserAddressesDefaultFlatPagination,
 } from './resources/user-addresses';
 import { UserTagListParams, UserTagListResponse, UserTags } from './resources/user-tags';
 import {
@@ -1138,6 +1125,7 @@ import {
   InboundMessage,
   InboundMessageWebhookEvent,
   NumberOrderStatusUpdate,
+  NumberOrderStatusUpdateWebhookEvent,
   OutboundMessage,
   ReplacedLinkClick,
   ReplacedLinkClickWebhookEvent,
@@ -1402,6 +1390,22 @@ import {
   FaxesDefaultFlatPagination,
   Quality,
 } from './resources/faxes/faxes';
+import {
+  FqdnConnection,
+  FqdnConnectionCreateParams,
+  FqdnConnectionCreateResponse,
+  FqdnConnectionDeleteResponse,
+  FqdnConnectionListParams,
+  FqdnConnectionRetrieveResponse,
+  FqdnConnectionUpdateParams,
+  FqdnConnectionUpdateResponse,
+  FqdnConnections,
+  FqdnConnectionsDefaultFlatPagination,
+  InboundFqdn,
+  OutboundFqdn,
+  TransportProtocol,
+  WebhookAPIVersion,
+} from './resources/fqdn-connections/fqdn-connections';
 import { Legacy } from './resources/legacy/legacy';
 import {
   ManagedAccount,
@@ -1437,7 +1441,11 @@ import {
   MessageSendShortCodeResponse,
   MessageSendWithAlphanumericSenderParams,
   MessageSendWithAlphanumericSenderResponse,
+  MessageWhatsappParams,
+  MessageWhatsappResponse,
   Messages,
+  MessagingError0b38e7044b,
+  MessagingOutboundMessagePayload,
   OutboundMessagePayload,
   RcsAgentMessage,
   RcsCardContent,
@@ -1532,9 +1540,10 @@ import {
 } from './resources/payment/payment';
 import { PhoneNumberBlocks } from './resources/phone-number-blocks/phone-number-blocks';
 import {
+  NumbersPhoneNumberDetailed,
+  NumbersPhoneNumberDetailedsDefaultFlatPagination,
   PhoneNumberDeleteResponse,
   PhoneNumberDetailed,
-  PhoneNumberDetailedsDefaultFlatPagination,
   PhoneNumberListParams,
   PhoneNumberRetrieveResponse,
   PhoneNumberSlimListParams,
@@ -1599,6 +1608,7 @@ import {
   Queues,
   QueuesDefaultFlatPagination,
 } from './resources/queues/queues';
+import { Rcs } from './resources/rcs/rcs';
 import {
   RecordingListParams,
   RecordingResponse,
@@ -2803,9 +2813,6 @@ export class Telnyx {
    * Media Storage operations
    */
   media: API.Media = new API.Media(this);
-  /**
-   * Messages
-   */
   messages: API.Messages = new API.Messages(this);
   messaging: API.Messaging = new API.Messaging(this);
   /**
@@ -2930,7 +2937,7 @@ export class Telnyx {
    * Queue commands operations
    */
   queues: API.Queues = new API.Queues(this);
-  rcsAgents: API.RcsAgents = new API.RcsAgents(this);
+  rcs: API.Rcs = new API.Rcs(this);
   /**
    * Call Recordings operations.
    */
@@ -3300,7 +3307,7 @@ Telnyx.Portouts = Portouts;
 Telnyx.PrivateWirelessGateways = PrivateWirelessGateways;
 Telnyx.PublicInternetGateways = PublicInternetGateways;
 Telnyx.Queues = Queues;
-Telnyx.RcsAgents = RcsAgents;
+Telnyx.Rcs = Rcs;
 Telnyx.RecordingTranscriptions = RecordingTranscriptions;
 Telnyx.Recordings = Recordings;
 Telnyx.Regions = Regions;
@@ -3456,6 +3463,7 @@ export declare namespace Telnyx {
   export {
     OAuthClients as OAuthClients,
     type OAuthClient as OAuthClient,
+    type OAuthOAuthPaginationMeta as OAuthOAuthPaginationMeta,
     type PaginationMetaOAuth as PaginationMetaOAuth,
     type OAuthClientCreateResponse as OAuthClientCreateResponse,
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,
@@ -3595,6 +3603,7 @@ export declare namespace Telnyx {
     type DeliveryUpdateWebhookEvent as DeliveryUpdateWebhookEvent,
     type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
+    type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
@@ -4173,6 +4182,8 @@ export declare namespace Telnyx {
 
   export {
     Messages as Messages,
+    type MessagingError0b38e7044b as MessagingError0b38e7044b,
+    type MessagingOutboundMessagePayload as MessagingOutboundMessagePayload,
     type OutboundMessagePayload as OutboundMessagePayload,
     type RcsAgentMessage as RcsAgentMessage,
     type RcsCardContent as RcsCardContent,
@@ -4195,6 +4206,7 @@ export declare namespace Telnyx {
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
     type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
+    type MessageWhatsappResponse as MessageWhatsappResponse,
     type MessageSendParams as MessageSendParams,
     type MessageSendLongCodeParams as MessageSendLongCodeParams,
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
@@ -4202,6 +4214,7 @@ export declare namespace Telnyx {
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
+    type MessageWhatsappParams as MessageWhatsappParams,
   };
 
   export { Messaging as Messaging };
@@ -4294,6 +4307,7 @@ export declare namespace Telnyx {
   export {
     NetworkCoverage as NetworkCoverage,
     type AvailableService as AvailableService,
+    type NetappsLocation17904fcfbc as NetappsLocation17904fcfbc,
     type NetworkCoverageListResponse as NetworkCoverageListResponse,
     type NetworkCoverageListResponsesDefaultFlatPagination as NetworkCoverageListResponsesDefaultFlatPagination,
     type NetworkCoverageListParams as NetworkCoverageListParams,
@@ -4465,12 +4479,13 @@ export declare namespace Telnyx {
 
   export {
     PhoneNumbers as PhoneNumbers,
+    type NumbersPhoneNumberDetailed as NumbersPhoneNumberDetailed,
     type PhoneNumberDetailed as PhoneNumberDetailed,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
     type PhoneNumberUpdateResponse as PhoneNumberUpdateResponse,
     type PhoneNumberDeleteResponse as PhoneNumberDeleteResponse,
     type PhoneNumberSlimListResponse as PhoneNumberSlimListResponse,
-    type PhoneNumberDetailedsDefaultFlatPagination as PhoneNumberDetailedsDefaultFlatPagination,
+    type NumbersPhoneNumberDetailedsDefaultFlatPagination as NumbersPhoneNumberDetailedsDefaultFlatPagination,
     type PhoneNumberSlimListResponsesDefaultFlatPagination as PhoneNumberSlimListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberSlimListParams as PhoneNumberSlimListParams,
@@ -4582,7 +4597,7 @@ export declare namespace Telnyx {
     type QueueUpdateParams as QueueUpdateParams,
   };
 
-  export { RcsAgents as RcsAgents, type RcsAgent as RcsAgent, type RcsAgentResponse as RcsAgentResponse };
+  export { Rcs as Rcs };
 
   export {
     RecordingTranscriptions as RecordingTranscriptions,
@@ -4866,9 +4881,10 @@ export declare namespace Telnyx {
   export {
     UserAddresses as UserAddresses,
     type UserAddress as UserAddress,
+    type UserAddressesUserAddress as UserAddressesUserAddress,
     type UserAddressCreateResponse as UserAddressCreateResponse,
     type UserAddressRetrieveResponse as UserAddressRetrieveResponse,
-    type UserAddressesDefaultFlatPagination as UserAddressesDefaultFlatPagination,
+    type UserAddressesUserAddressesDefaultFlatPagination as UserAddressesUserAddressesDefaultFlatPagination,
     type UserAddressListParams as UserAddressListParams,
     type UserAddressCreateParams as UserAddressCreateParams,
   };
@@ -5050,6 +5066,7 @@ export declare namespace Telnyx {
   export {
     AlphanumericSenderIDs as AlphanumericSenderIDs,
     type AlphanumericSenderID as AlphanumericSenderID,
+    type MessagingPaginationMeta0b38e7044b as MessagingPaginationMeta0b38e7044b,
     type AlphanumericSenderIDCreateResponse as AlphanumericSenderIDCreateResponse,
     type AlphanumericSenderIDRetrieveResponse as AlphanumericSenderIDRetrieveResponse,
     type AlphanumericSenderIDDeleteResponse as AlphanumericSenderIDDeleteResponse,

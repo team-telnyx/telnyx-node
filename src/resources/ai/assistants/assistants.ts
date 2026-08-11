@@ -119,8 +119,9 @@ export class Assistants extends APIResource {
    * @example
    * ```ts
    * const assistantsList = await client.ai.assistants.imports({
-   *   api_key_ref: 'api_key_ref',
+   *   api_key_ref: 'string',
    *   provider: 'elevenlabs',
+   *   import_ids: ['string'],
    * });
    * ```
    */
@@ -250,7 +251,11 @@ export class Assistants extends APIResource {
    * ```ts
    * const response = await client.ai.assistants.sendSMS(
    *   'assistant_id',
-   *   { from: 'from', to: 'to' },
+   *   {
+   *     from: 'From',
+   *     to: 'To',
+   *     text: 'Text',
+   *   },
    * );
    * ```
    */
@@ -386,7 +391,8 @@ export type AssistantTool =
   | AssistantTool.SendDtmf
   | AssistantTool.SendMessage
   | AssistantTool.SkipTurn
-  | AssistantTool.Pay;
+  | AssistantTool.Pay
+  | AssistantTool.UpdateDynamicVariables;
 
 export namespace AssistantTool {
   export interface ClientSideTool {
@@ -912,6 +918,22 @@ export namespace AssistantTool {
     pay: ToolsAPI.PayToolParams;
 
     type: 'pay';
+  }
+
+  /**
+   * The update_dynamic_variables tool lets the assistant write values into the
+   * conversation's dynamic-variables context during the call. Updated variables are
+   * available to later `{{variable}}` interpolation (prompts, speak nodes, message
+   * templates) and to flow edge conditions. Declare each variable the assistant is
+   * allowed to set under `updatable_variables`.
+   */
+  export interface UpdateDynamicVariables {
+    type: 'update_dynamic_variables';
+
+    /**
+     * Configuration for an update_dynamic_variables tool.
+     */
+    update_dynamic_variables: ToolsAPI.UpdateDynamicVariablesToolParams;
   }
 }
 
@@ -2310,6 +2332,13 @@ export interface TelephonySettings {
    * automatically on assistant creation.
    */
   default_texml_app_id?: string;
+
+  /**
+   * Disable inbound DTMF for the entire call. Must be set to true if a 'pay' tool is
+   * configured anywhere on the assistant — on the main tool array or on any workflow
+   * node — enforced at write time.
+   */
+  disable_dtmf?: boolean;
 
   /**
    * The noise suppression engine to use. Use 'disabled' to turn off noise

@@ -33,7 +33,8 @@ export class Rooms extends APIResource {
   sessions: SessionsAPI.Sessions = new SessionsAPI.Sessions(this._client);
 
   /**
-   * View a list of rooms.
+   * Returns a paginated list of rooms. Filter the results by creation or update date
+   * and unique name, and use `include_sessions` to include each room’s sessions.
    *
    * @example
    * ```ts
@@ -82,7 +83,9 @@ export class Rooms extends APIResource {
   }
 
   /**
-   * View a room.
+   * Returns the room identified by `room_id`, including its participant limit,
+   * recording and webhook configuration, and active session identifier. Use
+   * `include_sessions` to include its sessions.
    *
    * @example
    * ```ts

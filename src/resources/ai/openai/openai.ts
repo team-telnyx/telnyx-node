@@ -87,7 +87,6 @@ export class OpenAI extends APIResource {
    *   },
    *   instructions: 'You are a friendly chatbot.',
    *   model: 'zai-org/GLM-5.1-FP8',
-   *   stream: true,
    * });
    * ```
    */

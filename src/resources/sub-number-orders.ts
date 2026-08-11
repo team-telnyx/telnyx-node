@@ -24,7 +24,9 @@ export class SubNumberOrders extends APIResource {
   }
 
   /**
-   * Update requirement group for a sub number order
+   * Associates an existing requirement group with the specified sub number order.
+   * The response contains the updated sub number order requirement-group
+   * relationship.
    *
    * @example
    * ```ts

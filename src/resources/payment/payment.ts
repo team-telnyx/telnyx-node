@@ -21,7 +21,7 @@ export class Payment extends APIResource {
   );
 
   /**
-   * Create a stored payment transaction
+   * Create a transaction that charges a stored payment method on the account.
    *
    * @example
    * ```ts

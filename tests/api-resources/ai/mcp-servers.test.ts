@@ -39,9 +39,9 @@ describe('resource mcpServers', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.ai.mcpServers.create({
-      name: 'name',
-      type: 'type',
-      url: 'url',
+      name: 'Name',
+      type: 'Type',
+      url: 'Url',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -55,9 +55,9 @@ describe('resource mcpServers', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.ai.mcpServers.create({
-      name: 'name',
-      type: 'type',
-      url: 'url',
+      name: 'Name',
+      type: 'Type',
+      url: 'Url',
       allowed_tools: ['string'],
       api_key_ref: 'api_key_ref',
     });

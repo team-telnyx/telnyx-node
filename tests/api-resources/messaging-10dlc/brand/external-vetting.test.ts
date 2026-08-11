@@ -23,8 +23,8 @@ describe('resource externalVetting', () => {
   // Mock server tests are disabled
   test.skip('order: only required params', async () => {
     const responsePromise = client.messaging10dlc.brand.externalVetting.order('brandId', {
-      evpId: 'evpId',
-      vettingClass: 'vettingClass',
+      evpId: 'Evpid',
+      vettingClass: 'Vettingclass',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -38,16 +38,16 @@ describe('resource externalVetting', () => {
   // Mock server tests are disabled
   test.skip('order: required and optional params', async () => {
     const response = await client.messaging10dlc.brand.externalVetting.order('brandId', {
-      evpId: 'evpId',
-      vettingClass: 'vettingClass',
+      evpId: 'Evpid',
+      vettingClass: 'Vettingclass',
     });
   });
 
   // Mock server tests are disabled
   test.skip('imports: only required params', async () => {
     const responsePromise = client.messaging10dlc.brand.externalVetting.imports('brandId', {
-      evpId: 'evpId',
-      vettingId: 'vettingId',
+      evpId: 'Evpid',
+      vettingId: 'Vettingid',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -61,9 +61,9 @@ describe('resource externalVetting', () => {
   // Mock server tests are disabled
   test.skip('imports: required and optional params', async () => {
     const response = await client.messaging10dlc.brand.externalVetting.imports('brandId', {
-      evpId: 'evpId',
-      vettingId: 'vettingId',
-      vettingToken: 'vettingToken',
+      evpId: 'Evpid',
+      vettingId: 'Vettingid',
+      vettingToken: 'Vettingtoken',
     });
   });
 });

@@ -26,6 +26,14 @@ export class EmailUnsubscribeGroups extends APIResource {
    * Uses the shared `QueryParser.parse_offset/1` — a malformed `page` (e.g. flat
    * `?page=1` instead of `?page[number]=1`) returns `400` (code `10015`), consistent
    * with `GET /v2/email_blocks`. `meta` includes `total_pages`.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const unsubscribeGroup of client.emailUnsubscribeGroups.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: EmailUnsubscribeGroupListParams | null | undefined = {},
@@ -38,7 +46,17 @@ export class EmailUnsubscribeGroups extends APIResource {
   }
 
   /**
-   * Create an unsubscribe group
+   * Creates an account-owned unsubscribe group for associating email categories with
+   * separate recipient suppression lists.
+   *
+   * @example
+   * ```ts
+   * const unsubscribeGroupResponse =
+   *   await client.emailUnsubscribeGroups.create({
+   *     name: 'Marketing Newsletter',
+   *     description: 'Weekly product updates and promotions',
+   *   });
+   * ```
    */
   create(
     body: EmailUnsubscribeGroupCreateParams,
@@ -54,6 +72,13 @@ export class EmailUnsubscribeGroups extends APIResource {
    * hard-deletes the group. Without `force` and active suppressions present → `409`.
    * Audit trail is preserved. `force` only accepts the string `"true"` or boolean
    * `true`; all other values are false.
+   *
+   * @example
+   * ```ts
+   * await client.emailUnsubscribeGroups.delete(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
    */
   delete(
     id: string,
@@ -69,7 +94,15 @@ export class EmailUnsubscribeGroups extends APIResource {
   }
 
   /**
-   * Retrieve an unsubscribe group
+   * Returns the account-owned unsubscribe group identified by ID.
+   *
+   * @example
+   * ```ts
+   * const unsubscribeGroupResponse =
+   *   await client.emailUnsubscribeGroups.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<UnsubscribeGroupResponse> {
     return this._client.get(path`/email_unsubscribe_groups/${id}`, options);
@@ -77,6 +110,17 @@ export class EmailUnsubscribeGroups extends APIResource {
 
   /**
    * Partial update (only `name` / `description`). `PUT` is not routed.
+   *
+   * @example
+   * ```ts
+   * const unsubscribeGroupResponse =
+   *   await client.emailUnsubscribeGroups.update(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *     {
+   *       description: 'Weekly product updates and promotions',
+   *     },
+   *   );
+   * ```
    */
   update(
     id: string,

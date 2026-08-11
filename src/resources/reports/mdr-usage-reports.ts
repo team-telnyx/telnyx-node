@@ -182,6 +182,16 @@ export interface PaginationMetaReporting {
   total_results?: number;
 }
 
+export interface ReportingPaginationMeta77109e5d17 {
+  page_number?: number;
+
+  page_size?: number;
+
+  total_pages?: number;
+
+  total_results?: number;
+}
+
 export interface MdrUsageReportCreateResponse {
   data?: MdrUsageReport;
 }
@@ -236,6 +246,7 @@ export declare namespace MdrUsageReports {
   export {
     type MdrUsageReport as MdrUsageReport,
     type PaginationMetaReporting as PaginationMetaReporting,
+    type ReportingPaginationMeta77109e5d17 as ReportingPaginationMeta77109e5d17,
     type MdrUsageReportCreateResponse as MdrUsageReportCreateResponse,
     type MdrUsageReportRetrieveResponse as MdrUsageReportRetrieveResponse,
     type MdrUsageReportDeleteResponse as MdrUsageReportDeleteResponse,

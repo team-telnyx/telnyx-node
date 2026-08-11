@@ -9,7 +9,9 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class RegulatoryRequirements extends APIResource {
   /**
-   * Retrieve regulatory requirements
+   * Returns regulatory requirements for number ordering, porting, or other supported
+   * actions. Results can be filtered by phone number, requirement group, country,
+   * number type, and action.
    */
   retrieve(
     query: RegulatoryRequirementRetrieveParams | null | undefined = {},

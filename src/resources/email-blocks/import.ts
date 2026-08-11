@@ -23,6 +23,15 @@ export class Import extends APIResource {
    *   `block_ttl_days` applies only to imported `manual_block` rows; other reasons
    *   get `expires_at: nil`. Provider is auto-detected from the CSV header
    *   (`sendgrid` / `mailgun` / `ses` / `generic`).
+   *
+   * @example
+   * ```ts
+   * const emailBlockImportResponse =
+   *   await client.emailBlocks.import.create({
+   *     file: fs.createReadStream('path/to/file'),
+   *     block_ttl_days: 30,
+   *   });
+   * ```
    */
   create(body: ImportCreateParams, options?: RequestOptions): APIPromise<EmailBlockImportResponse> {
     return this._client.post(
@@ -37,6 +46,14 @@ export class Import extends APIResource {
    * `processed_rows`/`created_count`/`existing_count`/ `skipped_count`/`error_count`
    * only when `status == completed`; `errors` only when non-empty; `failure_reason`
    * only on terminal failure.
+   *
+   * @example
+   * ```ts
+   * const emailBlockImportResponse =
+   *   await client.emailBlocks.import.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<EmailBlockImportResponse> {
     return this._client.get(path`/email_blocks/import/${id}`, options);

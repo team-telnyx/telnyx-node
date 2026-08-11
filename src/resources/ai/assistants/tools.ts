@@ -16,7 +16,11 @@ export class Tools extends APIResource {
    * ```ts
    * const response = await client.ai.assistants.tools.test(
    *   'tool_id',
-   *   { assistant_id: 'assistant_id' },
+   *   {
+   *     assistant_id: 'assistant_id',
+   *     arguments: { order_id: 'order_12345' },
+   *     dynamic_variables: { customer_name: 'Ada' },
+   *   },
    * );
    * ```
    */
@@ -26,7 +30,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Remove Assistant Tool
+   * Detach a tool from an AI assistant.
    *
    * @example
    * ```ts
@@ -42,7 +46,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Add Assistant Tool
+   * Attach an existing tool to an AI assistant.
    *
    * @example
    * ```ts

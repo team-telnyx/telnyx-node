@@ -12,7 +12,9 @@ import { path } from '../../internal/utils/path';
  */
 export class Jobs extends APIResource {
   /**
-   * Lists the phone number blocks jobs
+   * Returns background jobs that operate on phone-number blocks. Results can be
+   * filtered by job type and status, sorted by creation time, and include pagination
+   * metadata.
    *
    * @example
    * ```ts
@@ -58,7 +60,8 @@ export class Jobs extends APIResource {
   }
 
   /**
-   * Retrieves a phone number blocks job
+   * Returns the status and details of the phone-number-block background job
+   * identified by `id`.
    *
    * @example
    * ```ts

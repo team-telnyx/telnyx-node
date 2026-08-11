@@ -9,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class Balance extends APIResource {
   /**
-   * Get user balance details
+   * Retrieve the current balance, available credit, and credit limit for your
+   * account.
    */
   retrieve(options?: RequestOptions): APIPromise<BalanceRetrieveResponse> {
     return this._client.get('/balance', options);

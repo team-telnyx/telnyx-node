@@ -82,6 +82,17 @@ export {
   type ClusterListResponsesDefaultFlatPagination,
 } from './clusters';
 export {
+  Collections,
+  type Collection,
+  type CollectionEnvelope,
+  type CollectionRetrieveDocumentsResponse,
+  type CollectionListParams,
+  type CollectionCreateParams,
+  type CollectionRetrieveDocumentsParams,
+  type CollectionUpdateParams,
+  type CollectionsDefaultFlatPagination,
+} from './collections/index';
+export {
   Conversations,
   type Conversation,
   type ConversationRetrieveResponse,
@@ -133,6 +144,7 @@ export {
   Tools,
   type PayToolParams,
   type SharedToolResponse,
+  type UpdateDynamicVariablesToolParams,
   type ToolDeleteResponse,
   type ToolListParams,
   type ToolCreateParams,

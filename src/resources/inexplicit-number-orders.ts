@@ -16,6 +16,14 @@ import { path } from '../internal/utils/path';
 export class InexplicitNumberOrders extends APIResource {
   /**
    * Get a paginated list of inexplicit number orders.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const inexplicitNumberOrderResponse of client.inexplicitNumberOrders.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: InexplicitNumberOrderListParams | null | undefined = {},
@@ -34,6 +42,22 @@ export class InexplicitNumberOrders extends APIResource {
   /**
    * Create an inexplicit number order to programmatically purchase phone numbers
    * without specifying exact numbers.
+   *
+   * @example
+   * ```ts
+   * const inexplicitNumberOrder =
+   *   await client.inexplicitNumberOrders.create({
+   *     ordering_groups: [
+   *       {
+   *         country_iso: 'US',
+   *         count_requested: '5',
+   *         phone_number_type: 'local',
+   *         administrative_area: 'CA',
+   *         features: ['voice'],
+   *       },
+   *     ],
+   *   });
+   * ```
    */
   create(
     body: InexplicitNumberOrderCreateParams,
@@ -44,6 +68,14 @@ export class InexplicitNumberOrders extends APIResource {
 
   /**
    * Get an existing inexplicit number order by ID.
+   *
+   * @example
+   * ```ts
+   * const inexplicitNumberOrder =
+   *   await client.inexplicitNumberOrders.retrieve(
+   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   );
+   * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<InexplicitNumberOrderRetrieveResponse> {
     return this._client.get(path`/inexplicit_number_orders/${id}`, options);

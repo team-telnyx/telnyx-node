@@ -65,6 +65,17 @@ describe('resource tools', () => {
       },
       retrieval: { foo: 'bar' },
       timeout_ms: 0,
+      update_dynamic_variables: {
+        description: 'Collect caller details into conversation variables.',
+        name: 'collect_details',
+        updatable_variables: [
+          {
+            name: 'customer_name',
+            description: "The caller's full name.",
+            type: 'string',
+          },
+        ],
+      },
       webhook: { foo: 'bar' },
     });
   });

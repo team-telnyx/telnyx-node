@@ -9,7 +9,7 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class GlobalIPAssignmentHealth extends APIResource {
   /**
-   * Global IP Assignment Health Check Metrics
+   * Retrieve health check metrics for your Global IP assignments.
    */
   retrieve(
     query: GlobalIPAssignmentHealthRetrieveParams | null | undefined = {},

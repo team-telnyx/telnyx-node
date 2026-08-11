@@ -10,11 +10,13 @@ export {
 export {
   PhoneNumbers,
   type PhoneNumberListResponse,
+  type PhoneNumberGetResponse,
   type PhoneNumberRetrieveConversationWindowResponse,
   type PhoneNumberListParams,
   type PhoneNumberResendVerificationParams,
   type PhoneNumberVerifyParams,
   type PhoneNumberRetrieveConversationWindowParams,
+  type PhoneNumberGetParams,
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers/index';
 export {

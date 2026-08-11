@@ -13,7 +13,7 @@ import { path } from '../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
-   * Upload hosted number document
+   * Uploads a supporting document to the specified hosted-messaging order.
    *
    * @example
    * ```ts

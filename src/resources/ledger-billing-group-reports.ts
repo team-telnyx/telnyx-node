@@ -10,7 +10,8 @@ import { path } from '../internal/utils/path';
  */
 export class LedgerBillingGroupReports extends APIResource {
   /**
-   * Create a ledger billing group report
+   * Create a ledger billing group report, which aggregates ledger activity by
+   * billing group.
    *
    * @example
    * ```ts
@@ -29,7 +30,8 @@ export class LedgerBillingGroupReports extends APIResource {
   }
 
   /**
-   * Get a ledger billing group report
+   * Retrieve the details and status of a previously created ledger billing group
+   * report.
    *
    * @example
    * ```ts

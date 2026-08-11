@@ -11,7 +11,8 @@ import { path } from '../../internal/utils/path';
  */
 export class Webhooks extends APIResource {
   /**
-   * List webhooks for an email domain
+   * Returns a paginated list of webhook subscriptions scoped to the email domain.
+   * Results can be sorted by creation time.
    *
    * @example
    * ```ts
@@ -65,7 +66,8 @@ export class Webhooks extends APIResource {
   }
 
   /**
-   * Delete a webhook
+   * Deletes the webhook subscription identified by ID within the specified email
+   * domain and returns the deleted subscription.
    *
    * @example
    * ```ts
@@ -86,7 +88,8 @@ export class Webhooks extends APIResource {
   }
 
   /**
-   * Retrieve a webhook
+   * Returns the webhook subscription identified by ID within the specified email
+   * domain.
    *
    * @example
    * ```ts
