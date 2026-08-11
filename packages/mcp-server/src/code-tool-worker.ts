@@ -511,6 +511,8 @@ const fuse = new Fuse(
     'client.fqdnConnections.list',
     'client.fqdnConnections.retrieve',
     'client.fqdnConnections.update',
+    'client.fqdnConnections.fqdnAuthentication.list',
+    'client.fqdnConnections.fqdnAuthentication.patchAll',
     'client.fqdns.create',
     'client.fqdns.delete',
     'client.fqdns.list',

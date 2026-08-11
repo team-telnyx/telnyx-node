@@ -1935,23 +1935,36 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/fqdn-connections.ts">FqdnConnection</a></code>
-- <code><a href="./src/resources/fqdn-connections.ts">InboundFqdn</a></code>
-- <code><a href="./src/resources/fqdn-connections.ts">OutboundFqdn</a></code>
-- <code><a href="./src/resources/fqdn-connections.ts">TransportProtocol</a></code>
-- <code><a href="./src/resources/fqdn-connections.ts">WebhookAPIVersion</a></code>
-- <code><a href="./src/resources/fqdn-connections.ts">FqdnConnectionCreateResponse</a></code>
-- <code><a href="./src/resources/fqdn-connections.ts">FqdnConnectionRetrieveResponse</a></code>
-- <code><a href="./src/resources/fqdn-connections.ts">FqdnConnectionUpdateResponse</a></code>
-- <code><a href="./src/resources/fqdn-connections.ts">FqdnConnectionDeleteResponse</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-connections.ts">FqdnConnection</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-connections.ts">InboundFqdn</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-connections.ts">OutboundFqdn</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-connections.ts">TransportProtocol</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-connections.ts">WebhookAPIVersion</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-connections.ts">FqdnConnectionCreateResponse</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-connections.ts">FqdnConnectionRetrieveResponse</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-connections.ts">FqdnConnectionUpdateResponse</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-connections.ts">FqdnConnectionDeleteResponse</a></code>
 
 Methods:
 
-- <code title="get /fqdn_connections">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">list</a>({ ...params }) -> FqdnConnectionsDefaultFlatPagination</code>
-- <code title="post /fqdn_connections">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">create</a>({ ...params }) -> FqdnConnectionCreateResponse</code>
-- <code title="delete /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">delete</a>(id) -> FqdnConnectionDeleteResponse</code>
-- <code title="get /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">retrieve</a>(id) -> FqdnConnectionRetrieveResponse</code>
-- <code title="patch /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections.ts">update</a>(id, { ...params }) -> FqdnConnectionUpdateResponse</code>
+- <code title="get /fqdn_connections">client.fqdnConnections.<a href="./src/resources/fqdn-connections/fqdn-connections.ts">list</a>({ ...params }) -> FqdnConnectionsDefaultFlatPagination</code>
+- <code title="post /fqdn_connections">client.fqdnConnections.<a href="./src/resources/fqdn-connections/fqdn-connections.ts">create</a>({ ...params }) -> FqdnConnectionCreateResponse</code>
+- <code title="delete /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections/fqdn-connections.ts">delete</a>(id) -> FqdnConnectionDeleteResponse</code>
+- <code title="get /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections/fqdn-connections.ts">retrieve</a>(id) -> FqdnConnectionRetrieveResponse</code>
+- <code title="patch /fqdn_connections/{id}">client.fqdnConnections.<a href="./src/resources/fqdn-connections/fqdn-connections.ts">update</a>(id, { ...params }) -> FqdnConnectionUpdateResponse</code>
+
+## FqdnAuthentication
+
+Types:
+
+- <code><a href="./src/resources/fqdn-connections/fqdn-authentication.ts">FqdnAuthentication</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-authentication.ts">FqdnAuthenticationListResponse</a></code>
+- <code><a href="./src/resources/fqdn-connections/fqdn-authentication.ts">FqdnAuthenticationPatchAllResponse</a></code>
+
+Methods:
+
+- <code title="get /fqdn_connections/{fqdn_connection_id}/fqdn_authentication">client.fqdnConnections.fqdnAuthentication.<a href="./src/resources/fqdn-connections/fqdn-authentication.ts">list</a>(fqdnConnectionID) -> FqdnAuthenticationListResponse</code>
+- <code title="patch /fqdn_connections/{fqdn_connection_id}/fqdn_authentication">client.fqdnConnections.fqdnAuthentication.<a href="./src/resources/fqdn-connections/fqdn-authentication.ts">patchAll</a>(fqdnConnectionID, { ...params }) -> FqdnAuthenticationPatchAllResponse</code>
 
 # Fqdns
 

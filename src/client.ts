@@ -314,22 +314,6 @@ import {
   FaxApplicationsDefaultFlatPagination,
 } from './resources/fax-applications';
 import {
-  FqdnConnection,
-  FqdnConnectionCreateParams,
-  FqdnConnectionCreateResponse,
-  FqdnConnectionDeleteResponse,
-  FqdnConnectionListParams,
-  FqdnConnectionRetrieveResponse,
-  FqdnConnectionUpdateParams,
-  FqdnConnectionUpdateResponse,
-  FqdnConnections,
-  FqdnConnectionsDefaultFlatPagination,
-  InboundFqdn,
-  OutboundFqdn,
-  TransportProtocol,
-  WebhookAPIVersion,
-} from './resources/fqdn-connections';
-import {
   Fqdn,
   FqdnCreateParams,
   FqdnCreateResponse,
@@ -1406,6 +1390,22 @@ import {
   FaxesDefaultFlatPagination,
   Quality,
 } from './resources/faxes/faxes';
+import {
+  FqdnConnection,
+  FqdnConnectionCreateParams,
+  FqdnConnectionCreateResponse,
+  FqdnConnectionDeleteResponse,
+  FqdnConnectionListParams,
+  FqdnConnectionRetrieveResponse,
+  FqdnConnectionUpdateParams,
+  FqdnConnectionUpdateResponse,
+  FqdnConnections,
+  FqdnConnectionsDefaultFlatPagination,
+  InboundFqdn,
+  OutboundFqdn,
+  TransportProtocol,
+  WebhookAPIVersion,
+} from './resources/fqdn-connections/fqdn-connections';
 import { Legacy } from './resources/legacy/legacy';
 import {
   ManagedAccount,

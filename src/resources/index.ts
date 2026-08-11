@@ -492,7 +492,7 @@ export {
   type FqdnConnectionCreateParams,
   type FqdnConnectionUpdateParams,
   type FqdnConnectionsDefaultFlatPagination,
-} from './fqdn-connections';
+} from './fqdn-connections/fqdn-connections';
 export {
   Fqdns,
   type Fqdn,

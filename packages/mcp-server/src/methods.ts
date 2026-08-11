@@ -2419,6 +2419,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/fqdn_connections/{id}',
   },
   {
+    clientCallName: 'client.fqdnConnections.fqdnAuthentication.list',
+    fullyQualifiedName: 'fqdnConnections.fqdnAuthentication.list',
+    httpMethod: 'get',
+    httpPath: '/fqdn_connections/{fqdn_connection_id}/fqdn_authentication',
+  },
+  {
+    clientCallName: 'client.fqdnConnections.fqdnAuthentication.patchAll',
+    fullyQualifiedName: 'fqdnConnections.fqdnAuthentication.patchAll',
+    httpMethod: 'patch',
+    httpPath: '/fqdn_connections/{fqdn_connection_id}/fqdn_authentication',
+  },
+  {
     clientCallName: 'client.fqdns.list',
     fullyQualifiedName: 'fqdns.list',
     httpMethod: 'get',
