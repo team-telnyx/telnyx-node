@@ -81,6 +81,7 @@ export {
   type ClusterFetchGraphParams,
   type ClusterListResponsesDefaultFlatPagination,
 } from './clusters';
+export { Collections } from './collections';
 export {
   Conversations,
   type Conversation,

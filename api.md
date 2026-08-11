@@ -770,6 +770,8 @@ Methods:
 - <code title="get /ai/clusters/{task_id}">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">retrieve</a>(taskID, { ...params }) -> ClusterRetrieveResponse</code>
 - <code title="get /ai/clusters/{task_id}/graph">client.ai.clusters.<a href="./src/resources/ai/clusters.ts">fetchGraph</a>(taskID, { ...params }) -> Response</code>
 
+## Collections
+
 ## Conversations
 
 Types:

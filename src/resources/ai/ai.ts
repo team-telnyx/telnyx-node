@@ -18,6 +18,8 @@ import {
   Clusters,
   RecursiveCluster,
 } from './clusters';
+import * as CollectionsAPI from './collections';
+import { Collections } from './collections';
 import * as McpServersAPI from './mcp-servers';
 import {
   McpServer,
@@ -153,6 +155,7 @@ export class AI extends APIResource {
   audio: AudioAPI.Audio = new AudioAPI.Audio(this._client);
   chat: ChatAPI.Chat = new ChatAPI.Chat(this._client);
   clusters: ClustersAPI.Clusters = new ClustersAPI.Clusters(this._client);
+  collections: CollectionsAPI.Collections = new CollectionsAPI.Collections(this._client);
   conversations: ConversationsAPI.Conversations = new ConversationsAPI.Conversations(this._client);
   embeddings: EmbeddingsAPI.Embeddings = new EmbeddingsAPI.Embeddings(this._client);
   fineTuning: FineTuningAPI.FineTuning = new FineTuningAPI.FineTuning(this._client);
@@ -620,6 +623,7 @@ AI.Assistants = Assistants;
 AI.Audio = Audio;
 AI.Chat = Chat;
 AI.Clusters = Clusters;
+AI.Collections = Collections;
 AI.Conversations = Conversations;
 AI.Embeddings = Embeddings;
 AI.FineTuning = FineTuning;
@@ -718,6 +722,8 @@ export declare namespace AI {
     type ClusterRetrieveParams as ClusterRetrieveParams,
     type ClusterFetchGraphParams as ClusterFetchGraphParams,
   };
+
+  export { Collections as Collections };
 
   export {
     Conversations as Conversations,
