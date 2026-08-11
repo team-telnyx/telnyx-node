@@ -1,9 +1,9 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-import { APIResource } from '../core/resource';
-import { DefaultFlatPagination } from '../core/pagination';
+import { APIResource } from '../../core/resource';
+import { DefaultFlatPagination } from '../../core/pagination';
 
-export class RcsAgents extends APIResource {}
+export class Agents extends APIResource {}
 
 export type RcsAgentsDefaultFlatPagination = DefaultFlatPagination<RcsAgent>;
 
@@ -58,6 +58,6 @@ export interface RcsAgentResponse {
   data?: RcsAgent;
 }
 
-export declare namespace RcsAgents {
+export declare namespace Agents {
   export { type RcsAgent as RcsAgent, type RcsAgentResponse as RcsAgentResponse };
 }

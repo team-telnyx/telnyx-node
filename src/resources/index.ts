@@ -1123,12 +1123,7 @@ export {
   type QueueUpdateParams,
   type QueuesDefaultFlatPagination,
 } from './queues/queues';
-export {
-  RcsAgents,
-  type RcsAgent,
-  type RcsAgentResponse,
-  type RcsAgentsDefaultFlatPagination,
-} from './rcs-agents';
+export { Rcs } from './rcs/rcs';
 export {
   RecordingTranscriptions,
   type RecordingTranscription,

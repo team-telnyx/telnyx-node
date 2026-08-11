@@ -3294,12 +3294,14 @@ Methods:
 - <code title="delete /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">remove</a>(callControlID, { ...params }) -> void</code>
 - <code title="patch /queues/{queue_name}/calls/{call_control_id}">client.queues.calls.<a href="./src/resources/queues/calls.ts">update</a>(callControlID, { ...params }) -> void</code>
 
-# RcsAgents
+# Rcs
+
+## Agents
 
 Types:
 
-- <code><a href="./src/resources/rcs-agents.ts">RcsAgent</a></code>
-- <code><a href="./src/resources/rcs-agents.ts">RcsAgentResponse</a></code>
+- <code><a href="./src/resources/rcs/agents.ts">RcsAgent</a></code>
+- <code><a href="./src/resources/rcs/agents.ts">RcsAgentResponse</a></code>
 
 # RecordingTranscriptions
 

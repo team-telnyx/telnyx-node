@@ -757,7 +757,6 @@ import {
   PublicInternetGatewayRetrieveResponse,
   PublicInternetGateways,
 } from './resources/public-internet-gateways';
-import { RcsAgent, RcsAgentResponse, RcsAgents } from './resources/rcs-agents';
 import {
   RecordingTranscription,
   RecordingTranscriptionDeleteResponse,
@@ -1607,6 +1606,7 @@ import {
   Queues,
   QueuesDefaultFlatPagination,
 } from './resources/queues/queues';
+import { Rcs } from './resources/rcs/rcs';
 import {
   RecordingListParams,
   RecordingResponse,
@@ -2938,7 +2938,7 @@ export class Telnyx {
    * Queue commands operations
    */
   queues: API.Queues = new API.Queues(this);
-  rcsAgents: API.RcsAgents = new API.RcsAgents(this);
+  rcs: API.Rcs = new API.Rcs(this);
   /**
    * Call Recordings operations.
    */
@@ -3308,7 +3308,7 @@ Telnyx.Portouts = Portouts;
 Telnyx.PrivateWirelessGateways = PrivateWirelessGateways;
 Telnyx.PublicInternetGateways = PublicInternetGateways;
 Telnyx.Queues = Queues;
-Telnyx.RcsAgents = RcsAgents;
+Telnyx.Rcs = Rcs;
 Telnyx.RecordingTranscriptions = RecordingTranscriptions;
 Telnyx.Recordings = Recordings;
 Telnyx.Regions = Regions;
@@ -4596,7 +4596,7 @@ export declare namespace Telnyx {
     type QueueUpdateParams as QueueUpdateParams,
   };
 
-  export { RcsAgents as RcsAgents, type RcsAgent as RcsAgent, type RcsAgentResponse as RcsAgentResponse };
+  export { Rcs as Rcs };
 
   export {
     RecordingTranscriptions as RecordingTranscriptions,
