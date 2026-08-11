@@ -18,8 +18,6 @@ import {
   Clusters,
   RecursiveCluster,
 } from './clusters';
-import * as CollectionsAPI from './collections';
-import { Collections } from './collections';
 import * as McpServersAPI from './mcp-servers';
 import {
   McpServer,
@@ -101,6 +99,18 @@ import {
   WebhookTool,
   WidgetSettings,
 } from './assistants/assistants';
+import * as CollectionsAPI from './collections/collections';
+import {
+  Collection,
+  CollectionCreateParams,
+  CollectionEnvelope,
+  CollectionListParams,
+  CollectionRetrieveDocumentsParams,
+  CollectionRetrieveDocumentsResponse,
+  CollectionUpdateParams,
+  Collections,
+  CollectionsDefaultFlatPagination,
+} from './collections/collections';
 import * as ConversationsAPI from './conversations/conversations';
 import {
   Conversation,
@@ -237,13 +247,11 @@ export class AI extends APIResource {
    *
    * **Examples:**
    *
-   * ```
-   * GET /v2/ai/conversation_histories?q=billing+issue&page[size]=10
-   * GET /v2/ai/conversation_histories?q=setup+guide&region=USA&min_score=0.5
-   * GET /v2/ai/conversation_histories?q=refund&filter[record_created_at][gte]=2026-01-01T00:00:00Z
-   * GET /v2/ai/conversation_histories?q=outage&filter[region][in]=USA,DEU
-   * GET /v2/ai/conversation_histories?q=hold+time&filter[language]=en
-   * ```
+   * - `GET /v2/ai/conversation_histories?q=billing+issue&page[size]=10`
+   * - `GET /v2/ai/conversation_histories?q=setup+guide&region=USA&min_score=0.5`
+   * - `GET /v2/ai/conversation_histories?q=refund&filter[record_created_at][gte]=2026-01-01T00:00:00Z`
+   * - `GET /v2/ai/conversation_histories?q=outage&filter[region][in]=USA,DEU`
+   * - `GET /v2/ai/conversation_histories?q=hold+time&filter[language]=en`
    *
    * @example
    * ```ts
@@ -723,7 +731,17 @@ export declare namespace AI {
     type ClusterFetchGraphParams as ClusterFetchGraphParams,
   };
 
-  export { Collections as Collections };
+  export {
+    Collections as Collections,
+    type Collection as Collection,
+    type CollectionEnvelope as CollectionEnvelope,
+    type CollectionRetrieveDocumentsResponse as CollectionRetrieveDocumentsResponse,
+    type CollectionsDefaultFlatPagination as CollectionsDefaultFlatPagination,
+    type CollectionListParams as CollectionListParams,
+    type CollectionCreateParams as CollectionCreateParams,
+    type CollectionRetrieveDocumentsParams as CollectionRetrieveDocumentsParams,
+    type CollectionUpdateParams as CollectionUpdateParams,
+  };
 
   export {
     Conversations as Conversations,

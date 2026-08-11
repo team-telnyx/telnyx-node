@@ -772,6 +772,55 @@ Methods:
 
 ## Collections
 
+Types:
+
+- <code><a href="./src/resources/ai/collections/collections.ts">Collection</a></code>
+- <code><a href="./src/resources/ai/collections/collections.ts">CollectionEnvelope</a></code>
+- <code><a href="./src/resources/ai/collections/collections.ts">CollectionRetrieveDocumentsResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/collections/{uuid}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieveByID</a>(uuid) -> CollectionEnvelope</code>
+- <code title="get /ai/collections">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">list</a>({ ...params }) -> CollectionsDefaultFlatPagination</code>
+- <code title="post /ai/collections">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">create</a>({ ...params }) -> CollectionEnvelope</code>
+- <code title="get /ai/collections/slug/{slug}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieve</a>(slug) -> CollectionEnvelope</code>
+- <code title="get /ai/collections/{slug}/documents">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieveDocuments</a>(slug, { ...params }) -> CollectionRetrieveDocumentsResponse</code>
+- <code title="delete /ai/collections/{uuid}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">delete</a>(uuid) -> void</code>
+- <code title="patch /ai/collections/{uuid}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">update</a>(uuid, { ...params }) -> CollectionEnvelope</code>
+
+### Settings
+
+Types:
+
+- <code><a href="./src/resources/ai/collections/settings.ts">RetrievalSettings</a></code>
+- <code><a href="./src/resources/ai/collections/settings.ts">RetrievalSettingsWrapper</a></code>
+- <code><a href="./src/resources/ai/collections/settings.ts">SettingsEnvelope</a></code>
+- <code><a href="./src/resources/ai/collections/settings.ts">SettingsRequest</a></code>
+
+Methods:
+
+- <code title="get /ai/collections/{uuid}/settings">client.ai.collections.settings.<a href="./src/resources/ai/collections/settings.ts">list</a>(uuid) -> SettingsEnvelope</code>
+- <code title="patch /ai/collections/{uuid}/settings">client.ai.collections.settings.<a href="./src/resources/ai/collections/settings.ts">patchAll</a>(uuid, { ...params }) -> SettingsEnvelope</code>
+- <code title="put /ai/collections/{uuid}/settings">client.ai.collections.settings.<a href="./src/resources/ai/collections/settings.ts">create</a>(uuid, { ...params }) -> SettingsEnvelope</code>
+
+### Sources
+
+Types:
+
+- <code><a href="./src/resources/ai/collections/sources.ts">Source</a></code>
+- <code><a href="./src/resources/ai/collections/sources.ts">SourceRequest</a></code>
+- <code><a href="./src/resources/ai/collections/sources.ts">SourceType</a></code>
+- <code><a href="./src/resources/ai/collections/sources.ts">SourceCreateResponse</a></code>
+- <code><a href="./src/resources/ai/collections/sources.ts">SourceListResponse</a></code>
+- <code><a href="./src/resources/ai/collections/sources.ts">SourceReplaceResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/collections/{uuid}/sources">client.ai.collections.sources.<a href="./src/resources/ai/collections/sources.ts">list</a>(uuid) -> SourceListResponse</code>
+- <code title="post /ai/collections/{uuid}/sources">client.ai.collections.sources.<a href="./src/resources/ai/collections/sources.ts">create</a>(uuid, { ...params }) -> SourceCreateResponse</code>
+- <code title="put /ai/collections/{uuid}/sources">client.ai.collections.sources.<a href="./src/resources/ai/collections/sources.ts">replace</a>(uuid, { ...params }) -> SourceReplaceResponse</code>
+- <code title="delete /ai/collections/{uuid}/sources/{sourceId}">client.ai.collections.sources.<a href="./src/resources/ai/collections/sources.ts">delete</a>(sourceID, { ...params }) -> void</code>
+
 ## Conversations
 
 Types:
@@ -2234,6 +2283,7 @@ Types:
 - <code><a href="./src/resources/messages/messages.ts">MessageSendNumberPoolResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendShortCodeResponse</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessageSendWithAlphanumericSenderResponse</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessageWhatsappResponse</a></code>
 
 Methods:
 
@@ -2247,6 +2297,7 @@ Methods:
 - <code title="get /messages/{id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieve</a>(id) -> MessageRetrieveResponse</code>
 - <code title="post /messages/alphanumeric_sender_id">client.messages.<a href="./src/resources/messages/messages.ts">sendWithAlphanumericSender</a>({ ...params }) -> MessageSendWithAlphanumericSenderResponse</code>
 - <code title="get /messages/group/{message_id}">client.messages.<a href="./src/resources/messages/messages.ts">retrieveGroupMessages</a>(messageID) -> MessageRetrieveGroupMessagesResponse</code>
+- <code title="post /messages/whatsapp">client.messages.<a href="./src/resources/messages/messages.ts">whatsapp</a>({ ...params }) -> MessageWhatsappResponse</code>
 
 ## Rcs
 
@@ -3302,8 +3353,66 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/rcs/agents.ts">RcsAgent</a></code>
-- <code><a href="./src/resources/rcs/agents.ts">RcsAgentResponse</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentCampaignConfiguration</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentConfiguration</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentConsentConfiguration</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentEmailContact</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentInteraction</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentPhoneContact</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentResponse</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentSubmissionStatus</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentTestingConfiguration</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentUseCase</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentWebsiteContact</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">CapabilitiesResponse</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">CarrierApprovalResponse</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">RcsAgent</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">RcsAgentResponse</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentListResponse</a></code>
+- <code><a href="./src/resources/rcs/agents/agents.ts">AgentRetrieveCarrierApprovalsResponse</a></code>
+
+Methods:
+
+- <code title="get /rcs/agents">client.rcs.agents.<a href="./src/resources/rcs/agents/agents.ts">list</a>({ ...params }) -> AgentListResponse</code>
+- <code title="post /rcs/agents">client.rcs.agents.<a href="./src/resources/rcs/agents/agents.ts">create</a>({ ...params }) -> AgentResponse</code>
+- <code title="get /rcs/agents/{id}">client.rcs.agents.<a href="./src/resources/rcs/agents/agents.ts">retrieve</a>(id) -> AgentResponse</code>
+- <code title="patch /rcs/agents/{id}">client.rcs.agents.<a href="./src/resources/rcs/agents/agents.ts">update</a>(id, { ...params }) -> AgentResponse</code>
+- <code title="get /rcs/agents/{id}/carrier_approvals">client.rcs.agents.<a href="./src/resources/rcs/agents/agents.ts">retrieveCarrierApprovals</a>(id) -> AgentRetrieveCarrierApprovalsResponse</code>
+- <code title="post /rcs/agents/{id}/launch">client.rcs.agents.<a href="./src/resources/rcs/agents/agents.ts">launch</a>(id, { ...params }) -> AgentResponse</code>
+- <code title="post /rcs/agents/{id}/submit">client.rcs.agents.<a href="./src/resources/rcs/agents/agents.ts">submit</a>(id) -> AgentResponse</code>
+
+### TestDevices
+
+Types:
+
+- <code><a href="./src/resources/rcs/agents/test-devices.ts">TestDeviceResponse</a></code>
+- <code><a href="./src/resources/rcs/agents/test-devices.ts">TestDeviceListResponse</a></code>
+
+Methods:
+
+- <code title="get /rcs/agents/{id}/test_devices">client.rcs.agents.testDevices.<a href="./src/resources/rcs/agents/test-devices.ts">list</a>(id) -> TestDeviceListResponse</code>
+- <code title="post /rcs/agents/{id}/test_devices">client.rcs.agents.testDevices.<a href="./src/resources/rcs/agents/test-devices.ts">create</a>(id, { ...params }) -> TestDeviceResponse</code>
+- <code title="delete /rcs/agents/{id}/test_devices/{test_device_id}">client.rcs.agents.testDevices.<a href="./src/resources/rcs/agents/test-devices.ts">delete</a>(testDeviceID, { ...params }) -> void</code>
+
+## Brands
+
+Types:
+
+- <code><a href="./src/resources/rcs/brands.ts">BrandContact</a></code>
+- <code><a href="./src/resources/rcs/brands.ts">BrandLegalEntityType</a></code>
+- <code><a href="./src/resources/rcs/brands.ts">BrandOrganizationType</a></code>
+- <code><a href="./src/resources/rcs/brands.ts">BrandResponse</a></code>
+- <code><a href="./src/resources/rcs/brands.ts">EinBrandIdentifier</a></code>
+- <code><a href="./src/resources/rcs/brands.ts">StockSymbolBrandIdentifier</a></code>
+- <code><a href="./src/resources/rcs/brands.ts">BrandListResponse</a></code>
+
+Methods:
+
+- <code title="get /rcs/brands">client.rcs.brands.<a href="./src/resources/rcs/brands.ts">list</a>() -> BrandListResponse</code>
+- <code title="post /rcs/brands">client.rcs.brands.<a href="./src/resources/rcs/brands.ts">create</a>({ ...params }) -> BrandResponse</code>
+- <code title="get /rcs/brands/{id}">client.rcs.brands.<a href="./src/resources/rcs/brands.ts">retrieve</a>(id) -> BrandResponse</code>
+- <code title="patch /rcs/brands/{id}">client.rcs.brands.<a href="./src/resources/rcs/brands.ts">update</a>(id, { ...params }) -> BrandResponse</code>
+- <code title="post /rcs/brands/{id}/submit">client.rcs.brands.<a href="./src/resources/rcs/brands.ts">submit</a>(id) -> BrandResponse</code>
 
 # RecordingTranscriptions
 

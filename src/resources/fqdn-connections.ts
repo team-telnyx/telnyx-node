@@ -144,6 +144,13 @@ export interface FqdnConnection {
   call_cost_in_webhooks?: boolean;
 
   /**
+   * Whether conversation persistence is enabled for this connection. When enabled,
+   * calls handled by the connection are transcribed, stored, and indexed. Defaults
+   * to false.
+   */
+  conversation_persistence?: boolean;
+
+  /**
    * ISO 8601 formatted date indicating when the resource was created.
    */
   created_at?: string;
@@ -773,6 +780,13 @@ export interface FqdnConnectionUpdateParams {
    * A user-assigned name to help manage the connection.
    */
   connection_name?: string;
+
+  /**
+   * Whether conversation persistence is enabled for this connection. When enabled,
+   * calls handled by the connection are transcribed, stored, and indexed. Defaults
+   * to false.
+   */
+  conversation_persistence?: boolean;
 
   /**
    * When enabled, Telnyx will generate comfort noise when you place the call on

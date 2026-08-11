@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as AgentsAPI from '../../rcs/agents';
-import { RcsAgentsDefaultFlatPagination } from '../../rcs/agents';
+import * as RcsAgentsAPI from '../../rcs/agents/agents';
+import { RcsAgentsDefaultFlatPagination } from '../../rcs/agents/agents';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -30,8 +30,8 @@ export class Agents extends APIResource {
   list(
     query: AgentListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<RcsAgentsDefaultFlatPagination, AgentsAPI.RcsAgent> {
-    return this._client.getAPIList('/messaging/rcs/agents', DefaultFlatPagination<AgentsAPI.RcsAgent>, {
+  ): PagePromise<RcsAgentsDefaultFlatPagination, RcsAgentsAPI.RcsAgent> {
+    return this._client.getAPIList('/messaging/rcs/agents', DefaultFlatPagination<RcsAgentsAPI.RcsAgent>, {
       query,
       ...options,
     });
@@ -46,7 +46,7 @@ export class Agents extends APIResource {
    *   await client.messaging.rcs.agents.retrieve('id');
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<AgentsAPI.RcsAgentResponse> {
+  retrieve(id: string, options?: RequestOptions): APIPromise<RcsAgentsAPI.RcsAgentResponse> {
     return this._client.get(path`/messaging/rcs/agents/${id}`, options);
   }
 
@@ -63,7 +63,7 @@ export class Agents extends APIResource {
     id: string,
     body: AgentUpdateParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<AgentsAPI.RcsAgentResponse> {
+  ): APIPromise<RcsAgentsAPI.RcsAgentResponse> {
     return this._client.patch(path`/messaging/rcs/agents/${id}`, { body, ...options });
   }
 }

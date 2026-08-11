@@ -695,6 +695,7 @@ export {
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
   type MessageSendWithAlphanumericSenderResponse,
+  type MessageWhatsappResponse,
   type MessageSendParams,
   type MessageSendLongCodeParams,
   type MessageSendNumberPoolParams,
@@ -702,6 +703,7 @@ export {
   type MessageSendGroupMmsParams,
   type MessageScheduleParams,
   type MessageSendWithAlphanumericSenderParams,
+  type MessageWhatsappParams,
 } from './messages/messages';
 export { Messaging } from './messaging/messaging';
 export { Messaging10dlc, type Messaging10dlcGetEnumResponse } from './messaging-10dlc/messaging-10dlc';

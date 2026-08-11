@@ -24,17 +24,11 @@ export {
   type AgentUpdateParams,
   type AgentLaunchParams,
   type RcsAgentsDefaultFlatPagination,
-} from './agents/index';
+} from './agents';
 export {
-  Brands,
-  type BrandContact,
-  type BrandLegalEntityType,
-  type BrandOrganizationType,
-  type BrandResponse,
-  type EinBrandIdentifier,
-  type StockSymbolBrandIdentifier,
-  type BrandListResponse,
-  type BrandCreateParams,
-  type BrandUpdateParams,
-} from './brands';
-export { Rcs } from './rcs';
+  TestDevices,
+  type TestDeviceResponse,
+  type TestDeviceListResponse,
+  type TestDeviceCreateParams,
+  type TestDeviceDeleteParams,
+} from './test-devices';

@@ -1441,6 +1441,8 @@ import {
   MessageSendShortCodeResponse,
   MessageSendWithAlphanumericSenderParams,
   MessageSendWithAlphanumericSenderResponse,
+  MessageWhatsappParams,
+  MessageWhatsappResponse,
   Messages,
   MessagingError0b38e7044b,
   MessagingOutboundMessagePayload,
@@ -2811,9 +2813,6 @@ export class Telnyx {
    * Media Storage operations
    */
   media: API.Media = new API.Media(this);
-  /**
-   * Messages
-   */
   messages: API.Messages = new API.Messages(this);
   messaging: API.Messaging = new API.Messaging(this);
   /**
@@ -4207,6 +4206,7 @@ export declare namespace Telnyx {
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
     type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
+    type MessageWhatsappResponse as MessageWhatsappResponse,
     type MessageSendParams as MessageSendParams,
     type MessageSendLongCodeParams as MessageSendLongCodeParams,
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
@@ -4214,6 +4214,7 @@ export declare namespace Telnyx {
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
+    type MessageWhatsappParams as MessageWhatsappParams,
   };
 
   export { Messaging as Messaging };

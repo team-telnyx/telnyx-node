@@ -26,6 +26,7 @@ export {
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
   type MessageSendWithAlphanumericSenderResponse,
+  type MessageWhatsappResponse,
   type MessageSendParams,
   type MessageSendLongCodeParams,
   type MessageSendNumberPoolParams,
@@ -33,6 +34,7 @@ export {
   type MessageSendGroupMmsParams,
   type MessageScheduleParams,
   type MessageSendWithAlphanumericSenderParams,
+  type MessageWhatsappParams,
 } from './messages';
 export {
   Rcs,

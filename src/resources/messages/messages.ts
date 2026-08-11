@@ -15,9 +15,6 @@ import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
-/**
- * Messages
- */
 export class Messages extends APIResource {
   rcs: RcsAPI.Rcs = new RcsAPI.Rcs(this._client);
 
@@ -206,6 +203,25 @@ export class Messages extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MessageRetrieveGroupMessagesResponse> {
     return this._client.get(path`/messages/group/${messageID}`, options);
+  }
+
+  /**
+   * Sends a WhatsApp message using a Telnyx WhatsApp-enabled number. The message
+   * body, interactive elements, media, location, and reaction content are specified
+   * in the `whatsapp_message` field. Delivery progress and final disposition are
+   * reported asynchronously through messaging webhooks.
+   *
+   * @example
+   * ```ts
+   * const response = await client.messages.whatsapp({
+   *   from: '+13125551234',
+   *   to: '+13125551234',
+   *   whatsapp_message: {},
+   * });
+   * ```
+   */
+  whatsapp(body: MessageWhatsappParams, options?: RequestOptions): APIPromise<MessageWhatsappResponse> {
+    return this._client.post('/messages/whatsapp', { body, ...options });
   }
 }
 
@@ -2150,6 +2166,68 @@ export interface MessageSendWithAlphanumericSenderResponse {
   data?: OutboundMessagePayload;
 }
 
+export interface MessageWhatsappResponse {
+  data?: MessageWhatsappResponse.Data;
+}
+
+export namespace MessageWhatsappResponse {
+  export interface Data {
+    /**
+     * message ID
+     */
+    id?: string;
+
+    body?: MessagesAPI.WhatsappMessageContent;
+
+    direction?: string;
+
+    encoding?: string;
+
+    from?: Data.From;
+
+    messaging_profile_id?: string;
+
+    organization_id?: string;
+
+    received_at?: string;
+
+    record_type?: string;
+
+    to?: Array<MessagesAPI.RcsToItem>;
+
+    type?: string;
+
+    /**
+     * Seconds the message is queued due to rate limiting before being sent to the
+     * carrier. Represents the maximum wait across all applicable rate limits (account,
+     * carrier, campaign). 0.0 = no queuing delay.
+     */
+    wait_seconds?: number | null;
+  }
+
+  export namespace Data {
+    export interface From {
+      /**
+       * The carrier of the sender.
+       */
+      carrier?: string;
+
+      /**
+       * The line-type of the sender.
+       */
+      line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+      /**
+       * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
+       * code).
+       */
+      phone_number?: string;
+
+      status?: 'received' | 'delivered';
+    }
+  }
+}
+
 export interface MessageSendParams {
   /**
    * Receiving address (+E.164 formatted phone number or short code).
@@ -2602,6 +2680,35 @@ export interface MessageSendWithAlphanumericSenderParams {
   webhook_url?: string | null;
 }
 
+export interface MessageWhatsappParams {
+  /**
+   * Phone number in +E.164 format associated with Whatsapp account
+   */
+  from: string;
+
+  /**
+   * Phone number in +E.164 format
+   */
+  to: string;
+
+  whatsapp_message: WhatsappMessageContent;
+
+  /**
+   * Messaging profile ID - required if the 'from' number is not SMS-enabled
+   */
+  messaging_profile_id?: string;
+
+  /**
+   * Message type - must be set to "WHATSAPP"
+   */
+  type?: 'WHATSAPP';
+
+  /**
+   * The URL where webhooks related to this message will be sent.
+   */
+  webhook_url?: string;
+}
+
 Messages.Rcs = Rcs;
 
 export declare namespace Messages {
@@ -2630,6 +2737,7 @@ export declare namespace Messages {
     type MessageSendNumberPoolResponse as MessageSendNumberPoolResponse,
     type MessageSendShortCodeResponse as MessageSendShortCodeResponse,
     type MessageSendWithAlphanumericSenderResponse as MessageSendWithAlphanumericSenderResponse,
+    type MessageWhatsappResponse as MessageWhatsappResponse,
     type MessageSendParams as MessageSendParams,
     type MessageSendLongCodeParams as MessageSendLongCodeParams,
     type MessageSendNumberPoolParams as MessageSendNumberPoolParams,
@@ -2637,6 +2745,7 @@ export declare namespace Messages {
     type MessageSendGroupMmsParams as MessageSendGroupMmsParams,
     type MessageScheduleParams as MessageScheduleParams,
     type MessageSendWithAlphanumericSenderParams as MessageSendWithAlphanumericSenderParams,
+    type MessageWhatsappParams as MessageWhatsappParams,
   };
 
   export {
