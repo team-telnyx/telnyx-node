@@ -4850,6 +4850,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/sim_cards/actions/bulk_enable_voice',
   },
   {
+    clientCallName: 'client.simCards.actions.disableVoice',
+    fullyQualifiedName: 'simCards.actions.disableVoice',
+    httpMethod: 'post',
+    httpPath: '/sim_cards/{id}/actions/disable_voice',
+  },
+  {
+    clientCallName: 'client.simCards.actions.enableVoice',
+    fullyQualifiedName: 'simCards.actions.enableVoice',
+    httpMethod: 'post',
+    httpPath: '/sim_cards/{id}/actions/enable_voice',
+  },
+  {
     clientCallName: 'client.siprecConnectors.create',
     fullyQualifiedName: 'siprecConnectors.create',
     httpMethod: 'post',

@@ -10,7 +10,9 @@ export {
   type ActionBulkEnableVoiceResponse,
   type ActionBulkSetPublicIPsResponse,
   type ActionDisableResponse,
+  type ActionDisableVoiceResponse,
   type ActionEnableResponse,
+  type ActionEnableVoiceResponse,
   type ActionRemovePublicIPResponse,
   type ActionSetPublicIPResponse,
   type ActionSetStandbyResponse,
@@ -21,6 +23,7 @@ export {
   type ActionSetPublicIPParams,
   type ActionBulkDisableVoiceParams,
   type ActionBulkEnableVoiceParams,
+  type ActionEnableVoiceParams,
   type WirelessSimCardActionsDefaultFlatPagination,
 } from './actions';
 export {

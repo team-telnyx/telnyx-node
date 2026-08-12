@@ -12,7 +12,10 @@ import {
   ActionBulkSetPublicIPsParams,
   ActionBulkSetPublicIPsResponse,
   ActionDisableResponse,
+  ActionDisableVoiceResponse,
   ActionEnableResponse,
+  ActionEnableVoiceParams,
+  ActionEnableVoiceResponse,
   ActionListParams,
   ActionRemovePublicIPResponse,
   ActionRetrieveResponse,
@@ -778,7 +781,9 @@ export declare namespace SimCards {
     type ActionBulkEnableVoiceResponse as ActionBulkEnableVoiceResponse,
     type ActionBulkSetPublicIPsResponse as ActionBulkSetPublicIPsResponse,
     type ActionDisableResponse as ActionDisableResponse,
+    type ActionDisableVoiceResponse as ActionDisableVoiceResponse,
     type ActionEnableResponse as ActionEnableResponse,
+    type ActionEnableVoiceResponse as ActionEnableVoiceResponse,
     type ActionRemovePublicIPResponse as ActionRemovePublicIPResponse,
     type ActionSetPublicIPResponse as ActionSetPublicIPResponse,
     type ActionSetStandbyResponse as ActionSetStandbyResponse,
@@ -790,6 +795,7 @@ export declare namespace SimCards {
     type ActionSetPublicIPParams as ActionSetPublicIPParams,
     type ActionBulkDisableVoiceParams as ActionBulkDisableVoiceParams,
     type ActionBulkEnableVoiceParams as ActionBulkEnableVoiceParams,
+    type ActionEnableVoiceParams as ActionEnableVoiceParams,
   };
 }
 
