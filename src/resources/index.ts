@@ -1525,6 +1525,14 @@ export {
   type VoiceSDKCallReportsDefaultFlatPagination,
 } from './voice-sdk-call-reports';
 export {
+  WebSearch,
+  type WebSearchResult,
+  type WebSearchCreateResponse,
+  type WebSearchContentsResponse,
+  type WebSearchCreateParams,
+  type WebSearchContentsParams,
+} from './web-search/web-search';
+export {
   WebhookDeliveries,
   type Attempt,
   type HTTP,

@@ -1747,6 +1747,14 @@ import {
   VerifiedNumbers,
   VerifiedNumbersDefaultFlatPagination,
 } from './resources/verified-numbers/verified-numbers';
+import {
+  WebSearch,
+  WebSearchContentsParams,
+  WebSearchContentsResponse,
+  WebSearchCreateParams,
+  WebSearchCreateResponse,
+  WebSearchResult,
+} from './resources/web-search/web-search';
 import { Whatsapp } from './resources/whatsapp/whatsapp';
 import {
   Wireless,
@@ -3203,6 +3211,7 @@ export class Telnyx {
    */
   emailValidations: API.EmailValidations = new API.EmailValidations(this);
   pricing: API.Pricing = new API.Pricing(this);
+  webSearch: API.WebSearch = new API.WebSearch(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3385,6 +3394,7 @@ Telnyx.EmailThreads = EmailThreads;
 Telnyx.EmailUnsubscribeGroups = EmailUnsubscribeGroups;
 Telnyx.EmailValidations = EmailValidations;
 Telnyx.Pricing = Pricing;
+Telnyx.WebSearch = WebSearch;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5357,6 +5367,15 @@ export declare namespace Telnyx {
   };
 
   export { Pricing as Pricing };
+
+  export {
+    WebSearch as WebSearch,
+    type WebSearchResult as WebSearchResult,
+    type WebSearchCreateResponse as WebSearchCreateResponse,
+    type WebSearchContentsResponse as WebSearchContentsResponse,
+    type WebSearchCreateParams as WebSearchCreateParams,
+    type WebSearchContentsParams as WebSearchContentsParams,
+  };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

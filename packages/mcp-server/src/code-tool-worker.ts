@@ -1336,6 +1336,10 @@ const fuse = new Fuse(
     'client.emailValidations.batch.retrieve',
     'client.pricing.products.list',
     'client.pricing.products.retrieve',
+    'client.webSearch.contents',
+    'client.webSearch.create',
+    'client.webSearch.research.create',
+    'client.webSearch.research.retrieve',
   ],
   { threshold: 1, shouldSort: true },
 );

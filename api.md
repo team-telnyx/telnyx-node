@@ -5699,3 +5699,29 @@ Methods:
 
 - <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPagination</code>
 - <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponse</code>
+
+# WebSearch
+
+Types:
+
+- <code><a href="./src/resources/web-search/web-search.ts">WebSearchResult</a></code>
+- <code><a href="./src/resources/web-search/web-search.ts">WebSearchCreateResponse</a></code>
+- <code><a href="./src/resources/web-search/web-search.ts">WebSearchContentsResponse</a></code>
+
+Methods:
+
+- <code title="post /web_search">client.webSearch.<a href="./src/resources/web-search/web-search.ts">create</a>({ ...params }) -> WebSearchCreateResponse</code>
+- <code title="post /web_search/contents">client.webSearch.<a href="./src/resources/web-search/web-search.ts">contents</a>({ ...params }) -> WebSearchContentsResponse</code>
+
+## Research
+
+Types:
+
+- <code><a href="./src/resources/web-search/research.ts">ResearchCitation</a></code>
+- <code><a href="./src/resources/web-search/research.ts">ResearchCreateResponse</a></code>
+- <code><a href="./src/resources/web-search/research.ts">ResearchRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="post /web_search/research">client.webSearch.research.<a href="./src/resources/web-search/research.ts">create</a>({ ...params }) -> ResearchCreateResponse</code>
+- <code title="get /web_search/research/{task_id}">client.webSearch.research.<a href="./src/resources/web-search/research.ts">retrieve</a>(taskID) -> ResearchRetrieveResponse</code>

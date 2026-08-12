@@ -7361,6 +7361,30 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/pricing/products/{slug}',
   },
+  {
+    clientCallName: 'client.webSearch.create',
+    fullyQualifiedName: 'webSearch.create',
+    httpMethod: 'post',
+    httpPath: '/web_search',
+  },
+  {
+    clientCallName: 'client.webSearch.contents',
+    fullyQualifiedName: 'webSearch.contents',
+    httpMethod: 'post',
+    httpPath: '/web_search/contents',
+  },
+  {
+    clientCallName: 'client.webSearch.research.create',
+    fullyQualifiedName: 'webSearch.research.create',
+    httpMethod: 'post',
+    httpPath: '/web_search/research',
+  },
+  {
+    clientCallName: 'client.webSearch.research.retrieve',
+    fullyQualifiedName: 'webSearch.research.retrieve',
+    httpMethod: 'get',
+    httpPath: '/web_search/research/{task_id}',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
