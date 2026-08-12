@@ -26,7 +26,7 @@ describe('resource import', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.emailBlocks.import.create({
       file: await toFile(Buffer.from('Example data'), 'README.md'),
-      block_ttl_days: 1,
+      block_ttl_days: 30,
     });
   });
 

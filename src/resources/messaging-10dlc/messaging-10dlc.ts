@@ -95,7 +95,8 @@ export class Messaging10dlc extends APIResource {
     new PhoneNumberAssignmentByProfileAPI.PhoneNumberAssignmentByProfile(this._client);
 
   /**
-   * Get Enum
+   * Returns the accepted values for the selected 10DLC enumeration endpoint. Use
+   * these values when constructing brand and campaign requests.
    *
    * @example
    * ```ts

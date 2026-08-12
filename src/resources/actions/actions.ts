@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as PurchaseAPI from './purchase';
-import { Purchase, PurchaseCreateParams, PurchaseCreateResponse } from './purchase';
+import { Purchase, PurchaseCreateParams, PurchaseCreateResponse, WirelessErrorC5290d5308 } from './purchase';
 import * as RegisterAPI from './register';
 import { Register, RegisterCreateParams, RegisterCreateResponse } from './register';
 
@@ -45,6 +45,7 @@ export declare namespace Actions {
 
   export {
     Purchase as Purchase,
+    type WirelessErrorC5290d5308 as WirelessErrorC5290d5308,
     type PurchaseCreateResponse as PurchaseCreateResponse,
     type PurchaseCreateParams as PurchaseCreateParams,
   };

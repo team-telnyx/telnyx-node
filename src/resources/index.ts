@@ -48,6 +48,7 @@ export {
 export {
   AlphanumericSenderIDs,
   type AlphanumericSenderID,
+  type MessagingPaginationMeta0b38e7044b,
   type AlphanumericSenderIDCreateResponse,
   type AlphanumericSenderIDRetrieveResponse,
   type AlphanumericSenderIDDeleteResponse,
@@ -491,7 +492,7 @@ export {
   type FqdnConnectionCreateParams,
   type FqdnConnectionUpdateParams,
   type FqdnConnectionsDefaultFlatPagination,
-} from './fqdn-connections';
+} from './fqdn-connections/fqdn-connections';
 export {
   Fqdns,
   type Fqdn,
@@ -670,6 +671,8 @@ export {
 } from './media';
 export {
   Messages,
+  type MessagingError0b38e7044b,
+  type MessagingOutboundMessagePayload,
   type OutboundMessagePayload,
   type RcsAgentMessage,
   type RcsCardContent,
@@ -692,6 +695,7 @@ export {
   type MessageSendNumberPoolResponse,
   type MessageSendShortCodeResponse,
   type MessageSendWithAlphanumericSenderResponse,
+  type MessageWhatsappResponse,
   type MessageSendParams,
   type MessageSendLongCodeParams,
   type MessageSendNumberPoolParams,
@@ -699,6 +703,7 @@ export {
   type MessageSendGroupMmsParams,
   type MessageScheduleParams,
   type MessageSendWithAlphanumericSenderParams,
+  type MessageWhatsappParams,
 } from './messages/messages';
 export { Messaging } from './messaging/messaging';
 export { Messaging10dlc, type Messaging10dlcGetEnumResponse } from './messaging-10dlc/messaging-10dlc';
@@ -808,6 +813,7 @@ export {
 export {
   NetworkCoverage,
   type AvailableService,
+  type NetappsLocation17904fcfbc,
   type NetworkCoverageListResponse,
   type NetworkCoverageListParams,
   type NetworkCoverageListResponsesDefaultFlatPagination,
@@ -946,6 +952,7 @@ export {
 export {
   OAuthClients,
   type OAuthClient,
+  type OAuthOAuthPaginationMeta,
   type PaginationMetaOAuth,
   type OAuthClientCreateResponse,
   type OAuthClientRetrieveResponse,
@@ -996,6 +1003,7 @@ export {
 export { PhoneNumberBlocks } from './phone-number-blocks/phone-number-blocks';
 export {
   PhoneNumbers,
+  type NumbersPhoneNumberDetailed,
   type PhoneNumberDetailed,
   type PhoneNumberRetrieveResponse,
   type PhoneNumberUpdateResponse,
@@ -1004,7 +1012,7 @@ export {
   type PhoneNumberListParams,
   type PhoneNumberSlimListParams,
   type PhoneNumberUpdateParams,
-  type PhoneNumberDetailedsDefaultFlatPagination,
+  type NumbersPhoneNumberDetailedsDefaultFlatPagination,
   type PhoneNumberSlimListResponsesDefaultFlatPagination,
 } from './phone-numbers/phone-numbers';
 export {
@@ -1117,12 +1125,7 @@ export {
   type QueueUpdateParams,
   type QueuesDefaultFlatPagination,
 } from './queues/queues';
-export {
-  RcsAgents,
-  type RcsAgent,
-  type RcsAgentResponse,
-  type RcsAgentsDefaultFlatPagination,
-} from './rcs-agents';
+export { Rcs } from './rcs/rcs';
 export {
   RecordingTranscriptions,
   type RecordingTranscription,
@@ -1425,11 +1428,12 @@ export {
 export {
   UserAddresses,
   type UserAddress,
+  type UserAddressesUserAddress,
   type UserAddressCreateResponse,
   type UserAddressRetrieveResponse,
   type UserAddressListParams,
   type UserAddressCreateParams,
-  type UserAddressesDefaultFlatPagination,
+  type UserAddressesUserAddressesDefaultFlatPagination,
 } from './user-addresses';
 export { UserTags, type UserTagListResponse, type UserTagListParams } from './user-tags';
 export {
@@ -1649,6 +1653,7 @@ export {
   type DeliveryUpdateWebhookEvent,
   type HostedNumberOrderEventWebhookEvent,
   type InboundMessageWebhookEvent,
+  type NumberOrderStatusUpdateWebhookEvent,
   type ReplacedLinkClickWebhookEvent,
   type TranscriptionWebhookEvent,
   type UnsafeUnwrapWebhookEvent,

@@ -22,10 +22,7 @@ describe('resource jobs', () => {
 
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.ai.fineTuning.jobs.create({
-      model: 'model',
-      training_file: 'training_file',
-    });
+    const responsePromise = client.ai.fineTuning.jobs.create({ model: 'string', training_file: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -38,10 +35,10 @@ describe('resource jobs', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.ai.fineTuning.jobs.create({
-      model: 'model',
-      training_file: 'training_file',
-      hyperparameters: { n_epochs: 1 },
-      suffix: 'suffix',
+      model: 'string',
+      training_file: 'string',
+      hyperparameters: { n_epochs: 3 },
+      suffix: 'string',
     });
   });
 

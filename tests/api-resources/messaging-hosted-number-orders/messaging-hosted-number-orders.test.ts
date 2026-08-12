@@ -103,7 +103,7 @@ describe('resource messagingHostedNumberOrders', () => {
   // Mock server tests are disabled
   test.skip('validateCodes: only required params', async () => {
     const responsePromise = client.messagingHostedNumberOrders.validateCodes('id', {
-      verification_codes: [{ code: 'code', phone_number: 'phone_number' }],
+      verification_codes: [{ code: 'string', phone_number: 'string' }],
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -117,7 +117,7 @@ describe('resource messagingHostedNumberOrders', () => {
   // Mock server tests are disabled
   test.skip('validateCodes: required and optional params', async () => {
     const response = await client.messagingHostedNumberOrders.validateCodes('id', {
-      verification_codes: [{ code: 'code', phone_number: 'phone_number' }],
+      verification_codes: [{ code: 'string', phone_number: 'string' }],
     });
   });
 

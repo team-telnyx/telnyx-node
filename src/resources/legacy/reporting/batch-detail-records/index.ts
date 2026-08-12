@@ -4,6 +4,7 @@ export { BatchDetailRecords, type Filter } from './batch-detail-records';
 export {
   Messaging,
   type BatchCsvPaginationMeta,
+  type BatchCsvPaginationMeta705dfa7312,
   type MdrDetailReportResponse,
   type MessagingCreateResponse,
   type MessagingRetrieveResponse,

@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as Shared from './shared';
+import * as AlphanumericSenderIDsAPI from './alphanumeric-sender-ids';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -26,7 +26,7 @@ export type MessagingMetricsTimeFrame = '1h' | '3h' | '24h' | '3d' | '7d' | '30d
 export interface MessagingProfileMetricListResponse {
   data?: Array<{ [key: string]: unknown }>;
 
-  meta?: Shared.MessagingPaginationMeta;
+  meta?: AlphanumericSenderIDsAPI.MessagingPaginationMeta0b38e7044b;
 }
 
 export interface MessagingProfileMetricListParams {

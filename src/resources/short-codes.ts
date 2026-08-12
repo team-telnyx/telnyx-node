@@ -13,7 +13,8 @@ import { path } from '../internal/utils/path';
  */
 export class ShortCodes extends APIResource {
   /**
-   * List short codes
+   * Returns short codes owned by the authenticated account. Apply the documented
+   * filters and pagination parameters to narrow the result set.
    *
    * @example
    * ```ts
@@ -34,7 +35,8 @@ export class ShortCodes extends APIResource {
   }
 
   /**
-   * Retrieve a short code
+   * Returns the messaging configuration and assignment details for the specified
+   * short code.
    *
    * @example
    * ```ts

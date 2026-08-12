@@ -10,7 +10,7 @@ import { path } from '../internal/utils/path';
 
 export class MessagingHostedNumbers extends APIResource {
   /**
-   * Delete a messaging hosted number
+   * Removes the specified hosted number from Telnyx messaging management.
    *
    * @example
    * ```ts

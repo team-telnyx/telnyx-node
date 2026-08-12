@@ -12,7 +12,15 @@ import { path } from '../internal/utils/path';
  */
 export class AccessIPRanges extends APIResource {
   /**
-   * List all Access IP Ranges
+   * Retrieve a paginated list of access IP ranges configured on your account.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const accessIPRange of client.accessIPRanges.list()) {
+   *   // ...
+   * }
+   * ```
    */
   list(
     query: AccessIPRangeListParams | null | undefined = {},
@@ -25,14 +33,29 @@ export class AccessIPRanges extends APIResource {
   }
 
   /**
-   * Create new Access IP Range
+   * Create a new access IP range on your account.
+   *
+   * @example
+   * ```ts
+   * const accessIPRange = await client.accessIPRanges.create({
+   *   cidr_block: 'Cidr Block',
+   *   description: 'Description',
+   * });
+   * ```
    */
   create(body: AccessIPRangeCreateParams, options?: RequestOptions): APIPromise<AccessIPRange> {
     return this._client.post('/access_ip_ranges', { body, ...options });
   }
 
   /**
-   * Delete access IP ranges
+   * Delete an access IP range from your account.
+   *
+   * @example
+   * ```ts
+   * const accessIPRange = await client.accessIPRanges.delete(
+   *   'access_ip_range_id',
+   * );
+   * ```
    */
   delete(accessIPRangeID: string, options?: RequestOptions): APIPromise<AccessIPRange> {
     return this._client.delete(path`/access_ip_ranges/${accessIPRangeID}`, options);

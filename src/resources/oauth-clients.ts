@@ -180,6 +180,28 @@ export interface OAuthClient {
   tos_uri?: string | null;
 }
 
+export interface OAuthOAuthPaginationMeta {
+  /**
+   * Current page number
+   */
+  page_number?: number;
+
+  /**
+   * Number of items per page
+   */
+  page_size?: number;
+
+  /**
+   * Total number of pages
+   */
+  total_pages?: number;
+
+  /**
+   * Total number of results
+   */
+  total_results?: number;
+}
+
 export interface PaginationMetaOAuth {
   /**
    * Current page number
@@ -338,6 +360,7 @@ export interface OAuthClientUpdateParams {
 export declare namespace OAuthClients {
   export {
     type OAuthClient as OAuthClient,
+    type OAuthOAuthPaginationMeta as OAuthOAuthPaginationMeta,
     type PaginationMetaOAuth as PaginationMetaOAuth,
     type OAuthClientCreateResponse as OAuthClientCreateResponse,
     type OAuthClientRetrieveResponse as OAuthClientRetrieveResponse,

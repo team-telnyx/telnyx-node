@@ -8,7 +8,8 @@ import { path } from '../../internal/utils/path';
 
 export class CsvDownloads extends APIResource {
   /**
-   * List CSV downloads
+   * Returns CSV export jobs created for account phone numbers, including each
+   * export's current status and pagination metadata.
    *
    * @example
    * ```ts
@@ -29,7 +30,9 @@ export class CsvDownloads extends APIResource {
   }
 
   /**
-   * Create a CSV download
+   * Starts generation of a CSV export for phone numbers matching the supplied
+   * filters. The `csv_format` parameter selects the output format, and the response
+   * contains the resulting download record.
    *
    * @example
    * ```ts
@@ -46,7 +49,8 @@ export class CsvDownloads extends APIResource {
   }
 
   /**
-   * Retrieve a CSV download
+   * Returns the current status and download details for the CSV export identified by
+   * `id`.
    *
    * @example
    * ```ts

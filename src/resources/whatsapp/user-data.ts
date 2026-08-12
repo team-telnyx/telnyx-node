@@ -9,7 +9,8 @@ import { RequestOptions } from '../../internal/request-options';
  */
 export class UserData extends APIResource {
   /**
-   * Fetch Whatsapp user data
+   * Returns the WhatsApp user-data settings associated with the authenticated Telnyx
+   * account.
    *
    * @example
    * ```ts
@@ -21,11 +22,15 @@ export class UserData extends APIResource {
   }
 
   /**
-   * Update Whatsapp user data
+   * Updates the supplied WhatsApp user-data settings for the authenticated Telnyx
+   * account.
    *
    * @example
    * ```ts
-   * const userData = await client.whatsapp.userData.update();
+   * const userData = await client.whatsapp.userData.update({
+   *   webhook_failover_url: 'https://example.com',
+   *   webhook_url: 'https://example.com',
+   * });
    * ```
    */
   update(body: UserDataUpdateParams, options?: RequestOptions): APIPromise<UserDataUpdateResponse> {

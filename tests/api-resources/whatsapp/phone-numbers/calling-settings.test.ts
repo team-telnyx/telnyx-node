@@ -23,7 +23,7 @@ describe('resource callingSettings', () => {
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
     const responsePromise = client.whatsapp.phoneNumbers.callingSettings.update('phone_number', {
-      enabled: true,
+      enabled: false,
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -37,7 +37,7 @@ describe('resource callingSettings', () => {
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.whatsapp.phoneNumbers.callingSettings.update('phone_number', {
-      enabled: true,
+      enabled: false,
     });
   });
 });

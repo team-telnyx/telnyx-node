@@ -31,6 +31,8 @@ import {
 } from './business-accounts/business-accounts';
 import * as PhoneNumbersAPI from './phone-numbers/phone-numbers';
 import {
+  PhoneNumberGetParams,
+  PhoneNumberGetResponse,
   PhoneNumberListParams,
   PhoneNumberListResponse,
   PhoneNumberListResponsesDefaultFlatPagination,
@@ -79,12 +81,14 @@ export declare namespace Whatsapp {
   export {
     PhoneNumbers as PhoneNumbers,
     type PhoneNumberListResponse as PhoneNumberListResponse,
+    type PhoneNumberGetResponse as PhoneNumberGetResponse,
     type PhoneNumberRetrieveConversationWindowResponse as PhoneNumberRetrieveConversationWindowResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
     type PhoneNumberRetrieveConversationWindowParams as PhoneNumberRetrieveConversationWindowParams,
+    type PhoneNumberGetParams as PhoneNumberGetParams,
   };
 
   export {

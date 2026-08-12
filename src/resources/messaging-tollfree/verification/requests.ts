@@ -48,7 +48,7 @@ export class Requests extends APIResource {
    *
    * @example
    * ```ts
-   * const verificationRequestEgress =
+   * const messagingTollFreeVerificationVerificationRequestEgress =
    *   await client.messagingTollfree.verification.requests.create({
    *     additionalInformation: 'additionalInformation',
    *     businessAddr1: '600 Congress Avenue',
@@ -76,7 +76,10 @@ export class Requests extends APIResource {
    *   });
    * ```
    */
-  create(body: RequestCreateParams, options?: RequestOptions): APIPromise<VerificationRequestEgress> {
+  create(
+    body: RequestCreateParams,
+    options?: RequestOptions,
+  ): APIPromise<MessagingTollFreeVerificationVerificationRequestEgress> {
     return this._client.post('/messaging_tollfree/verification/requests', { body, ...options });
   }
 
@@ -108,13 +111,13 @@ export class Requests extends APIResource {
    *
    * @example
    * ```ts
-   * const verificationRequestStatus =
+   * const request =
    *   await client.messagingTollfree.verification.requests.retrieve(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   );
    * ```
    */
-  retrieve(id: string, options?: RequestOptions): APIPromise<VerificationRequestStatus> {
+  retrieve(id: string, options?: RequestOptions): APIPromise<RequestRetrieveResponse> {
     return this._client.get(path`/messaging_tollfree/verification/requests/${id}`, options);
   }
 
@@ -124,7 +127,7 @@ export class Requests extends APIResource {
    *
    * @example
    * ```ts
-   * const verificationRequestEgress =
+   * const messagingTollFreeVerificationVerificationRequestEgress =
    *   await client.messagingTollfree.verification.requests.update(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *     {
@@ -159,7 +162,7 @@ export class Requests extends APIResource {
     id: string,
     body: RequestUpdateParams,
     options?: RequestOptions,
-  ): APIPromise<VerificationRequestEgress> {
+  ): APIPromise<MessagingTollFreeVerificationVerificationRequestEgress> {
     return this._client.patch(path`/messaging_tollfree/verification/requests/${id}`, { body, ...options });
   }
 
@@ -192,6 +195,291 @@ export class Requests extends APIResource {
 
 export type VerificationRequestStatusesDefaultPaginationForMessagingTollfree =
   DefaultPaginationForMessagingTollfree<VerificationRequestStatus>;
+
+/**
+ * Business entity classification
+ */
+export type MessagingTollFreeVerificationEntityType =
+  | 'SOLE_PROPRIETOR'
+  | 'PRIVATE_PROFIT'
+  | 'PUBLIC_PROFIT'
+  | 'NON_PROFIT'
+  | 'GOVERNMENT';
+
+/**
+ * The body of a tollfree verification request
+ */
+export interface MessagingTollFreeVerificationTfVerificationRequest {
+  /**
+   * Any additional information
+   */
+  additionalInformation: string;
+
+  /**
+   * Line 1 of the business address
+   */
+  businessAddr1: string;
+
+  /**
+   * The city of the business address; the first letter should be capitalized
+   */
+  businessCity: string;
+
+  /**
+   * The email address of the business contact
+   */
+  businessContactEmail: string;
+
+  /**
+   * First name of the business contact; there are no specific requirements on
+   * formatting
+   */
+  businessContactFirstName: string;
+
+  /**
+   * Last name of the business contact; there are no specific requirements on
+   * formatting
+   */
+  businessContactLastName: string;
+
+  /**
+   * The phone number of the business contact in E.164 format
+   */
+  businessContactPhone: string;
+
+  /**
+   * Name of the business; there are no specific formatting requirements
+   */
+  businessName: string;
+
+  /**
+   * The full name of the state (not the 2 letter code) of the business address; the
+   * first letter should be capitalized
+   */
+  businessState: string;
+
+  /**
+   * The ZIP code of the business address
+   */
+  businessZip: string;
+
+  /**
+   * A URL, including the scheme, pointing to the corporate website
+   */
+  corporateWebsite: string;
+
+  /**
+   * Message Volume Enums
+   */
+  messageVolume: Volume;
+
+  /**
+   * Human-readable description of how end users will opt into receiving messages
+   * from the given phone numbers
+   */
+  optInWorkflow: string;
+
+  /**
+   * Images showing the opt-in workflow
+   */
+  optInWorkflowImageURLs: Array<URL>;
+
+  /**
+   * The phone numbers to request the verification of
+   */
+  phoneNumbers: Array<TfPhoneNumber>;
+
+  /**
+   * An example of a message that will be sent from the given phone numbers
+   */
+  productionMessageContent: string;
+
+  /**
+   * Tollfree usecase categories
+   */
+  useCase: UseCaseCategories;
+
+  /**
+   * Human-readable summary of the desired use-case
+   */
+  useCaseSummary: string;
+
+  /**
+   * Indicates if messaging content requires age gating (e.g., 18+). Defaults to
+   * false if not provided.
+   */
+  ageGatedContent?: boolean;
+
+  /**
+   * Line 2 of the business address
+   */
+  businessAddr2?: string;
+
+  /**
+   * ISO 3166-1 alpha-2 country code of the issuing business authority. Must be
+   * exactly 2 letters. Automatically converted to uppercase. Required from
+   * January 2026.
+   */
+  businessRegistrationCountry?: string | null;
+
+  /**
+   * Official business registration number (e.g., Employer Identification Number
+   * (EIN) in the U.S.). Required from January 2026.
+   */
+  businessRegistrationNumber?: string | null;
+
+  /**
+   * Type of business registration being provided. Required from January 2026.
+   */
+  businessRegistrationType?: string | null;
+
+  /**
+   * Campaign Verify Authorization Token required for Political use case submissions
+   * starting February 17, 2026. This token is validated by Zipwhip and must be
+   * provided for all Political use case verifications after the deadline.
+   */
+  campaignVerifyAuthorizationToken?: string | null;
+
+  /**
+   * Doing Business As (DBA) name if different from legal name
+   */
+  doingBusinessAs?: string | null;
+
+  /**
+   * Business entity classification
+   */
+  entityType?: MessagingTollFreeVerificationEntityType | null;
+
+  /**
+   * The message returned when users text 'HELP'
+   */
+  helpMessageResponse?: string | null;
+
+  /**
+   * ISV name
+   */
+  isvReseller?: string | null;
+
+  /**
+   * Message sent to users confirming their opt-in to receive messages
+   */
+  optInConfirmationResponse?: string | null;
+
+  /**
+   * Keywords used to collect and process consumer opt-ins
+   */
+  optInKeywords?: string | null;
+
+  /**
+   * URL pointing to the business's privacy policy. Plain string, no URL format
+   * validation.
+   */
+  privacyPolicyURL?: string | null;
+
+  /**
+   * URL pointing to the business's terms and conditions. Plain string, no URL format
+   * validation.
+   */
+  termsAndConditionURL?: string | null;
+
+  /**
+   * URL that should receive webhooks relating to this verification request
+   */
+  webhookUrl?: string;
+}
+
+/**
+ * A verification request as it comes out of the database
+ */
+export interface MessagingTollFreeVerificationVerificationRequestEgress {
+  id: string;
+
+  additionalInformation: string;
+
+  businessAddr1: string;
+
+  businessCity: string;
+
+  businessContactEmail: string;
+
+  businessContactFirstName: string;
+
+  businessContactLastName: string;
+
+  businessContactPhone: string;
+
+  businessName: string;
+
+  businessState: string;
+
+  businessZip: string;
+
+  corporateWebsite: string;
+
+  /**
+   * Message Volume Enums
+   */
+  messageVolume: Volume;
+
+  optInWorkflow: string;
+
+  optInWorkflowImageURLs: Array<URL>;
+
+  phoneNumbers: Array<TfPhoneNumber>;
+
+  productionMessageContent: string;
+
+  /**
+   * Tollfree usecase categories
+   */
+  useCase: UseCaseCategories;
+
+  useCaseSummary: string;
+
+  verificationRequestId: string;
+
+  ageGatedContent?: boolean;
+
+  businessAddr2?: string;
+
+  businessRegistrationCountry?: string;
+
+  businessRegistrationNumber?: string;
+
+  businessRegistrationType?: string;
+
+  /**
+   * Campaign Verify Authorization Token required for Political use case submissions
+   * starting February 17, 2026
+   */
+  campaignVerifyAuthorizationToken?: string | null;
+
+  doingBusinessAs?: string;
+
+  /**
+   * Business entity classification
+   */
+  entityType?: MessagingTollFreeVerificationEntityType;
+
+  helpMessageResponse?: string;
+
+  isvReseller?: string;
+
+  optInConfirmationResponse?: string;
+
+  optInKeywords?: string;
+
+  privacyPolicyURL?: string;
+
+  termsAndConditionURL?: string;
+
+  /**
+   * Tollfree verification status
+   */
+  verificationStatus?: TfVerificationStatus;
+
+  webhookUrl?: string;
+}
 
 /**
  * A phone number
@@ -662,6 +950,103 @@ export type Volume =
   | '10,000,000+';
 
 /**
+ * A verification request and its status, suitable for returning to users
+ */
+export interface RequestRetrieveResponse {
+  id: string;
+
+  additionalInformation: string;
+
+  businessAddr1: string;
+
+  businessCity: string;
+
+  businessContactEmail: string;
+
+  businessContactFirstName: string;
+
+  businessContactLastName: string;
+
+  businessContactPhone: string;
+
+  businessName: string;
+
+  businessState: string;
+
+  businessZip: string;
+
+  corporateWebsite: string;
+
+  /**
+   * Message Volume Enums
+   */
+  messageVolume: Volume;
+
+  optInWorkflow: string;
+
+  optInWorkflowImageURLs: Array<URL>;
+
+  phoneNumbers: Array<TfPhoneNumber>;
+
+  productionMessageContent: string;
+
+  /**
+   * Tollfree usecase categories
+   */
+  useCase: UseCaseCategories;
+
+  useCaseSummary: string;
+
+  /**
+   * Tollfree verification status
+   */
+  verificationStatus: TfVerificationStatus;
+
+  ageGatedContent?: boolean;
+
+  businessAddr2?: string;
+
+  businessRegistrationCountry?: string;
+
+  businessRegistrationNumber?: string;
+
+  businessRegistrationType?: string;
+
+  /**
+   * Campaign Verify Authorization Token required for Political use case submissions
+   * starting February 17, 2026
+   */
+  campaignVerifyAuthorizationToken?: string | null;
+
+  createdAt?: string;
+
+  doingBusinessAs?: string;
+
+  /**
+   * Business entity classification
+   */
+  entityType?: MessagingTollFreeVerificationEntityType;
+
+  helpMessageResponse?: string;
+
+  isvReseller?: string;
+
+  optInConfirmationResponse?: string;
+
+  optInKeywords?: string;
+
+  privacyPolicyURL?: string;
+
+  reason?: string;
+
+  termsAndConditionURL?: string;
+
+  updatedAt?: string;
+
+  webhookUrl?: string;
+}
+
+/**
  * A paginated response
  */
 export interface RequestRetrieveStatusHistoryResponse {
@@ -864,7 +1249,7 @@ export interface RequestCreateParams {
   /**
    * Business entity classification
    */
-  entityType?: TollFreeVerificationEntityType | null;
+  entityType?: MessagingTollFreeVerificationEntityType | null;
 
   /**
    * The message returned when users text 'HELP'
@@ -1043,7 +1428,7 @@ export interface RequestUpdateParams {
   /**
    * Business entity classification
    */
-  entityType?: TollFreeVerificationEntityType | null;
+  entityType?: MessagingTollFreeVerificationEntityType | null;
 
   /**
    * The message returned when users text 'HELP'
@@ -1097,6 +1482,9 @@ export interface RequestRetrieveStatusHistoryParams {
 
 export declare namespace Requests {
   export {
+    type MessagingTollFreeVerificationEntityType as MessagingTollFreeVerificationEntityType,
+    type MessagingTollFreeVerificationTfVerificationRequest as MessagingTollFreeVerificationTfVerificationRequest,
+    type MessagingTollFreeVerificationVerificationRequestEgress as MessagingTollFreeVerificationVerificationRequestEgress,
     type TfPhoneNumber as TfPhoneNumber,
     type TfVerificationRequest as TfVerificationRequest,
     type TfVerificationStatus as TfVerificationStatus,
@@ -1106,6 +1494,7 @@ export declare namespace Requests {
     type VerificationRequestEgress as VerificationRequestEgress,
     type VerificationRequestStatus as VerificationRequestStatus,
     type Volume as Volume,
+    type RequestRetrieveResponse as RequestRetrieveResponse,
     type RequestRetrieveStatusHistoryResponse as RequestRetrieveStatusHistoryResponse,
     type VerificationRequestStatusesDefaultPaginationForMessagingTollfree as VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
     type RequestListParams as RequestListParams,

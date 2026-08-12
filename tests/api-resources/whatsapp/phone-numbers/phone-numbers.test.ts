@@ -57,7 +57,7 @@ describe('resource phoneNumbers', () => {
 
   // Mock server tests are disabled
   test.skip('verify: only required params', async () => {
-    const responsePromise = client.whatsapp.phoneNumbers.verify('phone_number', { code: 'code' });
+    const responsePromise = client.whatsapp.phoneNumbers.verify('phone_number', { code: 'string' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -69,7 +69,7 @@ describe('resource phoneNumbers', () => {
 
   // Mock server tests are disabled
   test.skip('verify: required and optional params', async () => {
-    const response = await client.whatsapp.phoneNumbers.verify('phone_number', { code: 'code' });
+    const response = await client.whatsapp.phoneNumbers.verify('phone_number', { code: 'string' });
   });
 
   // Mock server tests are disabled
@@ -91,5 +91,28 @@ describe('resource phoneNumbers', () => {
     const response = await client.whatsapp.phoneNumbers.retrieveConversationWindow('phone_number', {
       destination_number: '+353894650851',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('get', async () => {
+    const responsePromise = client.whatsapp.phoneNumbers.get();
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('get: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.whatsapp.phoneNumbers.get(
+        { 'page[number]': 0, 'page[size]': 0 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

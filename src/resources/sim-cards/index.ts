@@ -4,6 +4,7 @@ export {
   Actions,
   type BulkSimCardAction,
   type SimCardAction,
+  type WirelessSimCardAction,
   type ActionRetrieveResponse,
   type ActionBulkDisableVoiceResponse,
   type ActionBulkEnableVoiceResponse,
@@ -20,7 +21,7 @@ export {
   type ActionSetPublicIPParams,
   type ActionBulkDisableVoiceParams,
   type ActionBulkEnableVoiceParams,
-  type SimCardActionsDefaultFlatPagination,
+  type WirelessSimCardActionsDefaultFlatPagination,
 } from './actions';
 export {
   SimCards,

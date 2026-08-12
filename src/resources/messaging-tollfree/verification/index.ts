@@ -2,6 +2,9 @@
 
 export {
   Requests,
+  type MessagingTollFreeVerificationEntityType,
+  type MessagingTollFreeVerificationTfVerificationRequest,
+  type MessagingTollFreeVerificationVerificationRequestEgress,
   type TfPhoneNumber,
   type TfVerificationRequest,
   type TfVerificationStatus,
@@ -11,6 +14,7 @@ export {
   type VerificationRequestEgress,
   type VerificationRequestStatus,
   type Volume,
+  type RequestRetrieveResponse,
   type RequestRetrieveStatusHistoryResponse,
   type RequestListParams,
   type RequestCreateParams,

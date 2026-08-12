@@ -9,7 +9,8 @@ import { RequestOptions } from '../../../internal/request-options';
  */
 export class Usecase extends APIResource {
   /**
-   * Get Campaign Cost
+   * Returns the upfront and monthly cost associated with the selected 10DLC campaign
+   * use case.
    *
    * @example
    * ```ts

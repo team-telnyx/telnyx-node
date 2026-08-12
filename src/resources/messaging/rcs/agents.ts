@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as RcsAgentsAPI from '../../rcs-agents';
-import { RcsAgentsDefaultFlatPagination } from '../../rcs-agents';
+import * as RcsAgentsAPI from '../../rcs/agents/agents';
+import { RcsAgentsDefaultFlatPagination } from '../../rcs/agents/agents';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -17,7 +17,7 @@ import { path } from '../../../internal/utils/path';
  */
 export class Agents extends APIResource {
   /**
-   * List all RCS agents
+   * Returns RCS agents available to the authenticated account.
    *
    * @example
    * ```ts
@@ -38,7 +38,7 @@ export class Agents extends APIResource {
   }
 
   /**
-   * Retrieve an RCS agent
+   * Returns the configuration and current state of the specified RCS agent.
    *
    * @example
    * ```ts
@@ -51,7 +51,7 @@ export class Agents extends APIResource {
   }
 
   /**
-   * Modify an RCS agent
+   * Updates the supplied configuration fields on the specified RCS agent.
    *
    * @example
    * ```ts

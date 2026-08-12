@@ -15,7 +15,8 @@ export class ByPhoneNumber extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * List verifications by phone number
+   * Returns a paginated list of verifications associated with the specified phone
+   * number.
    *
    * @example
    * ```ts

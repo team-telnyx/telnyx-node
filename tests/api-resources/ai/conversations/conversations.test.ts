@@ -107,7 +107,7 @@ describe('resource conversations', () => {
   // Mock server tests are disabled
   test.skip('addMessage: only required params', async () => {
     const responsePromise = client.ai.conversations.addMessage('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      role: 'role',
+      role: 'Role',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -121,12 +121,12 @@ describe('resource conversations', () => {
   // Mock server tests are disabled
   test.skip('addMessage: required and optional params', async () => {
     const response = await client.ai.conversations.addMessage('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
-      role: 'role',
-      content: 'content',
+      role: 'Role',
+      content: '',
       metadata: { foo: 'string' },
-      name: 'name',
-      sent_at: '2019-12-27T18:11:19.117Z',
-      tool_call_id: 'tool_call_id',
+      name: 'Name',
+      sent_at: '2024-01-23T18:10:02.574Z',
+      tool_call_id: 'Tool Call Id',
       tool_calls: [{ foo: 'bar' }],
       tool_choice: 'string',
     });

@@ -7,7 +7,7 @@ import {
   PricingTier,
   ProductListParams,
   ProductListResponse,
-  ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders,
+  ProductListResponsesDefaultFlatPagination,
   ProductRetrieveParams,
   ProductRetrieveResponse,
   Products,
@@ -26,7 +26,7 @@ export declare namespace Pricing {
     type PricingTier as PricingTier,
     type ProductRetrieveResponse as ProductRetrieveResponse,
     type ProductListResponse as ProductListResponse,
-    type ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders as ProductListResponsesDefaultFlatPaginationForInexplicitNumberOrders,
+    type ProductListResponsesDefaultFlatPagination as ProductListResponsesDefaultFlatPagination,
     type ProductListParams as ProductListParams,
     type ProductRetrieveParams as ProductRetrieveParams,
   };

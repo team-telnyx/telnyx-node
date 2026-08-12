@@ -41,7 +41,7 @@ describe('resource accessIPAddress', () => {
 
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.accessIPAddress.create({ ip_address: 'ip_address' });
+    const responsePromise = client.accessIPAddress.create({ ip_address: 'Ip Address' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -54,8 +54,8 @@ describe('resource accessIPAddress', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.accessIPAddress.create({
-      ip_address: 'ip_address',
-      description: 'description',
+      ip_address: 'Ip Address',
+      description: 'Description',
     });
   });
 

@@ -13,7 +13,7 @@ import { path } from '../internal/utils/path';
  */
 export class WhatsappMessageTemplates extends APIResource {
   /**
-   * Delete a Whatsapp message template
+   * Deletes the specified WhatsApp message template.
    */
   delete(id: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/v2/whatsapp_message_templates/${id}`, {
@@ -23,14 +23,15 @@ export class WhatsappMessageTemplates extends APIResource {
   }
 
   /**
-   * Get a Whatsapp message template by ID
+   * Returns the content, components, language, and current review state of the
+   * specified WhatsApp message template.
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<WhatsappMessageTemplateRetrieveResponse> {
     return this._client.get(path`/v2/whatsapp_message_templates/${id}`, options);
   }
 
   /**
-   * Update a Whatsapp message template
+   * Updates the editable fields of the specified WhatsApp message template.
    */
   update(
     id: string,

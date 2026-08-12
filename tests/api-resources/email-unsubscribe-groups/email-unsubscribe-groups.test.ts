@@ -33,7 +33,7 @@ describe('resource emailUnsubscribeGroups', () => {
 
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.emailUnsubscribeGroups.create({ name: 'x' });
+    const responsePromise = client.emailUnsubscribeGroups.create({ name: 'Marketing Newsletter' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -45,7 +45,10 @@ describe('resource emailUnsubscribeGroups', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.emailUnsubscribeGroups.create({ name: 'x', description: 'description' });
+    const response = await client.emailUnsubscribeGroups.create({
+      name: 'Marketing Newsletter',
+      description: 'Weekly product updates and promotions',
+    });
   });
 
   // Mock server tests are disabled

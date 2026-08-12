@@ -26,7 +26,7 @@ describe('resource instructions', () => {
     await expect(
       client.ai.assistants.instructions.enhance(
         'assistant_id',
-        { enhancement_prompt: 'enhancement_prompt', instructions: 'instructions' },
+        { enhancement_prompt: 'string', instructions: 'string' },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

@@ -3,8 +3,12 @@
 import { APIResource } from '../../../core/resource';
 import * as RequestsAPI from './requests';
 import {
+  MessagingTollFreeVerificationEntityType,
+  MessagingTollFreeVerificationTfVerificationRequest,
+  MessagingTollFreeVerificationVerificationRequestEgress,
   RequestCreateParams,
   RequestListParams,
+  RequestRetrieveResponse,
   RequestRetrieveStatusHistoryParams,
   RequestRetrieveStatusHistoryResponse,
   RequestUpdateParams,
@@ -30,6 +34,9 @@ Verification.Requests = Requests;
 export declare namespace Verification {
   export {
     Requests as Requests,
+    type MessagingTollFreeVerificationEntityType as MessagingTollFreeVerificationEntityType,
+    type MessagingTollFreeVerificationTfVerificationRequest as MessagingTollFreeVerificationTfVerificationRequest,
+    type MessagingTollFreeVerificationVerificationRequestEgress as MessagingTollFreeVerificationVerificationRequestEgress,
     type TfPhoneNumber as TfPhoneNumber,
     type TfVerificationRequest as TfVerificationRequest,
     type TfVerificationStatus as TfVerificationStatus,
@@ -39,6 +46,7 @@ export declare namespace Verification {
     type VerificationRequestEgress as VerificationRequestEgress,
     type VerificationRequestStatus as VerificationRequestStatus,
     type Volume as Volume,
+    type RequestRetrieveResponse as RequestRetrieveResponse,
     type RequestRetrieveStatusHistoryResponse as RequestRetrieveStatusHistoryResponse,
     type VerificationRequestStatusesDefaultPaginationForMessagingTollfree as VerificationRequestStatusesDefaultPaginationForMessagingTollfree,
     type RequestListParams as RequestListParams,

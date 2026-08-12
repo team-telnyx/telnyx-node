@@ -2,7 +2,6 @@
 
 import { APIResource } from '../core/resource';
 import * as NumberOrdersAPI from './number-orders';
-import * as Shared from './shared';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 import * as ThreadsAPI from './email-inboxes/threads/threads';
@@ -5616,12 +5615,475 @@ export namespace InboundMessageWebhookEvent {
      */
     occurred_at?: string;
 
-    payload?: Shared.InboundMessagePayload;
+    payload?: Data.Payload;
 
     /**
      * Identifies the type of the resource.
      */
     record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Identifies the type of resource.
+       */
+      id?: string;
+
+      cc?: Array<Payload.Cc>;
+
+      /**
+       * Not used for inbound messages.
+       */
+      completed_at?: string | null;
+
+      cost?: Payload.Cost | null;
+
+      /**
+       * Detailed breakdown of the message cost components.
+       */
+      cost_breakdown?: Payload.CostBreakdown | null;
+
+      /**
+       * The direction of the message. Inbound messages are sent to you whereas outbound
+       * messages are sent from you.
+       */
+      direction?: 'inbound';
+
+      /**
+       * Encoding scheme used for the message body.
+       */
+      encoding?: string;
+
+      /**
+       * These errors may point at addressees when referring to unsuccessful/unconfirmed
+       * delivery statuses.
+       */
+      errors?: Array<MessagesAPI.MessagingError0b38e7044b>;
+
+      from?: Payload.From;
+
+      media?: Array<Payload.Media>;
+
+      /**
+       * Unique identifier for a messaging profile.
+       */
+      messaging_profile_id?: string;
+
+      /**
+       * The number of characters in the message text
+       */
+      num_chars?: number;
+
+      /**
+       * Unique identifier for a messaging profile.
+       */
+      organization_id?: string;
+
+      /**
+       * Number of parts into which the message's body must be split.
+       */
+      parts?: number;
+
+      /**
+       * ISO 8601 formatted date indicating when the message request was received.
+       */
+      received_at?: string;
+
+      /**
+       * Identifies the type of the resource.
+       */
+      record_type?: 'message';
+
+      /**
+       * Not used for inbound messages.
+       */
+      sent_at?: string | null;
+
+      /**
+       * Message subject.
+       */
+      subject?: string | null;
+
+      /**
+       * Tags associated with the resource.
+       */
+      tags?: Array<string>;
+
+      /**
+       * Indicates whether the TCR campaign is billable.
+       */
+      tcr_campaign_billable?: boolean;
+
+      /**
+       * The Campaign Registry (TCR) campaign ID associated with the message.
+       */
+      tcr_campaign_id?: string | null;
+
+      /**
+       * The registration status of the TCR campaign.
+       */
+      tcr_campaign_registered?: string | null;
+
+      /**
+       * Message body (i.e., content) as a non-empty string.
+       *
+       * **Required for SMS**
+       */
+      text?: string;
+
+      to?: Array<Payload.To>;
+
+      /**
+       * The type of message. This value can be either 'sms' or 'mms'.
+       */
+      type?: 'SMS' | 'MMS';
+
+      /**
+       * Not used for inbound messages.
+       */
+      valid_until?: string | null;
+
+      /**
+       * The failover URL where webhooks related to this message will be sent if sending
+       * to the primary URL fails.
+       */
+      webhook_failover_url?: string | null;
+
+      /**
+       * The URL where webhooks related to this message will be sent.
+       */
+      webhook_url?: string | null;
+    }
+
+    export namespace Payload {
+      export interface Cc {
+        /**
+         * The carrier of the receiver.
+         */
+        carrier?: string;
+
+        /**
+         * The line-type of the receiver.
+         */
+        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+        /**
+         * Receiving address (+E.164 formatted phone number or short code).
+         */
+        phone_number?: string;
+
+        status?:
+          | 'queued'
+          | 'sending'
+          | 'sent'
+          | 'delivered'
+          | 'sending_failed'
+          | 'delivery_failed'
+          | 'delivery_unconfirmed';
+      }
+
+      export interface Cost {
+        /**
+         * The amount deducted from your account.
+         */
+        amount?: string;
+
+        /**
+         * The ISO 4217 currency identifier.
+         */
+        currency?: string;
+      }
+
+      /**
+       * Detailed breakdown of the message cost components.
+       */
+      export interface CostBreakdown {
+        carrier_fee?: CostBreakdown.CarrierFee;
+
+        rate?: CostBreakdown.Rate;
+      }
+
+      export namespace CostBreakdown {
+        export interface CarrierFee {
+          /**
+           * The carrier fee amount.
+           */
+          amount?: string;
+
+          /**
+           * The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        }
+
+        export interface Rate {
+          /**
+           * The rate amount applied.
+           */
+          amount?: string;
+
+          /**
+           * The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        }
+      }
+
+      export interface From {
+        /**
+         * The carrier of the sender.
+         */
+        carrier?: string;
+
+        /**
+         * The line-type of the sender.
+         */
+        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+        /**
+         * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
+         * code).
+         */
+        phone_number?: string;
+
+        status?: 'received' | 'delivered';
+      }
+
+      export interface Media {
+        /**
+         * The MIME type of the requested media.
+         */
+        content_type?: string;
+
+        /**
+         * The SHA256 hash of the requested media.
+         */
+        hash_sha256?: string;
+
+        /**
+         * The size of the requested media.
+         */
+        size?: number;
+
+        /**
+         * The url of the media requested to be sent.
+         */
+        url?: string;
+      }
+
+      export interface To {
+        /**
+         * The carrier of the receiver.
+         */
+        carrier?: string;
+
+        /**
+         * The line-type of the receiver.
+         */
+        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+        /**
+         * Receiving address (+E.164 formatted phone number or short code).
+         */
+        phone_number?: string;
+
+        status?:
+          | 'queued'
+          | 'sending'
+          | 'sent'
+          | 'delivered'
+          | 'sending_failed'
+          | 'delivery_failed'
+          | 'delivery_unconfirmed'
+          | 'webhook_delivered';
+      }
+    }
+  }
+}
+
+export interface NumberOrderStatusUpdateWebhookEvent {
+  data: NumberOrderStatusUpdateWebhookEvent.Data;
+
+  meta: NumberOrderStatusUpdateWebhookEvent.Meta;
+}
+
+export namespace NumberOrderStatusUpdateWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event
+     */
+    id: string;
+
+    /**
+     * The type of event being sent
+     */
+    event_type: string;
+
+    /**
+     * ISO 8601 timestamp of when the event occurred
+     */
+    occurred_at: string;
+
+    /**
+     * Number order data delivered in a webhook. Server-generated fields are valid in
+     * this outbound webhook request.
+     */
+    payload: Data.Payload;
+
+    /**
+     * Type of record
+     */
+    record_type: string;
+  }
+
+  export namespace Data {
+    /**
+     * Number order data delivered in a webhook. Server-generated fields are valid in
+     * this outbound webhook request.
+     */
+    export interface Payload {
+      id?: string;
+
+      /**
+       * Identifies the messaging profile associated with the phone number.
+       */
+      billing_group_id?: string;
+
+      /**
+       * Identifies the connection associated with this phone number.
+       */
+      connection_id?: string;
+
+      /**
+       * An ISO 8901 datetime string denoting when the number order was created.
+       */
+      created_at?: string;
+
+      /**
+       * A customer reference string for customer look ups.
+       */
+      customer_reference?: string;
+
+      /**
+       * Identifies the messaging profile associated with the phone number.
+       */
+      messaging_profile_id?: string;
+
+      phone_numbers?: Array<Payload.PhoneNumber>;
+
+      /**
+       * The count of phone numbers in the number order.
+       */
+      phone_numbers_count?: number;
+
+      record_type?: string;
+
+      /**
+       * True if all requirements are met for every phone number, false otherwise.
+       */
+      requirements_met?: boolean;
+
+      /**
+       * The status of the order.
+       */
+      status?: 'pending' | 'success' | 'failure';
+
+      sub_number_orders_ids?: Array<string>;
+
+      /**
+       * An ISO 8901 datetime string for when the number order was updated.
+       */
+      updated_at?: string;
+    }
+
+    export namespace Payload {
+      /**
+       * The unique phone numbers given as arguments in the job creation.
+       */
+      export interface PhoneNumber {
+        id?: string;
+
+        bundle_id?: string;
+
+        /**
+         * Country code of the phone number
+         */
+        country_code?: string;
+
+        /**
+         * The ISO 3166-1 alpha-2 country code of the phone number.
+         */
+        country_iso_alpha2?: string;
+
+        phone_number?: string;
+
+        /**
+         * Phone number type
+         */
+        phone_number_type?: 'local' | 'mobile' | 'national' | 'shared_cost' | 'toll_free';
+
+        record_type?: string;
+
+        regulatory_requirements?: Array<PhoneNumber.RegulatoryRequirement>;
+
+        /**
+         * True if all requirements are met for a phone number, false otherwise.
+         */
+        requirements_met?: boolean;
+
+        /**
+         * Status of document requirements (if applicable)
+         */
+        requirements_status?:
+          | 'pending'
+          | 'approved'
+          | 'cancelled'
+          | 'deleted'
+          | 'requirement-info-exception'
+          | 'requirement-info-pending'
+          | 'requirement-info-under-review';
+
+        /**
+         * The status of the phone number in the order.
+         */
+        status?: 'pending' | 'success' | 'failure';
+      }
+
+      export namespace PhoneNumber {
+        /**
+         * Regulatory requirement data delivered in a number order webhook.
+         */
+        export interface RegulatoryRequirement {
+          field_type?: 'textual' | 'datetime' | 'address' | 'document';
+
+          /**
+           * The value of the requirement, this could be an id to a resource or a string
+           * value.
+           */
+          field_value?: string;
+
+          record_type?: string;
+
+          /**
+           * Unique id for a requirement.
+           */
+          requirement_id?: string;
+        }
+      }
+    }
+  }
+
+  export interface Meta {
+    /**
+     * Webhook delivery attempt number
+     */
+    attempt: number;
+
+    /**
+     * URL where the webhook was delivered
+     */
+    delivered_to: string;
   }
 }
 
@@ -6719,12 +7181,475 @@ export namespace InboundMessageWebhookEvent {
      */
     occurred_at?: string;
 
-    payload?: Shared.InboundMessagePayload;
+    payload?: Data.Payload;
 
     /**
      * Identifies the type of the resource.
      */
     record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Identifies the type of resource.
+       */
+      id?: string;
+
+      cc?: Array<Payload.Cc>;
+
+      /**
+       * Not used for inbound messages.
+       */
+      completed_at?: string | null;
+
+      cost?: Payload.Cost | null;
+
+      /**
+       * Detailed breakdown of the message cost components.
+       */
+      cost_breakdown?: Payload.CostBreakdown | null;
+
+      /**
+       * The direction of the message. Inbound messages are sent to you whereas outbound
+       * messages are sent from you.
+       */
+      direction?: 'inbound';
+
+      /**
+       * Encoding scheme used for the message body.
+       */
+      encoding?: string;
+
+      /**
+       * These errors may point at addressees when referring to unsuccessful/unconfirmed
+       * delivery statuses.
+       */
+      errors?: Array<MessagesAPI.MessagingError0b38e7044b>;
+
+      from?: Payload.From;
+
+      media?: Array<Payload.Media>;
+
+      /**
+       * Unique identifier for a messaging profile.
+       */
+      messaging_profile_id?: string;
+
+      /**
+       * The number of characters in the message text
+       */
+      num_chars?: number;
+
+      /**
+       * Unique identifier for a messaging profile.
+       */
+      organization_id?: string;
+
+      /**
+       * Number of parts into which the message's body must be split.
+       */
+      parts?: number;
+
+      /**
+       * ISO 8601 formatted date indicating when the message request was received.
+       */
+      received_at?: string;
+
+      /**
+       * Identifies the type of the resource.
+       */
+      record_type?: 'message';
+
+      /**
+       * Not used for inbound messages.
+       */
+      sent_at?: string | null;
+
+      /**
+       * Message subject.
+       */
+      subject?: string | null;
+
+      /**
+       * Tags associated with the resource.
+       */
+      tags?: Array<string>;
+
+      /**
+       * Indicates whether the TCR campaign is billable.
+       */
+      tcr_campaign_billable?: boolean;
+
+      /**
+       * The Campaign Registry (TCR) campaign ID associated with the message.
+       */
+      tcr_campaign_id?: string | null;
+
+      /**
+       * The registration status of the TCR campaign.
+       */
+      tcr_campaign_registered?: string | null;
+
+      /**
+       * Message body (i.e., content) as a non-empty string.
+       *
+       * **Required for SMS**
+       */
+      text?: string;
+
+      to?: Array<Payload.To>;
+
+      /**
+       * The type of message. This value can be either 'sms' or 'mms'.
+       */
+      type?: 'SMS' | 'MMS';
+
+      /**
+       * Not used for inbound messages.
+       */
+      valid_until?: string | null;
+
+      /**
+       * The failover URL where webhooks related to this message will be sent if sending
+       * to the primary URL fails.
+       */
+      webhook_failover_url?: string | null;
+
+      /**
+       * The URL where webhooks related to this message will be sent.
+       */
+      webhook_url?: string | null;
+    }
+
+    export namespace Payload {
+      export interface Cc {
+        /**
+         * The carrier of the receiver.
+         */
+        carrier?: string;
+
+        /**
+         * The line-type of the receiver.
+         */
+        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+        /**
+         * Receiving address (+E.164 formatted phone number or short code).
+         */
+        phone_number?: string;
+
+        status?:
+          | 'queued'
+          | 'sending'
+          | 'sent'
+          | 'delivered'
+          | 'sending_failed'
+          | 'delivery_failed'
+          | 'delivery_unconfirmed';
+      }
+
+      export interface Cost {
+        /**
+         * The amount deducted from your account.
+         */
+        amount?: string;
+
+        /**
+         * The ISO 4217 currency identifier.
+         */
+        currency?: string;
+      }
+
+      /**
+       * Detailed breakdown of the message cost components.
+       */
+      export interface CostBreakdown {
+        carrier_fee?: CostBreakdown.CarrierFee;
+
+        rate?: CostBreakdown.Rate;
+      }
+
+      export namespace CostBreakdown {
+        export interface CarrierFee {
+          /**
+           * The carrier fee amount.
+           */
+          amount?: string;
+
+          /**
+           * The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        }
+
+        export interface Rate {
+          /**
+           * The rate amount applied.
+           */
+          amount?: string;
+
+          /**
+           * The ISO 4217 currency identifier.
+           */
+          currency?: string;
+        }
+      }
+
+      export interface From {
+        /**
+         * The carrier of the sender.
+         */
+        carrier?: string;
+
+        /**
+         * The line-type of the sender.
+         */
+        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+        /**
+         * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
+         * code).
+         */
+        phone_number?: string;
+
+        status?: 'received' | 'delivered';
+      }
+
+      export interface Media {
+        /**
+         * The MIME type of the requested media.
+         */
+        content_type?: string;
+
+        /**
+         * The SHA256 hash of the requested media.
+         */
+        hash_sha256?: string;
+
+        /**
+         * The size of the requested media.
+         */
+        size?: number;
+
+        /**
+         * The url of the media requested to be sent.
+         */
+        url?: string;
+      }
+
+      export interface To {
+        /**
+         * The carrier of the receiver.
+         */
+        carrier?: string;
+
+        /**
+         * The line-type of the receiver.
+         */
+        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+
+        /**
+         * Receiving address (+E.164 formatted phone number or short code).
+         */
+        phone_number?: string;
+
+        status?:
+          | 'queued'
+          | 'sending'
+          | 'sent'
+          | 'delivered'
+          | 'sending_failed'
+          | 'delivery_failed'
+          | 'delivery_unconfirmed'
+          | 'webhook_delivered';
+      }
+    }
+  }
+}
+
+export interface NumberOrderStatusUpdateWebhookEvent {
+  data: NumberOrderStatusUpdateWebhookEvent.Data;
+
+  meta: NumberOrderStatusUpdateWebhookEvent.Meta;
+}
+
+export namespace NumberOrderStatusUpdateWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event
+     */
+    id: string;
+
+    /**
+     * The type of event being sent
+     */
+    event_type: string;
+
+    /**
+     * ISO 8601 timestamp of when the event occurred
+     */
+    occurred_at: string;
+
+    /**
+     * Number order data delivered in a webhook. Server-generated fields are valid in
+     * this outbound webhook request.
+     */
+    payload: Data.Payload;
+
+    /**
+     * Type of record
+     */
+    record_type: string;
+  }
+
+  export namespace Data {
+    /**
+     * Number order data delivered in a webhook. Server-generated fields are valid in
+     * this outbound webhook request.
+     */
+    export interface Payload {
+      id?: string;
+
+      /**
+       * Identifies the messaging profile associated with the phone number.
+       */
+      billing_group_id?: string;
+
+      /**
+       * Identifies the connection associated with this phone number.
+       */
+      connection_id?: string;
+
+      /**
+       * An ISO 8901 datetime string denoting when the number order was created.
+       */
+      created_at?: string;
+
+      /**
+       * A customer reference string for customer look ups.
+       */
+      customer_reference?: string;
+
+      /**
+       * Identifies the messaging profile associated with the phone number.
+       */
+      messaging_profile_id?: string;
+
+      phone_numbers?: Array<Payload.PhoneNumber>;
+
+      /**
+       * The count of phone numbers in the number order.
+       */
+      phone_numbers_count?: number;
+
+      record_type?: string;
+
+      /**
+       * True if all requirements are met for every phone number, false otherwise.
+       */
+      requirements_met?: boolean;
+
+      /**
+       * The status of the order.
+       */
+      status?: 'pending' | 'success' | 'failure';
+
+      sub_number_orders_ids?: Array<string>;
+
+      /**
+       * An ISO 8901 datetime string for when the number order was updated.
+       */
+      updated_at?: string;
+    }
+
+    export namespace Payload {
+      /**
+       * The unique phone numbers given as arguments in the job creation.
+       */
+      export interface PhoneNumber {
+        id?: string;
+
+        bundle_id?: string;
+
+        /**
+         * Country code of the phone number
+         */
+        country_code?: string;
+
+        /**
+         * The ISO 3166-1 alpha-2 country code of the phone number.
+         */
+        country_iso_alpha2?: string;
+
+        phone_number?: string;
+
+        /**
+         * Phone number type
+         */
+        phone_number_type?: 'local' | 'mobile' | 'national' | 'shared_cost' | 'toll_free';
+
+        record_type?: string;
+
+        regulatory_requirements?: Array<PhoneNumber.RegulatoryRequirement>;
+
+        /**
+         * True if all requirements are met for a phone number, false otherwise.
+         */
+        requirements_met?: boolean;
+
+        /**
+         * Status of document requirements (if applicable)
+         */
+        requirements_status?:
+          | 'pending'
+          | 'approved'
+          | 'cancelled'
+          | 'deleted'
+          | 'requirement-info-exception'
+          | 'requirement-info-pending'
+          | 'requirement-info-under-review';
+
+        /**
+         * The status of the phone number in the order.
+         */
+        status?: 'pending' | 'success' | 'failure';
+      }
+
+      export namespace PhoneNumber {
+        /**
+         * Regulatory requirement data delivered in a number order webhook.
+         */
+        export interface RegulatoryRequirement {
+          field_type?: 'textual' | 'datetime' | 'address' | 'document';
+
+          /**
+           * The value of the requirement, this could be an id to a resource or a string
+           * value.
+           */
+          field_value?: string;
+
+          record_type?: string;
+
+          /**
+           * Unique id for a requirement.
+           */
+          requirement_id?: string;
+        }
+      }
+    }
+  }
+
+  export interface Meta {
+    /**
+     * Webhook delivery attempt number
+     */
+    attempt: number;
+
+    /**
+     * URL where the webhook was delivered
+     */
+    delivered_to: string;
   }
 }
 
@@ -6802,7 +7727,7 @@ export type UnsafeUnwrapWebhookEvent =
   | FaxSendingStarted
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
-  | NumberOrderStatusUpdate
+  | NumberOrderStatusUpdateWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | TranscriptionWebhookEvent;
 
@@ -6872,7 +7797,7 @@ export type UnwrapWebhookEvent =
   | FaxSendingStarted
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
-  | NumberOrderStatusUpdate
+  | NumberOrderStatusUpdateWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | TranscriptionWebhookEvent;
 
@@ -6996,6 +7921,7 @@ export declare namespace Webhooks {
     type DeliveryUpdateWebhookEvent as DeliveryUpdateWebhookEvent,
     type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
+    type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,

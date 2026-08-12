@@ -23,7 +23,7 @@ describe('resource migrationSources', () => {
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
     const responsePromise = client.storage.migrationSources.create({
-      bucket_name: 'bucket_name',
+      bucket_name: 'string',
       provider: 'aws',
       provider_auth: {},
     });
@@ -39,10 +39,10 @@ describe('resource migrationSources', () => {
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
     const response = await client.storage.migrationSources.create({
-      bucket_name: 'bucket_name',
+      bucket_name: 'string',
       provider: 'aws',
-      provider_auth: { access_key: 'access_key', secret_access_key: 'secret_access_key' },
-      source_region: 'source_region',
+      provider_auth: { access_key: 'string', secret_access_key: 'string' },
+      source_region: 'string',
     });
   });
 

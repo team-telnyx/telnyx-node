@@ -10,7 +10,9 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class AvailablePhoneNumberBlocks extends APIResource {
   /**
-   * List available phone number blocks
+   * Searches the Telnyx inventory for available contiguous phone-number blocks.
+   * Results can be filtered by locality, country, national destination code, and
+   * number type.
    */
   list(
     query: AvailablePhoneNumberBlockListParams | null | undefined = {},

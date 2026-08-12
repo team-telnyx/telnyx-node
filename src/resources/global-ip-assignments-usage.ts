@@ -9,7 +9,7 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class GlobalIPAssignmentsUsage extends APIResource {
   /**
-   * Global IP Assignment Usage Metrics
+   * Retrieve usage metrics for your Global IP assignments.
    */
   retrieve(
     query: GlobalIPAssignmentsUsageRetrieveParams | null | undefined = {},
