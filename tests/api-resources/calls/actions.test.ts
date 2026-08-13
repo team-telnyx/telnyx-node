@@ -727,8 +727,8 @@ describe('resource actions', () => {
       webhook_url: 'https://www.example.com/server-b/',
       webhook_url_method: 'POST',
       webhook_urls: {
-        'call.answered': 'https://www.example.com/webhooks/answered',
-        'call.hangup': 'https://www.example.com/webhooks/hangup',
+        'call.answered': ['https://www.example.com/webhooks/answered'],
+        'call.hangup': ['https://www.example.com/webhooks/hangup'],
       },
       webhook_urls_method: 'POST',
     });
