@@ -3955,6 +3955,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/storage/kvs/kvs.ts">EdgeComputePaginationMeta</a></code>
 - <code><a href="./src/resources/storage/kvs/kvs.ts">KvNamespace</a></code>
 - <code><a href="./src/resources/storage/kvs/kvs.ts">KvNamespaceResponseWrapper</a></code>
 
@@ -4000,6 +4001,30 @@ Methods:
 Methods:
 
 - <code title="post /storage/cloudfs/{id}/actions/rotate-meta-token">client.storage.cloudfs.actions.<a href="./src/resources/storage/cloudfs/actions.ts">rotateMetaToken</a>(id, { ...params }) -> CloudfsFilesystemResponseWrapper</code>
+
+## Sqldbs
+
+Types:
+
+- <code><a href="./src/resources/storage/sqldbs/sqldbs.ts">SqlDatabase</a></code>
+- <code><a href="./src/resources/storage/sqldbs/sqldbs.ts">SqlDatabaseResponseWrapper</a></code>
+
+Methods:
+
+- <code title="get /storage/sqldbs">client.storage.sqldbs.<a href="./src/resources/storage/sqldbs/sqldbs.ts">list</a>({ ...params }) -> SqlDatabasesDefaultFlatPagination</code>
+- <code title="post /storage/sqldbs">client.storage.sqldbs.<a href="./src/resources/storage/sqldbs/sqldbs.ts">create</a>({ ...params }) -> SqlDatabaseResponseWrapper</code>
+- <code title="delete /storage/sqldbs/{id}">client.storage.sqldbs.<a href="./src/resources/storage/sqldbs/sqldbs.ts">delete</a>(id, { ...params }) -> void</code>
+- <code title="get /storage/sqldbs/{id}">client.storage.sqldbs.<a href="./src/resources/storage/sqldbs/sqldbs.ts">retrieve</a>(id) -> SqlDatabaseResponseWrapper</code>
+
+### Actions
+
+Types:
+
+- <code><a href="./src/resources/storage/sqldbs/actions.ts">ActionQueryResponse</a></code>
+
+Methods:
+
+- <code title="post /storage/sqldbs/{id}/actions/query">client.storage.sqldbs.actions.<a href="./src/resources/storage/sqldbs/actions.ts">query</a>(id, { ...params }) -> ActionQueryResponse</code>
 
 # SubNumberOrders
 

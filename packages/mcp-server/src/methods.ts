@@ -5060,6 +5060,36 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/storage/cloudfs/{id}/actions/rotate-meta-token',
   },
   {
+    clientCallName: 'client.storage.sqldbs.list',
+    fullyQualifiedName: 'storage.sqldbs.list',
+    httpMethod: 'get',
+    httpPath: '/storage/sqldbs',
+  },
+  {
+    clientCallName: 'client.storage.sqldbs.create',
+    fullyQualifiedName: 'storage.sqldbs.create',
+    httpMethod: 'post',
+    httpPath: '/storage/sqldbs',
+  },
+  {
+    clientCallName: 'client.storage.sqldbs.delete',
+    fullyQualifiedName: 'storage.sqldbs.delete',
+    httpMethod: 'delete',
+    httpPath: '/storage/sqldbs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.sqldbs.retrieve',
+    fullyQualifiedName: 'storage.sqldbs.retrieve',
+    httpMethod: 'get',
+    httpPath: '/storage/sqldbs/{id}',
+  },
+  {
+    clientCallName: 'client.storage.sqldbs.actions.query',
+    fullyQualifiedName: 'storage.sqldbs.actions.query',
+    httpMethod: 'post',
+    httpPath: '/storage/sqldbs/{id}/actions/query',
+  },
+  {
     clientCallName: 'client.subNumberOrders.list',
     fullyQualifiedName: 'subNumberOrders.list',
     httpMethod: 'get',

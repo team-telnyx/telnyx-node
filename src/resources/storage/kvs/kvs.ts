@@ -95,6 +95,16 @@ export class Kvs extends APIResource {
 
 export type KvNamespacesDefaultFlatPagination = DefaultFlatPagination<KvNamespace>;
 
+export interface EdgeComputePaginationMeta {
+  page_number?: number;
+
+  page_size?: number;
+
+  total_pages?: number;
+
+  total_results?: number;
+}
+
 export interface KvNamespace {
   id?: string;
 
@@ -130,6 +140,7 @@ Kvs.Keys = Keys;
 
 export declare namespace Kvs {
   export {
+    type EdgeComputePaginationMeta as EdgeComputePaginationMeta,
     type KvNamespace as KvNamespace,
     type KvNamespaceResponseWrapper as KvNamespaceResponseWrapper,
     type KvNamespacesDefaultFlatPagination as KvNamespacesDefaultFlatPagination,

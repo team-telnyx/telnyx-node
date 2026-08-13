@@ -27,6 +27,7 @@ import {
 } from './cloudfs/cloudfs';
 import * as KvsAPI from './kvs/kvs';
 import {
+  EdgeComputePaginationMeta,
   KvCreateParams,
   KvListParams,
   KvNamespace,
@@ -43,6 +44,16 @@ import {
   MigrationRetrieveResponse,
   Migrations,
 } from './migrations/migrations';
+import * as SqldbsAPI from './sqldbs/sqldbs';
+import {
+  SqlDatabase,
+  SqlDatabaseResponseWrapper,
+  SqlDatabasesDefaultFlatPagination,
+  SqldbCreateParams,
+  SqldbDeleteParams,
+  SqldbListParams,
+  Sqldbs,
+} from './sqldbs/sqldbs';
 import { APIPromise } from '../../core/api-promise';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -57,6 +68,7 @@ export class Storage extends APIResource {
   migrations: MigrationsAPI.Migrations = new MigrationsAPI.Migrations(this._client);
   kvs: KvsAPI.Kvs = new KvsAPI.Kvs(this._client);
   cloudfs: CloudfsAPI.Cloudfs = new CloudfsAPI.Cloudfs(this._client);
+  sqldbs: SqldbsAPI.Sqldbs = new SqldbsAPI.Sqldbs(this._client);
 
   /**
    * List the external storage providers and regions supported as migration sources.
@@ -99,6 +111,7 @@ Storage.MigrationSources = MigrationSources;
 Storage.Migrations = Migrations;
 Storage.Kvs = Kvs;
 Storage.Cloudfs = Cloudfs;
+Storage.Sqldbs = Sqldbs;
 
 export declare namespace Storage {
   export { type StorageListMigrationSourceCoverageResponse as StorageListMigrationSourceCoverageResponse };
@@ -130,6 +143,7 @@ export declare namespace Storage {
 
   export {
     Kvs as Kvs,
+    type EdgeComputePaginationMeta as EdgeComputePaginationMeta,
     type KvNamespace as KvNamespace,
     type KvNamespaceResponseWrapper as KvNamespaceResponseWrapper,
     type KvNamespacesDefaultFlatPagination as KvNamespacesDefaultFlatPagination,
@@ -146,5 +160,15 @@ export declare namespace Storage {
     type CloudfListParams as CloudfListParams,
     type CloudfCreateParams as CloudfCreateParams,
     type CloudfUpdateParams as CloudfUpdateParams,
+  };
+
+  export {
+    Sqldbs as Sqldbs,
+    type SqlDatabase as SqlDatabase,
+    type SqlDatabaseResponseWrapper as SqlDatabaseResponseWrapper,
+    type SqlDatabasesDefaultFlatPagination as SqlDatabasesDefaultFlatPagination,
+    type SqldbListParams as SqldbListParams,
+    type SqldbCreateParams as SqldbCreateParams,
+    type SqldbDeleteParams as SqldbDeleteParams,
   };
 }
