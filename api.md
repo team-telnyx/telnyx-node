@@ -292,6 +292,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ArtifactCompletedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
@@ -348,11 +350,16 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ArtifactCompletedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
@@ -409,7 +416,10 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnsafeUnwrapWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnwrapWebhookEvent</a></code>
@@ -5754,3 +5764,53 @@ Methods:
 
 - <code title="post /web_search/research">client.webSearch.research.<a href="./src/resources/web-search/research.ts">create</a>({ ...params }) -> ResearchCreateResponse</code>
 - <code title="get /web_search/research/{task_id}">client.webSearch.research.<a href="./src/resources/web-search/research.ts">retrieve</a>(taskID) -> ResearchRetrieveResponse</code>
+
+# MeetingSessions
+
+Types:
+
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSession</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionListResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionDeleteRecordingMediaResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveEventsResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveRecordingsResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveTranscriptResponse</a></code>
+
+Methods:
+
+- <code title="get /meeting_sessions">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">list</a>({ ...params }) -> MeetingSessionListResponse</code>
+- <code title="post /meeting_sessions">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">create</a>({ ...params }) -> MeetingSessionResponse</code>
+- <code title="delete /meeting_sessions/{id}">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">delete</a>(id) -> MeetingSessionResponse</code>
+- <code title="get /meeting_sessions/{id}">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieve</a>(id) -> MeetingSessionResponse</code>
+- <code title="patch /meeting_sessions/{id}">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">update</a>(id, { ...params }) -> MeetingSessionResponse</code>
+- <code title="get /meeting_sessions/{id}/events">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveEvents</a>(id, { ...params }) -> MeetingSessionRetrieveEventsResponse</code>
+- <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">deleteRecordingMedia</a>(id) -> MeetingSessionDeleteRecordingMediaResponse</code>
+- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveRecordings</a>(id) -> MeetingSessionRetrieveRecordingsResponse</code>
+- <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveTranscript</a>(id, { ...params }) -> MeetingSessionRetrieveTranscriptResponse</code>
+
+## Actions
+
+Types:
+
+- <code><a href="./src/resources/meeting-sessions/actions.ts">ActionAcceptedResponse</a></code>
+
+Methods:
+
+- <code title="post /meeting_sessions/{id}/actions/send_chat">client.meetingSessions.actions.<a href="./src/resources/meeting-sessions/actions.ts">sendChat</a>(id, { ...params }) -> ActionAcceptedResponse</code>
+- <code title="post /meeting_sessions/{id}/actions/speak">client.meetingSessions.actions.<a href="./src/resources/meeting-sessions/actions.ts">speak</a>(id, { ...params }) -> ActionAcceptedResponse</code>
+- <code title="post /meeting_sessions/{id}/actions/stop_speaking">client.meetingSessions.actions.<a href="./src/resources/meeting-sessions/actions.ts">stopSpeaking</a>(id) -> ActionAcceptedResponse</code>
+
+## Artifacts
+
+Types:
+
+- <code><a href="./src/resources/meeting-sessions/artifacts.ts">MeetingSessionArtifact</a></code>
+- <code><a href="./src/resources/meeting-sessions/artifacts.ts">MeetingSessionArtifactResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/artifacts.ts">ArtifactListResponse</a></code>
+
+Methods:
+
+- <code title="get /meeting_sessions/{id}/artifacts">client.meetingSessions.artifacts.<a href="./src/resources/meeting-sessions/artifacts.ts">list</a>(id) -> ArtifactListResponse</code>
+- <code title="post /meeting_sessions/{id}/artifacts">client.meetingSessions.artifacts.<a href="./src/resources/meeting-sessions/artifacts.ts">create</a>(id, { ...params }) -> MeetingSessionArtifactResponse</code>
+- <code title="get /meeting_sessions/{id}/artifacts/{artifact_id}">client.meetingSessions.artifacts.<a href="./src/resources/meeting-sessions/artifacts.ts">retrieve</a>(artifactID, { ...params }) -> MeetingSessionArtifactResponse</code>

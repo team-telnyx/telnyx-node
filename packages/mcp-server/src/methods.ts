@@ -7427,6 +7427,96 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/web_search/research/{task_id}',
   },
+  {
+    clientCallName: 'client.meetingSessions.list',
+    fullyQualifiedName: 'meetingSessions.list',
+    httpMethod: 'get',
+    httpPath: '/meeting_sessions',
+  },
+  {
+    clientCallName: 'client.meetingSessions.create',
+    fullyQualifiedName: 'meetingSessions.create',
+    httpMethod: 'post',
+    httpPath: '/meeting_sessions',
+  },
+  {
+    clientCallName: 'client.meetingSessions.delete',
+    fullyQualifiedName: 'meetingSessions.delete',
+    httpMethod: 'delete',
+    httpPath: '/meeting_sessions/{id}',
+  },
+  {
+    clientCallName: 'client.meetingSessions.retrieve',
+    fullyQualifiedName: 'meetingSessions.retrieve',
+    httpMethod: 'get',
+    httpPath: '/meeting_sessions/{id}',
+  },
+  {
+    clientCallName: 'client.meetingSessions.update',
+    fullyQualifiedName: 'meetingSessions.update',
+    httpMethod: 'patch',
+    httpPath: '/meeting_sessions/{id}',
+  },
+  {
+    clientCallName: 'client.meetingSessions.retrieveEvents',
+    fullyQualifiedName: 'meetingSessions.retrieveEvents',
+    httpMethod: 'get',
+    httpPath: '/meeting_sessions/{id}/events',
+  },
+  {
+    clientCallName: 'client.meetingSessions.deleteRecordingMedia',
+    fullyQualifiedName: 'meetingSessions.deleteRecordingMedia',
+    httpMethod: 'delete',
+    httpPath: '/meeting_sessions/{id}/recording_media',
+  },
+  {
+    clientCallName: 'client.meetingSessions.retrieveRecordings',
+    fullyQualifiedName: 'meetingSessions.retrieveRecordings',
+    httpMethod: 'get',
+    httpPath: '/meeting_sessions/{id}/recordings',
+  },
+  {
+    clientCallName: 'client.meetingSessions.retrieveTranscript',
+    fullyQualifiedName: 'meetingSessions.retrieveTranscript',
+    httpMethod: 'get',
+    httpPath: '/meeting_sessions/{id}/transcript',
+  },
+  {
+    clientCallName: 'client.meetingSessions.actions.sendChat',
+    fullyQualifiedName: 'meetingSessions.actions.sendChat',
+    httpMethod: 'post',
+    httpPath: '/meeting_sessions/{id}/actions/send_chat',
+  },
+  {
+    clientCallName: 'client.meetingSessions.actions.speak',
+    fullyQualifiedName: 'meetingSessions.actions.speak',
+    httpMethod: 'post',
+    httpPath: '/meeting_sessions/{id}/actions/speak',
+  },
+  {
+    clientCallName: 'client.meetingSessions.actions.stopSpeaking',
+    fullyQualifiedName: 'meetingSessions.actions.stopSpeaking',
+    httpMethod: 'post',
+    httpPath: '/meeting_sessions/{id}/actions/stop_speaking',
+  },
+  {
+    clientCallName: 'client.meetingSessions.artifacts.list',
+    fullyQualifiedName: 'meetingSessions.artifacts.list',
+    httpMethod: 'get',
+    httpPath: '/meeting_sessions/{id}/artifacts',
+  },
+  {
+    clientCallName: 'client.meetingSessions.artifacts.create',
+    fullyQualifiedName: 'meetingSessions.artifacts.create',
+    httpMethod: 'post',
+    httpPath: '/meeting_sessions/{id}/artifacts',
+  },
+  {
+    clientCallName: 'client.meetingSessions.artifacts.retrieve',
+    fullyQualifiedName: 'meetingSessions.artifacts.retrieve',
+    httpMethod: 'get',
+    httpPath: '/meeting_sessions/{id}/artifacts/{artifact_id}',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
