@@ -42,7 +42,13 @@ jobs:
         run: python3 -m py_compile .github/scripts/release_pr_auto_merge.py .github/scripts/test_release_pr_auto_merge.py
 
   gate:
-    if: github.event_name == 'pull_request_target' || github.event_name == 'workflow_dispatch'
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      (
+        github.event_name == 'pull_request_target' &&
+        startsWith(github.event.pull_request.head.ref, 'release-please--') &&
+        startsWith(github.event.pull_request.title, 'release: ')
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 65
     permissions:

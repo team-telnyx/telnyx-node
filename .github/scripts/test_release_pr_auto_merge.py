@@ -349,6 +349,39 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
 
         self.assertEqual(result, [{"number": 1}, {"number": 2}])
 
+    def test_private_provenance_reads_use_the_cross_repository_token(self):
+        client = GitHubClient(GateConfig.python(), "low-privilege-token")
+        completed = mock.Mock(returncode=0, stderr="", stdout='{"sha":"%s"}' % STAGING)
+        with mock.patch.dict("os.environ", {"MERGE_TOKEN": "cross-repository-token"}), mock.patch(
+            "release_pr_auto_merge.subprocess.run", return_value=completed
+        ) as run:
+            result = client._provenance_api_json(
+                "repos/team-telnyx/telnyx-python-staging/commits/%s" % STAGING[:7]
+            )
+
+        self.assertEqual(result["sha"], STAGING)
+        self.assertEqual(run.call_args.kwargs["env"]["GH_TOKEN"], "cross-repository-token")
+        self.assertNotEqual(run.call_args.kwargs["env"]["GH_TOKEN"], client.env["GH_TOKEN"])
+
+    def test_private_provenance_reads_fail_closed_without_cross_repository_token(self):
+        client = GitHubClient(GateConfig.python(), "low-privilege-token")
+        with mock.patch.dict("os.environ", {}, clear=True), self.assertRaisesRegex(
+            GateError, "cross-repository provenance token"
+        ):
+            client._provenance_api_json("repos/team-telnyx/telnyx-python-staging/commits/abcdef0")
+
+    def test_privileged_gate_job_is_filtered_to_release_please_candidates(self):
+        with open(
+            ".github/workflows/release-pr-auto-merge.yml", encoding="utf-8"
+        ) as workflow_file:
+            workflow = workflow_file.read()
+        self.assertIn(
+            "startsWith(github.event.pull_request.head.ref, 'release-please--')", workflow
+        )
+        self.assertIn(
+            "startsWith(github.event.pull_request.title, 'release: ')", workflow
+        )
+
     def test_merge_uses_immediate_rest_put_and_never_enables_auto_merge(self):
         client = GitHubClient(GateConfig.python(), "test-token")
         completed = mock.Mock(

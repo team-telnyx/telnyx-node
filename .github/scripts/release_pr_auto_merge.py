@@ -453,11 +453,35 @@ class GitHubClient:
             raise GateError("GitHub command failed: %s: %s" % (" ".join(command[:4]), completed.stderr.strip()))
         return completed.stdout
 
+    def _provenance_gh(self, *args: str) -> str:
+        # A repository-scoped GITHUB_TOKEN cannot read the private staging and
+        # SDK-config repositories. Use the existing cross-repository token only
+        # for immutable provenance reads (and, separately, the final merge).
+        token = os.environ.get("MERGE_TOKEN")
+        if not token:
+            raise GateError("missing cross-repository provenance token")
+        env = dict(self.env)
+        env["GH_TOKEN"] = token
+        command = ["gh", *args]
+        completed = subprocess.run(command, env=env, text=True, capture_output=True)
+        if completed.returncode != 0:
+            raise GateError(
+                "GitHub provenance command failed: %s: %s"
+                % (" ".join(command[:4]), completed.stderr.strip())
+            )
+        return completed.stdout
+
     def _api_json(self, endpoint: str) -> Any:
         output = self._gh("api", endpoint)
         payload = json.loads(output)
         if payload is None:
             raise GateError("ambiguous API response for %s" % endpoint)
+        return payload
+
+    def _provenance_api_json(self, endpoint: str) -> Any:
+        payload = json.loads(self._provenance_gh("api", endpoint))
+        if payload is None:
+            raise GateError("ambiguous provenance API response for %s" % endpoint)
         return payload
 
     def _api_pages(self, endpoint: str, key: Optional[str] = None) -> List[Any]:
@@ -470,6 +494,19 @@ class GitHubClient:
             payload = page.get(key) if key and isinstance(page, Mapping) else page
             if not isinstance(payload, list):
                 raise GateError("ambiguous paginated API response for %s" % endpoint)
+            values.extend(payload)
+        return values
+
+    def _provenance_api_pages(self, endpoint: str, key: Optional[str] = None) -> List[Any]:
+        output = self._provenance_gh("api", endpoint, "--paginate", "--slurp")
+        pages = json.loads(output)
+        if not isinstance(pages, list):
+            raise GateError("ambiguous paginated provenance response for %s" % endpoint)
+        values: List[Any] = []
+        for page in pages:
+            payload = page.get(key) if key and isinstance(page, Mapping) else page
+            if not isinstance(payload, list):
+                raise GateError("ambiguous paginated provenance response for %s" % endpoint)
             values.extend(payload)
         return values
 
@@ -495,7 +532,7 @@ class GitHubClient:
         head_commit = self._api_json("repos/%s/commits/%s" % (repo, head_sha))
         promotion = self._find_promotion(next_sha)
         staging_sha = promotion["staging_sha"]
-        staging_prs = self._api_pages(
+        staging_prs = self._provenance_api_pages(
             "repos/%s/commits/%s/pulls?per_page=100" % (self.config.staging_repository, staging_sha)
         )
         generated_staging_prs = self._find_generated_staging_pr(staging_sha, staging_prs)
@@ -504,7 +541,7 @@ class GitHubClient:
             config_urls.extend(CONFIG_URL_RE.findall(str(staging_pr.get("body") or "")))
         resolved_config_sha = None
         if len(config_urls) == 1:
-            config_commit = self._api_json(
+            config_commit = self._provenance_api_json(
                 "repos/team-telnyx/telnyx-sdk-config/commits/%s" % config_urls[0]
             )
             resolved_config_sha = config_commit.get("sha")
@@ -582,7 +619,7 @@ class GitHubClient:
             match = PROMOTION_RE.fullmatch(subject)
             if match:
                 staging_ref = match.group(1)
-                resolved = self._api_json(
+                resolved = self._provenance_api_json(
                     "repos/%s/commits/%s" % (self.config.staging_repository, staging_ref)
                 )
                 staging_sha = resolved.get("sha") if isinstance(resolved, Mapping) else None
@@ -615,14 +652,14 @@ class GitHubClient:
                 raise GateError("ambiguous generated staging PR at promoted SHA")
             return direct
 
-        commits = self._api_pages(
+        commits = self._provenance_api_pages(
             "repos/%s/commits?sha=%s&per_page=100"
             % (self.config.staging_repository, staging_sha)
         )
         for commit in commits:
             if not isinstance(commit, Mapping) or not SHA_RE.fullmatch(str(commit.get("sha", ""))):
                 raise GateError("ambiguous staging ancestry commit")
-            pulls = self._api_pages(
+            pulls = self._provenance_api_pages(
                 "repos/%s/commits/%s/pulls?per_page=100"
                 % (self.config.staging_repository, commit["sha"])
             )
