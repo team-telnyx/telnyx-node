@@ -119,8 +119,8 @@ class FixtureClient:
     def read_snapshot(self, _pr_number):
         return copy.deepcopy(self.snapshot)
 
-    def merge(self, pr_number, expected_head):
-        self.merge_calls.append((pr_number, expected_head))
+    def merge(self, pr_number, expected_head, commit_title):
+        self.merge_calls.append((pr_number, expected_head, commit_title))
 
     def read_merge_result(self, _pr_number):
         return copy.deepcopy(self.merge_result)
@@ -325,7 +325,7 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
     def test_live_mode_merges_only_the_attested_exact_head(self):
         client = FixtureClient()
         result = self.gate(client).run(415, HEAD, False)
-        self.assertEqual(client.merge_calls, [(415, HEAD)])
+        self.assertEqual(client.merge_calls, [(415, HEAD, "release: 4.174.0")])
         self.assertEqual(result["status"], "merged")
         self.assertEqual(result["merge_commit_sha"], MERGE)
 
@@ -398,7 +398,7 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         with mock.patch.dict("os.environ", {"MERGE_TOKEN": "test-token"}), mock.patch(
             "release_pr_auto_merge.subprocess.run", return_value=completed
         ) as run:
-            client.merge(415, HEAD)
+            client.merge(415, HEAD, "release: 4.174.0")
 
         command = run.call_args.args[0]
         self.assertEqual(
@@ -408,6 +408,7 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         self.assertIn("PUT", command)
         self.assertIn("merge_method=squash", command)
         self.assertIn("sha=%s" % HEAD, command)
+        self.assertIn("commit_title=release: 4.174.0", command)
         self.assertNotIn("pr", command)
 
 
