@@ -2728,11 +2728,12 @@ export interface ActionAnswerParams {
   webhook_url_method?: 'POST' | 'GET';
 
   /**
-   * A map of event types to webhook URLs. When an event of the specified type
-   * occurs, the webhook URL associated with that event type will be called instead
-   * of `webhook_url`. Events not mapped here will use the default `webhook_url`.
+   * A map of event types to arrays of webhook URLs. When an event of the specified
+   * type occurs, the webhook URLs associated with that event type will be called
+   * instead of `webhook_url`. Events not mapped here will use the default
+   * `webhook_url`.
    */
-  webhook_urls?: { [key: string]: string };
+  webhook_urls?: { [key: string]: Array<string> };
 
   /**
    * HTTP request method to invoke `webhook_urls`.
@@ -5006,11 +5007,12 @@ export interface ActionTransferParams {
   webhook_url_method?: 'POST' | 'GET';
 
   /**
-   * A map of event types to webhook URLs. When an event of the specified type
-   * occurs, the webhook URL associated with that event type will be called instead
-   * of `webhook_url`. Events not mapped here will use the default `webhook_url`.
+   * A map of event types to arrays of webhook URLs. When an event of the specified
+   * type occurs, the webhook URLs associated with that event type will be called
+   * instead of `webhook_url`. Events not mapped here will use the default
+   * `webhook_url`.
    */
-  webhook_urls?: { [key: string]: string };
+  webhook_urls?: { [key: string]: Array<string> };
 
   /**
    * HTTP request method to invoke `webhook_urls`.

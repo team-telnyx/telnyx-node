@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.15.0](https://github.com/team-telnyx/telnyx-node/compare/v7.14.0...v7.15.0) (2026-08-16)
+
+
+### Features
+
+* promote from staging 6a5cfcb ([68f51e9](https://github.com/team-telnyx/telnyx-node/commit/68f51e9b1142192adc81cf15bf41965c9eba653f))
+
+
+### Bug Fixes
+
+* **ci:** attest private release provenance ([#511](https://github.com/team-telnyx/telnyx-node/issues/511)) ([f717758](https://github.com/team-telnyx/telnyx-node/commit/f717758ab83057fa80215a70a2b46a42b692c44f))
+
 ## [7.14.0](https://github.com/team-telnyx/telnyx-node/compare/v7.13.0...v7.14.0) (2026-08-11)
 
 

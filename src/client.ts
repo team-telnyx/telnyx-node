@@ -1010,6 +1010,8 @@ import {
   WebhookDeliveryRetrieveResponse,
 } from './resources/webhook-deliveries';
 import {
+  ArtifactCompletedWebhookEvent,
+  ArtifactFailedWebhookEvent,
   CallAIGatherEnded,
   CallAIGatherEndedWebhookEvent,
   CallAIGatherMessageHistoryUpdated,
@@ -1127,8 +1129,11 @@ import {
   NumberOrderStatusUpdate,
   NumberOrderStatusUpdateWebhookEvent,
   OutboundMessage,
+  RecordingAvailableWebhookEvent,
   ReplacedLinkClick,
   ReplacedLinkClickWebhookEvent,
+  SessionStatusChangedWebhookEvent,
+  TranscriptCompletedWebhookEvent,
   Transcription,
   TranscriptionWebhookEvent,
   UnsafeUnwrapWebhookEvent,
@@ -1423,6 +1428,21 @@ import {
   ManagedAccountUpdateResponse,
   ManagedAccounts,
 } from './resources/managed-accounts/managed-accounts';
+import {
+  MeetingSession,
+  MeetingSessionCreateParams,
+  MeetingSessionDeleteRecordingMediaResponse,
+  MeetingSessionListParams,
+  MeetingSessionListResponse,
+  MeetingSessionResponse,
+  MeetingSessionRetrieveEventsParams,
+  MeetingSessionRetrieveEventsResponse,
+  MeetingSessionRetrieveRecordingsResponse,
+  MeetingSessionRetrieveTranscriptParams,
+  MeetingSessionRetrieveTranscriptResponse,
+  MeetingSessionUpdateParams,
+  MeetingSessions,
+} from './resources/meeting-sessions/meeting-sessions';
 import {
   MessageCancelScheduledResponse,
   MessageRetrieveGroupMessagesResponse,
@@ -1747,6 +1767,14 @@ import {
   VerifiedNumbers,
   VerifiedNumbersDefaultFlatPagination,
 } from './resources/verified-numbers/verified-numbers';
+import {
+  WebSearch,
+  WebSearchContentsParams,
+  WebSearchContentsResponse,
+  WebSearchCreateParams,
+  WebSearchCreateResponse,
+  WebSearchResult,
+} from './resources/web-search/web-search';
 import { Whatsapp } from './resources/whatsapp/whatsapp';
 import {
   Wireless,
@@ -3203,6 +3231,8 @@ export class Telnyx {
    */
   emailValidations: API.EmailValidations = new API.EmailValidations(this);
   pricing: API.Pricing = new API.Pricing(this);
+  webSearch: API.WebSearch = new API.WebSearch(this);
+  meetingSessions: API.MeetingSessions = new API.MeetingSessions(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3385,6 +3415,8 @@ Telnyx.EmailThreads = EmailThreads;
 Telnyx.EmailUnsubscribeGroups = EmailUnsubscribeGroups;
 Telnyx.EmailValidations = EmailValidations;
 Telnyx.Pricing = Pricing;
+Telnyx.WebSearch = WebSearch;
+Telnyx.MeetingSessions = MeetingSessions;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3548,6 +3580,8 @@ export declare namespace Telnyx {
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
+    type ArtifactCompletedWebhookEvent as ArtifactCompletedWebhookEvent,
+    type ArtifactFailedWebhookEvent as ArtifactFailedWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
@@ -3604,7 +3638,10 @@ export declare namespace Telnyx {
     type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
     type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
+    type RecordingAvailableWebhookEvent as RecordingAvailableWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
+    type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
+    type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
     type UnwrapWebhookEvent as UnwrapWebhookEvent,
@@ -5357,6 +5394,31 @@ export declare namespace Telnyx {
   };
 
   export { Pricing as Pricing };
+
+  export {
+    WebSearch as WebSearch,
+    type WebSearchResult as WebSearchResult,
+    type WebSearchCreateResponse as WebSearchCreateResponse,
+    type WebSearchContentsResponse as WebSearchContentsResponse,
+    type WebSearchCreateParams as WebSearchCreateParams,
+    type WebSearchContentsParams as WebSearchContentsParams,
+  };
+
+  export {
+    MeetingSessions as MeetingSessions,
+    type MeetingSession as MeetingSession,
+    type MeetingSessionResponse as MeetingSessionResponse,
+    type MeetingSessionListResponse as MeetingSessionListResponse,
+    type MeetingSessionDeleteRecordingMediaResponse as MeetingSessionDeleteRecordingMediaResponse,
+    type MeetingSessionRetrieveEventsResponse as MeetingSessionRetrieveEventsResponse,
+    type MeetingSessionRetrieveRecordingsResponse as MeetingSessionRetrieveRecordingsResponse,
+    type MeetingSessionRetrieveTranscriptResponse as MeetingSessionRetrieveTranscriptResponse,
+    type MeetingSessionListParams as MeetingSessionListParams,
+    type MeetingSessionCreateParams as MeetingSessionCreateParams,
+    type MeetingSessionUpdateParams as MeetingSessionUpdateParams,
+    type MeetingSessionRetrieveEventsParams as MeetingSessionRetrieveEventsParams,
+    type MeetingSessionRetrieveTranscriptParams as MeetingSessionRetrieveTranscriptParams,
+  };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

@@ -247,8 +247,8 @@ describe('resource calls', () => {
       webhook_url: 'https://www.example.com/server-b/',
       webhook_url_method: 'POST',
       webhook_urls: {
-        'call.hangup': 'https://www.example.com/webhooks/hangup',
-        'call.bridge': 'https://www.example.com/webhooks/bridge',
+        'call.hangup': ['https://www.example.com/webhooks/hangup'],
+        'call.bridge': ['https://www.example.com/webhooks/bridge'],
       },
       webhook_urls_method: 'POST',
     });

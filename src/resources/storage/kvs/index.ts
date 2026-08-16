@@ -11,6 +11,7 @@ export {
 } from './keys';
 export {
   Kvs,
+  type EdgeComputePaginationMeta,
   type KvNamespace,
   type KvNamespaceResponseWrapper,
   type KvListParams,

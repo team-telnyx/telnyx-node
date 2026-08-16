@@ -244,6 +244,50 @@ export class Actions extends APIResource {
   ): APIPromise<ActionBulkEnableVoiceResponse> {
     return this._client.post('/sim_cards/actions/bulk_enable_voice', { body, ...options });
   }
+
+  /**
+   * This API disables voice calling on a SIM card. The SIM card will no longer be
+   * able to make or receive calls.<br/> The API will trigger an asynchronous
+   * operation called a SIM Card Action. The status of the SIM Card Action can be
+   * followed through the
+   * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+   * API.
+   *
+   * @example
+   * ```ts
+   * const response = await client.simCards.actions.disableVoice(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  disableVoice(id: string, options?: RequestOptions): APIPromise<ActionDisableVoiceResponse> {
+    return this._client.post(path`/sim_cards/${id}/actions/disable_voice`, options);
+  }
+
+  /**
+   * This API enables voice calling on a SIM card. When a <code>connection_id</code>
+   * is provided, the SIM is associated with the specified Mobile Voice Connection.
+   * The connection must be owned by the same user and of type
+   * <code>mobile_voice</code>.<br/> The API will trigger an asynchronous operation
+   * called a SIM Card Action. The status of the SIM Card Action can be followed
+   * through the
+   * [List SIM Card Action](https://developers.telnyx.com/api-reference/sim-card-actions/list-sim-card-actions)
+   * API.
+   *
+   * @example
+   * ```ts
+   * const response = await client.simCards.actions.enableVoice(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
+   * ```
+   */
+  enableVoice(
+    id: string,
+    body: ActionEnableVoiceParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<ActionEnableVoiceResponse> {
+    return this._client.post(path`/sim_cards/${id}/actions/enable_voice`, { body, ...options });
+  }
 }
 
 export type WirelessSimCardActionsDefaultFlatPagination = DefaultFlatPagination<WirelessSimCardAction>;
@@ -369,9 +413,17 @@ export interface WirelessSimCardAction {
    *  <li><code>enable_standby_sim_card</code> - move a SIM card previously on the <code>standby</code> status to the <code>enabled</code> status after it consumes data.</li>
    *  <li><code>disable</code> - move the SIM card to the <code>disabled</code> status</li>
    *  <li><code>set_standby</code> - move the SIM card to the <code>standby</code> status</li>
+   *  <li><code>enable_voice</code> - enable voice calling on the SIM card</li>
+   *  <li><code>disable_voice</code> - disable voice calling on the SIM card</li>
    *  </ul>
    */
-  action_type?: 'enable' | 'enable_standby_sim_card' | 'disable' | 'set_standby';
+  action_type?:
+    | 'enable'
+    | 'enable_standby_sim_card'
+    | 'disable'
+    | 'set_standby'
+    | 'enable_voice'
+    | 'disable_voice';
 
   /**
    * ISO 8601 formatted date-time indicating when the resource was created.
@@ -455,7 +507,23 @@ export interface ActionDisableResponse {
   data?: WirelessSimCardAction;
 }
 
+export interface ActionDisableVoiceResponse {
+  /**
+   * This object represents a SIM card action. It allows tracking the current status
+   * of an operation that impacts the SIM card.
+   */
+  data?: WirelessSimCardAction;
+}
+
 export interface ActionEnableResponse {
+  /**
+   * This object represents a SIM card action. It allows tracking the current status
+   * of an operation that impacts the SIM card.
+   */
+  data?: WirelessSimCardAction;
+}
+
+export interface ActionEnableVoiceResponse {
   /**
    * This object represents a SIM card action. It allows tracking the current status
    * of an operation that impacts the SIM card.
@@ -537,7 +605,9 @@ export namespace ActionListParams {
       | 'disable'
       | 'set_standby'
       | 'remove_public_ip'
-      | 'set_public_ip';
+      | 'set_public_ip'
+      | 'enable_voice'
+      | 'disable_voice';
 
     /**
      * Filter by a bulk SIM card action ID.
@@ -578,6 +648,24 @@ export interface ActionBulkDisableVoiceParams {
 
 export interface ActionBulkEnableVoiceParams {
   sim_card_group_id: string;
+
+  /**
+   * The identifier of the Mobile Voice Connection to associate with the SIM cards.
+   * The connection must be owned by the same user and of type
+   * <code>mobile_voice</code>. If omitted, voice is enabled without a connection
+   * association.
+   */
+  connection_id?: string;
+}
+
+export interface ActionEnableVoiceParams {
+  /**
+   * The identifier of the Mobile Voice Connection to associate with this SIM card.
+   * The connection must be owned by the same user and of type
+   * <code>mobile_voice</code>. If omitted, voice is enabled without a connection
+   * association.
+   */
+  connection_id?: string;
 }
 
 export declare namespace Actions {
@@ -590,7 +678,9 @@ export declare namespace Actions {
     type ActionBulkEnableVoiceResponse as ActionBulkEnableVoiceResponse,
     type ActionBulkSetPublicIPsResponse as ActionBulkSetPublicIPsResponse,
     type ActionDisableResponse as ActionDisableResponse,
+    type ActionDisableVoiceResponse as ActionDisableVoiceResponse,
     type ActionEnableResponse as ActionEnableResponse,
+    type ActionEnableVoiceResponse as ActionEnableVoiceResponse,
     type ActionRemovePublicIPResponse as ActionRemovePublicIPResponse,
     type ActionSetPublicIPResponse as ActionSetPublicIPResponse,
     type ActionSetStandbyResponse as ActionSetStandbyResponse,
@@ -602,5 +692,6 @@ export declare namespace Actions {
     type ActionSetPublicIPParams as ActionSetPublicIPParams,
     type ActionBulkDisableVoiceParams as ActionBulkDisableVoiceParams,
     type ActionBulkEnableVoiceParams as ActionBulkEnableVoiceParams,
+    type ActionEnableVoiceParams as ActionEnableVoiceParams,
   };
 }
