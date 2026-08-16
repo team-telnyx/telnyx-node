@@ -17,6 +17,7 @@ export {
 } from './cloudfs/index';
 export {
   Kvs,
+  type EdgeComputePaginationMeta,
   type KvNamespace,
   type KvNamespaceResponseWrapper,
   type KvListParams,
@@ -40,4 +41,13 @@ export {
   type MigrationListResponse,
   type MigrationCreateParams,
 } from './migrations/index';
+export {
+  Sqldbs,
+  type SqlDatabase,
+  type SqlDatabaseResponseWrapper,
+  type SqldbListParams,
+  type SqldbCreateParams,
+  type SqldbDeleteParams,
+  type SqlDatabasesDefaultFlatPagination,
+} from './sqldbs/index';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage';

@@ -292,6 +292,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ArtifactCompletedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
@@ -348,11 +350,16 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ArtifactCompletedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
@@ -409,7 +416,10 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnsafeUnwrapWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnwrapWebhookEvent</a></code>
@@ -3824,7 +3834,9 @@ Types:
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkEnableVoiceResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionBulkSetPublicIPsResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionDisableResponse</a></code>
+- <code><a href="./src/resources/sim-cards/actions.ts">ActionDisableVoiceResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionEnableResponse</a></code>
+- <code><a href="./src/resources/sim-cards/actions.ts">ActionEnableVoiceResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionRemovePublicIPResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionSetPublicIPResponse</a></code>
 - <code><a href="./src/resources/sim-cards/actions.ts">ActionSetStandbyResponse</a></code>
@@ -3843,6 +3855,8 @@ Methods:
 - <code title="post /sim_cards/{id}/actions/set_standby">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">setStandby</a>(id) -> ActionSetStandbyResponse</code>
 - <code title="post /sim_cards/actions/bulk_disable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkDisableVoice</a>({ ...params }) -> ActionBulkDisableVoiceResponse</code>
 - <code title="post /sim_cards/actions/bulk_enable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">bulkEnableVoice</a>({ ...params }) -> ActionBulkEnableVoiceResponse</code>
+- <code title="post /sim_cards/{id}/actions/disable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">disableVoice</a>(id) -> ActionDisableVoiceResponse</code>
+- <code title="post /sim_cards/{id}/actions/enable_voice">client.simCards.actions.<a href="./src/resources/sim-cards/actions.ts">enableVoice</a>(id, { ...params }) -> ActionEnableVoiceResponse</code>
 
 # SiprecConnectors
 
@@ -3951,6 +3965,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/storage/kvs/kvs.ts">EdgeComputePaginationMeta</a></code>
 - <code><a href="./src/resources/storage/kvs/kvs.ts">KvNamespace</a></code>
 - <code><a href="./src/resources/storage/kvs/kvs.ts">KvNamespaceResponseWrapper</a></code>
 
@@ -3996,6 +4011,30 @@ Methods:
 Methods:
 
 - <code title="post /storage/cloudfs/{id}/actions/rotate-meta-token">client.storage.cloudfs.actions.<a href="./src/resources/storage/cloudfs/actions.ts">rotateMetaToken</a>(id, { ...params }) -> CloudfsFilesystemResponseWrapper</code>
+
+## Sqldbs
+
+Types:
+
+- <code><a href="./src/resources/storage/sqldbs/sqldbs.ts">SqlDatabase</a></code>
+- <code><a href="./src/resources/storage/sqldbs/sqldbs.ts">SqlDatabaseResponseWrapper</a></code>
+
+Methods:
+
+- <code title="get /storage/sqldbs">client.storage.sqldbs.<a href="./src/resources/storage/sqldbs/sqldbs.ts">list</a>({ ...params }) -> SqlDatabasesDefaultFlatPagination</code>
+- <code title="post /storage/sqldbs">client.storage.sqldbs.<a href="./src/resources/storage/sqldbs/sqldbs.ts">create</a>({ ...params }) -> SqlDatabaseResponseWrapper</code>
+- <code title="delete /storage/sqldbs/{id}">client.storage.sqldbs.<a href="./src/resources/storage/sqldbs/sqldbs.ts">delete</a>(id, { ...params }) -> void</code>
+- <code title="get /storage/sqldbs/{id}">client.storage.sqldbs.<a href="./src/resources/storage/sqldbs/sqldbs.ts">retrieve</a>(id) -> SqlDatabaseResponseWrapper</code>
+
+### Actions
+
+Types:
+
+- <code><a href="./src/resources/storage/sqldbs/actions.ts">ActionQueryResponse</a></code>
+
+Methods:
+
+- <code title="post /storage/sqldbs/{id}/actions/query">client.storage.sqldbs.actions.<a href="./src/resources/storage/sqldbs/actions.ts">query</a>(id, { ...params }) -> ActionQueryResponse</code>
 
 # SubNumberOrders
 
@@ -5699,3 +5738,79 @@ Methods:
 
 - <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPagination</code>
 - <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponse</code>
+
+# WebSearch
+
+Types:
+
+- <code><a href="./src/resources/web-search/web-search.ts">WebSearchResult</a></code>
+- <code><a href="./src/resources/web-search/web-search.ts">WebSearchCreateResponse</a></code>
+- <code><a href="./src/resources/web-search/web-search.ts">WebSearchContentsResponse</a></code>
+
+Methods:
+
+- <code title="post /web_search">client.webSearch.<a href="./src/resources/web-search/web-search.ts">create</a>({ ...params }) -> WebSearchCreateResponse</code>
+- <code title="post /web_search/contents">client.webSearch.<a href="./src/resources/web-search/web-search.ts">contents</a>({ ...params }) -> WebSearchContentsResponse</code>
+
+## Research
+
+Types:
+
+- <code><a href="./src/resources/web-search/research.ts">ResearchCitation</a></code>
+- <code><a href="./src/resources/web-search/research.ts">ResearchCreateResponse</a></code>
+- <code><a href="./src/resources/web-search/research.ts">ResearchRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="post /web_search/research">client.webSearch.research.<a href="./src/resources/web-search/research.ts">create</a>({ ...params }) -> ResearchCreateResponse</code>
+- <code title="get /web_search/research/{task_id}">client.webSearch.research.<a href="./src/resources/web-search/research.ts">retrieve</a>(taskID) -> ResearchRetrieveResponse</code>
+
+# MeetingSessions
+
+Types:
+
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSession</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionListResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionDeleteRecordingMediaResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveEventsResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveRecordingsResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveTranscriptResponse</a></code>
+
+Methods:
+
+- <code title="get /meeting_sessions">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">list</a>({ ...params }) -> MeetingSessionListResponse</code>
+- <code title="post /meeting_sessions">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">create</a>({ ...params }) -> MeetingSessionResponse</code>
+- <code title="delete /meeting_sessions/{id}">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">delete</a>(id) -> MeetingSessionResponse</code>
+- <code title="get /meeting_sessions/{id}">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieve</a>(id) -> MeetingSessionResponse</code>
+- <code title="patch /meeting_sessions/{id}">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">update</a>(id, { ...params }) -> MeetingSessionResponse</code>
+- <code title="get /meeting_sessions/{id}/events">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveEvents</a>(id, { ...params }) -> MeetingSessionRetrieveEventsResponse</code>
+- <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">deleteRecordingMedia</a>(id) -> MeetingSessionDeleteRecordingMediaResponse</code>
+- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveRecordings</a>(id) -> MeetingSessionRetrieveRecordingsResponse</code>
+- <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveTranscript</a>(id, { ...params }) -> MeetingSessionRetrieveTranscriptResponse</code>
+
+## Actions
+
+Types:
+
+- <code><a href="./src/resources/meeting-sessions/actions.ts">ActionAcceptedResponse</a></code>
+
+Methods:
+
+- <code title="post /meeting_sessions/{id}/actions/send_chat">client.meetingSessions.actions.<a href="./src/resources/meeting-sessions/actions.ts">sendChat</a>(id, { ...params }) -> ActionAcceptedResponse</code>
+- <code title="post /meeting_sessions/{id}/actions/speak">client.meetingSessions.actions.<a href="./src/resources/meeting-sessions/actions.ts">speak</a>(id, { ...params }) -> ActionAcceptedResponse</code>
+- <code title="post /meeting_sessions/{id}/actions/stop_speaking">client.meetingSessions.actions.<a href="./src/resources/meeting-sessions/actions.ts">stopSpeaking</a>(id) -> ActionAcceptedResponse</code>
+
+## Artifacts
+
+Types:
+
+- <code><a href="./src/resources/meeting-sessions/artifacts.ts">MeetingSessionArtifact</a></code>
+- <code><a href="./src/resources/meeting-sessions/artifacts.ts">MeetingSessionArtifactResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/artifacts.ts">ArtifactListResponse</a></code>
+
+Methods:
+
+- <code title="get /meeting_sessions/{id}/artifacts">client.meetingSessions.artifacts.<a href="./src/resources/meeting-sessions/artifacts.ts">list</a>(id) -> ArtifactListResponse</code>
+- <code title="post /meeting_sessions/{id}/artifacts">client.meetingSessions.artifacts.<a href="./src/resources/meeting-sessions/artifacts.ts">create</a>(id, { ...params }) -> MeetingSessionArtifactResponse</code>
+- <code title="get /meeting_sessions/{id}/artifacts/{artifact_id}">client.meetingSessions.artifacts.<a href="./src/resources/meeting-sessions/artifacts.ts">retrieve</a>(artifactID, { ...params }) -> MeetingSessionArtifactResponse</code>

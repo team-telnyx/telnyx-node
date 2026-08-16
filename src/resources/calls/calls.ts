@@ -1291,12 +1291,12 @@ export interface CallDialParams {
   webhook_url_method?: 'POST' | 'GET';
 
   /**
-   * A map of event types to webhook URLs. When an event of the specified type
-   * occurs, the webhook URL associated with that event type will be called instead
-   * of the default webhook URL. Events not mapped here will use the default webhook
-   * URL.
+   * A map of event types to arrays of webhook URLs. When an event of the specified
+   * type occurs, the webhook URLs associated with that event type will be called
+   * instead of the default webhook URL. Events not mapped here will use the default
+   * webhook URL.
    */
-  webhook_urls?: { [key: string]: string };
+  webhook_urls?: { [key: string]: Array<string> };
 
   /**
    * HTTP request method to invoke `webhook_urls`.

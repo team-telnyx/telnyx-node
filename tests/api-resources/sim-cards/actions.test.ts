@@ -196,6 +196,43 @@ describe('resource actions', () => {
   test.skip('bulkEnableVoice: required and optional params', async () => {
     const response = await client.simCards.actions.bulkEnableVoice({
       sim_card_group_id: '6b14e151-8493-4fa1-8664-1cc4e6d14158',
+      connection_id: '123456789',
     });
+  });
+
+  // Mock server tests are disabled
+  test.skip('disableVoice', async () => {
+    const responsePromise = client.simCards.actions.disableVoice('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('enableVoice', async () => {
+    const responsePromise = client.simCards.actions.enableVoice('6a09cdc3-8948-47f0-aa62-74ac943d6c58');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('enableVoice: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.simCards.actions.enableVoice(
+        '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+        { connection_id: '123456789' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
   });
 });

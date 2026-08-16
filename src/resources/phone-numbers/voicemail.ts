@@ -25,7 +25,10 @@ export class Voicemail extends APIResource {
   }
 
   /**
-   * Update voicemail settings for a phone number
+   * Update voicemail settings for a phone number. You can also configure a custom
+   * greeting by setting the `greeting` object: use `mode` `custom_greeting` together
+   * with a `media_name` that points to an audio file uploaded through the Media
+   * Storage API, or `mode` `default` to use the standard system greeting.
    *
    * @example
    * ```ts
@@ -44,7 +47,10 @@ export class Voicemail extends APIResource {
   }
 
   /**
-   * Create voicemail settings for a phone number
+   * Create voicemail settings for a phone number. You can also configure a custom
+   * greeting by setting the `greeting` object: use `mode` `custom_greeting` together
+   * with a `media_name` that points to an audio file uploaded through the Media
+   * Storage API, or `mode` `default` to use the standard system greeting.
    *
    * @example
    * ```ts
@@ -70,9 +76,43 @@ export interface VoicemailPrefResponse {
   enabled?: boolean;
 
   /**
+   * Controls the greeting a caller hears before leaving a voicemail. Set `mode` to
+   * `default` to play the standard system greeting, or to `custom_greeting` to play
+   * your own audio. When `mode` is `custom_greeting`, `media_name` is required and
+   * must reference an audio file already uploaded to your account through the Media
+   * Storage API.
+   */
+  greeting?: VoicemailPrefResponse.Greeting;
+
+  /**
    * The pin used for the voicemail.
    */
   pin?: string;
+}
+
+export namespace VoicemailPrefResponse {
+  /**
+   * Controls the greeting a caller hears before leaving a voicemail. Set `mode` to
+   * `default` to play the standard system greeting, or to `custom_greeting` to play
+   * your own audio. When `mode` is `custom_greeting`, `media_name` is required and
+   * must reference an audio file already uploaded to your account through the Media
+   * Storage API.
+   */
+  export interface Greeting {
+    /**
+     * The name of the media file to play as the greeting. Required when `mode` is
+     * `custom_greeting`; ignored when `mode` is `default`. The value must match the
+     * `media_name` of a file you previously uploaded with the Media Storage API
+     * (`POST /v2/media`).
+     */
+    media_name?: string | null;
+
+    /**
+     * The greeting mode. `default` plays the standard system greeting.
+     * `custom_greeting` plays the audio referenced by `media_name`.
+     */
+    mode?: 'default' | 'custom_greeting';
+  }
 }
 
 export interface VoicemailRequest {
@@ -82,9 +122,43 @@ export interface VoicemailRequest {
   enabled?: boolean;
 
   /**
+   * Controls the greeting a caller hears before leaving a voicemail. Set `mode` to
+   * `default` to play the standard system greeting, or to `custom_greeting` to play
+   * your own audio. When `mode` is `custom_greeting`, `media_name` is required and
+   * must reference an audio file already uploaded to your account through the Media
+   * Storage API.
+   */
+  greeting?: VoicemailRequest.Greeting;
+
+  /**
    * The pin used for voicemail
    */
   pin?: string;
+}
+
+export namespace VoicemailRequest {
+  /**
+   * Controls the greeting a caller hears before leaving a voicemail. Set `mode` to
+   * `default` to play the standard system greeting, or to `custom_greeting` to play
+   * your own audio. When `mode` is `custom_greeting`, `media_name` is required and
+   * must reference an audio file already uploaded to your account through the Media
+   * Storage API.
+   */
+  export interface Greeting {
+    /**
+     * The name of the media file to play as the greeting. Required when `mode` is
+     * `custom_greeting`; ignored when `mode` is `default`. The value must match the
+     * `media_name` of a file you previously uploaded with the Media Storage API
+     * (`POST /v2/media`).
+     */
+    media_name?: string | null;
+
+    /**
+     * The greeting mode. `default` plays the standard system greeting.
+     * `custom_greeting` plays the audio referenced by `media_name`.
+     */
+    mode?: 'default' | 'custom_greeting';
+  }
 }
 
 export interface VoicemailCreateResponse {
@@ -106,9 +180,43 @@ export interface VoicemailUpdateParams {
   enabled?: boolean;
 
   /**
+   * Controls the greeting a caller hears before leaving a voicemail. Set `mode` to
+   * `default` to play the standard system greeting, or to `custom_greeting` to play
+   * your own audio. When `mode` is `custom_greeting`, `media_name` is required and
+   * must reference an audio file already uploaded to your account through the Media
+   * Storage API.
+   */
+  greeting?: VoicemailUpdateParams.Greeting;
+
+  /**
    * The pin used for voicemail
    */
   pin?: string;
+}
+
+export namespace VoicemailUpdateParams {
+  /**
+   * Controls the greeting a caller hears before leaving a voicemail. Set `mode` to
+   * `default` to play the standard system greeting, or to `custom_greeting` to play
+   * your own audio. When `mode` is `custom_greeting`, `media_name` is required and
+   * must reference an audio file already uploaded to your account through the Media
+   * Storage API.
+   */
+  export interface Greeting {
+    /**
+     * The name of the media file to play as the greeting. Required when `mode` is
+     * `custom_greeting`; ignored when `mode` is `default`. The value must match the
+     * `media_name` of a file you previously uploaded with the Media Storage API
+     * (`POST /v2/media`).
+     */
+    media_name?: string | null;
+
+    /**
+     * The greeting mode. `default` plays the standard system greeting.
+     * `custom_greeting` plays the audio referenced by `media_name`.
+     */
+    mode?: 'default' | 'custom_greeting';
+  }
 }
 
 export interface VoicemailCreateParams {
@@ -118,9 +226,43 @@ export interface VoicemailCreateParams {
   enabled?: boolean;
 
   /**
+   * Controls the greeting a caller hears before leaving a voicemail. Set `mode` to
+   * `default` to play the standard system greeting, or to `custom_greeting` to play
+   * your own audio. When `mode` is `custom_greeting`, `media_name` is required and
+   * must reference an audio file already uploaded to your account through the Media
+   * Storage API.
+   */
+  greeting?: VoicemailCreateParams.Greeting;
+
+  /**
    * The pin used for voicemail
    */
   pin?: string;
+}
+
+export namespace VoicemailCreateParams {
+  /**
+   * Controls the greeting a caller hears before leaving a voicemail. Set `mode` to
+   * `default` to play the standard system greeting, or to `custom_greeting` to play
+   * your own audio. When `mode` is `custom_greeting`, `media_name` is required and
+   * must reference an audio file already uploaded to your account through the Media
+   * Storage API.
+   */
+  export interface Greeting {
+    /**
+     * The name of the media file to play as the greeting. Required when `mode` is
+     * `custom_greeting`; ignored when `mode` is `default`. The value must match the
+     * `media_name` of a file you previously uploaded with the Media Storage API
+     * (`POST /v2/media`).
+     */
+    media_name?: string | null;
+
+    /**
+     * The greeting mode. `default` plays the standard system greeting.
+     * `custom_greeting` plays the audio referenced by `media_name`.
+     */
+    mode?: 'default' | 'custom_greeting';
+  }
 }
 
 export declare namespace Voicemail {

@@ -4541,6 +4541,135 @@ export interface CallAIGatherPartialResultsWebhookEvent {
   data?: CallAIGatherPartialResults;
 }
 
+export interface ArtifactCompletedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Completed artifact, including its generated content.
+   */
+  data: ArtifactCompletedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'artifact.completed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace ArtifactCompletedWebhookEvent {
+  /**
+   * Completed artifact, including its generated content.
+   */
+  export interface Data {
+    /**
+     * Id of the completed artifact.
+     */
+    artifact_id: string;
+
+    /**
+     * Generated artifact content.
+     */
+    content: Data.Content;
+
+    /**
+     * Model that generated the artifact.
+     */
+    model_provenance: Data.ModelProvenance;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+
+    /**
+     * Type of the completed artifact.
+     */
+    type: 'summary' | 'action_items';
+  }
+
+  export namespace Data {
+    /**
+     * Generated artifact content.
+     */
+    export interface Content {
+      /**
+       * Generated artifact text.
+       */
+      text: string;
+    }
+
+    /**
+     * Model that generated the artifact.
+     */
+    export interface ModelProvenance {
+      model: string;
+
+      provider: string;
+    }
+  }
+}
+
+export interface ArtifactFailedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Failed artifact reference and reason.
+   */
+  data: ArtifactFailedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'artifact.failed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace ArtifactFailedWebhookEvent {
+  /**
+   * Failed artifact reference and reason.
+   */
+  export interface Data {
+    /**
+     * Id of the failed artifact.
+     */
+    artifact_id: string;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+
+    /**
+     * Type of the failed artifact.
+     */
+    type: 'summary' | 'action_items';
+  }
+}
+
 export interface CallAnsweredWebhookEvent {
   data?: CallAnswered;
 }
@@ -6087,8 +6216,161 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
   }
 }
 
+export interface RecordingAvailableWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Available recording types.
+   */
+  data: RecordingAvailableWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'recording.available';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace RecordingAvailableWebhookEvent {
+  /**
+   * Available recording types.
+   */
+  export interface Data {
+    /**
+     * Available recording types.
+     */
+    recording_types: Array<string>;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+  }
+}
+
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
+}
+
+export interface SessionStatusChangedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Status transition details.
+   */
+  data: SessionStatusChangedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'session.status_changed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace SessionStatusChangedWebhookEvent {
+  /**
+   * Status transition details.
+   */
+  export interface Data {
+    /**
+     * Whether the session is recording at this lifecycle edge.
+     */
+    recording: boolean;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+
+    /**
+     * The new session status.
+     */
+    status: string;
+
+    /**
+     * Additional detail about the status (for example `timeout_exceeded_everyone_left`
+     * or `cancelled`), or null.
+     */
+    status_detail: string | null;
+  }
+}
+
+export interface TranscriptCompletedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Finalized transcript details.
+   */
+  data: TranscriptCompletedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'transcript.completed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace TranscriptCompletedWebhookEvent {
+  /**
+   * Finalized transcript details.
+   */
+  export interface Data {
+    /**
+     * Session end time, or null when unavailable.
+     */
+    ended_at: string | null;
+
+    /**
+     * Last transcript segment sequence number, or null for an empty transcript.
+     */
+    last_seq: number | null;
+
+    /**
+     * Number of transcript segments observed during finalization.
+     */
+    segment_count: number;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+  }
 }
 
 export interface TranscriptionWebhookEvent {
@@ -6107,6 +6389,135 @@ export interface CallAIGatherPartialResultsWebhookEvent {
   data?: CallAIGatherPartialResults;
 }
 
+export interface ArtifactCompletedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Completed artifact, including its generated content.
+   */
+  data: ArtifactCompletedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'artifact.completed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace ArtifactCompletedWebhookEvent {
+  /**
+   * Completed artifact, including its generated content.
+   */
+  export interface Data {
+    /**
+     * Id of the completed artifact.
+     */
+    artifact_id: string;
+
+    /**
+     * Generated artifact content.
+     */
+    content: Data.Content;
+
+    /**
+     * Model that generated the artifact.
+     */
+    model_provenance: Data.ModelProvenance;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+
+    /**
+     * Type of the completed artifact.
+     */
+    type: 'summary' | 'action_items';
+  }
+
+  export namespace Data {
+    /**
+     * Generated artifact content.
+     */
+    export interface Content {
+      /**
+       * Generated artifact text.
+       */
+      text: string;
+    }
+
+    /**
+     * Model that generated the artifact.
+     */
+    export interface ModelProvenance {
+      model: string;
+
+      provider: string;
+    }
+  }
+}
+
+export interface ArtifactFailedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Failed artifact reference and reason.
+   */
+  data: ArtifactFailedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'artifact.failed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace ArtifactFailedWebhookEvent {
+  /**
+   * Failed artifact reference and reason.
+   */
+  export interface Data {
+    /**
+     * Id of the failed artifact.
+     */
+    artifact_id: string;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+
+    /**
+     * Type of the failed artifact.
+     */
+    type: 'summary' | 'action_items';
+  }
+}
+
 export interface CallAnsweredWebhookEvent {
   data?: CallAnswered;
 }
@@ -7653,8 +8064,161 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
   }
 }
 
+export interface RecordingAvailableWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Available recording types.
+   */
+  data: RecordingAvailableWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'recording.available';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace RecordingAvailableWebhookEvent {
+  /**
+   * Available recording types.
+   */
+  export interface Data {
+    /**
+     * Available recording types.
+     */
+    recording_types: Array<string>;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+  }
+}
+
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
+}
+
+export interface SessionStatusChangedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Status transition details.
+   */
+  data: SessionStatusChangedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'session.status_changed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace SessionStatusChangedWebhookEvent {
+  /**
+   * Status transition details.
+   */
+  export interface Data {
+    /**
+     * Whether the session is recording at this lifecycle edge.
+     */
+    recording: boolean;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+
+    /**
+     * The new session status.
+     */
+    status: string;
+
+    /**
+     * Additional detail about the status (for example `timeout_exceeded_everyone_left`
+     * or `cancelled`), or null.
+     */
+    status_detail: string | null;
+  }
+}
+
+export interface TranscriptCompletedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  /**
+   * Finalized transcript details.
+   */
+  data: TranscriptCompletedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'transcript.completed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace TranscriptCompletedWebhookEvent {
+  /**
+   * Finalized transcript details.
+   */
+  export interface Data {
+    /**
+     * Session end time, or null when unavailable.
+     */
+    ended_at: string | null;
+
+    /**
+     * Last transcript segment sequence number, or null for an empty transcript.
+     */
+    last_seq: number | null;
+
+    /**
+     * Number of transcript segments observed during finalization.
+     */
+    segment_count: number;
+
+    /**
+     * The meeting session this event belongs to.
+     */
+    session_id: string;
+  }
 }
 
 export interface TranscriptionWebhookEvent {
@@ -7665,6 +8229,8 @@ export type UnsafeUnwrapWebhookEvent =
   | CallAIGatherEndedWebhookEvent
   | CallAIGatherMessageHistoryUpdatedWebhookEvent
   | CallAIGatherPartialResultsWebhookEvent
+  | ArtifactCompletedWebhookEvent
+  | ArtifactFailedWebhookEvent
   | CallAnsweredWebhookEvent
   | CallBridgedWebhookEvent
   | CallConversationEndedWebhookEvent
@@ -7728,13 +8294,18 @@ export type UnsafeUnwrapWebhookEvent =
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdateWebhookEvent
+  | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
+  | SessionStatusChangedWebhookEvent
+  | TranscriptCompletedWebhookEvent
   | TranscriptionWebhookEvent;
 
 export type UnwrapWebhookEvent =
   | CallAIGatherEndedWebhookEvent
   | CallAIGatherMessageHistoryUpdatedWebhookEvent
   | CallAIGatherPartialResultsWebhookEvent
+  | ArtifactCompletedWebhookEvent
+  | ArtifactFailedWebhookEvent
   | CallAnsweredWebhookEvent
   | CallBridgedWebhookEvent
   | CallConversationEndedWebhookEvent
@@ -7798,7 +8369,10 @@ export type UnwrapWebhookEvent =
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdateWebhookEvent
+  | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
+  | SessionStatusChangedWebhookEvent
+  | TranscriptCompletedWebhookEvent
   | TranscriptionWebhookEvent;
 
 export declare namespace Webhooks {
@@ -7866,6 +8440,8 @@ export declare namespace Webhooks {
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
+    type ArtifactCompletedWebhookEvent as ArtifactCompletedWebhookEvent,
+    type ArtifactFailedWebhookEvent as ArtifactFailedWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
@@ -7922,7 +8498,10 @@ export declare namespace Webhooks {
     type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
     type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
+    type RecordingAvailableWebhookEvent as RecordingAvailableWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
+    type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
+    type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
     type UnwrapWebhookEvent as UnwrapWebhookEvent,
