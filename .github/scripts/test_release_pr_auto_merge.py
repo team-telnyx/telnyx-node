@@ -385,6 +385,8 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         self.assertIn(
             "github.event.label.name == 'autorelease: pending'", workflow
         )
+        self.assertIn("  policy-test:\n", workflow)
+        self.assertNotIn("\n  test:\n", workflow)
 
     def test_merge_uses_immediate_rest_put_and_never_enables_auto_merge(self):
         client = GitHubClient(GateConfig.python(), "test-token")

@@ -30,7 +30,8 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  test:
+  policy-test:
+    name: policy-test
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     timeout-minutes: 5
