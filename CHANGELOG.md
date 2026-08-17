@@ -1,5 +1,18 @@
 # Changelog
 
+## [7.16.0](https://github.com/team-telnyx/telnyx-node/compare/v7.15.0...v7.16.0) (2026-08-17)
+
+
+### Features
+
+* promote from staging f1e6500 ([2724cea](https://github.com/team-telnyx/telnyx-node/commit/2724cea5cd48dff2e07cbb1bda87aaf48a8aa020))
+
+
+### Bug Fixes
+
+* **ci:** ignore closed release PR events ([#512](https://github.com/team-telnyx/telnyx-node/issues/512)) ([1b5e6aa](https://github.com/team-telnyx/telnyx-node/commit/1b5e6aa971b0b571ca6093edc67e96b3652bbdf9))
+* **ci:** isolate release policy validation context ([#513](https://github.com/team-telnyx/telnyx-node/issues/513)) ([9693c01](https://github.com/team-telnyx/telnyx-node/commit/9693c01ef89bee748f2a40b765b55b15d69b398d))
+
 ## [7.15.0](https://github.com/team-telnyx/telnyx-node/compare/v7.14.0...v7.15.0) (2026-08-16)
 
 
