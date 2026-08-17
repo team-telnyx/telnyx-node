@@ -171,6 +171,7 @@ class Attestation:
     head_sha: str
     base_sha: str
     next_sha: str
+    title: str
     version: str
     staging_sha: str
     config_sha: str
@@ -217,7 +218,7 @@ class ReleasePRAutoMergeGate:
         if dry_run:
             return {"status": "ready", "head_sha": first.head_sha, "dry_run": True}
 
-        self.client.merge(pr_number, first.head_sha)
+        self.client.merge(pr_number, first.head_sha, first.title)
         merged = self.client.read_merge_result(pr_number)
         merge_sha = merged.get("merge_commit_sha")
         if (
@@ -293,7 +294,15 @@ class ReleasePRAutoMergeGate:
         self._attest_tree(snapshot)
         staging_sha, config_sha = self._attest_provenance(snapshot, version)
         self._attest_checks(snapshot, head_sha)
-        return Attestation(head_sha, default_sha, next_sha, version, staging_sha, config_sha)
+        return Attestation(
+            head_sha,
+            default_sha,
+            next_sha,
+            "release: %s" % version,
+            version,
+            staging_sha,
+            config_sha,
+        )
 
     def _attest_tree(self, snapshot: Mapping[str, Any]) -> None:
         head_tree = self._tree(snapshot.get("head_tree"), "PR head tree")
@@ -711,7 +720,7 @@ class GitHubClient:
                     raise GateError("invalid required-status context")
         return sorted(contexts)
 
-    def merge(self, pr_number: int, expected_head: str) -> None:
+    def merge(self, pr_number: int, expected_head: str, commit_title: str) -> None:
         merge_token = os.environ.get("MERGE_TOKEN")
         if not merge_token:
             raise GateError("MERGE_TOKEN is required for live merge")
@@ -731,6 +740,8 @@ class GitHubClient:
             "merge_method=squash",
             "--raw-field",
             "sha=%s" % expected_head,
+            "--raw-field",
+            "commit_title=%s" % commit_title,
         ]
         completed = subprocess.run(command, env=env, text=True, capture_output=True)
         if completed.returncode != 0:
