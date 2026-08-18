@@ -395,6 +395,10 @@ class ReleasePRAutoMergeGate:
         expected: Dict[str, str] = dict(self.config.expected_checks)
         for context in live:
             self._require(isinstance(context, str) and context, "invalid live required context")
+            # This gate publishes release-provenance. Waiting for its own
+            # context would create a self-dependency after ruleset cutover.
+            if context == "release-provenance":
+                continue
             expected.setdefault(context, "github-actions")
 
         checks = snapshot.get("checks")
