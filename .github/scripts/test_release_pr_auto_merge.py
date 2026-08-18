@@ -159,6 +159,12 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         self.assertEqual(result, {"status": "ready", "head_sha": HEAD, "dry_run": True})
         self.assertEqual(client.merge_calls, [])
 
+    def test_required_release_provenance_does_not_wait_on_its_own_status(self):
+        client = FixtureClient()
+        client.snapshot["required_contexts"].append("release-provenance")
+        result = self.gate(client).run(415, HEAD, True)
+        self.assertEqual(result, {"status": "ready", "head_sha": HEAD, "dry_run": True})
+
     def test_config_inventory_contains_exactly_the_six_non_java_sdk_repositories(self):
         expected = {
             "team-telnyx/telnyx-python": ("master", "team-telnyx/telnyx-python-staging"),

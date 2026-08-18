@@ -39,6 +39,11 @@ jobs:
       - name: Check types
         run: ./scripts/lint
 
+      - name: Validate release gate policy
+        run: |
+          python3 .github/scripts/test_release_pr_auto_merge.py -v
+          python3 .github/scripts/test_release_pr_ci_gate.py -v
+
   build:
     timeout-minutes: 5
     name: build
