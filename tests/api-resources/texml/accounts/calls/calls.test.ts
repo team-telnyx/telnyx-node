@@ -78,6 +78,7 @@ describe('resource calls', () => {
       FallbackUrl: 'https://www.example.com/instructions-fallback.xml',
       From: '+16175551212',
       MachineDetection: 'Enable',
+      MachineDetectionBeepProfile: 'freq_only',
       MachineDetectionPromptEndTimeout: 5000,
       MachineDetectionSilenceTimeout: 2000,
       MachineDetectionSpeechEndThreshold: 2000,

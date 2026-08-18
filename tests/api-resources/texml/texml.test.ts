@@ -62,6 +62,7 @@ describe('resource texml', () => {
       CustomHeaders: [{ name: 'X-Custom-Header', value: 'custom-value' }],
       DetectionMode: 'Premium',
       MachineDetection: 'Enable',
+      MachineDetectionBeepProfile: 'freq_only',
       MachineDetectionPromptEndTimeout: 5000,
       MachineDetectionSilenceTimeout: 2000,
       MachineDetectionSpeechEndThreshold: 2000,

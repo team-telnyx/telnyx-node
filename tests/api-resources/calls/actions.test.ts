@@ -673,6 +673,7 @@ describe('resource actions', () => {
       answering_machine_detection: 'detect',
       answering_machine_detection_config: {
         after_greeting_silence_millis: 1000,
+        beep_detection_profile: 'freq_only',
         between_words_silence_millis: 1000,
         greeting_duration_millis: 1000,
         greeting_silence_duration_millis: 2000,

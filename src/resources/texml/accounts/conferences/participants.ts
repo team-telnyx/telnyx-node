@@ -481,6 +481,14 @@ export interface ParticipantParticipantsParams {
   MachineDetection?: 'Enable' | 'DetectMessageEnd';
 
   /**
+   * Body param: Selects which detectors must validate a beep. `both` requires the
+   * amplitude and frequency detectors to agree. `freq_only` uses the frequency
+   * detector alone, for beeps whose volume is too unsteady for the default profile.
+   * Only used when MachineDetection is enabled.
+   */
+  MachineDetectionBeepProfile?: 'both' | 'freq_only';
+
+  /**
    * Body param: If initial silence duration is greater than this value, consider it
    * a machine. Ignored when `premium` detection is used.
    */

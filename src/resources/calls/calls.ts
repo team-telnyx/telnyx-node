@@ -1319,6 +1319,13 @@ export namespace CallDialParams {
     after_greeting_silence_millis?: number;
 
     /**
+     * Selects which detectors must validate a beep. `both` requires the amplitude and
+     * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+     * beeps whose volume is too unsteady for the default profile.
+     */
+    beep_detection_profile?: 'both' | 'freq_only';
+
+    /**
      * Maximum threshold for silence between words.
      */
     between_words_silence_millis?: number;

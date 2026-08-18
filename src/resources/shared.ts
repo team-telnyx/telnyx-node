@@ -1103,6 +1103,14 @@ export interface RimeVoiceSettings {
   type: 'rime';
 
   /**
+   * The `identifier` for an integration secret
+   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * that refers to your Rime API key. Only required when using your own Rime
+   * account.
+   */
+  api_key_ref?: string;
+
+  /**
    * Speech speed multiplier. Default is 1.0.
    */
   voice_speed?: number;
