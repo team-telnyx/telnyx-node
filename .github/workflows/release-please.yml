@@ -312,29 +312,36 @@ jobs:
             --manifest-file .release-please-manifest.json \
             2>&1
 
-      - name: Verify release commit produced a tag (ghost-release guard)
+      - name: Verify release commit produced an exact tag (ghost-release guard)
         if: github.ref == 'refs/heads/master'
+        id: release
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
-          # `github-release` exits 0 even when it finds nothing to release ([]).
-          # If the commit that triggered this run is a merged `release: X.Y.Z`
-          # commit, a missing vX.Y.Z tag here means it silently no-opped —
-          # usually a merged release PR that lost its `autorelease: pending`
-          # label. Fail loud instead of ghosting the release.
+          set -euo pipefail
           MSG=$(git log -1 --format=%s "$GITHUB_SHA")
           VER=$(echo "$MSG" | grep -oP '^release:\s*\K[0-9][0-9.]*' || true)
           if [ -z "$VER" ]; then
+            echo "is_release=false" >> "$GITHUB_OUTPUT"
             echo "Not a release commit; nothing to verify"
             exit 0
           fi
-          if git ls-remote --exit-code --tags origin "v$VER" >/dev/null 2>&1; then
-            if ! gh api "repos/${{ github.repository }}/releases/tags/v$VER" >/dev/null 2>&1; then
-              echo "::error::Tag v$VER exists but there is no GitHub Release for it - the publish workflow (release: published) will never fire. Create it: gh release create v$VER --generate-notes"
-              exit 1
-            fi
-            echo "Tag v$VER and its GitHub Release exist - release verified"
-          else
-            echo "::error::Merged release commit for $VER but no v$VER tag exists. github-release silently no-opped (merged release PR likely missing the autorelease pending label). Add the label to the merged PR and re-run this workflow."
+          TAG="v$VER"
+          git fetch --tags origin
+          TAG_SHA=$(git rev-list -n 1 "$TAG" 2>/dev/null || true)
+          if [ "$TAG_SHA" != "$GITHUB_SHA" ]; then
+            echo "::error::$TAG resolves to $TAG_SHA, expected $GITHUB_SHA"
             exit 1
           fi
+          gh api "repos/${{ github.repository }}/releases/tags/$TAG" >/dev/null
+          {
+            echo "is_release=true"
+            echo "version=$VER"
+          } >> "$GITHUB_OUTPUT"
+          echo "Tag $TAG and GitHub Release verified at $GITHUB_SHA"
+
+      - name: Verify NPM release availability
+        if: github.ref == 'refs/heads/master' && steps.release.outputs.is_release == 'true'
+        env:
+          VERSION: ${{ steps.release.outputs.version }}
+        run: python3 .github/scripts/verify_npm_release.py --version "$VERSION"

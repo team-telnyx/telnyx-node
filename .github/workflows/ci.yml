@@ -15,11 +15,32 @@ on:
       - 'stl-preview-base/**'
 
 jobs:
+  classify-production-ci:
+    name: classify production CI
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      checks: read
+      pull-requests: read
+      statuses: read
+    outputs:
+      run_full: ${{ steps.classify.outputs.run_full }}
+      reason: ${{ steps.classify.outputs.reason }}
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          persist-credentials: false
+      - id: classify
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: python3 .github/scripts/classify_production_ci.py --event-path "$GITHUB_EVENT_PATH"
+
   lint:
+    needs: classify-production-ci
     timeout-minutes: 10
     name: lint
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' || github.event_name == 'pull_request') && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
+    if: needs.classify-production-ci.outputs.run_full == 'true'
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
 
@@ -43,12 +64,16 @@ jobs:
         run: |
           python3 .github/scripts/test_release_pr_auto_merge.py -v
           python3 .github/scripts/test_release_pr_ci_gate.py -v
+          python3 .github/scripts/test_classify_production_ci.py -v
+          python3 .github/scripts/test_validate_next_provenance.py -v
+          python3 .github/scripts/test_verify_npm_release.py -v
 
   build:
+    needs: classify-production-ci
     timeout-minutes: 5
     name: build
     runs-on: ubuntu-latest
-    if: (github.event_name == 'push' || github.event_name == 'pull_request') && (github.event_name != 'push' || github.event.head_commit.message != 'codegen metadata')
+    if: needs.classify-production-ci.outputs.run_full == 'true'
     permissions:
       contents: read
       id-token: write
