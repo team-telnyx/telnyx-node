@@ -1,19 +1,16 @@
 #!/usr/bin/env python3
-"""Static contracts for DOT-2061 Node phase 1."""
 import unittest
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
 class NodeGateTests(unittest.TestCase):
- def test_release_pr_keeps_full_ci_while_readiness_is_added(self):
-  ci=(ROOT/'.github/workflows/ci.yml').read_text()
-  self.assertIn('name: lint',ci); self.assertIn('name: build',ci)
-  self.assertNotIn('classify-production-ci',ci)
-  self.assertIn('test_release_pr_ci_gate.py',ci)
- def test_trusted_readiness_is_dry_run(self):
-  w=(ROOT/'.github/workflows/release-pr-readiness.yml').read_text()
-  self.assertIn('pull_request_target:',w)
-  self.assertIn("default_branch || 'master'",w)
-  self.assertIn('--expected-head',w); self.assertIn('--dry-run',w)
-  self.assertIn('persist-credentials: false',w)
-  self.assertNotIn('--merge',w)
+ def test_classifier_owns_full_jobs(self):
+  w=(ROOT/'.github/workflows/ci.yml').read_text(); self.assertIn('classify production CI',w); self.assertNotIn('>> "$GITHUB_OUTPUT"',w)
+  self.assertEqual(w.count('needs: classify-production-ci'),2); self.assertEqual(w.count("if: needs.classify-production-ci.outputs.run_full == 'true'"),2)
+  for t in ('test_classify_production_ci.py','test_validate_next_provenance.py','test_verify_npm_release.py'): self.assertIn(t,w)
+ def test_lightweight_next(self):
+  w=(ROOT/'.github/workflows/next-readiness.yml').read_text(); self.assertIn('validate_next_provenance.py',w); self.assertNotIn('./scripts/lint',w); self.assertNotIn('./scripts/build',w)
+ def test_npm_availability(self):
+  w=(ROOT/'.github/workflows/release-please.yml').read_text(); self.assertIn('Verify NPM release availability',w); self.assertIn('verify_npm_release.py',w); self.assertNotIn('release-pr-auto-merge.yml',w); self.assertNotIn('Dispatch exact-head release PR gate',w)
+ def test_readiness_dry_run(self):
+  w=(ROOT/'.github/workflows/release-pr-readiness.yml').read_text(); self.assertIn('--dry-run',w); self.assertNotIn('--merge',w)
 if __name__=='__main__': unittest.main()

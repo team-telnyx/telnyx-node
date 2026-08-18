@@ -1,0 +1,57 @@
+name: Next lightweight readiness
+
+on:
+  push:
+    branches: [next]
+  workflow_dispatch:
+    inputs:
+      expected_next:
+        description: Exact 40-character next SHA to verify
+        required: true
+        type: string
+
+permissions:
+  contents: read
+
+env:
+  FORCE_COLOR: '1'
+
+jobs:
+  next-readiness:
+    name: next-readiness
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Resolve exact next SHA
+        id: target
+        env:
+          EVENT_NAME: ${{ github.event_name }}
+          PUSH_SHA: ${{ github.sha }}
+          DISPATCH_SHA: ${{ inputs.expected_next }}
+        run: |
+          set -euo pipefail
+          if [ "$EVENT_NAME" = workflow_dispatch ]; then
+            SHA="$DISPATCH_SHA"
+          else
+            SHA="$PUSH_SHA"
+          fi
+          if ! printf '%s' "$SHA" | grep -Eq '^[0-9a-f]{40}$'; then
+            echo 'Expected next must be a full lowercase SHA' >&2
+            exit 1
+          fi
+          echo "sha=$SHA" >> "$GITHUB_OUTPUT"
+
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          ref: ${{ steps.target.outputs.sha }}
+          fetch-depth: 0
+          persist-credentials: false
+
+      - name: Verify immutable next provenance and tree
+        env:
+          GH_TOKEN: ${{ github.token }}
+          MERGE_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
+        run: |
+          python3 .github/scripts/validate_next_provenance.py \
+            --repository "$GITHUB_REPOSITORY" \
+            --expected-next "${{ steps.target.outputs.sha }}"
