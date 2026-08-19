@@ -38,7 +38,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Stop an AI assistant on the call.
+   * Stops the AI assistant currently engaged on the call. The call remains active
+   * and can continue with other call control commands.
    *
    * @example
    * ```ts
@@ -119,7 +120,9 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Updates client state
+   * Updates the client state associated with the call. Client state is an opaque
+   * value echoed back in subsequent webhooks for the call, letting you correlate
+   * events with your application's state.
    *
    * @example
    * ```ts
@@ -139,7 +142,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Put the call in a queue.
+   * Places the call into a queue, where it waits until it is removed or bridged to
+   * another leg. Queue behavior is configured through the request body.
    *
    * @example
    * ```ts
@@ -377,7 +381,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Removes the call from a queue.
+   * Removes the call from the queue it is currently waiting in. The call remains
+   * active and can be directed with further call commands.
    *
    * @example
    * ```ts
@@ -845,7 +850,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Stop real-time transcription.
+   * Stops real-time transcription on the call. Transcription webhooks cease once the
+   * command takes effect; the call itself is unaffected.
    *
    * @example
    * ```ts

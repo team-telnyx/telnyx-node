@@ -84,7 +84,8 @@ export class ManagedAccounts extends APIResource {
   }
 
   /**
-   * Update a single managed account.
+   * Updates the specified managed account's attributes and returns the updated
+   * account.
    *
    * @example
    * ```ts

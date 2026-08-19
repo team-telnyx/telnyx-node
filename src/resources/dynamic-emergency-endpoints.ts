@@ -33,7 +33,8 @@ export class DynamicEmergencyEndpoints extends APIResource {
   }
 
   /**
-   * Creates a dynamic emergency endpoints.
+   * Creates a dynamic emergency endpoint, associating a callback number and location
+   * with a device for emergency calling.
    *
    * @example
    * ```ts

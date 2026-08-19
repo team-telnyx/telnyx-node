@@ -52,7 +52,8 @@ export class Rooms extends APIResource {
   }
 
   /**
-   * Synchronously create a Room.
+   * Synchronously creates a new video room with the provided configuration and
+   * returns the created room.
    *
    * @example
    * ```ts
@@ -103,7 +104,8 @@ export class Rooms extends APIResource {
   }
 
   /**
-   * Synchronously update a Room.
+   * Synchronously updates the specified video room's configuration and returns the
+   * updated room.
    *
    * @example
    * ```ts

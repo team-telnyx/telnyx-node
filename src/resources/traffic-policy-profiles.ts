@@ -77,7 +77,7 @@ export class TrafficPolicyProfiles extends APIResource {
   }
 
   /**
-   * Deletes the traffic policy profile.
+   * Permanently deletes the specified traffic policy profile from your account.
    *
    * @example
    * ```ts
@@ -107,7 +107,7 @@ export class TrafficPolicyProfiles extends APIResource {
   }
 
   /**
-   * Updates a traffic policy profile.
+   * Updates the specified traffic policy profile and returns the updated profile.
    *
    * @example
    * ```ts

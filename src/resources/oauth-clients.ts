@@ -30,7 +30,8 @@ export class OAuthClients extends APIResource {
   }
 
   /**
-   * Create a new OAuth client
+   * Creates a new OAuth client on your account for authenticating third-party
+   * integrations, and returns the created client.
    *
    * @example
    * ```ts
@@ -47,7 +48,7 @@ export class OAuthClients extends APIResource {
   }
 
   /**
-   * Delete an OAuth client
+   * Permanently deletes the specified OAuth client from your account.
    *
    * @example
    * ```ts
@@ -64,7 +65,7 @@ export class OAuthClients extends APIResource {
   }
 
   /**
-   * Retrieve a single OAuth client by ID
+   * Returns the details of a single OAuth client on your account by its ID.
    *
    * @example
    * ```ts
@@ -78,7 +79,8 @@ export class OAuthClients extends APIResource {
   }
 
   /**
-   * Update an existing OAuth client
+   * Updates the specified OAuth client's configuration and returns the updated
+   * client.
    *
    * @example
    * ```ts

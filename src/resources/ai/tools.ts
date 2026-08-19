@@ -47,7 +47,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Delete a custom AI tool.
+   * Permanently deletes the specified custom AI tool from your account.
    *
    * @example
    * ```ts

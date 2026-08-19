@@ -11,7 +11,8 @@ import { path } from '../internal/utils/path';
  */
 export class UserAddresses extends APIResource {
   /**
-   * Returns a list of your user addresses.
+   * Returns a paginated list of your user addresses, with support for filtering and
+   * sorting.
    *
    * @example
    * ```ts
@@ -32,7 +33,8 @@ export class UserAddresses extends APIResource {
   }
 
   /**
-   * Creates a user address.
+   * Creates a new user address from the provided details and returns the created
+   * address.
    *
    * @example
    * ```ts

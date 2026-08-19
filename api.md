@@ -179,12 +179,13 @@ Types:
 - <code><a href="./src/resources/oauth.ts">OAuthGrantsResponse</a></code>
 - <code><a href="./src/resources/oauth.ts">OAuthIntrospectResponse</a></code>
 - <code><a href="./src/resources/oauth.ts">OAuthRegisterResponse</a></code>
+- <code><a href="./src/resources/oauth.ts">OAuthRetrieveAuthorizeResponse</a></code>
 - <code><a href="./src/resources/oauth.ts">OAuthRetrieveJwksResponse</a></code>
 - <code><a href="./src/resources/oauth.ts">OAuthTokenResponse</a></code>
 
 Methods:
 
-- <code title="get /oauth/authorize">client.oauth.<a href="./src/resources/oauth.ts">retrieveAuthorize</a>({ ...params }) -> void</code>
+- <code title="get /oauth/authorize">client.oauth.<a href="./src/resources/oauth.ts">retrieveAuthorize</a>({ ...params }) -> string</code>
 - <code title="get /oauth/consent/{consent_token}">client.oauth.<a href="./src/resources/oauth.ts">retrieve</a>(consentToken) -> OAuthRetrieveResponse</code>
 - <code title="post /oauth/grants">client.oauth.<a href="./src/resources/oauth.ts">grants</a>({ ...params }) -> OAuthGrantsResponse</code>
 - <code title="post /oauth/introspect">client.oauth.<a href="./src/resources/oauth.ts">introspect</a>({ ...params }) -> OAuthIntrospectResponse</code>

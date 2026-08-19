@@ -84,7 +84,8 @@ export class Documents extends APIResource {
   }
 
   /**
-   * Retrieve a document.
+   * Returns the details of a single document on your account, including its
+   * metadata.
    *
    * @example
    * ```ts
@@ -98,7 +99,7 @@ export class Documents extends APIResource {
   }
 
   /**
-   * Update a document.
+   * Updates the specified document's attributes and returns the updated document.
    *
    * @example
    * ```ts
@@ -116,7 +117,7 @@ export class Documents extends APIResource {
   }
 
   /**
-   * Download a document.
+   * Downloads the raw file content of the specified document as originally uploaded.
    *
    * @example
    * ```ts

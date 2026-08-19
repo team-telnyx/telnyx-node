@@ -11,7 +11,8 @@ import { path } from '../../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
-   * Deletes a user in your organization.
+   * Removes the specified user from your organization and returns the result of the
+   * removal.
    */
   remove(id: string, options?: RequestOptions): APIPromise<ActionRemoveResponse> {
     return this._client.post(path`/organizations/users/${id}/actions/remove`, options);

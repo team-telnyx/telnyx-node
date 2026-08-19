@@ -8,7 +8,8 @@ import { path } from '../../../internal/utils/path';
 
 export class KnowledgeBases extends APIResource {
   /**
-   * List all knowledge bases for a mission
+   * Returns the knowledge bases attached to the specified mission. Knowledge bases
+   * provide reference content agents can draw on during runs.
    *
    * @example
    * ```ts
@@ -38,7 +39,8 @@ export class KnowledgeBases extends APIResource {
   }
 
   /**
-   * Delete a knowledge base from a mission
+   * Detaches the specified knowledge base from the mission so its content is no
+   * longer available to agents in subsequent runs.
    *
    * @example
    * ```ts
@@ -61,7 +63,8 @@ export class KnowledgeBases extends APIResource {
   }
 
   /**
-   * Get a specific knowledge base by ID
+   * Returns the details of a single knowledge base attached to the specified
+   * mission.
    *
    * @example
    * ```ts
@@ -82,7 +85,7 @@ export class KnowledgeBases extends APIResource {
   }
 
   /**
-   * Update a knowledge base definition
+   * Replaces the definition of the specified knowledge base on this mission.
    *
    * @example
    * ```ts

@@ -33,7 +33,8 @@ export class MobileVoiceConnections extends APIResource {
   }
 
   /**
-   * Create a new mobile voice connection.
+   * Creates a new mobile voice connection with the provided configuration and
+   * returns the created connection.
    *
    * @example
    * ```ts

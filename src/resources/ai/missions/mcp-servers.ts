@@ -8,7 +8,8 @@ import { path } from '../../../internal/utils/path';
 
 export class McpServers extends APIResource {
   /**
-   * List all MCP servers for a mission
+   * Returns the MCP servers configured on the specified mission. MCP servers expose
+   * external tools and data sources agents can use during runs.
    *
    * @example
    * ```ts
@@ -23,7 +24,8 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Create a new MCP server for a mission
+   * Adds an MCP server to the specified mission, making the server's tools available
+   * to agents during runs of this mission.
    *
    * @example
    * ```ts
@@ -38,7 +40,8 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Delete an MCP server from a mission
+   * Removes the specified MCP server from the mission, revoking agent access to its
+   * tools in subsequent runs.
    *
    * @example
    * ```ts
@@ -61,7 +64,8 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Get a specific MCP server by ID
+   * Returns the configuration of a single MCP server attached to the specified
+   * mission.
    *
    * @example
    * ```ts
@@ -82,7 +86,7 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Update an MCP server definition
+   * Replaces the configuration of the specified MCP server on this mission.
    *
    * @example
    * ```ts

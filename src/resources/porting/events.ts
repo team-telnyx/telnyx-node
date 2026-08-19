@@ -13,7 +13,9 @@ import { path } from '../../internal/utils/path';
  */
 export class Events extends APIResource {
   /**
-   * Returns a list of all porting events.
+   * Returns a paginated list of porting-related events on your account, such as
+   * status changes on porting orders. Supports filtering and is useful for auditing
+   * or reconciling webhook deliveries.
    *
    * @example
    * ```ts
@@ -34,7 +36,7 @@ export class Events extends APIResource {
   }
 
   /**
-   * Show a specific porting event.
+   * Returns the details of a single porting event, including its type and payload.
    *
    * @example
    * ```ts
@@ -48,7 +50,8 @@ export class Events extends APIResource {
   }
 
   /**
-   * Republish a specific porting event.
+   * Republishes the specified porting event, triggering re-delivery of the
+   * corresponding webhook to your account.
    *
    * @example
    * ```ts

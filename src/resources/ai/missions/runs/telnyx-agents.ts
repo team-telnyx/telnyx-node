@@ -8,7 +8,8 @@ import { path } from '../../../../internal/utils/path';
 
 export class TelnyxAgents extends APIResource {
   /**
-   * List all Telnyx agents linked to a run
+   * Returns the Telnyx agents currently linked to the specified run. Linked agents
+   * participate in executing the run's plan.
    *
    * @example
    * ```ts
@@ -56,7 +57,8 @@ export class TelnyxAgents extends APIResource {
   }
 
   /**
-   * Unlink a Telnyx agent from a run
+   * Unlinks the specified Telnyx agent from the run so it no longer participates in
+   * execution. The run itself and its history are unaffected.
    *
    * @example
    * ```ts

@@ -45,7 +45,8 @@ export class FqdnConnections extends APIResource {
   }
 
   /**
-   * Creates a FQDN connection.
+   * Creates a new FQDN-based SIP connection. FQDN connections authenticate by your
+   * registered domain names rather than static IP addresses.
    *
    * @example
    * ```ts
@@ -62,7 +63,7 @@ export class FqdnConnections extends APIResource {
   }
 
   /**
-   * Deletes an FQDN connection.
+   * Permanently deletes the specified FQDN connection from your account.
    *
    * @example
    * ```ts

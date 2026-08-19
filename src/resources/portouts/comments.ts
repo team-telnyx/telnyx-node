@@ -25,7 +25,8 @@ export class Comments extends APIResource {
   }
 
   /**
-   * Creates a comment on a portout request.
+   * Creates a comment on the specified port-out request and returns the created
+   * comment.
    *
    * @example
    * ```ts

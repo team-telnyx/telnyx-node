@@ -13,7 +13,8 @@ import { path } from '../../internal/utils/path';
 
 export class McpServers extends APIResource {
   /**
-   * Retrieve a list of MCP servers.
+   * Returns a paginated list of the MCP servers configured on your account, with
+   * optional filtering by type or URL.
    *
    * @example
    * ```ts
@@ -34,7 +35,8 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Create a new MCP server.
+   * Creates a new MCP server configuration on your account and returns the created
+   * server.
    *
    * @example
    * ```ts
@@ -50,7 +52,7 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Delete a specific MCP server.
+   * Permanently deletes the specified MCP server configuration from your account.
    *
    * @example
    * ```ts
@@ -79,7 +81,7 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Update an existing MCP server.
+   * Updates the specified MCP server's configuration and returns the updated server.
    *
    * @example
    * ```ts

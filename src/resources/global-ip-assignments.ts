@@ -12,7 +12,8 @@ import { path } from '../internal/utils/path';
  */
 export class GlobalIPAssignments extends APIResource {
   /**
-   * List all Global IP assignments.
+   * Returns a paginated list of your Global IP assignments, the links between Global
+   * IPs and the WireGuard peers that receive their traffic.
    */
   list(
     query: GlobalIPAssignmentListParams | null | undefined = {},
@@ -25,7 +26,9 @@ export class GlobalIPAssignments extends APIResource {
   }
 
   /**
-   * Create a Global IP assignment.
+   * Assigns a Global IP to a WireGuard peer so traffic destined for the IP is
+   * delivered over that peer's tunnel. Assignment is asynchronous, so the request is
+   * accepted and completes in the background.
    */
   create(
     body: GlobalIPAssignmentCreateParams,
@@ -35,21 +38,24 @@ export class GlobalIPAssignments extends APIResource {
   }
 
   /**
-   * Delete a Global IP assignment.
+   * Deletes the specified Global IP assignment, detaching the Global IP from its
+   * WireGuard peer.
    */
   delete(id: string, options?: RequestOptions): APIPromise<GlobalIPAssignmentDeleteResponse> {
     return this._client.delete(path`/global_ip_assignments/${id}`, options);
   }
 
   /**
-   * Retrieve a Global IP assignment.
+   * Returns the details of a single Global IP assignment, including the Global IP
+   * and WireGuard peer it links.
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<GlobalIPAssignmentRetrieveResponse> {
     return this._client.get(path`/global_ip_assignments/${id}`, options);
   }
 
   /**
-   * Update a Global IP assignment.
+   * Updates the specified Global IP assignment with the provided fields and returns
+   * the updated assignment.
    */
   update(
     globalIPAssignmentID: string,

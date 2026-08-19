@@ -87,7 +87,8 @@ export class ScheduledEvents extends APIResource {
   }
 
   /**
-   * Retrieve a scheduled event by event ID
+   * Returns the details of a single scheduled event configured for the specified
+   * assistant.
    *
    * @example
    * ```ts

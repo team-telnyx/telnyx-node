@@ -53,7 +53,8 @@ export class Runs extends APIResource {
   telnyxAgents: TelnyxAgentsAPI.TelnyxAgents = new TelnyxAgentsAPI.TelnyxAgents(this._client);
 
   /**
-   * List all runs for a specific mission
+   * Returns a paginated list of runs for the specified mission, optionally filtered
+   * by run status, so you can track the mission's execution history over time.
    *
    * @example
    * ```ts
@@ -78,7 +79,8 @@ export class Runs extends APIResource {
   }
 
   /**
-   * Start a new run for a mission
+   * Starts a new run of the specified mission and returns the created run object.
+   * Track its progress through the run detail, plan, and events endpoints.
    *
    * @example
    * ```ts
@@ -104,7 +106,8 @@ export class Runs extends APIResource {
   }
 
   /**
-   * Get details of a specific run
+   * Returns the full details of a single run, including its current status. Use this
+   * to poll an in-flight run or inspect the outcome of a completed one.
    *
    * @example
    * ```ts
@@ -125,7 +128,9 @@ export class Runs extends APIResource {
   }
 
   /**
-   * Update run status and/or result
+   * Updates a run's status and/or result and returns the updated run object.
+   * Typically used by executing agents to report progress or record the final
+   * outcome.
    *
    * @example
    * ```ts
@@ -147,7 +152,9 @@ export class Runs extends APIResource {
   }
 
   /**
-   * List recent runs across all missions
+   * Returns a paginated list of recent runs across every mission in your
+   * organization, optionally filtered by run status. Useful for monitoring overall
+   * mission activity without querying each mission individually.
    *
    * @example
    * ```ts
@@ -168,7 +175,8 @@ export class Runs extends APIResource {
   }
 
   /**
-   * Cancel a running or paused run
+   * Cancels a running or paused run and returns the updated run object. A cancelled
+   * run stops executing; start a new run to execute the mission again.
    *
    * @example
    * ```ts
@@ -189,7 +197,8 @@ export class Runs extends APIResource {
   }
 
   /**
-   * Pause a running run
+   * Pauses a currently running run and returns the updated run object. Execution
+   * halts until the run is resumed.
    *
    * @example
    * ```ts
@@ -210,7 +219,8 @@ export class Runs extends APIResource {
   }
 
   /**
-   * Resume a paused run
+   * Resumes a previously paused run and returns the updated run object, letting
+   * execution continue from where it was paused.
    *
    * @example
    * ```ts

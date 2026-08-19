@@ -49,7 +49,7 @@ export class SubNumberOrders extends APIResource {
   }
 
   /**
-   * Get an existing sub number order.
+   * Returns the details of an existing sub number order, with support for filtering.
    *
    * @example
    * ```ts
@@ -68,7 +68,8 @@ export class SubNumberOrders extends APIResource {
   }
 
   /**
-   * Updates a sub number order.
+   * Updates the requirements of an existing sub number order and returns the updated
+   * order.
    *
    * @example
    * ```ts

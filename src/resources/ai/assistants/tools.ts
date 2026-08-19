@@ -10,7 +10,9 @@ import { path } from '../../../internal/utils/path';
  */
 export class Tools extends APIResource {
   /**
-   * Test a webhook tool for an assistant
+   * Executes a test invocation of the specified webhook tool for the assistant and
+   * returns the outcome, so you can verify the webhook's behavior before relying on
+   * it in conversations.
    *
    * @example
    * ```ts
@@ -30,7 +32,8 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Detach a tool from an AI assistant.
+   * Detaches the specified tool from the AI assistant so the assistant can no longer
+   * invoke it.
    *
    * @example
    * ```ts

@@ -43,7 +43,7 @@ export class DetailRecordsReports extends APIResource {
   }
 
   /**
-   * Deletes one specific WDR report.
+   * Permanently deletes the specified Wireless Detail Record (WDR) report.
    *
    * @example
    * ```ts
@@ -58,7 +58,8 @@ export class DetailRecordsReports extends APIResource {
   }
 
   /**
-   * Returns one specific WDR report
+   * Returns a single Wireless Detail Record (WDR) report by its identifier,
+   * including its parameters and current status.
    *
    * @example
    * ```ts

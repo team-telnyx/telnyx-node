@@ -29,7 +29,8 @@ export class IPs extends APIResource {
   }
 
   /**
-   * Create a new IP object.
+   * Creates a new IP record for use with IP-based connections, associating an IP
+   * address with the specified connection.
    *
    * @example
    * ```ts
@@ -43,7 +44,7 @@ export class IPs extends APIResource {
   }
 
   /**
-   * Delete an IP.
+   * Permanently deletes the specified IP record from its connection.
    *
    * @example
    * ```ts
@@ -71,7 +72,7 @@ export class IPs extends APIResource {
   }
 
   /**
-   * Update the details of a specific IP.
+   * Updates the details of the specified IP record and returns the updated IP.
    *
    * @example
    * ```ts

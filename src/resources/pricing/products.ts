@@ -196,6 +196,10 @@ export interface ProductListResponse {
 export interface ProductListParams extends DefaultFlatPaginationParams {}
 
 export interface ProductRetrieveParams {
+  /**
+   * Two-letter ISO 3166-1 alpha-2 country code (uppercase, e.g. US) to filter
+   * pricing to a single country.
+   */
   'filter[country_iso]'?: string | null;
 
   /**

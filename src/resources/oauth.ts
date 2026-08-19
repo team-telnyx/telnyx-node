@@ -12,18 +12,18 @@ export class OAuth extends APIResource {
    *
    * @example
    * ```ts
-   * await client.oauth.retrieveAuthorize({
+   * const response = await client.oauth.retrieveAuthorize({
    *   client_id: 'client_id',
    *   redirect_uri: 'https://example.com',
    *   response_type: 'code',
    * });
    * ```
    */
-  retrieveAuthorize(query: OAuthRetrieveAuthorizeParams, options?: RequestOptions): APIPromise<void> {
+  retrieveAuthorize(query: OAuthRetrieveAuthorizeParams, options?: RequestOptions): APIPromise<string> {
     return this._client.get('/oauth/authorize', {
       query,
       ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([{ Accept: 'text/html' }, options?.headers]),
     });
   }
 
@@ -40,7 +40,8 @@ export class OAuth extends APIResource {
   }
 
   /**
-   * Create an OAuth authorization grant
+   * Creates an OAuth authorization grant and returns the grant response for
+   * completing the authorization flow.
    *
    * @example
    * ```ts
@@ -286,6 +287,8 @@ export interface OAuthRegisterResponse {
   tos_uri?: string;
 }
 
+export type OAuthRetrieveAuthorizeResponse = string;
+
 export interface OAuthRetrieveJwksResponse {
   keys?: Array<OAuthRetrieveJwksResponse.Key>;
 }
@@ -492,6 +495,7 @@ export declare namespace OAuth {
     type OAuthGrantsResponse as OAuthGrantsResponse,
     type OAuthIntrospectResponse as OAuthIntrospectResponse,
     type OAuthRegisterResponse as OAuthRegisterResponse,
+    type OAuthRetrieveAuthorizeResponse as OAuthRetrieveAuthorizeResponse,
     type OAuthRetrieveJwksResponse as OAuthRetrieveJwksResponse,
     type OAuthTokenResponse as OAuthTokenResponse,
     type OAuthRetrieveAuthorizeParams as OAuthRetrieveAuthorizeParams,

@@ -13,7 +13,8 @@ import { path } from '../internal/utils/path';
  */
 export class NumberOrders extends APIResource {
   /**
-   * Get a paginated list of number orders.
+   * Returns a paginated list of your phone number orders, with support for
+   * filtering.
    *
    * @example
    * ```ts
@@ -34,7 +35,8 @@ export class NumberOrders extends APIResource {
   }
 
   /**
-   * Creates a phone number order.
+   * Creates an order to purchase the specified phone numbers and returns the created
+   * order. Track fulfillment through the order's status.
    *
    * @example
    * ```ts
@@ -46,7 +48,8 @@ export class NumberOrders extends APIResource {
   }
 
   /**
-   * Get an existing phone number order.
+   * Returns the details of an existing phone number order, including its status and
+   * the numbers included.
    *
    * @example
    * ```ts
@@ -60,7 +63,8 @@ export class NumberOrders extends APIResource {
   }
 
   /**
-   * Updates a phone number order.
+   * Updates an existing phone number order, for example to satisfy regulatory
+   * requirements attached to the order, and returns the updated order.
    *
    * @example
    * ```ts

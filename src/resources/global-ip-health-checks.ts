@@ -12,7 +12,8 @@ import { path } from '../internal/utils/path';
  */
 export class GlobalIPHealthChecks extends APIResource {
   /**
-   * List all Global IP health checks.
+   * Returns a paginated list of the Global IP health checks configured on your
+   * account.
    *
    * @example
    * ```ts
@@ -33,7 +34,9 @@ export class GlobalIPHealthChecks extends APIResource {
   }
 
   /**
-   * Create a Global IP health check.
+   * Creates a health check for a Global IP to monitor the health of its assignments.
+   * Creation is asynchronous, so the request is accepted and the health check
+   * becomes active once provisioning completes.
    *
    * @example
    * ```ts
@@ -49,7 +52,8 @@ export class GlobalIPHealthChecks extends APIResource {
   }
 
   /**
-   * Delete a Global IP health check.
+   * Deletes the specified Global IP health check so it no longer monitors the Global
+   * IP's assignments.
    *
    * @example
    * ```ts
@@ -64,7 +68,8 @@ export class GlobalIPHealthChecks extends APIResource {
   }
 
   /**
-   * Retrieve a Global IP health check.
+   * Returns the details of a single Global IP health check, including its type and
+   * configuration.
    *
    * @example
    * ```ts

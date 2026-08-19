@@ -21,7 +21,9 @@ export class InsightGroups extends APIResource {
   insights: InsightGroupsInsightsAPI.Insights = new InsightGroupsInsightsAPI.Insights(this._client);
 
   /**
-   * Get all insight groups
+   * Returns a paginated list of your insight template groups. Groups organize
+   * related insight templates that are applied together when analyzing
+   * conversations.
    *
    * @example
    * ```ts
@@ -43,7 +45,8 @@ export class InsightGroups extends APIResource {
   }
 
   /**
-   * Create a new insight group
+   * Creates a new insight template group for organizing related insight templates,
+   * and returns the created group.
    *
    * @example
    * ```ts
@@ -61,7 +64,7 @@ export class InsightGroups extends APIResource {
   }
 
   /**
-   * Delete insight group by ID
+   * Permanently deletes the specified insight template group by its ID.
    *
    * @example
    * ```ts
@@ -78,7 +81,8 @@ export class InsightGroups extends APIResource {
   }
 
   /**
-   * Get insight group by ID
+   * Returns the details of a single insight template group, including the insight
+   * templates assigned to it.
    *
    * @example
    * ```ts
@@ -93,7 +97,7 @@ export class InsightGroups extends APIResource {
   }
 
   /**
-   * Update an insight template group
+   * Updates the specified insight template group and returns the updated group.
    *
    * @example
    * ```ts

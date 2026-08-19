@@ -13,7 +13,8 @@ import { path } from '../internal/utils/path';
  */
 export class Media extends APIResource {
   /**
-   * Returns a list of stored media files.
+   * Returns a list of the media files stored on your account, with support for
+   * filtering.
    *
    * @example
    * ```ts
@@ -42,7 +43,7 @@ export class Media extends APIResource {
   }
 
   /**
-   * Deletes a stored media file.
+   * Permanently deletes the specified media file from storage.
    *
    * @example
    * ```ts
@@ -69,7 +70,7 @@ export class Media extends APIResource {
   }
 
   /**
-   * Updates a stored media file.
+   * Updates the specified stored media file and returns the updated resource.
    *
    * @example
    * ```ts
@@ -88,7 +89,7 @@ export class Media extends APIResource {
   }
 
   /**
-   * Downloads a stored media file.
+   * Downloads the raw content of the specified stored media file.
    *
    * @example
    * ```ts

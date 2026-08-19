@@ -59,7 +59,7 @@ export class UacConnections extends APIResource {
   }
 
   /**
-   * Deletes an existing UAC connection.
+   * Permanently deletes the specified UAC connection from your account.
    *
    * @example
    * ```ts

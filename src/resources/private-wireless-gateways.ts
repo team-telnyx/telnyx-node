@@ -54,7 +54,7 @@ export class PrivateWirelessGateways extends APIResource {
   }
 
   /**
-   * Deletes the Private Wireless Gateway.
+   * Permanently deletes the specified Private Wireless Gateway from your account.
    *
    * @example
    * ```ts

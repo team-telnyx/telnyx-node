@@ -15,7 +15,8 @@ export class Recordings extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Returns a list of your call recordings.
+   * Returns a paginated list of your call recordings, with support for filtering to
+   * locate specific recordings.
    *
    * @example
    * ```ts
@@ -36,7 +37,8 @@ export class Recordings extends APIResource {
   }
 
   /**
-   * Permanently deletes a call recording.
+   * Permanently deletes the specified call recording and returns the deleted
+   * recording resource. The media is removed and can no longer be downloaded.
    *
    * @example
    * ```ts

@@ -102,7 +102,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Pause conference recording.
+   * Pauses the active recording of the specified conference. Resume it later with
+   * the record_resume action.
    *
    * @example
    * ```ts
@@ -119,7 +120,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Resume conference recording.
+   * Resumes a previously paused recording of the specified conference, continuing
+   * capture from the point it was paused.
    *
    * @example
    * ```ts

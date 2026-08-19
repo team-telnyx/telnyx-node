@@ -21,7 +21,8 @@ export class Addresses extends APIResource {
   actions: ActionsAPI.Actions = new ActionsAPI.Actions(this._client);
 
   /**
-   * Returns a list of your addresses.
+   * Returns a paginated list of the addresses on your account, with support for
+   * filtering and sorting.
    *
    * @example
    * ```ts
@@ -39,7 +40,9 @@ export class Addresses extends APIResource {
   }
 
   /**
-   * Creates an address.
+   * Creates a new address on your account from the provided details, for use with
+   * services that require a physical address such as emergency calling and
+   * regulatory compliance.
    *
    * @example
    * ```ts
@@ -58,7 +61,7 @@ export class Addresses extends APIResource {
   }
 
   /**
-   * Deletes an existing address.
+   * Permanently deletes the specified address from your account.
    *
    * @example
    * ```ts

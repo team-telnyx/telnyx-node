@@ -96,7 +96,8 @@ export class Assistants extends APIResource {
   }
 
   /**
-   * Create a new AI Assistant.
+   * Creates a new AI assistant from the provided configuration, including its model,
+   * instructions, and attached tools, and returns the created assistant.
    *
    * @example
    * ```ts
@@ -161,7 +162,9 @@ export class Assistants extends APIResource {
   }
 
   /**
-   * Update an AI Assistant's attributes.
+   * Updates the specified AI assistant's attributes and returns the updated
+   * assistant. The request can also control how the change is promoted across
+   * assistant versions.
    *
    * @example
    * ```ts

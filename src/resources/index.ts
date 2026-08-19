@@ -956,6 +956,7 @@ export {
   type OAuthGrantsResponse,
   type OAuthIntrospectResponse,
   type OAuthRegisterResponse,
+  type OAuthRetrieveAuthorizeResponse,
   type OAuthRetrieveJwksResponse,
   type OAuthTokenResponse,
   type OAuthRetrieveAuthorizeParams,
