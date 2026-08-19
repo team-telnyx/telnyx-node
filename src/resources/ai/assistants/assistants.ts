@@ -2017,6 +2017,17 @@ export namespace InferenceEmbeddingWebhookToolParams {
     headers?: Array<Webhook.Header>;
 
     /**
+     * Filler messages spoken while a synchronous webhook request is in progress.
+     * `request_start` messages are spoken immediately when the request begins.
+     * `request_response_delayed` messages are spoken after `timing_ms` has elapsed
+     * only if the webhook response is still pending. Filler messages are not used for
+     * asynchronous webhooks.
+     */
+    messages?: Array<
+      Webhook.WebhookToolRequestStartMessage | Webhook.WebhookToolRequestResponseDelayedMessage
+    >;
+
+    /**
      * The HTTP method to be used when calling the external tool.
      */
     method?: 'GET' | 'POST' | 'PUT' | 'DELETE' | 'PATCH';
@@ -2086,6 +2097,41 @@ export namespace InferenceEmbeddingWebhookToolParams {
        * will be automatically added to the request.
        */
       value?: string;
+    }
+
+    export interface WebhookToolRequestStartMessage {
+      /**
+       * The text the assistant speaks.
+       */
+      content: string;
+
+      /**
+       * Speak the filler message immediately when the webhook request begins.
+       */
+      type: 'request_start';
+
+      /**
+       * An optional delay value. This value is ignored for `request_start` messages.
+       */
+      timing_ms?: number;
+    }
+
+    export interface WebhookToolRequestResponseDelayedMessage {
+      /**
+       * The text the assistant speaks.
+       */
+      content: string;
+
+      /**
+       * The delay in milliseconds from the start of the webhook request.
+       */
+      timing_ms: number;
+
+      /**
+       * Speak the filler message after the configured delay if the webhook response is
+       * still pending.
+       */
+      type: 'request_response_delayed';
     }
 
     /**
