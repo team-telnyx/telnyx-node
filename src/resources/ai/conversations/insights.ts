@@ -51,8 +51,16 @@ export class Insights extends APIResource {
    *   });
    * ```
    */
-  create(body: InsightCreateParams, options?: RequestOptions): APIPromise<InsightTemplateDetail> {
-    return this._client.post('/ai/conversations/insights', { body, ...options });
+  create(params: InsightCreateParams, options?: RequestOptions): APIPromise<InsightTemplateDetail> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/conversations/insights', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -142,16 +150,37 @@ export interface InsightTemplateDetail {
 export interface InsightListParams extends DefaultFlatPaginationParams {}
 
 export interface InsightCreateParams {
+  /**
+   * Body param
+   */
   instructions: string;
 
+  /**
+   * Body param
+   */
   name: string;
 
   /**
-   * If specified, the output will follow the JSON schema.
+   * Body param: If specified, the output will follow the JSON schema.
    */
   json_schema?: string | { [key: string]: unknown };
 
+  /**
+   * Body param
+   */
   webhook?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface InsightUpdateParams {

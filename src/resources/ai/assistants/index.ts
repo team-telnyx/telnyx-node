@@ -55,6 +55,7 @@ export {
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
+  type AssistantCloneParams,
   type AssistantSendSMSParams,
 } from './assistants';
 export {

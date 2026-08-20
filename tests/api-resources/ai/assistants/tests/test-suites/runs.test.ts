@@ -55,7 +55,10 @@ describe('resource runs', () => {
     await expect(
       client.ai.assistants.tests.testSuites.runs.trigger(
         'suite_name',
-        { destination_version_id: '123e4567-e89b-12d3-a456-426614174000' },
+        {
+          destination_version_id: '123e4567-e89b-12d3-a456-426614174000',
+          'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

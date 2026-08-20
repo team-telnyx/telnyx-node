@@ -68,6 +68,7 @@ import {
   Tests,
 } from './tests/tests';
 import { APIPromise } from '../../../core/api-promise';
+import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -108,8 +109,16 @@ export class Assistants extends APIResource {
    *   });
    * ```
    */
-  create(body: AssistantCreateParams, options?: RequestOptions): APIPromise<InferenceEmbedding> {
-    return this._client.post('/ai/assistants', { body, ...options });
+  create(params: AssistantCreateParams, options?: RequestOptions): APIPromise<InferenceEmbedding> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/assistants', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -126,8 +135,16 @@ export class Assistants extends APIResource {
    * });
    * ```
    */
-  imports(body: AssistantImportsParams, options?: RequestOptions): APIPromise<AssistantsList> {
-    return this._client.post('/ai/assistants/import', { body, ...options });
+  imports(params: AssistantImportsParams, options?: RequestOptions): APIPromise<AssistantsList> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/assistants/import', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -219,8 +236,19 @@ export class Assistants extends APIResource {
    * );
    * ```
    */
-  clone(assistantID: string, options?: RequestOptions): APIPromise<InferenceEmbedding> {
-    return this._client.post(path`/ai/assistants/${assistantID}/clone`, options);
+  clone(
+    assistantID: string,
+    params: AssistantCloneParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<InferenceEmbedding> {
+    const { 'Idempotency-Key': idempotencyKey } = params ?? {};
+    return this._client.post(path`/ai/assistants/${assistantID}/clone`, {
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -264,10 +292,18 @@ export class Assistants extends APIResource {
    */
   sendSMS(
     assistantID: string,
-    body: AssistantSendSMSParams,
+    params: AssistantSendSMSParams,
     options?: RequestOptions,
   ): APIPromise<AssistantSendSMSResponse> {
-    return this._client.post(path`/ai/assistants/${assistantID}/chat/sms`, { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post(path`/ai/assistants/${assistantID}/chat/sms`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -3151,15 +3187,18 @@ export interface AssistantSendSMSResponse {
 
 export interface AssistantCreateParams {
   /**
-   * System instructions for the assistant. These may be templated with
+   * Body param: System instructions for the assistant. These may be templated with
    * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
    */
   instructions: string;
 
+  /**
+   * Body param
+   */
   name: string;
 
   /**
-   * Conversation flow as supplied by API clients (create / update).
+   * Body param: Conversation flow as supplied by API clients (create / update).
    *
    * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
    * unique node/edge IDs, that `start_node_id` references a real node, and that
@@ -3167,42 +3206,54 @@ export interface AssistantCreateParams {
    */
   conversation_flow?: ConversationFlowReq;
 
+  /**
+   * Body param
+   */
   description?: string;
 
   /**
-   * Map of dynamic variables and their default values
+   * Body param: Map of dynamic variables and their default values
    */
   dynamic_variables?: { [key: string]: unknown };
 
   /**
-   * Timeout in milliseconds for the dynamic variables webhook. Must be between 1 and
-   * 10000 ms. If the webhook does not respond within this timeout, the call proceeds
-   * with default values. See the
+   * Body param: Timeout in milliseconds for the dynamic variables webhook. Must be
+   * between 1 and 10000 ms. If the webhook does not respond within this timeout, the
+   * call proceeds with default values. See the
    * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
    */
   dynamic_variables_webhook_timeout_ms?: number;
 
   /**
-   * If `dynamic_variables_webhook_url` is set, Telnyx sends a POST request to this
-   * URL at the start of the conversation to resolve dynamic variables. **Gotcha:**
-   * the webhook response must wrap variables under a top-level `dynamic_variables`
-   * object, e.g. `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a
-   * flat object will be ignored and variables will fall back to their defaults. See
-   * the
+   * Body param: If `dynamic_variables_webhook_url` is set, Telnyx sends a POST
+   * request to this URL at the start of the conversation to resolve dynamic
+   * variables. **Gotcha:** the webhook response must wrap variables under a
+   * top-level `dynamic_variables` object, e.g.
+   * `{"dynamic_variables": {"customer_name": "Jane"}}`. Returning a flat object will
+   * be ignored and variables will fall back to their defaults. See the
    * [dynamic variables guide](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
    * for the full request/response format and timeout behavior.
    */
   dynamic_variables_webhook_url?: string;
 
+  /**
+   * Body param
+   */
   enabled_features?: Array<EnabledFeatures>;
 
+  /**
+   * Body param
+   */
   external_llm?: ExternalLlmReq;
 
+  /**
+   * Body param
+   */
   fallback_config?: FallbackConfigReq;
 
   /**
-   * Text that the assistant will use to start the conversation. This may be
-   * templated with
+   * Body param: Text that the assistant will use to start the conversation. This may
+   * be templated with
    * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables).
    * Use an empty string to have the assistant wait for the user to speak first. Use
    * the special value `<assistant-speaks-first-with-model-generated-message>` to
@@ -3210,29 +3261,32 @@ export interface AssistantCreateParams {
    */
   greeting?: string;
 
+  /**
+   * Body param
+   */
   insight_settings?: InsightSettings;
 
   /**
-   * Connected integrations attached to the assistant. The catalog of available
-   * integrations is at `/ai/integrations`; the user's connected integrations are at
-   * `/ai/integrations/connections`. Each item references a catalog integration by
-   * `integration_id`.
+   * Body param: Connected integrations attached to the assistant. The catalog of
+   * available integrations is at `/ai/integrations`; the user's connected
+   * integrations are at `/ai/integrations/connections`. Each item references a
+   * catalog integration by `integration_id`.
    */
   integrations?: Array<AssistantIntegration>;
 
   /**
-   * Settings for interruptions and how the assistant decides the user has finished
-   * speaking. These timings are most relevant when using non turn-taking
-   * transcription models. For turn-taking models like `deepgram/flux`, end-of-turn
-   * behavior is controlled by the transcription end-of-turn settings under
-   * `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
+   * Body param: Settings for interruptions and how the assistant decides the user
+   * has finished speaking. These timings are most relevant when using non
+   * turn-taking transcription models. For turn-taking models like `deepgram/flux`,
+   * end-of-turn behavior is controlled by the transcription end-of-turn settings
+   * under `transcription.settings` (`eot_threshold`, `eot_timeout_ms`,
    * `eager_eot_threshold`).
    */
   interruption_settings?: InferenceEmbeddingInterruptionSettings;
 
   /**
-   * This is only needed when using third-party inference providers selected by
-   * `model`. The `identifier` for an integration secret
+   * Body param: This is only needed when using third-party inference providers
+   * selected by `model`. The `identifier` for an integration secret
    * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
    * that refers to your LLM provider's API key. For bring-your-own endpoint
    * authentication, use `external_llm.llm_api_key_ref` instead. Warning: Free plans
@@ -3241,15 +3295,19 @@ export interface AssistantCreateParams {
   llm_api_key_ref?: string;
 
   /**
-   * MCP servers attached to the assistant. Create MCP servers with
+   * Body param: MCP servers attached to the assistant. Create MCP servers with
    * `/ai/mcp_servers`, then reference them by `id` here.
    */
   mcp_servers?: Array<AssistantMcpServer>;
 
+  /**
+   * Body param
+   */
   messaging_settings?: MessagingSettings;
 
   /**
-   * ID of the model to use when `external_llm` is not set. You can use the
+   * Body param: ID of the model to use when `external_llm` is not set. You can use
+   * the
    * [Get models API](https://developers.telnyx.com/api-reference/openai-chat/get-available-models-openai-compatible)
    * to see available models. If `external_llm` is provided, the assistant uses
    * `external_llm` instead of this field. If neither `model` nor `external_llm` is
@@ -3257,69 +3315,108 @@ export interface AssistantCreateParams {
    */
   model?: string;
 
+  /**
+   * Body param
+   */
   observability_settings?: ObservabilityReq;
 
   /**
-   * Configuration for post-conversation processing. When enabled, the assistant
-   * receives one additional LLM turn after the conversation ends, allowing it to
-   * execute tool calls such as logging to a CRM or sending a summary. The assistant
-   * can execute multiple parallel or sequential tools during this phase.
+   * Body param: Configuration for post-conversation processing. When enabled, the
+   * assistant receives one additional LLM turn after the conversation ends, allowing
+   * it to execute tool calls such as logging to a CRM or sending a summary. The
+   * assistant can execute multiple parallel or sequential tools during this phase.
    * Telephony-control tools (e.g. hangup, transfer) are unavailable
    * post-conversation. Beta feature.
    */
   post_conversation_settings?: PostConversationSettingsReq;
 
+  /**
+   * Body param
+   */
   privacy_settings?: PrivacySettings;
 
   /**
-   * Tags associated with the assistant. Tags can also be managed with the assistant
-   * tag endpoints.
+   * Body param: Tags associated with the assistant. Tags can also be managed with
+   * the assistant tag endpoints.
    */
   tags?: Array<string>;
 
+  /**
+   * Body param
+   */
   telephony_settings?: TelephonySettings;
 
   /**
-   * IDs of shared tools to attach to the assistant. New integrations should prefer
-   * `tool_ids` over inline `tools`.
+   * Body param: IDs of shared tools to attach to the assistant. New integrations
+   * should prefer `tool_ids` over inline `tools`.
    */
   tool_ids?: Array<string>;
 
   /**
-   * Deprecated for new integrations. Inline tool definitions available to the
-   * assistant. Prefer `tool_ids` to attach shared tools created with the AI Tools
-   * endpoints.
+   * Body param: Deprecated for new integrations. Inline tool definitions available
+   * to the assistant. Prefer `tool_ids` to attach shared tools created with the AI
+   * Tools endpoints.
    */
   tools?: Array<AssistantTool>;
 
+  /**
+   * Body param
+   */
   transcription?: TranscriptionSettings;
 
+  /**
+   * Body param
+   */
   voice_settings?: VoiceSettings;
 
   /**
-   * Configuration settings for the assistant's web widget.
+   * Body param: Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface AssistantImportsParams {
   /**
-   * Integration secret pointer that refers to the API key for the external provider.
-   * This should be an identifier for an integration secret created via
-   * /v2/integration_secrets.
+   * Body param: Integration secret pointer that refers to the API key for the
+   * external provider. This should be an identifier for an integration secret
+   * created via /v2/integration_secrets.
    */
   api_key_ref: string;
 
   /**
-   * The external provider to import assistants from.
+   * Body param: The external provider to import assistants from.
    */
   provider: 'elevenlabs' | 'vapi' | 'retell';
 
   /**
-   * Optional list of assistant IDs to import from the external provider. If not
-   * provided, all assistants will be imported.
+   * Body param: Optional list of assistant IDs to import from the external provider.
+   * If not provided, all assistants will be imported.
    */
   import_ids?: Array<string>;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface AssistantRetrieveParams {
@@ -3534,16 +3631,57 @@ export interface AssistantChatParams {
   stream?: boolean;
 }
 
+export interface AssistantCloneParams {
+  /**
+   * Optional opaque, unquoted key for safely retrying the same logical request. Keys
+   * must contain 1 to 255 letters, numbers, hyphens, or underscores. Generate a
+   * unique UUID v4 for each operation and reuse it only when retrying that operation
+   * with the same request. Invalid headers—including duplicate, empty, malformed, or
+   * overlong values—return 400 with error code 10015. A request already in progress
+   * with the same key returns 409; reusing the key with a different request
+   * returns 422. Only successful responses are replayed, for up to 24 hours. Do not
+   * include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
+}
+
 export interface AssistantSendSMSParams {
+  /**
+   * Body param
+   */
   from: string;
 
+  /**
+   * Body param
+   */
   to: string;
 
+  /**
+   * Body param
+   */
   conversation_metadata?: { [key: string]: string | number | boolean };
 
+  /**
+   * Body param
+   */
   should_create_conversation?: boolean;
 
+  /**
+   * Body param
+   */
   text?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 Assistants.Tests = Tests;
@@ -3609,6 +3747,7 @@ export declare namespace Assistants {
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
+    type AssistantCloneParams as AssistantCloneParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
   };
 

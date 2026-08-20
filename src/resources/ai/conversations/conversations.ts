@@ -80,8 +80,16 @@ export class Conversations extends APIResource {
    * });
    * ```
    */
-  create(body: ConversationCreateParams, options?: RequestOptions): APIPromise<Conversation> {
-    return this._client.post('/ai/conversations', { body, ...options });
+  create(params: ConversationCreateParams, options?: RequestOptions): APIPromise<Conversation> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/conversations', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -171,13 +179,17 @@ export class Conversations extends APIResource {
    */
   addMessage(
     conversationID: string,
-    body: ConversationAddMessageParams,
+    params: ConversationAddMessageParams,
     options?: RequestOptions,
   ): APIPromise<void> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
     return this._client.post(path`/ai/conversations/${conversationID}/message`, {
       body,
       ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+      headers: buildHeaders([
+        { Accept: '*/*', ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
     });
   }
 }
@@ -335,12 +347,27 @@ export interface ConversationListParams {
 
 export interface ConversationCreateParams {
   /**
-   * Metadata associated with the conversation. Set `ai_disabled` to `true` to create
-   * the conversation with AI message responses disabled.
+   * Body param: Metadata associated with the conversation. Set `ai_disabled` to
+   * `true` to create the conversation with AI message responses disabled.
    */
   metadata?: { [key: string]: string };
 
+  /**
+   * Body param
+   */
   name?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface ConversationUpdateParams {
@@ -353,21 +380,57 @@ export interface ConversationUpdateParams {
 }
 
 export interface ConversationAddMessageParams {
+  /**
+   * Body param
+   */
   role: string;
 
+  /**
+   * Body param
+   */
   content?: string;
 
+  /**
+   * Body param
+   */
   metadata?: { [key: string]: string | number | boolean | Array<string | number | boolean> };
 
+  /**
+   * Body param
+   */
   name?: string;
 
+  /**
+   * Body param
+   */
   sent_at?: string;
 
+  /**
+   * Body param
+   */
   tool_call_id?: string;
 
+  /**
+   * Body param
+   */
   tool_calls?: Array<{ [key: string]: unknown }>;
 
+  /**
+   * Body param
+   */
   tool_choice?: string | { [key: string]: unknown };
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 Conversations.InsightGroups = InsightGroups;

@@ -68,6 +68,7 @@ describe('resource scheduledEvents', () => {
       max_retries_client_errors: 0,
       retry_interval_secs: 60,
       text: 'text',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 

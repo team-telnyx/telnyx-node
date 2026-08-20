@@ -47,6 +47,7 @@ import {
   Assistant,
   AssistantChatParams,
   AssistantChatResponse,
+  AssistantCloneParams,
   AssistantCreateParams,
   AssistantDeleteResponse,
   AssistantGetTexmlResponse,
@@ -158,6 +159,7 @@ import {
 import * as OpenAIAPI from './openai/openai';
 import { OpenAI, OpenAICreateResponseParams, OpenAICreateResponseResponse } from './openai/openai';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 
 export class AI extends APIResource {
@@ -198,8 +200,16 @@ export class AI extends APIResource {
    * });
    * ```
    */
-  summarize(body: AISummarizeParams, options?: RequestOptions): APIPromise<AISummarizeResponse> {
-    return this._client.post('/ai/summarize', { body, ...options });
+  summarize(params: AISummarizeParams, options?: RequestOptions): APIPromise<AISummarizeResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/summarize', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -535,19 +545,31 @@ export namespace AISummarizeResponse {
 
 export interface AISummarizeParams {
   /**
-   * The name of the bucket that contains the file to be summarized.
+   * Body param: The name of the bucket that contains the file to be summarized.
    */
   bucket: string;
 
   /**
-   * The name of the file to be summarized.
+   * Body param: The name of the file to be summarized.
    */
   filename: string;
 
   /**
-   * A system prompt to guide the summary generation.
+   * Body param: A system prompt to guide the summary generation.
    */
   system_prompt?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface AIRetrieveConversationHistoriesParams {
@@ -707,6 +729,7 @@ export declare namespace AI {
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
+    type AssistantCloneParams as AssistantCloneParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
   };
 

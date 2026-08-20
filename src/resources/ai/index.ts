@@ -65,6 +65,7 @@ export {
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
+  type AssistantCloneParams,
   type AssistantSendSMSParams,
 } from './assistants/index';
 export { Audio, type AudioTranscribeResponse, type AudioTranscribeParams } from './audio';
