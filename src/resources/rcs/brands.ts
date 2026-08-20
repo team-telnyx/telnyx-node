@@ -109,6 +109,23 @@ export class Brands extends APIResource {
   }
 }
 
+export interface BrandAddress {
+  administrative_area: string;
+
+  city: string;
+
+  /**
+   * The two-letter ISO 3166-1 country code.
+   */
+  country_code: string;
+
+  line_1: string;
+
+  postal_code: string;
+
+  line_2?: string | null;
+}
+
 export interface BrandContact {
   contact_type: 'BRAND' | 'PRIMARY' | 'OFFICER' | 'AGENT' | 'RESPONSIBLE_PARTY' | 'BILLING' | 'UNKNOWN';
 
@@ -138,7 +155,7 @@ export type BrandOrganizationType =
   | 'UNKNOWN';
 
 export interface BrandResponse {
-  addresses: { [key: string]: BrandResponse.Addresses };
+  addresses: { [key: string]: BrandAddress };
 
   brand_id: string;
 
@@ -171,25 +188,6 @@ export interface BrandResponse {
   website_url: string;
 }
 
-export namespace BrandResponse {
-  export interface Addresses {
-    administrative_area: string;
-
-    city: string;
-
-    /**
-     * The two-letter ISO 3166-1 country code.
-     */
-    country_code: string;
-
-    line_1: string;
-
-    postal_code: string;
-
-    line_2?: string | null;
-  }
-}
-
 export interface EinBrandIdentifier {
   identifier_type: 'EIN';
 
@@ -211,7 +209,7 @@ export interface StockSymbolBrandIdentifier {
 export type BrandListResponse = Array<BrandResponse>;
 
 export interface BrandCreateParams {
-  addresses: { [key: string]: BrandCreateParams.Addresses };
+  addresses: { [key: string]: BrandAddress };
 
   /**
    * Named business contacts. Use the `brand` key for the required BRAND contact.
@@ -242,23 +240,6 @@ export interface BrandCreateParams {
 }
 
 export namespace BrandCreateParams {
-  export interface Addresses {
-    administrative_area: string;
-
-    city: string;
-
-    /**
-     * The two-letter ISO 3166-1 country code.
-     */
-    country_code: string;
-
-    line_1: string;
-
-    postal_code: string;
-
-    line_2?: string | null;
-  }
-
   /**
    * Named business contacts. Use the `brand` key for the required BRAND contact.
    */
@@ -293,7 +274,7 @@ export namespace BrandCreateParams {
 }
 
 export interface BrandUpdateParams {
-  addresses?: { [key: string]: BrandUpdateParams.Addresses };
+  addresses?: { [key: string]: BrandAddress };
 
   /**
    * Named business contacts. Use the `brand` key for the required BRAND contact.
@@ -320,23 +301,6 @@ export interface BrandUpdateParams {
 }
 
 export namespace BrandUpdateParams {
-  export interface Addresses {
-    administrative_area: string;
-
-    city: string;
-
-    /**
-     * The two-letter ISO 3166-1 country code.
-     */
-    country_code: string;
-
-    line_1: string;
-
-    postal_code: string;
-
-    line_2?: string | null;
-  }
-
   /**
    * Named business contacts. Use the `brand` key for the required BRAND contact.
    */
@@ -372,6 +336,7 @@ export namespace BrandUpdateParams {
 
 export declare namespace Brands {
   export {
+    type BrandAddress as BrandAddress,
     type BrandContact as BrandContact,
     type BrandLegalEntityType as BrandLegalEntityType,
     type BrandOrganizationType as BrandOrganizationType,

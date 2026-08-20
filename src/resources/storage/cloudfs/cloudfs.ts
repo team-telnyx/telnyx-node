@@ -122,69 +122,123 @@ export class Cloudfs extends APIResource {
   }
 }
 
+/**
+ * A CloudFS filesystem, including its metadata credential. This shape is returned
+ * only by create and rotate-meta-token.
+ */
+export interface CloudfsFilesystem {
+  id?: string;
+
+  created_at?: string;
+
+  /**
+   * Metadata access token, in cleartext. Returned only by create and
+   * rotate-meta-token and not retrievable afterwards — store it securely.
+   */
+  meta_token?: string;
+
+  /**
+   * PostgreSQL connection URL for the filesystem's metadata database. In create and
+   * rotate-meta-token responses it embeds the metadata token as the password:
+   * `postgres://<database>:<meta_token>@us-east-1.telnyxcloudfs.com:5432/<database>?sslmode=require`
+   * (the example below is shown without the credential; the actual response includes
+   * it). Pass it to `juicefs mount`: the storage configuration is baked in at
+   * provisioning, so the metadata URL is all a client needs to mount the filesystem.
+   */
+  meta_url?: string;
+
+  name?: string;
+
+  record_type?: string;
+
+  region?: string;
+
+  /**
+   * Name of the bucket that stores this filesystem's data. Created during
+   * provisioning.
+   */
+  s3_bucket?: string;
+
+  /**
+   * URL of the Telnyx Cloud Storage endpoint backing this filesystem.
+   */
+  s3_endpoint?: string;
+
+  /**
+   * Lifecycle status of the filesystem. `ready` means it is fully provisioned and
+   * usable. `needs_format` means the storage bucket and metadata database were
+   * provisioned but the filesystem has not yet been formatted — run `juicefs format`
+   * with the filesystem's `meta_url` before mounting. `failed` means the last
+   * lifecycle action failed — see the filesystem's `error` message. `deleted`
+   * appears only in the delete response: deleted filesystems are excluded from list
+   * results and return a `404` on retrieval.
+   */
+  status?: CloudfsFilesystemStatus;
+
+  updated_at?: string;
+}
+
+/**
+ * A CloudFS filesystem as returned by get, update, and delete. `meta_url` omits
+ * the credential and there is no `meta_token` field — the token is only returned
+ * by create and rotate-meta-token.
+ */
+export interface CloudfsFilesystemDetail {
+  id?: string;
+
+  created_at?: string;
+
+  /**
+   * Explanation of the most recent failed lifecycle action. Present only when the
+   * filesystem is in a `failed` state.
+   */
+  error?: string;
+
+  /**
+   * PostgreSQL connection URL for the filesystem's metadata database, without the
+   * credential. Combine it with your stored metadata token, or issue a new token
+   * with rotate-meta-token.
+   */
+  meta_url?: string;
+
+  name?: string;
+
+  record_type?: string;
+
+  region?: string;
+
+  /**
+   * Name of the bucket that stores this filesystem's data. Created during
+   * provisioning.
+   */
+  s3_bucket?: string;
+
+  /**
+   * URL of the Telnyx Cloud Storage endpoint backing this filesystem.
+   */
+  s3_endpoint?: string;
+
+  /**
+   * Lifecycle status of the filesystem. `ready` means it is fully provisioned and
+   * usable. `needs_format` means the storage bucket and metadata database were
+   * provisioned but the filesystem has not yet been formatted — run `juicefs format`
+   * with the filesystem's `meta_url` before mounting. `failed` means the last
+   * lifecycle action failed — see the filesystem's `error` message. `deleted`
+   * appears only in the delete response: deleted filesystems are excluded from list
+   * results and return a `404` on retrieval.
+   */
+  status?: CloudfsFilesystemStatus;
+
+  updated_at?: string;
+}
+
 export interface CloudfsFilesystemDetailResponseWrapper {
   /**
    * A CloudFS filesystem as returned by get, update, and delete. `meta_url` omits
    * the credential and there is no `meta_token` field — the token is only returned
    * by create and rotate-meta-token.
    */
-  data?: CloudfsFilesystemDetailResponseWrapper.Data;
-}
-
-export namespace CloudfsFilesystemDetailResponseWrapper {
-  /**
-   * A CloudFS filesystem as returned by get, update, and delete. `meta_url` omits
-   * the credential and there is no `meta_token` field — the token is only returned
-   * by create and rotate-meta-token.
-   */
-  export interface Data {
-    id?: string;
-
-    created_at?: string;
-
-    /**
-     * Explanation of the most recent failed lifecycle action. Present only when the
-     * filesystem is in a `failed` state.
-     */
-    error?: string;
-
-    /**
-     * PostgreSQL connection URL for the filesystem's metadata database, without the
-     * credential. Combine it with your stored metadata token, or issue a new token
-     * with rotate-meta-token.
-     */
-    meta_url?: string;
-
-    name?: string;
-
-    record_type?: string;
-
-    region?: string;
-
-    /**
-     * Name of the bucket that stores this filesystem's data. Created during
-     * provisioning.
-     */
-    s3_bucket?: string;
-
-    /**
-     * URL of the Telnyx Cloud Storage endpoint backing this filesystem.
-     */
-    s3_endpoint?: string;
-
-    /**
-     * Lifecycle status of the filesystem. `ready` means it is fully provisioned and
-     * usable. `needs_format` means the storage bucket and metadata database were
-     * provisioned but the filesystem has not yet been formatted — run `juicefs format`
-     * with the filesystem's `meta_url` before mounting. `failed` means the last
-     * lifecycle action failed — see the filesystem's `error` message. `deleted`
-     * appears only in the delete response: deleted filesystems are excluded from list
-     * results and return a `404` on retrieval.
-     */
-    status?: CloudfsAPI.CloudfsFilesystemStatus;
-
-    updated_at?: string;
-  }
+  data?: CloudfsFilesystemDetail;
 }
 
 export interface CloudfsFilesystemResponseWrapper {
@@ -192,65 +246,7 @@ export interface CloudfsFilesystemResponseWrapper {
    * A CloudFS filesystem, including its metadata credential. This shape is returned
    * only by create and rotate-meta-token.
    */
-  data?: CloudfsFilesystemResponseWrapper.Data;
-}
-
-export namespace CloudfsFilesystemResponseWrapper {
-  /**
-   * A CloudFS filesystem, including its metadata credential. This shape is returned
-   * only by create and rotate-meta-token.
-   */
-  export interface Data {
-    id?: string;
-
-    created_at?: string;
-
-    /**
-     * Metadata access token, in cleartext. Returned only by create and
-     * rotate-meta-token and not retrievable afterwards — store it securely.
-     */
-    meta_token?: string;
-
-    /**
-     * PostgreSQL connection URL for the filesystem's metadata database. In create and
-     * rotate-meta-token responses it embeds the metadata token as the password:
-     * `postgres://<database>:<meta_token>@us-east-1.telnyxcloudfs.com:5432/<database>?sslmode=require`
-     * (the example below is shown without the credential; the actual response includes
-     * it). Pass it to `juicefs mount`: the storage configuration is baked in at
-     * provisioning, so the metadata URL is all a client needs to mount the filesystem.
-     */
-    meta_url?: string;
-
-    name?: string;
-
-    record_type?: string;
-
-    region?: string;
-
-    /**
-     * Name of the bucket that stores this filesystem's data. Created during
-     * provisioning.
-     */
-    s3_bucket?: string;
-
-    /**
-     * URL of the Telnyx Cloud Storage endpoint backing this filesystem.
-     */
-    s3_endpoint?: string;
-
-    /**
-     * Lifecycle status of the filesystem. `ready` means it is fully provisioned and
-     * usable. `needs_format` means the storage bucket and metadata database were
-     * provisioned but the filesystem has not yet been formatted — run `juicefs format`
-     * with the filesystem's `meta_url` before mounting. `failed` means the last
-     * lifecycle action failed — see the filesystem's `error` message. `deleted`
-     * appears only in the delete response: deleted filesystems are excluded from list
-     * results and return a `404` on retrieval.
-     */
-    status?: CloudfsAPI.CloudfsFilesystemStatus;
-
-    updated_at?: string;
-  }
+  data?: CloudfsFilesystem;
 }
 
 /**
@@ -433,6 +429,8 @@ Cloudfs.Actions = Actions;
 
 export declare namespace Cloudfs {
   export {
+    type CloudfsFilesystem as CloudfsFilesystem,
+    type CloudfsFilesystemDetail as CloudfsFilesystemDetail,
     type CloudfsFilesystemDetailResponseWrapper as CloudfsFilesystemDetailResponseWrapper,
     type CloudfsFilesystemResponseWrapper as CloudfsFilesystemResponseWrapper,
     type CloudfsFilesystemStatus as CloudfsFilesystemStatus,

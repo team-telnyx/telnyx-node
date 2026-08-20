@@ -7,6 +7,8 @@ export {
 } from './buckets/index';
 export {
   Cloudfs,
+  type CloudfsFilesystem,
+  type CloudfsFilesystemDetail,
   type CloudfsFilesystemDetailResponseWrapper,
   type CloudfsFilesystemResponseWrapper,
   type CloudfsFilesystemStatus,

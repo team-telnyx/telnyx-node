@@ -1417,6 +1417,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineHumainConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineParakeetConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineReson8Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSonioxConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSpeechmaticsConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineTelnyxConfig</a></code>
@@ -1694,6 +1695,7 @@ Types:
 - <code><a href="./src/resources/custom-storage-credentials.ts">CustomStorageConfiguration</a></code>
 - <code><a href="./src/resources/custom-storage-credentials.ts">GcsConfigurationData</a></code>
 - <code><a href="./src/resources/custom-storage-credentials.ts">S3ConfigurationData</a></code>
+- <code><a href="./src/resources/custom-storage-credentials.ts">S3GenericConfigurationData</a></code>
 
 Methods:
 
@@ -3431,6 +3433,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/rcs/brands.ts">BrandAddress</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandContact</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandLegalEntityType</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandOrganizationType</a></code>
@@ -4003,6 +4006,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystem</a></code>
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemDetail</a></code>
 - <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemDetailResponseWrapper</a></code>
 - <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemResponseWrapper</a></code>
 - <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemStatus</a></code>
@@ -4981,6 +4986,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">WhatsappConversationalComponent</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">ConversationalComponentListResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">ConversationalComponentPatchAllResponse</a></code>
 
@@ -5154,6 +5160,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationPerNumberResults</a></code>
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationRequest</a></code>
 - <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationRequestWrapped</a></code>
 - <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationStatus</a></code>
 - <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationListResponse</a></code>
@@ -5388,6 +5396,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/dir/verify-email.ts">EmailVerificationStatus</a></code>
 - <code><a href="./src/resources/dir/verify-email.ts">EmailVerificationStatusWrapped</a></code>
 
 Methods:
@@ -5431,6 +5440,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/email-blocks/import.ts">EmailBlockImport</a></code>
 - <code><a href="./src/resources/email-blocks/import.ts">EmailBlockImportResponse</a></code>
 
 Methods:
@@ -5536,6 +5546,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/email-inboxes/filters.ts">InboxFilters</a></code>
 - <code><a href="./src/resources/email-inboxes/filters.ts">MutateInboxFiltersRequest</a></code>
 - <code><a href="./src/resources/email-inboxes/filters.ts">FilterListResponse</a></code>
 - <code><a href="./src/resources/email-inboxes/filters.ts">FilterAddResponse</a></code>
@@ -5625,6 +5636,7 @@ Types:
 - <code><a href="./src/resources/email-messages/email-messages.ts">AttachmentRequest</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailAddressInput</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">MessageEvent</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">SuppressedRecipient</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">TrackingSettings</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageRetrieveResponse</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageListResponse</a></code>
@@ -5715,6 +5727,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/email-validations/email-validations.ts">EmailValidationCheck</a></code>
+- <code><a href="./src/resources/email-validations/email-validations.ts">EmailValidationChecks</a></code>
 - <code><a href="./src/resources/email-validations/email-validations.ts">EmailValidationCreateResponse</a></code>
 
 Methods:

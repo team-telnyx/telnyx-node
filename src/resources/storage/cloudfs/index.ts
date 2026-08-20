@@ -3,6 +3,8 @@
 export { Actions, type ActionRotateMetaTokenParams } from './actions';
 export {
   Cloudfs,
+  type CloudfsFilesystem,
+  type CloudfsFilesystemDetail,
   type CloudfsFilesystemDetailResponseWrapper,
   type CloudfsFilesystemResponseWrapper,
   type CloudfsFilesystemStatus,

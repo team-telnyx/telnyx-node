@@ -5,6 +5,7 @@ export {
   type AttachmentRequest,
   type EmailAddressInput,
   type MessageEvent,
+  type SuppressedRecipient,
   type TrackingSettings,
   type EmailMessageRetrieveResponse,
   type EmailMessageListResponse,

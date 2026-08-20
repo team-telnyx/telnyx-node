@@ -2058,6 +2058,24 @@ export interface TranscriptionEngineParakeetConfig {
   transcription_model?: 'nvidia/parakeet-v3';
 }
 
+export interface TranscriptionEngineReson8Config {
+  /**
+   * The language of the audio to be transcribed. `auto` (the default, also applied
+   * when `language` is omitted) enables automatic language detection.
+   */
+  language?: 'auto' | 'nl' | 'en' | 'fr' | 'fy' | 'de' | 'it' | 'pl' | 'pt' | 'es' | 'sv';
+
+  /**
+   * Engine identifier for Reson8 transcription service
+   */
+  transcription_engine?: 'Reson8';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'reson8/turns';
+}
+
 export interface TranscriptionEngineSonioxConfig {
   /**
    * Engine identifier for Soniox transcription service
@@ -2241,7 +2259,7 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
     | TranscriptionEngineHumainConfig
-    | TranscriptionStartRequest.TranscriptionEngineReson8Config
+    | TranscriptionEngineReson8Config
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -2253,26 +2271,6 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
-}
-
-export namespace TranscriptionStartRequest {
-  export interface TranscriptionEngineReson8Config {
-    /**
-     * The language of the audio to be transcribed. `auto` (the default, also applied
-     * when `language` is omitted) enables automatic language detection.
-     */
-    language?: 'auto' | 'nl' | 'en' | 'fr' | 'fy' | 'de' | 'it' | 'pl' | 'pt' | 'es' | 'sv';
-
-    /**
-     * Engine identifier for Reson8 transcription service
-     */
-    transcription_engine?: 'Reson8';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'reson8/turns';
-  }
 }
 
 /**
@@ -4663,7 +4661,7 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
     | TranscriptionEngineHumainConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineReson8Config
+    | TranscriptionEngineReson8Config
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4675,26 +4673,6 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
-}
-
-export namespace ActionStartTranscriptionParams {
-  export interface TranscriptionEngineReson8Config {
-    /**
-     * The language of the audio to be transcribed. `auto` (the default, also applied
-     * when `language` is omitted) enables automatic language detection.
-     */
-    language?: 'auto' | 'nl' | 'en' | 'fr' | 'fy' | 'de' | 'it' | 'pl' | 'pt' | 'es' | 'sv';
-
-    /**
-     * Engine identifier for Reson8 transcription service
-     */
-    transcription_engine?: 'Reson8';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'reson8/turns';
-  }
 }
 
 export interface ActionStopTranscriptionParams {
@@ -5548,6 +5526,7 @@ export declare namespace Actions {
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
     type TranscriptionEngineHumainConfig as TranscriptionEngineHumainConfig,
     type TranscriptionEngineParakeetConfig as TranscriptionEngineParakeetConfig,
+    type TranscriptionEngineReson8Config as TranscriptionEngineReson8Config,
     type TranscriptionEngineSonioxConfig as TranscriptionEngineSonioxConfig,
     type TranscriptionEngineSpeechmaticsConfig as TranscriptionEngineSpeechmaticsConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,

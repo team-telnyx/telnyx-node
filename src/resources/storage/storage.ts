@@ -21,6 +21,8 @@ import {
   CloudfListResponse,
   CloudfUpdateParams,
   Cloudfs,
+  CloudfsFilesystem,
+  CloudfsFilesystemDetail,
   CloudfsFilesystemDetailResponseWrapper,
   CloudfsFilesystemResponseWrapper,
   CloudfsFilesystemStatus,
@@ -153,6 +155,8 @@ export declare namespace Storage {
 
   export {
     Cloudfs as Cloudfs,
+    type CloudfsFilesystem as CloudfsFilesystem,
+    type CloudfsFilesystemDetail as CloudfsFilesystemDetail,
     type CloudfsFilesystemDetailResponseWrapper as CloudfsFilesystemDetailResponseWrapper,
     type CloudfsFilesystemResponseWrapper as CloudfsFilesystemResponseWrapper,
     type CloudfsFilesystemStatus as CloudfsFilesystemStatus,

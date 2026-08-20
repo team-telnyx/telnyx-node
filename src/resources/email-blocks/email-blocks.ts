@@ -2,7 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as ImportAPI from './import';
-import { EmailBlockImportResponse, Import, ImportCreateParams } from './import';
+import { EmailBlockImport, EmailBlockImportResponse, Import, ImportCreateParams } from './import';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -396,6 +396,7 @@ export declare namespace EmailBlocks {
 
   export {
     Import as Import,
+    type EmailBlockImport as EmailBlockImport,
     type EmailBlockImportResponse as EmailBlockImportResponse,
     type ImportCreateParams as ImportCreateParams,
   };

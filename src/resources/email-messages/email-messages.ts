@@ -246,6 +246,28 @@ export interface MessageEvent {
   payload?: { [key: string]: unknown };
 }
 
+export interface SuppressedRecipient {
+  /**
+   * Whether an authorized send may override this suppression.
+   */
+  override_allowed: boolean;
+
+  /**
+   * Suppression reason returned by the recipient suppression service.
+   */
+  reason: string;
+
+  /**
+   * Scope at which the suppression applies.
+   */
+  scope: string;
+
+  /**
+   * Suppressed recipient email address.
+   */
+  to: string;
+}
+
 /**
  * Per-send open and click tracking overrides. Omitted properties inherit the
  * sender domain's tracking settings.
@@ -690,6 +712,7 @@ export declare namespace EmailMessages {
     type AttachmentRequest as AttachmentRequest,
     type EmailAddressInput as EmailAddressInput,
     type MessageEvent as MessageEvent,
+    type SuppressedRecipient as SuppressedRecipient,
     type TrackingSettings as TrackingSettings,
     type EmailMessageRetrieveResponse as EmailMessageRetrieveResponse,
     type EmailMessageListResponse as EmailMessageListResponse,

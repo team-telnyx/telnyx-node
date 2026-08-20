@@ -29,6 +29,7 @@ import {
   FilterReplaceParams,
   FilterReplaceResponse,
   Filters,
+  InboxFilters,
   MutateInboxFiltersRequest,
 } from './filters';
 import * as MessagesAPI from './messages/messages';
@@ -242,6 +243,7 @@ export declare namespace EmailInboxes {
 
   export {
     Filters as Filters,
+    type InboxFilters as InboxFilters,
     type MutateInboxFiltersRequest as MutateInboxFiltersRequest,
     type FilterListResponse as FilterListResponse,
     type FilterAddResponse as FilterAddResponse,

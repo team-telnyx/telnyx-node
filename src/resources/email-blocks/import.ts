@@ -60,83 +60,81 @@ export class Import extends APIResource {
   }
 }
 
+/**
+ * Import job. Schema fields hidden: `account_id`, `csv_content`, `block_ttl_days`.
+ * Nullable fields use the omit-nullable pattern.
+ */
+export interface EmailBlockImport {
+  id: string;
+
+  created_at: string;
+
+  /**
+   * View-only.
+   */
+  record_type: 'email_block_import';
+
+  status: 'pending' | 'processing' | 'completed' | 'failed';
+
+  /**
+   * Data-row count at upload.
+   */
+  total: number;
+
+  updated_at: string;
+
+  /**
+   * Omitted until terminal success.
+   */
+  completed_at?: string;
+
+  /**
+   * Only when `status == completed`.
+   */
+  created_count?: number;
+
+  /**
+   * Only when `status == completed`.
+   */
+  error_count?: number;
+
+  /**
+   * `{row_number: reason}`; only rendered when non-empty.
+   */
+  errors?: { [key: string]: string };
+
+  /**
+   * Only when `status == completed`.
+   */
+  existing_count?: number;
+
+  /**
+   * Only on terminal failure.
+   */
+  failure_reason?: string;
+
+  /**
+   * Only when `status == completed`.
+   */
+  processed_rows?: number;
+
+  /**
+   * Omitted when nil.
+   */
+  provider?: 'sendgrid' | 'mailgun' | 'ses' | 'generic';
+
+  /**
+   * Only when `status == completed`.
+   */
+  skipped_count?: number;
+}
+
 export interface EmailBlockImportResponse {
   /**
    * Import job. Schema fields hidden: `account_id`, `csv_content`, `block_ttl_days`.
    * Nullable fields use the omit-nullable pattern.
    */
-  data: EmailBlockImportResponse.Data;
-}
-
-export namespace EmailBlockImportResponse {
-  /**
-   * Import job. Schema fields hidden: `account_id`, `csv_content`, `block_ttl_days`.
-   * Nullable fields use the omit-nullable pattern.
-   */
-  export interface Data {
-    id: string;
-
-    created_at: string;
-
-    /**
-     * View-only.
-     */
-    record_type: 'email_block_import';
-
-    status: 'pending' | 'processing' | 'completed' | 'failed';
-
-    /**
-     * Data-row count at upload.
-     */
-    total: number;
-
-    updated_at: string;
-
-    /**
-     * Omitted until terminal success.
-     */
-    completed_at?: string;
-
-    /**
-     * Only when `status == completed`.
-     */
-    created_count?: number;
-
-    /**
-     * Only when `status == completed`.
-     */
-    error_count?: number;
-
-    /**
-     * `{row_number: reason}`; only rendered when non-empty.
-     */
-    errors?: { [key: string]: string };
-
-    /**
-     * Only when `status == completed`.
-     */
-    existing_count?: number;
-
-    /**
-     * Only on terminal failure.
-     */
-    failure_reason?: string;
-
-    /**
-     * Only when `status == completed`.
-     */
-    processed_rows?: number;
-
-    /**
-     * Omitted when nil.
-     */
-    provider?: 'sendgrid' | 'mailgun' | 'ses' | 'generic';
-
-    /**
-     * Only when `status == completed`.
-     */
-    skipped_count?: number;
-  }
+  data: EmailBlockImport;
 }
 
 export interface ImportCreateParams {
@@ -154,6 +152,7 @@ export interface ImportCreateParams {
 
 export declare namespace Import {
   export {
+    type EmailBlockImport as EmailBlockImport,
     type EmailBlockImportResponse as EmailBlockImportResponse,
     type ImportCreateParams as ImportCreateParams,
   };

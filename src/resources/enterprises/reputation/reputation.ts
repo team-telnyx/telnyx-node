@@ -25,6 +25,8 @@ import {
   RemediationListParams,
   RemediationListResponse,
   RemediationListResponsesDefaultFlatPagination,
+  RemediationPerNumberResults,
+  RemediationRequest,
   RemediationRequestWrapped,
   RemediationRetrieveParams,
   RemediationStatus,
@@ -258,6 +260,8 @@ export declare namespace Reputation {
 
   export {
     Remediation as Remediation,
+    type RemediationPerNumberResults as RemediationPerNumberResults,
+    type RemediationRequest as RemediationRequest,
     type RemediationRequestWrapped as RemediationRequestWrapped,
     type RemediationStatus as RemediationStatus,
     type RemediationListResponse as RemediationListResponse,

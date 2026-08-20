@@ -90,6 +90,14 @@ export class Filters extends APIResource {
   }
 }
 
+export interface InboxFilters {
+  allowlist: Array<string>;
+
+  blocklist: Array<string>;
+
+  record_type: 'email_inbox_filters';
+}
+
 export interface MutateInboxFiltersRequest {
   entries: Array<string>;
 
@@ -100,59 +108,19 @@ export interface MutateInboxFiltersRequest {
 }
 
 export interface FilterListResponse {
-  data: FilterListResponse.Data;
-}
-
-export namespace FilterListResponse {
-  export interface Data {
-    allowlist: Array<string>;
-
-    blocklist: Array<string>;
-
-    record_type: 'email_inbox_filters';
-  }
+  data: InboxFilters;
 }
 
 export interface FilterAddResponse {
-  data: FilterAddResponse.Data;
-}
-
-export namespace FilterAddResponse {
-  export interface Data {
-    allowlist: Array<string>;
-
-    blocklist: Array<string>;
-
-    record_type: 'email_inbox_filters';
-  }
+  data: InboxFilters;
 }
 
 export interface FilterDeleteAllResponse {
-  data: FilterDeleteAllResponse.Data;
-}
-
-export namespace FilterDeleteAllResponse {
-  export interface Data {
-    allowlist: Array<string>;
-
-    blocklist: Array<string>;
-
-    record_type: 'email_inbox_filters';
-  }
+  data: InboxFilters;
 }
 
 export interface FilterReplaceResponse {
-  data: FilterReplaceResponse.Data;
-}
-
-export namespace FilterReplaceResponse {
-  export interface Data {
-    allowlist: Array<string>;
-
-    blocklist: Array<string>;
-
-    record_type: 'email_inbox_filters';
-  }
+  data: InboxFilters;
 }
 
 export interface FilterDeleteAllParams {
@@ -181,6 +149,7 @@ export interface FilterReplaceParams {
 
 export declare namespace Filters {
   export {
+    type InboxFilters as InboxFilters,
     type MutateInboxFiltersRequest as MutateInboxFiltersRequest,
     type FilterListResponse as FilterListResponse,
     type FilterAddResponse as FilterAddResponse,

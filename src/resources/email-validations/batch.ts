@@ -112,7 +112,7 @@ export namespace BatchRetrieveResponse {
 
   export namespace Data {
     export interface Results {
-      checks: Results.Checks;
+      checks: EmailValidationsAPI.EmailValidationChecks;
 
       email: string;
 
@@ -124,29 +124,6 @@ export namespace BatchRetrieveResponse {
        * Suggested correction for typo. Omitted when nil.
        */
       did_you_mean?: string;
-    }
-
-    export namespace Results {
-      export interface Checks {
-        disposable: EmailValidationsAPI.EmailValidationCheck;
-
-        mx: EmailValidationsAPI.EmailValidationCheck;
-
-        role_based: EmailValidationsAPI.EmailValidationCheck;
-
-        syntax: EmailValidationsAPI.EmailValidationCheck;
-
-        typo: Checks.Typo;
-      }
-
-      export namespace Checks {
-        export interface Typo extends EmailValidationsAPI.EmailValidationCheck {
-          /**
-           * Suggested correction for common typos. Omitted when nil.
-           */
-          suggestion?: string;
-        }
-      }
     }
   }
 }

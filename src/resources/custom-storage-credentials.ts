@@ -132,46 +132,8 @@ export interface CustomStorageConfiguration {
   configuration:
     | GcsConfigurationData
     | S3ConfigurationData
-    | CustomStorageConfiguration.S3GenericConfigurationData
+    | S3GenericConfigurationData
     | AzureConfigurationData;
-}
-
-export namespace CustomStorageConfiguration {
-  export interface S3GenericConfigurationData {
-    /**
-     * AWS credentials access key id.
-     */
-    aws_access_key_id: string;
-
-    /**
-     * AWS secret access key.
-     */
-    aws_secret_access_key: string;
-
-    /**
-     * Storage backend type
-     */
-    backend: 's3-generic';
-
-    /**
-     * Name of the bucket to be used to store recording files.
-     */
-    bucket: string;
-
-    /**
-     * URL of an S3-compatible storage endpoint, used to direct uploads and presigned
-     * download URLs to a non-AWS store (for example MinIO, Cloudflare R2, Wasabi,
-     * Backblaze B2, or Supabase). A bare host (https://s3.example.com) or a
-     * path-prefixed URL (https://xyz.supabase.co/storage/v1/s3) is accepted, and must
-     * use the http or https scheme.
-     */
-    endpoint: string;
-
-    /**
-     * Region where the bucket is located.
-     */
-    region: string;
-  }
 }
 
 export interface GcsConfigurationData {
@@ -219,52 +181,50 @@ export interface S3ConfigurationData {
   region: string;
 }
 
+export interface S3GenericConfigurationData {
+  /**
+   * AWS credentials access key id.
+   */
+  aws_access_key_id: string;
+
+  /**
+   * AWS secret access key.
+   */
+  aws_secret_access_key: string;
+
+  /**
+   * Storage backend type
+   */
+  backend: 's3-generic';
+
+  /**
+   * Name of the bucket to be used to store recording files.
+   */
+  bucket: string;
+
+  /**
+   * URL of an S3-compatible storage endpoint, used to direct uploads and presigned
+   * download URLs to a non-AWS store (for example MinIO, Cloudflare R2, Wasabi,
+   * Backblaze B2, or Supabase). A bare host (https://s3.example.com) or a
+   * path-prefixed URL (https://xyz.supabase.co/storage/v1/s3) is accepted, and must
+   * use the http or https scheme.
+   */
+  endpoint: string;
+
+  /**
+   * Region where the bucket is located.
+   */
+  region: string;
+}
+
 export interface CustomStorageCredentialCreateParams {
   backend: 'gcs' | 's3' | 's3-generic' | 'azure';
 
   configuration:
     | GcsConfigurationData
     | S3ConfigurationData
-    | CustomStorageCredentialCreateParams.S3GenericConfigurationData
+    | S3GenericConfigurationData
     | AzureConfigurationData;
-}
-
-export namespace CustomStorageCredentialCreateParams {
-  export interface S3GenericConfigurationData {
-    /**
-     * AWS credentials access key id.
-     */
-    aws_access_key_id: string;
-
-    /**
-     * AWS secret access key.
-     */
-    aws_secret_access_key: string;
-
-    /**
-     * Storage backend type
-     */
-    backend: 's3-generic';
-
-    /**
-     * Name of the bucket to be used to store recording files.
-     */
-    bucket: string;
-
-    /**
-     * URL of an S3-compatible storage endpoint, used to direct uploads and presigned
-     * download URLs to a non-AWS store (for example MinIO, Cloudflare R2, Wasabi,
-     * Backblaze B2, or Supabase). A bare host (https://s3.example.com) or a
-     * path-prefixed URL (https://xyz.supabase.co/storage/v1/s3) is accepted, and must
-     * use the http or https scheme.
-     */
-    endpoint: string;
-
-    /**
-     * Region where the bucket is located.
-     */
-    region: string;
-  }
 }
 
 export interface CustomStorageCredentialUpdateParams {
@@ -273,46 +233,8 @@ export interface CustomStorageCredentialUpdateParams {
   configuration:
     | GcsConfigurationData
     | S3ConfigurationData
-    | CustomStorageCredentialUpdateParams.S3GenericConfigurationData
+    | S3GenericConfigurationData
     | AzureConfigurationData;
-}
-
-export namespace CustomStorageCredentialUpdateParams {
-  export interface S3GenericConfigurationData {
-    /**
-     * AWS credentials access key id.
-     */
-    aws_access_key_id: string;
-
-    /**
-     * AWS secret access key.
-     */
-    aws_secret_access_key: string;
-
-    /**
-     * Storage backend type
-     */
-    backend: 's3-generic';
-
-    /**
-     * Name of the bucket to be used to store recording files.
-     */
-    bucket: string;
-
-    /**
-     * URL of an S3-compatible storage endpoint, used to direct uploads and presigned
-     * download URLs to a non-AWS store (for example MinIO, Cloudflare R2, Wasabi,
-     * Backblaze B2, or Supabase). A bare host (https://s3.example.com) or a
-     * path-prefixed URL (https://xyz.supabase.co/storage/v1/s3) is accepted, and must
-     * use the http or https scheme.
-     */
-    endpoint: string;
-
-    /**
-     * Region where the bucket is located.
-     */
-    region: string;
-  }
 }
 
 export declare namespace CustomStorageCredentials {
@@ -322,6 +244,7 @@ export declare namespace CustomStorageCredentials {
     type CustomStorageConfiguration as CustomStorageConfiguration,
     type GcsConfigurationData as GcsConfigurationData,
     type S3ConfigurationData as S3ConfigurationData,
+    type S3GenericConfigurationData as S3GenericConfigurationData,
     type CustomStorageCredentialCreateParams as CustomStorageCredentialCreateParams,
     type CustomStorageCredentialUpdateParams as CustomStorageCredentialUpdateParams,
   };

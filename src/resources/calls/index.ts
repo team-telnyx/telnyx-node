@@ -30,6 +30,7 @@ export {
   type TranscriptionEngineGoogleConfig,
   type TranscriptionEngineHumainConfig,
   type TranscriptionEngineParakeetConfig,
+  type TranscriptionEngineReson8Config,
   type TranscriptionEngineSonioxConfig,
   type TranscriptionEngineSpeechmaticsConfig,
   type TranscriptionEngineTelnyxConfig,

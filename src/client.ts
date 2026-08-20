@@ -207,6 +207,7 @@ import {
   CustomStorageCredentials,
   GcsConfigurationData,
   S3ConfigurationData,
+  S3GenericConfigurationData,
 } from './resources/custom-storage-credentials';
 import {
   CustomerServiceRecord,
@@ -1340,6 +1341,7 @@ import {
   EmailMessageRetrieveResponse,
   EmailMessages,
   MessageEvent,
+  SuppressedRecipient,
   TrackingSettings,
 } from './resources/email-messages/email-messages';
 import {
@@ -1355,6 +1357,7 @@ import {
 } from './resources/email-unsubscribe-groups/email-unsubscribe-groups';
 import {
   EmailValidationCheck,
+  EmailValidationChecks,
   EmailValidationCreateParams,
   EmailValidationCreateResponse,
   EmailValidations,
@@ -3900,6 +3903,7 @@ export declare namespace Telnyx {
     type CustomStorageConfiguration as CustomStorageConfiguration,
     type GcsConfigurationData as GcsConfigurationData,
     type S3ConfigurationData as S3ConfigurationData,
+    type S3GenericConfigurationData as S3GenericConfigurationData,
     type CustomStorageCredentialCreateParams as CustomStorageCredentialCreateParams,
     type CustomStorageCredentialUpdateParams as CustomStorageCredentialUpdateParams,
   };
@@ -5349,6 +5353,7 @@ export declare namespace Telnyx {
     type AttachmentRequest as AttachmentRequest,
     type EmailAddressInput as EmailAddressInput,
     type MessageEvent as MessageEvent,
+    type SuppressedRecipient as SuppressedRecipient,
     type TrackingSettings as TrackingSettings,
     type EmailMessageRetrieveResponse as EmailMessageRetrieveResponse,
     type EmailMessageListResponse as EmailMessageListResponse,
@@ -5397,6 +5402,7 @@ export declare namespace Telnyx {
   export {
     EmailValidations as EmailValidations,
     type EmailValidationCheck as EmailValidationCheck,
+    type EmailValidationChecks as EmailValidationChecks,
     type EmailValidationCreateResponse as EmailValidationCreateResponse,
     type EmailValidationCreateParams as EmailValidationCreateParams,
   };

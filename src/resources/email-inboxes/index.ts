@@ -27,6 +27,7 @@ export {
 } from './email-inboxes';
 export {
   Filters,
+  type InboxFilters,
   type MutateInboxFiltersRequest,
   type FilterListResponse,
   type FilterAddResponse,

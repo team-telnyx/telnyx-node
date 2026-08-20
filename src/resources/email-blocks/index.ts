@@ -13,4 +13,9 @@ export {
   type EmailBlockRetrieveEventsParams,
   type EmailBlocksDefaultFlatPagination,
 } from './email-blocks';
-export { Import, type EmailBlockImportResponse, type ImportCreateParams } from './import';
+export {
+  Import,
+  type EmailBlockImport,
+  type EmailBlockImportResponse,
+  type ImportCreateParams,
+} from './import';

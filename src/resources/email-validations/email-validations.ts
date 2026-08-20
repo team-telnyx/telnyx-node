@@ -56,13 +56,34 @@ export interface EmailValidationCheck {
   details?: string;
 }
 
+export interface EmailValidationChecks {
+  disposable: EmailValidationCheck;
+
+  mx: EmailValidationCheck;
+
+  role_based: EmailValidationCheck;
+
+  syntax: EmailValidationCheck;
+
+  typo: EmailValidationChecks.Typo;
+}
+
+export namespace EmailValidationChecks {
+  export interface Typo extends EmailValidationsAPI.EmailValidationCheck {
+    /**
+     * Suggested correction for common typos. Omitted when nil.
+     */
+    suggestion?: string;
+  }
+}
+
 export interface EmailValidationCreateResponse {
   data: EmailValidationCreateResponse.Data;
 }
 
 export namespace EmailValidationCreateResponse {
   export interface Data {
-    checks: Data.Checks;
+    checks: EmailValidationsAPI.EmailValidationChecks;
 
     email: string;
 
@@ -76,29 +97,6 @@ export namespace EmailValidationCreateResponse {
      * Suggested correction for typo. Omitted when nil.
      */
     did_you_mean?: string;
-  }
-
-  export namespace Data {
-    export interface Checks {
-      disposable: EmailValidationsAPI.EmailValidationCheck;
-
-      mx: EmailValidationsAPI.EmailValidationCheck;
-
-      role_based: EmailValidationsAPI.EmailValidationCheck;
-
-      syntax: EmailValidationsAPI.EmailValidationCheck;
-
-      typo: Checks.Typo;
-    }
-
-    export namespace Checks {
-      export interface Typo extends EmailValidationsAPI.EmailValidationCheck {
-        /**
-         * Suggested correction for common typos. Omitted when nil.
-         */
-        suggestion?: string;
-      }
-    }
   }
 }
 
@@ -127,6 +125,7 @@ EmailValidations.Batch = Batch;
 export declare namespace EmailValidations {
   export {
     type EmailValidationCheck as EmailValidationCheck,
+    type EmailValidationChecks as EmailValidationChecks,
     type EmailValidationCreateResponse as EmailValidationCreateResponse,
     type EmailValidationCreateParams as EmailValidationCreateParams,
   };

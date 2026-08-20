@@ -27,6 +27,7 @@ export {
 } from './agents/index';
 export {
   Brands,
+  type BrandAddress,
   type BrandContact,
   type BrandLegalEntityType,
   type BrandOrganizationType,

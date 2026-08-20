@@ -55,6 +55,7 @@ export {
 } from './references';
 export {
   VerifyEmail,
+  type EmailVerificationStatus,
   type EmailVerificationStatusWrapped,
   type VerifyEmailConfirmParams,
 } from './verify-email';

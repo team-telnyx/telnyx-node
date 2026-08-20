@@ -445,31 +445,7 @@ export interface EmailMessageResponse {
    * Recipients removed by suppression checks when at least one recipient remains and
    * the message is accepted.
    */
-  suppressed?: Array<EmailMessageResponse.Suppressed>;
-}
-
-export namespace EmailMessageResponse {
-  export interface Suppressed {
-    /**
-     * Whether an authorized send may override this suppression.
-     */
-    override_allowed: boolean;
-
-    /**
-     * Suppression reason returned by the recipient suppression service.
-     */
-    reason: string;
-
-    /**
-     * Scope at which the suppression applies.
-     */
-    scope: string;
-
-    /**
-     * Suppressed recipient email address.
-     */
-    to: string;
-  }
+  suppressed?: Array<EmailMessagesAPI.SuppressedRecipient>;
 }
 
 export interface DraftListResponse {

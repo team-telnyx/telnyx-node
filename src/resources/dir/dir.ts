@@ -47,7 +47,12 @@ import {
   References,
 } from './references';
 import * as VerifyEmailAPI from './verify-email';
-import { EmailVerificationStatusWrapped, VerifyEmail, VerifyEmailConfirmParams } from './verify-email';
+import {
+  EmailVerificationStatus,
+  EmailVerificationStatusWrapped,
+  VerifyEmail,
+  VerifyEmailConfirmParams,
+} from './verify-email';
 import * as LoaAPI from '../enterprises/reputation/loa';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -718,6 +723,7 @@ export declare namespace DirResource {
 
   export {
     VerifyEmail as VerifyEmail,
+    type EmailVerificationStatus as EmailVerificationStatus,
     type EmailVerificationStatusWrapped as EmailVerificationStatusWrapped,
     type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
   };

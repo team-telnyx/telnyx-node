@@ -243,6 +243,7 @@ export {
   type CustomStorageConfiguration,
   type GcsConfigurationData,
   type S3ConfigurationData,
+  type S3GenericConfigurationData,
   type CustomStorageCredentialCreateParams,
   type CustomStorageCredentialUpdateParams,
 } from './custom-storage-credentials';
@@ -379,6 +380,7 @@ export {
   type AttachmentRequest,
   type EmailAddressInput,
   type MessageEvent,
+  type SuppressedRecipient,
   type TrackingSettings,
   type EmailMessageRetrieveResponse,
   type EmailMessageListResponse,
@@ -423,6 +425,7 @@ export {
 export {
   EmailValidations,
   type EmailValidationCheck,
+  type EmailValidationChecks,
   type EmailValidationCreateResponse,
   type EmailValidationCreateParams,
 } from './email-validations/email-validations';

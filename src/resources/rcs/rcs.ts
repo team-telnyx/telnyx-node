@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as BrandsAPI from './brands';
 import {
+  BrandAddress,
   BrandContact,
   BrandCreateParams,
   BrandLegalEntityType,
@@ -76,6 +77,7 @@ export declare namespace Rcs {
 
   export {
     Brands as Brands,
+    type BrandAddress as BrandAddress,
     type BrandContact as BrandContact,
     type BrandLegalEntityType as BrandLegalEntityType,
     type BrandOrganizationType as BrandOrganizationType,

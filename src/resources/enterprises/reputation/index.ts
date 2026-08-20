@@ -17,6 +17,8 @@ export {
 } from './numbers';
 export {
   Remediation,
+  type RemediationPerNumberResults,
+  type RemediationRequest,
   type RemediationRequestWrapped,
   type RemediationStatus,
   type RemediationListResponse,
