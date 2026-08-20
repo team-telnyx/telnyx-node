@@ -28,6 +28,7 @@ export {
   type TranscriptionEngineBConfig,
   type TranscriptionEngineDeepgramConfig,
   type TranscriptionEngineGoogleConfig,
+  type TranscriptionEngineHumainConfig,
   type TranscriptionEngineParakeetConfig,
   type TranscriptionEngineSonioxConfig,
   type TranscriptionEngineSpeechmaticsConfig,

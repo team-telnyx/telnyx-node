@@ -687,6 +687,7 @@ export {
 export {
   Messages,
   type MessagingError0b38e7044b,
+  type MessagingInboundMessagePayload,
   type MessagingOutboundMessagePayload,
   type OutboundMessagePayload,
   type RcsAgentMessage,
@@ -1616,6 +1617,7 @@ export {
   type FaxQueued,
   type FaxSendingStarted,
   type InboundMessage,
+  type InboundSipHeader,
   type NumberOrderStatusUpdate,
   type OutboundMessage,
   type ReplacedLinkClick,

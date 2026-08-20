@@ -1048,6 +1048,26 @@ export interface ComparisonExpression {
 }
 
 /**
+ * Conversation flow as returned by the API.
+ */
+export interface ConversationFlow {
+  /**
+   * All nodes in the flow.
+   */
+  nodes: Array<FlowNode | ToolNode | SpeakNode>;
+
+  /**
+   * ID of the node where the conversation begins.
+   */
+  start_node_id: string;
+
+  /**
+   * Directed transitions between nodes.
+   */
+  edges?: Array<FlowEdge>;
+}
+
+/**
  * Conversation flow as supplied by API clients (create / update).
  *
  * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
@@ -1059,9 +1079,7 @@ export interface ConversationFlowReq {
    * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node
    * (`type: prompt`) or a tool node (`type: tool`).
    */
-  nodes: Array<
-    ConversationFlowReq.FlowNodeReq | ConversationFlowReq.ToolNodeReq | ConversationFlowReq.SpeakNodeReq
-  >;
+  nodes: Array<FlowNodeReq | ToolNodeReq | SpeakNodeReq>;
 
   /**
    * ID of the node where the conversation begins.
@@ -1072,184 +1090,6 @@ export interface ConversationFlowReq {
    * Directed transitions between nodes. May be empty for a single-node flow.
    */
   edges?: Array<FlowEdge>;
-}
-
-export namespace ConversationFlowReq {
-  /**
-   * One step in a conversation flow, as supplied by API clients.
-   *
-   * Each node carries the prompt, tool scope, and optional overrides for
-   * model/voice/transcription. Unset overrides cascade from the assistant.
-   */
-  export interface FlowNodeReq {
-    /**
-     * Caller-supplied unique identifier for this node within the flow.
-     */
-    id: string;
-
-    /**
-     * Prompt that drives the LLM while this node is active. Required.
-     */
-    instructions: string;
-
-    /**
-     * Override for `Assistant.external_llm` while this node is active. Use this to
-     * route a node's turns to a different external LLM (different `model`, `base_url`,
-     * credentials). Part of the LLM bundle — see `model` for cascade semantics.
-     * Mutually exclusive with `model` on the node (a single LLM identity per node).
-     */
-    external_llm?: AssistantsAPI.ExternalLlmReq;
-
-    /**
-     * How `instructions` combine with the assistant-level instructions. `replace`
-     * (default): the node's instructions are used alone. `append`: the node's
-     * instructions are concatenated after the assistant's instructions.
-     */
-    instructions_mode?: 'replace' | 'append';
-
-    /**
-     * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
-     * LLM bundle — see `model` for cascade semantics.
-     */
-    llm_api_key_ref?: string;
-
-    /**
-     * Override for `Assistant.model` while this node is active. Part of the LLM bundle
-     * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
-     * the node, all three are taken from the node and the assistant-level LLM identity
-     * is not consulted. When none of the three is set, the assistant's bundle cascades
-     * unchanged.
-     */
-    model?: string;
-
-    /**
-     * Optional human-readable label, displayed in authoring UIs.
-     */
-    name?: string;
-
-    /**
-     * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
-     * by the runtime; round-trips so frontends can persist graph layout across
-     * reloads.
-     */
-    position?: AssistantsAPI.NodePosition;
-
-    /**
-     * IDs of shared (org-level) tools available at this node. Knowledge bases are
-     * attached the same way — via a shared retrieval tool. Tools not listed here are
-     * not callable while this node is active.
-     */
-    shared_tool_ids?: Array<string>;
-
-    /**
-     * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
-     * (default): only the node's tools are callable. `append`: the node's tools are
-     * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
-     */
-    tools_mode?: 'replace' | 'append';
-
-    /**
-     * Per-node transcription override (model/language/region). Unset fields cascade
-     * from the assistant-level transcription.
-     */
-    transcription?: AssistantsAPI.TranscriptionSettings;
-
-    /**
-     * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a
-     * standalone tool execution (see `ToolNodeReq`).
-     */
-    type?: 'prompt';
-
-    /**
-     * Per-node voice override. Only fields set here override the assistant-level voice
-     * settings; unset fields cascade.
-     */
-    voice_settings?: AssistantsAPI.VoiceSettings;
-  }
-
-  /**
-   * A standalone tool step in a conversation flow, as supplied by clients.
-   *
-   * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
-   * turn. Reaching it deterministically runs one shared tool (arguments filled from
-   * matching dynamic variables by name), then routes on the result via outgoing
-   * `tool_result` edges.
-   */
-  export interface ToolNodeReq {
-    /**
-     * Caller-supplied unique identifier for this node within the flow.
-     */
-    id: string;
-
-    /**
-     * ID of the single shared (org-level) tool this node executes. When the flow
-     * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
-     * `tool_result` edges then route on the outcome. Arguments are filled from the
-     * conversation's dynamic variables by name — a dynamic variable whose name matches
-     * one of the tool's parameters supplies that argument. Cross-validated against the
-     * org's shared tools on write.
-     */
-    shared_tool_id: string;
-
-    /**
-     * Optional human-readable label, displayed in authoring UIs.
-     */
-    name?: string;
-
-    /**
-     * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
-     * by the runtime; round-trips so frontends can persist graph layout across
-     * reloads.
-     */
-    position?: AssistantsAPI.NodePosition;
-
-    /**
-     * Node kind discriminator. Always `tool` for a tool node.
-     */
-    type?: 'tool';
-  }
-
-  /**
-   * A standalone scripted-message step in a flow, as supplied by clients.
-   *
-   * Unlike a prompt node, a speak node has no instructions or model — it isn't an
-   * LLM turn. Reaching it delivers `message` to the user verbatim (with
-   * `{{variable}}` interpolation), then routes via outgoing `llm` / `expression`
-   * edges.
-   */
-  export interface SpeakNodeReq {
-    /**
-     * Caller-supplied unique identifier for this node within the flow.
-     */
-    id: string;
-
-    /**
-     * Message delivered to the user verbatim when the flow reaches this node. No LLM
-     * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
-     * are interpolated from the conversation's dynamic variables; an unresolved
-     * placeholder renders as an empty string. After delivering, the flow routes via
-     * the node's outgoing `llm` / `expression` edges (commonly a single unconditional
-     * edge).
-     */
-    message: string;
-
-    /**
-     * Optional human-readable label, displayed in authoring UIs.
-     */
-    name?: string;
-
-    /**
-     * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
-     * by the runtime; round-trips so frontends can persist graph layout across
-     * reloads.
-     */
-    position?: AssistantsAPI.NodePosition;
-
-    /**
-     * Node kind discriminator. Always `speak` for a speak node.
-     */
-    type?: 'speak';
-  }
 }
 
 /**
@@ -1581,6 +1421,192 @@ export namespace FlowEdge {
   }
 }
 
+/**
+ * One step in a conversation flow, as returned by the API.
+ */
+export interface FlowNode {
+  /**
+   * Caller-supplied unique identifier for this node within the flow.
+   */
+  id: string;
+
+  /**
+   * Prompt that drives the LLM while this node is active. Required.
+   */
+  instructions: string;
+
+  /**
+   * Override for `Assistant.external_llm` while this node is active. Use this to
+   * route a node's turns to a different external LLM (different `model`, `base_url`,
+   * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+   * Mutually exclusive with `model` on the node (a single LLM identity per node).
+   */
+  external_llm?: ExternalLlm;
+
+  /**
+   * How `instructions` combine with the assistant-level instructions. `replace`
+   * (default): the node's instructions are used alone. `append`: the node's
+   * instructions are concatenated after the assistant's instructions.
+   */
+  instructions_mode?: 'replace' | 'append';
+
+  /**
+   * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
+   * LLM bundle — see `model` for cascade semantics.
+   */
+  llm_api_key_ref?: string;
+
+  /**
+   * Override for `Assistant.model` while this node is active. Part of the LLM bundle
+   * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
+   * the node, all three are taken from the node and the assistant-level LLM identity
+   * is not consulted. When none of the three is set, the assistant's bundle cascades
+   * unchanged.
+   */
+  model?: string;
+
+  /**
+   * Optional human-readable label, displayed in authoring UIs.
+   */
+  name?: string;
+
+  /**
+   * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+   * by the runtime; round-trips so frontends can persist graph layout across
+   * reloads.
+   */
+  position?: NodePosition;
+
+  /**
+   * IDs of shared (org-level) tools available at this node. Knowledge bases are
+   * attached the same way — via a shared retrieval tool. Tools not listed here are
+   * not callable while this node is active.
+   */
+  shared_tool_ids?: Array<string>;
+
+  /**
+   * Full tool definitions for this node, resolved from `shared_tool_ids`
+   * server-side. Populated on responses so clients can render the flow without a
+   * follow-up fetch per shared tool. Ignored on input — set `shared_tool_ids` to
+   * configure a node's tools.
+   */
+  tools?: Array<Array<AssistantTool>>;
+
+  /**
+   * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+   * (default): only the node's tools are callable. `append`: the node's tools are
+   * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+   */
+  tools_mode?: 'replace' | 'append';
+
+  /**
+   * Per-node transcription override (response form).
+   */
+  transcription?: TranscriptionSettings;
+
+  /**
+   * Node kind discriminator. `prompt` is an LLM-driven step.
+   */
+  type?: 'prompt';
+
+  /**
+   * Per-node voice override (response form).
+   */
+  voice_settings?: VoiceSettings;
+}
+
+/**
+ * One step in a conversation flow, as supplied by API clients.
+ *
+ * Each node carries the prompt, tool scope, and optional overrides for
+ * model/voice/transcription. Unset overrides cascade from the assistant.
+ */
+export interface FlowNodeReq {
+  /**
+   * Caller-supplied unique identifier for this node within the flow.
+   */
+  id: string;
+
+  /**
+   * Prompt that drives the LLM while this node is active. Required.
+   */
+  instructions: string;
+
+  /**
+   * Override for `Assistant.external_llm` while this node is active. Use this to
+   * route a node's turns to a different external LLM (different `model`, `base_url`,
+   * credentials). Part of the LLM bundle — see `model` for cascade semantics.
+   * Mutually exclusive with `model` on the node (a single LLM identity per node).
+   */
+  external_llm?: ExternalLlmReq;
+
+  /**
+   * How `instructions` combine with the assistant-level instructions. `replace`
+   * (default): the node's instructions are used alone. `append`: the node's
+   * instructions are concatenated after the assistant's instructions.
+   */
+  instructions_mode?: 'replace' | 'append';
+
+  /**
+   * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
+   * LLM bundle — see `model` for cascade semantics.
+   */
+  llm_api_key_ref?: string;
+
+  /**
+   * Override for `Assistant.model` while this node is active. Part of the LLM bundle
+   * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
+   * the node, all three are taken from the node and the assistant-level LLM identity
+   * is not consulted. When none of the three is set, the assistant's bundle cascades
+   * unchanged.
+   */
+  model?: string;
+
+  /**
+   * Optional human-readable label, displayed in authoring UIs.
+   */
+  name?: string;
+
+  /**
+   * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+   * by the runtime; round-trips so frontends can persist graph layout across
+   * reloads.
+   */
+  position?: NodePosition;
+
+  /**
+   * IDs of shared (org-level) tools available at this node. Knowledge bases are
+   * attached the same way — via a shared retrieval tool. Tools not listed here are
+   * not callable while this node is active.
+   */
+  shared_tool_ids?: Array<string>;
+
+  /**
+   * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
+   * (default): only the node's tools are callable. `append`: the node's tools are
+   * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
+   */
+  tools_mode?: 'replace' | 'append';
+
+  /**
+   * Per-node transcription override (model/language/region). Unset fields cascade
+   * from the assistant-level transcription.
+   */
+  transcription?: TranscriptionSettings;
+
+  /**
+   * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a
+   * standalone tool execution (see `ToolNodeReq`).
+   */
+  type?: 'prompt';
+
+  /**
+   * Per-node voice override. Only fields set here override the assistant-level voice
+   * settings; unset fields cascade.
+   */
+  voice_settings?: VoiceSettings;
+}
+
 export interface HangupTool {
   hangup: HangupToolParams;
 
@@ -1631,7 +1657,7 @@ export interface InferenceEmbedding {
   /**
    * Conversation flow as returned by the API.
    */
-  conversation_flow?: InferenceEmbedding.ConversationFlow;
+  conversation_flow?: ConversationFlow;
 
   description?: string;
 
@@ -1774,205 +1800,6 @@ export interface InferenceEmbedding {
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
-}
-
-export namespace InferenceEmbedding {
-  /**
-   * Conversation flow as returned by the API.
-   */
-  export interface ConversationFlow {
-    /**
-     * All nodes in the flow.
-     */
-    nodes: Array<ConversationFlow.FlowNode | ConversationFlow.ToolNode | ConversationFlow.SpeakNode>;
-
-    /**
-     * ID of the node where the conversation begins.
-     */
-    start_node_id: string;
-
-    /**
-     * Directed transitions between nodes.
-     */
-    edges?: Array<AssistantsAPI.FlowEdge>;
-  }
-
-  export namespace ConversationFlow {
-    /**
-     * One step in a conversation flow, as returned by the API.
-     */
-    export interface FlowNode {
-      /**
-       * Caller-supplied unique identifier for this node within the flow.
-       */
-      id: string;
-
-      /**
-       * Prompt that drives the LLM while this node is active. Required.
-       */
-      instructions: string;
-
-      /**
-       * Override for `Assistant.external_llm` while this node is active. Use this to
-       * route a node's turns to a different external LLM (different `model`, `base_url`,
-       * credentials). Part of the LLM bundle — see `model` for cascade semantics.
-       * Mutually exclusive with `model` on the node (a single LLM identity per node).
-       */
-      external_llm?: AssistantsAPI.ExternalLlm;
-
-      /**
-       * How `instructions` combine with the assistant-level instructions. `replace`
-       * (default): the node's instructions are used alone. `append`: the node's
-       * instructions are concatenated after the assistant's instructions.
-       */
-      instructions_mode?: 'replace' | 'append';
-
-      /**
-       * Override for `Assistant.llm_api_key_ref` while this node is active. Part of the
-       * LLM bundle — see `model` for cascade semantics.
-       */
-      llm_api_key_ref?: string;
-
-      /**
-       * Override for `Assistant.model` while this node is active. Part of the LLM bundle
-       * (`model` + `llm_api_key_ref` + `external_llm`): when any of the three is set on
-       * the node, all three are taken from the node and the assistant-level LLM identity
-       * is not consulted. When none of the three is set, the assistant's bundle cascades
-       * unchanged.
-       */
-      model?: string;
-
-      /**
-       * Optional human-readable label, displayed in authoring UIs.
-       */
-      name?: string;
-
-      /**
-       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
-       * by the runtime; round-trips so frontends can persist graph layout across
-       * reloads.
-       */
-      position?: AssistantsAPI.NodePosition;
-
-      /**
-       * IDs of shared (org-level) tools available at this node. Knowledge bases are
-       * attached the same way — via a shared retrieval tool. Tools not listed here are
-       * not callable while this node is active.
-       */
-      shared_tool_ids?: Array<string>;
-
-      /**
-       * Full tool definitions for this node, resolved from `shared_tool_ids`
-       * server-side. Populated on responses so clients can render the flow without a
-       * follow-up fetch per shared tool. Ignored on input — set `shared_tool_ids` to
-       * configure a node's tools.
-       */
-      tools?: Array<Array<AssistantsAPI.AssistantTool>>;
-
-      /**
-       * How `shared_tool_ids` combine with the assistant-level tool set. `replace`
-       * (default): only the node's tools are callable. `append`: the node's tools are
-       * added to the assistant's tools. Ignored when `shared_tool_ids` is null.
-       */
-      tools_mode?: 'replace' | 'append';
-
-      /**
-       * Per-node transcription override (response form).
-       */
-      transcription?: AssistantsAPI.TranscriptionSettings;
-
-      /**
-       * Node kind discriminator. `prompt` is an LLM-driven step.
-       */
-      type?: 'prompt';
-
-      /**
-       * Per-node voice override (response form).
-       */
-      voice_settings?: AssistantsAPI.VoiceSettings;
-    }
-
-    /**
-     * A standalone tool step in a conversation flow, as returned by the API.
-     */
-    export interface ToolNode {
-      /**
-       * Caller-supplied unique identifier for this node within the flow.
-       */
-      id: string;
-
-      /**
-       * ID of the single shared (org-level) tool this node executes. When the flow
-       * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
-       * `tool_result` edges then route on the outcome. Arguments are filled from the
-       * conversation's dynamic variables by name — a dynamic variable whose name matches
-       * one of the tool's parameters supplies that argument. Cross-validated against the
-       * org's shared tools on write.
-       */
-      shared_tool_id: string;
-
-      /**
-       * Optional human-readable label, displayed in authoring UIs.
-       */
-      name?: string;
-
-      /**
-       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
-       * by the runtime; round-trips so frontends can persist graph layout across
-       * reloads.
-       */
-      position?: AssistantsAPI.NodePosition;
-
-      /**
-       * Full tool definition resolved from `shared_tool_id` server-side. Populated on
-       * responses so clients can render the node without a follow-up fetch. Ignored on
-       * input — set `shared_tool_id`.
-       */
-      tool?: Array<AssistantsAPI.AssistantTool>;
-
-      /**
-       * Node kind discriminator. Always `tool` for a tool node.
-       */
-      type?: 'tool';
-    }
-
-    /**
-     * A standalone scripted-message step in a flow, as returned by the API.
-     */
-    export interface SpeakNode {
-      /**
-       * Caller-supplied unique identifier for this node within the flow.
-       */
-      id: string;
-
-      /**
-       * Message delivered to the user verbatim when the flow reaches this node. No LLM
-       * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
-       * are interpolated from the conversation's dynamic variables; an unresolved
-       * placeholder renders as an empty string. After delivering, the flow routes via
-       * the node's outgoing `llm` / `expression` edges (commonly a single unconditional
-       * edge).
-       */
-      message: string;
-
-      /**
-       * Optional human-readable label, displayed in authoring UIs.
-       */
-      name?: string;
-
-      /**
-       * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
-       * by the runtime; round-trips so frontends can persist graph layout across
-       * reloads.
-       */
-      position?: AssistantsAPI.NodePosition;
-
-      /**
-       * Node kind discriminator. Always `speak` for a speak node.
-       */
-      type?: 'speak';
-    }
-  }
 }
 
 /**
@@ -2391,6 +2218,85 @@ export interface RetrievalTool {
 }
 
 /**
+ * A standalone scripted-message step in a flow, as returned by the API.
+ */
+export interface SpeakNode {
+  /**
+   * Caller-supplied unique identifier for this node within the flow.
+   */
+  id: string;
+
+  /**
+   * Message delivered to the user verbatim when the flow reaches this node. No LLM
+   * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
+   * are interpolated from the conversation's dynamic variables; an unresolved
+   * placeholder renders as an empty string. After delivering, the flow routes via
+   * the node's outgoing `llm` / `expression` edges (commonly a single unconditional
+   * edge).
+   */
+  message: string;
+
+  /**
+   * Optional human-readable label, displayed in authoring UIs.
+   */
+  name?: string;
+
+  /**
+   * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+   * by the runtime; round-trips so frontends can persist graph layout across
+   * reloads.
+   */
+  position?: NodePosition;
+
+  /**
+   * Node kind discriminator. Always `speak` for a speak node.
+   */
+  type?: 'speak';
+}
+
+/**
+ * A standalone scripted-message step in a flow, as supplied by clients.
+ *
+ * Unlike a prompt node, a speak node has no instructions or model — it isn't an
+ * LLM turn. Reaching it delivers `message` to the user verbatim (with
+ * `{{variable}}` interpolation), then routes via outgoing `llm` / `expression`
+ * edges.
+ */
+export interface SpeakNodeReq {
+  /**
+   * Caller-supplied unique identifier for this node within the flow.
+   */
+  id: string;
+
+  /**
+   * Message delivered to the user verbatim when the flow reaches this node. No LLM
+   * turn — the text is spoken/sent exactly as written. `{{variable}}` placeholders
+   * are interpolated from the conversation's dynamic variables; an unresolved
+   * placeholder renders as an empty string. After delivering, the flow routes via
+   * the node's outgoing `llm` / `expression` edges (commonly a single unconditional
+   * edge).
+   */
+  message: string;
+
+  /**
+   * Optional human-readable label, displayed in authoring UIs.
+   */
+  name?: string;
+
+  /**
+   * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+   * by the runtime; round-trips so frontends can persist graph layout across
+   * reloads.
+   */
+  position?: NodePosition;
+
+  /**
+   * Node kind discriminator. Always `speak` for a speak node.
+   */
+  type?: 'speak';
+}
+
+/**
  * Controls when the assistant starts speaking after the user stops. These
  * thresholds primarily apply to non turn-taking transcription models. For
  * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
@@ -2586,6 +2492,92 @@ export namespace TelephonySettings {
       }
     }
   }
+}
+
+/**
+ * A standalone tool step in a conversation flow, as returned by the API.
+ */
+export interface ToolNode {
+  /**
+   * Caller-supplied unique identifier for this node within the flow.
+   */
+  id: string;
+
+  /**
+   * ID of the single shared (org-level) tool this node executes. When the flow
+   * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
+   * `tool_result` edges then route on the outcome. Arguments are filled from the
+   * conversation's dynamic variables by name — a dynamic variable whose name matches
+   * one of the tool's parameters supplies that argument. Cross-validated against the
+   * org's shared tools on write.
+   */
+  shared_tool_id: string;
+
+  /**
+   * Optional human-readable label, displayed in authoring UIs.
+   */
+  name?: string;
+
+  /**
+   * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+   * by the runtime; round-trips so frontends can persist graph layout across
+   * reloads.
+   */
+  position?: NodePosition;
+
+  /**
+   * Full tool definition resolved from `shared_tool_id` server-side. Populated on
+   * responses so clients can render the node without a follow-up fetch. Ignored on
+   * input — set `shared_tool_id`.
+   */
+  tool?: Array<AssistantTool>;
+
+  /**
+   * Node kind discriminator. Always `tool` for a tool node.
+   */
+  type?: 'tool';
+}
+
+/**
+ * A standalone tool step in a conversation flow, as supplied by clients.
+ *
+ * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
+ * turn. Reaching it deterministically runs one shared tool (arguments filled from
+ * matching dynamic variables by name), then routes on the result via outgoing
+ * `tool_result` edges.
+ */
+export interface ToolNodeReq {
+  /**
+   * Caller-supplied unique identifier for this node within the flow.
+   */
+  id: string;
+
+  /**
+   * ID of the single shared (org-level) tool this node executes. When the flow
+   * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
+   * `tool_result` edges then route on the outcome. Arguments are filled from the
+   * conversation's dynamic variables by name — a dynamic variable whose name matches
+   * one of the tool's parameters supplies that argument. Cross-validated against the
+   * org's shared tools on write.
+   */
+  shared_tool_id: string;
+
+  /**
+   * Optional human-readable label, displayed in authoring UIs.
+   */
+  name?: string;
+
+  /**
+   * Optional canvas coordinates used by authoring UIs to lay out the graph. Ignored
+   * by the runtime; round-trips so frontends can persist graph layout across
+   * reloads.
+   */
+  position?: NodePosition;
+
+  /**
+   * Node kind discriminator. Always `tool` for a tool node.
+   */
+  type?: 'tool';
 }
 
 /**
@@ -3704,6 +3696,7 @@ export declare namespace Assistants {
     type AuthenticationMethod as AuthenticationMethod,
     type BooleanOpExpression as BooleanOpExpression,
     type ComparisonExpression as ComparisonExpression,
+    type ConversationFlow as ConversationFlow,
     type ConversationFlowReq as ConversationFlowReq,
     type EnabledFeatures as EnabledFeatures,
     type Expression as Expression,
@@ -3712,6 +3705,8 @@ export declare namespace Assistants {
     type FallbackConfig as FallbackConfig,
     type FallbackConfigReq as FallbackConfigReq,
     type FlowEdge as FlowEdge,
+    type FlowNode as FlowNode,
+    type FlowNodeReq as FlowNodeReq,
     type HangupTool as HangupTool,
     type HangupToolParams as HangupToolParams,
     type ImportMetadata as ImportMetadata,
@@ -3729,8 +3724,12 @@ export declare namespace Assistants {
     type PrivacySettings as PrivacySettings,
     type PromptSyncStatus as PromptSyncStatus,
     type RetrievalTool as RetrievalTool,
+    type SpeakNode as SpeakNode,
+    type SpeakNodeReq as SpeakNodeReq,
     type StartSpeakingPlan as StartSpeakingPlan,
     type TelephonySettings as TelephonySettings,
+    type ToolNode as ToolNode,
+    type ToolNodeReq as ToolNodeReq,
     type TranscriptionEndpointingPlan as TranscriptionEndpointingPlan,
     type TranscriptionSettings as TranscriptionSettings,
     type TranscriptionSettingsConfig as TranscriptionSettingsConfig,

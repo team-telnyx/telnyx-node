@@ -2022,6 +2022,24 @@ export namespace TranscriptionEngineGoogleConfig {
   }
 }
 
+export interface TranscriptionEngineHumainConfig {
+  /**
+   * The language of the audio to be transcribed. `codeswitch` enables Arabic/English
+   * code-switching. `auto` resolves server-side to code-switching.
+   */
+  language?: 'ar' | 'en' | 'codeswitch' | 'auto';
+
+  /**
+   * Engine identifier for Humain transcription service
+   */
+  transcription_engine?: 'Humain';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'humain/realtime';
+}
+
 export interface TranscriptionEngineParakeetConfig {
   /**
    * Whether to send also interim results. If set to false, only final results will
@@ -2222,7 +2240,7 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
-    | TranscriptionStartRequest.TranscriptionEngineHumainConfig
+    | TranscriptionEngineHumainConfig
     | TranscriptionStartRequest.TranscriptionEngineReson8Config
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
@@ -2238,24 +2256,6 @@ export interface TranscriptionStartRequest {
 }
 
 export namespace TranscriptionStartRequest {
-  export interface TranscriptionEngineHumainConfig {
-    /**
-     * The language of the audio to be transcribed. `codeswitch` enables Arabic/English
-     * code-switching. `auto` resolves server-side to code-switching.
-     */
-    language?: 'ar' | 'en' | 'codeswitch' | 'auto';
-
-    /**
-     * Engine identifier for Humain transcription service
-     */
-    transcription_engine?: 'Humain';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'humain/realtime';
-  }
-
   export interface TranscriptionEngineReson8Config {
     /**
      * The language of the audio to be transcribed. `auto` (the default, also applied
@@ -4662,7 +4662,7 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineHumainConfig
+    | TranscriptionEngineHumainConfig
     | ActionStartTranscriptionParams.TranscriptionEngineReson8Config
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
@@ -4678,24 +4678,6 @@ export interface ActionStartTranscriptionParams {
 }
 
 export namespace ActionStartTranscriptionParams {
-  export interface TranscriptionEngineHumainConfig {
-    /**
-     * The language of the audio to be transcribed. `codeswitch` enables Arabic/English
-     * code-switching. `auto` resolves server-side to code-switching.
-     */
-    language?: 'ar' | 'en' | 'codeswitch' | 'auto';
-
-    /**
-     * Engine identifier for Humain transcription service
-     */
-    transcription_engine?: 'Humain';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'humain/realtime';
-  }
-
   export interface TranscriptionEngineReson8Config {
     /**
      * The language of the audio to be transcribed. `auto` (the default, also applied
@@ -5564,6 +5546,7 @@ export declare namespace Actions {
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
+    type TranscriptionEngineHumainConfig as TranscriptionEngineHumainConfig,
     type TranscriptionEngineParakeetConfig as TranscriptionEngineParakeetConfig,
     type TranscriptionEngineSonioxConfig as TranscriptionEngineSonioxConfig,
     type TranscriptionEngineSpeechmaticsConfig as TranscriptionEngineSpeechmaticsConfig,

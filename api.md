@@ -285,6 +285,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">FaxQueued</a></code>
 - <code><a href="./src/resources/webhooks.ts">FaxSendingStarted</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessage</a></code>
+- <code><a href="./src/resources/webhooks.ts">InboundSipHeader</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdate</a></code>
 - <code><a href="./src/resources/webhooks.ts">OutboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClick</a></code>
@@ -554,6 +555,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AuthenticationMethod</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">BooleanOpExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ComparisonExpression</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlow</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlowReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">EnabledFeatures</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Expression</a></code>
@@ -562,6 +564,8 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfigReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">FlowEdge</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">FlowNode</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">FlowNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ImportMetadata</a></code>
@@ -579,8 +583,12 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PrivacySettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PromptSyncStatus</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">RetrievalTool</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">SpeakNode</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">SpeakNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">StartSpeakingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNode</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionEndpointingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettingsConfig</a></code>
@@ -1407,6 +1415,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineBConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineDeepgramConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineHumainConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineParakeetConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSonioxConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSpeechmaticsConfig</a></code>
@@ -2283,6 +2292,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/messages/messages.ts">MessagingError0b38e7044b</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessagingInboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessagingOutboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">OutboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">RcsAgentMessage</a></code>
