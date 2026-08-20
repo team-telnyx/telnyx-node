@@ -101,6 +101,112 @@ export class SubNumberOrders extends APIResource {
   }
 }
 
+export interface NumbersSubNumberOrder {
+  id?: string;
+
+  country_code?: string;
+
+  /**
+   * An ISO 8901 datetime string denoting when the number order was created.
+   */
+  created_at?: string;
+
+  /**
+   * A customer reference string for customer look ups.
+   */
+  customer_reference?: string;
+
+  /**
+   * True if the sub number order is a block sub number order
+   */
+  is_block_sub_number_order?: boolean;
+
+  order_request_id?: string;
+
+  phone_number_type?: 'local' | 'toll_free' | 'mobile' | 'national' | 'shared_cost' | 'landline';
+
+  /**
+   * The first 50 phone numbers in the sub number order, including their per-number
+   * regulatory requirement statuses. Only present when
+   * filter[include_phone_numbers]=true is used.
+   */
+  phone_numbers?: Array<NumbersSubNumberOrder.PhoneNumber>;
+
+  /**
+   * The count of phone numbers in the number order.
+   */
+  phone_numbers_count?: number;
+
+  record_type?: string;
+
+  regulatory_requirements?: Array<SubNumberOrderRegulatoryRequirement>;
+
+  /**
+   * True if all requirements are met for every phone number, false otherwise.
+   */
+  requirements_met?: boolean;
+
+  /**
+   * The status of the order.
+   */
+  status?: 'pending' | 'success' | 'failure';
+
+  /**
+   * An ISO 8901 datetime string for when the number order was updated.
+   */
+  updated_at?: string;
+
+  user_id?: string;
+}
+
+export namespace NumbersSubNumberOrder {
+  export interface PhoneNumber {
+    id?: string;
+
+    bundle_id?: string | null;
+
+    country_code?: string;
+
+    phone_number?: string;
+
+    phone_number_type?: string;
+
+    record_type?: string;
+
+    regulatory_requirements?: Array<PhoneNumber.RegulatoryRequirement>;
+
+    requirements_met?: boolean;
+
+    requirements_status?: string;
+
+    status?: string;
+  }
+
+  export namespace PhoneNumber {
+    export interface RegulatoryRequirement {
+      field_type?: 'textual' | 'datetime' | 'address' | 'document';
+
+      /**
+       * The value of the requirement, this could be an id to a resource or a string
+       * value.
+       */
+      field_value?: string;
+
+      record_type?: string;
+
+      /**
+       * Unique id for a requirement.
+       */
+      requirement_id?: string;
+
+      /**
+       * The status of the regulatory requirement for this phone number.
+       */
+      status?: 'approved' | 'declined' | 'awaiting-value' | 'pending-approval';
+    }
+  }
+}
+
 export interface SubNumberOrder {
   id?: string;
 
@@ -164,21 +270,21 @@ export interface SubNumberOrderRegulatoryRequirement {
 }
 
 export interface SubNumberOrderRetrieveResponse {
-  data?: SubNumberOrder;
+  data?: NumbersSubNumberOrder;
 }
 
 export interface SubNumberOrderUpdateResponse {
-  data?: SubNumberOrder;
+  data?: NumbersSubNumberOrder;
 }
 
 export interface SubNumberOrderListResponse {
-  data?: Array<SubNumberOrder>;
+  data?: Array<NumbersSubNumberOrder>;
 
   meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export interface SubNumberOrderCancelResponse {
-  data?: SubNumberOrder;
+  data?: NumbersSubNumberOrder;
 }
 
 export interface SubNumberOrderUpdateRequirementGroupResponse {
@@ -265,7 +371,7 @@ export interface SubNumberOrderListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[order_request_id], filter[country_code], filter[phone_number_type],
-   * filter[phone_numbers_count]
+   * filter[phone_numbers_count], filter[include_phone_numbers]
    */
   filter?: SubNumberOrderListParams.Filter;
 }
@@ -274,13 +380,19 @@ export namespace SubNumberOrderListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[status],
    * filter[order_request_id], filter[country_code], filter[phone_number_type],
-   * filter[phone_numbers_count]
+   * filter[phone_numbers_count], filter[include_phone_numbers]
    */
   export interface Filter {
     /**
      * ISO alpha-2 country code.
      */
     country_code?: string;
+
+    /**
+     * Include the first 50 phone number objects in the results, including their
+     * per-number regulatory requirement statuses
+     */
+    include_phone_numbers?: boolean;
 
     /**
      * ID of the number order the sub number order belongs to
@@ -338,6 +450,7 @@ export interface SubNumberOrderUpdateParams {
 
 export declare namespace SubNumberOrders {
   export {
+    type NumbersSubNumberOrder as NumbersSubNumberOrder,
     type SubNumberOrder as SubNumberOrder,
     type SubNumberOrderRegulatoryRequirement as SubNumberOrderRegulatoryRequirement,
     type SubNumberOrderRetrieveResponse as SubNumberOrderRetrieveResponse,

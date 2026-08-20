@@ -1332,6 +1332,7 @@ export {
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
 export {
   SubNumberOrders,
+  type NumbersSubNumberOrder,
   type SubNumberOrder,
   type SubNumberOrderRegulatoryRequirement,
   type SubNumberOrderRetrieveResponse,

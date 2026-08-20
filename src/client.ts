@@ -853,6 +853,7 @@ import {
   SiprecConnectors,
 } from './resources/siprec-connectors';
 import {
+  NumbersSubNumberOrder,
   SubNumberOrder,
   SubNumberOrderCancelResponse,
   SubNumberOrderListParams,
@@ -4840,6 +4841,7 @@ export declare namespace Telnyx {
 
   export {
     SubNumberOrders as SubNumberOrders,
+    type NumbersSubNumberOrder as NumbersSubNumberOrder,
     type SubNumberOrder as SubNumberOrder,
     type SubNumberOrderRegulatoryRequirement as SubNumberOrderRegulatoryRequirement,
     type SubNumberOrderRetrieveResponse as SubNumberOrderRetrieveResponse,

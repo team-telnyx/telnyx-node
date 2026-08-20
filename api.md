@@ -4040,6 +4040,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/sub-number-orders.ts">NumbersSubNumberOrder</a></code>
 - <code><a href="./src/resources/sub-number-orders.ts">SubNumberOrder</a></code>
 - <code><a href="./src/resources/sub-number-orders.ts">SubNumberOrderRegulatoryRequirement</a></code>
 - <code><a href="./src/resources/sub-number-orders.ts">SubNumberOrderRetrieveResponse</a></code>
