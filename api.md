@@ -5095,7 +5095,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/enterprises/enterprises.ts">BillingAddress</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">BillingContact</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterprisePublic</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterprisePublicWrapped</a></code>

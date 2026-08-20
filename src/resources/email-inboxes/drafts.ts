@@ -209,7 +209,7 @@ export interface EmailDraft {
    */
   status: 'draft' | 'sending' | 'sent';
 
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   bcc?: Array<EmailAddress>;
 
@@ -239,7 +239,7 @@ export interface EmailDraft {
   /**
    * Arbitrary customer-defined metadata.
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   reply_to?: string | null;
 
@@ -281,7 +281,7 @@ export interface EmailDraft {
  * `thread_id` are server-owned and ignored if supplied.
  */
 export interface EmailDraftRequest {
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   bcc?: Array<EmailMessagesAPI.EmailAddressInput>;
 
@@ -302,7 +302,7 @@ export interface EmailDraftRequest {
 
   labels?: Array<string>;
 
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   reply_to?: string;
 
@@ -472,7 +472,7 @@ export interface DraftListParams {
 }
 
 export interface DraftCreateParams {
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   bcc?: Array<EmailMessagesAPI.EmailAddressInput>;
 
@@ -493,7 +493,7 @@ export interface DraftCreateParams {
 
   labels?: Array<string>;
 
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   reply_to?: string;
 
@@ -534,7 +534,7 @@ export interface DraftUpdateParams {
   /**
    * Body param
    */
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   /**
    * Body param
@@ -579,7 +579,7 @@ export interface DraftUpdateParams {
   /**
    * Body param
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   /**
    * Body param
@@ -621,7 +621,7 @@ export interface DraftPatchParams {
   /**
    * Body param
    */
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   /**
    * Body param
@@ -666,7 +666,7 @@ export interface DraftPatchParams {
   /**
    * Body param
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   /**
    * Body param

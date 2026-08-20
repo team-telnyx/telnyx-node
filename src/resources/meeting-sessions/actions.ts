@@ -69,7 +69,7 @@ export interface ActionAcceptedResponse {
 
 export namespace ActionAcceptedResponse {
   export interface Data {
-    accepted: true;
+    accepted: boolean;
   }
 }
 

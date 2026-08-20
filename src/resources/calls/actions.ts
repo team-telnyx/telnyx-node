@@ -5201,8 +5201,7 @@ export interface ActionStartConversationRelayParams {
   structured_provider?: { [key: string]: unknown };
 
   /**
-   * @deprecated Not supported for Conversation Relay start requests. Use
-   * `transcription_engine` and `transcription_engine_config` instead.
+   * @deprecated Use transcription_engine and transcription_engine_config instead.
    */
   transcription?: { [key: string]: unknown };
 

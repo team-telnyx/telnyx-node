@@ -232,7 +232,7 @@ export interface MessagingError0b38e7044b {
 
   detail?: string;
 
-  meta?: unknown;
+  meta?: { [key: string]: unknown };
 
   source?: MessagingError0b38e7044b.Source;
 }

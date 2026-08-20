@@ -1363,7 +1363,6 @@ import {
   EmailValidations,
 } from './resources/email-validations/email-validations';
 import {
-  BillingAddress,
   BillingContact,
   EnterpriseCreateParams,
   EnterpriseListParams,
@@ -5194,7 +5193,6 @@ export declare namespace Telnyx {
 
   export {
     Enterprises as Enterprises,
-    type BillingAddress as BillingAddress,
     type BillingContact as BillingContact,
     type EnterprisePublic as EnterprisePublic,
     type EnterprisePublicWrapped as EnterprisePublicWrapped,

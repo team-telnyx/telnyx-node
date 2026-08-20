@@ -431,7 +431,6 @@ export {
 } from './email-validations/email-validations';
 export {
   Enterprises,
-  type BillingAddress,
   type BillingContact,
   type EnterprisePublic,
   type EnterprisePublicWrapped,

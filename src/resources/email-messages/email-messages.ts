@@ -499,7 +499,7 @@ export interface EmailMessageCreateParams {
   scheduled_at?: string | null;
 
   /**
-   * @deprecated Body param: Deprecated alias for `scheduled_at`.
+   * @deprecated Use scheduled_at instead.
    */
   send_at?: string;
 
@@ -652,7 +652,7 @@ export namespace EmailMessageBatchParams {
     scheduled_at?: string | null;
 
     /**
-     * @deprecated Deprecated alias for `scheduled_at`.
+     * @deprecated Use scheduled_at instead.
      */
     send_at?: string;
 

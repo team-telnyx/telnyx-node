@@ -202,7 +202,7 @@ export interface MessageDraftsParams {
   /**
    * Body param
    */
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   /**
    * Body param
@@ -247,7 +247,7 @@ export interface MessageDraftsParams {
   /**
    * Body param
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   /**
    * Body param

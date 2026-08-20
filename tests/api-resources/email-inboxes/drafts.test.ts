@@ -55,7 +55,7 @@ describe('resource drafts', () => {
       client.emailInboxes.drafts.create(
         '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
         {
-          attachments: [{}],
+          attachments: [{ foo: 'bar' }],
           bcc: ['string'],
           cc: ['string'],
           from_email: 'from_email',
@@ -64,7 +64,7 @@ describe('resource drafts', () => {
           html: 'html',
           html_body: 'html_body',
           labels: ['important'],
-          metadata: {},
+          metadata: { foo: 'bar' },
           reply_to: 'reply_to',
           subject: 'Quarterly update',
           tags: ['string'],
@@ -137,7 +137,7 @@ describe('resource drafts', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.emailInboxes.drafts.update('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      attachments: [{}],
+      attachments: [{ foo: 'bar' }],
       bcc: ['string'],
       cc: ['string'],
       from_email: 'from_email',
@@ -146,7 +146,7 @@ describe('resource drafts', () => {
       html: 'html',
       html_body: 'html_body',
       labels: ['string'],
-      metadata: {},
+      metadata: { foo: 'bar' },
       reply_to: 'reply_to',
       subject: 'Quarterly update (revised)',
       tags: ['string'],
@@ -174,7 +174,7 @@ describe('resource drafts', () => {
   test.skip('patch: required and optional params', async () => {
     const response = await client.emailInboxes.drafts.patch('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      attachments: [{}],
+      attachments: [{ foo: 'bar' }],
       bcc: ['string'],
       cc: ['string'],
       from_email: 'from_email',
@@ -183,7 +183,7 @@ describe('resource drafts', () => {
       html: 'html',
       html_body: 'html_body',
       labels: ['string'],
-      metadata: {},
+      metadata: { foo: 'bar' },
       reply_to: 'reply_to',
       subject: 'Quarterly update (revised)',
       tags: ['string'],
