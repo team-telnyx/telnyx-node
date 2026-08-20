@@ -12,4 +12,5 @@ export {
   type CloudfListParams,
   type CloudfCreateParams,
   type CloudfUpdateParams,
+  type CloudfListResponsesCloudfsCursorPagination,
 } from './cloudfs';

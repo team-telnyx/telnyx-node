@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
+import { EmailCursorPagination, type EmailCursorPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -17,18 +18,24 @@ export class Recipients extends APIResource {
    *
    * @example
    * ```ts
-   * const recipients =
-   *   await client.emailMessages.recipients.list(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const emailRecipient of client.emailMessages.recipients.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     emailID: string,
     query: RecipientListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<RecipientListResponse> {
-    return this._client.get(path`/email_messages/${emailID}/recipients`, { query, ...options });
+  ): PagePromise<EmailRecipientsEmailCursorPagination, EmailRecipient> {
+    return this._client.getAPIList(
+      path`/email_messages/${emailID}/recipients`,
+      EmailCursorPagination<EmailRecipient>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -54,6 +61,8 @@ export class Recipients extends APIResource {
     return this._client.get(path`/email_messages/${email_id}/recipients/${recipientID}`, options);
   }
 }
+
+export type EmailRecipientsEmailCursorPagination = EmailCursorPagination<EmailRecipient>;
 
 export interface EmailRecipient {
   /**
@@ -115,39 +124,11 @@ export interface RecipientRetrieveResponse {
   data: EmailRecipient;
 }
 
-export interface RecipientListResponse {
-  data: Array<EmailRecipient>;
-
-  meta: RecipientListResponse.Meta;
-}
-
-export namespace RecipientListResponse {
-  export interface Meta {
-    page_size: number;
-
-    /**
-     * Cursor for the next page. Absent when there are no more results.
-     */
-    page_cursor?: string | null;
-  }
-}
-
-export interface RecipientListParams {
+export interface RecipientListParams extends EmailCursorPaginationParams {
   /**
    * Filter recipients by address kind.
    */
   kind?: 'to' | 'cc' | 'bcc';
-
-  /**
-   * Opaque URL-safe Base64 cursor returned by a previous list response.
-   */
-  page_cursor?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100. Invalid values are
-   * clamped to the valid range.
-   */
-  page_size?: number;
 
   /**
    * Filter recipients by status.
@@ -175,7 +156,7 @@ export declare namespace Recipients {
   export {
     type EmailRecipient as EmailRecipient,
     type RecipientRetrieveResponse as RecipientRetrieveResponse,
-    type RecipientListResponse as RecipientListResponse,
+    type EmailRecipientsEmailCursorPagination as EmailRecipientsEmailCursorPagination,
     type RecipientListParams as RecipientListParams,
     type RecipientRetrieveParams as RecipientRetrieveParams,
   };

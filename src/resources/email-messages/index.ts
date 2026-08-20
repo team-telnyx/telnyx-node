@@ -8,20 +8,19 @@ export {
   type SuppressedRecipient,
   type TrackingSettings,
   type EmailMessageRetrieveResponse,
-  type EmailMessageListResponse,
   type EmailMessageBatchResponse,
-  type EmailMessageRetrieveEventsResponse,
   type EmailMessageDeleteAllParams,
   type EmailMessageListParams,
   type EmailMessageCreateParams,
   type EmailMessageBatchParams,
   type EmailMessageRetrieveEventsParams,
+  type MessageEventsEmailCursorPagination,
 } from './email-messages';
 export {
   Recipients,
   type EmailRecipient,
   type RecipientRetrieveResponse,
-  type RecipientListResponse,
   type RecipientListParams,
   type RecipientRetrieveParams,
+  type EmailRecipientsEmailCursorPagination,
 } from './recipients';

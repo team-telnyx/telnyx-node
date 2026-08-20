@@ -8,6 +8,7 @@ export {
   type AISummarizeResponse,
   type AISummarizeParams,
   type AIRetrieveConversationHistoriesParams,
+  type AIRetrieveConversationHistoriesResponsesDefaultFlatPagination,
 } from './ai';
 export { Anthropic } from './anthropic/index';
 export {
@@ -99,6 +100,7 @@ export {
   type CollectionRetrieveDocumentsParams,
   type CollectionUpdateParams,
   type CollectionsDefaultFlatPagination,
+  type CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
 } from './collections/index';
 export {
   Conversations,

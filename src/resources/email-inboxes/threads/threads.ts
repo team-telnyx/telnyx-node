@@ -10,6 +10,11 @@ import {
   Labels,
 } from './labels';
 import { APIPromise } from '../../../core/api-promise';
+import {
+  EmailBracketCursorPagination,
+  type EmailBracketCursorPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -24,18 +29,24 @@ export class Threads extends APIResource {
    *
    * @example
    * ```ts
-   * const inboundThreadListResponse =
-   *   await client.emailInboxes.threads.list(
-   *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const inboundThread of client.emailInboxes.threads.list(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     inboxID: string,
     query: ThreadListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<InboundThreadListResponse> {
-    return this._client.get(path`/email_inboxes/${inboxID}/threads`, { query, ...options });
+  ): PagePromise<InboundThreadsEmailBracketCursorPagination, InboundThread> {
+    return this._client.getAPIList(
+      path`/email_inboxes/${inboxID}/threads`,
+      EmailBracketCursorPagination<InboundThread>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -59,6 +70,8 @@ export class Threads extends APIResource {
     return this._client.get(path`/email_inboxes/${inbox_id}/threads/${threadID}`, { query, ...options });
   }
 }
+
+export type InboundThreadsEmailBracketCursorPagination = EmailBracketCursorPagination<InboundThread>;
 
 export interface EmailPaginationMeta {
   page_size: number;
@@ -231,22 +244,12 @@ export interface ThreadRetrieveResponse {
   meta: EmailPaginationMeta;
 }
 
-export interface ThreadListParams {
+export interface ThreadListParams extends EmailBracketCursorPaginationParams {
   /**
    * Returns only threads carrying this label. Thread labels are independent of the
    * labels on the thread's messages.
    */
   'filter[label]'?: string;
-
-  /**
-   * Opaque cursor returned by the previous page.
-   */
-  'page[after]'?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100.
-   */
-  'page[size]'?: number;
 }
 
 export interface ThreadRetrieveParams {
@@ -278,6 +281,7 @@ export declare namespace Threads {
     type InboundThreadListResponse as InboundThreadListResponse,
     type ThreadMessage as ThreadMessage,
     type ThreadRetrieveResponse as ThreadRetrieveResponse,
+    type InboundThreadsEmailBracketCursorPagination as InboundThreadsEmailBracketCursorPagination,
     type ThreadListParams as ThreadListParams,
     type ThreadRetrieveParams as ThreadRetrieveParams,
   };

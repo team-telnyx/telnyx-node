@@ -1,8 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ProductsAPI from './products';
-import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -37,12 +35,18 @@ export class Products extends APIResource {
     slug: string,
     query: ProductRetrieveParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ProductRetrieveResponse> {
-    return this._client.get(path`/pricing/products/${slug}`, { query, ...options });
+  ): PagePromise<ProductRetrieveResponsesDefaultFlatPagination, ProductRetrieveResponse> {
+    return this._client.getAPIList(
+      path`/pricing/products/${slug}`,
+      DefaultFlatPagination<ProductRetrieveResponse>,
+      { query, ...options },
+    );
   }
 }
 
 export type ProductListResponsesDefaultFlatPagination = DefaultFlatPagination<ProductListResponse>;
+
+export type ProductRetrieveResponsesDefaultFlatPagination = DefaultFlatPagination<ProductRetrieveResponse>;
 
 export interface PricingPaginationMeta {
   page_number: number;
@@ -72,108 +76,100 @@ export interface PricingTier {
   rate: number | string;
 }
 
+/**
+ * A single pricing entry. Standard products include rate, unit, currency, type,
+ * country_iso, direction, and tiers. Inference products include model, input_rate,
+ * output_rate, cached_input_rate, and their respective tier arrays. Rate-deck
+ * products include pricing_type and note fields with null rate and empty tiers.
+ */
 export interface ProductRetrieveResponse {
-  data: Array<ProductRetrieveResponse.Data>;
-
-  meta: PricingPaginationMeta;
-}
-
-export namespace ProductRetrieveResponse {
   /**
-   * A single pricing entry. Standard products include rate, unit, currency, type,
-   * country_iso, direction, and tiers. Inference products include model, input_rate,
-   * output_rate, cached_input_rate, and their respective tier arrays. Rate-deck
-   * products include pricing_type and note fields with null rate and empty tiers.
+   * Cached input token rate. Present only on inference product entries.
    */
-  export interface Data {
-    /**
-     * Cached input token rate. Present only on inference product entries.
-     */
-    cached_input_rate?: string;
+  cached_input_rate?: string;
 
-    /**
-     * Cached input token tiered pricing. Present only on inference product entries.
-     */
-    cached_input_tiers?: Array<ProductsAPI.PricingTier>;
+  /**
+   * Cached input token tiered pricing. Present only on inference product entries.
+   */
+  cached_input_tiers?: Array<PricingTier>;
 
-    /**
-     * ISO country code. Null for non-geographic products.
-     */
-    country_iso?: string | null;
+  /**
+   * ISO country code. Null for non-geographic products.
+   */
+  country_iso?: string | null;
 
-    /**
-     * ISO currency code (e.g., USD).
-     */
-    currency?: string;
+  /**
+   * ISO currency code (e.g., USD).
+   */
+  currency?: string;
 
-    /**
-     * Direction (e.g., termination). Null for non-directional products.
-     */
-    direction?: string | null;
+  /**
+   * Direction (e.g., termination). Null for non-directional products.
+   */
+  direction?: string | null;
 
-    /**
-     * Input token rate. Present only on inference product entries.
-     */
-    input_rate?: string;
+  /**
+   * Input token rate. Present only on inference product entries.
+   */
+  input_rate?: string;
 
-    /**
-     * Input token tiered pricing. Present only on inference product entries.
-     */
-    input_tiers?: Array<ProductsAPI.PricingTier>;
+  /**
+   * Input token tiered pricing. Present only on inference product entries.
+   */
+  input_tiers?: Array<PricingTier>;
 
-    /**
-     * Model identifier. Present only on inference product entries.
-     */
-    model?: string;
+  /**
+   * Model identifier. Present only on inference product entries.
+   */
+  model?: string;
 
-    /**
-     * Human-readable name describing the pricing entry.
-     */
-    name?: string;
+  /**
+   * Human-readable name describing the pricing entry.
+   */
+  name?: string;
 
-    /**
-     * Additional note for rate-deck products (e.g., "Pricing is determined by the
-     * WhatsApp rate deck.").
-     */
-    note?: string | null;
+  /**
+   * Additional note for rate-deck products (e.g., "Pricing is determined by the
+   * WhatsApp rate deck.").
+   */
+  note?: string | null;
 
-    /**
-     * Output token rate. Present only on inference product entries.
-     */
-    output_rate?: string;
+  /**
+   * Output token rate. Present only on inference product entries.
+   */
+  output_rate?: string;
 
-    /**
-     * Output token tiered pricing. Present only on inference product entries.
-     */
-    output_tiers?: Array<ProductsAPI.PricingTier>;
+  /**
+   * Output token tiered pricing. Present only on inference product entries.
+   */
+  output_tiers?: Array<PricingTier>;
 
-    /**
-     * Pricing type for non-standard products (e.g., rate_deck). Absent on standard
-     * products.
-     */
-    pricing_type?: string | null;
+  /**
+   * Pricing type for non-standard products (e.g., rate_deck). Absent on standard
+   * products.
+   */
+  pricing_type?: string | null;
 
-    /**
-     * Per-unit rate. Numeric for standard products, string for inference products.
-     * Null for rate-deck products.
-     */
-    rate?: number | string | null;
+  /**
+   * Per-unit rate. Numeric for standard products, string for inference products.
+   * Null for rate-deck products.
+   */
+  rate?: number | string | null;
 
-    /**
-     * Volume-based tiered pricing. Empty for rate-deck products.
-     */
-    tiers?: Array<ProductsAPI.PricingTier>;
+  /**
+   * Volume-based tiered pricing. Empty for rate-deck products.
+   */
+  tiers?: Array<PricingTier>;
 
-    /**
-     * Pricing type (e.g., usage).
-     */
-    type?: string;
+  /**
+   * Pricing type (e.g., usage).
+   */
+  type?: string;
 
-    /**
-     * Unit of measurement (e.g., part, message, GB, per_1k_tokens).
-     */
-    unit?: string;
-  }
+  /**
+   * Unit of measurement (e.g., part, message, GB, per_1k_tokens).
+   */
+  unit?: string;
 }
 
 export interface ProductListResponse {
@@ -195,22 +191,12 @@ export interface ProductListResponse {
 
 export interface ProductListParams extends DefaultFlatPaginationParams {}
 
-export interface ProductRetrieveParams {
+export interface ProductRetrieveParams extends DefaultFlatPaginationParams {
   /**
    * Two-letter ISO 3166-1 alpha-2 country code (uppercase, e.g. US) to filter
    * pricing to a single country.
    */
   'filter[country_iso]'?: string | null;
-
-  /**
-   * Page number (1-based).
-   */
-  'page[number]'?: number;
-
-  /**
-   * Number of items per page (max 100).
-   */
-  'page[size]'?: number;
 }
 
 export declare namespace Products {
@@ -220,6 +206,7 @@ export declare namespace Products {
     type ProductRetrieveResponse as ProductRetrieveResponse,
     type ProductListResponse as ProductListResponse,
     type ProductListResponsesDefaultFlatPagination as ProductListResponsesDefaultFlatPagination,
+    type ProductRetrieveResponsesDefaultFlatPagination as ProductRetrieveResponsesDefaultFlatPagination,
     type ProductListParams as ProductListParams,
     type ProductRetrieveParams as ProductRetrieveParams,
   };

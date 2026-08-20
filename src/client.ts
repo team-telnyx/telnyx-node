@@ -17,6 +17,8 @@ import * as Errors from './core/error';
 import * as Pagination from './core/pagination';
 import {
   AbstractPage,
+  type CloudfsCursorPaginationParams,
+  CloudfsCursorPaginationResponse,
   type CursorFlatPaginationParams,
   CursorFlatPaginationResponse,
   type DefaultFlatPaginationForInexplicitNumberOrdersParams,
@@ -31,6 +33,10 @@ import {
   DefaultPaginationForMessagingTollfreeResponse,
   type DefaultPaginationForQueuesParams,
   DefaultPaginationForQueuesResponse,
+  type EmailBracketCursorPaginationParams,
+  EmailBracketCursorPaginationResponse,
+  type EmailCursorPaginationParams,
+  EmailCursorPaginationResponse,
   type PerPagePaginationParams,
   PerPagePaginationResponse,
   type PerPagePaginationV2Params,
@@ -277,6 +283,7 @@ import {
 import {
   EmailEventListParams,
   EmailEventListResponse,
+  EmailEventListResponsesEmailCursorPagination,
   EmailEventRetrieveStatsParams,
   EmailEventRetrieveStatsResponse,
   EmailEventType,
@@ -287,13 +294,13 @@ import {
   EmailTemplate,
   EmailTemplateCreateParams,
   EmailTemplateListParams,
-  EmailTemplateListResponse,
   EmailTemplateRenderParams,
   EmailTemplateRenderResponse,
   EmailTemplateReplaceParams,
   EmailTemplateResponse,
   EmailTemplateUpdateParams,
   EmailTemplates,
+  EmailTemplatesEmailCursorPagination,
   UpdateEmailTemplateRequest,
 } from './resources/email-templates';
 import {
@@ -1212,6 +1219,7 @@ import {
   AI,
   AIRetrieveConversationHistoriesParams,
   AIRetrieveConversationHistoriesResponse,
+  AIRetrieveConversationHistoriesResponsesDefaultFlatPagination,
   AISummarizeParams,
   AISummarizeResponse,
   ModelMetadata,
@@ -1295,6 +1303,7 @@ import {
   EmailBlockResponse,
   EmailBlockRetrieveEventsParams,
   EmailBlockRetrieveEventsResponse,
+  EmailBlockRetrieveEventsResponsesDefaultFlatPagination,
   EmailBlockRetrieveExportParams,
   EmailBlockRetrieveExportResponse,
   EmailBlocks,
@@ -1323,9 +1332,9 @@ import {
   EmailInbox,
   EmailInboxCreateParams,
   EmailInboxListParams,
-  EmailInboxListResponse,
   EmailInboxResponse,
   EmailInboxes,
+  EmailInboxesEmailCursorPagination,
 } from './resources/email-inboxes/email-inboxes';
 import {
   AttachmentRequest,
@@ -1335,12 +1344,11 @@ import {
   EmailMessageCreateParams,
   EmailMessageDeleteAllParams,
   EmailMessageListParams,
-  EmailMessageListResponse,
   EmailMessageRetrieveEventsParams,
-  EmailMessageRetrieveEventsResponse,
   EmailMessageRetrieveResponse,
   EmailMessages,
   MessageEvent,
+  MessageEventsEmailCursorPagination,
   SuppressedRecipient,
   TrackingSettings,
 } from './resources/email-messages/email-messages';
@@ -3481,6 +3489,24 @@ export declare namespace Telnyx {
     type CursorFlatPaginationResponse as CursorFlatPaginationResponse,
   };
 
+  export import EmailCursorPagination = Pagination.EmailCursorPagination;
+  export {
+    type EmailCursorPaginationParams as EmailCursorPaginationParams,
+    type EmailCursorPaginationResponse as EmailCursorPaginationResponse,
+  };
+
+  export import EmailBracketCursorPagination = Pagination.EmailBracketCursorPagination;
+  export {
+    type EmailBracketCursorPaginationParams as EmailBracketCursorPaginationParams,
+    type EmailBracketCursorPaginationResponse as EmailBracketCursorPaginationResponse,
+  };
+
+  export import CloudfsCursorPagination = Pagination.CloudfsCursorPagination;
+  export {
+    type CloudfsCursorPaginationParams as CloudfsCursorPaginationParams,
+    type CloudfsCursorPaginationResponse as CloudfsCursorPaginationResponse,
+  };
+
   export { Legacy as Legacy };
 
   export {
@@ -3701,6 +3727,7 @@ export declare namespace Telnyx {
     type ModelsResponse as ModelsResponse,
     type AIRetrieveConversationHistoriesResponse as AIRetrieveConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
+    type AIRetrieveConversationHistoriesResponsesDefaultFlatPagination as AIRetrieveConversationHistoriesResponsesDefaultFlatPagination,
     type AISummarizeParams as AISummarizeParams,
     type AIRetrieveConversationHistoriesParams as AIRetrieveConversationHistoriesParams,
   };
@@ -5302,6 +5329,7 @@ export declare namespace Telnyx {
     type EmailBlockRetrieveEventsResponse as EmailBlockRetrieveEventsResponse,
     type EmailBlockRetrieveExportResponse as EmailBlockRetrieveExportResponse,
     type EmailBlocksDefaultFlatPagination as EmailBlocksDefaultFlatPagination,
+    type EmailBlockRetrieveEventsResponsesDefaultFlatPagination as EmailBlockRetrieveEventsResponsesDefaultFlatPagination,
     type EmailBlockListParams as EmailBlockListParams,
     type EmailBlockCreateParams as EmailBlockCreateParams,
     type EmailBlockRetrieveExportParams as EmailBlockRetrieveExportParams,
@@ -5333,6 +5361,7 @@ export declare namespace Telnyx {
     type TimeRange as TimeRange,
     type EmailEventListResponse as EmailEventListResponse,
     type EmailEventRetrieveStatsResponse as EmailEventRetrieveStatsResponse,
+    type EmailEventListResponsesEmailCursorPagination as EmailEventListResponsesEmailCursorPagination,
     type EmailEventListParams as EmailEventListParams,
     type EmailEventRetrieveStatsParams as EmailEventRetrieveStatsParams,
   };
@@ -5341,7 +5370,7 @@ export declare namespace Telnyx {
     EmailInboxes as EmailInboxes,
     type EmailInbox as EmailInbox,
     type EmailInboxResponse as EmailInboxResponse,
-    type EmailInboxListResponse as EmailInboxListResponse,
+    type EmailInboxesEmailCursorPagination as EmailInboxesEmailCursorPagination,
     type EmailInboxListParams as EmailInboxListParams,
     type EmailInboxCreateParams as EmailInboxCreateParams,
   };
@@ -5354,9 +5383,8 @@ export declare namespace Telnyx {
     type SuppressedRecipient as SuppressedRecipient,
     type TrackingSettings as TrackingSettings,
     type EmailMessageRetrieveResponse as EmailMessageRetrieveResponse,
-    type EmailMessageListResponse as EmailMessageListResponse,
     type EmailMessageBatchResponse as EmailMessageBatchResponse,
-    type EmailMessageRetrieveEventsResponse as EmailMessageRetrieveEventsResponse,
+    type MessageEventsEmailCursorPagination as MessageEventsEmailCursorPagination,
     type EmailMessageDeleteAllParams as EmailMessageDeleteAllParams,
     type EmailMessageListParams as EmailMessageListParams,
     type EmailMessageCreateParams as EmailMessageCreateParams,
@@ -5369,8 +5397,8 @@ export declare namespace Telnyx {
     type EmailTemplate as EmailTemplate,
     type EmailTemplateResponse as EmailTemplateResponse,
     type UpdateEmailTemplateRequest as UpdateEmailTemplateRequest,
-    type EmailTemplateListResponse as EmailTemplateListResponse,
     type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
+    type EmailTemplatesEmailCursorPagination as EmailTemplatesEmailCursorPagination,
     type EmailTemplateListParams as EmailTemplateListParams,
     type EmailTemplateCreateParams as EmailTemplateCreateParams,
     type EmailTemplateReplaceParams as EmailTemplateReplaceParams,

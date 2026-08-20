@@ -1,10 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as CloudfsAPI from './cloudfs';
 import * as ActionsAPI from './actions';
 import { ActionRotateMetaTokenParams, Actions } from './actions';
 import { APIPromise } from '../../../core/api-promise';
+import {
+  CloudfsCursorPagination,
+  type CloudfsCursorPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -22,14 +26,20 @@ export class Cloudfs extends APIResource {
    *
    * @example
    * ```ts
-   * const cloudfs = await client.storage.cloudfs.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const cloudfListResponse of client.storage.cloudfs.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: CloudfListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<CloudfListResponse> {
-    return this._client.get('/storage/cloudfs', { query, ...options });
+  ): PagePromise<CloudfListResponsesCloudfsCursorPagination, CloudfListResponse> {
+    return this._client.getAPIList('/storage/cloudfs', CloudfsCursorPagination<CloudfListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -121,6 +131,8 @@ export class Cloudfs extends APIResource {
     return this._client.patch(path`/storage/cloudfs/${id}`, { body, ...options });
   }
 }
+
+export type CloudfListResponsesCloudfsCursorPagination = CloudfsCursorPagination<CloudfListResponse>;
 
 /**
  * A CloudFS filesystem, including its metadata credential. This shape is returned
@@ -266,92 +278,48 @@ export type CloudfsFilesystemStatus =
   | 'failed'
   | 'deleted';
 
+/**
+ * A CloudFS filesystem as returned in list results. Connection details
+ * (`meta_url`, `meta_token`) are omitted — retrieve the filesystem by ID for its
+ * redacted `meta_url`.
+ */
 export interface CloudfListResponse {
-  data?: Array<CloudfListResponse.Data>;
+  id?: string;
 
-  meta?: CloudfListResponse.Meta;
-}
+  created_at?: string;
 
-export namespace CloudfListResponse {
+  name?: string;
+
+  record_type?: string;
+
+  region?: string;
+
   /**
-   * A CloudFS filesystem as returned in list results. Connection details
-   * (`meta_url`, `meta_token`) are omitted — retrieve the filesystem by ID for its
-   * redacted `meta_url`.
+   * Name of the bucket that stores this filesystem's data. Created during
+   * provisioning.
    */
-  export interface Data {
-    id?: string;
+  s3_bucket?: string;
 
-    created_at?: string;
+  /**
+   * URL of the Telnyx Cloud Storage endpoint backing this filesystem.
+   */
+  s3_endpoint?: string;
 
-    name?: string;
+  /**
+   * Lifecycle status of the filesystem. `ready` means it is fully provisioned and
+   * usable. `needs_format` means the storage bucket and metadata database were
+   * provisioned but the filesystem has not yet been formatted — run `juicefs format`
+   * with the filesystem's `meta_url` before mounting. `failed` means the last
+   * lifecycle action failed — see the filesystem's `error` message. `deleted`
+   * appears only in the delete response: deleted filesystems are excluded from list
+   * results and return a `404` on retrieval.
+   */
+  status?: CloudfsFilesystemStatus;
 
-    record_type?: string;
-
-    region?: string;
-
-    /**
-     * Name of the bucket that stores this filesystem's data. Created during
-     * provisioning.
-     */
-    s3_bucket?: string;
-
-    /**
-     * URL of the Telnyx Cloud Storage endpoint backing this filesystem.
-     */
-    s3_endpoint?: string;
-
-    /**
-     * Lifecycle status of the filesystem. `ready` means it is fully provisioned and
-     * usable. `needs_format` means the storage bucket and metadata database were
-     * provisioned but the filesystem has not yet been formatted — run `juicefs format`
-     * with the filesystem's `meta_url` before mounting. `failed` means the last
-     * lifecycle action failed — see the filesystem's `error` message. `deleted`
-     * appears only in the delete response: deleted filesystems are excluded from list
-     * results and return a `404` on retrieval.
-     */
-    status?: CloudfsAPI.CloudfsFilesystemStatus;
-
-    updated_at?: string;
-  }
-
-  export interface Meta {
-    /**
-     * Opaque cursors for the adjacent pages. Empty when there are no adjacent pages.
-     */
-    cursors?: Meta.Cursors;
-
-    /**
-     * Relative URL (path and query) of the next page. Omitted when there are no
-     * further results.
-     */
-    next?: string;
-
-    /**
-     * Relative URL (path and query) of the previous page. Omitted on the first page.
-     */
-    previous?: string;
-  }
-
-  export namespace Meta {
-    /**
-     * Opaque cursors for the adjacent pages. Empty when there are no adjacent pages.
-     */
-    export interface Cursors {
-      /**
-       * Cursor for the next page; pass it as `page[after]`. Omitted on the last page.
-       */
-      after?: string;
-
-      /**
-       * Cursor for the previous page; pass it as `page[before]`. Omitted on the first
-       * page.
-       */
-      before?: string;
-    }
-  }
+  updated_at?: string;
 }
 
-export interface CloudfListParams {
+export interface CloudfListParams extends CloudfsCursorPaginationParams {
   /**
    * Return only the filesystem whose name matches exactly.
    */
@@ -368,22 +336,10 @@ export interface CloudfListParams {
   'filter[status]'?: 'provisioning' | 'ready' | 'needs_format' | 'deleting' | 'failed';
 
   /**
-   * Opaque cursor from a previous response's `meta.cursors.after`; returns the page
-   * after it. Mutually exclusive with `page[before]`.
-   */
-  'page[after]'?: string;
-
-  /**
    * Opaque cursor from a previous response's `meta.cursors.before`; returns the page
    * before it. Mutually exclusive with `page[after]`.
    */
   'page[before]'?: string;
-
-  /**
-   * The number of filesystems to return per page. Values above 250 are treated
-   * as 250.
-   */
-  'page[limit]'?: number;
 
   /**
    * Sort order for the results: a field name for ascending, or the field name
@@ -435,6 +391,7 @@ export declare namespace Cloudfs {
     type CloudfsFilesystemResponseWrapper as CloudfsFilesystemResponseWrapper,
     type CloudfsFilesystemStatus as CloudfsFilesystemStatus,
     type CloudfListResponse as CloudfListResponse,
+    type CloudfListResponsesCloudfsCursorPagination as CloudfListResponsesCloudfsCursorPagination,
     type CloudfListParams as CloudfListParams,
     type CloudfCreateParams as CloudfCreateParams,
     type CloudfUpdateParams as CloudfUpdateParams,

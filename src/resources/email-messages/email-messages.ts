@@ -4,17 +4,18 @@ import { APIResource } from '../../core/resource';
 import * as EmailMessagesAPI from './email-messages';
 import * as EmailEventsAPI from '../email-events';
 import * as DraftsAPI from '../email-inboxes/drafts';
+import { EmailMessagesEmailCursorPagination } from '../email-inboxes/drafts';
 import * as RecipientsAPI from './recipients';
 import {
   EmailRecipient,
+  EmailRecipientsEmailCursorPagination,
   RecipientListParams,
-  RecipientListResponse,
   RecipientRetrieveParams,
   RecipientRetrieveResponse,
   Recipients,
 } from './recipients';
-import * as ThreadsAPI from '../email-inboxes/threads/threads';
 import { APIPromise } from '../../core/api-promise';
+import { EmailCursorPagination, type EmailCursorPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -55,14 +56,20 @@ export class EmailMessages extends APIResource {
    *
    * @example
    * ```ts
-   * const emailMessages = await client.emailMessages.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const emailMessage of client.emailMessages.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: EmailMessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<EmailMessageListResponse> {
-    return this._client.get('/email_messages', { query, ...options });
+  ): PagePromise<EmailMessagesEmailCursorPagination, DraftsAPI.EmailMessage> {
+    return this._client.getAPIList('/email_messages', EmailCursorPagination<DraftsAPI.EmailMessage>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -143,17 +150,24 @@ export class EmailMessages extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.emailMessages.retrieveEvents(
+   * // Automatically fetches more pages as needed.
+   * for await (const messageEvent of client.emailMessages.retrieveEvents(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   retrieveEvents(
     emailID: string,
     query: EmailMessageRetrieveEventsParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<EmailMessageRetrieveEventsResponse> {
-    return this._client.get(path`/email_messages/${emailID}/events`, { query, ...options });
+  ): PagePromise<MessageEventsEmailCursorPagination, MessageEvent> {
+    return this._client.getAPIList(
+      path`/email_messages/${emailID}/events`,
+      EmailCursorPagination<MessageEvent>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -207,6 +221,8 @@ export class EmailMessages extends APIResource {
     return this._client.get(path`/email_messages/${id}`, options);
   }
 }
+
+export type MessageEventsEmailCursorPagination = EmailCursorPagination<MessageEvent>;
 
 export interface AttachmentRequest {
   /**
@@ -302,12 +318,6 @@ export namespace EmailMessageRetrieveResponse {
   }
 }
 
-export interface EmailMessageListResponse {
-  data: Array<DraftsAPI.EmailMessage>;
-
-  meta: ThreadsAPI.EmailPaginationMeta;
-}
-
 export interface EmailMessageBatchResponse {
   data: Array<DraftsAPI.EmailMessage>;
 
@@ -347,12 +357,6 @@ export namespace EmailMessageBatchResponse {
   }
 }
 
-export interface EmailMessageRetrieveEventsResponse {
-  data: Array<MessageEvent>;
-
-  meta: ThreadsAPI.EmailPaginationMeta;
-}
-
 export interface EmailMessageDeleteAllParams {
   /**
    * Sender or recipient address to delete. Matching is trimmed and case-insensitive.
@@ -360,18 +364,7 @@ export interface EmailMessageDeleteAllParams {
   address: string;
 }
 
-export interface EmailMessageListParams {
-  /**
-   * Opaque URL-safe Base64 cursor returned by a previous list response.
-   */
-  page_cursor?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100. Invalid values are
-   * clamped to the valid range.
-   */
-  page_size?: number;
-}
+export interface EmailMessageListParams extends EmailCursorPaginationParams {}
 
 export interface EmailMessageCreateParams {
   /**
@@ -692,18 +685,7 @@ export namespace EmailMessageBatchParams {
   }
 }
 
-export interface EmailMessageRetrieveEventsParams {
-  /**
-   * Opaque URL-safe Base64 cursor returned by a previous list response.
-   */
-  page_cursor?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100. Invalid values are
-   * clamped to the valid range.
-   */
-  page_size?: number;
-}
+export interface EmailMessageRetrieveEventsParams extends EmailCursorPaginationParams {}
 
 EmailMessages.Recipients = Recipients;
 
@@ -715,9 +697,8 @@ export declare namespace EmailMessages {
     type SuppressedRecipient as SuppressedRecipient,
     type TrackingSettings as TrackingSettings,
     type EmailMessageRetrieveResponse as EmailMessageRetrieveResponse,
-    type EmailMessageListResponse as EmailMessageListResponse,
     type EmailMessageBatchResponse as EmailMessageBatchResponse,
-    type EmailMessageRetrieveEventsResponse as EmailMessageRetrieveEventsResponse,
+    type MessageEventsEmailCursorPagination as MessageEventsEmailCursorPagination,
     type EmailMessageDeleteAllParams as EmailMessageDeleteAllParams,
     type EmailMessageListParams as EmailMessageListParams,
     type EmailMessageCreateParams as EmailMessageCreateParams,
@@ -729,8 +710,10 @@ export declare namespace EmailMessages {
     Recipients as Recipients,
     type EmailRecipient as EmailRecipient,
     type RecipientRetrieveResponse as RecipientRetrieveResponse,
-    type RecipientListResponse as RecipientListResponse,
+    type EmailRecipientsEmailCursorPagination as EmailRecipientsEmailCursorPagination,
     type RecipientListParams as RecipientListParams,
     type RecipientRetrieveParams as RecipientRetrieveParams,
   };
 }
+
+export { type EmailMessagesEmailCursorPagination };

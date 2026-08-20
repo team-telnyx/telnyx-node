@@ -20,7 +20,6 @@ export {
 export {
   Messages,
   type MessageUpdateResponse,
-  type MessageListResponse,
   type MessageListParams,
   type MessageUpdateParams,
   type MessageDraftsParams,

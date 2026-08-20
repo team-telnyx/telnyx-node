@@ -10,4 +10,5 @@ export {
   type ProductListParams,
   type ProductRetrieveParams,
   type ProductListResponsesDefaultFlatPagination,
+  type ProductRetrieveResponsesDefaultFlatPagination,
 } from './products';

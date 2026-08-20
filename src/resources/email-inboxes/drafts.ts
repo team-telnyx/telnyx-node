@@ -2,8 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as EmailMessagesAPI from '../email-messages/email-messages';
-import * as ThreadsAPI from './threads/threads';
 import { APIPromise } from '../../core/api-promise';
+import {
+  EmailBracketCursorPagination,
+  type EmailBracketCursorPaginationParams,
+  EmailCursorPagination,
+  PagePromise,
+} from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -18,17 +23,24 @@ export class Drafts extends APIResource {
    *
    * @example
    * ```ts
-   * const drafts = await client.emailInboxes.drafts.list(
+   * // Automatically fetches more pages as needed.
+   * for await (const emailDraft of client.emailInboxes.drafts.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     inboxID: string,
     query: DraftListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<DraftListResponse> {
-    return this._client.get(path`/email_inboxes/${inboxID}/drafts`, { query, ...options });
+  ): PagePromise<EmailDraftsEmailBracketCursorPagination, EmailDraft> {
+    return this._client.getAPIList(
+      path`/email_inboxes/${inboxID}/drafts`,
+      EmailBracketCursorPagination<EmailDraft>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -186,6 +198,10 @@ export class Drafts extends APIResource {
     return this._client.post(path`/email_inboxes/${inbox_id}/drafts/${draftID}/send`, options);
   }
 }
+
+export type EmailDraftsEmailBracketCursorPagination = EmailBracketCursorPagination<EmailDraft>;
+
+export type EmailMessagesEmailCursorPagination = EmailCursorPagination<EmailMessage>;
 
 export interface EmailAddress {
   email: string;
@@ -448,27 +464,11 @@ export interface EmailMessageResponse {
   suppressed?: Array<EmailMessagesAPI.SuppressedRecipient>;
 }
 
-export interface DraftListResponse {
-  data: Array<EmailDraft>;
-
-  meta: ThreadsAPI.EmailPaginationMeta;
-}
-
-export interface DraftListParams {
+export interface DraftListParams extends EmailBracketCursorPaginationParams {
   /**
    * Restrict results to drafts in this state.
    */
   'filter[status]'?: 'draft' | 'sending' | 'sent';
-
-  /**
-   * Opaque cursor returned by the previous page.
-   */
-  'page[after]'?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100.
-   */
-  'page[size]'?: number;
 }
 
 export interface DraftCreateParams {
@@ -714,7 +714,7 @@ export declare namespace Drafts {
     type EmailDraftResponse as EmailDraftResponse,
     type EmailMessage as EmailMessage,
     type EmailMessageResponse as EmailMessageResponse,
-    type DraftListResponse as DraftListResponse,
+    type EmailDraftsEmailBracketCursorPagination as EmailDraftsEmailBracketCursorPagination,
     type DraftListParams as DraftListParams,
     type DraftCreateParams as DraftCreateParams,
     type DraftDeleteParams as DraftDeleteParams,

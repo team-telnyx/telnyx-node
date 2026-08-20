@@ -115,6 +115,7 @@ import {
   CollectionListParams,
   CollectionRetrieveDocumentsParams,
   CollectionRetrieveDocumentsResponse,
+  CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
   CollectionUpdateParams,
   Collections,
   CollectionsDefaultFlatPagination,
@@ -166,6 +167,7 @@ import {
 import * as OpenAIAPI from './openai/openai';
 import { OpenAI, OpenAICreateResponseParams, OpenAICreateResponseResponse } from './openai/openai';
 import { APIPromise } from '../../core/api-promise';
+import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 
@@ -272,19 +274,31 @@ export class AI extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.ai.retrieveConversationHistories({
-   *     q: 'customer called about billing issue',
-   *   });
+   * // Automatically fetches more pages as needed.
+   * for await (const aiRetrieveConversationHistoriesResponse of client.ai.retrieveConversationHistories(
+   *   { q: 'customer called about billing issue' },
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   retrieveConversationHistories(
     query: AIRetrieveConversationHistoriesParams,
     options?: RequestOptions,
-  ): APIPromise<AIRetrieveConversationHistoriesResponse> {
-    return this._client.get('/ai/conversation_histories', { query, ...options });
+  ): PagePromise<
+    AIRetrieveConversationHistoriesResponsesDefaultFlatPagination,
+    AIRetrieveConversationHistoriesResponse
+  > {
+    return this._client.getAPIList(
+      '/ai/conversation_histories',
+      DefaultFlatPagination<AIRetrieveConversationHistoriesResponse>,
+      { query, ...options },
+    );
   }
 }
+
+export type AIRetrieveConversationHistoriesResponsesDefaultFlatPagination =
+  DefaultFlatPagination<AIRetrieveConversationHistoriesResponse>;
 
 /**
  * Metadata for a model available on Telnyx Inference. Returned by
@@ -428,116 +442,73 @@ export interface ModelsResponse {
 }
 
 /**
- * Search response following the standard Telnyx V2 API format.
+ * A single search result representing one chunk of a conversation history record.
+ * Records are split into chunks of up to 480 tokens with 64-token overlap at
+ * ingestion time.
  */
 export interface AIRetrieveConversationHistoriesResponse {
   /**
-   * Ranked list of matching text chunks, sorted by cosine similarity score
-   * descending.
+   * Unique chunk identifier.
    */
-  data: Array<AIRetrieveConversationHistoriesResponse.Data>;
+  id: string;
 
   /**
-   * Pagination metadata following the standard Telnyx V2 API format.
+   * Zero-based index of this chunk within the parent record.
    */
-  meta: AIRetrieveConversationHistoriesResponse.Meta;
-}
-
-export namespace AIRetrieveConversationHistoriesResponse {
-  /**
-   * A single search result representing one chunk of a conversation history record.
-   * Records are split into chunks of up to 480 tokens with 64-token overlap at
-   * ingestion time.
-   */
-  export interface Data {
-    /**
-     * Unique chunk identifier.
-     */
-    id: string;
-
-    /**
-     * Zero-based index of this chunk within the parent record.
-     */
-    chunk_index: number;
-
-    /**
-     * Total number of chunks the parent record was split into.
-     */
-    chunk_total: number;
-
-    /**
-     * When the record was chunked, embedded, and indexed (ISO 8601).
-     */
-    ingested_at: string;
-
-    /**
-     * Identifier of the organization that owns this record.
-     */
-    organization_id: string;
-
-    /**
-     * When the original record was created (ISO 8601).
-     */
-    record_created_at: string;
-
-    /**
-     * Identifier of the parent record. Multiple chunks from the same record share this
-     * ID.
-     */
-    record_id: string;
-
-    /**
-     * The region where this record is stored.
-     */
-    region: 'USA' | 'DEU' | 'AUS' | 'UAE';
-
-    /**
-     * Cosine similarity score between the query vector and this chunk's vector. Higher
-     * values indicate greater semantic relevance.
-     */
-    score: number;
-
-    /**
-     * The text content of this chunk (up to 480 tokens).
-     */
-    text: string;
-
-    /**
-     * Identifier of the user who owns this record.
-     */
-    user_id: string;
-
-    /**
-     * Arbitrary metadata attached to the record at ingestion time. Filterable via
-     * filter[field]=value query parameters.
-     */
-    metadata?: { [key: string]: unknown };
-  }
+  chunk_index: number;
 
   /**
-   * Pagination metadata following the standard Telnyx V2 API format.
+   * Total number of chunks the parent record was split into.
    */
-  export interface Meta {
-    /**
-     * Current page number (1-based), matching the requested page[number].
-     */
-    page_number: number;
+  chunk_total: number;
 
-    /**
-     * Number of results per page, matching the requested page[size].
-     */
-    page_size: number;
+  /**
+   * When the record was chunked, embedded, and indexed (ISO 8601).
+   */
+  ingested_at: string;
 
-    /**
-     * Total number of pages.
-     */
-    total_pages: number;
+  /**
+   * Identifier of the organization that owns this record.
+   */
+  organization_id: string;
 
-    /**
-     * Total number of matching results across all queried regions.
-     */
-    total_results: number;
-  }
+  /**
+   * When the original record was created (ISO 8601).
+   */
+  record_created_at: string;
+
+  /**
+   * Identifier of the parent record. Multiple chunks from the same record share this
+   * ID.
+   */
+  record_id: string;
+
+  /**
+   * The region where this record is stored.
+   */
+  region: 'USA' | 'DEU' | 'AUS' | 'UAE';
+
+  /**
+   * Cosine similarity score between the query vector and this chunk's vector. Higher
+   * values indicate greater semantic relevance.
+   */
+  score: number;
+
+  /**
+   * The text content of this chunk (up to 480 tokens).
+   */
+  text: string;
+
+  /**
+   * Identifier of the user who owns this record.
+   */
+  user_id: string;
+
+  /**
+   * Arbitrary metadata attached to the record at ingestion time. Filterable via
+   * filter[field]=value query parameters.
+   */
+  metadata?: { [key: string]: unknown };
 }
 
 export interface AISummarizeResponse {
@@ -579,7 +550,7 @@ export interface AISummarizeParams {
   'Idempotency-Key'?: string;
 }
 
-export interface AIRetrieveConversationHistoriesParams {
+export interface AIRetrieveConversationHistoriesParams extends DefaultFlatPaginationParams {
   /**
    * Natural language search query. The text is embedded into a 1024-dimensional
    * vector and compared against indexed record chunks using semantic similarity.
@@ -640,16 +611,6 @@ export interface AIRetrieveConversationHistoriesParams {
   min_score?: number;
 
   /**
-   * Page number to return (1-based). Defaults to 1.
-   */
-  'page[number]'?: number;
-
-  /**
-   * Number of results per page. Defaults to 20, maximum 100.
-   */
-  'page[size]'?: number;
-
-  /**
    * Restrict search to a specific region. When omitted, all regions are queried in
    * parallel (fan-out) and results are merged by similarity score.
    */
@@ -677,6 +638,7 @@ export declare namespace AI {
     type ModelsResponse as ModelsResponse,
     type AIRetrieveConversationHistoriesResponse as AIRetrieveConversationHistoriesResponse,
     type AISummarizeResponse as AISummarizeResponse,
+    type AIRetrieveConversationHistoriesResponsesDefaultFlatPagination as AIRetrieveConversationHistoriesResponsesDefaultFlatPagination,
     type AISummarizeParams as AISummarizeParams,
     type AIRetrieveConversationHistoriesParams as AIRetrieveConversationHistoriesParams,
   };
@@ -774,6 +736,7 @@ export declare namespace AI {
     type CollectionEnvelope as CollectionEnvelope,
     type CollectionRetrieveDocumentsResponse as CollectionRetrieveDocumentsResponse,
     type CollectionsDefaultFlatPagination as CollectionsDefaultFlatPagination,
+    type CollectionRetrieveDocumentsResponsesDefaultFlatPagination as CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
     type CollectionListParams as CollectionListParams,
     type CollectionCreateParams as CollectionCreateParams,
     type CollectionRetrieveDocumentsParams as CollectionRetrieveDocumentsParams,

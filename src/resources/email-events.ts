@@ -4,6 +4,7 @@ import { APIResource } from '../core/resource';
 import * as EmailEventsAPI from './email-events';
 import * as DraftsAPI from './email-inboxes/drafts';
 import { APIPromise } from '../core/api-promise';
+import { EmailCursorPagination, type EmailCursorPaginationParams, PagePromise } from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 /**
@@ -17,8 +18,11 @@ export class EmailEvents extends APIResource {
   list(
     query: EmailEventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<EmailEventListResponse> {
-    return this._client.get('/email_events', { query, ...options });
+  ): PagePromise<EmailEventListResponsesEmailCursorPagination, EmailEventListResponse> {
+    return this._client.getAPIList('/email_events', EmailCursorPagination<EmailEventListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -32,6 +36,8 @@ export class EmailEvents extends APIResource {
     return this._client.get('/email_events/stats', { query, ...options });
   }
 }
+
+export type EmailEventListResponsesEmailCursorPagination = EmailCursorPagination<EmailEventListResponse>;
 
 export type EmailEventType =
   | 'queued'
@@ -58,57 +64,38 @@ export interface TimeRange {
 }
 
 export interface EmailEventListResponse {
-  data: Array<EmailEventListResponse.Data>;
+  id: string;
 
-  meta: EmailEventListResponse.Meta;
+  email_id: string;
+
+  occurred_at: string;
+
+  record_type: 'email_event';
+
+  type: EmailEventType;
+
+  /**
+   * Summary of the associated email message. Present when the email_message preload
+   * is available.
+   */
+  email?: EmailEventListResponse.Email;
+
+  payload?: { [key: string]: unknown };
 }
 
 export namespace EmailEventListResponse {
-  export interface Data {
-    id: string;
+  /**
+   * Summary of the associated email message. Present when the email_message preload
+   * is available.
+   */
+  export interface Email {
+    cc: Array<DraftsAPI.EmailAddress>;
 
-    email_id: string;
+    from: DraftsAPI.EmailAddress;
 
-    occurred_at: string;
+    subject: string;
 
-    record_type: 'email_event';
-
-    type: EmailEventsAPI.EmailEventType;
-
-    /**
-     * Summary of the associated email message. Present when the email_message preload
-     * is available.
-     */
-    email?: Data.Email;
-
-    payload?: { [key: string]: unknown };
-  }
-
-  export namespace Data {
-    /**
-     * Summary of the associated email message. Present when the email_message preload
-     * is available.
-     */
-    export interface Email {
-      cc: Array<DraftsAPI.EmailAddress>;
-
-      from: DraftsAPI.EmailAddress;
-
-      subject: string;
-
-      to: Array<DraftsAPI.EmailAddress>;
-    }
-  }
-
-  export interface Meta {
-    page_size: number;
-
-    time_range: EmailEventsAPI.TimeRange;
-
-    /**
-     * Cursor for the next page, when more results are available.
-     */
-    page_cursor?: string;
+    to: Array<DraftsAPI.EmailAddress>;
   }
 }
 
@@ -207,7 +194,7 @@ export namespace EmailEventRetrieveStatsResponse {
   }
 }
 
-export interface EmailEventListParams {
+export interface EmailEventListParams extends EmailCursorPaginationParams {
   /**
    * Filter events for a specific email message UUID. Invalid UUID values are
    * silently ignored (no filter applied).
@@ -225,17 +212,6 @@ export interface EmailEventListParams {
    * Inclusive ISO 8601 start timestamp. Defaults to 30 days ago when omitted.
    */
   from?: string;
-
-  /**
-   * Opaque URL-safe Base64 cursor returned by a previous list response.
-   */
-  page_cursor?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100. Invalid values are
-   * clamped to the valid range.
-   */
-  page_size?: number;
 
   /**
    * Inclusive ISO 8601 end timestamp. When `from` is provided without `to`, defaults
@@ -263,6 +239,7 @@ export declare namespace EmailEvents {
     type TimeRange as TimeRange,
     type EmailEventListResponse as EmailEventListResponse,
     type EmailEventRetrieveStatsResponse as EmailEventRetrieveStatsResponse,
+    type EmailEventListResponsesEmailCursorPagination as EmailEventListResponsesEmailCursorPagination,
     type EmailEventListParams as EmailEventListParams,
     type EmailEventRetrieveStatsParams as EmailEventRetrieveStatsParams,
   };

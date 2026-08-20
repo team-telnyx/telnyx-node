@@ -604,3 +604,183 @@ export class CursorFlatPagination<Item>
     };
   }
 }
+
+export interface EmailCursorPaginationResponse<Item> {
+  data: Array<Item>;
+
+  meta: EmailCursorPaginationResponse.Meta;
+}
+
+export namespace EmailCursorPaginationResponse {
+  export interface Meta {
+    page_cursor?: string;
+  }
+}
+
+export interface EmailCursorPaginationParams {
+  page_cursor?: string;
+
+  page_size?: number;
+}
+
+export class EmailCursorPagination<Item>
+  extends AbstractPage<Item>
+  implements EmailCursorPaginationResponse<Item>
+{
+  data: Array<Item>;
+
+  meta: EmailCursorPaginationResponse.Meta;
+
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: EmailCursorPaginationResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.data = body.data || [];
+    this.meta = body.meta || {};
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.data ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.meta?.page_cursor;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        page_cursor: cursor,
+      },
+    };
+  }
+}
+
+export interface EmailBracketCursorPaginationResponse<Item> {
+  data: Array<Item>;
+
+  meta: EmailBracketCursorPaginationResponse.Meta;
+}
+
+export namespace EmailBracketCursorPaginationResponse {
+  export interface Meta {
+    page_cursor?: string;
+  }
+}
+
+export interface EmailBracketCursorPaginationParams {
+  'page[after]'?: string;
+
+  'page[size]'?: number;
+}
+
+export class EmailBracketCursorPagination<Item>
+  extends AbstractPage<Item>
+  implements EmailBracketCursorPaginationResponse<Item>
+{
+  data: Array<Item>;
+
+  meta: EmailBracketCursorPaginationResponse.Meta;
+
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: EmailBracketCursorPaginationResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.data = body.data || [];
+    this.meta = body.meta || {};
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.data ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.meta?.page_cursor;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        'page[after]': cursor,
+      },
+    };
+  }
+}
+
+export interface CloudfsCursorPaginationResponse<Item> {
+  data: Array<Item>;
+
+  meta: CloudfsCursorPaginationResponse.Meta;
+}
+
+export namespace CloudfsCursorPaginationResponse {
+  export interface Meta {
+    cursors?: Meta.Cursors;
+  }
+
+  export namespace Meta {
+    export interface Cursors {
+      after?: string;
+    }
+  }
+}
+
+export interface CloudfsCursorPaginationParams {
+  'page[after]'?: string;
+
+  'page[limit]'?: number;
+}
+
+export class CloudfsCursorPagination<Item>
+  extends AbstractPage<Item>
+  implements CloudfsCursorPaginationResponse<Item>
+{
+  data: Array<Item>;
+
+  meta: CloudfsCursorPaginationResponse.Meta;
+
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: CloudfsCursorPaginationResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.data = body.data || [];
+    this.meta = body.meta || {};
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.data ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.meta?.cursors?.after;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        'page[after]': cursor,
+      },
+    };
+  }
+}

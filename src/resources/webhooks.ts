@@ -7,6 +7,7 @@ import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 import * as ThreadsAPI from './email-inboxes/threads/threads';
 import { Webhook } from 'standardwebhooks';
+import { EmailBracketCursorPagination } from '../core/pagination';
 
 export class Webhooks extends APIResource {
   unwrap(
@@ -26,6 +27,8 @@ export class Webhooks extends APIResource {
     return JSON.parse(body) as UnsafeUnwrapWebhookEvent;
   }
 }
+
+export type InboundMessagesEmailBracketCursorPagination = EmailBracketCursorPagination<InboundMessage>;
 
 export interface CallAIGatherEnded {
   /**

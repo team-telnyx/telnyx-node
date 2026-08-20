@@ -539,7 +539,7 @@ Types:
 Methods:
 
 - <code title="post /ai/summarize">client.ai.<a href="./src/resources/ai/ai.ts">summarize</a>({ ...params }) -> AISummarizeResponse</code>
-- <code title="get /ai/conversation_histories">client.ai.<a href="./src/resources/ai/ai.ts">retrieveConversationHistories</a>({ ...params }) -> AIRetrieveConversationHistoriesResponse</code>
+- <code title="get /ai/conversation_histories">client.ai.<a href="./src/resources/ai/ai.ts">retrieveConversationHistories</a>({ ...params }) -> AIRetrieveConversationHistoriesResponsesDefaultFlatPagination</code>
 
 ## Assistants
 
@@ -802,7 +802,7 @@ Methods:
 - <code title="get /ai/collections">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">list</a>({ ...params }) -> CollectionsDefaultFlatPagination</code>
 - <code title="post /ai/collections">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">create</a>({ ...params }) -> CollectionEnvelope</code>
 - <code title="get /ai/collections/slug/{slug}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieve</a>(slug) -> CollectionEnvelope</code>
-- <code title="get /ai/collections/{slug}/documents">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieveDocuments</a>(slug, { ...params }) -> CollectionRetrieveDocumentsResponse</code>
+- <code title="get /ai/collections/{slug}/documents">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieveDocuments</a>(slug, { ...params }) -> CollectionRetrieveDocumentsResponsesDefaultFlatPagination</code>
 - <code title="delete /ai/collections/{uuid}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">delete</a>(uuid) -> void</code>
 - <code title="patch /ai/collections/{uuid}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">update</a>(uuid, { ...params }) -> CollectionEnvelope</code>
 
@@ -4015,7 +4015,7 @@ Types:
 
 Methods:
 
-- <code title="get /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">list</a>({ ...params }) -> CloudfListResponse</code>
+- <code title="get /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">list</a>({ ...params }) -> CloudfListResponsesCloudfsCursorPagination</code>
 - <code title="post /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">create</a>({ ...params }) -> CloudfsFilesystemResponseWrapper</code>
 - <code title="delete /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">delete</a>(id) -> CloudfsFilesystemDetailResponseWrapper</code>
 - <code title="get /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">retrieve</a>(id) -> CloudfsFilesystemDetailResponseWrapper</code>
@@ -5433,7 +5433,7 @@ Methods:
 - <code title="get /email_blocks/export">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieveExport</a>({ ...params }) -> string</code>
 - <code title="delete /email_blocks/{id}">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">delete</a>(id) -> EmailBlockResponse</code>
 - <code title="get /email_blocks/{id}">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieve</a>(id) -> EmailBlockResponse</code>
-- <code title="get /email_blocks/{id}/events">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieveEvents</a>(id, { ...params }) -> EmailBlockRetrieveEventsResponse</code>
+- <code title="get /email_blocks/{id}/events">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieveEvents</a>(id, { ...params }) -> EmailBlockRetrieveEventsResponsesDefaultFlatPagination</code>
 
 ## Import
 
@@ -5501,7 +5501,7 @@ Types:
 
 Methods:
 
-- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponse</code>
+- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponsesEmailCursorPagination</code>
 - <code title="get /email_events/stats">client.emailEvents.<a href="./src/resources/email-events.ts">retrieveStats</a>({ ...params }) -> EmailEventRetrieveStatsResponse</code>
 
 # EmailInboxes
@@ -5510,11 +5510,10 @@ Types:
 
 - <code><a href="./src/resources/email-inboxes/email-inboxes.ts">EmailInbox</a></code>
 - <code><a href="./src/resources/email-inboxes/email-inboxes.ts">EmailInboxResponse</a></code>
-- <code><a href="./src/resources/email-inboxes/email-inboxes.ts">EmailInboxListResponse</a></code>
 
 Methods:
 
-- <code title="get /email_inboxes">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">list</a>({ ...params }) -> EmailInboxListResponse</code>
+- <code title="get /email_inboxes">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">list</a>({ ...params }) -> EmailInboxesEmailCursorPagination</code>
 - <code title="post /email_inboxes">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">create</a>({ ...params }) -> EmailInboxResponse</code>
 - <code title="delete /email_inboxes/{id}">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">delete</a>(id) -> void</code>
 - <code title="get /email_inboxes/{id}">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">retrieve</a>(id) -> EmailInboxResponse</code>
@@ -5529,11 +5528,10 @@ Types:
 - <code><a href="./src/resources/email-inboxes/drafts.ts">EmailDraftResponse</a></code>
 - <code><a href="./src/resources/email-inboxes/drafts.ts">EmailMessage</a></code>
 - <code><a href="./src/resources/email-inboxes/drafts.ts">EmailMessageResponse</a></code>
-- <code><a href="./src/resources/email-inboxes/drafts.ts">DraftListResponse</a></code>
 
 Methods:
 
-- <code title="get /email_inboxes/{inbox_id}/drafts">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">list</a>(inboxID, { ...params }) -> DraftListResponse</code>
+- <code title="get /email_inboxes/{inbox_id}/drafts">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">list</a>(inboxID, { ...params }) -> EmailDraftsEmailBracketCursorPagination</code>
 - <code title="post /email_inboxes/{inbox_id}/drafts">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">create</a>(inboxID, { ...params }) -> EmailDraftResponse</code>
 - <code title="delete /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">delete</a>(draftID, { ...params }) -> void</code>
 - <code title="get /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">retrieve</a>(draftID, { ...params }) -> EmailDraftResponse</code>
@@ -5564,11 +5562,10 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/email-inboxes/messages/messages.ts">MessageUpdateResponse</a></code>
-- <code><a href="./src/resources/email-inboxes/messages/messages.ts">MessageListResponse</a></code>
 
 Methods:
 
-- <code title="get /email_inboxes/{inbox_id}/messages">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">list</a>(inboxID, { ...params }) -> MessageListResponse</code>
+- <code title="get /email_inboxes/{inbox_id}/messages">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">list</a>(inboxID, { ...params }) -> InboundMessagesEmailBracketCursorPagination</code>
 - <code title="patch /email_inboxes/{inbox_id}/messages/{message_id}">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">update</a>(messageID, { ...params }) -> MessageUpdateResponse</code>
 - <code title="post /email_inboxes/{inbox_id}/messages/{message_id}/drafts">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">drafts</a>(messageID, { ...params }) -> EmailDraftResponse</code>
 
@@ -5613,7 +5610,7 @@ Types:
 
 Methods:
 
-- <code title="get /email_inboxes/{inbox_id}/threads">client.emailInboxes.threads.<a href="./src/resources/email-inboxes/threads/threads.ts">list</a>(inboxID, { ...params }) -> InboundThreadListResponse</code>
+- <code title="get /email_inboxes/{inbox_id}/threads">client.emailInboxes.threads.<a href="./src/resources/email-inboxes/threads/threads.ts">list</a>(inboxID, { ...params }) -> InboundThreadsEmailBracketCursorPagination</code>
 - <code title="get /email_inboxes/{inbox_id}/threads/{thread_id}">client.emailInboxes.threads.<a href="./src/resources/email-inboxes/threads/threads.ts">retrieve</a>(threadID, { ...params }) -> ThreadRetrieveResponse</code>
 
 ### Labels
@@ -5638,17 +5635,15 @@ Types:
 - <code><a href="./src/resources/email-messages/email-messages.ts">SuppressedRecipient</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">TrackingSettings</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageRetrieveResponse</a></code>
-- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageListResponse</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageBatchResponse</a></code>
-- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageRetrieveEventsResponse</a></code>
 
 Methods:
 
 - <code title="delete /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">deleteAll</a>({ ...params }) -> void</code>
-- <code title="get /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">list</a>({ ...params }) -> EmailMessageListResponse</code>
+- <code title="get /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">list</a>({ ...params }) -> EmailMessagesEmailCursorPagination</code>
 - <code title="post /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">create</a>({ ...params }) -> EmailMessageResponse</code>
 - <code title="post /email_messages/batch">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">batch</a>({ ...params }) -> EmailMessageBatchResponse</code>
-- <code title="get /email_messages/{email_id}/events">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieveEvents</a>(emailID, { ...params }) -> EmailMessageRetrieveEventsResponse</code>
+- <code title="get /email_messages/{email_id}/events">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieveEvents</a>(emailID, { ...params }) -> MessageEventsEmailCursorPagination</code>
 - <code title="delete /email_messages/{email_id}/schedule">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">deleteSchedule</a>(emailID) -> EmailMessageResponse</code>
 - <code title="delete /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">delete</a>(id) -> void</code>
 - <code title="get /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieve</a>(id) -> EmailMessageRetrieveResponse</code>
@@ -5659,11 +5654,10 @@ Types:
 
 - <code><a href="./src/resources/email-messages/recipients.ts">EmailRecipient</a></code>
 - <code><a href="./src/resources/email-messages/recipients.ts">RecipientRetrieveResponse</a></code>
-- <code><a href="./src/resources/email-messages/recipients.ts">RecipientListResponse</a></code>
 
 Methods:
 
-- <code title="get /email_messages/{email_id}/recipients">client.emailMessages.recipients.<a href="./src/resources/email-messages/recipients.ts">list</a>(emailID, { ...params }) -> RecipientListResponse</code>
+- <code title="get /email_messages/{email_id}/recipients">client.emailMessages.recipients.<a href="./src/resources/email-messages/recipients.ts">list</a>(emailID, { ...params }) -> EmailRecipientsEmailCursorPagination</code>
 - <code title="get /email_messages/{email_id}/recipients/{recipient_id}">client.emailMessages.recipients.<a href="./src/resources/email-messages/recipients.ts">retrieve</a>(recipientID, { ...params }) -> RecipientRetrieveResponse</code>
 
 # EmailTemplates
@@ -5673,12 +5667,11 @@ Types:
 - <code><a href="./src/resources/email-templates.ts">EmailTemplate</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateResponse</a></code>
 - <code><a href="./src/resources/email-templates.ts">UpdateEmailTemplateRequest</a></code>
-- <code><a href="./src/resources/email-templates.ts">EmailTemplateListResponse</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateRenderResponse</a></code>
 
 Methods:
 
-- <code title="get /email_templates">client.emailTemplates.<a href="./src/resources/email-templates.ts">list</a>({ ...params }) -> EmailTemplateListResponse</code>
+- <code title="get /email_templates">client.emailTemplates.<a href="./src/resources/email-templates.ts">list</a>({ ...params }) -> EmailTemplatesEmailCursorPagination</code>
 - <code title="post /email_templates">client.emailTemplates.<a href="./src/resources/email-templates.ts">create</a>({ ...params }) -> EmailTemplateResponse</code>
 - <code title="delete /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">delete</a>(id) -> void</code>
 - <code title="get /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">retrieve</a>(id) -> EmailTemplateResponse</code>
@@ -5694,7 +5687,7 @@ Types:
 
 Methods:
 
-- <code title="get /email_threads">client.emailThreads.<a href="./src/resources/email-threads.ts">list</a>({ ...params }) -> InboundThreadListResponse</code>
+- <code title="get /email_threads">client.emailThreads.<a href="./src/resources/email-threads.ts">list</a>({ ...params }) -> InboundThreadsEmailBracketCursorPagination</code>
 - <code title="get /email_threads/{thread_id}">client.emailThreads.<a href="./src/resources/email-threads.ts">retrieve</a>(threadID, { ...params }) -> EmailThreadRetrieveResponse</code>
 
 # EmailUnsubscribeGroups
@@ -5760,7 +5753,7 @@ Types:
 Methods:
 
 - <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPagination</code>
-- <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponse</code>
+- <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponsesDefaultFlatPagination</code>
 
 # WebSearch
 
