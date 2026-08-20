@@ -36,7 +36,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">RegionInformation</a></code>
 - <code><a href="./src/resources/shared.ts">ReputationData</a></code>
 - <code><a href="./src/resources/shared.ts">ResembleVoiceSettings</a></code>
-- <code><a href="./src/resources/shared.ts">RimeVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RoomParticipant</a></code>
 - <code><a href="./src/resources/shared.ts">ShortCode</a></code>
 - <code><a href="./src/resources/shared.ts">SimCardStatus</a></code>

@@ -5456,7 +5456,6 @@ export declare namespace Telnyx {
   export type RegionInformation = API.RegionInformation;
   export type ReputationData = API.ReputationData;
   export type ResembleVoiceSettings = API.ResembleVoiceSettings;
-  export type RimeVoiceSettings = API.RimeVoiceSettings;
   export type RoomParticipant = API.RoomParticipant;
   export type ShortCode = API.ShortCode;
   export type SimCardStatus = API.SimCardStatus;

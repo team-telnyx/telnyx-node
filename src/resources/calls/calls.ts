@@ -551,7 +551,6 @@ export interface ConversationRelayEmbeddedConfig {
     | ActionsAPI.AwsVoiceSettings
     | Shared.MinimaxVoiceSettings
     | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings;
@@ -657,7 +656,6 @@ export interface ConversationRelayLanguage {
     | ActionsAPI.AwsVoiceSettings
     | Shared.MinimaxVoiceSettings
     | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings;

@@ -1096,26 +1096,6 @@ export interface ResembleVoiceSettings {
   sample_rate?: '8000' | '16000' | '22050' | '32000' | '44100' | '48000';
 }
 
-export interface RimeVoiceSettings {
-  /**
-   * Voice settings provider type
-   */
-  type: 'rime';
-
-  /**
-   * The `identifier` for an integration secret
-   * [/v2/integration_secrets](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
-   * that refers to your Rime API key. Only required when using your own Rime
-   * account.
-   */
-  api_key_ref?: string;
-
-  /**
-   * Speech speed multiplier. Default is 1.0.
-   */
-  voice_speed?: number;
-}
-
 export interface RoomParticipant {
   /**
    * A unique identifier for the room participant.
