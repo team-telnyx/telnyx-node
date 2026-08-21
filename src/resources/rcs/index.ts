@@ -29,6 +29,7 @@ export {
   Brands,
   type BrandAddress,
   type BrandContact,
+  type BrandIdentifier,
   type BrandLegalEntityType,
   type BrandOrganizationType,
   type BrandResponse,

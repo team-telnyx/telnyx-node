@@ -10,7 +10,7 @@ import { path } from '../../internal/utils/path';
 /**
  * Async CSV import of competitor suppression lists.
  */
-export class Import extends APIResource {
+export class Imports extends APIResource {
   /**
    * Accepts `multipart/form-data` with a `file` field (the CSV) and an optional
    * `block_ttl_days` (integer >0, default 30). Validates:
@@ -27,7 +27,7 @@ export class Import extends APIResource {
    * @example
    * ```ts
    * const emailBlockImportResponse =
-   *   await client.emailBlocks.import.create({
+   *   await client.emailBlocks.imports.create({
    *     file: fs.createReadStream('path/to/file'),
    *     block_ttl_days: 30,
    *   });
@@ -50,7 +50,7 @@ export class Import extends APIResource {
    * @example
    * ```ts
    * const emailBlockImportResponse =
-   *   await client.emailBlocks.import.retrieve(
+   *   await client.emailBlocks.imports.retrieve(
    *     '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
    *   );
    * ```
@@ -150,7 +150,7 @@ export interface ImportCreateParams {
   block_ttl_days?: number;
 }
 
-export declare namespace Import {
+export declare namespace Imports {
   export {
     type EmailBlockImport as EmailBlockImport,
     type EmailBlockImportResponse as EmailBlockImportResponse,

@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ImportAPI from './import';
-import { EmailBlockImport, EmailBlockImportResponse, Import, ImportCreateParams } from './import';
+import * as ImportsAPI from './imports';
+import { EmailBlockImport, EmailBlockImportResponse, ImportCreateParams, Imports } from './imports';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -13,7 +13,7 @@ import { path } from '../../internal/utils/path';
  * Recipient suppression records (`/v2/email_blocks`).
  */
 export class EmailBlocks extends APIResource {
-  import: ImportAPI.Import = new ImportAPI.Import(this._client);
+  imports: ImportsAPI.Imports = new ImportsAPI.Imports(this._client);
 
   /**
    * Account-scoped list. Two mutually exclusive pagination modes:
@@ -370,7 +370,7 @@ export interface EmailBlockRetrieveExportParams {
 
 export interface EmailBlockRetrieveEventsParams extends DefaultFlatPaginationParams {}
 
-EmailBlocks.Import = Import;
+EmailBlocks.Imports = Imports;
 
 export declare namespace EmailBlocks {
   export {
@@ -388,7 +388,7 @@ export declare namespace EmailBlocks {
   };
 
   export {
-    Import as Import,
+    Imports as Imports,
     type EmailBlockImport as EmailBlockImport,
     type EmailBlockImportResponse as EmailBlockImportResponse,
     type ImportCreateParams as ImportCreateParams,

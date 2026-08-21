@@ -62,10 +62,7 @@ export class SpeechToText extends APIResource {
       query,
       defaultBaseURL: 'wss://api.telnyx.com/v2',
       ...options,
-      headers: buildHeaders([
-        { 'Content-Type': 'application/octet-stream', Accept: '*/*' },
-        options?.headers,
-      ]),
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
 }

@@ -140,6 +140,8 @@ export interface BrandContact {
   title?: string | null;
 }
 
+export type BrandIdentifier = EinBrandIdentifier | StockSymbolBrandIdentifier;
+
 export type BrandLegalEntityType =
   | 'LIMITED_LIABILITY_COMPANY'
   | 'SOLE_PROPRIETORSHIP'
@@ -165,7 +167,7 @@ export interface BrandResponse {
 
   display_name: string;
 
-  identifiers: { [key: string]: EinBrandIdentifier | StockSymbolBrandIdentifier };
+  identifiers: { [key: string]: BrandIdentifier };
 
   legal_entity_type: string;
 
@@ -265,8 +267,7 @@ export namespace BrandCreateParams {
     stock_symbol?: BrandsAPI.StockSymbolBrandIdentifier;
 
     [k: string]:
-      | BrandsAPI.EinBrandIdentifier
-      | BrandsAPI.StockSymbolBrandIdentifier
+      | BrandsAPI.BrandIdentifier
       | BrandsAPI.EinBrandIdentifier
       | BrandsAPI.StockSymbolBrandIdentifier
       | undefined;
@@ -326,8 +327,7 @@ export namespace BrandUpdateParams {
     stock_symbol?: BrandsAPI.StockSymbolBrandIdentifier;
 
     [k: string]:
-      | BrandsAPI.EinBrandIdentifier
-      | BrandsAPI.StockSymbolBrandIdentifier
+      | BrandsAPI.BrandIdentifier
       | BrandsAPI.EinBrandIdentifier
       | BrandsAPI.StockSymbolBrandIdentifier
       | undefined;
@@ -338,6 +338,7 @@ export declare namespace Brands {
   export {
     type BrandAddress as BrandAddress,
     type BrandContact as BrandContact,
+    type BrandIdentifier as BrandIdentifier,
     type BrandLegalEntityType as BrandLegalEntityType,
     type BrandOrganizationType as BrandOrganizationType,
     type BrandResponse as BrandResponse,

@@ -3435,6 +3435,7 @@ Types:
 
 - <code><a href="./src/resources/rcs/brands.ts">BrandAddress</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandContact</a></code>
+- <code><a href="./src/resources/rcs/brands.ts">BrandIdentifier</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandLegalEntityType</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandOrganizationType</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandResponse</a></code>
@@ -5435,17 +5436,17 @@ Methods:
 - <code title="get /email_blocks/{id}">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieve</a>(id) -> EmailBlockResponse</code>
 - <code title="get /email_blocks/{id}/events">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieveEvents</a>(id, { ...params }) -> EmailBlockRetrieveEventsResponsesDefaultFlatPagination</code>
 
-## Import
+## Imports
 
 Types:
 
-- <code><a href="./src/resources/email-blocks/import.ts">EmailBlockImport</a></code>
-- <code><a href="./src/resources/email-blocks/import.ts">EmailBlockImportResponse</a></code>
+- <code><a href="./src/resources/email-blocks/imports.ts">EmailBlockImport</a></code>
+- <code><a href="./src/resources/email-blocks/imports.ts">EmailBlockImportResponse</a></code>
 
 Methods:
 
-- <code title="post /email_blocks/import">client.emailBlocks.import.<a href="./src/resources/email-blocks/import.ts">create</a>({ ...params }) -> EmailBlockImportResponse</code>
-- <code title="get /email_blocks/import/{id}">client.emailBlocks.import.<a href="./src/resources/email-blocks/import.ts">retrieve</a>(id) -> EmailBlockImportResponse</code>
+- <code title="post /email_blocks/import">client.emailBlocks.imports.<a href="./src/resources/email-blocks/imports.ts">create</a>({ ...params }) -> EmailBlockImportResponse</code>
+- <code title="get /email_blocks/import/{id}">client.emailBlocks.imports.<a href="./src/resources/email-blocks/imports.ts">retrieve</a>(id) -> EmailBlockImportResponse</code>
 
 # EmailDomains
 

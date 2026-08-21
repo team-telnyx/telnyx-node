@@ -183,10 +183,9 @@ export interface MessageUpdateParams {
   inbox_id: string;
 
   /**
-   * Body param: Set to `true` for server time, an ISO 8601 timestamp for an explicit
-   * read time, or `null` to mark unread.
+   * Body param
    */
-  read_at: true | null | string;
+  read_at: true | string;
 }
 
 export interface MessageDraftsParams {
