@@ -10,6 +10,7 @@ export {
 export {
   EmailValidations,
   type EmailValidationCheck,
+  type EmailValidationChecks,
   type EmailValidationCreateResponse,
   type EmailValidationCreateParams,
 } from './email-validations';

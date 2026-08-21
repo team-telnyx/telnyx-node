@@ -109,6 +109,23 @@ export class Brands extends APIResource {
   }
 }
 
+export interface BrandAddress {
+  administrative_area: string;
+
+  city: string;
+
+  /**
+   * The two-letter ISO 3166-1 country code.
+   */
+  country_code: string;
+
+  line_1: string;
+
+  postal_code: string;
+
+  line_2?: string | null;
+}
+
 export interface BrandContact {
   contact_type: 'BRAND' | 'PRIMARY' | 'OFFICER' | 'AGENT' | 'RESPONSIBLE_PARTY' | 'BILLING' | 'UNKNOWN';
 
@@ -122,6 +139,8 @@ export interface BrandContact {
 
   title?: string | null;
 }
+
+export type BrandIdentifier = EinBrandIdentifier | StockSymbolBrandIdentifier;
 
 export type BrandLegalEntityType =
   | 'LIMITED_LIABILITY_COMPANY'
@@ -138,7 +157,7 @@ export type BrandOrganizationType =
   | 'UNKNOWN';
 
 export interface BrandResponse {
-  addresses: { [key: string]: BrandResponse.Addresses };
+  addresses: { [key: string]: BrandAddress };
 
   brand_id: string;
 
@@ -148,7 +167,7 @@ export interface BrandResponse {
 
   display_name: string;
 
-  identifiers: { [key: string]: EinBrandIdentifier | StockSymbolBrandIdentifier };
+  identifiers: { [key: string]: BrandIdentifier };
 
   legal_entity_type: string;
 
@@ -169,25 +188,6 @@ export interface BrandResponse {
     | 'FAILED';
 
   website_url: string;
-}
-
-export namespace BrandResponse {
-  export interface Addresses {
-    administrative_area: string;
-
-    city: string;
-
-    /**
-     * The two-letter ISO 3166-1 country code.
-     */
-    country_code: string;
-
-    line_1: string;
-
-    postal_code: string;
-
-    line_2?: string | null;
-  }
 }
 
 export interface EinBrandIdentifier {
@@ -211,7 +211,7 @@ export interface StockSymbolBrandIdentifier {
 export type BrandListResponse = Array<BrandResponse>;
 
 export interface BrandCreateParams {
-  addresses: { [key: string]: BrandCreateParams.Addresses };
+  addresses: { [key: string]: BrandAddress };
 
   /**
    * Named business contacts. Use the `brand` key for the required BRAND contact.
@@ -242,23 +242,6 @@ export interface BrandCreateParams {
 }
 
 export namespace BrandCreateParams {
-  export interface Addresses {
-    administrative_area: string;
-
-    city: string;
-
-    /**
-     * The two-letter ISO 3166-1 country code.
-     */
-    country_code: string;
-
-    line_1: string;
-
-    postal_code: string;
-
-    line_2?: string | null;
-  }
-
   /**
    * Named business contacts. Use the `brand` key for the required BRAND contact.
    */
@@ -284,8 +267,7 @@ export namespace BrandCreateParams {
     stock_symbol?: BrandsAPI.StockSymbolBrandIdentifier;
 
     [k: string]:
-      | BrandsAPI.EinBrandIdentifier
-      | BrandsAPI.StockSymbolBrandIdentifier
+      | BrandsAPI.BrandIdentifier
       | BrandsAPI.EinBrandIdentifier
       | BrandsAPI.StockSymbolBrandIdentifier
       | undefined;
@@ -293,7 +275,7 @@ export namespace BrandCreateParams {
 }
 
 export interface BrandUpdateParams {
-  addresses?: { [key: string]: BrandUpdateParams.Addresses };
+  addresses?: { [key: string]: BrandAddress };
 
   /**
    * Named business contacts. Use the `brand` key for the required BRAND contact.
@@ -320,23 +302,6 @@ export interface BrandUpdateParams {
 }
 
 export namespace BrandUpdateParams {
-  export interface Addresses {
-    administrative_area: string;
-
-    city: string;
-
-    /**
-     * The two-letter ISO 3166-1 country code.
-     */
-    country_code: string;
-
-    line_1: string;
-
-    postal_code: string;
-
-    line_2?: string | null;
-  }
-
   /**
    * Named business contacts. Use the `brand` key for the required BRAND contact.
    */
@@ -362,8 +327,7 @@ export namespace BrandUpdateParams {
     stock_symbol?: BrandsAPI.StockSymbolBrandIdentifier;
 
     [k: string]:
-      | BrandsAPI.EinBrandIdentifier
-      | BrandsAPI.StockSymbolBrandIdentifier
+      | BrandsAPI.BrandIdentifier
       | BrandsAPI.EinBrandIdentifier
       | BrandsAPI.StockSymbolBrandIdentifier
       | undefined;
@@ -372,7 +336,9 @@ export namespace BrandUpdateParams {
 
 export declare namespace Brands {
   export {
+    type BrandAddress as BrandAddress,
     type BrandContact as BrandContact,
+    type BrandIdentifier as BrandIdentifier,
     type BrandLegalEntityType as BrandLegalEntityType,
     type BrandOrganizationType as BrandOrganizationType,
     type BrandResponse as BrandResponse,

@@ -69,46 +69,44 @@ export class VerifyEmail extends APIResource {
   }
 }
 
+/**
+ * Verification state for a DIR's authorizer email.
+ */
+export interface EmailVerificationStatus {
+  /**
+   * Whether the DIR's authorizer email has been confirmed.
+   */
+  email_verified: boolean;
+
+  /**
+   * Always `email_verification`.
+   */
+  record_type: 'email_verification';
+
+  /**
+   * `sent` after a code is emailed; `verified` after a successful confirm;
+   * `unverified` when no verification is in progress.
+   */
+  status: 'sent' | 'verified' | 'unverified';
+
+  /**
+   * When the outstanding code stops being accepted. Null when no verification is in
+   * progress.
+   */
+  expires_at?: string | null;
+
+  /**
+   * How many more codes may be requested for this DIR today. Null when the daily cap
+   * does not apply.
+   */
+  sends_remaining_today?: number | null;
+}
+
 export interface EmailVerificationStatusWrapped {
   /**
    * Verification state for a DIR's authorizer email.
    */
-  data: EmailVerificationStatusWrapped.Data;
-}
-
-export namespace EmailVerificationStatusWrapped {
-  /**
-   * Verification state for a DIR's authorizer email.
-   */
-  export interface Data {
-    /**
-     * Whether the DIR's authorizer email has been confirmed.
-     */
-    email_verified: boolean;
-
-    /**
-     * Always `email_verification`.
-     */
-    record_type: 'email_verification';
-
-    /**
-     * `sent` after a code is emailed; `verified` after a successful confirm;
-     * `unverified` when no verification is in progress.
-     */
-    status: 'sent' | 'verified' | 'unverified';
-
-    /**
-     * When the outstanding code stops being accepted. Null when no verification is in
-     * progress.
-     */
-    expires_at?: string | null;
-
-    /**
-     * How many more codes may be requested for this DIR today. Null when the daily cap
-     * does not apply.
-     */
-    sends_remaining_today?: number | null;
-  }
+  data: EmailVerificationStatus;
 }
 
 export interface VerifyEmailConfirmParams {
@@ -120,6 +118,7 @@ export interface VerifyEmailConfirmParams {
 
 export declare namespace VerifyEmail {
   export {
+    type EmailVerificationStatus as EmailVerificationStatus,
     type EmailVerificationStatusWrapped as EmailVerificationStatusWrapped,
     type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
   };

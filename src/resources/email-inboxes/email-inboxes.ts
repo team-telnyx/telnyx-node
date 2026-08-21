@@ -6,7 +6,6 @@ import {
   DraftCreateParams,
   DraftDeleteParams,
   DraftListParams,
-  DraftListResponse,
   DraftPatchParams,
   DraftRetrieveParams,
   DraftSendParams,
@@ -16,6 +15,7 @@ import {
   EmailDraft,
   EmailDraftRequest,
   EmailDraftResponse,
+  EmailDraftsEmailBracketCursorPagination,
   EmailMessage,
   EmailMessageResponse,
 } from './drafts';
@@ -29,13 +29,13 @@ import {
   FilterReplaceParams,
   FilterReplaceResponse,
   Filters,
+  InboxFilters,
   MutateInboxFiltersRequest,
 } from './filters';
 import * as MessagesAPI from './messages/messages';
 import {
   MessageDraftsParams,
   MessageListParams,
-  MessageListResponse,
   MessageUpdateParams,
   MessageUpdateResponse,
   Messages,
@@ -47,6 +47,7 @@ import {
   InboundThread,
   InboundThreadDetail,
   InboundThreadListResponse,
+  InboundThreadsEmailBracketCursorPagination,
   ThreadListParams,
   ThreadMessage,
   ThreadRetrieveParams,
@@ -54,6 +55,7 @@ import {
   Threads,
 } from './threads/threads';
 import { APIPromise } from '../../core/api-promise';
+import { EmailCursorPagination, type EmailCursorPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -73,14 +75,20 @@ export class EmailInboxes extends APIResource {
    *
    * @example
    * ```ts
-   * const emailInboxes = await client.emailInboxes.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const emailInbox of client.emailInboxes.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: EmailInboxListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<EmailInboxListResponse> {
-    return this._client.get('/email_inboxes', { query, ...options });
+  ): PagePromise<EmailInboxesEmailCursorPagination, EmailInbox> {
+    return this._client.getAPIList('/email_inboxes', EmailCursorPagination<EmailInbox>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -137,6 +145,8 @@ export class EmailInboxes extends APIResource {
   }
 }
 
+export type EmailInboxesEmailCursorPagination = EmailCursorPagination<EmailInbox>;
+
 export interface EmailInbox {
   id: string;
 
@@ -164,34 +174,7 @@ export interface EmailInboxResponse {
   data: EmailInbox;
 }
 
-export interface EmailInboxListResponse {
-  data: Array<EmailInbox>;
-
-  meta: EmailInboxListResponse.Meta;
-}
-
-export namespace EmailInboxListResponse {
-  export interface Meta {
-    page_size: number;
-
-    /**
-     * Cursor for the next inbox page, when more results are available.
-     */
-    page_cursor?: string;
-  }
-}
-
-export interface EmailInboxListParams {
-  /**
-   * Opaque cursor returned by the previous inbox page.
-   */
-  page_cursor?: string;
-
-  /**
-   * Number of results to return. Defaults to 20; maximum is 250.
-   */
-  page_size?: number;
-}
+export interface EmailInboxListParams extends EmailCursorPaginationParams {}
 
 export interface EmailInboxCreateParams {
   /**
@@ -217,7 +200,7 @@ export declare namespace EmailInboxes {
   export {
     type EmailInbox as EmailInbox,
     type EmailInboxResponse as EmailInboxResponse,
-    type EmailInboxListResponse as EmailInboxListResponse,
+    type EmailInboxesEmailCursorPagination as EmailInboxesEmailCursorPagination,
     type EmailInboxListParams as EmailInboxListParams,
     type EmailInboxCreateParams as EmailInboxCreateParams,
   };
@@ -230,7 +213,7 @@ export declare namespace EmailInboxes {
     type EmailDraftResponse as EmailDraftResponse,
     type EmailMessage as EmailMessage,
     type EmailMessageResponse as EmailMessageResponse,
-    type DraftListResponse as DraftListResponse,
+    type EmailDraftsEmailBracketCursorPagination as EmailDraftsEmailBracketCursorPagination,
     type DraftListParams as DraftListParams,
     type DraftCreateParams as DraftCreateParams,
     type DraftDeleteParams as DraftDeleteParams,
@@ -242,6 +225,7 @@ export declare namespace EmailInboxes {
 
   export {
     Filters as Filters,
+    type InboxFilters as InboxFilters,
     type MutateInboxFiltersRequest as MutateInboxFiltersRequest,
     type FilterListResponse as FilterListResponse,
     type FilterAddResponse as FilterAddResponse,
@@ -255,7 +239,6 @@ export declare namespace EmailInboxes {
   export {
     Messages as Messages,
     type MessageUpdateResponse as MessageUpdateResponse,
-    type MessageListResponse as MessageListResponse,
     type MessageListParams as MessageListParams,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageDraftsParams as MessageDraftsParams,
@@ -270,6 +253,7 @@ export declare namespace EmailInboxes {
     type InboundThreadListResponse as InboundThreadListResponse,
     type ThreadMessage as ThreadMessage,
     type ThreadRetrieveResponse as ThreadRetrieveResponse,
+    type InboundThreadsEmailBracketCursorPagination as InboundThreadsEmailBracketCursorPagination,
     type ThreadListParams as ThreadListParams,
     type ThreadRetrieveParams as ThreadRetrieveParams,
   };

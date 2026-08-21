@@ -54,7 +54,8 @@ export class Users extends APIResource {
   }
 
   /**
-   * Returns a user in your organization.
+   * Returns the details of a user in your organization, optionally including the
+   * groups the user belongs to.
    */
   retrieve(
     id: string,

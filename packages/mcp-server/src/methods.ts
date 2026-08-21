@@ -6948,14 +6948,14 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/email_blocks/{id}/events',
   },
   {
-    clientCallName: 'client.emailBlocks.import.create',
-    fullyQualifiedName: 'emailBlocks.import.create',
+    clientCallName: 'client.emailBlocks.imports.create',
+    fullyQualifiedName: 'emailBlocks.imports.create',
     httpMethod: 'post',
     httpPath: '/email_blocks/import',
   },
   {
-    clientCallName: 'client.emailBlocks.import.retrieve',
-    fullyQualifiedName: 'emailBlocks.import.retrieve',
+    clientCallName: 'client.emailBlocks.imports.retrieve',
+    fullyQualifiedName: 'emailBlocks.imports.retrieve',
     httpMethod: 'get',
     httpPath: '/email_blocks/import/{id}',
   },

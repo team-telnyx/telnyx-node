@@ -7,6 +7,8 @@ export {
 } from './buckets/index';
 export {
   Cloudfs,
+  type CloudfsFilesystem,
+  type CloudfsFilesystemDetail,
   type CloudfsFilesystemDetailResponseWrapper,
   type CloudfsFilesystemResponseWrapper,
   type CloudfsFilesystemStatus,
@@ -14,6 +16,7 @@ export {
   type CloudfListParams,
   type CloudfCreateParams,
   type CloudfUpdateParams,
+  type CloudfListResponsesCloudfsCursorPagination,
 } from './cloudfs/index';
 export {
   Kvs,

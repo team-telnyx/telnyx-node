@@ -11,7 +11,8 @@ import { path } from '../internal/utils/path';
  */
 export class CustomerServiceRecords extends APIResource {
   /**
-   * List customer service records.
+   * Returns a paginated list of your customer service record (CSR) requests, with
+   * support for filtering and sorting.
    *
    * @example
    * ```ts
@@ -69,7 +70,8 @@ export class CustomerServiceRecords extends APIResource {
   }
 
   /**
-   * Get a specific customer service record.
+   * Returns the details of a single customer service record (CSR) request, including
+   * its status and any retrieved record data.
    *
    * @example
    * ```ts

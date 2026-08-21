@@ -12,7 +12,8 @@ import { path } from '../../internal/utils/path';
  */
 export class Events extends APIResource {
   /**
-   * Returns a list of all port-out events.
+   * Returns a paginated list of port-out events on your account, such as status
+   * changes on port-out requests, with support for filtering.
    *
    * @example
    * ```ts
@@ -33,7 +34,7 @@ export class Events extends APIResource {
   }
 
   /**
-   * Show a specific port-out event.
+   * Returns the details of a single port-out event, including its type and payload.
    *
    * @example
    * ```ts
@@ -47,7 +48,8 @@ export class Events extends APIResource {
   }
 
   /**
-   * Republish a specific port-out event.
+   * Republishes the specified port-out event, triggering re-delivery of the
+   * corresponding webhook to your account.
    *
    * @example
    * ```ts

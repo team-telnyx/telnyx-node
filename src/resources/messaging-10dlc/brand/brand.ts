@@ -108,7 +108,8 @@ export class Brand extends APIResource {
   }
 
   /**
-   * Retrieve a brand by `brandId`.
+   * Returns the details of a 10DLC brand by its brandId, including the count of
+   * campaigns associated with the brand.
    *
    * @example
    * ```ts

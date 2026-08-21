@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as RemediationAPI from './remediation';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -107,80 +106,77 @@ export class Remediation extends APIResource {
 
 export type RemediationListResponsesDefaultFlatPagination = DefaultFlatPagination<RemediationListResponse>;
 
+/**
+ * Per-category buckets of phone numbers, populated once results are available.
+ * Empty lists are kept (not omitted) so consumers can iterate without
+ * null-checking each key.
+ */
+export interface RemediationPerNumberResults {
+  ineligible?: Array<string>;
+
+  not_flagged?: Array<string>;
+
+  refused?: Array<string>;
+
+  remediated?: Array<string>;
+
+  requires_review?: Array<string>;
+}
+
+/**
+ * Full detail of a remediation request, returned on submit and GET by id.
+ */
+export interface RemediationRequest {
+  id: string;
+
+  call_purpose: string;
+
+  created_at: string;
+
+  /**
+   * Total phone numbers in this batch, including any later cancelled. May exceed the
+   * sum of the per-category result buckets, which omit cancelled numbers.
+   */
+  phone_numbers_count: number;
+
+  /**
+   * Numbers rejected before submission (e.g. cooldown).
+   */
+  phone_numbers_ineligible: number;
+
+  /**
+   * Numbers accepted for remediation, i.e. not rejected as ineligible. Counts
+   * numbers still queued (pending) as well as processed ones.
+   */
+  phone_numbers_submitted: number;
+
+  /**
+   * Customer-facing status of a remediation request.
+   */
+  status: RemediationStatus;
+
+  updated_at: string;
+
+  contact_email?: string | null;
+
+  /**
+   * Per-category buckets. Populated once results are available. Null while the
+   * request is still pending.
+   */
+  results?: RemediationPerNumberResults | null;
+
+  tier1_completed_at?: string | null;
+
+  tier2_completed_at?: string | null;
+
+  webhook_url?: string | null;
+}
+
 export interface RemediationRequestWrapped {
   /**
    * Full detail of a remediation request, returned on submit and GET by id.
    */
-  data: RemediationRequestWrapped.Data;
-}
-
-export namespace RemediationRequestWrapped {
-  /**
-   * Full detail of a remediation request, returned on submit and GET by id.
-   */
-  export interface Data {
-    id: string;
-
-    call_purpose: string;
-
-    created_at: string;
-
-    /**
-     * Total phone numbers in this batch, including any later cancelled. May exceed the
-     * sum of the per-category result buckets, which omit cancelled numbers.
-     */
-    phone_numbers_count: number;
-
-    /**
-     * Numbers rejected before submission (e.g. cooldown).
-     */
-    phone_numbers_ineligible: number;
-
-    /**
-     * Numbers accepted for remediation, i.e. not rejected as ineligible. Counts
-     * numbers still queued (pending) as well as processed ones.
-     */
-    phone_numbers_submitted: number;
-
-    /**
-     * Customer-facing status of a remediation request.
-     */
-    status: RemediationAPI.RemediationStatus;
-
-    updated_at: string;
-
-    contact_email?: string | null;
-
-    /**
-     * Per-category buckets. Populated once results are available. Null while the
-     * request is still pending.
-     */
-    results?: Data.Results | null;
-
-    tier1_completed_at?: string | null;
-
-    tier2_completed_at?: string | null;
-
-    webhook_url?: string | null;
-  }
-
-  export namespace Data {
-    /**
-     * Per-category buckets. Populated once results are available. Null while the
-     * request is still pending.
-     */
-    export interface Results {
-      ineligible?: Array<string>;
-
-      not_flagged?: Array<string>;
-
-      refused?: Array<string>;
-
-      remediated?: Array<string>;
-
-      requires_review?: Array<string>;
-    }
-  }
+  data: RemediationRequest;
 }
 
 /**
@@ -262,6 +258,8 @@ export interface RemediationRetrieveParams {
 
 export declare namespace Remediation {
   export {
+    type RemediationPerNumberResults as RemediationPerNumberResults,
+    type RemediationRequest as RemediationRequest,
     type RemediationRequestWrapped as RemediationRequestWrapped,
     type RemediationStatus as RemediationStatus,
     type RemediationListResponse as RemediationListResponse,

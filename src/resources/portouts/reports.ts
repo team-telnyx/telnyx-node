@@ -47,7 +47,8 @@ export class Reports extends APIResource {
   }
 
   /**
-   * Retrieve a specific report generated.
+   * Returns the details of a previously requested port-out report, including its
+   * status and parameters.
    *
    * @example
    * ```ts

@@ -135,7 +135,8 @@ export class PortingOrders extends APIResource {
     new PhoneNumberExtensionsAPI.PhoneNumberExtensions(this._client);
 
   /**
-   * Returns a list of your porting order.
+   * Returns a paginated list of your porting orders. Supports filtering and sorting,
+   * and can optionally include the phone numbers attached to each order.
    *
    * @example
    * ```ts
@@ -156,7 +157,9 @@ export class PortingOrders extends APIResource {
   }
 
   /**
-   * Creates a new porting order object.
+   * Creates a new porting order to bring phone numbers from another carrier to
+   * Telnyx. Complete the order's requirements and then confirm it to submit the
+   * port.
    *
    * @example
    * ```ts
@@ -267,7 +270,8 @@ export class PortingOrders extends APIResource {
   }
 
   /**
-   * Download a porting order loa template
+   * Downloads the Letter of Authorization (LOA) template document for this porting
+   * order, optionally rendered with a specific LOA configuration.
    *
    * @example
    * ```ts

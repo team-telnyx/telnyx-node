@@ -77,6 +77,7 @@ describe('resource tools', () => {
         ],
       },
       webhook: { foo: 'bar' },
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 

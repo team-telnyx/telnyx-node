@@ -51,7 +51,8 @@ export class LoaConfigurations extends APIResource {
   }
 
   /**
-   * Preview a specific LOA configuration.
+   * Renders a preview of the LOA document produced by this configuration so you can
+   * verify company details and branding before using it on porting orders.
    *
    * @example
    * ```ts
@@ -73,7 +74,9 @@ export class LoaConfigurations extends APIResource {
   }
 
   /**
-   * List the LOA configurations.
+   * Returns a paginated list of your LOA (Letter of Authorization) configurations.
+   * LOA configurations customize the company details and branding used on generated
+   * LOA documents.
    *
    * @example
    * ```ts
@@ -95,7 +98,8 @@ export class LoaConfigurations extends APIResource {
   }
 
   /**
-   * Create a LOA configuration.
+   * Creates a new LOA configuration with your company details and branding for use
+   * when generating LOA documents for porting orders.
    *
    * @example
    * ```ts
@@ -128,7 +132,8 @@ export class LoaConfigurations extends APIResource {
   }
 
   /**
-   * Delete a specific LOA configuration.
+   * Permanently deletes the specified LOA configuration so it can no longer be used
+   * when generating LOA documents.
    *
    * @example
    * ```ts
@@ -145,7 +150,8 @@ export class LoaConfigurations extends APIResource {
   }
 
   /**
-   * Retrieve a specific LOA configuration.
+   * Returns the details of a single LOA (Letter of Authorization) configuration by
+   * its identifier.
    *
    * @example
    * ```ts
@@ -160,7 +166,8 @@ export class LoaConfigurations extends APIResource {
   }
 
   /**
-   * Update a specific LOA configuration.
+   * Updates the specified LOA configuration with the provided fields and returns the
+   * updated configuration.
    *
    * @example
    * ```ts

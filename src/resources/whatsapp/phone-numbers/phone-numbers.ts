@@ -16,6 +16,7 @@ import {
   ConversationalComponentPatchAllParams,
   ConversationalComponentPatchAllResponse,
   ConversationalComponents,
+  WhatsappConversationalComponent,
 } from './conversational-components';
 import * as ProfileAPI from './profile/profile';
 import {
@@ -338,6 +339,7 @@ export declare namespace PhoneNumbers {
 
   export {
     ConversationalComponents as ConversationalComponents,
+    type WhatsappConversationalComponent as WhatsappConversationalComponent,
     type ConversationalComponentListResponse as ConversationalComponentListResponse,
     type ConversationalComponentPatchAllResponse as ConversationalComponentPatchAllResponse,
     type ConversationalComponentPatchAllParams as ConversationalComponentPatchAllParams,

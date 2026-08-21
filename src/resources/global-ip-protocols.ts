@@ -9,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class GlobalIPProtocols extends APIResource {
   /**
-   * List all Global IP Protocols
+   * Returns the network protocols supported for Global IP traffic, for use when
+   * configuring Global IP resources.
    */
   list(options?: RequestOptions): APIPromise<GlobalIPProtocolListResponse> {
     return this._client.get('/global_ip_protocols', options);

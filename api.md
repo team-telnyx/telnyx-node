@@ -36,7 +36,6 @@ Types:
 - <code><a href="./src/resources/shared.ts">RegionInformation</a></code>
 - <code><a href="./src/resources/shared.ts">ReputationData</a></code>
 - <code><a href="./src/resources/shared.ts">ResembleVoiceSettings</a></code>
-- <code><a href="./src/resources/shared.ts">RimeVoiceSettings</a></code>
 - <code><a href="./src/resources/shared.ts">RoomParticipant</a></code>
 - <code><a href="./src/resources/shared.ts">ShortCode</a></code>
 - <code><a href="./src/resources/shared.ts">SimCardStatus</a></code>
@@ -179,12 +178,13 @@ Types:
 - <code><a href="./src/resources/oauth.ts">OAuthGrantsResponse</a></code>
 - <code><a href="./src/resources/oauth.ts">OAuthIntrospectResponse</a></code>
 - <code><a href="./src/resources/oauth.ts">OAuthRegisterResponse</a></code>
+- <code><a href="./src/resources/oauth.ts">OAuthRetrieveAuthorizeResponse</a></code>
 - <code><a href="./src/resources/oauth.ts">OAuthRetrieveJwksResponse</a></code>
 - <code><a href="./src/resources/oauth.ts">OAuthTokenResponse</a></code>
 
 Methods:
 
-- <code title="get /oauth/authorize">client.oauth.<a href="./src/resources/oauth.ts">retrieveAuthorize</a>({ ...params }) -> void</code>
+- <code title="get /oauth/authorize">client.oauth.<a href="./src/resources/oauth.ts">retrieveAuthorize</a>({ ...params }) -> string</code>
 - <code title="get /oauth/consent/{consent_token}">client.oauth.<a href="./src/resources/oauth.ts">retrieve</a>(consentToken) -> OAuthRetrieveResponse</code>
 - <code title="post /oauth/grants">client.oauth.<a href="./src/resources/oauth.ts">grants</a>({ ...params }) -> OAuthGrantsResponse</code>
 - <code title="post /oauth/introspect">client.oauth.<a href="./src/resources/oauth.ts">introspect</a>({ ...params }) -> OAuthIntrospectResponse</code>
@@ -285,6 +285,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">FaxQueued</a></code>
 - <code><a href="./src/resources/webhooks.ts">FaxSendingStarted</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessage</a></code>
+- <code><a href="./src/resources/webhooks.ts">InboundSipHeader</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdate</a></code>
 - <code><a href="./src/resources/webhooks.ts">OutboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClick</a></code>
@@ -538,7 +539,7 @@ Types:
 Methods:
 
 - <code title="post /ai/summarize">client.ai.<a href="./src/resources/ai/ai.ts">summarize</a>({ ...params }) -> AISummarizeResponse</code>
-- <code title="get /ai/conversation_histories">client.ai.<a href="./src/resources/ai/ai.ts">retrieveConversationHistories</a>({ ...params }) -> AIRetrieveConversationHistoriesResponse</code>
+- <code title="get /ai/conversation_histories">client.ai.<a href="./src/resources/ai/ai.ts">retrieveConversationHistories</a>({ ...params }) -> AIRetrieveConversationHistoriesResponsesDefaultFlatPagination</code>
 
 ## Assistants
 
@@ -554,6 +555,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AuthenticationMethod</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">BooleanOpExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ComparisonExpression</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlow</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlowReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">EnabledFeatures</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Expression</a></code>
@@ -562,6 +564,8 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">FallbackConfigReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">FlowEdge</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">FlowNode</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">FlowNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">HangupToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ImportMetadata</a></code>
@@ -579,8 +583,12 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PrivacySettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">PromptSyncStatus</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">RetrievalTool</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">SpeakNode</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">SpeakNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">StartSpeakingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNode</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionEndpointingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettingsConfig</a></code>
@@ -602,7 +610,7 @@ Methods:
 - <code title="get /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">retrieve</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="post /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">update</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="post /ai/assistants/{assistant_id}/chat">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">chat</a>(assistantID, { ...params }) -> AssistantChatResponse</code>
-- <code title="post /ai/assistants/{assistant_id}/clone">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">clone</a>(assistantID) -> InferenceEmbedding</code>
+- <code title="post /ai/assistants/{assistant_id}/clone">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">clone</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}/texml">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">getTexml</a>(assistantID) -> string</code>
 - <code title="post /ai/assistants/{assistant_id}/chat/sms">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">sendSMS</a>(assistantID, { ...params }) -> AssistantSendSMSResponse</code>
 
@@ -794,7 +802,7 @@ Methods:
 - <code title="get /ai/collections">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">list</a>({ ...params }) -> CollectionsDefaultFlatPagination</code>
 - <code title="post /ai/collections">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">create</a>({ ...params }) -> CollectionEnvelope</code>
 - <code title="get /ai/collections/slug/{slug}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieve</a>(slug) -> CollectionEnvelope</code>
-- <code title="get /ai/collections/{slug}/documents">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieveDocuments</a>(slug, { ...params }) -> CollectionRetrieveDocumentsResponse</code>
+- <code title="get /ai/collections/{slug}/documents">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieveDocuments</a>(slug, { ...params }) -> CollectionRetrieveDocumentsResponsesDefaultFlatPagination</code>
 - <code title="delete /ai/collections/{uuid}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">delete</a>(uuid) -> void</code>
 - <code title="patch /ai/collections/{uuid}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">update</a>(uuid, { ...params }) -> CollectionEnvelope</code>
 
@@ -1407,7 +1415,9 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineBConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineDeepgramConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineHumainConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineParakeetConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineReson8Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSonioxConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineSpeechmaticsConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineTelnyxConfig</a></code>
@@ -1685,6 +1695,7 @@ Types:
 - <code><a href="./src/resources/custom-storage-credentials.ts">CustomStorageConfiguration</a></code>
 - <code><a href="./src/resources/custom-storage-credentials.ts">GcsConfigurationData</a></code>
 - <code><a href="./src/resources/custom-storage-credentials.ts">S3ConfigurationData</a></code>
+- <code><a href="./src/resources/custom-storage-credentials.ts">S3GenericConfigurationData</a></code>
 
 Methods:
 
@@ -2283,6 +2294,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/messages/messages.ts">MessagingError0b38e7044b</a></code>
+- <code><a href="./src/resources/messages/messages.ts">MessagingInboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">MessagingOutboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">OutboundMessagePayload</a></code>
 - <code><a href="./src/resources/messages/messages.ts">RcsAgentMessage</a></code>
@@ -3421,7 +3433,9 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/rcs/brands.ts">BrandAddress</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandContact</a></code>
+- <code><a href="./src/resources/rcs/brands.ts">BrandIdentifier</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandLegalEntityType</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandOrganizationType</a></code>
 - <code><a href="./src/resources/rcs/brands.ts">BrandResponse</a></code>
@@ -3541,9 +3555,9 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/speech-to-text.ts">SttServiceType</a></code>
-- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
 - <code><a href="./src/resources/speech-to-text.ts">TranscribeClientEvent</a></code>
 - <code><a href="./src/resources/speech-to-text.ts">TranscribeServerEvent</a></code>
+- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
 
 Methods:
 
@@ -3993,6 +4007,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystem</a></code>
+- <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemDetail</a></code>
 - <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemDetailResponseWrapper</a></code>
 - <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemResponseWrapper</a></code>
 - <code><a href="./src/resources/storage/cloudfs/cloudfs.ts">CloudfsFilesystemStatus</a></code>
@@ -4000,7 +4016,7 @@ Types:
 
 Methods:
 
-- <code title="get /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">list</a>({ ...params }) -> CloudfListResponse</code>
+- <code title="get /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">list</a>({ ...params }) -> CloudfListResponsesCloudfsCursorPagination</code>
 - <code title="post /storage/cloudfs">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">create</a>({ ...params }) -> CloudfsFilesystemResponseWrapper</code>
 - <code title="delete /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">delete</a>(id) -> CloudfsFilesystemDetailResponseWrapper</code>
 - <code title="get /storage/cloudfs/{id}">client.storage.cloudfs.<a href="./src/resources/storage/cloudfs/cloudfs.ts">retrieve</a>(id) -> CloudfsFilesystemDetailResponseWrapper</code>
@@ -4040,6 +4056,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/sub-number-orders.ts">NumbersSubNumberOrder</a></code>
 - <code><a href="./src/resources/sub-number-orders.ts">SubNumberOrder</a></code>
 - <code><a href="./src/resources/sub-number-orders.ts">SubNumberOrderRegulatoryRequirement</a></code>
 - <code><a href="./src/resources/sub-number-orders.ts">SubNumberOrderRetrieveResponse</a></code>
@@ -4266,10 +4283,10 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateSpeechResponse</a></code>
-- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamClientEvent</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamServerEvent</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateSpeechResponse</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
 
 Methods:
 
@@ -4970,6 +4987,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">WhatsappConversationalComponent</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">ConversationalComponentListResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">ConversationalComponentPatchAllResponse</a></code>
 
@@ -5078,7 +5096,6 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/enterprises/enterprises.ts">BillingAddress</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">BillingContact</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterprisePublic</a></code>
 - <code><a href="./src/resources/enterprises/enterprises.ts">EnterprisePublicWrapped</a></code>
@@ -5143,6 +5160,8 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationPerNumberResults</a></code>
+- <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationRequest</a></code>
 - <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationRequestWrapped</a></code>
 - <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationStatus</a></code>
 - <code><a href="./src/resources/enterprises/reputation/remediation.ts">RemediationListResponse</a></code>
@@ -5377,6 +5396,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/dir/verify-email.ts">EmailVerificationStatus</a></code>
 - <code><a href="./src/resources/dir/verify-email.ts">EmailVerificationStatusWrapped</a></code>
 
 Methods:
@@ -5414,18 +5434,19 @@ Methods:
 - <code title="get /email_blocks/export">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieveExport</a>({ ...params }) -> string</code>
 - <code title="delete /email_blocks/{id}">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">delete</a>(id) -> EmailBlockResponse</code>
 - <code title="get /email_blocks/{id}">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieve</a>(id) -> EmailBlockResponse</code>
-- <code title="get /email_blocks/{id}/events">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieveEvents</a>(id, { ...params }) -> EmailBlockRetrieveEventsResponse</code>
+- <code title="get /email_blocks/{id}/events">client.emailBlocks.<a href="./src/resources/email-blocks/email-blocks.ts">retrieveEvents</a>(id, { ...params }) -> EmailBlockRetrieveEventsResponsesDefaultFlatPagination</code>
 
-## Import
+## Imports
 
 Types:
 
-- <code><a href="./src/resources/email-blocks/import.ts">EmailBlockImportResponse</a></code>
+- <code><a href="./src/resources/email-blocks/imports.ts">EmailBlockImport</a></code>
+- <code><a href="./src/resources/email-blocks/imports.ts">EmailBlockImportResponse</a></code>
 
 Methods:
 
-- <code title="post /email_blocks/import">client.emailBlocks.import.<a href="./src/resources/email-blocks/import.ts">create</a>({ ...params }) -> EmailBlockImportResponse</code>
-- <code title="get /email_blocks/import/{id}">client.emailBlocks.import.<a href="./src/resources/email-blocks/import.ts">retrieve</a>(id) -> EmailBlockImportResponse</code>
+- <code title="post /email_blocks/import">client.emailBlocks.imports.<a href="./src/resources/email-blocks/imports.ts">create</a>({ ...params }) -> EmailBlockImportResponse</code>
+- <code title="get /email_blocks/import/{id}">client.emailBlocks.imports.<a href="./src/resources/email-blocks/imports.ts">retrieve</a>(id) -> EmailBlockImportResponse</code>
 
 # EmailDomains
 
@@ -5481,7 +5502,7 @@ Types:
 
 Methods:
 
-- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponse</code>
+- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponsesEmailCursorPagination</code>
 - <code title="get /email_events/stats">client.emailEvents.<a href="./src/resources/email-events.ts">retrieveStats</a>({ ...params }) -> EmailEventRetrieveStatsResponse</code>
 
 # EmailInboxes
@@ -5490,11 +5511,10 @@ Types:
 
 - <code><a href="./src/resources/email-inboxes/email-inboxes.ts">EmailInbox</a></code>
 - <code><a href="./src/resources/email-inboxes/email-inboxes.ts">EmailInboxResponse</a></code>
-- <code><a href="./src/resources/email-inboxes/email-inboxes.ts">EmailInboxListResponse</a></code>
 
 Methods:
 
-- <code title="get /email_inboxes">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">list</a>({ ...params }) -> EmailInboxListResponse</code>
+- <code title="get /email_inboxes">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">list</a>({ ...params }) -> EmailInboxesEmailCursorPagination</code>
 - <code title="post /email_inboxes">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">create</a>({ ...params }) -> EmailInboxResponse</code>
 - <code title="delete /email_inboxes/{id}">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">delete</a>(id) -> void</code>
 - <code title="get /email_inboxes/{id}">client.emailInboxes.<a href="./src/resources/email-inboxes/email-inboxes.ts">retrieve</a>(id) -> EmailInboxResponse</code>
@@ -5509,11 +5529,10 @@ Types:
 - <code><a href="./src/resources/email-inboxes/drafts.ts">EmailDraftResponse</a></code>
 - <code><a href="./src/resources/email-inboxes/drafts.ts">EmailMessage</a></code>
 - <code><a href="./src/resources/email-inboxes/drafts.ts">EmailMessageResponse</a></code>
-- <code><a href="./src/resources/email-inboxes/drafts.ts">DraftListResponse</a></code>
 
 Methods:
 
-- <code title="get /email_inboxes/{inbox_id}/drafts">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">list</a>(inboxID, { ...params }) -> DraftListResponse</code>
+- <code title="get /email_inboxes/{inbox_id}/drafts">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">list</a>(inboxID, { ...params }) -> EmailDraftsEmailBracketCursorPagination</code>
 - <code title="post /email_inboxes/{inbox_id}/drafts">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">create</a>(inboxID, { ...params }) -> EmailDraftResponse</code>
 - <code title="delete /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">delete</a>(draftID, { ...params }) -> void</code>
 - <code title="get /email_inboxes/{inbox_id}/drafts/{draft_id}">client.emailInboxes.drafts.<a href="./src/resources/email-inboxes/drafts.ts">retrieve</a>(draftID, { ...params }) -> EmailDraftResponse</code>
@@ -5525,6 +5544,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/email-inboxes/filters.ts">InboxFilters</a></code>
 - <code><a href="./src/resources/email-inboxes/filters.ts">MutateInboxFiltersRequest</a></code>
 - <code><a href="./src/resources/email-inboxes/filters.ts">FilterListResponse</a></code>
 - <code><a href="./src/resources/email-inboxes/filters.ts">FilterAddResponse</a></code>
@@ -5543,11 +5563,10 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/email-inboxes/messages/messages.ts">MessageUpdateResponse</a></code>
-- <code><a href="./src/resources/email-inboxes/messages/messages.ts">MessageListResponse</a></code>
 
 Methods:
 
-- <code title="get /email_inboxes/{inbox_id}/messages">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">list</a>(inboxID, { ...params }) -> MessageListResponse</code>
+- <code title="get /email_inboxes/{inbox_id}/messages">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">list</a>(inboxID, { ...params }) -> InboundMessagesEmailBracketCursorPagination</code>
 - <code title="patch /email_inboxes/{inbox_id}/messages/{message_id}">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">update</a>(messageID, { ...params }) -> MessageUpdateResponse</code>
 - <code title="post /email_inboxes/{inbox_id}/messages/{message_id}/drafts">client.emailInboxes.messages.<a href="./src/resources/email-inboxes/messages/messages.ts">drafts</a>(messageID, { ...params }) -> EmailDraftResponse</code>
 
@@ -5592,7 +5611,7 @@ Types:
 
 Methods:
 
-- <code title="get /email_inboxes/{inbox_id}/threads">client.emailInboxes.threads.<a href="./src/resources/email-inboxes/threads/threads.ts">list</a>(inboxID, { ...params }) -> InboundThreadListResponse</code>
+- <code title="get /email_inboxes/{inbox_id}/threads">client.emailInboxes.threads.<a href="./src/resources/email-inboxes/threads/threads.ts">list</a>(inboxID, { ...params }) -> InboundThreadsEmailBracketCursorPagination</code>
 - <code title="get /email_inboxes/{inbox_id}/threads/{thread_id}">client.emailInboxes.threads.<a href="./src/resources/email-inboxes/threads/threads.ts">retrieve</a>(threadID, { ...params }) -> ThreadRetrieveResponse</code>
 
 ### Labels
@@ -5614,19 +5633,18 @@ Types:
 - <code><a href="./src/resources/email-messages/email-messages.ts">AttachmentRequest</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailAddressInput</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">MessageEvent</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">SuppressedRecipient</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">TrackingSettings</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageRetrieveResponse</a></code>
-- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageListResponse</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageBatchResponse</a></code>
-- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageRetrieveEventsResponse</a></code>
 
 Methods:
 
 - <code title="delete /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">deleteAll</a>({ ...params }) -> void</code>
-- <code title="get /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">list</a>({ ...params }) -> EmailMessageListResponse</code>
+- <code title="get /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">list</a>({ ...params }) -> EmailMessagesEmailCursorPagination</code>
 - <code title="post /email_messages">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">create</a>({ ...params }) -> EmailMessageResponse</code>
 - <code title="post /email_messages/batch">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">batch</a>({ ...params }) -> EmailMessageBatchResponse</code>
-- <code title="get /email_messages/{email_id}/events">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieveEvents</a>(emailID, { ...params }) -> EmailMessageRetrieveEventsResponse</code>
+- <code title="get /email_messages/{email_id}/events">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieveEvents</a>(emailID, { ...params }) -> MessageEventsEmailCursorPagination</code>
 - <code title="delete /email_messages/{email_id}/schedule">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">deleteSchedule</a>(emailID) -> EmailMessageResponse</code>
 - <code title="delete /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">delete</a>(id) -> void</code>
 - <code title="get /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieve</a>(id) -> EmailMessageRetrieveResponse</code>
@@ -5637,11 +5655,10 @@ Types:
 
 - <code><a href="./src/resources/email-messages/recipients.ts">EmailRecipient</a></code>
 - <code><a href="./src/resources/email-messages/recipients.ts">RecipientRetrieveResponse</a></code>
-- <code><a href="./src/resources/email-messages/recipients.ts">RecipientListResponse</a></code>
 
 Methods:
 
-- <code title="get /email_messages/{email_id}/recipients">client.emailMessages.recipients.<a href="./src/resources/email-messages/recipients.ts">list</a>(emailID, { ...params }) -> RecipientListResponse</code>
+- <code title="get /email_messages/{email_id}/recipients">client.emailMessages.recipients.<a href="./src/resources/email-messages/recipients.ts">list</a>(emailID, { ...params }) -> EmailRecipientsEmailCursorPagination</code>
 - <code title="get /email_messages/{email_id}/recipients/{recipient_id}">client.emailMessages.recipients.<a href="./src/resources/email-messages/recipients.ts">retrieve</a>(recipientID, { ...params }) -> RecipientRetrieveResponse</code>
 
 # EmailTemplates
@@ -5651,12 +5668,11 @@ Types:
 - <code><a href="./src/resources/email-templates.ts">EmailTemplate</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateResponse</a></code>
 - <code><a href="./src/resources/email-templates.ts">UpdateEmailTemplateRequest</a></code>
-- <code><a href="./src/resources/email-templates.ts">EmailTemplateListResponse</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateRenderResponse</a></code>
 
 Methods:
 
-- <code title="get /email_templates">client.emailTemplates.<a href="./src/resources/email-templates.ts">list</a>({ ...params }) -> EmailTemplateListResponse</code>
+- <code title="get /email_templates">client.emailTemplates.<a href="./src/resources/email-templates.ts">list</a>({ ...params }) -> EmailTemplatesEmailCursorPagination</code>
 - <code title="post /email_templates">client.emailTemplates.<a href="./src/resources/email-templates.ts">create</a>({ ...params }) -> EmailTemplateResponse</code>
 - <code title="delete /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">delete</a>(id) -> void</code>
 - <code title="get /email_templates/{id}">client.emailTemplates.<a href="./src/resources/email-templates.ts">retrieve</a>(id) -> EmailTemplateResponse</code>
@@ -5672,7 +5688,7 @@ Types:
 
 Methods:
 
-- <code title="get /email_threads">client.emailThreads.<a href="./src/resources/email-threads.ts">list</a>({ ...params }) -> InboundThreadListResponse</code>
+- <code title="get /email_threads">client.emailThreads.<a href="./src/resources/email-threads.ts">list</a>({ ...params }) -> InboundThreadsEmailBracketCursorPagination</code>
 - <code title="get /email_threads/{thread_id}">client.emailThreads.<a href="./src/resources/email-threads.ts">retrieve</a>(threadID, { ...params }) -> EmailThreadRetrieveResponse</code>
 
 # EmailUnsubscribeGroups
@@ -5704,6 +5720,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/email-validations/email-validations.ts">EmailValidationCheck</a></code>
+- <code><a href="./src/resources/email-validations/email-validations.ts">EmailValidationChecks</a></code>
 - <code><a href="./src/resources/email-validations/email-validations.ts">EmailValidationCreateResponse</a></code>
 
 Methods:
@@ -5737,7 +5754,7 @@ Types:
 Methods:
 
 - <code title="get /pricing/products">client.pricing.products.<a href="./src/resources/pricing/products.ts">list</a>({ ...params }) -> ProductListResponsesDefaultFlatPagination</code>
-- <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponse</code>
+- <code title="get /pricing/products/{slug}">client.pricing.products.<a href="./src/resources/pricing/products.ts">retrieve</a>(slug, { ...params }) -> ProductRetrieveResponsesDefaultFlatPagination</code>
 
 # WebSearch
 

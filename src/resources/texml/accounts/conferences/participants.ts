@@ -11,7 +11,7 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Participants extends APIResource {
   /**
-   * Lists conference participants
+   * Returns the list of participants currently in the specified conference.
    *
    * @example
    * ```ts
@@ -35,7 +35,8 @@ export class Participants extends APIResource {
   }
 
   /**
-   * Dials a new conference participant
+   * Dials a new participant into the specified conference and returns the created
+   * participant resource.
    *
    * @example
    * ```ts
@@ -60,7 +61,8 @@ export class Participants extends APIResource {
   }
 
   /**
-   * Deletes a conference participant
+   * Removes the specified participant from the conference, ending their leg of the
+   * call.
    *
    * @example
    * ```ts
@@ -86,7 +88,8 @@ export class Participants extends APIResource {
   }
 
   /**
-   * Gets conference participant resource
+   * Returns a single conference participant resource by call SID or participant
+   * label.
    *
    * @example
    * ```ts
@@ -113,7 +116,8 @@ export class Participants extends APIResource {
   }
 
   /**
-   * Updates a conference participant
+   * Updates the specified conference participant, for example muting or holding
+   * them, and returns the updated participant.
    *
    * @example
    * ```ts
@@ -479,6 +483,14 @@ export interface ParticipantParticipantsParams {
    * an answering machine.
    */
   MachineDetection?: 'Enable' | 'DetectMessageEnd';
+
+  /**
+   * Body param: Selects which detectors must validate a beep. `both` requires the
+   * amplitude and frequency detectors to agree. `freq_only` uses the frequency
+   * detector alone, for beeps whose volume is too unsteady for the default profile.
+   * Only used when MachineDetection is enabled.
+   */
+  MachineDetectionBeepProfile?: 'both' | 'freq_only';
 
   /**
    * Body param: If initial silence duration is greater than this value, consider it

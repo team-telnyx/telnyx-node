@@ -14,7 +14,8 @@ import { path } from '../internal/utils/path';
  */
 export class VirtualCrossConnects extends APIResource {
   /**
-   * List all Virtual Cross Connects.
+   * Returns a paginated list of the virtual cross connects on your account, with
+   * support for filtering.
    *
    * @example
    * ```ts
@@ -59,7 +60,7 @@ export class VirtualCrossConnects extends APIResource {
   }
 
   /**
-   * Delete a Virtual Cross Connect.
+   * Deletes the specified virtual cross connect from your account.
    *
    * @example
    * ```ts
@@ -74,7 +75,7 @@ export class VirtualCrossConnects extends APIResource {
   }
 
   /**
-   * Retrieve a Virtual Cross Connect.
+   * Returns the details of a single virtual cross connect by its identifier.
    *
    * @example
    * ```ts

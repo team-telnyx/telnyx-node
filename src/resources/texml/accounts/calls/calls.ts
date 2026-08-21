@@ -59,7 +59,7 @@ export class Calls extends APIResource {
    * ```ts
    * const response = await client.texml.accounts.calls.calls(
    *   'account_sid',
-   *   { Url: 'https://www.example.com/instructions.xml' },
+   *   { body: { Url: 'https://www.example.com/texml.xml' } },
    * );
    * ```
    */
@@ -68,11 +68,8 @@ export class Calls extends APIResource {
     params: CallCallsParams,
     options?: RequestOptions,
   ): APIPromise<CallCallsResponse> {
-    const { timeout_seconds, ...body } = params;
-    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, {
-      body: { Timeout: timeout_seconds, ...body },
-      ...options,
-    });
+    const { body } = params;
+    return this._client.post(path`/texml/Accounts/${accountSid}/Calls`, { body: body, ...options });
   }
 
   /**
@@ -493,12 +490,11 @@ export interface CallRetrieveCallsParams {
   To?: string;
 }
 
-export type CallCallsParams =
-  | CallCallsParams.WithURL
-  | CallCallsParams.WithTeXml
-  | CallCallsParams.ApplicationDefault;
+export interface CallCallsParams {
+  body: CallCallsParams.WithURL | CallCallsParams.WithTeXml | CallCallsParams.ApplicationDefault;
+}
 
-export declare namespace CallCallsParams {
+export namespace CallCallsParams {
   export interface WithURL {
     /**
      * The URL from which Telnyx will retrieve the TeXML call instructions.
@@ -593,6 +589,14 @@ export declare namespace CallCallsParams {
      * Enables Answering Machine Detection.
      */
     MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Selects which detectors must validate a beep. `both` requires the amplitude and
+     * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+     * beeps whose volume is too unsteady for the default profile. Only used when
+     * MachineDetection is enabled.
+     */
+    MachineDetectionBeepProfile?: 'both' | 'freq_only';
 
     /**
      * Silence duration threshold after a call screening prompt before ending prompt
@@ -739,7 +743,7 @@ export declare namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    timeout_seconds?: number;
+    Timeout?: number;
 
     /**
      * The phone number of the called party. Phone numbers are formatted with a `+` and
@@ -871,6 +875,14 @@ export declare namespace CallCallsParams {
     MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
 
     /**
+     * Selects which detectors must validate a beep. `both` requires the amplitude and
+     * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+     * beeps whose volume is too unsteady for the default profile. Only used when
+     * MachineDetection is enabled.
+     */
+    MachineDetectionBeepProfile?: 'both' | 'freq_only';
+
+    /**
      * Silence duration threshold after a call screening prompt before ending prompt
      * detection, in milliseconds. Used when `DetectionMode` is `PremiumCallScreening`.
      */
@@ -1013,7 +1025,7 @@ export declare namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    timeout_seconds?: number;
+    Timeout?: number;
 
     /**
      * The phone number of the called party. Phone numbers are formatted with a `+` and
@@ -1139,6 +1151,14 @@ export declare namespace CallCallsParams {
      * Enables Answering Machine Detection.
      */
     MachineDetection?: 'Enable' | 'Disable' | 'DetectMessageEnd';
+
+    /**
+     * Selects which detectors must validate a beep. `both` requires the amplitude and
+     * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+     * beeps whose volume is too unsteady for the default profile. Only used when
+     * MachineDetection is enabled.
+     */
+    MachineDetectionBeepProfile?: 'both' | 'freq_only';
 
     /**
      * Silence duration threshold after a call screening prompt before ending prompt
@@ -1285,7 +1305,7 @@ export declare namespace CallCallsParams {
      * call is canceled. The minimum value is 5 and the maximum value is 120. Default
      * is 30 seconds.
      */
-    timeout_seconds?: number;
+    Timeout?: number;
 
     /**
      * The phone number of the called party. Phone numbers are formatted with a `+` and

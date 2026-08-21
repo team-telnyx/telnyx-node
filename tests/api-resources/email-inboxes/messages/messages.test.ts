@@ -84,7 +84,7 @@ describe('resource messages', () => {
   test.skip('drafts: required and optional params', async () => {
     const response = await client.emailInboxes.messages.drafts('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
       inbox_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-      attachments: [{}],
+      attachments: [{ foo: 'bar' }],
       bcc: ['string'],
       cc: ['string'],
       from_email: 'from_email',
@@ -93,7 +93,7 @@ describe('resource messages', () => {
       html: 'html',
       html_body: 'html_body',
       labels: ['string'],
-      metadata: {},
+      metadata: { foo: 'bar' },
       reply_to: 'reply_to',
       subject: 'subject',
       tags: ['string'],

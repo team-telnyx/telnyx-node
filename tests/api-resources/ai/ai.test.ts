@@ -26,6 +26,7 @@ describe('resource ai', () => {
       bucket: 'string',
       filename: 'string',
       system_prompt: 'string',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 

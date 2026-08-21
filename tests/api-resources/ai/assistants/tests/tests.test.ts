@@ -73,6 +73,7 @@ describe('resource tests', () => {
       max_duration_seconds: 1,
       telnyx_conversation_channel: 'web_chat',
       test_suite: 'test_suite',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 

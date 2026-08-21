@@ -37,11 +37,11 @@ export class TextToSpeech extends APIResource {
    * header.
    *
    * The `voice` parameter provides a convenient shorthand to specify provider,
-   * model, and voice in a single string (e.g. `telnyx.NaturalHD.Alloy` or
-   * `Telnyx.Ultra.<voice_id>`). Alternatively, specify `provider` explicitly along
-   * with provider-specific parameters.
+   * model, and voice in a single string (e.g. `Telnyx.Ultra.<voice_id>`).
+   * Alternatively, specify `provider` explicitly along with provider-specific
+   * parameters.
    *
-   * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`, `rime`,
+   * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`,
    * `resemble`, `xai`, `humain`.
    *
    * The Telnyx `Ultra` model supports 44 languages with emotion control, speed
@@ -86,16 +86,10 @@ export class TextToSpeech extends APIResource {
    *     sample_rate: 'string',
    *     format: 'string',
    *   },
-   *   rime: {
-   *     voice_speed: 0,
-   *     response_format: 'string',
-   *     sampling_rate: 0,
-   *   },
    *   telnyx: {
    *     voice_speed: 1,
    *     response_format: 'mp3',
    *     sampling_rate: 24000,
-   *     temperature: 0.5,
    *     volume: 1,
    *     emotion: 'neutral',
    *   },
@@ -124,8 +118,8 @@ export class TextToSpeech extends APIResource {
    * `Authorization: Bearer <API_KEY>` header. Send JSON frames with text to
    * synthesize; receive JSON frames containing base64-encoded audio chunks.
    *
-   * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `rime`,
-   * `resemble`, `elevenlabs`, `xai`, `humain`.
+   * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `resemble`,
+   * `elevenlabs`, `xai`, `humain`.
    *
    * **Connection flow:**
    *
@@ -157,61 +151,6 @@ export class TextToSpeech extends APIResource {
       ...options,
       headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
-  }
-}
-
-/**
- * Response when `output_type` is `base64_output`.
- */
-export interface TextToSpeechGenerateSpeechResponse {
-  /**
-   * Base64-encoded audio data.
-   */
-  base64_audio?: string;
-}
-
-/**
- * List of available voices.
- */
-export interface TextToSpeechListVoicesResponse {
-  voices?: Array<TextToSpeechListVoicesResponse.Voice>;
-}
-
-export namespace TextToSpeechListVoicesResponse {
-  /**
-   * A voice available for text-to-speech synthesis.
-   */
-  export interface Voice {
-    /**
-     * Voice gender.
-     */
-    gender?: string;
-
-    /**
-     * Whether this voice runs on Telnyx-hosted infrastructure (`true`) or is provided
-     * by a third-party vendor (`false`).
-     */
-    hosted?: boolean;
-
-    /**
-     * Language code.
-     */
-    language?: string;
-
-    /**
-     * Voice name.
-     */
-    name?: string;
-
-    /**
-     * The TTS provider.
-     */
-    provider?: string;
-
-    /**
-     * Voice identifier.
-     */
-    voice_id?: string;
   }
 }
 
@@ -255,8 +194,8 @@ export namespace StreamServerEvent {
   export interface AudioChunkFrame {
     /**
      * Base64-encoded audio data. May be `null` for providers that use
-     * `drop_concatenated_audio` mode (Telnyx Natural/NaturalHD, Rime, Minimax, MurfAI,
-     * Resemble) — in that case only streamed chunks carry audio.
+     * `drop_concatenated_audio` mode (Telnyx, Minimax, MurfAI, Resemble) — in that
+     * case only streamed chunks carry audio.
      */
     audio?: string | null;
 
@@ -334,6 +273,61 @@ export namespace StreamServerEvent {
   }
 }
 
+/**
+ * Response when `output_type` is `base64_output`.
+ */
+export interface TextToSpeechGenerateSpeechResponse {
+  /**
+   * Base64-encoded audio data.
+   */
+  base64_audio?: string;
+}
+
+/**
+ * List of available voices.
+ */
+export interface TextToSpeechListVoicesResponse {
+  voices?: Array<TextToSpeechListVoicesResponse.Voice>;
+}
+
+export namespace TextToSpeechListVoicesResponse {
+  /**
+   * A voice available for text-to-speech synthesis.
+   */
+  export interface Voice {
+    /**
+     * Voice gender.
+     */
+    gender?: string;
+
+    /**
+     * Whether this voice runs on Telnyx-hosted infrastructure (`true`) or is provided
+     * by a third-party vendor (`false`).
+     */
+    hosted?: boolean;
+
+    /**
+     * Language code.
+     */
+    language?: string;
+
+    /**
+     * Voice name.
+     */
+    name?: string;
+
+    /**
+     * The TTS provider.
+     */
+    provider?: string;
+
+    /**
+     * Voice identifier.
+     */
+    voice_id?: string;
+  }
+}
+
 export interface TextToSpeechListVoicesParams {
   /**
    * API key for providers that require one to list voices (e.g. ElevenLabs).
@@ -343,7 +337,7 @@ export interface TextToSpeechListVoicesParams {
   /**
    * Filter voices by provider. If omitted, voices from all providers are returned.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai' | 'humain';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain';
 }
 
 export interface TextToSpeechGenerateSpeechParams {
@@ -393,7 +387,7 @@ export interface TextToSpeechGenerateSpeechParams {
   /**
    * TTS provider. Required unless `voice` is provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'rime' | 'resemble' | 'xai' | 'humain';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain';
 
   /**
    * Resemble AI provider-specific parameters.
@@ -401,13 +395,7 @@ export interface TextToSpeechGenerateSpeechParams {
   resemble?: TextToSpeechGenerateSpeechParams.Resemble;
 
   /**
-   * Rime provider-specific parameters.
-   */
-  rime?: TextToSpeechGenerateSpeechParams.Rime;
-
-  /**
-   * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
-   * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`,
+   * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`,
    * `volume`, and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`,
    * or `emotion`, and don't support `voice_speed`. `Sukhan`'s `response_format` is
    * restricted to `mp3` or `pcm` (no `wav`).
@@ -426,11 +414,11 @@ export interface TextToSpeechGenerateSpeechParams {
 
   /**
    * Voice identifier in the format `provider.model_id.voice_id` or
-   * `provider.voice_id`. Examples: `telnyx.NaturalHD.Alloy`,
-   * `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`, `Telnyx.Sukhan.urdu-professor`,
-   * `azure.en-US-AvaMultilingualNeural`, `aws.Polly.Generative.Lucia`. When
-   * provided, `provider`, `model_id`, and `voice_id` are extracted automatically and
-   * take precedence over individual parameters.
+   * `provider.voice_id`. Examples: `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
+   * `Telnyx.Sukhan.urdu-professor`, `azure.en-US-AvaMultilingualNeural`,
+   * `aws.Polly.Generative.Lucia`. When provided, `provider`, `model_id`, and
+   * `voice_id` are extracted automatically and take precedence over individual
+   * parameters.
    */
   voice?: string;
 
@@ -615,28 +603,7 @@ export namespace TextToSpeechGenerateSpeechParams {
   }
 
   /**
-   * Rime provider-specific parameters.
-   */
-  export interface Rime {
-    /**
-     * Audio output format.
-     */
-    response_format?: string;
-
-    /**
-     * Audio sampling rate in Hz.
-     */
-    sampling_rate?: number;
-
-    /**
-     * Voice speed multiplier.
-     */
-    voice_speed?: number;
-  }
-
-  /**
-   * Telnyx provider-specific parameters. Use `voice_speed` and `temperature` for
-   * `Natural` and `NaturalHD` models. For the `Ultra` model, use `voice_speed`,
+   * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`,
    * `volume`, and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`,
    * or `emotion`, and don't support `voice_speed`. `Sukhan`'s `response_format` is
    * restricted to `mp3` or `pcm` (no `wav`).
@@ -657,11 +624,6 @@ export namespace TextToSpeechGenerateSpeechParams {
      * Audio sampling rate in Hz.
      */
     sampling_rate?: number;
-
-    /**
-     * Sampling temperature. Applies to `Natural` and `NaturalHD` models only.
-     */
-    temperature?: number;
 
     /**
      * Voice speed multiplier. Applies to all models except `Bayan` and `Sukhan`, which
@@ -703,9 +665,8 @@ export namespace TextToSpeechGenerateSpeechParams {
 
 export interface TextToSpeechRetrieveSpeechParams {
   /**
-   * Audio output format override. Supported for Telnyx models. `pcm` and `wav` are
-   * available for `Natural`/`NaturalHD` models. The `Ultra` model outputs PCM at
-   * 24kHz s16le or MP3 at 128kbps 24kHz.
+   * Audio output format override. Supported for Telnyx models. The `Ultra` model
+   * outputs PCM at 24kHz s16le or MP3 at 128kbps 24kHz.
    */
   audio_format?: 'pcm' | 'wav' | 'mp3';
 
@@ -715,8 +676,8 @@ export interface TextToSpeechRetrieveSpeechParams {
   disable_cache?: boolean;
 
   /**
-   * Model identifier for the chosen provider. Examples: `Natural`, `NaturalHD`,
-   * `Ultra` (Telnyx); `Polly.Generative` (AWS).
+   * Model identifier for the chosen provider. Examples: `Ultra`, `KokoroTTS`
+   * (Telnyx); `Polly.Generative` (AWS).
    */
   model_id?: string;
 
@@ -724,17 +685,7 @@ export interface TextToSpeechRetrieveSpeechParams {
    * TTS provider. Defaults to `telnyx` if not specified. Ignored when `voice` is
    * provided.
    */
-  provider?:
-    | 'aws'
-    | 'telnyx'
-    | 'azure'
-    | 'elevenlabs'
-    | 'minimax'
-    | 'murfai'
-    | 'rime'
-    | 'resemble'
-    | 'xai'
-    | 'humain';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'murfai' | 'resemble' | 'xai' | 'humain';
 
   /**
    * Client-provided socket identifier for tracking. If not provided, one is
@@ -744,11 +695,11 @@ export interface TextToSpeechRetrieveSpeechParams {
 
   /**
    * Voice identifier in the format `provider.model_id.voice_id` or
-   * `provider.voice_id` (e.g. `telnyx.NaturalHD.Telnyx_Alloy`,
-   * `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`, `Telnyx.Sukhan.urdu-professor`,
-   * or `azure.en-US-AvaMultilingualNeural`). When provided, the `provider`,
-   * `model_id`, and `voice_id` are extracted automatically. Takes precedence over
-   * individual `provider`/`model_id`/`voice_id` parameters.
+   * `provider.voice_id` (e.g. `Telnyx.Ultra.<voice_id>`, `Telnyx.Bayan.Ahmed`,
+   * `Telnyx.Sukhan.urdu-professor`, or `azure.en-US-AvaMultilingualNeural`). When
+   * provided, the `provider`, `model_id`, and `voice_id` are extracted
+   * automatically. Takes precedence over individual `provider`/`model_id`/`voice_id`
+   * parameters.
    */
   voice?: string;
 
@@ -760,10 +711,10 @@ export interface TextToSpeechRetrieveSpeechParams {
 
 export declare namespace TextToSpeech {
   export {
-    type TextToSpeechGenerateSpeechResponse as TextToSpeechGenerateSpeechResponse,
-    type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
+    type TextToSpeechGenerateSpeechResponse as TextToSpeechGenerateSpeechResponse,
+    type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
     type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechRetrieveSpeechParams as TextToSpeechRetrieveSpeechParams,

@@ -37,7 +37,8 @@ export class Tags extends APIResource {
   }
 
   /**
-   * Remove a tag from an AI assistant.
+   * Removes the specified tag from the AI assistant and returns the assistant's
+   * updated tag list.
    *
    * @example
    * ```ts

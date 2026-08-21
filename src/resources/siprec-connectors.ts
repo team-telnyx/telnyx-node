@@ -28,7 +28,7 @@ export class SiprecConnectors extends APIResource {
   }
 
   /**
-   * Deletes a stored SIPREC connector.
+   * Deletes the stored SIPREC connector with the specified connector name.
    *
    * @example
    * ```ts

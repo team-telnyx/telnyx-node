@@ -12,7 +12,8 @@ import { path } from '../internal/utils/path';
  */
 export class MobilePushCredentials extends APIResource {
   /**
-   * List mobile push credentials
+   * Returns a paginated list of the mobile push credentials on your account, with
+   * support for filtering.
    */
   list(
     query: MobilePushCredentialListParams | null | undefined = {},
@@ -25,7 +26,8 @@ export class MobilePushCredentials extends APIResource {
   }
 
   /**
-   * Creates a new mobile push credential
+   * Creates a new mobile push credential for delivering push notifications to iOS or
+   * Android apps, and returns the created credential.
    */
   create(
     params: MobilePushCredentialCreateParams,

@@ -58,70 +58,39 @@ export class ConversationalComponents extends APIResource {
   }
 }
 
-export interface ConversationalComponentListResponse {
-  data?: ConversationalComponentListResponse.Data;
+export interface WhatsappConversationalComponent {
+  /**
+   * List of commands
+   */
+  commands?: Array<WhatsappConversationalComponent.Command>;
+
+  /**
+   * List of ice breakers
+   */
+  ice_breakers?: Array<string>;
+
+  /**
+   * Phone number in E164 format
+   */
+  phone_number?: string;
+
+  record_type?: string;
 }
 
-export namespace ConversationalComponentListResponse {
-  export interface Data {
-    /**
-     * List of commands
-     */
-    commands?: Array<Data.Command>;
+export namespace WhatsappConversationalComponent {
+  export interface Command {
+    command?: string;
 
-    /**
-     * List of ice breakers
-     */
-    ice_breakers?: Array<string>;
-
-    /**
-     * Phone number in E164 format
-     */
-    phone_number?: string;
-
-    record_type?: string;
+    description?: string;
   }
+}
 
-  export namespace Data {
-    export interface Command {
-      command?: string;
-
-      description?: string;
-    }
-  }
+export interface ConversationalComponentListResponse {
+  data?: WhatsappConversationalComponent;
 }
 
 export interface ConversationalComponentPatchAllResponse {
-  data?: ConversationalComponentPatchAllResponse.Data;
-}
-
-export namespace ConversationalComponentPatchAllResponse {
-  export interface Data {
-    /**
-     * List of commands
-     */
-    commands?: Array<Data.Command>;
-
-    /**
-     * List of ice breakers
-     */
-    ice_breakers?: Array<string>;
-
-    /**
-     * Phone number in E164 format
-     */
-    phone_number?: string;
-
-    record_type?: string;
-  }
-
-  export namespace Data {
-    export interface Command {
-      command?: string;
-
-      description?: string;
-    }
-  }
+  data?: WhatsappConversationalComponent;
 }
 
 export interface ConversationalComponentPatchAllParams {
@@ -146,6 +115,7 @@ export namespace ConversationalComponentPatchAllParams {
 
 export declare namespace ConversationalComponents {
   export {
+    type WhatsappConversationalComponent as WhatsappConversationalComponent,
     type ConversationalComponentListResponse as ConversationalComponentListResponse,
     type ConversationalComponentPatchAllResponse as ConversationalComponentPatchAllResponse,
     type ConversationalComponentPatchAllParams as ConversationalComponentPatchAllParams,

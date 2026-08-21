@@ -190,7 +190,10 @@ export interface AgentConfiguration {
    * Basic agent identity and contact information. At least one complete phone,
    * website, or email contact is required.
    */
-  basics: AgentConfiguration.UnionMember0 | AgentConfiguration.UnionMember1 | AgentConfiguration.UnionMember2;
+  basics:
+    | AgentConfiguration.AgentPhoneContactRequirement
+    | AgentConfiguration.AgentWebhookContactRequirement
+    | AgentConfiguration.AgentProfileContactRequirement;
 
   campaign?: AgentCampaignConfiguration | null;
 
@@ -198,7 +201,7 @@ export interface AgentConfiguration {
 }
 
 export namespace AgentConfiguration {
-  export interface UnionMember0 {
+  export interface AgentPhoneContactRequirement {
     phone_number: AgentsAPI.AgentPhoneContact;
 
     brand_color?: string;
@@ -218,7 +221,7 @@ export namespace AgentConfiguration {
     website?: AgentsAPI.AgentWebsiteContact | null;
   }
 
-  export interface UnionMember1 {
+  export interface AgentWebhookContactRequirement {
     website: AgentsAPI.AgentWebsiteContact;
 
     brand_color?: string;
@@ -238,7 +241,7 @@ export namespace AgentConfiguration {
     terms_and_conditions_url?: string;
   }
 
-  export interface UnionMember2 {
+  export interface AgentProfileContactRequirement {
     email: AgentsAPI.AgentEmailContact;
 
     brand_color?: string;

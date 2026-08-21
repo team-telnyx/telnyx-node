@@ -2,7 +2,13 @@
 
 import { APIResource } from '../core/resource';
 import * as ThreadsAPI from './email-inboxes/threads/threads';
+import { InboundThreadsEmailBracketCursorPagination } from './email-inboxes/threads/threads';
 import { APIPromise } from '../core/api-promise';
+import {
+  EmailBracketCursorPagination,
+  type EmailBracketCursorPaginationParams,
+  PagePromise,
+} from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -21,8 +27,11 @@ export class EmailThreads extends APIResource {
   list(
     query: EmailThreadListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<ThreadsAPI.InboundThreadListResponse> {
-    return this._client.get('/email_threads', { query, ...options });
+  ): PagePromise<InboundThreadsEmailBracketCursorPagination, ThreadsAPI.InboundThread> {
+    return this._client.getAPIList('/email_threads', EmailBracketCursorPagination<ThreadsAPI.InboundThread>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -47,7 +56,7 @@ export interface EmailThreadRetrieveResponse {
   meta: ThreadsAPI.EmailPaginationMeta;
 }
 
-export interface EmailThreadListParams {
+export interface EmailThreadListParams extends EmailBracketCursorPaginationParams {
   /**
    * Restrict results to one or more inboxes. Repeat the parameter
    * (`filter[inbox_id][]=...&filter[inbox_id][]=...`) or pass a comma-separated
@@ -62,16 +71,6 @@ export interface EmailThreadListParams {
    * Thread labels are independent of the labels on the thread's messages.
    */
   'filter[label]'?: string;
-
-  /**
-   * Opaque cursor returned by the previous page.
-   */
-  'page[after]'?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100.
-   */
-  'page[size]'?: number;
 }
 
 export interface EmailThreadRetrieveParams {
@@ -98,3 +97,5 @@ export declare namespace EmailThreads {
     type EmailThreadRetrieveParams as EmailThreadRetrieveParams,
   };
 }
+
+export { type InboundThreadsEmailBracketCursorPagination };

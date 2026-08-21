@@ -412,12 +412,25 @@ export interface EmailDomainListParams extends DefaultFlatPaginationParams {
    */
   'filter[profile_id]'?: string;
 
+  /**
+   * Filter domains by verification status: pending, verifying, verified, failed,
+   * degraded, or suspended.
+   */
   'filter[status]'?: EmailDomainStatus;
 
+  /**
+   * Filter domains by type: custom, shared, or shared_inbound.
+   */
   'filter[type]'?: EmailDomainType;
 
+  /**
+   * Filter domains by whether they can currently receive inbound email.
+   */
   'filter[usable_for_inbound]'?: boolean;
 
+  /**
+   * Filter domains by whether they can currently be used to send email.
+   */
   'filter[usable_for_sending]'?: boolean;
 
   /**

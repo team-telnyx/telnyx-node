@@ -8,7 +8,8 @@ import { path } from '../../../internal/utils/path';
 
 export class Connections extends APIResource {
   /**
-   * List user setup integrations
+   * Returns the list of integration connections you have set up, linking your
+   * account to third-party services.
    *
    * @example
    * ```ts
@@ -38,7 +39,7 @@ export class Connections extends APIResource {
   }
 
   /**
-   * Get user setup integrations
+   * Returns the details of a single integration connection by its ID.
    *
    * @example
    * ```ts

@@ -36,7 +36,8 @@ export class PhoneNumberExtensions extends APIResource {
   }
 
   /**
-   * Creates a new phone number extension.
+   * Creates a phone number extension on the porting order, mapping extension ranges
+   * to one of the order's phone numbers.
    *
    * @example
    * ```ts
@@ -64,7 +65,7 @@ export class PhoneNumberExtensions extends APIResource {
   }
 
   /**
-   * Deletes a phone number extension.
+   * Deletes the specified phone number extension from the porting order.
    *
    * @example
    * ```ts

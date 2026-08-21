@@ -9,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class MessagingOptouts extends APIResource {
   /**
-   * Retrieve a list of opt-out blocks.
+   * Returns a paginated list of opt-out blocks created when message recipients opt
+   * out. Supports filtering and optional redaction of recipient numbers.
    */
   list(
     query: MessagingOptoutListParams | null | undefined = {},

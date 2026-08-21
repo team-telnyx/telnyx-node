@@ -60,10 +60,18 @@ export class ScheduledEvents extends APIResource {
    */
   create(
     assistantID: string,
-    body: ScheduledEventCreateParams,
+    params: ScheduledEventCreateParams,
     options?: RequestOptions,
   ): APIPromise<ScheduledEventResponse> {
-    return this._client.post(path`/ai/assistants/${assistantID}/scheduled_events`, { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post(path`/ai/assistants/${assistantID}/scheduled_events`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -87,7 +95,8 @@ export class ScheduledEvents extends APIResource {
   }
 
   /**
-   * Retrieve a scheduled event by event ID
+   * Returns the details of a single scheduled event configured for the specified
+   * assistant.
    *
    * @example
    * ```ts
@@ -278,53 +287,74 @@ export interface ScheduledEventListParams extends DefaultFlatPaginationParams {
 
 export interface ScheduledEventCreateParams {
   /**
-   * The datetime at which the event should be scheduled. Formatted as ISO 8601.
+   * Body param: The datetime at which the event should be scheduled. Formatted as
+   * ISO 8601.
    */
   scheduled_at_fixed_datetime: string;
 
   /**
-   * The phone number, SIP URI, to schedule the call or text from.
+   * Body param: The phone number, SIP URI, to schedule the call or text from.
    */
   telnyx_agent_target: string;
 
+  /**
+   * Body param
+   */
   telnyx_conversation_channel: ConversationChannelType;
 
   /**
-   * The phone number, SIP URI, to schedule the call or text to.
+   * Body param: The phone number, SIP URI, to schedule the call or text to.
    */
   telnyx_end_user_target: string;
 
   /**
-   * Per-call telephony overrides applied when a scheduled phone-call event
-   * dispatches. Phone-call events only. New per-call dispatch options should be
-   * added here rather than as top-level event fields.
+   * Body param: Per-call telephony overrides applied when a scheduled phone-call
+   * event dispatches. Phone-call events only. New per-call dispatch options should
+   * be added here rather than as top-level event fields.
    */
   call_settings?: ScheduledCallSettings;
 
   /**
-   * Metadata associated with the conversation. Telnyx provides several pieces of
-   * metadata, but customers can also add their own.
+   * Body param: Metadata associated with the conversation. Telnyx provides several
+   * pieces of metadata, but customers can also add their own.
    */
   conversation_metadata?: { [key: string]: string | number | boolean };
 
   /**
-   * A map of dynamic variable names to values. These variables can be referenced in
-   * the assistant's instructions and messages using {{variable_name}} syntax.
+   * Body param: A map of dynamic variable names to values. These variables can be
+   * referenced in the assistant's instructions and messages using {{variable_name}}
+   * syntax.
    */
   dynamic_variables?: { [key: string]: string };
 
   /**
-   * Configure number of retries on client errors: busy, no-answer, failed, canceled
-   * (caller hung up before the callee answered)
+   * Body param: Configure number of retries on client errors: busy, no-answer,
+   * failed, canceled (caller hung up before the callee answered)
    */
   max_retries_client_errors?: number;
 
+  /**
+   * Body param
+   */
   retry_interval_secs?: number;
 
   /**
-   * Required for sms scheduled events. The text to be sent to the end user.
+   * Body param: Required for sms scheduled events. The text to be sent to the end
+   * user.
    */
   text?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface ScheduledEventDeleteParams {

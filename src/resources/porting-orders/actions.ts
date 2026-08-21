@@ -27,7 +27,7 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Cancel a porting order
+   * Requests cancellation of the porting order and returns the updated order.
    *
    * @example
    * ```ts
@@ -41,7 +41,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Confirm and submit your porting order.
+   * Confirms the porting order and submits it for processing. Make sure all required
+   * information and documents are attached before confirming.
    *
    * @example
    * ```ts

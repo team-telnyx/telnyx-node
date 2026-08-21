@@ -9,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class UserTags extends APIResource {
   /**
-   * List all user tags.
+   * Returns the user tags defined on your account, with support for filtering. Tags
+   * help organize resources such as phone numbers.
    */
   list(
     query: UserTagListParams | null | undefined = {},

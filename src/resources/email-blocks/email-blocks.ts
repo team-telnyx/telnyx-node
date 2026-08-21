@@ -1,8 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as ImportAPI from './import';
-import { EmailBlockImportResponse, Import, ImportCreateParams } from './import';
+import * as ImportsAPI from './imports';
+import { EmailBlockImport, EmailBlockImportResponse, ImportCreateParams, Imports } from './imports';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -13,7 +13,7 @@ import { path } from '../../internal/utils/path';
  * Recipient suppression records (`/v2/email_blocks`).
  */
 export class EmailBlocks extends APIResource {
-  import: ImportAPI.Import = new ImportAPI.Import(this._client);
+  imports: ImportsAPI.Imports = new ImportsAPI.Imports(this._client);
 
   /**
    * Account-scoped list. Two mutually exclusive pagination modes:
@@ -138,21 +138,31 @@ export class EmailBlocks extends APIResource {
    *
    * @example
    * ```ts
-   * const response = await client.emailBlocks.retrieveEvents(
+   * // Automatically fetches more pages as needed.
+   * for await (const emailBlockRetrieveEventsResponse of client.emailBlocks.retrieveEvents(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   retrieveEvents(
     id: string,
     query: EmailBlockRetrieveEventsParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<EmailBlockRetrieveEventsResponse> {
-    return this._client.get(path`/email_blocks/${id}/events`, { query, ...options });
+  ): PagePromise<EmailBlockRetrieveEventsResponsesDefaultFlatPagination, EmailBlockRetrieveEventsResponse> {
+    return this._client.getAPIList(
+      path`/email_blocks/${id}/events`,
+      DefaultFlatPagination<EmailBlockRetrieveEventsResponse>,
+      { query, ...options },
+    );
   }
 }
 
 export type EmailBlocksDefaultFlatPagination = DefaultFlatPagination<EmailBlock>;
+
+export type EmailBlockRetrieveEventsResponsesDefaultFlatPagination =
+  DefaultFlatPagination<EmailBlockRetrieveEventsResponse>;
 
 /**
  * Suppression record. Schema fields hidden by the view: `account_id`,
@@ -223,44 +233,36 @@ export interface OffsetMeta {
 }
 
 export interface EmailBlockRetrieveEventsResponse {
-  data: Array<EmailBlockRetrieveEventsResponse.Data>;
+  id: string;
 
-  meta: OffsetMeta;
-}
+  /**
+   * Free-text (`user_id`/`org_id`/`api_key`/`dev_bypass`/`system`/`manual`).
+   */
+  actor: string;
 
-export namespace EmailBlockRetrieveEventsResponse {
-  export interface Data {
-    id: string;
+  event_type: 'created' | 'removed' | 'expired' | 'override_used';
 
-    /**
-     * Free-text (`user_id`/`org_id`/`api_key`/`dev_bypass`/`system`/`manual`).
-     */
-    actor: string;
+  occurred_at: string;
 
-    event_type: 'created' | 'removed' | 'expired' | 'override_used';
+  /**
+   * Free-text snapshot of the block's reason at event time.
+   */
+  reason: string;
 
-    occurred_at: string;
+  /**
+   * View-only.
+   */
+  record_type: 'email_block_event';
 
-    /**
-     * Free-text snapshot of the block's reason at event time.
-     */
-    reason: string;
+  /**
+   * Free-text snapshot of the block's source at event time.
+   */
+  source: string;
 
-    /**
-     * View-only.
-     */
-    record_type: 'email_block_event';
-
-    /**
-     * Free-text snapshot of the block's source at event time.
-     */
-    source: string;
-
-    /**
-     * `null` when the schema field is nil (the context usually sets it to `{}`).
-     */
-    meta?: { [key: string]: unknown } | null;
-  }
+  /**
+   * `null` when the schema field is nil (the context usually sets it to `{}`).
+   */
+  meta?: { [key: string]: unknown } | null;
 }
 
 /**
@@ -366,19 +368,9 @@ export interface EmailBlockRetrieveExportParams {
   sort?: 'created_at' | '-created_at';
 }
 
-export interface EmailBlockRetrieveEventsParams {
-  /**
-   * Offset page number (≥1, default 1).
-   */
-  'page[number]'?: number;
+export interface EmailBlockRetrieveEventsParams extends DefaultFlatPaginationParams {}
 
-  /**
-   * Page size (default 50, max 100).
-   */
-  'page[size]'?: number;
-}
-
-EmailBlocks.Import = Import;
+EmailBlocks.Imports = Imports;
 
 export declare namespace EmailBlocks {
   export {
@@ -388,6 +380,7 @@ export declare namespace EmailBlocks {
     type EmailBlockRetrieveEventsResponse as EmailBlockRetrieveEventsResponse,
     type EmailBlockRetrieveExportResponse as EmailBlockRetrieveExportResponse,
     type EmailBlocksDefaultFlatPagination as EmailBlocksDefaultFlatPagination,
+    type EmailBlockRetrieveEventsResponsesDefaultFlatPagination as EmailBlockRetrieveEventsResponsesDefaultFlatPagination,
     type EmailBlockListParams as EmailBlockListParams,
     type EmailBlockCreateParams as EmailBlockCreateParams,
     type EmailBlockRetrieveExportParams as EmailBlockRetrieveExportParams,
@@ -395,7 +388,8 @@ export declare namespace EmailBlocks {
   };
 
   export {
-    Import as Import,
+    Imports as Imports,
+    type EmailBlockImport as EmailBlockImport,
     type EmailBlockImportResponse as EmailBlockImportResponse,
     type ImportCreateParams as ImportCreateParams,
   };

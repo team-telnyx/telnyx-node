@@ -11,7 +11,8 @@ import { path } from '../internal/utils/path';
  */
 export class NotificationSettings extends APIResource {
   /**
-   * List notification settings.
+   * Returns a paginated list of your notification settings, which map notification
+   * event types to profiles and channels.
    *
    * @example
    * ```ts
@@ -32,7 +33,8 @@ export class NotificationSettings extends APIResource {
   }
 
   /**
-   * Add a notification setting.
+   * Adds a notification setting that enables delivery of a notification event type
+   * to a notification profile.
    *
    * @example
    * ```ts
@@ -48,7 +50,8 @@ export class NotificationSettings extends APIResource {
   }
 
   /**
-   * Delete a notification setting.
+   * Deletes the specified notification setting, disabling that notification
+   * delivery.
    *
    * @example
    * ```ts
@@ -63,7 +66,7 @@ export class NotificationSettings extends APIResource {
   }
 
   /**
-   * Get a notification setting.
+   * Returns the details of a single notification setting by its identifier.
    *
    * @example
    * ```ts

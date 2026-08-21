@@ -9,6 +9,7 @@ export {
 } from './calling-settings';
 export {
   ConversationalComponents,
+  type WhatsappConversationalComponent,
   type ConversationalComponentListResponse,
   type ConversationalComponentPatchAllResponse,
   type ConversationalComponentPatchAllParams,

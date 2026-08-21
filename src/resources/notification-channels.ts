@@ -11,7 +11,8 @@ import { path } from '../internal/utils/path';
  */
 export class NotificationChannels extends APIResource {
   /**
-   * List notification channels.
+   * Returns a paginated list of your notification channels, the destinations that
+   * receive notifications.
    *
    * @example
    * ```ts
@@ -32,7 +33,8 @@ export class NotificationChannels extends APIResource {
   }
 
   /**
-   * Create a notification channel.
+   * Creates a new notification channel defining where notifications are delivered,
+   * and returns the created channel.
    *
    * @example
    * ```ts
@@ -48,7 +50,8 @@ export class NotificationChannels extends APIResource {
   }
 
   /**
-   * Delete a notification channel.
+   * Deletes the specified notification channel so notifications are no longer
+   * delivered to it.
    *
    * @example
    * ```ts
@@ -63,7 +66,7 @@ export class NotificationChannels extends APIResource {
   }
 
   /**
-   * Get a notification channel.
+   * Returns the details of a single notification channel by its identifier.
    *
    * @example
    * ```ts
@@ -78,7 +81,7 @@ export class NotificationChannels extends APIResource {
   }
 
   /**
-   * Update a notification channel.
+   * Updates the specified notification channel and returns the updated channel.
    *
    * @example
    * ```ts

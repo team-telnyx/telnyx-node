@@ -8,7 +8,7 @@ import { path } from '../internal/utils/path';
 
 export class Invoices extends APIResource {
   /**
-   * Retrieve a paginated list of invoices.
+   * Returns a paginated list of your invoices, with support for sorting.
    */
   list(
     query: InvoiceListParams | null | undefined = {},

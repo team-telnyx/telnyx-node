@@ -2,8 +2,8 @@
 
 import { APIResource } from '../core/resource';
 import * as EmailTemplatesAPI from './email-templates';
-import * as ThreadsAPI from './email-inboxes/threads/threads';
 import { APIPromise } from '../core/api-promise';
+import { EmailCursorPagination, type EmailCursorPaginationParams, PagePromise } from '../core/pagination';
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
@@ -17,14 +17,20 @@ export class EmailTemplates extends APIResource {
    *
    * @example
    * ```ts
-   * const emailTemplates = await client.emailTemplates.list();
+   * // Automatically fetches more pages as needed.
+   * for await (const emailTemplate of client.emailTemplates.list()) {
+   *   // ...
+   * }
    * ```
    */
   list(
     query: EmailTemplateListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<EmailTemplateListResponse> {
-    return this._client.get('/email_templates', { query, ...options });
+  ): PagePromise<EmailTemplatesEmailCursorPagination, EmailTemplate> {
+    return this._client.getAPIList('/email_templates', EmailCursorPagination<EmailTemplate>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -109,7 +115,8 @@ export class EmailTemplates extends APIResource {
   }
 
   /**
-   * Updates one or more template fields.
+   * Updates one or more fields of the specified email template and returns the
+   * updated template.
    *
    * @example
    * ```ts
@@ -148,6 +155,8 @@ export class EmailTemplates extends APIResource {
     return this._client.post(path`/email_templates/${id}/render`, { body, ...options });
   }
 }
+
+export type EmailTemplatesEmailCursorPagination = EmailCursorPagination<EmailTemplate>;
 
 export interface EmailTemplate {
   id: string;
@@ -194,12 +203,6 @@ export interface UpdateEmailTemplateRequest {
   variables?: Array<string>;
 }
 
-export interface EmailTemplateListResponse {
-  data: Array<EmailTemplate>;
-
-  meta: ThreadsAPI.EmailPaginationMeta;
-}
-
 export interface EmailTemplateRenderResponse {
   /**
    * Template object with `subject`, `html_body`, and `text_body` replaced by their
@@ -218,18 +221,7 @@ export namespace EmailTemplateRenderResponse {
   export interface Data extends EmailTemplatesAPI.EmailTemplate {}
 }
 
-export interface EmailTemplateListParams {
-  /**
-   * Opaque URL-safe Base64 cursor returned by a previous list response.
-   */
-  page_cursor?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100. Invalid values are
-   * clamped to the valid range.
-   */
-  page_size?: number;
-}
+export interface EmailTemplateListParams extends EmailCursorPaginationParams {}
 
 export interface EmailTemplateCreateParams {
   /**
@@ -326,8 +318,8 @@ export declare namespace EmailTemplates {
     type EmailTemplate as EmailTemplate,
     type EmailTemplateResponse as EmailTemplateResponse,
     type UpdateEmailTemplateRequest as UpdateEmailTemplateRequest,
-    type EmailTemplateListResponse as EmailTemplateListResponse,
     type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
+    type EmailTemplatesEmailCursorPagination as EmailTemplatesEmailCursorPagination,
     type EmailTemplateListParams as EmailTemplateListParams,
     type EmailTemplateCreateParams as EmailTemplateCreateParams,
     type EmailTemplateReplaceParams as EmailTemplateReplaceParams,

@@ -9,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class GlobalIPAllowedPorts extends APIResource {
   /**
-   * List all Global IP Allowed Ports
+   * Returns the ports allowed for Global IP traffic, for use when configuring Global
+   * IP resources.
    */
   list(options?: RequestOptions): APIPromise<GlobalIPAllowedPortListResponse> {
     return this._client.get('/global_ip_allowed_ports', options);

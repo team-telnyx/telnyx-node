@@ -11,7 +11,8 @@ import { path } from '../../../internal/utils/path';
  */
 export class Buckets extends APIResource {
   /**
-   * Get all embedding buckets for a user.
+   * Returns the list of storage buckets that have been embedded for your account,
+   * for use with similarity search.
    *
    * @example
    * ```ts

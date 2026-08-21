@@ -33,7 +33,8 @@ export class CallControlApplications extends APIResource {
   }
 
   /**
-   * Create a call control application.
+   * Creates a call control application, which defines the webhook endpoints and
+   * settings used to control calls on associated connections.
    *
    * @example
    * ```ts
@@ -52,7 +53,8 @@ export class CallControlApplications extends APIResource {
   }
 
   /**
-   * Deletes a call control application.
+   * Permanently deletes the specified call control application and its webhook
+   * configuration.
    *
    * @example
    * ```ts

@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -42,12 +43,20 @@ export class Tools extends APIResource {
    * });
    * ```
    */
-  create(body: ToolCreateParams, options?: RequestOptions): APIPromise<SharedToolResponse> {
-    return this._client.post('/ai/tools', { body, ...options });
+  create(params: ToolCreateParams, options?: RequestOptions): APIPromise<SharedToolResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/tools', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
-   * Delete a custom AI tool.
+   * Permanently deletes the specified custom AI tool from your account.
    *
    * @example
    * ```ts
@@ -187,30 +196,72 @@ export interface ToolListParams extends DefaultFlatPaginationParams {
 }
 
 export interface ToolCreateParams {
+  /**
+   * Body param
+   */
   display_name: string;
 
+  /**
+   * Body param
+   */
   type: string;
 
+  /**
+   * Body param
+   */
   client_side_tool?: { [key: string]: unknown };
 
+  /**
+   * Body param
+   */
   function?: { [key: string]: unknown };
 
+  /**
+   * Body param
+   */
   handoff?: { [key: string]: unknown };
 
+  /**
+   * Body param
+   */
   invite?: { [key: string]: unknown };
 
+  /**
+   * Body param
+   */
   pay?: PayToolParams;
 
+  /**
+   * Body param
+   */
   retrieval?: { [key: string]: unknown };
 
+  /**
+   * Body param
+   */
   timeout_ms?: number;
 
   /**
-   * Configuration for an update_dynamic_variables tool.
+   * Body param: Configuration for an update_dynamic_variables tool.
    */
   update_dynamic_variables?: UpdateDynamicVariablesToolParams;
 
+  /**
+   * Body param
+   */
   webhook?: { [key: string]: unknown };
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 
   [k: string]: unknown;
 }

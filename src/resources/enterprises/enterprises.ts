@@ -249,26 +249,6 @@ export class Enterprises extends APIResource {
 
 export type EnterprisePublicsDefaultFlatPagination = DefaultFlatPagination<EnterprisePublic>;
 
-export interface BillingAddress {
-  /**
-   * State or province code (e.g. `IL`, `ON`).
-   */
-  administrative_area: string;
-
-  city: string;
-
-  /**
-   * ISO 3166-1 alpha-2 code (currently `US` or `CA`).
-   */
-  country: string;
-
-  postal_code: string;
-
-  street_address: string;
-
-  extended_address?: string | null;
-}
-
 export interface BillingContact {
   email: string;
 
@@ -285,7 +265,7 @@ export interface BillingContact {
 export interface EnterprisePublic {
   id?: string;
 
-  billing_address?: BillingAddress;
+  billing_address?: PhysicalAddress;
 
   billing_contact?: BillingContact;
 
@@ -435,7 +415,7 @@ export interface EnterpriseListParams extends DefaultFlatPaginationParams {
 }
 
 export interface EnterpriseCreateParams {
-  billing_address: BillingAddress;
+  billing_address: PhysicalAddress;
 
   billing_contact: BillingContact;
 
@@ -576,7 +556,7 @@ export interface EnterpriseCreateParams {
 }
 
 export interface EnterpriseUpdateParams {
-  billing_address?: BillingAddress;
+  billing_address?: PhysicalAddress;
 
   billing_contact?: BillingContact;
 
@@ -665,7 +645,6 @@ Enterprises.Dir = Dir;
 
 export declare namespace Enterprises {
   export {
-    type BillingAddress as BillingAddress,
     type BillingContact as BillingContact,
     type EnterprisePublic as EnterprisePublic,
     type EnterprisePublicWrapped as EnterprisePublicWrapped,

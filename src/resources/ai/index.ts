@@ -8,6 +8,7 @@ export {
   type AISummarizeResponse,
   type AISummarizeParams,
   type AIRetrieveConversationHistoriesParams,
+  type AIRetrieveConversationHistoriesResponsesDefaultFlatPagination,
 } from './ai';
 export { Anthropic } from './anthropic/index';
 export {
@@ -22,6 +23,7 @@ export {
   type AuthenticationMethod,
   type BooleanOpExpression,
   type ComparisonExpression,
+  type ConversationFlow,
   type ConversationFlowReq,
   type EnabledFeatures,
   type Expression,
@@ -30,6 +32,8 @@ export {
   type FallbackConfig,
   type FallbackConfigReq,
   type FlowEdge,
+  type FlowNode,
+  type FlowNodeReq,
   type HangupTool,
   type HangupToolParams,
   type ImportMetadata,
@@ -47,8 +51,12 @@ export {
   type PrivacySettings,
   type PromptSyncStatus,
   type RetrievalTool,
+  type SpeakNode,
+  type SpeakNodeReq,
   type StartSpeakingPlan,
   type TelephonySettings,
+  type ToolNode,
+  type ToolNodeReq,
   type TranscriptionEndpointingPlan,
   type TranscriptionSettings,
   type TranscriptionSettingsConfig,
@@ -65,6 +73,7 @@ export {
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
+  type AssistantCloneParams,
   type AssistantSendSMSParams,
 } from './assistants/index';
 export { Audio, type AudioTranscribeResponse, type AudioTranscribeParams } from './audio';
@@ -91,6 +100,7 @@ export {
   type CollectionRetrieveDocumentsParams,
   type CollectionUpdateParams,
   type CollectionsDefaultFlatPagination,
+  type CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
 } from './collections/index';
 export {
   Conversations,

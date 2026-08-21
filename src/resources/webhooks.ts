@@ -1,11 +1,13 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
+import * as WebhooksAPI from './webhooks';
 import * as NumberOrdersAPI from './number-orders';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 import * as ThreadsAPI from './email-inboxes/threads/threads';
 import { Webhook } from 'standardwebhooks';
+import { EmailBracketCursorPagination } from '../core/pagination';
 
 export class Webhooks extends APIResource {
   unwrap(
@@ -25,6 +27,8 @@ export class Webhooks extends APIResource {
     return JSON.parse(body) as UnsafeUnwrapWebhookEvent;
   }
 }
+
+export type InboundMessagesEmailBracketCursorPagination = EmailBracketCursorPagination<InboundMessage>;
 
 export interface CallAIGatherEnded {
   /**
@@ -361,7 +365,7 @@ export namespace CallAnswered {
     /**
      * User-to-User and Diversion headers from sip invite.
      */
-    sip_headers?: Array<Payload.SipHeader>;
+    sip_headers?: Array<WebhooksAPI.InboundSipHeader>;
 
     /**
      * ISO 8601 datetime of when the call started.
@@ -382,20 +386,6 @@ export namespace CallAnswered {
      * Destination number or SIP URI of the call.
      */
     to?: string;
-  }
-
-  export namespace Payload {
-    export interface SipHeader {
-      /**
-       * The name of the header received from the SIP INVITE.
-       */
-      name: 'User-to-User' | 'Diversion';
-
-      /**
-       * The value of the header.
-       */
-      value: string;
-    }
   }
 }
 
@@ -1102,7 +1092,7 @@ export namespace CallHangup {
     /**
      * User-to-User and Diversion headers from sip invite.
      */
-    sip_headers?: Array<Payload.SipHeader>;
+    sip_headers?: Array<WebhooksAPI.InboundSipHeader>;
 
     /**
      * ISO 8601 datetime of when the call started.
@@ -1188,18 +1178,6 @@ export namespace CallHangup {
          */
         skip_packet_count?: string;
       }
-    }
-
-    export interface SipHeader {
-      /**
-       * The name of the header received from the SIP INVITE.
-       */
-      name: 'User-to-User' | 'Diversion';
-
-      /**
-       * The value of the header.
-       */
-      value: string;
     }
   }
 }
@@ -1305,7 +1283,7 @@ export namespace CallInitiated {
     /**
      * User-to-User and Diversion headers from sip invite.
      */
-    sip_headers?: Array<Payload.SipHeader>;
+    sip_headers?: Array<WebhooksAPI.InboundSipHeader>;
 
     /**
      * ISO 8601 datetime of when the call started.
@@ -1326,20 +1304,6 @@ export namespace CallInitiated {
      * Destination number or SIP URI of the call.
      */
     to?: string;
-  }
-
-  export namespace Payload {
-    export interface SipHeader {
-      /**
-       * The name of the header received from the SIP INVITE.
-       */
-      name: 'User-to-User' | 'Diversion';
-
-      /**
-       * The value of the header.
-       */
-      value: string;
-    }
   }
 }
 
@@ -4350,6 +4314,18 @@ export interface InboundMessage extends Omit<ThreadsAPI.ThreadMessage, 'directio
   status?: 'received';
 }
 
+export interface InboundSipHeader {
+  /**
+   * The name of the header received from the SIP INVITE.
+   */
+  name: 'User-to-User' | 'Diversion';
+
+  /**
+   * The value of the header.
+   */
+  value: string;
+}
+
 export interface NumberOrderStatusUpdate {
   data: NumberOrderStatusUpdate.Data;
 
@@ -5185,7 +5161,16 @@ export namespace CallPaymentCompletedWebhookEvent {
       /**
        * Detected card type. Present only for the recognized card brands listed below.
        */
-      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+      payment_card_type?:
+        | 'visa'
+        | 'mastercard'
+        | 'amex'
+        | 'optima'
+        | 'discover'
+        | 'diners-club'
+        | 'jcb'
+        | 'maestro'
+        | 'enroute';
 
       /**
        * Payment confirmation code returned by the processor, when available.
@@ -5317,6 +5302,7 @@ export namespace CallPaymentProgressWebhookEvent {
       error_type?:
         | 'timeout'
         | 'invalid-card-number'
+        | 'invalid-card-type'
         | 'invalid-date'
         | 'invalid-security-code'
         | 'invalid-postal-code'
@@ -5347,7 +5333,16 @@ export namespace CallPaymentProgressWebhookEvent {
       /**
        * Detected card type. Present only for the recognized card brands listed below.
        */
-      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+      payment_card_type?:
+        | 'visa'
+        | 'mastercard'
+        | 'amex'
+        | 'optima'
+        | 'discover'
+        | 'diners-club'
+        | 'jcb'
+        | 'maestro'
+        | 'enroute';
 
       /**
        * Name of the Pay connector used.
@@ -5744,290 +5739,12 @@ export namespace InboundMessageWebhookEvent {
      */
     occurred_at?: string;
 
-    payload?: Data.Payload;
+    payload?: MessagesAPI.MessagingInboundMessagePayload;
 
     /**
      * Identifies the type of the resource.
      */
     record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Identifies the type of resource.
-       */
-      id?: string;
-
-      cc?: Array<Payload.Cc>;
-
-      /**
-       * Not used for inbound messages.
-       */
-      completed_at?: string | null;
-
-      cost?: Payload.Cost | null;
-
-      /**
-       * Detailed breakdown of the message cost components.
-       */
-      cost_breakdown?: Payload.CostBreakdown | null;
-
-      /**
-       * The direction of the message. Inbound messages are sent to you whereas outbound
-       * messages are sent from you.
-       */
-      direction?: 'inbound';
-
-      /**
-       * Encoding scheme used for the message body.
-       */
-      encoding?: string;
-
-      /**
-       * These errors may point at addressees when referring to unsuccessful/unconfirmed
-       * delivery statuses.
-       */
-      errors?: Array<MessagesAPI.MessagingError0b38e7044b>;
-
-      from?: Payload.From;
-
-      media?: Array<Payload.Media>;
-
-      /**
-       * Unique identifier for a messaging profile.
-       */
-      messaging_profile_id?: string;
-
-      /**
-       * The number of characters in the message text
-       */
-      num_chars?: number;
-
-      /**
-       * Unique identifier for a messaging profile.
-       */
-      organization_id?: string;
-
-      /**
-       * Number of parts into which the message's body must be split.
-       */
-      parts?: number;
-
-      /**
-       * ISO 8601 formatted date indicating when the message request was received.
-       */
-      received_at?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: 'message';
-
-      /**
-       * Not used for inbound messages.
-       */
-      sent_at?: string | null;
-
-      /**
-       * Message subject.
-       */
-      subject?: string | null;
-
-      /**
-       * Tags associated with the resource.
-       */
-      tags?: Array<string>;
-
-      /**
-       * Indicates whether the TCR campaign is billable.
-       */
-      tcr_campaign_billable?: boolean;
-
-      /**
-       * The Campaign Registry (TCR) campaign ID associated with the message.
-       */
-      tcr_campaign_id?: string | null;
-
-      /**
-       * The registration status of the TCR campaign.
-       */
-      tcr_campaign_registered?: string | null;
-
-      /**
-       * Message body (i.e., content) as a non-empty string.
-       *
-       * **Required for SMS**
-       */
-      text?: string;
-
-      to?: Array<Payload.To>;
-
-      /**
-       * The type of message. This value can be either 'sms' or 'mms'.
-       */
-      type?: 'SMS' | 'MMS';
-
-      /**
-       * Not used for inbound messages.
-       */
-      valid_until?: string | null;
-
-      /**
-       * The failover URL where webhooks related to this message will be sent if sending
-       * to the primary URL fails.
-       */
-      webhook_failover_url?: string | null;
-
-      /**
-       * The URL where webhooks related to this message will be sent.
-       */
-      webhook_url?: string | null;
-    }
-
-    export namespace Payload {
-      export interface Cc {
-        /**
-         * The carrier of the receiver.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the receiver.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Receiving address (+E.164 formatted phone number or short code).
-         */
-        phone_number?: string;
-
-        status?:
-          | 'queued'
-          | 'sending'
-          | 'sent'
-          | 'delivered'
-          | 'sending_failed'
-          | 'delivery_failed'
-          | 'delivery_unconfirmed';
-      }
-
-      export interface Cost {
-        /**
-         * The amount deducted from your account.
-         */
-        amount?: string;
-
-        /**
-         * The ISO 4217 currency identifier.
-         */
-        currency?: string;
-      }
-
-      /**
-       * Detailed breakdown of the message cost components.
-       */
-      export interface CostBreakdown {
-        carrier_fee?: CostBreakdown.CarrierFee;
-
-        rate?: CostBreakdown.Rate;
-      }
-
-      export namespace CostBreakdown {
-        export interface CarrierFee {
-          /**
-           * The carrier fee amount.
-           */
-          amount?: string;
-
-          /**
-           * The ISO 4217 currency identifier.
-           */
-          currency?: string;
-        }
-
-        export interface Rate {
-          /**
-           * The rate amount applied.
-           */
-          amount?: string;
-
-          /**
-           * The ISO 4217 currency identifier.
-           */
-          currency?: string;
-        }
-      }
-
-      export interface From {
-        /**
-         * The carrier of the sender.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the sender.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-         * code).
-         */
-        phone_number?: string;
-
-        status?: 'received' | 'delivered';
-      }
-
-      export interface Media {
-        /**
-         * The MIME type of the requested media.
-         */
-        content_type?: string;
-
-        /**
-         * The SHA256 hash of the requested media.
-         */
-        hash_sha256?: string;
-
-        /**
-         * The size of the requested media.
-         */
-        size?: number;
-
-        /**
-         * The url of the media requested to be sent.
-         */
-        url?: string;
-      }
-
-      export interface To {
-        /**
-         * The carrier of the receiver.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the receiver.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Receiving address (+E.164 formatted phone number or short code).
-         */
-        phone_number?: string;
-
-        status?:
-          | 'queued'
-          | 'sending'
-          | 'sent'
-          | 'delivered'
-          | 'sending_failed'
-          | 'delivery_failed'
-          | 'delivery_unconfirmed'
-          | 'webhook_delivered';
-      }
-    }
   }
 }
 
@@ -7033,7 +6750,16 @@ export namespace CallPaymentCompletedWebhookEvent {
       /**
        * Detected card type. Present only for the recognized card brands listed below.
        */
-      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+      payment_card_type?:
+        | 'visa'
+        | 'mastercard'
+        | 'amex'
+        | 'optima'
+        | 'discover'
+        | 'diners-club'
+        | 'jcb'
+        | 'maestro'
+        | 'enroute';
 
       /**
        * Payment confirmation code returned by the processor, when available.
@@ -7165,6 +6891,7 @@ export namespace CallPaymentProgressWebhookEvent {
       error_type?:
         | 'timeout'
         | 'invalid-card-number'
+        | 'invalid-card-type'
         | 'invalid-date'
         | 'invalid-security-code'
         | 'invalid-postal-code'
@@ -7195,7 +6922,16 @@ export namespace CallPaymentProgressWebhookEvent {
       /**
        * Detected card type. Present only for the recognized card brands listed below.
        */
-      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+      payment_card_type?:
+        | 'visa'
+        | 'mastercard'
+        | 'amex'
+        | 'optima'
+        | 'discover'
+        | 'diners-club'
+        | 'jcb'
+        | 'maestro'
+        | 'enroute';
 
       /**
        * Name of the Pay connector used.
@@ -7592,290 +7328,12 @@ export namespace InboundMessageWebhookEvent {
      */
     occurred_at?: string;
 
-    payload?: Data.Payload;
+    payload?: MessagesAPI.MessagingInboundMessagePayload;
 
     /**
      * Identifies the type of the resource.
      */
     record_type?: 'event';
-  }
-
-  export namespace Data {
-    export interface Payload {
-      /**
-       * Identifies the type of resource.
-       */
-      id?: string;
-
-      cc?: Array<Payload.Cc>;
-
-      /**
-       * Not used for inbound messages.
-       */
-      completed_at?: string | null;
-
-      cost?: Payload.Cost | null;
-
-      /**
-       * Detailed breakdown of the message cost components.
-       */
-      cost_breakdown?: Payload.CostBreakdown | null;
-
-      /**
-       * The direction of the message. Inbound messages are sent to you whereas outbound
-       * messages are sent from you.
-       */
-      direction?: 'inbound';
-
-      /**
-       * Encoding scheme used for the message body.
-       */
-      encoding?: string;
-
-      /**
-       * These errors may point at addressees when referring to unsuccessful/unconfirmed
-       * delivery statuses.
-       */
-      errors?: Array<MessagesAPI.MessagingError0b38e7044b>;
-
-      from?: Payload.From;
-
-      media?: Array<Payload.Media>;
-
-      /**
-       * Unique identifier for a messaging profile.
-       */
-      messaging_profile_id?: string;
-
-      /**
-       * The number of characters in the message text
-       */
-      num_chars?: number;
-
-      /**
-       * Unique identifier for a messaging profile.
-       */
-      organization_id?: string;
-
-      /**
-       * Number of parts into which the message's body must be split.
-       */
-      parts?: number;
-
-      /**
-       * ISO 8601 formatted date indicating when the message request was received.
-       */
-      received_at?: string;
-
-      /**
-       * Identifies the type of the resource.
-       */
-      record_type?: 'message';
-
-      /**
-       * Not used for inbound messages.
-       */
-      sent_at?: string | null;
-
-      /**
-       * Message subject.
-       */
-      subject?: string | null;
-
-      /**
-       * Tags associated with the resource.
-       */
-      tags?: Array<string>;
-
-      /**
-       * Indicates whether the TCR campaign is billable.
-       */
-      tcr_campaign_billable?: boolean;
-
-      /**
-       * The Campaign Registry (TCR) campaign ID associated with the message.
-       */
-      tcr_campaign_id?: string | null;
-
-      /**
-       * The registration status of the TCR campaign.
-       */
-      tcr_campaign_registered?: string | null;
-
-      /**
-       * Message body (i.e., content) as a non-empty string.
-       *
-       * **Required for SMS**
-       */
-      text?: string;
-
-      to?: Array<Payload.To>;
-
-      /**
-       * The type of message. This value can be either 'sms' or 'mms'.
-       */
-      type?: 'SMS' | 'MMS';
-
-      /**
-       * Not used for inbound messages.
-       */
-      valid_until?: string | null;
-
-      /**
-       * The failover URL where webhooks related to this message will be sent if sending
-       * to the primary URL fails.
-       */
-      webhook_failover_url?: string | null;
-
-      /**
-       * The URL where webhooks related to this message will be sent.
-       */
-      webhook_url?: string | null;
-    }
-
-    export namespace Payload {
-      export interface Cc {
-        /**
-         * The carrier of the receiver.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the receiver.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Receiving address (+E.164 formatted phone number or short code).
-         */
-        phone_number?: string;
-
-        status?:
-          | 'queued'
-          | 'sending'
-          | 'sent'
-          | 'delivered'
-          | 'sending_failed'
-          | 'delivery_failed'
-          | 'delivery_unconfirmed';
-      }
-
-      export interface Cost {
-        /**
-         * The amount deducted from your account.
-         */
-        amount?: string;
-
-        /**
-         * The ISO 4217 currency identifier.
-         */
-        currency?: string;
-      }
-
-      /**
-       * Detailed breakdown of the message cost components.
-       */
-      export interface CostBreakdown {
-        carrier_fee?: CostBreakdown.CarrierFee;
-
-        rate?: CostBreakdown.Rate;
-      }
-
-      export namespace CostBreakdown {
-        export interface CarrierFee {
-          /**
-           * The carrier fee amount.
-           */
-          amount?: string;
-
-          /**
-           * The ISO 4217 currency identifier.
-           */
-          currency?: string;
-        }
-
-        export interface Rate {
-          /**
-           * The rate amount applied.
-           */
-          amount?: string;
-
-          /**
-           * The ISO 4217 currency identifier.
-           */
-          currency?: string;
-        }
-      }
-
-      export interface From {
-        /**
-         * The carrier of the sender.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the sender.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-         * code).
-         */
-        phone_number?: string;
-
-        status?: 'received' | 'delivered';
-      }
-
-      export interface Media {
-        /**
-         * The MIME type of the requested media.
-         */
-        content_type?: string;
-
-        /**
-         * The SHA256 hash of the requested media.
-         */
-        hash_sha256?: string;
-
-        /**
-         * The size of the requested media.
-         */
-        size?: number;
-
-        /**
-         * The url of the media requested to be sent.
-         */
-        url?: string;
-      }
-
-      export interface To {
-        /**
-         * The carrier of the receiver.
-         */
-        carrier?: string;
-
-        /**
-         * The line-type of the receiver.
-         */
-        line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
-
-        /**
-         * Receiving address (+E.164 formatted phone number or short code).
-         */
-        phone_number?: string;
-
-        status?:
-          | 'queued'
-          | 'sending'
-          | 'sent'
-          | 'delivered'
-          | 'sending_failed'
-          | 'delivery_failed'
-          | 'delivery_unconfirmed'
-          | 'webhook_delivered';
-      }
-    }
   }
 }
 
@@ -8433,6 +7891,7 @@ export declare namespace Webhooks {
     type FaxQueued as FaxQueued,
     type FaxSendingStarted as FaxSendingStarted,
     type InboundMessage as InboundMessage,
+    type InboundSipHeader as InboundSipHeader,
     type NumberOrderStatusUpdate as NumberOrderStatusUpdate,
     type OutboundMessage as OutboundMessage,
     type ReplacedLinkClick as ReplacedLinkClick,

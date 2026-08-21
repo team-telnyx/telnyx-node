@@ -41,7 +41,8 @@ export class ActivationJobs extends APIResource {
   }
 
   /**
-   * Returns a porting activation job.
+   * Returns the details of a single activation job for the porting order, including
+   * its current status.
    *
    * @example
    * ```ts

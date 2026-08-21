@@ -2,10 +2,10 @@
 
 export {
   TextToSpeech,
-  type TextToSpeechGenerateSpeechResponse,
-  type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
+  type TextToSpeechGenerateSpeechResponse,
+  type TextToSpeechListVoicesResponse,
   type TextToSpeechListVoicesParams,
   type TextToSpeechGenerateSpeechParams,
   type TextToSpeechRetrieveSpeechParams,

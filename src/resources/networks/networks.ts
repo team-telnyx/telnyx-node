@@ -25,7 +25,8 @@ export class Networks extends APIResource {
   );
 
   /**
-   * List all Networks.
+   * Returns a paginated list of the private networks on your account, with support
+   * for filtering.
    *
    * @example
    * ```ts
@@ -43,7 +44,8 @@ export class Networks extends APIResource {
   }
 
   /**
-   * Create a new Network.
+   * Creates a new private network, the container that links your WireGuard
+   * interfaces, gateways, and cross connects.
    *
    * @example
    * ```ts
@@ -58,7 +60,7 @@ export class Networks extends APIResource {
   }
 
   /**
-   * Delete a Network.
+   * Permanently deletes the specified network from your account.
    *
    * @example
    * ```ts
@@ -72,7 +74,7 @@ export class Networks extends APIResource {
   }
 
   /**
-   * Retrieve a Network.
+   * Returns the details of a single network by its identifier.
    *
    * @example
    * ```ts
@@ -86,7 +88,7 @@ export class Networks extends APIResource {
   }
 
   /**
-   * Update a Network.
+   * Updates the specified network's attributes and returns the updated network.
    *
    * @example
    * ```ts
@@ -106,7 +108,8 @@ export class Networks extends APIResource {
   }
 
   /**
-   * List all Interfaces for a Network.
+   * Returns a paginated list of the interfaces attached to the specified network,
+   * with support for filtering.
    *
    * @example
    * ```ts

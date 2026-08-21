@@ -9,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class SimCardOrderPreview extends APIResource {
   /**
-   * Preview SIM card order purchases.
+   * Previews a SIM card order purchase, returning estimated costs and details before
+   * you place the order. The preview is processed asynchronously.
    *
    * @example
    * ```ts

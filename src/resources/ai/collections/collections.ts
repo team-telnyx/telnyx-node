@@ -142,18 +142,27 @@ export class Collections extends APIResource {
    *
    * @example
    * ```ts
-   * const response =
-   *   await client.ai.collections.retrieveDocuments(
-   *     'support-transcripts',
-   *   );
+   * // Automatically fetches more pages as needed.
+   * for await (const collectionRetrieveDocumentsResponse of client.ai.collections.retrieveDocuments(
+   *   'support-transcripts',
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   retrieveDocuments(
     slug: string,
     query: CollectionRetrieveDocumentsParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<CollectionRetrieveDocumentsResponse> {
-    return this._client.get(path`/ai/collections/${slug}/documents`, { query, ...options });
+  ): PagePromise<
+    CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
+    CollectionRetrieveDocumentsResponse
+  > {
+    return this._client.getAPIList(
+      path`/ai/collections/${slug}/documents`,
+      DefaultFlatPagination<CollectionRetrieveDocumentsResponse>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -197,6 +206,9 @@ export class Collections extends APIResource {
 
 export type CollectionsDefaultFlatPagination = DefaultFlatPagination<Collection>;
 
+export type CollectionRetrieveDocumentsResponsesDefaultFlatPagination =
+  DefaultFlatPagination<CollectionRetrieveDocumentsResponse>;
+
 export interface Collection {
   created_at?: string;
 
@@ -227,65 +239,39 @@ export interface CollectionEnvelope {
 }
 
 export interface CollectionRetrieveDocumentsResponse {
-  data?: Array<CollectionRetrieveDocumentsResponse.Data>;
+  id?: string;
 
-  meta?: CollectionRetrieveDocumentsResponse.Meta;
-}
+  chunk_index?: number;
 
-export namespace CollectionRetrieveDocumentsResponse {
-  export interface Data {
-    id?: string;
+  chunk_total?: number;
 
-    chunk_index?: number;
+  ingested_at?: string;
 
-    chunk_total?: number;
+  metadata?: { [key: string]: unknown };
 
-    ingested_at?: string;
+  organization_id?: string;
 
-    metadata?: { [key: string]: unknown };
+  record_created_at?: string;
 
-    organization_id?: string;
+  record_id?: string;
 
-    record_created_at?: string;
+  /**
+   * The source record kind this chunk came from (e.g. `voice`, `meeting_bot`,
+   * `message`).
+   */
+  record_type?: string;
 
-    record_id?: string;
+  region?: string;
 
-    /**
-     * The source record kind this chunk came from (e.g. `voice`, `meeting_bot`,
-     * `message`).
-     */
-    record_type?: string;
+  /**
+   * Relevance score (higher = more relevant) for ranked search. `0.0` for plain
+   * catalog listings (when `query` is omitted).
+   */
+  score?: number;
 
-    region?: string;
+  text?: string;
 
-    /**
-     * Relevance score (higher = more relevant) for ranked search. `0.0` for plain
-     * catalog listings (when `query` is omitted).
-     */
-    score?: number;
-
-    text?: string;
-
-    user_id?: string;
-  }
-
-  export interface Meta {
-    collection_slug?: string;
-
-    page_number?: number;
-
-    page_size?: number;
-
-    retrieval_type?: string;
-
-    searched_sources?: Array<string>;
-
-    top_k?: number;
-
-    total_pages?: number;
-
-    total_results?: number;
-  }
+  user_id?: string;
 }
 
 export interface CollectionListParams extends DefaultFlatPaginationParams {}
@@ -317,7 +303,7 @@ export interface CollectionCreateParams {
   sources?: Array<SourcesAPI.SourceRequest>;
 }
 
-export interface CollectionRetrieveDocumentsParams {
+export interface CollectionRetrieveDocumentsParams extends DefaultFlatPaginationParams {
   /**
    * Field filters applied before ranking, using `filter[field][operator]=value`.
    * Supported operators: `eq` (default), `in`, `gte`, `gt`, `lte`, `lt`, `contains`.
@@ -326,16 +312,6 @@ export interface CollectionRetrieveDocumentsParams {
    * `filter[record_id][eq]=rec_123`.
    */
   filter?: { [key: string]: unknown };
-
-  /**
-   * Page number to return (1-based). Defaults to 1.
-   */
-  'page[number]'?: number;
-
-  /**
-   * Number of results per page. Defaults to 20.
-   */
-  'page[size]'?: number;
 
   /**
    * Natural-language search query. When provided, the text is matched against the
@@ -378,6 +354,7 @@ export declare namespace Collections {
     type CollectionEnvelope as CollectionEnvelope,
     type CollectionRetrieveDocumentsResponse as CollectionRetrieveDocumentsResponse,
     type CollectionsDefaultFlatPagination as CollectionsDefaultFlatPagination,
+    type CollectionRetrieveDocumentsResponsesDefaultFlatPagination as CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
     type CollectionListParams as CollectionListParams,
     type CollectionCreateParams as CollectionCreateParams,
     type CollectionRetrieveDocumentsParams as CollectionRetrieveDocumentsParams,

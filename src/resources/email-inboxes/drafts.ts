@@ -2,8 +2,13 @@
 
 import { APIResource } from '../../core/resource';
 import * as EmailMessagesAPI from '../email-messages/email-messages';
-import * as ThreadsAPI from './threads/threads';
 import { APIPromise } from '../../core/api-promise';
+import {
+  EmailBracketCursorPagination,
+  type EmailBracketCursorPaginationParams,
+  EmailCursorPagination,
+  PagePromise,
+} from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
@@ -18,17 +23,24 @@ export class Drafts extends APIResource {
    *
    * @example
    * ```ts
-   * const drafts = await client.emailInboxes.drafts.list(
+   * // Automatically fetches more pages as needed.
+   * for await (const emailDraft of client.emailInboxes.drafts.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     inboxID: string,
     query: DraftListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<DraftListResponse> {
-    return this._client.get(path`/email_inboxes/${inboxID}/drafts`, { query, ...options });
+  ): PagePromise<EmailDraftsEmailBracketCursorPagination, EmailDraft> {
+    return this._client.getAPIList(
+      path`/email_inboxes/${inboxID}/drafts`,
+      EmailBracketCursorPagination<EmailDraft>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -187,6 +199,10 @@ export class Drafts extends APIResource {
   }
 }
 
+export type EmailDraftsEmailBracketCursorPagination = EmailBracketCursorPagination<EmailDraft>;
+
+export type EmailMessagesEmailCursorPagination = EmailCursorPagination<EmailMessage>;
+
 export interface EmailAddress {
   email: string;
 
@@ -209,7 +225,7 @@ export interface EmailDraft {
    */
   status: 'draft' | 'sending' | 'sent';
 
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   bcc?: Array<EmailAddress>;
 
@@ -239,7 +255,7 @@ export interface EmailDraft {
   /**
    * Arbitrary customer-defined metadata.
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   reply_to?: string | null;
 
@@ -281,7 +297,7 @@ export interface EmailDraft {
  * `thread_id` are server-owned and ignored if supplied.
  */
 export interface EmailDraftRequest {
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   bcc?: Array<EmailMessagesAPI.EmailAddressInput>;
 
@@ -302,7 +318,7 @@ export interface EmailDraftRequest {
 
   labels?: Array<string>;
 
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   reply_to?: string;
 
@@ -445,58 +461,18 @@ export interface EmailMessageResponse {
    * Recipients removed by suppression checks when at least one recipient remains and
    * the message is accepted.
    */
-  suppressed?: Array<EmailMessageResponse.Suppressed>;
+  suppressed?: Array<EmailMessagesAPI.SuppressedRecipient>;
 }
 
-export namespace EmailMessageResponse {
-  export interface Suppressed {
-    /**
-     * Whether an authorized send may override this suppression.
-     */
-    override_allowed: boolean;
-
-    /**
-     * Suppression reason returned by the recipient suppression service.
-     */
-    reason: string;
-
-    /**
-     * Scope at which the suppression applies.
-     */
-    scope: string;
-
-    /**
-     * Suppressed recipient email address.
-     */
-    to: string;
-  }
-}
-
-export interface DraftListResponse {
-  data: Array<EmailDraft>;
-
-  meta: ThreadsAPI.EmailPaginationMeta;
-}
-
-export interface DraftListParams {
+export interface DraftListParams extends EmailBracketCursorPaginationParams {
   /**
    * Restrict results to drafts in this state.
    */
   'filter[status]'?: 'draft' | 'sending' | 'sent';
-
-  /**
-   * Opaque cursor returned by the previous page.
-   */
-  'page[after]'?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100.
-   */
-  'page[size]'?: number;
 }
 
 export interface DraftCreateParams {
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   bcc?: Array<EmailMessagesAPI.EmailAddressInput>;
 
@@ -517,7 +493,7 @@ export interface DraftCreateParams {
 
   labels?: Array<string>;
 
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   reply_to?: string;
 
@@ -558,7 +534,7 @@ export interface DraftUpdateParams {
   /**
    * Body param
    */
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   /**
    * Body param
@@ -603,7 +579,7 @@ export interface DraftUpdateParams {
   /**
    * Body param
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   /**
    * Body param
@@ -645,7 +621,7 @@ export interface DraftPatchParams {
   /**
    * Body param
    */
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   /**
    * Body param
@@ -690,7 +666,7 @@ export interface DraftPatchParams {
   /**
    * Body param
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   /**
    * Body param
@@ -738,7 +714,7 @@ export declare namespace Drafts {
     type EmailDraftResponse as EmailDraftResponse,
     type EmailMessage as EmailMessage,
     type EmailMessageResponse as EmailMessageResponse,
-    type DraftListResponse as DraftListResponse,
+    type EmailDraftsEmailBracketCursorPagination as EmailDraftsEmailBracketCursorPagination,
     type DraftListParams as DraftListParams,
     type DraftCreateParams as DraftCreateParams,
     type DraftDeleteParams as DraftDeleteParams,

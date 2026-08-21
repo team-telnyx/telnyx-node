@@ -12,7 +12,8 @@ import { path } from '../internal/utils/path';
  */
 export class GlobalIPs extends APIResource {
   /**
-   * List all Global IPs.
+   * Returns a paginated list of the Global IPs on your account, including each IP's
+   * address and configuration.
    *
    * @example
    * ```ts
@@ -30,7 +31,9 @@ export class GlobalIPs extends APIResource {
   }
 
   /**
-   * Create a Global IP.
+   * Requests creation of a new Global IP, a static IP address announced from the
+   * Telnyx network. Provisioning is asynchronous, so the request is accepted and the
+   * Global IP becomes available once provisioning completes.
    *
    * @example
    * ```ts
@@ -42,7 +45,7 @@ export class GlobalIPs extends APIResource {
   }
 
   /**
-   * Delete a Global IP.
+   * Deletes the specified Global IP and releases its address back to Telnyx.
    *
    * @example
    * ```ts
@@ -56,7 +59,8 @@ export class GlobalIPs extends APIResource {
   }
 
   /**
-   * Retrieve a Global IP.
+   * Returns the details of a single Global IP, including its address and current
+   * configuration.
    *
    * @example
    * ```ts

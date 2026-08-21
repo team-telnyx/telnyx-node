@@ -22,6 +22,9 @@ describe('resource buckets', () => {
 
   // Mock server tests are disabled
   test.skip('createPresignedURL: required and optional params', async () => {
-    const response = await client.storage.buckets.createPresignedURL('', { bucketName: '', ttl: 60 });
+    const response = await client.storage.buckets.createPresignedURL('', {
+      bucketName: '',
+      body: { ttl: 60 },
+    });
   });
 });
