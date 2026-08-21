@@ -123,10 +123,10 @@ export class Actions extends APIResource {
  * Email address accepted by inbox message actions, as a string or an object with
  * `email` and optional `name`.
  */
-export type InboxActionEmailAddressInput = string | InboxActionEmailAddressInput.UnionMember1;
+export type InboxActionEmailAddressInput = string | InboxActionEmailAddressInput.InboxRecipientAddress;
 
 export namespace InboxActionEmailAddressInput {
-  export interface UnionMember1 {
+  export interface InboxRecipientAddress {
     email: string;
 
     name?: string;
@@ -139,11 +139,11 @@ export namespace InboxActionEmailAddressInput {
  */
 export type InboxActionRecipientInput =
   | string
-  | InboxActionRecipientInput.UnionMember1
+  | InboxActionRecipientInput.InboxRecipientAddress
   | Array<InboxActionEmailAddressInput>;
 
 export namespace InboxActionRecipientInput {
-  export interface UnionMember1 {
+  export interface InboxRecipientAddress {
     email: string;
 
     name?: string;
@@ -177,7 +177,7 @@ export interface ActionForwardParams {
    * Body param: One recipient or a non-empty recipient array. Each recipient may be
    * an email string or an object with `email` and optional `name`.
    */
-  to: string | ActionForwardParams.UnionMember1 | Array<InboxActionEmailAddressInput>;
+  to: string | ActionForwardParams.InboxRecipientAddress | Array<InboxActionEmailAddressInput>;
 
   /**
    * Body param: One recipient or a recipient array. Each recipient may be an email
@@ -205,7 +205,7 @@ export interface ActionForwardParams {
 }
 
 export namespace ActionForwardParams {
-  export interface UnionMember1 {
+  export interface InboxRecipientAddress {
     email: string;
 
     name?: string;

@@ -190,9 +190,12 @@ export interface WireguardInterfaceCreateParams {
 }
 
 export namespace WireguardInterfaceCreateParams {
-  export interface Body
-    extends WireguardInterfacesAPI.WireguardInterface,
-      PublicInternetGatewaysAPI.NetworkInterfaceRegion {}
+  export interface Body extends WireguardInterfacesAPI.WireguardInterface {
+    /**
+     * The region the interface should be deployed to.
+     */
+    region_code: string;
+  }
 }
 
 export declare namespace WireguardInterfaces {

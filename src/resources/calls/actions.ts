@@ -1436,13 +1436,13 @@ export type Loopcount = string | number;
 /**
  * A default prompt string or an ordered list of qualified prompts.
  */
-export type PayPromptValue = string | Array<PayPromptValue.UnionMember1>;
+export type PayPromptValue = string | Array<PayPromptValue.PayPromptList>;
 
 export namespace PayPromptValue {
   /**
    * A text-to-speech prompt with optional matching qualifiers.
    */
-  export interface UnionMember1 {
+  export interface PayPromptList {
     /**
      * Text spoken for the payment collection step.
      */

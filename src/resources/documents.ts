@@ -181,11 +181,6 @@ export interface DocServiceDocument extends DocServiceRecord {
   filename?: string;
 
   /**
-   * Identifies the type of the resource.
-   */
-  record_type?: string;
-
-  /**
    * The document's SHA256 hash provided for optional verification purposes.
    */
   sha256?: string;
