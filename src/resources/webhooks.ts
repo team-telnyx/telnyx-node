@@ -5161,7 +5161,16 @@ export namespace CallPaymentCompletedWebhookEvent {
       /**
        * Detected card type. Present only for the recognized card brands listed below.
        */
-      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+      payment_card_type?:
+        | 'visa'
+        | 'mastercard'
+        | 'amex'
+        | 'optima'
+        | 'discover'
+        | 'diners-club'
+        | 'jcb'
+        | 'maestro'
+        | 'enroute';
 
       /**
        * Payment confirmation code returned by the processor, when available.
@@ -5293,6 +5302,7 @@ export namespace CallPaymentProgressWebhookEvent {
       error_type?:
         | 'timeout'
         | 'invalid-card-number'
+        | 'invalid-card-type'
         | 'invalid-date'
         | 'invalid-security-code'
         | 'invalid-postal-code'
@@ -5323,7 +5333,16 @@ export namespace CallPaymentProgressWebhookEvent {
       /**
        * Detected card type. Present only for the recognized card brands listed below.
        */
-      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+      payment_card_type?:
+        | 'visa'
+        | 'mastercard'
+        | 'amex'
+        | 'optima'
+        | 'discover'
+        | 'diners-club'
+        | 'jcb'
+        | 'maestro'
+        | 'enroute';
 
       /**
        * Name of the Pay connector used.
@@ -6731,7 +6750,16 @@ export namespace CallPaymentCompletedWebhookEvent {
       /**
        * Detected card type. Present only for the recognized card brands listed below.
        */
-      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+      payment_card_type?:
+        | 'visa'
+        | 'mastercard'
+        | 'amex'
+        | 'optima'
+        | 'discover'
+        | 'diners-club'
+        | 'jcb'
+        | 'maestro'
+        | 'enroute';
 
       /**
        * Payment confirmation code returned by the processor, when available.
@@ -6863,6 +6891,7 @@ export namespace CallPaymentProgressWebhookEvent {
       error_type?:
         | 'timeout'
         | 'invalid-card-number'
+        | 'invalid-card-type'
         | 'invalid-date'
         | 'invalid-security-code'
         | 'invalid-postal-code'
@@ -6893,7 +6922,16 @@ export namespace CallPaymentProgressWebhookEvent {
       /**
        * Detected card type. Present only for the recognized card brands listed below.
        */
-      payment_card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+      payment_card_type?:
+        | 'visa'
+        | 'mastercard'
+        | 'amex'
+        | 'optima'
+        | 'discover'
+        | 'diners-club'
+        | 'jcb'
+        | 'maestro'
+        | 'enroute';
 
       /**
        * Name of the Pay connector used.

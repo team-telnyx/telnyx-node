@@ -1454,11 +1454,18 @@ export namespace PayPromptValue {
     attempt?: string;
 
     /**
-     * Lowercase, case-sensitive detected card type for which this prompt applies. Only
-     * the listed brands are currently detected; accepted UnionPay and Maestro test
-     * cards do not produce a card-type qualifier.
+     * Lowercase, case-sensitive detected card type for which this prompt applies.
      */
-    card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+    card_type?:
+      | 'visa'
+      | 'mastercard'
+      | 'amex'
+      | 'optima'
+      | 'discover'
+      | 'diners-club'
+      | 'jcb'
+      | 'maestro'
+      | 'enroute';
 
     /**
      * Step error for which this prompt applies.
@@ -1466,6 +1473,7 @@ export namespace PayPromptValue {
     error_type?:
       | 'timeout'
       | 'invalid-card-number'
+      | 'invalid-card-type'
       | 'invalid-date'
       | 'invalid-security-code'
       | 'invalid-postal-code'
@@ -5449,6 +5457,16 @@ export interface ActionPayParams {
    * absent or zero and `charge` when `amount` is positive.
    */
   transaction_type?: 'charge' | 'tokenize';
+
+  /**
+   * Restricts accepted card numbers to the listed card types. When the caller enters
+   * a card number that does not match one of the listed types, Pay treats the input
+   * as invalid and re-prompts for the card number. Cannot be used together with
+   * `payment_token`.
+   */
+  valid_card_types?: Array<
+    'visa' | 'mastercard' | 'amex' | 'maestro' | 'discover' | 'optima' | 'jcb' | 'diners-club' | 'enroute'
+  >;
 
   /**
    * Voice used for payment prompts. Accepts `male`, `female`, or a provider voice in
