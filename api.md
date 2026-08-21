@@ -3555,9 +3555,9 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/speech-to-text.ts">SttServiceType</a></code>
-- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
 - <code><a href="./src/resources/speech-to-text.ts">TranscribeClientEvent</a></code>
 - <code><a href="./src/resources/speech-to-text.ts">TranscribeServerEvent</a></code>
+- <code><a href="./src/resources/speech-to-text.ts">SpeechToTextListProvidersResponse</a></code>
 
 Methods:
 
@@ -4283,10 +4283,10 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateSpeechResponse</a></code>
-- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamClientEvent</a></code>
 - <code><a href="./src/resources/text-to-speech.ts">StreamServerEvent</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechGenerateSpeechResponse</a></code>
+- <code><a href="./src/resources/text-to-speech.ts">TextToSpeechListVoicesResponse</a></code>
 
 Methods:
 

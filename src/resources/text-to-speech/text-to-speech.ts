@@ -155,61 +155,6 @@ export class TextToSpeech extends APIResource {
 }
 
 /**
- * Response when `output_type` is `base64_output`.
- */
-export interface TextToSpeechGenerateSpeechResponse {
-  /**
-   * Base64-encoded audio data.
-   */
-  base64_audio?: string;
-}
-
-/**
- * List of available voices.
- */
-export interface TextToSpeechListVoicesResponse {
-  voices?: Array<TextToSpeechListVoicesResponse.Voice>;
-}
-
-export namespace TextToSpeechListVoicesResponse {
-  /**
-   * A voice available for text-to-speech synthesis.
-   */
-  export interface Voice {
-    /**
-     * Voice gender.
-     */
-    gender?: string;
-
-    /**
-     * Whether this voice runs on Telnyx-hosted infrastructure (`true`) or is provided
-     * by a third-party vendor (`false`).
-     */
-    hosted?: boolean;
-
-    /**
-     * Language code.
-     */
-    language?: string;
-
-    /**
-     * Voice name.
-     */
-    name?: string;
-
-    /**
-     * The TTS provider.
-     */
-    provider?: string;
-
-    /**
-     * Voice identifier.
-     */
-    voice_id?: string;
-  }
-}
-
-/**
  * Client-to-server frame containing text to synthesize.
  */
 export interface StreamClientEvent {
@@ -325,6 +270,61 @@ export namespace StreamServerEvent {
      * Frame type identifier.
      */
     type?: 'error';
+  }
+}
+
+/**
+ * Response when `output_type` is `base64_output`.
+ */
+export interface TextToSpeechGenerateSpeechResponse {
+  /**
+   * Base64-encoded audio data.
+   */
+  base64_audio?: string;
+}
+
+/**
+ * List of available voices.
+ */
+export interface TextToSpeechListVoicesResponse {
+  voices?: Array<TextToSpeechListVoicesResponse.Voice>;
+}
+
+export namespace TextToSpeechListVoicesResponse {
+  /**
+   * A voice available for text-to-speech synthesis.
+   */
+  export interface Voice {
+    /**
+     * Voice gender.
+     */
+    gender?: string;
+
+    /**
+     * Whether this voice runs on Telnyx-hosted infrastructure (`true`) or is provided
+     * by a third-party vendor (`false`).
+     */
+    hosted?: boolean;
+
+    /**
+     * Language code.
+     */
+    language?: string;
+
+    /**
+     * Voice name.
+     */
+    name?: string;
+
+    /**
+     * The TTS provider.
+     */
+    provider?: string;
+
+    /**
+     * Voice identifier.
+     */
+    voice_id?: string;
   }
 }
 
@@ -711,10 +711,10 @@ export interface TextToSpeechRetrieveSpeechParams {
 
 export declare namespace TextToSpeech {
   export {
-    type TextToSpeechGenerateSpeechResponse as TextToSpeechGenerateSpeechResponse,
-    type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
+    type TextToSpeechGenerateSpeechResponse as TextToSpeechGenerateSpeechResponse,
+    type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
     type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechRetrieveSpeechParams as TextToSpeechRetrieveSpeechParams,

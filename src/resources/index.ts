@@ -1328,9 +1328,9 @@ export {
 export {
   SpeechToText,
   type SttServiceType,
-  type SpeechToTextListProvidersResponse,
   type TranscribeClientEvent,
   type TranscribeServerEvent,
+  type SpeechToTextListProvidersResponse,
   type SpeechToTextListProvidersParams,
   type SpeechToTextRetrieveTranscriptionParams,
 } from './speech-to-text';
@@ -1399,10 +1399,10 @@ export {
 } from './texml-applications';
 export {
   TextToSpeech,
-  type TextToSpeechGenerateSpeechResponse,
-  type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
+  type TextToSpeechGenerateSpeechResponse,
+  type TextToSpeechListVoicesResponse,
   type TextToSpeechListVoicesParams,
   type TextToSpeechGenerateSpeechParams,
   type TextToSpeechRetrieveSpeechParams,

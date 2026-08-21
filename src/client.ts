@@ -4710,9 +4710,9 @@ export declare namespace Telnyx {
   export {
     SpeechToText as SpeechToText,
     type SttServiceType as SttServiceType,
-    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
     type TranscribeClientEvent as TranscribeClientEvent,
     type TranscribeServerEvent as TranscribeServerEvent,
+    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
     type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
     type SpeechToTextRetrieveTranscriptionParams as SpeechToTextRetrieveTranscriptionParams,
   };
@@ -4935,10 +4935,10 @@ export declare namespace Telnyx {
 
   export {
     TextToSpeech as TextToSpeech,
-    type TextToSpeechGenerateSpeechResponse as TextToSpeechGenerateSpeechResponse,
-    type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type StreamClientEvent as StreamClientEvent,
     type StreamServerEvent as StreamServerEvent,
+    type TextToSpeechGenerateSpeechResponse as TextToSpeechGenerateSpeechResponse,
+    type TextToSpeechListVoicesResponse as TextToSpeechListVoicesResponse,
     type TextToSpeechListVoicesParams as TextToSpeechListVoicesParams,
     type TextToSpeechGenerateSpeechParams as TextToSpeechGenerateSpeechParams,
     type TextToSpeechRetrieveSpeechParams as TextToSpeechRetrieveSpeechParams,
