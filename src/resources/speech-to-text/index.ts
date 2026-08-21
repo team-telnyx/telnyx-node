@@ -3,9 +3,9 @@
 export {
   SpeechToText,
   type SttServiceType,
-  type SpeechToTextListProvidersResponse,
   type TranscribeClientEvent,
   type TranscribeServerEvent,
+  type SpeechToTextListProvidersResponse,
   type SpeechToTextListProvidersParams,
   type SpeechToTextRetrieveTranscriptionParams,
 } from './speech-to-text';

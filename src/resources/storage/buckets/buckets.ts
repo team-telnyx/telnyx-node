@@ -52,9 +52,9 @@ export class Buckets extends APIResource {
     params: BucketCreatePresignedURLParams,
     options?: RequestOptions,
   ): APIPromise<BucketCreatePresignedURLResponse> {
-    const { bucketName, ...body } = params;
+    const { bucketName, body } = params;
     return this._client.post(path`/storage/buckets/${bucketName}/${objectName}/presigned_url`, {
-      body,
+      body: body,
       ...options,
     });
   }
@@ -90,9 +90,18 @@ export interface BucketCreatePresignedURLParams {
   bucketName: string;
 
   /**
-   * Body param: The time to live of the token in seconds
+   * Body param
    */
-  ttl?: number;
+  body?: BucketCreatePresignedURLParams.Body;
+}
+
+export namespace BucketCreatePresignedURLParams {
+  export interface Body {
+    /**
+     * The time to live of the token in seconds
+     */
+    ttl?: number;
+  }
 }
 
 Buckets.SslCertificateResource = SslCertificateResource;

@@ -31,7 +31,8 @@ export class Reports extends APIResource {
   mdrUsageReports: MdrUsageReportsAPI.MdrUsageReports = new MdrUsageReportsAPI.MdrUsageReports(this._client);
 
   /**
-   * Fetch all Mdr records
+   * Returns message detail records (MDRs) matching the provided criteria, such as
+   * date range, direction, status, and message type.
    *
    * @example
    * ```ts
@@ -46,7 +47,8 @@ export class Reports extends APIResource {
   }
 
   /**
-   * Fetch all Wdr records
+   * Returns wireless detail records (WDRs) matching the provided criteria, such as
+   * date range, SIM card, IMSI, or phone number, with pagination and sorting.
    *
    * @example
    * ```ts

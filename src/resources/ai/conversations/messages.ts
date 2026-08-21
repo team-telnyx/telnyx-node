@@ -60,6 +60,8 @@ export interface MessageListResponse {
    */
   created_at?: string;
 
+  metadata?: { [key: string]: string | number | boolean | Array<string | number | boolean> };
+
   /**
    * The datetime the message was sent to the end user.
    */

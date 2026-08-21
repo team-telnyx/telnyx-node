@@ -15,7 +15,8 @@ import { path } from '../internal/utils/path';
  */
 export class WireguardInterfaces extends APIResource {
   /**
-   * List all WireGuard Interfaces.
+   * Returns a paginated list of the WireGuard interfaces on your account, with
+   * support for filtering.
    */
   list(
     query: WireguardInterfaceListParams | null | undefined = {},
@@ -40,14 +41,14 @@ export class WireguardInterfaces extends APIResource {
   }
 
   /**
-   * Delete a WireGuard Interface.
+   * Deletes the specified WireGuard interface from its network.
    */
   delete(id: string, options?: RequestOptions): APIPromise<WireguardInterfaceDeleteResponse> {
     return this._client.delete(path`/wireguard_interfaces/${id}`, options);
   }
 
   /**
-   * Retrieve a WireGuard Interfaces.
+   * Returns the details of a single WireGuard interface by its identifier.
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<WireguardInterfaceRetrieveResponse> {
     return this._client.get(path`/wireguard_interfaces/${id}`, options);
@@ -189,9 +190,12 @@ export interface WireguardInterfaceCreateParams {
 }
 
 export namespace WireguardInterfaceCreateParams {
-  export interface Body
-    extends WireguardInterfacesAPI.WireguardInterface,
-      PublicInternetGatewaysAPI.NetworkInterfaceRegion {}
+  export interface Body extends WireguardInterfacesAPI.WireguardInterface {
+    /**
+     * The region the interface should be deployed to.
+     */
+    region_code: string;
+  }
 }
 
 export declare namespace WireguardInterfaces {

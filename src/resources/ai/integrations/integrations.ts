@@ -16,7 +16,8 @@ export class Integrations extends APIResource {
   connections: ConnectionsAPI.Connections = new ConnectionsAPI.Connections(this._client);
 
   /**
-   * List all available integrations.
+   * Returns the list of third-party integrations available to connect to your AI
+   * assistants and workflows.
    *
    * @example
    * ```ts
@@ -28,7 +29,8 @@ export class Integrations extends APIResource {
   }
 
   /**
-   * Retrieve integration details
+   * Returns the details of a single available integration, including its
+   * configuration details.
    *
    * @example
    * ```ts

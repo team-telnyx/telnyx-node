@@ -78,8 +78,16 @@ export class Tests extends APIResource {
    *   });
    * ```
    */
-  create(body: TestCreateParams, options?: RequestOptions): APIPromise<AssistantTest> {
-    return this._client.post('/ai/assistants/tests', { body, ...options });
+  create(params: TestCreateParams, options?: RequestOptions): APIPromise<AssistantTest> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/assistants/tests', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -230,52 +238,64 @@ export interface TestListParams extends DefaultFlatPaginationParams {
 
 export interface TestCreateParams {
   /**
-   * The target destination for the test conversation. Format depends on the channel:
-   * phone number for SMS/voice, webhook URL for web chat, etc.
+   * Body param: The target destination for the test conversation. Format depends on
+   * the channel: phone number for SMS/voice, webhook URL for web chat, etc.
    */
   destination: string;
 
   /**
-   * Detailed instructions that define the test scenario and what the assistant
-   * should accomplish. This guides the test execution and evaluation.
+   * Body param: Detailed instructions that define the test scenario and what the
+   * assistant should accomplish. This guides the test execution and evaluation.
    */
   instructions: string;
 
   /**
-   * A descriptive name for the assistant test. This will be used to identify the
-   * test in the UI and reports.
+   * Body param: A descriptive name for the assistant test. This will be used to
+   * identify the test in the UI and reports.
    */
   name: string;
 
   /**
-   * Evaluation criteria used to assess the assistant's performance. Each rubric item
-   * contains a name and specific criteria for evaluation.
+   * Body param: Evaluation criteria used to assess the assistant's performance. Each
+   * rubric item contains a name and specific criteria for evaluation.
    */
   rubric: Array<TestCreateParams.Rubric>;
 
   /**
-   * Optional detailed description of what this test evaluates and its purpose. Helps
-   * team members understand the test's objectives.
+   * Body param: Optional detailed description of what this test evaluates and its
+   * purpose. Helps team members understand the test's objectives.
    */
   description?: string;
 
   /**
-   * Maximum duration in seconds that the test conversation should run before timing
-   * out. If not specified, uses system default timeout.
+   * Body param: Maximum duration in seconds that the test conversation should run
+   * before timing out. If not specified, uses system default timeout.
    */
   max_duration_seconds?: number;
 
   /**
-   * The communication channel through which the test will be conducted. Determines
-   * how the assistant will receive and respond to test messages.
+   * Body param: The communication channel through which the test will be conducted.
+   * Determines how the assistant will receive and respond to test messages.
    */
   telnyx_conversation_channel?: TelnyxConversationChannel;
 
   /**
-   * Optional test suite name to group related tests together. Useful for organizing
-   * tests by feature, team, or release cycle.
+   * Body param: Optional test suite name to group related tests together. Useful for
+   * organizing tests by feature, team, or release cycle.
    */
   test_suite?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export namespace TestCreateParams {

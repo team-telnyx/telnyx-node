@@ -48,6 +48,7 @@ describe('resource embeddings', () => {
       document_chunk_size: 1024,
       embedding_model: 'thenlper/gte-large',
       loader: 'default',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 
@@ -89,7 +90,11 @@ describe('resource embeddings', () => {
 
   // Mock server tests are disabled
   test.skip('url: required and optional params', async () => {
-    const response = await client.ai.embeddings.url({ bucket_name: 'Bucket Name', url: 'URL' });
+    const response = await client.ai.embeddings.url({
+      bucket_name: 'Bucket Name',
+      url: 'URL',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
+    });
   });
 
   // Mock server tests are disabled

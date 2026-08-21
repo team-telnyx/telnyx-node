@@ -18,4 +18,5 @@ export {
   type ThreadRetrieveResponse,
   type ThreadListParams,
   type ThreadRetrieveParams,
+  type InboundThreadsEmailBracketCursorPagination,
 } from './threads';

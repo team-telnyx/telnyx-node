@@ -11,7 +11,7 @@ import { path } from '../../../../internal/utils/path';
  */
 export class Insights extends APIResource {
   /**
-   * Assign an insight to a group
+   * Assigns the specified insight template to the specified insight template group.
    *
    * @example
    * ```ts
@@ -30,7 +30,8 @@ export class Insights extends APIResource {
   }
 
   /**
-   * Remove an insight from a group
+   * Removes the specified insight template from the specified group. The insight
+   * template itself is not deleted.
    *
    * @example
    * ```ts

@@ -33,7 +33,8 @@ export class TexmlApplications extends APIResource {
   }
 
   /**
-   * Creates a TeXML Application.
+   * Creates a TeXML application, which defines the voice URLs and settings used to
+   * serve TeXML instructions for calls, and returns the created application.
    *
    * @example
    * ```ts
@@ -52,7 +53,7 @@ export class TexmlApplications extends APIResource {
   }
 
   /**
-   * Deletes a TeXML Application.
+   * Permanently deletes the specified TeXML application from your account.
    *
    * @example
    * ```ts

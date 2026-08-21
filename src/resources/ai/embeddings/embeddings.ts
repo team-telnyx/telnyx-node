@@ -5,6 +5,7 @@ import * as EmbeddingsAPI from './embeddings';
 import * as BucketsAPI from './buckets';
 import { BucketListResponse, BucketRetrieveResponse, Buckets } from './buckets';
 import { APIPromise } from '../../../core/api-promise';
+import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -75,8 +76,16 @@ export class Embeddings extends APIResource {
    * );
    * ```
    */
-  create(body: EmbeddingCreateParams, options?: RequestOptions): APIPromise<EmbeddingResponse> {
-    return this._client.post('/ai/embeddings', { body, ...options });
+  create(params: EmbeddingCreateParams, options?: RequestOptions): APIPromise<EmbeddingResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/embeddings', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -128,8 +137,16 @@ export class Embeddings extends APIResource {
    * });
    * ```
    */
-  url(body: EmbeddingURLParams, options?: RequestOptions): APIPromise<EmbeddingResponse> {
-    return this._client.post('/ai/embeddings/url', { body, ...options });
+  url(params: EmbeddingURLParams, options?: RequestOptions): APIPromise<EmbeddingResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/embeddings/url', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -271,21 +288,42 @@ export interface EmbeddingListParams {
 }
 
 export interface EmbeddingCreateParams {
+  /**
+   * Body param
+   */
   bucket_name: string;
 
+  /**
+   * Body param
+   */
   document_chunk_overlap_size?: number;
 
+  /**
+   * Body param
+   */
   document_chunk_size?: number;
 
   /**
-   * Supported models to vectorize and embed documents.
+   * Body param: Supported models to vectorize and embed documents.
    */
   embedding_model?: 'thenlper/gte-large' | 'intfloat/multilingual-e5-large';
 
   /**
-   * Supported types of custom document loaders for embeddings.
+   * Body param: Supported types of custom document loaders for embeddings.
    */
   loader?: 'default' | 'intercom';
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface EmbeddingSimilaritySearchParams {
@@ -298,14 +336,27 @@ export interface EmbeddingSimilaritySearchParams {
 
 export interface EmbeddingURLParams {
   /**
-   * Name of the bucket to store the embeddings. This bucket must already exist.
+   * Body param: Name of the bucket to store the embeddings. This bucket must already
+   * exist.
    */
   bucket_name: string;
 
   /**
-   * The URL of the webpage to embed
+   * Body param: The URL of the webpage to embed
    */
   url: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 Embeddings.Buckets = Buckets;

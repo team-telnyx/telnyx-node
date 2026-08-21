@@ -16,7 +16,8 @@ import { path } from '../../../internal/utils/path';
  */
 export class Queues extends APIResource {
   /**
-   * Creates a new queue resource.
+   * Creates a new queue resource for the account with the provided settings and
+   * returns it.
    *
    * @example
    * ```ts
@@ -33,7 +34,7 @@ export class Queues extends APIResource {
   }
 
   /**
-   * Delete a queue resource.
+   * Permanently deletes the specified queue resource from the account.
    *
    * @example
    * ```ts
@@ -51,7 +52,7 @@ export class Queues extends APIResource {
   }
 
   /**
-   * Returns a queue resource.
+   * Returns a single queue resource for the account by its QueueSid.
    *
    * @example
    * ```ts
@@ -71,7 +72,7 @@ export class Queues extends APIResource {
   }
 
   /**
-   * Updates a queue resource.
+   * Updates the specified queue resource's settings and returns the updated queue.
    *
    * @example
    * ```ts
@@ -91,7 +92,8 @@ export class Queues extends APIResource {
   }
 
   /**
-   * Lists queue resources.
+   * Returns a paginated list of queue resources for the account, with support for
+   * filtering by creation or update dates.
    *
    * @example
    * ```ts

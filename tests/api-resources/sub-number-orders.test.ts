@@ -28,6 +28,7 @@ describe('resource subNumberOrders', () => {
         {
           filter: {
             country_code: 'US',
+            include_phone_numbers: true,
             order_request_id: '12ade33a-21c0-473b-b055-b3c836e1c293',
             phone_number_type: 'local',
             phone_numbers_count: 1,

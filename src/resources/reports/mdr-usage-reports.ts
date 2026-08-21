@@ -79,7 +79,7 @@ export class MdrUsageReports extends APIResource {
   }
 
   /**
-   * Delete messaging usage report by id
+   * Permanently deletes the specified messaging usage report by its identifier.
    *
    * @example
    * ```ts

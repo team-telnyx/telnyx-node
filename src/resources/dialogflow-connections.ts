@@ -11,7 +11,7 @@ import { path } from '../internal/utils/path';
  */
 export class DialogflowConnections extends APIResource {
   /**
-   * Deletes a stored Dialogflow Connection.
+   * Deletes the stored Dialogflow connection for the specified connection.
    *
    * @example
    * ```ts
@@ -76,7 +76,8 @@ export class DialogflowConnections extends APIResource {
   }
 
   /**
-   * Updates a stored Dialogflow Connection.
+   * Updates the stored Dialogflow connection for the specified connection and
+   * returns the updated configuration.
    *
    * @example
    * ```ts

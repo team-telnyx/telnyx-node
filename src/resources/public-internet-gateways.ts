@@ -14,7 +14,8 @@ import { path } from '../internal/utils/path';
  */
 export class PublicInternetGateways extends APIResource {
   /**
-   * List all Public Internet Gateways.
+   * Returns a paginated list of the public internet gateways on your account, with
+   * support for filtering.
    */
   list(
     query: PublicInternetGatewayListParams | null | undefined = {},
@@ -28,7 +29,9 @@ export class PublicInternetGateways extends APIResource {
   }
 
   /**
-   * Create a new Public Internet Gateway.
+   * Requests creation of a public internet gateway on the specified network, giving
+   * the network internet egress. Creation is asynchronous, so the request is
+   * accepted and completes in the background.
    */
   create(
     params: PublicInternetGatewayCreateParams,
@@ -39,14 +42,15 @@ export class PublicInternetGateways extends APIResource {
   }
 
   /**
-   * Delete a Public Internet Gateway.
+   * Deletes the specified public internet gateway, removing internet egress through
+   * it.
    */
   delete(id: string, options?: RequestOptions): APIPromise<PublicInternetGatewayDeleteResponse> {
     return this._client.delete(path`/public_internet_gateways/${id}`, options);
   }
 
   /**
-   * Retrieve a Public Internet Gateway.
+   * Returns the details of a single public internet gateway by its identifier.
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<PublicInternetGatewayRetrieveResponse> {
     return this._client.get(path`/public_internet_gateways/${id}`, options);

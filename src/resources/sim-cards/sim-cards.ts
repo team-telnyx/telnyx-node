@@ -106,7 +106,7 @@ export class SimCards extends APIResource {
   }
 
   /**
-   * Updates SIM card data
+   * Updates the specified SIM card's attributes and returns the updated SIM card.
    *
    * @example
    * ```ts

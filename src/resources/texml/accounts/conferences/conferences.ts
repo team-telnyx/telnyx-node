@@ -26,7 +26,8 @@ export class Conferences extends APIResource {
   participants: ParticipantsAPI.Participants = new ParticipantsAPI.Participants(this._client);
 
   /**
-   * Lists conference resources.
+   * Returns a paginated list of conference resources for the account, with support
+   * for filtering by friendly name, status, and creation or update dates.
    *
    * @example
    * ```ts
@@ -45,7 +46,7 @@ export class Conferences extends APIResource {
   }
 
   /**
-   * Returns a conference resource.
+   * Returns a single conference resource for the account by its ConferenceSid.
    *
    * @example
    * ```ts
@@ -66,7 +67,8 @@ export class Conferences extends APIResource {
   }
 
   /**
-   * Updates a conference resource.
+   * Updates the specified conference resource, for example to modify its status, and
+   * returns the updated conference.
    *
    * @example
    * ```ts
@@ -91,7 +93,7 @@ export class Conferences extends APIResource {
   }
 
   /**
-   * Lists conference recordings
+   * Returns the list of recordings made for the specified conference.
    *
    * @example
    * ```ts

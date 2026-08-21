@@ -62,10 +62,7 @@ export class SpeechToText extends APIResource {
       query,
       defaultBaseURL: 'wss://api.telnyx.com/v2',
       ...options,
-      headers: buildHeaders([
-        { 'Content-Type': 'application/octet-stream', Accept: '*/*' },
-        options?.headers,
-      ]),
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
     });
   }
 }
@@ -77,6 +74,62 @@ export class SpeechToText extends APIResource {
  * `TranscriptionConfig.model` enum on `call-control` voice assistants).
  */
 export type SttServiceType = 'streaming' | 'file_based' | 'in_call' | 'ai_assistant';
+
+/**
+ * Binary audio data in mp3 or wav format.
+ */
+export type TranscribeClientEvent = Uploadable;
+
+/**
+ * Union of all server-to-client WebSocket events for STT streaming.
+ */
+export type TranscribeServerEvent =
+  | TranscribeServerEvent.TranscriptFrame
+  | TranscribeServerEvent.SttErrorFrame;
+
+export namespace TranscribeServerEvent {
+  /**
+   * Server-to-client frame containing a transcription result.
+   */
+  export interface TranscriptFrame {
+    /**
+     * The transcribed text from the audio.
+     */
+    transcript: string;
+
+    /**
+     * Frame type identifier.
+     */
+    type: 'transcript';
+
+    /**
+     * Confidence score of the transcription, ranging from 0 to 1.
+     */
+    confidence?: number;
+
+    /**
+     * Whether this is a final transcription result. When `false`, this is an interim
+     * result that may be refined.
+     */
+    is_final?: boolean;
+  }
+
+  /**
+   * Server-to-client frame indicating an error during transcription. The connection
+   * may be closed shortly after.
+   */
+  export interface SttErrorFrame {
+    /**
+     * Error message describing what went wrong.
+     */
+    error: string;
+
+    /**
+     * Frame type identifier.
+     */
+    type: 'error';
+  }
+}
 
 /**
  * List of supported STT providers and models.
@@ -146,62 +199,6 @@ export namespace SpeechToTextListProvidersResponse {
      * Total number of entries returned.
      */
     total: number;
-  }
-}
-
-/**
- * Binary audio data in mp3 or wav format.
- */
-export type TranscribeClientEvent = Uploadable;
-
-/**
- * Union of all server-to-client WebSocket events for STT streaming.
- */
-export type TranscribeServerEvent =
-  | TranscribeServerEvent.TranscriptFrame
-  | TranscribeServerEvent.SttErrorFrame;
-
-export namespace TranscribeServerEvent {
-  /**
-   * Server-to-client frame containing a transcription result.
-   */
-  export interface TranscriptFrame {
-    /**
-     * The transcribed text from the audio.
-     */
-    transcript: string;
-
-    /**
-     * Frame type identifier.
-     */
-    type: 'transcript';
-
-    /**
-     * Confidence score of the transcription, ranging from 0 to 1.
-     */
-    confidence?: number;
-
-    /**
-     * Whether this is a final transcription result. When `false`, this is an interim
-     * result that may be refined.
-     */
-    is_final?: boolean;
-  }
-
-  /**
-   * Server-to-client frame indicating an error during transcription. The connection
-   * may be closed shortly after.
-   */
-  export interface SttErrorFrame {
-    /**
-     * Error message describing what went wrong.
-     */
-    error: string;
-
-    /**
-     * Frame type identifier.
-     */
-    type: 'error';
   }
 }
 
@@ -324,9 +321,9 @@ export interface SpeechToTextRetrieveTranscriptionParams {
 export declare namespace SpeechToText {
   export {
     type SttServiceType as SttServiceType,
-    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
     type TranscribeClientEvent as TranscribeClientEvent,
     type TranscribeServerEvent as TranscribeServerEvent,
+    type SpeechToTextListProvidersResponse as SpeechToTextListProvidersResponse,
     type SpeechToTextListProvidersParams as SpeechToTextListProvidersParams,
     type SpeechToTextRetrieveTranscriptionParams as SpeechToTextRetrieveTranscriptionParams,
   };

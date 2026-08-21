@@ -13,7 +13,8 @@ import { path } from '../internal/utils/path';
  */
 export class IPConnections extends APIResource {
   /**
-   * Returns a list of your IP connections.
+   * Returns a paginated list of your IP-based SIP connections, with support for
+   * filtering and sorting.
    *
    * @example
    * ```ts
@@ -34,7 +35,8 @@ export class IPConnections extends APIResource {
   }
 
   /**
-   * Creates an IP connection.
+   * Creates a new IP-based SIP connection, which authenticates traffic by source IP
+   * address.
    *
    * @example
    * ```ts
@@ -46,7 +48,7 @@ export class IPConnections extends APIResource {
   }
 
   /**
-   * Deletes an existing IP connection.
+   * Permanently deletes the specified IP connection from your account.
    *
    * @example
    * ```ts

@@ -1096,18 +1096,6 @@ export interface ResembleVoiceSettings {
   sample_rate?: '8000' | '16000' | '22050' | '32000' | '44100' | '48000';
 }
 
-export interface RimeVoiceSettings {
-  /**
-   * Voice settings provider type
-   */
-  type: 'rime';
-
-  /**
-   * Speech speed multiplier. Default is 1.0.
-   */
-  voice_speed?: number;
-}
-
 export interface RoomParticipant {
   /**
    * A unique identifier for the room participant.

@@ -42,7 +42,8 @@ export class RoomRecordings extends APIResource {
   }
 
   /**
-   * Synchronously delete a Room Recording.
+   * Synchronously deletes the specified video room recording. The recording's media
+   * is removed permanently.
    */
   delete(roomRecordingID: string, options?: RequestOptions): APIPromise<void> {
     return this._client.delete(path`/room_recordings/${roomRecordingID}`, {

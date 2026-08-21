@@ -105,7 +105,8 @@ export class Portouts extends APIResource {
   }
 
   /**
-   * Authorize or reject portout request
+   * Updates the status of the specified port-out request, using the status path
+   * segment to authorize or reject the port-out.
    *
    * @example
    * ```ts

@@ -73,6 +73,7 @@ describe('resource participants', () => {
       From: '+12065550200',
       Label: 'customer',
       MachineDetection: 'Enable',
+      MachineDetectionBeepProfile: 'freq_only',
       MachineDetectionSilenceTimeout: 2000,
       MachineDetectionSpeechEndThreshold: 2000,
       MachineDetectionSpeechThreshold: 2000,

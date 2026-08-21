@@ -37,7 +37,8 @@ export class PhoneNumberBlocks extends APIResource {
   }
 
   /**
-   * Creates a new phone number block.
+   * Creates a phone number block on the porting order, representing a contiguous
+   * range of phone numbers to be ported together.
    *
    * @example
    * ```ts
@@ -71,7 +72,7 @@ export class PhoneNumberBlocks extends APIResource {
   }
 
   /**
-   * Deletes a phone number block.
+   * Deletes the specified phone number block from the porting order.
    *
    * @example
    * ```ts

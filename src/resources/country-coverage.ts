@@ -10,14 +10,16 @@ import { path } from '../internal/utils/path';
  */
 export class CountryCoverageResource extends APIResource {
   /**
-   * Get country coverage
+   * Returns Telnyx service coverage information for every country, including which
+   * number types and features are available in each.
    */
   retrieve(options?: RequestOptions): APIPromise<CountryCoverageRetrieveResponse> {
     return this._client.get('/country_coverage', options);
   }
 
   /**
-   * Get coverage for a specific country
+   * Returns Telnyx service coverage information for the specified country, including
+   * available number types and features.
    */
   retrieveCountry(
     countryCode: string,

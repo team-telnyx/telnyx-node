@@ -3,7 +3,6 @@
 export { Dir, type DirListParams, type DirCreateParams } from './dir';
 export {
   Enterprises,
-  type BillingAddress,
   type BillingContact,
   type EnterprisePublic,
   type EnterprisePublicWrapped,

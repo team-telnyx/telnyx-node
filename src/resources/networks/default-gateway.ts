@@ -13,7 +13,7 @@ import { path } from '../../internal/utils/path';
  */
 export class DefaultGatewayResource extends APIResource {
   /**
-   * Delete Default Gateway.
+   * Removes the default gateway from the specified network.
    *
    * @example
    * ```ts
@@ -28,7 +28,7 @@ export class DefaultGatewayResource extends APIResource {
   }
 
   /**
-   * Get Default Gateway status.
+   * Returns the status of the default gateway configured on the specified network.
    *
    * @example
    * ```ts
@@ -43,7 +43,8 @@ export class DefaultGatewayResource extends APIResource {
   }
 
   /**
-   * Create Default Gateway.
+   * Creates a default gateway on the specified network, directing the network's
+   * outbound traffic through the chosen gateway.
    *
    * @example
    * ```ts

@@ -283,6 +283,18 @@ describe('resource assistants', () => {
               type: 'object',
             },
             headers: [{ name: 'name', value: 'value' }],
+            messages: [
+              {
+                content: 'Let me look that up for you.',
+                type: 'request_start',
+                timing_ms: 100,
+              },
+              {
+                content: 'Still working on that.',
+                timing_ms: 5000,
+                type: 'request_response_delayed',
+              },
+            ],
             method: 'GET',
             path_parameters: {
               properties: { id: 'bar' },
@@ -349,6 +361,7 @@ describe('resource assistants', () => {
         theme: 'light',
         view_history_url: 'view_history_url',
       },
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 
@@ -370,6 +383,7 @@ describe('resource assistants', () => {
       api_key_ref: 'string',
       provider: 'elevenlabs',
       import_ids: ['string'],
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 
@@ -464,6 +478,18 @@ describe('resource assistants', () => {
   });
 
   // Mock server tests are disabled
+  test.skip('clone: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.ai.assistants.clone(
+        'assistant_id',
+        { 'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
   test.skip('getTexml', async () => {
     const responsePromise = client.ai.assistants.getTexml('assistant_id');
     const rawResponse = await responsePromise.asResponse();
@@ -495,6 +521,7 @@ describe('resource assistants', () => {
       conversation_metadata: { foo: 'string' },
       should_create_conversation: false,
       text: 'Text',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 });

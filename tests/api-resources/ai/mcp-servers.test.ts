@@ -60,6 +60,7 @@ describe('resource mcpServers', () => {
       url: 'Url',
       allowed_tools: ['string'],
       api_key_ref: 'api_key_ref',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 

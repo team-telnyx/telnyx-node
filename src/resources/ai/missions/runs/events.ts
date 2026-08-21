@@ -12,7 +12,9 @@ import { path } from '../../../../internal/utils/path';
 
 export class Events extends APIResource {
   /**
-   * List events for a run (paginated)
+   * Returns a paginated list of events logged for the specified run, filterable by
+   * event type, plan step, and agent, so you can reconstruct exactly what happened
+   * during execution.
    *
    * @example
    * ```ts
@@ -39,7 +41,8 @@ export class Events extends APIResource {
   }
 
   /**
-   * Log an event for a run
+   * Logs a new event against the specified run and returns the created event. Events
+   * form the run's audit trail and can reference a plan step or agent.
    *
    * @example
    * ```ts
@@ -63,7 +66,8 @@ export class Events extends APIResource {
   }
 
   /**
-   * Get details of a specific event
+   * Returns the details of a single event logged for the specified run, including
+   * its type and payload.
    *
    * @example
    * ```ts

@@ -32,7 +32,8 @@ export class WirelessBlocklists extends APIResource {
   }
 
   /**
-   * Update a Wireless Blocklist.
+   * Updates the specified wireless blocklist. The update is processed
+   * asynchronously, so the request is accepted and completes in the background.
    *
    * @example
    * ```ts
@@ -71,7 +72,7 @@ export class WirelessBlocklists extends APIResource {
   }
 
   /**
-   * Deletes the Wireless Blocklist.
+   * Permanently deletes the specified wireless blocklist from your account.
    *
    * @example
    * ```ts

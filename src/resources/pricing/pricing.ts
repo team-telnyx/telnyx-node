@@ -10,6 +10,7 @@ import {
   ProductListResponsesDefaultFlatPagination,
   ProductRetrieveParams,
   ProductRetrieveResponse,
+  ProductRetrieveResponsesDefaultFlatPagination,
   Products,
 } from './products';
 
@@ -27,6 +28,7 @@ export declare namespace Pricing {
     type ProductRetrieveResponse as ProductRetrieveResponse,
     type ProductListResponse as ProductListResponse,
     type ProductListResponsesDefaultFlatPagination as ProductListResponsesDefaultFlatPagination,
+    type ProductRetrieveResponsesDefaultFlatPagination as ProductRetrieveResponsesDefaultFlatPagination,
     type ProductListParams as ProductListParams,
     type ProductRetrieveParams as ProductRetrieveParams,
   };

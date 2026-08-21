@@ -10,7 +10,8 @@ import { path } from '../../internal/utils/path';
 
 export class UserBundles extends APIResource {
   /**
-   * Get a paginated list of user bundles.
+   * Returns a paginated list of the bundles active on your account, with support for
+   * filtering.
    *
    * @example
    * ```ts
@@ -81,7 +82,8 @@ export class UserBundles extends APIResource {
   }
 
   /**
-   * Deactivates a user bundle by its ID.
+   * Deactivates the specified user bundle on your account and returns the
+   * deactivated bundle.
    *
    * @example
    * ```ts
@@ -107,7 +109,7 @@ export class UserBundles extends APIResource {
   }
 
   /**
-   * Retrieves a user bundle by its ID.
+   * Returns the details of a single user bundle on your account by its ID.
    *
    * @example
    * ```ts

@@ -10,6 +10,7 @@ export {
   type CollectionRetrieveDocumentsParams,
   type CollectionUpdateParams,
   type CollectionsDefaultFlatPagination,
+  type CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
 } from './collections';
 export {
   Settings,

@@ -18,14 +18,15 @@ export class OAuthGrants extends APIResource {
   }
 
   /**
-   * Revoke an OAuth grant
+   * Revokes the specified OAuth grant, withdrawing the access previously granted to
+   * the client.
    */
   delete(id: string, options?: RequestOptions): APIPromise<OAuthGrantDeleteResponse> {
     return this._client.delete(path`/oauth_grants/${id}`, options);
   }
 
   /**
-   * Retrieve a single OAuth grant by ID
+   * Returns the details of a single OAuth grant on your account by its ID.
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<OAuthGrantRetrieveResponse> {
     return this._client.get(path`/oauth_grants/${id}`, options);

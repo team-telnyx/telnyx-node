@@ -75,7 +75,8 @@ export class VerifyProfiles extends APIResource {
   }
 
   /**
-   * Gets a single Verify profile.
+   * Returns the details of a single Verify profile by its ID, including its
+   * verification channel configuration.
    *
    * @example
    * ```ts

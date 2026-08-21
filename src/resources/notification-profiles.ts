@@ -24,7 +24,8 @@ export class NotificationProfiles extends APIResource {
   }
 
   /**
-   * Create a notification profile.
+   * Creates a new notification profile, a named grouping used to organize
+   * notification settings, and returns it.
    */
   create(
     body: NotificationProfileCreateParams | null | undefined = {},
@@ -34,21 +35,21 @@ export class NotificationProfiles extends APIResource {
   }
 
   /**
-   * Delete a notification profile.
+   * Deletes the specified notification profile from your account.
    */
   delete(id: string, options?: RequestOptions): APIPromise<NotificationProfileDeleteResponse> {
     return this._client.delete(path`/notification_profiles/${id}`, options);
   }
 
   /**
-   * Get a notification profile.
+   * Returns the details of a single notification profile by its identifier.
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<NotificationProfileRetrieveResponse> {
     return this._client.get(path`/notification_profiles/${id}`, options);
   }
 
   /**
-   * Update a notification profile.
+   * Updates the specified notification profile and returns the updated profile.
    */
   update(
     notificationProfileID: string,

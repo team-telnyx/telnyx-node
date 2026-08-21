@@ -113,7 +113,9 @@ import {
   TranscriptionEngineBConfig,
   TranscriptionEngineDeepgramConfig,
   TranscriptionEngineGoogleConfig,
+  TranscriptionEngineHumainConfig,
   TranscriptionEngineParakeetConfig,
+  TranscriptionEngineReson8Config,
   TranscriptionEngineSonioxConfig,
   TranscriptionEngineSpeechmaticsConfig,
   TranscriptionEngineTelnyxConfig,
@@ -551,7 +553,6 @@ export interface ConversationRelayEmbeddedConfig {
     | ActionsAPI.AwsVoiceSettings
     | Shared.MinimaxVoiceSettings
     | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings;
@@ -657,7 +658,6 @@ export interface ConversationRelayLanguage {
     | ActionsAPI.AwsVoiceSettings
     | Shared.MinimaxVoiceSettings
     | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings;
@@ -1319,6 +1319,13 @@ export namespace CallDialParams {
     after_greeting_silence_millis?: number;
 
     /**
+     * Selects which detectors must validate a beep. `both` requires the amplitude and
+     * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+     * beeps whose volume is too unsteady for the default profile.
+     */
+    beep_detection_profile?: 'both' | 'freq_only';
+
+    /**
      * Maximum threshold for silence between words.
      */
     between_words_silence_millis?: number;
@@ -1550,7 +1557,9 @@ export declare namespace Calls {
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
+    type TranscriptionEngineHumainConfig as TranscriptionEngineHumainConfig,
     type TranscriptionEngineParakeetConfig as TranscriptionEngineParakeetConfig,
+    type TranscriptionEngineReson8Config as TranscriptionEngineReson8Config,
     type TranscriptionEngineSonioxConfig as TranscriptionEngineSonioxConfig,
     type TranscriptionEngineSpeechmaticsConfig as TranscriptionEngineSpeechmaticsConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,

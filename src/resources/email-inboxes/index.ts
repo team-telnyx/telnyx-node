@@ -8,7 +8,6 @@ export {
   type EmailDraftResponse,
   type EmailMessage,
   type EmailMessageResponse,
-  type DraftListResponse,
   type DraftListParams,
   type DraftCreateParams,
   type DraftDeleteParams,
@@ -16,17 +15,20 @@ export {
   type DraftUpdateParams,
   type DraftPatchParams,
   type DraftSendParams,
+  type EmailMessagesEmailCursorPagination,
+  type EmailDraftsEmailBracketCursorPagination,
 } from './drafts';
 export {
   EmailInboxes,
   type EmailInbox,
   type EmailInboxResponse,
-  type EmailInboxListResponse,
   type EmailInboxListParams,
   type EmailInboxCreateParams,
+  type EmailInboxesEmailCursorPagination,
 } from './email-inboxes';
 export {
   Filters,
+  type InboxFilters,
   type MutateInboxFiltersRequest,
   type FilterListResponse,
   type FilterAddResponse,
@@ -39,7 +41,6 @@ export {
 export {
   Messages,
   type MessageUpdateResponse,
-  type MessageListResponse,
   type MessageListParams,
   type MessageUpdateParams,
   type MessageDraftsParams,
@@ -55,4 +56,5 @@ export {
   type ThreadRetrieveResponse,
   type ThreadListParams,
   type ThreadRetrieveParams,
+  type InboundThreadsEmailBracketCursorPagination,
 } from './threads/index';

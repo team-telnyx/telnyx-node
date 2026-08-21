@@ -11,7 +11,8 @@ import { path } from '../../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
-   * Stop an in-progress storage migration.
+   * Stops the specified in-progress storage migration and returns the updated
+   * migration.
    *
    * @example
    * ```ts

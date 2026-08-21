@@ -9,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class GlobalIPHealthCheckTypes extends APIResource {
   /**
-   * List all Global IP Health check types.
+   * Returns the health check types available for Global IPs, for use when creating
+   * Global IP health checks.
    */
   list(options?: RequestOptions): APIPromise<GlobalIPHealthCheckTypeListResponse> {
     return this._client.get('/global_ip_health_check_types', options);

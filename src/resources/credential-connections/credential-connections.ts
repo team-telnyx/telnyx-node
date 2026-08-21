@@ -37,7 +37,8 @@ export class CredentialConnections extends APIResource {
   }
 
   /**
-   * Creates a credential connection.
+   * Creates a new credential-based SIP connection. Credential connections
+   * authenticate with a username and password rather than by IP address.
    *
    * @example
    * ```ts

@@ -29,7 +29,7 @@ export class Fqdns extends APIResource {
   }
 
   /**
-   * Create a new FQDN object.
+   * Creates a new FQDN record and attaches it to the specified connection.
    *
    * @example
    * ```ts
@@ -45,7 +45,7 @@ export class Fqdns extends APIResource {
   }
 
   /**
-   * Delete an FQDN.
+   * Permanently deletes the specified FQDN record from its connection.
    *
    * @example
    * ```ts
@@ -73,7 +73,7 @@ export class Fqdns extends APIResource {
   }
 
   /**
-   * Update the details of a specific FQDN.
+   * Updates the details of the specified FQDN record and returns the updated FQDN.
    *
    * @example
    * ```ts

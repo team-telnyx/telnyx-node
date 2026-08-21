@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import * as WebhooksAPI from '../../webhooks';
+import { InboundMessagesEmailBracketCursorPagination } from '../../webhooks';
 import * as DraftsAPI from '../drafts';
 import * as EmailMessagesAPI from '../../email-messages/email-messages';
 import * as ActionsAPI from './actions';
@@ -23,8 +24,12 @@ import {
   LabelMutationRequest,
   Labels,
 } from './labels';
-import * as ThreadsAPI from '../threads/threads';
 import { APIPromise } from '../../../core/api-promise';
+import {
+  EmailBracketCursorPagination,
+  type EmailBracketCursorPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
@@ -39,17 +44,24 @@ export class Messages extends APIResource {
    *
    * @example
    * ```ts
-   * const messages = await client.emailInboxes.messages.list(
+   * // Automatically fetches more pages as needed.
+   * for await (const inboundMessage of client.emailInboxes.messages.list(
    *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
-   * );
+   * )) {
+   *   // ...
+   * }
    * ```
    */
   list(
     inboxID: string,
     query: MessageListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<MessageListResponse> {
-    return this._client.get(path`/email_inboxes/${inboxID}/messages`, { query, ...options });
+  ): PagePromise<InboundMessagesEmailBracketCursorPagination, WebhooksAPI.InboundMessage> {
+    return this._client.getAPIList(
+      path`/email_inboxes/${inboxID}/messages`,
+      EmailBracketCursorPagination<WebhooksAPI.InboundMessage>,
+      { query, ...options },
+    );
   }
 
   /**
@@ -119,13 +131,7 @@ export interface MessageUpdateResponse {
   data: WebhooksAPI.InboundMessage;
 }
 
-export interface MessageListResponse {
-  data: Array<WebhooksAPI.InboundMessage>;
-
-  meta: ThreadsAPI.EmailPaginationMeta;
-}
-
-export interface MessageListParams {
+export interface MessageListParams extends EmailBracketCursorPaginationParams {
   /**
    * Case-insensitive literal substring of the sender address.
    */
@@ -168,16 +174,6 @@ export interface MessageListParams {
    * messages.
    */
   'filter[unread]'?: boolean;
-
-  /**
-   * Opaque cursor returned by the previous page.
-   */
-  'page[after]'?: string;
-
-  /**
-   * Number of results to return. Defaults to 25; maximum is 100.
-   */
-  'page[size]'?: number;
 }
 
 export interface MessageUpdateParams {
@@ -187,10 +183,9 @@ export interface MessageUpdateParams {
   inbox_id: string;
 
   /**
-   * Body param: Set to `true` for server time, an ISO 8601 timestamp for an explicit
-   * read time, or `null` to mark unread.
+   * Body param
    */
-  read_at: true | null | string;
+  read_at: true | string;
 }
 
 export interface MessageDraftsParams {
@@ -202,7 +197,7 @@ export interface MessageDraftsParams {
   /**
    * Body param
    */
-  attachments?: Array<unknown>;
+  attachments?: Array<{ [key: string]: unknown }>;
 
   /**
    * Body param
@@ -247,7 +242,7 @@ export interface MessageDraftsParams {
   /**
    * Body param
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 
   /**
    * Body param
@@ -286,7 +281,6 @@ Messages.Labels = Labels;
 export declare namespace Messages {
   export {
     type MessageUpdateResponse as MessageUpdateResponse,
-    type MessageListResponse as MessageListResponse,
     type MessageListParams as MessageListParams,
     type MessageUpdateParams as MessageUpdateParams,
     type MessageDraftsParams as MessageDraftsParams,
@@ -311,3 +305,5 @@ export declare namespace Messages {
     type LabelCreateParams as LabelCreateParams,
   };
 }
+
+export { type InboundMessagesEmailBracketCursorPagination };

@@ -9,7 +9,8 @@ import { path } from '../internal/utils/path';
 
 export class TelephonyCredentials extends APIResource {
   /**
-   * List all On-demand Credentials.
+   * Returns a paginated list of the on-demand telephony credentials on your account,
+   * with support for filtering.
    *
    * @example
    * ```ts
@@ -30,7 +31,8 @@ export class TelephonyCredentials extends APIResource {
   }
 
   /**
-   * Create a credential.
+   * Creates a new on-demand telephony credential for the specified connection. The
+   * credential can then be used to generate access tokens for SIP or WebRTC clients.
    *
    * @example
    * ```ts
@@ -48,7 +50,8 @@ export class TelephonyCredentials extends APIResource {
   }
 
   /**
-   * Delete an existing credential.
+   * Permanently deletes the specified telephony credential, revoking any access it
+   * provided.
    *
    * @example
    * ```ts
@@ -74,7 +77,7 @@ export class TelephonyCredentials extends APIResource {
   }
 
   /**
-   * Update an existing credential.
+   * Updates the specified telephony credential and returns the updated credential.
    *
    * @example
    * ```ts

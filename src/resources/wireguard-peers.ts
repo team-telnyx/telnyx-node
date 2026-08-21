@@ -14,7 +14,7 @@ import { path } from '../internal/utils/path';
  */
 export class WireguardPeers extends APIResource {
   /**
-   * List all WireGuard peers.
+   * Returns a paginated list of your WireGuard peers, with support for filtering.
    *
    * @example
    * ```ts
@@ -54,7 +54,7 @@ export class WireguardPeers extends APIResource {
   }
 
   /**
-   * Delete the WireGuard peer.
+   * Deletes the specified WireGuard peer from its interface.
    *
    * @example
    * ```ts
@@ -68,7 +68,7 @@ export class WireguardPeers extends APIResource {
   }
 
   /**
-   * Retrieve the WireGuard peer.
+   * Returns the details of a single WireGuard peer by its identifier.
    *
    * @example
    * ```ts
@@ -82,7 +82,7 @@ export class WireguardPeers extends APIResource {
   }
 
   /**
-   * Update the WireGuard peer.
+   * Updates the specified WireGuard peer and returns the updated peer.
    *
    * @example
    * ```ts

@@ -33,7 +33,9 @@ export class Requirements extends APIResource {
   }
 
   /**
-   * Retrieve a document requirement record
+   * Returns a single document requirement record by its identifier, describing the
+   * documentation needed for number-related actions. A specific requirement version
+   * can be requested.
    *
    * @example
    * ```ts

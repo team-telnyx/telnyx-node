@@ -13,7 +13,8 @@ import { path } from '../../internal/utils/path';
 
 export class McpServers extends APIResource {
   /**
-   * Retrieve a list of MCP servers.
+   * Returns a paginated list of the MCP servers configured on your account, with
+   * optional filtering by type or URL.
    *
    * @example
    * ```ts
@@ -34,7 +35,8 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Create a new MCP server.
+   * Creates a new MCP server configuration on your account and returns the created
+   * server.
    *
    * @example
    * ```ts
@@ -45,12 +47,20 @@ export class McpServers extends APIResource {
    * });
    * ```
    */
-  create(body: McpServerCreateParams, options?: RequestOptions): APIPromise<McpServer> {
-    return this._client.post('/ai/mcp_servers', { body, ...options });
+  create(params: McpServerCreateParams, options?: RequestOptions): APIPromise<McpServer> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/ai/mcp_servers', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
-   * Delete a specific MCP server.
+   * Permanently deletes the specified MCP server configuration from your account.
    *
    * @example
    * ```ts
@@ -79,7 +89,7 @@ export class McpServers extends APIResource {
   }
 
   /**
-   * Update an existing MCP server.
+   * Updates the specified MCP server's configuration and returns the updated server.
    *
    * @example
    * ```ts
@@ -131,15 +141,42 @@ export interface McpServerListParams extends DefaultFlatPaginationTopLevelArrayP
 }
 
 export interface McpServerCreateParams {
+  /**
+   * Body param
+   */
   name: string;
 
+  /**
+   * Body param
+   */
   type: string;
 
+  /**
+   * Body param
+   */
   url: string;
 
+  /**
+   * Body param
+   */
   allowed_tools?: Array<string> | null;
 
+  /**
+   * Body param
+   */
   api_key_ref?: string | null;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface McpServerUpdateParams {

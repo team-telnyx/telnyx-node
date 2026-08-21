@@ -25,7 +25,8 @@ export class Queues extends APIResource {
   calls: CallsAPI.Calls = new CallsAPI.Calls(this._client);
 
   /**
-   * Retrieve an existing call queue
+   * Returns the details of an existing call queue, including its current
+   * configuration.
    *
    * @example
    * ```ts
@@ -55,7 +56,8 @@ export class Queues extends APIResource {
   }
 
   /**
-   * Create a new call queue.
+   * Creates a new call queue with the provided configuration and returns the created
+   * queue.
    *
    * @example
    * ```ts
@@ -69,7 +71,7 @@ export class Queues extends APIResource {
   }
 
   /**
-   * Delete an existing call queue.
+   * Permanently deletes the specified call queue from your account.
    *
    * @example
    * ```ts

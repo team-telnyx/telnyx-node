@@ -104,7 +104,8 @@ export class Conferences extends APIResource {
   }
 
   /**
-   * Lists conference participants
+   * Returns a paginated list of participants in the specified conference, with
+   * support for filtering.
    *
    * @example
    * ```ts
@@ -132,7 +133,7 @@ export class Conferences extends APIResource {
   }
 
   /**
-   * Retrieve an existing conference
+   * Returns the details of an existing conference, including its current status.
    *
    * @example
    * ```ts

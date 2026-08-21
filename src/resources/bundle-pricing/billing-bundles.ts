@@ -9,7 +9,8 @@ import { path } from '../../internal/utils/path';
 
 export class BillingBundles extends APIResource {
   /**
-   * Get all allowed bundles.
+   * Returns a paginated list of the billing bundles available to your account, with
+   * support for filtering.
    *
    * @example
    * ```ts
@@ -39,7 +40,8 @@ export class BillingBundles extends APIResource {
   }
 
   /**
-   * Get a single bundle by ID.
+   * Returns the details of a single billing bundle by its ID, so you can inspect its
+   * contents before purchasing a user bundle.
    *
    * @example
    * ```ts

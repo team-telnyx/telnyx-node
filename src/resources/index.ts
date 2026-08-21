@@ -9,6 +9,7 @@ export {
   type AISummarizeResponse,
   type AISummarizeParams,
   type AIRetrieveConversationHistoriesParams,
+  type AIRetrieveConversationHistoriesResponsesDefaultFlatPagination,
 } from './ai/ai';
 export {
   AccessIPAddress,
@@ -243,6 +244,7 @@ export {
   type CustomStorageConfiguration,
   type GcsConfigurationData,
   type S3ConfigurationData,
+  type S3GenericConfigurationData,
   type CustomStorageCredentialCreateParams,
   type CustomStorageCredentialUpdateParams,
 } from './custom-storage-credentials';
@@ -338,6 +340,7 @@ export {
   type EmailBlockRetrieveExportParams,
   type EmailBlockRetrieveEventsParams,
   type EmailBlocksDefaultFlatPagination,
+  type EmailBlockRetrieveEventsResponsesDefaultFlatPagination,
 } from './email-blocks/email-blocks';
 export {
   EmailDomains,
@@ -365,43 +368,44 @@ export {
   type EmailEventRetrieveStatsResponse,
   type EmailEventListParams,
   type EmailEventRetrieveStatsParams,
+  type EmailEventListResponsesEmailCursorPagination,
 } from './email-events';
 export {
   EmailInboxes,
   type EmailInbox,
   type EmailInboxResponse,
-  type EmailInboxListResponse,
   type EmailInboxListParams,
   type EmailInboxCreateParams,
+  type EmailInboxesEmailCursorPagination,
 } from './email-inboxes/email-inboxes';
 export {
   EmailMessages,
   type AttachmentRequest,
   type EmailAddressInput,
   type MessageEvent,
+  type SuppressedRecipient,
   type TrackingSettings,
   type EmailMessageRetrieveResponse,
-  type EmailMessageListResponse,
   type EmailMessageBatchResponse,
-  type EmailMessageRetrieveEventsResponse,
   type EmailMessageDeleteAllParams,
   type EmailMessageListParams,
   type EmailMessageCreateParams,
   type EmailMessageBatchParams,
   type EmailMessageRetrieveEventsParams,
+  type MessageEventsEmailCursorPagination,
 } from './email-messages/email-messages';
 export {
   EmailTemplates,
   type EmailTemplate,
   type EmailTemplateResponse,
   type UpdateEmailTemplateRequest,
-  type EmailTemplateListResponse,
   type EmailTemplateRenderResponse,
   type EmailTemplateListParams,
   type EmailTemplateCreateParams,
   type EmailTemplateReplaceParams,
   type EmailTemplateUpdateParams,
   type EmailTemplateRenderParams,
+  type EmailTemplatesEmailCursorPagination,
 } from './email-templates';
 export {
   EmailThreads,
@@ -423,12 +427,12 @@ export {
 export {
   EmailValidations,
   type EmailValidationCheck,
+  type EmailValidationChecks,
   type EmailValidationCreateResponse,
   type EmailValidationCreateParams,
 } from './email-validations/email-validations';
 export {
   Enterprises,
-  type BillingAddress,
   type BillingContact,
   type EnterprisePublic,
   type EnterprisePublicWrapped,
@@ -687,6 +691,7 @@ export {
 export {
   Messages,
   type MessagingError0b38e7044b,
+  type MessagingInboundMessagePayload,
   type MessagingOutboundMessagePayload,
   type OutboundMessagePayload,
   type RcsAgentMessage,
@@ -956,6 +961,7 @@ export {
   type OAuthGrantsResponse,
   type OAuthIntrospectResponse,
   type OAuthRegisterResponse,
+  type OAuthRetrieveAuthorizeResponse,
   type OAuthRetrieveJwksResponse,
   type OAuthTokenResponse,
   type OAuthRetrieveAuthorizeParams,
@@ -1322,15 +1328,16 @@ export {
 export {
   SpeechToText,
   type SttServiceType,
-  type SpeechToTextListProvidersResponse,
   type TranscribeClientEvent,
   type TranscribeServerEvent,
+  type SpeechToTextListProvidersResponse,
   type SpeechToTextListProvidersParams,
   type SpeechToTextRetrieveTranscriptionParams,
 } from './speech-to-text';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
 export {
   SubNumberOrders,
+  type NumbersSubNumberOrder,
   type SubNumberOrder,
   type SubNumberOrderRegulatoryRequirement,
   type SubNumberOrderRetrieveResponse,
@@ -1392,10 +1399,10 @@ export {
 } from './texml-applications';
 export {
   TextToSpeech,
-  type TextToSpeechGenerateSpeechResponse,
-  type TextToSpeechListVoicesResponse,
   type StreamClientEvent,
   type StreamServerEvent,
+  type TextToSpeechGenerateSpeechResponse,
+  type TextToSpeechListVoicesResponse,
   type TextToSpeechListVoicesParams,
   type TextToSpeechGenerateSpeechParams,
   type TextToSpeechRetrieveSpeechParams,
@@ -1614,6 +1621,7 @@ export {
   type FaxQueued,
   type FaxSendingStarted,
   type InboundMessage,
+  type InboundSipHeader,
   type NumberOrderStatusUpdate,
   type OutboundMessage,
   type ReplacedLinkClick,
@@ -1686,6 +1694,7 @@ export {
   type TranscriptionWebhookEvent,
   type UnsafeUnwrapWebhookEvent,
   type UnwrapWebhookEvent,
+  type InboundMessagesEmailBracketCursorPagination,
 } from './webhooks';
 export {
   WellKnown,

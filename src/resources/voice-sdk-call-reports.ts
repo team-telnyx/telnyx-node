@@ -91,7 +91,7 @@ export interface VoiceSDKCallReport {
    * an array of interval snapshots, but object-shaped stats payloads are also
    * allowed for compatibility.
    */
-  stats?: Array<{ [key: string]: unknown }> | VoiceSDKCallReport.UnionMember1;
+  stats?: Array<{ [key: string]: unknown }> | VoiceSDKCallReport.VoiceSDKCallReportStatsObject;
 
   /**
    * Time when the call report was stored.
@@ -168,7 +168,7 @@ export namespace VoiceSDKCallReport {
   /**
    * Raw stats object emitted by the Voice SDK.
    */
-  export interface UnionMember1 {
+  export interface VoiceSDKCallReportStatsObject {
     /**
      * Raw audio stats such as inbound/outbound packet, byte, jitter, packet-loss,
      * bitrate, and audio-level metrics.

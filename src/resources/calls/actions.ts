@@ -38,7 +38,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Stop an AI assistant on the call.
+   * Stops the AI assistant currently engaged on the call. The call remains active
+   * and can continue with other call control commands.
    *
    * @example
    * ```ts
@@ -119,7 +120,9 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Updates client state
+   * Updates the client state associated with the call. Client state is an opaque
+   * value echoed back in subsequent webhooks for the call, letting you correlate
+   * events with your application's state.
    *
    * @example
    * ```ts
@@ -139,7 +142,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Put the call in a queue.
+   * Places the call into a queue, where it waits until it is removed or bridged to
+   * another leg. Queue behavior is configured through the request body.
    *
    * @example
    * ```ts
@@ -377,7 +381,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Removes the call from a queue.
+   * Removes the call from the queue it is currently waiting in. The call remains
+   * active and can be directed with further call commands.
    *
    * @example
    * ```ts
@@ -845,7 +850,8 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Stop real-time transcription.
+   * Stops real-time transcription on the call. Transcription webhooks cease once the
+   * command takes effect; the call itself is unaffected.
    *
    * @example
    * ```ts
@@ -1430,13 +1436,13 @@ export type Loopcount = string | number;
 /**
  * A default prompt string or an ordered list of qualified prompts.
  */
-export type PayPromptValue = string | Array<PayPromptValue.UnionMember1>;
+export type PayPromptValue = string | Array<PayPromptValue.PayPromptList>;
 
 export namespace PayPromptValue {
   /**
    * A text-to-speech prompt with optional matching qualifiers.
    */
-  export interface UnionMember1 {
+  export interface PayPromptList {
     /**
      * Text spoken for the payment collection step.
      */
@@ -1448,11 +1454,18 @@ export namespace PayPromptValue {
     attempt?: string;
 
     /**
-     * Lowercase, case-sensitive detected card type for which this prompt applies. Only
-     * the listed brands are currently detected; accepted UnionPay and Maestro test
-     * cards do not produce a card-type qualifier.
+     * Lowercase, case-sensitive detected card type for which this prompt applies.
      */
-    card_type?: 'visa' | 'mastercard' | 'amex' | 'discover' | 'diners-club' | 'jcb';
+    card_type?:
+      | 'visa'
+      | 'mastercard'
+      | 'amex'
+      | 'optima'
+      | 'discover'
+      | 'diners-club'
+      | 'jcb'
+      | 'maestro'
+      | 'enroute';
 
     /**
      * Step error for which this prompt applies.
@@ -1460,6 +1473,7 @@ export namespace PayPromptValue {
     error_type?:
       | 'timeout'
       | 'invalid-card-number'
+      | 'invalid-card-type'
       | 'invalid-date'
       | 'invalid-security-code'
       | 'invalid-postal-code'
@@ -2016,6 +2030,24 @@ export namespace TranscriptionEngineGoogleConfig {
   }
 }
 
+export interface TranscriptionEngineHumainConfig {
+  /**
+   * The language of the audio to be transcribed. `codeswitch` enables Arabic/English
+   * code-switching. `auto` resolves server-side to code-switching.
+   */
+  language?: 'ar' | 'en' | 'codeswitch' | 'auto';
+
+  /**
+   * Engine identifier for Humain transcription service
+   */
+  transcription_engine?: 'Humain';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'humain/realtime';
+}
+
 export interface TranscriptionEngineParakeetConfig {
   /**
    * Whether to send also interim results. If set to false, only final results will
@@ -2032,6 +2064,24 @@ export interface TranscriptionEngineParakeetConfig {
    * The model to use for transcription.
    */
   transcription_model?: 'nvidia/parakeet-v3';
+}
+
+export interface TranscriptionEngineReson8Config {
+  /**
+   * The language of the audio to be transcribed. `auto` (the default, also applied
+   * when `language` is omitted) enables automatic language detection.
+   */
+  language?: 'auto' | 'nl' | 'en' | 'fr' | 'fy' | 'de' | 'it' | 'pl' | 'pt' | 'es' | 'sv';
+
+  /**
+   * Engine identifier for Reson8 transcription service
+   */
+  transcription_engine?: 'Reson8';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'reson8/turns';
 }
 
 export interface TranscriptionEngineSonioxConfig {
@@ -2216,8 +2266,8 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
-    | TranscriptionStartRequest.TranscriptionEngineHumainConfig
-    | TranscriptionStartRequest.TranscriptionEngineReson8Config
+    | TranscriptionEngineHumainConfig
+    | TranscriptionEngineReson8Config
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -2229,44 +2279,6 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
-}
-
-export namespace TranscriptionStartRequest {
-  export interface TranscriptionEngineHumainConfig {
-    /**
-     * The language of the audio to be transcribed. `codeswitch` enables Arabic/English
-     * code-switching. `auto` resolves server-side to code-switching.
-     */
-    language?: 'ar' | 'en' | 'codeswitch' | 'auto';
-
-    /**
-     * Engine identifier for Humain transcription service
-     */
-    transcription_engine?: 'Humain';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'humain/realtime';
-  }
-
-  export interface TranscriptionEngineReson8Config {
-    /**
-     * The language of the audio to be transcribed. `auto` (the default, also applied
-     * when `language` is omitted) enables automatic language detection.
-     */
-    language?: 'auto' | 'nl' | 'en' | 'fr' | 'fy' | 'de' | 'it' | 'pl' | 'pt' | 'es' | 'sv';
-
-    /**
-     * Engine identifier for Reson8 transcription service
-     */
-    transcription_engine?: 'Reson8';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'reson8/turns';
-  }
 }
 
 /**
@@ -3246,7 +3258,6 @@ export interface ActionGatherUsingAIParams {
     | TelnyxVoiceSettings
     | AwsVoiceSettings
     | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.XaiVoiceSettings;
 }
@@ -3390,9 +3401,6 @@ export interface ActionGatherUsingSpeakParams {
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
    *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
    *   to configure speed, volume, pitch, and language_boost.
-   * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
-   *   Supported model_ids: `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use
-   *   `voice_settings` to configure voice_speed.
    * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
    *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
    *   `voice_settings` to configure precision, sample_rate, and format.
@@ -3529,7 +3537,6 @@ export interface ActionGatherUsingSpeakParams {
     | AwsVoiceSettings
     | Shared.MinimaxVoiceSettings
     | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings;
@@ -4283,9 +4290,6 @@ export interface ActionSpeakParams {
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
    *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
    *   to configure speed, volume, pitch, and language_boost.
-   * - **Rime:** Use `Rime.<model_id>.<voice_id>` (e.g., `Rime.Arcana.cove`).
-   *   Supported model_ids: `Arcana`, `Mist`, `ArcanaV3`, `Coda`. Use
-   *   `voice_settings` to configure voice_speed.
    * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
    *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
    *   `voice_settings` to configure precision, sample_rate, and format.
@@ -4395,7 +4399,6 @@ export interface ActionSpeakParams {
     | AwsVoiceSettings
     | Shared.MinimaxVoiceSettings
     | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings;
@@ -4665,8 +4668,8 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineSpeechmaticsConfig
     | TranscriptionEngineSonioxConfig
     | TranscriptionEngineParakeetConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineHumainConfig
-    | ActionStartTranscriptionParams.TranscriptionEngineReson8Config
+    | TranscriptionEngineHumainConfig
+    | TranscriptionEngineReson8Config
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4678,44 +4681,6 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
-}
-
-export namespace ActionStartTranscriptionParams {
-  export interface TranscriptionEngineHumainConfig {
-    /**
-     * The language of the audio to be transcribed. `codeswitch` enables Arabic/English
-     * code-switching. `auto` resolves server-side to code-switching.
-     */
-    language?: 'ar' | 'en' | 'codeswitch' | 'auto';
-
-    /**
-     * Engine identifier for Humain transcription service
-     */
-    transcription_engine?: 'Humain';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'humain/realtime';
-  }
-
-  export interface TranscriptionEngineReson8Config {
-    /**
-     * The language of the audio to be transcribed. `auto` (the default, also applied
-     * when `language` is omitted) enables automatic language detection.
-     */
-    language?: 'auto' | 'nl' | 'en' | 'fr' | 'fy' | 'de' | 'it' | 'pl' | 'pt' | 'es' | 'sv';
-
-    /**
-     * Engine identifier for Reson8 transcription service
-     */
-    transcription_engine?: 'Reson8';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'reson8/turns';
-  }
 }
 
 export interface ActionStopTranscriptionParams {
@@ -5035,6 +5000,13 @@ export namespace ActionTransferParams {
     after_greeting_silence_millis?: number;
 
     /**
+     * Selects which detectors must validate a beep. `both` requires the amplitude and
+     * frequency detectors to agree. `freq_only` uses the frequency detector alone, for
+     * beeps whose volume is too unsteady for the default profile.
+     */
+    beep_detection_profile?: 'both' | 'freq_only';
+
+    /**
      * Maximum threshold for silence between words.
      */
     between_words_silence_millis?: number;
@@ -5237,8 +5209,7 @@ export interface ActionStartConversationRelayParams {
   structured_provider?: { [key: string]: unknown };
 
   /**
-   * @deprecated Not supported for Conversation Relay start requests. Use
-   * `transcription_engine` and `transcription_engine_config` instead.
+   * @deprecated Use transcription_engine and transcription_engine_config instead.
    */
   transcription?: { [key: string]: unknown };
 
@@ -5327,7 +5298,6 @@ export interface ActionStartConversationRelayParams {
     | AwsVoiceSettings
     | Shared.MinimaxVoiceSettings
     | Shared.AzureVoiceSettings
-    | Shared.RimeVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings;
@@ -5489,6 +5459,16 @@ export interface ActionPayParams {
   transaction_type?: 'charge' | 'tokenize';
 
   /**
+   * Restricts accepted card numbers to the listed card types. When the caller enters
+   * a card number that does not match one of the listed types, Pay treats the input
+   * as invalid and re-prompts for the card number. Cannot be used together with
+   * `payment_token`.
+   */
+  valid_card_types?: Array<
+    'visa' | 'mastercard' | 'amex' | 'maestro' | 'discover' | 'optima' | 'jcb' | 'diners-club' | 'enroute'
+  >;
+
+  /**
    * Voice used for payment prompts. Accepts `male`, `female`, or a provider voice in
    * `<Provider>.<Model>.<VoiceId>` format, for example `AWS.Polly.Joanna` or
    * `Telnyx.KokoroTTS.af`.
@@ -5561,7 +5541,9 @@ export declare namespace Actions {
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
+    type TranscriptionEngineHumainConfig as TranscriptionEngineHumainConfig,
     type TranscriptionEngineParakeetConfig as TranscriptionEngineParakeetConfig,
+    type TranscriptionEngineReson8Config as TranscriptionEngineReson8Config,
     type TranscriptionEngineSonioxConfig as TranscriptionEngineSonioxConfig,
     type TranscriptionEngineSpeechmaticsConfig as TranscriptionEngineSpeechmaticsConfig,
     type TranscriptionEngineTelnyxConfig as TranscriptionEngineTelnyxConfig,

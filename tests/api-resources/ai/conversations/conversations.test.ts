@@ -129,6 +129,7 @@ describe('resource conversations', () => {
       tool_call_id: 'Tool Call Id',
       tool_calls: [{ foo: 'bar' }],
       tool_choice: 'string',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 });

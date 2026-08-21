@@ -8,7 +8,8 @@ import { path } from '../../../internal/utils/path';
 
 export class Tools extends APIResource {
   /**
-   * List all tools for a mission
+   * Returns the tools configured on the specified mission. Tools define the actions
+   * agents may invoke while executing the mission's runs.
    *
    * @example
    * ```ts
@@ -22,7 +23,8 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Create a new tool for a mission
+   * Adds a new tool to the specified mission, defining an action agents can invoke
+   * during runs of this mission.
    *
    * @example
    * ```ts
@@ -36,7 +38,8 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Delete a tool from a mission
+   * Removes the specified tool from the mission so agents can no longer invoke it in
+   * subsequent runs.
    *
    * @example
    * ```ts
@@ -54,7 +57,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Get a specific tool by ID
+   * Returns the definition of a single tool configured on the specified mission.
    *
    * @example
    * ```ts
@@ -70,7 +73,7 @@ export class Tools extends APIResource {
   }
 
   /**
-   * Update a tool definition
+   * Replaces the definition of the specified tool on this mission.
    *
    * @example
    * ```ts
