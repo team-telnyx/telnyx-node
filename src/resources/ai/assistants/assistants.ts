@@ -575,6 +575,21 @@ export namespace AssistantTool {
       warm_message_delay_ms?: number | null;
 
       /**
+       * Requires the transfer destination to accept the call before the caller is
+       * bridged. When enabled, the assistant speaks privately with the destination after
+       * they answer — delivering the warm transfer message and asking whether they take
+       * the call — while the caller keeps hearing ringback. The assistant then finalizes
+       * the transfer with the built-in `complete_transfer` tool: an accept bridges the
+       * calls, a decline hangs up the destination and returns the assistant to the
+       * caller with the reason the destination gave. Requires either
+       * `warm_transfer_instructions` or a `message` on every target, otherwise the
+       * assistant fails to save. Only available for calls started with
+       * `ai_assistant_start`; single-caller conversations only (a conference or
+       * additional invited participants fall back to a regular warm transfer).
+       */
+      warm_transfer_acceptance?: Transfer.WarmTransferAcceptance;
+
+      /**
        * Natural language instructions for your agent for how to provide context for the
        * transfer recipient.
        */
@@ -587,6 +602,13 @@ export namespace AssistantTool {
          * The destination number or SIP URI of the call.
          */
         to: string;
+
+        /**
+         * The warm transfer message to deliver to this specific target. When set, it takes
+         * precedence over the message the assistant composes from
+         * `warm_transfer_instructions`.
+         */
+        message?: string;
 
         /**
          * The name of the target.
@@ -729,6 +751,35 @@ export namespace AssistantTool {
             type?: 'message' | 'warm_transfer_instructions';
           }
         }
+      }
+
+      /**
+       * Requires the transfer destination to accept the call before the caller is
+       * bridged. When enabled, the assistant speaks privately with the destination after
+       * they answer — delivering the warm transfer message and asking whether they take
+       * the call — while the caller keeps hearing ringback. The assistant then finalizes
+       * the transfer with the built-in `complete_transfer` tool: an accept bridges the
+       * calls, a decline hangs up the destination and returns the assistant to the
+       * caller with the reason the destination gave. Requires either
+       * `warm_transfer_instructions` or a `message` on every target, otherwise the
+       * assistant fails to save. Only available for calls started with
+       * `ai_assistant_start`; single-caller conversations only (a conference or
+       * additional invited participants fall back to a regular warm transfer).
+       */
+      export interface WarmTransferAcceptance {
+        /**
+         * Whether the destination must accept the transfer before the calls are bridged.
+         */
+        enabled?: boolean;
+
+        /**
+         * Controls whether the private exchange between the assistant and the transfer
+         * destination is kept out of the conversation. With `private` (default) the
+         * exchange never reaches the conversation history, AI conversations, webhooks or
+         * insights, and the transfer tool result is rewritten with the outcome only. With
+         * `shared` the exchange stays in the conversation like any other messages.
+         */
+        end_user_target_context_mode?: 'private' | 'shared';
       }
     }
   }
@@ -1908,6 +1959,29 @@ export namespace InferenceEmbeddingWebhookToolParams {
     path_parameters?: Webhook.PathParameters;
 
     /**
+     * Body fields supplied by the assistant configuration rather than by the model.
+     * They are never advertised in the tool definition, so the LLM can neither see nor
+     * set them, and they take precedence over a `body_parameters` value of the same
+     * name. Values support mustache templating, so they can hold dynamic variables
+     * (`{{customer_id}}`) and integration secrets
+     * (`{{#integration_secret}}my-secret{{/integration_secret}}`). Not sent on `GET`
+     * requests, which carry no body.
+     */
+    preset_body_fields?: { [key: string]: unknown };
+
+    /**
+     * Query string parameters supplied by the assistant configuration rather than by
+     * the model. They are never advertised in the tool definition, so the LLM can
+     * neither see nor set them, and they take precedence over a `query_parameters`
+     * value of the same name. Values support mustache templating, so they can hold
+     * dynamic variables (`{{telnyx_end_user_target}}`) and integration secrets
+     * (`{{#integration_secret}}my-secret{{/integration_secret}}`). Unlike values
+     * templated directly into the `url`, these are percent-encoded, so a value such as
+     * `+15551234567` survives the round trip.
+     */
+    preset_query_params?: { [key: string]: unknown };
+
+    /**
      * The query parameters the webhook tool accepts, described as a JSON Schema
      * object. These parameters will be passed to the webhook as the query of the
      * request. See the
@@ -2349,6 +2423,18 @@ export interface TelephonySettings {
   recording_settings?: TelephonySettings.RecordingSettings;
 
   /**
+   * Whether the assistant sends a `call.ai_gather.message_history_updated` webhook
+   * with the full message history every time the conversation history changes. Leave
+   * unset to inherit the `send_message_history_updates` value from the
+   * `ai_assistant_start` or `gather_using_ai` command that started the conversation.
+   * Setting it here is authoritative: `true` turns the webhooks on even when the
+   * start command did not request them, and `false` turns them off even when it did.
+   * Messages exchanged during a private warm transfer acceptance phase are never
+   * included.
+   */
+  send_message_history_updates?: boolean;
+
+  /**
    * When enabled, allows users to interact with your AI assistant directly from your
    * website without requiring authentication. This is required for FE widgets that
    * work with assistants that have telephony enabled.
@@ -2623,7 +2709,9 @@ export interface TranscriptionSettings {
    * does not fall back to `auto` when `language` is omitted — omitting it applies
    * `en` instead. For `reson8/turns`, supported values are `auto` (or unset) for
    * automatic language detection, and the language codes `nl`, `en`, `fr`, `fy`,
-   * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language.
+   * `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the transcription language. For
+   * `cohere/ar-stt`, supported values are `ar` and `en`; unlike other models, this
+   * model does not auto-detect and defaults to `ar` when `language` is omitted.
    */
   language?: string;
 
@@ -2646,6 +2734,7 @@ export interface TranscriptionSettings {
    *   code-switching support.
    * - `reson8/turns` is a turn-based streaming model covering 10 European languages
    *   with automatic language detection.
+   * - `cohere/ar-stt` is a non-streaming Arabic and English transcription model.
    */
   model?:
     | 'deepgram/flux'
@@ -2658,6 +2747,7 @@ export interface TranscriptionSettings {
     | 'nvidia/parakeet-v3'
     | 'humain/realtime'
     | 'reson8/turns'
+    | 'cohere/ar-stt'
     | 'distil-whisper/distil-large-v2'
     | 'openai/whisper-large-v3-turbo';
 

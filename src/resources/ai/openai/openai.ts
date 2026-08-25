@@ -127,6 +127,8 @@ export interface OpenAICreateResponseParams {
    */
   model?: string;
 
+  reasoning?: OpenAICreateResponseParams.Reasoning;
+
   /**
    * The service tier to use for this request. Supported values vary by model; use
    * `GET /v2/ai/openai/models` and inspect the model's `service_tiers` field. If
@@ -141,6 +143,16 @@ export interface OpenAICreateResponseParams {
   stream?: boolean;
 
   [k: string]: unknown;
+}
+
+export namespace OpenAICreateResponseParams {
+  export interface Reasoning {
+    /**
+     * Controls the reasoning effort for models that support it. Same values and
+     * semantics as reasoning_effort on Chat Completions.
+     */
+    effort?: 'none' | 'minimal' | 'low' | 'medium' | 'high' | 'xhigh' | 'max';
+  }
 }
 
 OpenAI.Embeddings = Embeddings;

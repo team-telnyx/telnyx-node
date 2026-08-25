@@ -1689,7 +1689,9 @@ export interface TranscriptionConfig {
    * `auto` when `language` is omitted — omitting it applies `en` instead. For
    * `reson8/turns`, supported values are `auto` (or unset) for automatic language
    * detection, and the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`,
-   * `pt`, `es`, and `sv` to fix the transcription language.
+   * `pt`, `es`, and `sv` to fix the transcription language. For `cohere/ar-stt`,
+   * supported values are `ar` and `en`; unlike other models, this model does not
+   * auto-detect and defaults to `ar` when `language` is omitted.
    */
   language?: string;
 
@@ -1711,6 +1713,7 @@ export interface TranscriptionConfig {
    *   Arabic/English code-switching support.
    * - `reson8/turns` for live streaming turn-based transcription of 10 European
    *   languages with automatic language detection.
+   * - `cohere/ar-stt` for non-streaming Arabic and English transcription.
    * - `azure/fast` and `azure/realtime`; Azure models require `region`, and
    *   unsupported regions require `api_key_ref`.
    * - `google/latest_long` for non-streaming multilingual transcription.
@@ -1732,6 +1735,7 @@ export interface TranscriptionConfig {
     | 'nvidia/parakeet-v3'
     | 'humain/realtime'
     | 'reson8/turns'
+    | 'cohere/ar-stt'
     | 'azure/fast'
     | 'azure/realtime'
     | 'google/latest_long'
@@ -2254,6 +2258,7 @@ export interface TranscriptionStartRequest {
     | 'Parakeet'
     | 'Humain'
     | 'Reson8'
+    | 'Cohere'
     | 'A'
     | 'B';
 
@@ -2268,6 +2273,7 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineParakeetConfig
     | TranscriptionEngineHumainConfig
     | TranscriptionEngineReson8Config
+    | TranscriptionStartRequest.TranscriptionEngineCohereConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -2279,6 +2285,26 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace TranscriptionStartRequest {
+  export interface TranscriptionEngineCohereConfig {
+    /**
+     * The language of the audio to be transcribed. Unlike other self-hosted models,
+     * Cohere does not auto-detect the language; `auto` is not supported.
+     */
+    language?: 'ar' | 'en';
+
+    /**
+     * Engine identifier for Cohere transcription service
+     */
+    transcription_engine?: 'Cohere';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'cohere/ar-stt';
+  }
 }
 
 /**
@@ -2532,8 +2558,10 @@ export interface ActionStartAIAssistantParams {
   participants?: Array<AIAssistantJoinParticipant>;
 
   /**
-   * When `true`, a webhook is sent each time the conversation message history is
-   * updated.
+   * When `true`, a `call.ai_gather.message_history_updated` webhook carrying the
+   * full message history is sent each time the conversation message history is
+   * updated. The assistant's own `telephony_settings.send_message_history_updates`
+   * overrides this value when it is set.
    */
   send_message_history_updates?: boolean;
 
@@ -4656,6 +4684,7 @@ export interface ActionStartTranscriptionParams {
     | 'Parakeet'
     | 'Humain'
     | 'Reson8'
+    | 'Cohere'
     | 'A'
     | 'B';
 
@@ -4670,6 +4699,7 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineParakeetConfig
     | TranscriptionEngineHumainConfig
     | TranscriptionEngineReson8Config
+    | ActionStartTranscriptionParams.TranscriptionEngineCohereConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4681,6 +4711,26 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
+}
+
+export namespace ActionStartTranscriptionParams {
+  export interface TranscriptionEngineCohereConfig {
+    /**
+     * The language of the audio to be transcribed. Unlike other self-hosted models,
+     * Cohere does not auto-detect the language; `auto` is not supported.
+     */
+    language?: 'ar' | 'en';
+
+    /**
+     * Engine identifier for Cohere transcription service
+     */
+    transcription_engine?: 'Cohere';
+
+    /**
+     * The model to use for transcription.
+     */
+    transcription_model?: 'cohere/ar-stt';
+  }
 }
 
 export interface ActionStopTranscriptionParams {

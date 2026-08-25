@@ -43,13 +43,14 @@ export class SpeechToText extends APIResource {
    * `Authorization: Bearer <API_KEY>` header.
    *
    * Supported engines: `Azure`, `Deepgram`, `Google`, `Telnyx`, `xAI`,
-   * `Speechmatics`, `Soniox`, `Parakeet`, `Humain`, `Reson8`.
+   * `Speechmatics`, `Soniox`, `Parakeet`, `Humain`, `Reson8`, `Cohere`.
    *
    * **Connection flow:**
    *
    * 1. Open WebSocket with query parameters specifying engine, input format, and
    *    language.
-   * 2. Send binary audio frames (mp3/wav format).
+   * 2. Send binary audio frames (mp3, wav, linear16, or linear32 format, per
+   *    `input_format`).
    * 3. Receive JSON transcript frames with `transcript`, `is_final`, and
    *    `confidence` fields.
    * 4. Close connection when done.
@@ -76,7 +77,7 @@ export class SpeechToText extends APIResource {
 export type SttServiceType = 'streaming' | 'file_based' | 'in_call' | 'ai_assistant';
 
 /**
- * Binary audio data in mp3 or wav format.
+ * Binary audio data in mp3, wav, linear16, or linear32 format, per `input_format`.
  */
 export type TranscribeClientEvent = Uploadable;
 
@@ -103,9 +104,10 @@ export namespace TranscribeServerEvent {
     type: 'transcript';
 
     /**
-     * Confidence score of the transcription, ranging from 0 to 1.
+     * Confidence score of the transcription, ranging from 0 to 1. `cohere/ar-stt`
+     * frames return `null` here rather than omitting the field.
      */
-    confidence?: number;
+    confidence?: number | null;
 
     /**
      * Whether this is a final transcription result. When `false`, this is an interim
@@ -219,6 +221,7 @@ export interface SpeechToTextListProvidersParams {
     | 'parakeet'
     | 'humain'
     | 'reson8'
+    | 'cohere'
     | 'azure'
     | 'openai'
     | 'google'
@@ -239,7 +242,7 @@ export interface SpeechToTextRetrieveTranscriptionParams {
   /**
    * The format of input audio stream.
    */
-  input_format: 'mp3' | 'wav';
+  input_format: 'mp3' | 'wav' | 'linear16' | 'linear32';
 
   /**
    * The transcription engine to use for processing the audio stream.
@@ -254,7 +257,8 @@ export interface SpeechToTextRetrieveTranscriptionParams {
     | 'Soniox'
     | 'Parakeet'
     | 'Humain'
-    | 'Reson8';
+    | 'Reson8'
+    | 'Cohere';
 
   /**
    * Silence duration (in milliseconds) that triggers end-of-speech detection. When
@@ -283,7 +287,9 @@ export interface SpeechToTextRetrieveTranscriptionParams {
   keywords?: string;
 
   /**
-   * The language spoken in the audio stream.
+   * The language spoken in the audio stream. For `cohere/ar-stt`, this must be `ar`
+   * or `en` — unlike other engines, Cohere does not auto-detect the language, and
+   * rejects unsupported values including `auto`; omitting it defaults to `ar`.
    */
   language?: string;
 
@@ -309,13 +315,21 @@ export interface SpeechToTextRetrieveTranscriptionParams {
     | 'soniox/stt-rt-v4'
     | 'nvidia/parakeet-v3'
     | 'humain/realtime'
-    | 'reson8/turns';
+    | 'reson8/turns'
+    | 'cohere/ar-stt';
 
   /**
    * Enable redaction of sensitive information (e.g., PCI data, SSN) from
    * transcription results. Supported values depend on the transcription engine.
    */
   redact?: string;
+
+  /**
+   * Audio sample rate in Hz. Required when `input_format` is a raw encoding
+   * (`linear16`, `linear32`) — those formats carry no header metadata. Ignored for
+   * container formats (`mp3`, `wav`), which self-describe their rate.
+   */
+  sample_rate?: number;
 }
 
 export declare namespace SpeechToText {
