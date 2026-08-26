@@ -113,9 +113,6 @@ import {
   CollectionCreateParams,
   CollectionEnvelope,
   CollectionListParams,
-  CollectionRetrieveDocumentsParams,
-  CollectionRetrieveDocumentsResponse,
-  CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
   CollectionUpdateParams,
   Collections,
   CollectionsDefaultFlatPagination,
@@ -150,6 +147,8 @@ import * as FineTuningAPI from './fine-tuning/fine-tuning';
 import { FineTuning } from './fine-tuning/fine-tuning';
 import * as IntegrationsAPI from './integrations/integrations';
 import { Integration, IntegrationListResponse, Integrations } from './integrations/integrations';
+import * as KnowledgeAPI from './knowledge/knowledge';
+import { Knowledge } from './knowledge/knowledge';
 import * as MissionsAPI from './missions/missions';
 import {
   EventsListResponse,
@@ -186,6 +185,7 @@ export class AI extends APIResource {
   openai: OpenAIAPI.OpenAI = new OpenAIAPI.OpenAI(this._client);
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
   anthropic: AnthropicAPI.Anthropic = new AnthropicAPI.Anthropic(this._client);
+  knowledge: KnowledgeAPI.Knowledge = new KnowledgeAPI.Knowledge(this._client);
 
   /**
    * Generate a summary of a file's contents.
@@ -631,6 +631,7 @@ AI.Missions = Missions;
 AI.OpenAI = OpenAI;
 AI.Tools = Tools;
 AI.Anthropic = Anthropic;
+AI.Knowledge = Knowledge;
 
 export declare namespace AI {
   export {
@@ -734,12 +735,9 @@ export declare namespace AI {
     Collections as Collections,
     type Collection as Collection,
     type CollectionEnvelope as CollectionEnvelope,
-    type CollectionRetrieveDocumentsResponse as CollectionRetrieveDocumentsResponse,
     type CollectionsDefaultFlatPagination as CollectionsDefaultFlatPagination,
-    type CollectionRetrieveDocumentsResponsesDefaultFlatPagination as CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
     type CollectionListParams as CollectionListParams,
     type CollectionCreateParams as CollectionCreateParams,
-    type CollectionRetrieveDocumentsParams as CollectionRetrieveDocumentsParams,
     type CollectionUpdateParams as CollectionUpdateParams,
   };
 
@@ -819,4 +817,6 @@ export declare namespace AI {
   };
 
   export { Anthropic as Anthropic };
+
+  export { Knowledge as Knowledge };
 }

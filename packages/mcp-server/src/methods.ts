@@ -691,12 +691,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/collections/slug/{slug}',
   },
   {
-    clientCallName: 'client.ai.collections.retrieveDocuments',
-    fullyQualifiedName: 'ai.collections.retrieveDocuments',
-    httpMethod: 'get',
-    httpPath: '/ai/collections/{slug}/documents',
-  },
-  {
     clientCallName: 'client.ai.collections.delete',
     fullyQualifiedName: 'ai.collections.delete',
     httpMethod: 'delete',
@@ -1319,6 +1313,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.anthropic.v1.messages',
     httpMethod: 'post',
     httpPath: '/ai/anthropic/v1/messages',
+  },
+  {
+    clientCallName: 'client.ai.knowledge.collections.retrieveDocuments',
+    fullyQualifiedName: 'ai.knowledge.collections.retrieveDocuments',
+    httpMethod: 'get',
+    httpPath: '/ai/knowledge/collections/{slug}/documents',
   },
   {
     clientCallName: 'client.auditEvents.list',

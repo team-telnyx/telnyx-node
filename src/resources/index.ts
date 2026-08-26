@@ -1746,13 +1746,13 @@ export {
 export {
   WirelessBlocklists,
   type WirelessBlocklist,
+  type WirelessWirelessBlocklist,
   type WirelessBlocklistCreateResponse,
   type WirelessBlocklistRetrieveResponse,
   type WirelessBlocklistUpdateResponse,
-  type WirelessBlocklistDeleteResponse,
   type WirelessBlocklistListParams,
   type WirelessBlocklistUpdateParams,
   type WirelessBlocklistCreateParams,
-  type WirelessBlocklistsDefaultFlatPagination,
+  type WirelessWirelessBlocklistsDefaultFlatPagination,
 } from './wireless-blocklists';
 export { X402 } from './x402/x402';

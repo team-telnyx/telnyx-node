@@ -66,8 +66,11 @@ export interface RetrievalSettings {
   /**
    * Retrieval strategy. `vector` runs semantic similarity search; `hybrid` combines
    * vector similarity with keyword matching; `keyword` runs lexical (BM25) matching.
+   * `keyword` is not accepted yet: setting it returns 422
+   * `unsupported_retrieval_type`. A collection set to `hybrid` is accepted here but
+   * cannot be searched until hybrid execution ships.
    */
-  retrieval_type?: 'vector' | 'hybrid' | 'keyword';
+  retrieval_type?: 'vector' | 'hybrid';
 
   /**
    * Number of top results to retrieve (1–50).
