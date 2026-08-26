@@ -1955,6 +1955,24 @@ export interface TranscriptionEngineBConfig {
   transcription_model?: 'openai/whisper-tiny' | 'openai/whisper-large-v3-turbo';
 }
 
+export interface TranscriptionEngineCohereConfig {
+  /**
+   * The language of the audio to be transcribed. Unlike other self-hosted models,
+   * Cohere does not auto-detect the language; `auto` is not supported.
+   */
+  language?: 'ar' | 'en';
+
+  /**
+   * Engine identifier for Cohere transcription service
+   */
+  transcription_engine?: 'Cohere';
+
+  /**
+   * The model to use for transcription.
+   */
+  transcription_model?: 'cohere/ar-stt';
+}
+
 export type TranscriptionEngineDeepgramConfig = DeepgramNova2Config | DeepgramNova3Config;
 
 export interface TranscriptionEngineGoogleConfig {
@@ -2273,7 +2291,7 @@ export interface TranscriptionStartRequest {
     | TranscriptionEngineParakeetConfig
     | TranscriptionEngineHumainConfig
     | TranscriptionEngineReson8Config
-    | TranscriptionStartRequest.TranscriptionEngineCohereConfig
+    | TranscriptionEngineCohereConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -2285,26 +2303,6 @@ export interface TranscriptionStartRequest {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
-}
-
-export namespace TranscriptionStartRequest {
-  export interface TranscriptionEngineCohereConfig {
-    /**
-     * The language of the audio to be transcribed. Unlike other self-hosted models,
-     * Cohere does not auto-detect the language; `auto` is not supported.
-     */
-    language?: 'ar' | 'en';
-
-    /**
-     * Engine identifier for Cohere transcription service
-     */
-    transcription_engine?: 'Cohere';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'cohere/ar-stt';
-  }
 }
 
 /**
@@ -4702,7 +4700,7 @@ export interface ActionStartTranscriptionParams {
     | TranscriptionEngineParakeetConfig
     | TranscriptionEngineHumainConfig
     | TranscriptionEngineReson8Config
-    | ActionStartTranscriptionParams.TranscriptionEngineCohereConfig
+    | TranscriptionEngineCohereConfig
     | TranscriptionEngineAConfig
     | TranscriptionEngineBConfig
     | DeepgramNova2Config
@@ -4714,26 +4712,6 @@ export interface ActionStartTranscriptionParams {
    * both legs of the call. Will default to `inbound`.
    */
   transcription_tracks?: string;
-}
-
-export namespace ActionStartTranscriptionParams {
-  export interface TranscriptionEngineCohereConfig {
-    /**
-     * The language of the audio to be transcribed. Unlike other self-hosted models,
-     * Cohere does not auto-detect the language; `auto` is not supported.
-     */
-    language?: 'ar' | 'en';
-
-    /**
-     * Engine identifier for Cohere transcription service
-     */
-    transcription_engine?: 'Cohere';
-
-    /**
-     * The model to use for transcription.
-     */
-    transcription_model?: 'cohere/ar-stt';
-  }
 }
 
 export interface ActionStopTranscriptionParams {
@@ -5592,6 +5570,7 @@ export declare namespace Actions {
     type TranscriptionEngineAssemblyaiConfig as TranscriptionEngineAssemblyaiConfig,
     type TranscriptionEngineAzureConfig as TranscriptionEngineAzureConfig,
     type TranscriptionEngineBConfig as TranscriptionEngineBConfig,
+    type TranscriptionEngineCohereConfig as TranscriptionEngineCohereConfig,
     type TranscriptionEngineDeepgramConfig as TranscriptionEngineDeepgramConfig,
     type TranscriptionEngineGoogleConfig as TranscriptionEngineGoogleConfig,
     type TranscriptionEngineHumainConfig as TranscriptionEngineHumainConfig,

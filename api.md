@@ -1423,6 +1423,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAssemblyaiConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAzureConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineBConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineCohereConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineDeepgramConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineHumainConfig</a></code>
