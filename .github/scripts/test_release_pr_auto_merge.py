@@ -312,6 +312,20 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         self.assertEqual(result["status"], "ready")
         self.assertEqual(sleeps, [0])
 
+    def test_lightweight_skipped_check_waits_for_authoritative_success(self):
+        lightweight = FixtureClient.good_snapshot()
+        next(c for c in lightweight["checks"] if c["name"] == "build").update(
+            conclusion="skipped"
+        )
+        ready = FixtureClient.good_snapshot()
+        client = SequenceClient([lightweight, ready, ready])
+        sleeps = []
+
+        result = self.gate(client, attempts=2, sleeps=sleeps).run(415, HEAD, True)
+
+        self.assertEqual(result["status"], "ready")
+        self.assertEqual(sleeps, [0])
+
     def test_second_attestation_blocks_head_base_or_next_drift(self):
         mutations = {
             "head": lambda s: s["pr"]["head"].update(sha="7" * 40),
