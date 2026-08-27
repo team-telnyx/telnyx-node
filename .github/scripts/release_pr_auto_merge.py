@@ -420,7 +420,14 @@ class ReleasePRAutoMergeGate:
             ]
             if successes:
                 continue
-            if any(check.get("status") != "completed" for check in candidates) or not candidates:
+            if (
+                not candidates
+                or any(check.get("status") != "completed" for check in candidates)
+                or all(check.get("conclusion") == "skipped" for check in candidates)
+            ):
+                # Lightweight push CI intentionally skips full checks. The
+                # authoritative pull-request run for the same exact head can
+                # arrive later, so keep polling without accepting the skip.
                 raise ChecksPending("required exact-head check pending or missing: %s" % name)
             raise GateError("required exact-head check failed: %s" % name)
 
