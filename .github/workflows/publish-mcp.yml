@@ -14,15 +14,15 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4.4.0
 
       - name: Set up Node
-        uses: actions/setup-node@v3
+        uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
         with:
           node-version: '20'
 
       - name: Set up pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@a15d269cd4658e1107c09f1fabf4cbd7bd1f308a # v4.4.0
 
       - name: Install dependencies
         run: pnpm install
@@ -36,7 +36,15 @@ jobs:
 
       - name: Install MCP Publisher CLI
         run: |
-          curl -L "https://github.com/modelcontextprotocol/registry/releases/download/v1.2.3/mcp-publisher_1.2.3_$(uname -s | tr '[:upper:]' '[:lower:]')_$(uname -m | sed 's/x86_64/amd64/;s/aarch64/arm64/').tar.gz" | tar xz
+          set -euo pipefail
+          readonly archive="mcp-publisher_1.2.3_linux_amd64.tar.gz"
+          curl --fail --show-error --silent --location \
+            "https://github.com/modelcontextprotocol/registry/releases/download/v1.2.3/${archive}" \
+            --output "${archive}"
+          printf '%s  %s\n' \
+            '868a54268f21580ec97ec9dfc4fc3442a7f69c241ee7c745c7032f2e43cdf47b' \
+            "${archive}" | sha256sum --check
+          tar xzf "${archive}"
           mv mcp-publisher /usr/local/bin/
 
       - name: Login to MCP Registry (GitHub OIDC)
