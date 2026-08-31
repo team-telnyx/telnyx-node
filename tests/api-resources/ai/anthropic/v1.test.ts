@@ -13,7 +13,7 @@ describe('resource v1', () => {
     const responsePromise = client.ai.anthropic.v1.messages({
       max_tokens: 1024,
       messages: [{ role: 'bar', content: 'bar' }],
-      model: 'zai-org/GLM-5.2',
+      model: 'zai-org/GLM-5.3-Flash',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -29,7 +29,7 @@ describe('resource v1', () => {
     const response = await client.ai.anthropic.v1.messages({
       max_tokens: 1024,
       messages: [{ role: 'bar', content: 'bar' }],
-      model: 'zai-org/GLM-5.2',
+      model: 'zai-org/GLM-5.3-Flash',
       api_key_ref: 'api_key_ref',
       billing_group_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       fallback_config: { foo: 'bar' },

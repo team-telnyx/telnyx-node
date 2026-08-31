@@ -14,8 +14,10 @@ import { path } from '../../internal/utils/path';
  */
 export class Jobs extends APIResource {
   /**
-   * Returns background jobs that operate on phone numbers. Results can be filtered
-   * by job type and sorted by creation time, and include pagination metadata.
+   * Returns background jobs that operate on phone numbers. Filter by job type,
+   * target phone numbers, or job status, and sort by creation time. Multiple
+   * phone-number or status values use OR semantics within that filter; different
+   * filter categories use AND semantics. Results include pagination metadata.
    *
    * @example
    * ```ts
@@ -239,7 +241,8 @@ export interface JobUpdateEmergencySettingsBatchResponse {
 
 export interface JobListParams extends DefaultFlatPaginationParams {
   /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[type]
+   * Consolidated filter parameter (deepObject style). Originally: filter[type],
+   * filter[phone_number], filter[phone_number][], filter[status][]
    */
   filter?: JobListParams.Filter;
 
@@ -252,9 +255,25 @@ export interface JobListParams extends DefaultFlatPaginationParams {
 
 export namespace JobListParams {
   /**
-   * Consolidated filter parameter (deepObject style). Originally: filter[type]
+   * Consolidated filter parameter (deepObject style). Originally: filter[type],
+   * filter[phone_number], filter[phone_number][], filter[status][]
    */
   export interface Filter {
+    /**
+     * Returns jobs that targeted any of the supplied account-owned phone numbers.
+     * Values beginning with `+` must contain 1 to 20 digits after the plus sign. The
+     * 10-value limit is enforced before duplicate values are removed. Unmatched or
+     * non-account-owned identifiers return an empty result. Phone-number filtering
+     * must be enabled for the account.
+     */
+    phone_number?: string | Array<string>;
+
+    /**
+     * Returns jobs with any of the supplied statuses. Use repeated `filter[status][]`
+     * parameters; scalar and comma-separated status values are not accepted.
+     */
+    status?: Array<'pending' | 'in_progress' | 'completed' | 'failed' | 'expired'>;
+
     /**
      * Identifies the type of the background job.
      */
