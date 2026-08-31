@@ -408,6 +408,27 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         self.assertIn("  policy-test:\n", workflow)
         self.assertNotIn("\n  test:\n", workflow)
 
+    def test_release_readiness_only_runs_for_open_pr_events(self):
+        with open(
+            ".github/workflows/release-pr-readiness.yml", encoding="utf-8"
+        ) as workflow_file:
+            workflow = workflow_file.read()
+
+        self.assertEqual(
+            sum(line == "  release-provenance:" for line in workflow.splitlines()), 1
+        )
+        self.assertIn(
+            "types: [opened, reopened, synchronize, ready_for_review]", workflow
+        )
+        self.assertNotIn("ready_for_review, labeled", workflow)
+        self.assertIn(
+            "  release-provenance:\n"
+            "    if: >-\n"
+            "      github.event_name == 'workflow_dispatch' ||\n"
+            "      github.event.pull_request.state == 'open'\n",
+            workflow,
+        )
+
     def test_merge_uses_immediate_rest_put_and_never_enables_auto_merge(self):
         client = GitHubClient(GateConfig.python(), "test-token")
         completed = mock.Mock(
