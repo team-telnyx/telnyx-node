@@ -794,7 +794,6 @@ Types:
 
 - <code><a href="./src/resources/ai/collections/collections.ts">Collection</a></code>
 - <code><a href="./src/resources/ai/collections/collections.ts">CollectionEnvelope</a></code>
-- <code><a href="./src/resources/ai/collections/collections.ts">CollectionRetrieveDocumentsResponse</a></code>
 
 Methods:
 
@@ -802,7 +801,6 @@ Methods:
 - <code title="get /ai/collections">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">list</a>({ ...params }) -> CollectionsDefaultFlatPagination</code>
 - <code title="post /ai/collections">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">create</a>({ ...params }) -> CollectionEnvelope</code>
 - <code title="get /ai/collections/slug/{slug}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieve</a>(slug) -> CollectionEnvelope</code>
-- <code title="get /ai/collections/{slug}/documents">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">retrieveDocuments</a>(slug, { ...params }) -> CollectionRetrieveDocumentsResponsesDefaultFlatPagination</code>
 - <code title="delete /ai/collections/{uuid}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">delete</a>(uuid) -> void</code>
 - <code title="patch /ai/collections/{uuid}">client.ai.collections.<a href="./src/resources/ai/collections/collections.ts">update</a>(uuid, { ...params }) -> CollectionEnvelope</code>
 
@@ -1203,6 +1201,18 @@ Methods:
 
 - <code title="post /ai/anthropic/v1/messages">client.ai.anthropic.v1.<a href="./src/resources/ai/anthropic/v1.ts">messages</a>({ ...params }) -> V1MessagesResponse</code>
 
+## Knowledge
+
+### Collections
+
+Types:
+
+- <code><a href="./src/resources/ai/knowledge/collections.ts">CollectionRetrieveDocumentsResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/knowledge/collections/{slug}/documents">client.ai.knowledge.collections.<a href="./src/resources/ai/knowledge/collections.ts">retrieveDocuments</a>(slug, { ...params }) -> CollectionRetrieveDocumentsResponse</code>
+
 # AuditEvents
 
 Types:
@@ -1413,6 +1423,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAssemblyaiConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineAzureConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineBConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineCohereConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineDeepgramConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineGoogleConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TranscriptionEngineHumainConfig</a></code>
@@ -4542,17 +4553,17 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/wireless-blocklists.ts">WirelessBlocklist</a></code>
+- <code><a href="./src/resources/wireless-blocklists.ts">WirelessWirelessBlocklist</a></code>
 - <code><a href="./src/resources/wireless-blocklists.ts">WirelessBlocklistCreateResponse</a></code>
 - <code><a href="./src/resources/wireless-blocklists.ts">WirelessBlocklistRetrieveResponse</a></code>
 - <code><a href="./src/resources/wireless-blocklists.ts">WirelessBlocklistUpdateResponse</a></code>
-- <code><a href="./src/resources/wireless-blocklists.ts">WirelessBlocklistDeleteResponse</a></code>
 
 Methods:
 
-- <code title="get /wireless_blocklists">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">list</a>({ ...params }) -> WirelessBlocklistsDefaultFlatPagination</code>
+- <code title="get /wireless_blocklists">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">list</a>({ ...params }) -> WirelessWirelessBlocklistsDefaultFlatPagination</code>
 - <code title="patch /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">update</a>(id, { ...params }) -> WirelessBlocklistUpdateResponse</code>
 - <code title="post /wireless_blocklists">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">create</a>({ ...params }) -> WirelessBlocklistCreateResponse</code>
-- <code title="delete /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">delete</a>(id) -> WirelessBlocklistDeleteResponse</code>
+- <code title="delete /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">delete</a>(id) -> void</code>
 - <code title="get /wireless_blocklists/{id}">client.wirelessBlocklists.<a href="./src/resources/wireless-blocklists.ts">retrieve</a>(id) -> WirelessBlocklistRetrieveResponse</code>
 
 # WellKnown

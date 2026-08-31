@@ -3,6 +3,7 @@
 import { APIResource } from '../core/resource';
 import { APIPromise } from '../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../core/pagination';
+import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
 
@@ -16,7 +17,7 @@ export class WirelessBlocklists extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const wirelessBlocklist of client.wirelessBlocklists.list()) {
+   * for await (const wirelessWirelessBlocklist of client.wirelessBlocklists.list()) {
    *   // ...
    * }
    * ```
@@ -24,8 +25,8 @@ export class WirelessBlocklists extends APIResource {
   list(
     query: WirelessBlocklistListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<WirelessBlocklistsDefaultFlatPagination, WirelessBlocklist> {
-    return this._client.getAPIList('/wireless_blocklists', DefaultFlatPagination<WirelessBlocklist>, {
+  ): PagePromise<WirelessWirelessBlocklistsDefaultFlatPagination, WirelessWirelessBlocklist> {
+    return this._client.getAPIList('/wireless_blocklists', DefaultFlatPagination<WirelessWirelessBlocklist>, {
       query,
       ...options,
     });
@@ -72,18 +73,22 @@ export class WirelessBlocklists extends APIResource {
   }
 
   /**
-   * Permanently deletes the specified wireless blocklist from your account.
+   * Permanently deletes the specified wireless blocklist from your account. The
+   * request returns `422` when the wireless blocklist is assigned to a SIM Card
+   * Group.
    *
    * @example
    * ```ts
-   * const wirelessBlocklist =
-   *   await client.wirelessBlocklists.delete(
-   *     '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-   *   );
+   * await client.wirelessBlocklists.delete(
+   *   '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+   * );
    * ```
    */
-  delete(id: string, options?: RequestOptions): APIPromise<WirelessBlocklistDeleteResponse> {
-    return this._client.delete(path`/wireless_blocklists/${id}`, options);
+  delete(id: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/wireless_blocklists/${id}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -102,7 +107,8 @@ export class WirelessBlocklists extends APIResource {
   }
 }
 
-export type WirelessBlocklistsDefaultFlatPagination = DefaultFlatPagination<WirelessBlocklist>;
+export type WirelessWirelessBlocklistsDefaultFlatPagination =
+  DefaultFlatPagination<WirelessWirelessBlocklist>;
 
 export interface WirelessBlocklist {
   /**
@@ -138,20 +144,48 @@ export interface WirelessBlocklist {
   values?: Array<string>;
 }
 
+export interface WirelessWirelessBlocklist {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
+
+  /**
+   * The wireless blocklist name.
+   */
+  name?: string;
+
+  /**
+   * The type of the wireless blocklist.
+   */
+  type?: 'country' | 'mcc' | 'plmn';
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
+
+  /**
+   * Values to block. The values here depend on the `type` of Wireless Blocklist.
+   */
+  values?: Array<string>;
+}
+
 export interface WirelessBlocklistCreateResponse {
-  data?: WirelessBlocklist;
+  data?: WirelessWirelessBlocklist;
 }
 
 export interface WirelessBlocklistRetrieveResponse {
-  data?: WirelessBlocklist;
+  data?: WirelessWirelessBlocklist;
 }
 
 export interface WirelessBlocklistUpdateResponse {
-  data?: WirelessBlocklist;
-}
-
-export interface WirelessBlocklistDeleteResponse {
-  data?: WirelessBlocklist;
+  data?: WirelessWirelessBlocklist;
 }
 
 export interface WirelessBlocklistListParams extends DefaultFlatPaginationParams {
@@ -164,11 +198,6 @@ export interface WirelessBlocklistListParams extends DefaultFlatPaginationParams
    * When the Private Wireless Gateway was last updated.
    */
   'filter[type]'?: string;
-
-  /**
-   * Values to filter on (inclusive).
-   */
-  'filter[values]'?: string;
 }
 
 export interface WirelessBlocklistUpdateParams {
@@ -203,11 +232,11 @@ export interface WirelessBlocklistCreateParams {
 export declare namespace WirelessBlocklists {
   export {
     type WirelessBlocklist as WirelessBlocklist,
+    type WirelessWirelessBlocklist as WirelessWirelessBlocklist,
     type WirelessBlocklistCreateResponse as WirelessBlocklistCreateResponse,
     type WirelessBlocklistRetrieveResponse as WirelessBlocklistRetrieveResponse,
     type WirelessBlocklistUpdateResponse as WirelessBlocklistUpdateResponse,
-    type WirelessBlocklistDeleteResponse as WirelessBlocklistDeleteResponse,
-    type WirelessBlocklistsDefaultFlatPagination as WirelessBlocklistsDefaultFlatPagination,
+    type WirelessWirelessBlocklistsDefaultFlatPagination as WirelessWirelessBlocklistsDefaultFlatPagination,
     type WirelessBlocklistListParams as WirelessBlocklistListParams,
     type WirelessBlocklistUpdateParams as WirelessBlocklistUpdateParams,
     type WirelessBlocklistCreateParams as WirelessBlocklistCreateParams,

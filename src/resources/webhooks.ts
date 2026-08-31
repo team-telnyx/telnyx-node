@@ -4482,9 +4482,10 @@ export namespace Transcription {
   export namespace Payload {
     export interface TranscriptionData {
       /**
-       * Speech recognition confidence level.
+       * Speech recognition confidence level. `cohere/ar-stt` returns `null` here rather
+       * than omitting the field.
        */
-      confidence?: number;
+      confidence?: number | null;
 
       /**
        * When false, it means that this is an interim result.

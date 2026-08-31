@@ -1196,13 +1196,13 @@ import {
   WirelessBlocklist,
   WirelessBlocklistCreateParams,
   WirelessBlocklistCreateResponse,
-  WirelessBlocklistDeleteResponse,
   WirelessBlocklistListParams,
   WirelessBlocklistRetrieveResponse,
   WirelessBlocklistUpdateParams,
   WirelessBlocklistUpdateResponse,
   WirelessBlocklists,
-  WirelessBlocklistsDefaultFlatPagination,
+  WirelessWirelessBlocklist,
+  WirelessWirelessBlocklistsDefaultFlatPagination,
 } from './resources/wireless-blocklists';
 import { Actions, WirelessError } from './resources/actions/actions';
 import {
@@ -5082,11 +5082,11 @@ export declare namespace Telnyx {
   export {
     WirelessBlocklists as WirelessBlocklists,
     type WirelessBlocklist as WirelessBlocklist,
+    type WirelessWirelessBlocklist as WirelessWirelessBlocklist,
     type WirelessBlocklistCreateResponse as WirelessBlocklistCreateResponse,
     type WirelessBlocklistRetrieveResponse as WirelessBlocklistRetrieveResponse,
     type WirelessBlocklistUpdateResponse as WirelessBlocklistUpdateResponse,
-    type WirelessBlocklistDeleteResponse as WirelessBlocklistDeleteResponse,
-    type WirelessBlocklistsDefaultFlatPagination as WirelessBlocklistsDefaultFlatPagination,
+    type WirelessWirelessBlocklistsDefaultFlatPagination as WirelessWirelessBlocklistsDefaultFlatPagination,
     type WirelessBlocklistListParams as WirelessBlocklistListParams,
     type WirelessBlocklistUpdateParams as WirelessBlocklistUpdateParams,
     type WirelessBlocklistCreateParams as WirelessBlocklistCreateParams,

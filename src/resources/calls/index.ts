@@ -26,6 +26,7 @@ export {
   type TranscriptionEngineAssemblyaiConfig,
   type TranscriptionEngineAzureConfig,
   type TranscriptionEngineBConfig,
+  type TranscriptionEngineCohereConfig,
   type TranscriptionEngineDeepgramConfig,
   type TranscriptionEngineGoogleConfig,
   type TranscriptionEngineHumainConfig,

@@ -47,6 +47,7 @@ describe('resource chat', () => {
       model: 'model',
       n: 0,
       presence_penalty: 0,
+      reasoning_effort: 'none',
       response_format: { type: 'text' },
       seed: 0,
       service_tier: 'service_tier',

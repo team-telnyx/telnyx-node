@@ -26,7 +26,11 @@ describe('resource jobs', () => {
     await expect(
       client.phoneNumbers.jobs.list(
         {
-          filter: { type: 'update_emergency_settings' },
+          filter: {
+            phone_number: '+15551234567,1234567890123456789',
+            status: ['pending', 'in_progress'],
+            type: 'update_emergency_settings',
+          },
           'page[number]': 0,
           'page[size]': 0,
           sort: 'created_at',

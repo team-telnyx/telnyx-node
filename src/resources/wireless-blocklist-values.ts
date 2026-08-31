@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../core/resource';
-import * as AuthenticationProvidersAPI from './authentication-providers';
 import { APIPromise } from '../core/api-promise';
 import { RequestOptions } from '../internal/request-options';
 
@@ -10,7 +9,8 @@ import { RequestOptions } from '../internal/request-options';
  */
 export class WirelessBlocklistValues extends APIResource {
   /**
-   * Retrieve all wireless blocklist values for a given blocklist type.
+   * Retrieve all wireless blocklist values for a given blocklist type. The request
+   * returns `422` when `type` is missing or invalid.
    */
   list(
     query: WirelessBlocklistValueListParams,
@@ -21,12 +21,10 @@ export class WirelessBlocklistValues extends APIResource {
 }
 
 export interface WirelessBlocklistValueListResponse {
-  data?:
+  data:
     | Array<WirelessBlocklistValueListResponse.Country>
     | Array<WirelessBlocklistValueListResponse.Mcc>
     | Array<WirelessBlocklistValueListResponse.Plmn>;
-
-  meta?: AuthenticationProvidersAPI.PaginationMeta;
 }
 
 export namespace WirelessBlocklistValueListResponse {
@@ -34,36 +32,21 @@ export namespace WirelessBlocklistValueListResponse {
     /**
      * ISO 3166-1 Alpha-2 Country Code.
      */
-    code: string;
-
-    /**
-     * The name of the country.
-     */
-    name: string;
+    country_code: string;
   }
 
   export interface Mcc {
     /**
      * Mobile Country Code.
      */
-    code: string;
-
-    /**
-     * The name of the country.
-     */
-    name: string;
+    mcc: string;
   }
 
   export interface Plmn {
     /**
      * Public land mobile network code (MCC + MNC).
      */
-    code: string;
-
-    /**
-     * The name of the network.
-     */
-    name: string;
+    plmn: string;
   }
 }
 

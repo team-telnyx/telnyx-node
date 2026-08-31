@@ -231,7 +231,7 @@ describe('resource actions', () => {
       ],
       send_message_history_updates: true,
       send_partial_results: true,
-      transcription: { language: 'auto', model: 'distil-whisper/distil-large-v2' },
+      transcription: { language: 'language', model: 'distil-whisper/distil-large-v2' },
       user_response_timeout_ms: 5000,
       voice: 'Telnyx.KokoroTTS.af',
       voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },

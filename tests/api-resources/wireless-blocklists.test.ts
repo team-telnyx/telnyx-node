@@ -28,7 +28,6 @@ describe('resource wirelessBlocklists', () => {
         {
           'filter[name]': 'filter[name]',
           'filter[type]': 'filter[type]',
-          'filter[values]': 'filter[values]',
           'page[number]': 1,
           'page[size]': 1,
         },
