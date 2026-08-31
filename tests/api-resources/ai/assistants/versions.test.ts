@@ -298,6 +298,7 @@ describe('resource versions', () => {
           format: 'wav',
           stop_on_conversation_end: true,
         },
+        send_message_history_updates: true,
         supports_unauthenticated_web_calls: true,
         time_limit_secs: 30,
         user_idle_reply_secs: 0,
@@ -347,6 +348,8 @@ describe('resource versions', () => {
               required: ['id'],
               type: 'object',
             },
+            preset_body_fields: { account_id: 'bar', source: 'bar' },
+            preset_query_params: { caller: 'bar', channel: 'bar' },
             query_parameters: {
               properties: { page: 'bar' },
               required: ['page'],

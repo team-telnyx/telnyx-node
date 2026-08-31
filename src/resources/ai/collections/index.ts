@@ -4,13 +4,10 @@ export {
   Collections,
   type Collection,
   type CollectionEnvelope,
-  type CollectionRetrieveDocumentsResponse,
   type CollectionListParams,
   type CollectionCreateParams,
-  type CollectionRetrieveDocumentsParams,
   type CollectionUpdateParams,
   type CollectionsDefaultFlatPagination,
-  type CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
 } from './collections';
 export {
   Settings,

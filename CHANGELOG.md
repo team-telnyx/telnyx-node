@@ -1,5 +1,17 @@
 # Changelog
 
+## [7.18.0](https://github.com/team-telnyx/telnyx-node/compare/v7.17.0...v7.18.0) (2026-08-31)
+
+
+### Features
+
+* promote from staging cb2ede5 ([e1868dc](https://github.com/team-telnyx/telnyx-node/commit/e1868dc499519ba11fc954342b8e0377a1b22680))
+
+
+### Bug Fixes
+
+* wait for authoritative release checks ([#522](https://github.com/team-telnyx/telnyx-node/issues/522)) ([f964ff5](https://github.com/team-telnyx/telnyx-node/commit/f964ff5e8149bfd4c00b85652f5fca34e33e6fd7))
+
 ## [7.17.0](https://github.com/team-telnyx/telnyx-node/compare/v7.16.0...v7.17.0) (2026-08-21)
 
 

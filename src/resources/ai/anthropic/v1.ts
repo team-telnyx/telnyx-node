@@ -23,7 +23,7 @@ export class V1 extends APIResource {
    * const response = await client.ai.anthropic.v1.messages({
    *   max_tokens: 1024,
    *   messages: [{ role: 'user', content: 'Hello, world!' }],
-   *   model: 'zai-org/GLM-5.2',
+   *   model: 'zai-org/GLM-5.3-Flash',
    *   system: 'You are a friendly chatbot.',
    * });
    * ```
@@ -53,8 +53,9 @@ export interface V1MessagesParams {
   messages: Array<{ [key: string]: unknown }>;
 
   /**
-   * The model to use for generating the response, for example `zai-org/GLM-5.2` or
-   * another model available from the Telnyx models endpoint.
+   * The model to use for generating the response, for example
+   * `zai-org/GLM-5.3-Flash` or another model available from the Telnyx models
+   * endpoint.
    */
   model: string;
 

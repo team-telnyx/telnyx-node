@@ -1041,7 +1041,9 @@ export interface ActionGatherDtmfAudioParams {
   stop_playback_on_dtmf?: boolean;
 
   /**
-   * Digit that terminates gathering.
+   * Digit that terminates gathering. Set to an empty string to disable the
+   * terminating digit entirely, so that a digit such as `#` can be collected as
+   * input per `valid_digits`.
    */
   terminating_digit?: string;
 

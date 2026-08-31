@@ -94,13 +94,10 @@ export {
   Collections,
   type Collection,
   type CollectionEnvelope,
-  type CollectionRetrieveDocumentsResponse,
   type CollectionListParams,
   type CollectionCreateParams,
-  type CollectionRetrieveDocumentsParams,
   type CollectionUpdateParams,
   type CollectionsDefaultFlatPagination,
-  type CollectionRetrieveDocumentsResponsesDefaultFlatPagination,
 } from './collections/index';
 export {
   Conversations,
@@ -128,6 +125,7 @@ export {
 } from './embeddings/index';
 export { FineTuning } from './fine-tuning/index';
 export { Integrations, type Integration, type IntegrationListResponse } from './integrations/index';
+export { Knowledge } from './knowledge/index';
 export {
   McpServers,
   type McpServer,

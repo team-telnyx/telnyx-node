@@ -58,6 +58,7 @@ describe('resource speechToText', () => {
       language: 'language',
       model: 'fast',
       redact: 'redact',
+      sample_rate: 0,
     });
   });
 });
