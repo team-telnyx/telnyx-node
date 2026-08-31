@@ -5,7 +5,7 @@ ROOT=Path(__file__).resolve().parents[2]
 class NodeGateTests(unittest.TestCase):
  def test_classifier_owns_full_jobs(self):
   w=(ROOT/'.github/workflows/ci.yml').read_text(); self.assertIn('classify production CI',w); self.assertNotIn('>> "$GITHUB_OUTPUT"',w)
-  self.assertEqual(w.count('needs: classify-production-ci'),2); self.assertEqual(w.count("if: needs.classify-production-ci.outputs.run_full == 'true'"),2)
+  self.assertEqual(w.count('needs: classify-production-ci'),3); self.assertEqual(w.count("if: needs.classify-production-ci.outputs.run_full == 'true'"),3)
   for t in ('test_classify_production_ci.py','test_validate_next_provenance.py','test_verify_npm_release.py'): self.assertIn(t,w)
  def test_lightweight_next(self):
   w=(ROOT/'.github/workflows/next-readiness.yml').read_text(); self.assertIn('validate_next_provenance.py',w); self.assertNotIn('./scripts/lint',w); self.assertNotIn('./scripts/build',w)
