@@ -247,6 +247,7 @@ jobs:
           # was generated. Refresh only the lockfile so frozen CI consumes the
           # exact release version instead of failing before lint/build.
           pnpm install --lockfile-only --ignore-scripts
+          pnpm exec prettier --write pnpm-lock.yaml
           git add pnpm-lock.yaml
 
           # Commit if there are changes

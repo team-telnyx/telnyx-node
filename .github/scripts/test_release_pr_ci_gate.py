@@ -15,6 +15,7 @@ class NodeGateTests(unittest.TestCase):
   w=(ROOT/'.github/workflows/release-please.yml').read_text()
   self.assertIn('pnpm/action-setup@b906affcce14559ad1aafd4ab0e942779e9f58b1',w)
   self.assertIn('pnpm install --lockfile-only --ignore-scripts',w)
+  self.assertIn('pnpm exec prettier --write pnpm-lock.yaml',w)
   self.assertIn('git add pnpm-lock.yaml',w)
  def test_readiness_dry_run(self):
   w=(ROOT/'.github/workflows/release-pr-readiness.yml').read_text(); self.assertIn('--dry-run',w); self.assertNotIn('--merge',w)
