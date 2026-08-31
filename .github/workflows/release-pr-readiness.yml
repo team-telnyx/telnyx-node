@@ -3,7 +3,7 @@ name: Exact-head release PR readiness
 on:
   pull_request_target:
     branches: [master]
-    types: [opened, reopened, synchronize, ready_for_review, labeled]
+    types: [opened, reopened, synchronize, ready_for_review]
   workflow_dispatch:
     inputs:
       pr_number:
@@ -28,9 +28,10 @@ concurrency:
 
 jobs:
   release-provenance:
-    name: release-provenance
+    if: >-
+      github.event_name == 'workflow_dispatch' ||
+      github.event.pull_request.state == 'open'
     runs-on: ubuntu-latest
-    timeout-minutes: 65
     env:
       EVENT_NAME: ${{ github.event_name }}
       EVENT_PR_NUMBER: ${{ github.event.pull_request.number }}
