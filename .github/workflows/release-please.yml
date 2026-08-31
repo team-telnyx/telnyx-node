@@ -42,6 +42,7 @@ jobs:
         with:
           fetch-depth: 0
           token: ${{ secrets.SDK_WRITE_TOKEN }}
+          persist-credentials: false
 
       - name: Set up Node
         uses: actions/setup-node@49933ea5288caeca8642d1e84afbd3f7d6820020 # v4.4.0
@@ -54,7 +55,7 @@ jobs:
           version: '10.30.1'
 
       - name: Install release-please
-        run: npm install --no-save release-please@17
+        run: bash .github/scripts/install_release_please.sh
 
       - name: Read Release-As version from next branch
         if: github.ref == 'refs/heads/next'
@@ -136,7 +137,7 @@ jobs:
           git config --global protocol.file.allow always
           git config --global url."file://${GITHUB_WORKSPACE}".insteadOf "https://github.com/${{ github.repository }}.git"
 
-          OUTPUT=$(npx release-please "${ARGS[@]}" 2>&1) || true
+          OUTPUT=$(./node_modules/.bin/release-please "${ARGS[@]}" 2>&1) || true
           echo "$OUTPUT"
 
           # Parse PR number from output if a PR was created
@@ -198,7 +199,7 @@ jobs:
 
           if [ -z "$PR_BRANCH" ]; then
             for i in 1 2 3; do
-              PR_BRANCH=$(gh pr list --repo "$REPO" --state open --label "autorelease: pending" --json headRefName --jq '.[0].headRefName' 2>/dev/null || true)
+              PR_BRANCH=$(gh pr list --repo "$REPO" --state open --label "autorelease: pending" --json headRefName --jq 'if length == 0 then empty elif length == 1 then .[0].headRefName else error("expected exactly one open Release Please PR") end')
               if [ -n "$PR_BRANCH" ]; then break; fi
               echo "PR not found yet, retrying in 5s (attempt $i)..."
               sleep 5
@@ -210,10 +211,18 @@ jobs:
             exit 0
           fi
 
+          release_pr_count=$(gh pr list --repo "$REPO" --state open --json headRefName \
+            --jq '[.[] | select(.headRefName | startswith("release-please--"))] | length')
+          if [ "$release_pr_count" -ne 1 ]; then
+            echo "::error::Refusing to synchronize with $release_pr_count open Release Please PRs; expected exactly one"
+            exit 1
+          fi
+
           echo "Found release PR branch: $PR_BRANCH"
 
           BASE_BRANCH="${{ github.event.repository.default_branch }}"
           git fetch origin "$PR_BRANCH" next "$BASE_BRANCH:refs/remotes/origin/release-base"
+          REMOTE_SHA=$(git rev-parse "origin/$PR_BRANCH")
           git checkout -f -B "$PR_BRANCH" "origin/$PR_BRANCH"
 
           # Save version-bump files from the release PR branch (release-please output)
@@ -233,23 +242,24 @@ jobs:
           git read-tree --reset -u origin/next
           git clean -fdx
 
-          # Restore version-bump files from the release PR branch
-          for f in CHANGELOG.md package.json src/version.ts .release-please-manifest.json; do
+          # Restore release metadata from the Release Please branch. The generated
+          # package manifest and lockfile remain from next; only the marked version
+          # is overlaid below.
+          for f in CHANGELOG.md src/version.ts .release-please-manifest.json; do
             if [ -f "$STASH_DIR/$f" ]; then
               mkdir -p "$(dirname "$f")"
               cp "$STASH_DIR/$f" "$f"
               git add "$f"
             fi
           done
+
+          python3 .github/scripts/copy_package_version.py "$STASH_DIR/package.json" package.json
+          git add package.json
           rm -rf "$STASH_DIR"
 
-          # release-please changes package.json's version after next's lockfile
-          # was generated. Refresh only the lockfile so frozen CI consumes the
-          # exact release version instead of failing before lint/build.
-          pnpm install --lockfile-only --ignore-scripts
+          # Generated dependency state must be byte-identical to next.
+          git diff --exit-code origin/next -- pnpm-lock.yaml
           pnpm install --frozen-lockfile --ignore-scripts
-          pnpm exec prettier --write pnpm-lock.yaml
-          git add pnpm-lock.yaml
 
           # Commit if there are changes
           if git diff --cached --quiet; then
@@ -271,7 +281,8 @@ jobs:
               fi
             done < <(git show refs/remotes/origin/release-base:CHANGELOG.md | grep '^## ' || true)
 
-            git push --force origin "$PR_BRANCH"
+            gh auth setup-git
+            git push origin HEAD:"$PR_BRANCH" --force-with-lease="$PR_BRANCH:$REMOTE_SHA"
             echo "Successfully synced next code into a clean production-based release PR"
           fi
 
@@ -305,11 +316,11 @@ jobs:
           for attempt in 1 2 3; do
             open_prs=$(gh pr list --repo "$REPO" --state open --json headRefName \
               --jq '[.[] | select(.headRefName | startswith("release-please--"))] | length')
-            [ "$open_prs" -gt 0 ] && break
+            [ "$open_prs" -eq 1 ] && break
             sleep 10
           done
-          if [ "$open_prs" -eq 0 ]; then
-            echo "::error::${unreleased} user-facing + ${releaseas} Release-As commit(s) since ${latest_tag} on next, but no open release PR — release-pr failed silently. Inspect the release-pr step output above."
+          if [ "$open_prs" -ne 1 ]; then
+            echo "::error::expected exactly one open Release Please PR, found ${open_prs}; ${unreleased} user-facing + ${releaseas} Release-As commit(s) exist since ${latest_tag}."
             exit 1
           fi
           echo "Release PR present for unreleased commits — OK."
@@ -317,7 +328,7 @@ jobs:
       - name: Run release-please (github-release)
         if: github.ref == 'refs/heads/master'
         run: |
-          npx release-please github-release \
+          ./node_modules/.bin/release-please github-release \
             --repo-url "${{ github.repositoryUrl }}" \
             --token "${{ secrets.SDK_WRITE_TOKEN }}" \
             --target-branch master \

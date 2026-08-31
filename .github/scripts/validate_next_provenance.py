@@ -38,7 +38,11 @@ PRODUCTION_POLICY_PATHS = frozenset(
         ".github/scripts/test_classify_production_ci.py", ".github/scripts/validate_next_provenance.py",
         ".github/scripts/test_validate_next_provenance.py", ".github/scripts/verify_npm_release.py",
         ".github/scripts/test_verify_npm_release.py", ".github/scripts/release_pr_auto_merge.py",
-        ".github/scripts/test_release_pr_auto_merge.py", ".github/scripts/test_release_pr_ci_gate.py",
+        ".github/scripts/test_release_pr_auto_merge.py",
+        ".github/scripts/install_release_please.sh",
+        ".github/scripts/test_release_workflow_hardening.py",
+        ".github/scripts/copy_package_version.py",
+        ".github/scripts/test_copy_package_version.py", ".github/scripts/test_release_pr_ci_gate.py",
         "bin/check-release-environment", "bin/publish-npm", "scripts/test-package-imports",
         "release-please-config.json", "pnpm-workspace.yaml",
     }

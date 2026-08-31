@@ -89,6 +89,12 @@ class FixtureClient:
                 "src/telnyx/client.py": ("100644", "blob", "a" * 40),
                 "CHANGELOG.md": ("100644", "blob", "c" * 40),
             },
+            "version_file_contents": {
+                "pyproject.toml": {
+                    "head": 'version = "4.174.0"\n',
+                    "next": 'version = "4.173.0"\n',
+                }
+            },
             "promotion": {
                 "sha": NEXT,
                 "subject": "feat: promote from staging %s" % STAGING,
@@ -175,21 +181,21 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
             "team-telnyx/telnyx-node": ("master", "team-telnyx/telnyx-typescript-staging"),
             "team-telnyx/telnyx-php": ("master", "team-telnyx/telnyx-php-staging"),
             "team-telnyx/telnyx-cli": ("main", "team-telnyx/telnyx-cli-staging"),
+            "team-telnyx/telnyx-java": ("master", "team-telnyx/telnyx-java-staging"),
         }
         for repository, values in expected.items():
             with self.subTest(repository=repository):
                 config = GateConfig.for_repository(repository)
                 self.assertEqual((config.default_branch, config.staging_repository), values)
-        with self.assertRaisesRegex(GateError, "unsupported repository"):
-            GateConfig.for_repository("team-telnyx/telnyx-java")
 
     def test_node_release_requires_complete_jest_check(self):
         node = GateConfig.for_repository("team-telnyx/telnyx-node")
         self.assertEqual(node.expected_checks["test"], "github-actions")
 
-    def test_node_lockfile_is_version_coupled_release_metadata(self):
+    def test_node_lockfile_remains_exact_generated_state(self):
         node = GateConfig.for_repository("team-telnyx/telnyx-node")
-        self.assertIn("pnpm-lock.yaml", node.release_files)
+        self.assertNotIn("pnpm-lock.yaml", node.release_files)
+        self.assertEqual(node.version_only_files, {"package.json": "json-version"})
         python = GateConfig.for_repository("team-telnyx/telnyx-python")
         self.assertNotIn("pnpm-lock.yaml", python.release_files)
 
