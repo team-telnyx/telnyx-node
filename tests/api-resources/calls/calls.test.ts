@@ -179,6 +179,7 @@ describe('resource calls', () => {
         timeout: 15,
       },
       dialogflow_config: { analyze_sentiment: false, partial_automated_agent_reply: false },
+      diversion: '+18005550101',
       enable_dialogflow: false,
       from_display_name: 'Company Name',
       link_to: 'ilditnZK_eVysupV21KzmzN_sM29ygfauQojpm4BgFtfX5hXAcjotg==',

@@ -691,6 +691,7 @@ describe('resource actions', () => {
         { name: 'head_1', value: 'val_1' },
         { name: 'head_2', value: 'val_2' },
       ],
+      diversion: '+18005550101',
       early_media: true,
       from: '+18005550101',
       from_display_name: 'Company Name',
