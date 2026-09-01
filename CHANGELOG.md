@@ -1,5 +1,20 @@
 # Changelog
 
+## [7.19.0](https://github.com/team-telnyx/telnyx-node/compare/v7.18.0...v7.19.0) (2026-09-01)
+
+
+### Features
+
+* promote from staging 5dd1bb1 ([7548e7e](https://github.com/team-telnyx/telnyx-node/commit/7548e7e681c5a9a0a8303d52f36d3dd518452ae9))
+
+
+### Bug Fixes
+
+* attest Node release lockfile metadata ([#529](https://github.com/team-telnyx/telnyx-node/issues/529)) ([087362e](https://github.com/team-telnyx/telnyx-node/commit/087362eac15469fd97fd9f9c4900b08230fae830))
+* **ci:** skip post-merge release readiness ([#523](https://github.com/team-telnyx/telnyx-node/issues/523)) ([53bdae6](https://github.com/team-telnyx/telnyx-node/commit/53bdae6ef46aa81bd981ab53296f702cbf814e6b))
+* install tools before formatting release lockfile ([#528](https://github.com/team-telnyx/telnyx-node/issues/528)) ([7a0a05e](https://github.com/team-telnyx/telnyx-node/commit/7a0a05e20c96feec301487417ae4fbc88e4643e4))
+* refresh release PR lockfile ([#527](https://github.com/team-telnyx/telnyx-node/issues/527)) ([eb215d0](https://github.com/team-telnyx/telnyx-node/commit/eb215d0cbdb0d50c2a9af85ac7c0ca6b4868f640))
+
 ## [7.18.0](https://github.com/team-telnyx/telnyx-node/compare/v7.17.0...v7.18.0) (2026-08-31)
 
 

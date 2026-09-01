@@ -1398,6 +1398,7 @@ import {
   ExternalConnectionsDefaultFlatPagination,
   ExternalVoiceIntegrationsPaginationMeta,
 } from './resources/external-connections/external-connections';
+import { ExternalRequirements } from './resources/external-requirements/external-requirements';
 import {
   Fax,
   FaxCreateParams,
@@ -3247,6 +3248,7 @@ export class Telnyx {
   pricing: API.Pricing = new API.Pricing(this);
   webSearch: API.WebSearch = new API.WebSearch(this);
   meetingSessions: API.MeetingSessions = new API.MeetingSessions(this);
+  externalRequirements: API.ExternalRequirements = new API.ExternalRequirements(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3431,6 +3433,7 @@ Telnyx.EmailValidations = EmailValidations;
 Telnyx.Pricing = Pricing;
 Telnyx.WebSearch = WebSearch;
 Telnyx.MeetingSessions = MeetingSessions;
+Telnyx.ExternalRequirements = ExternalRequirements;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5459,6 +5462,8 @@ export declare namespace Telnyx {
     type MeetingSessionRetrieveEventsParams as MeetingSessionRetrieveEventsParams,
     type MeetingSessionRetrieveTranscriptParams as MeetingSessionRetrieveTranscriptParams,
   };
+
+  export { ExternalRequirements as ExternalRequirements };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

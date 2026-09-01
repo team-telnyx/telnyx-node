@@ -1,3 +1,5 @@
+// File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
+
 /**
  * Telnyx webhook verification using native Ed25519.
  *
@@ -32,7 +34,7 @@ export class TelnyxWebhookVerificationError extends TelnyxError {
 
 export interface WebhookUnwrapOptions {
   headers?: Record<string, string>;
-  key?: string | Uint8Array;
+  key?: string | Uint8Array | undefined;
 }
 
 export function unsafeUnwrapWebhook<T>(body: string): T {
@@ -44,17 +46,49 @@ export async function unwrapWebhook<T>(
   options: WebhookUnwrapOptions | undefined,
   clientPublicKey: string | null,
 ): Promise<T> {
-  if (options?.headers) {
-    const key = options.key || clientPublicKey;
-    if (!key) {
-      throw new TelnyxWebhookVerificationError('No public key provided for webhook verification');
-    }
-
-    const webhook = new TelnyxWebhook(key);
-    await webhook.verify(body, options.headers);
+  if (!options?.headers) {
+    throw new TelnyxWebhookVerificationError('Webhook headers are required for verification');
   }
 
+  const key = options.key || clientPublicKey;
+  if (!key) {
+    throw new TelnyxWebhookVerificationError('No public key provided for webhook verification');
+  }
+
+  const webhook = new TelnyxWebhook(key);
+  await webhook.verify(body, options.headers);
   return unsafeUnwrapWebhook<T>(body);
+}
+
+const BASE64_ALPHABET = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/';
+
+/** Decode strict, padded base64 without relying on Node's Buffer global. */
+function decodeBase64(value: string): Uint8Array {
+  if (value.length === 0 || value.length % 4 !== 0 || !/^[A-Za-z0-9+/]*={0,2}$/.test(value)) {
+    throw new Error('Invalid base64');
+  }
+
+  const padding =
+    value.endsWith('==') ? 2
+    : value.endsWith('=') ? 1
+    : 0;
+  const output = new Uint8Array((value.length / 4) * 3 - padding);
+  let outputIndex = 0;
+
+  for (let index = 0; index < value.length; index += 4) {
+    const a = BASE64_ALPHABET.indexOf(value[index]!);
+    const b = BASE64_ALPHABET.indexOf(value[index + 1]!);
+    const c = value[index + 2] === '=' ? 0 : BASE64_ALPHABET.indexOf(value[index + 2]!);
+    const d = value[index + 3] === '=' ? 0 : BASE64_ALPHABET.indexOf(value[index + 3]!);
+    if (a < 0 || b < 0 || c < 0 || d < 0) throw new Error('Invalid base64');
+
+    const chunk = (a << 18) | (b << 12) | (c << 6) | d;
+    if (outputIndex < output.length) output[outputIndex++] = (chunk >> 16) & 0xff;
+    if (outputIndex < output.length) output[outputIndex++] = (chunk >> 8) & 0xff;
+    if (outputIndex < output.length) output[outputIndex++] = chunk & 0xff;
+  }
+
+  return output;
 }
 
 // Type for the SubtleCrypto interface we need
@@ -97,13 +131,13 @@ export class TelnyxWebhook {
     if (typeof key === 'string') {
       try {
         // Telnyx provides keys in base64 format
-        const keyBytes = Buffer.from(key, 'base64');
+        const keyBytes = decodeBase64(key);
         if (keyBytes.length !== 32) {
           throw new TelnyxWebhookVerificationError(
             `Invalid public key: expected 32 bytes, got ${keyBytes.length} bytes`,
           );
         }
-        this.verifyKey = new Uint8Array(keyBytes);
+        this.verifyKey = keyBytes;
       } catch (exc) {
         if (exc instanceof TelnyxWebhookVerificationError) {
           throw exc;
@@ -111,6 +145,11 @@ export class TelnyxWebhook {
         throw new TelnyxWebhookVerificationError(`Invalid key format: ${key}`);
       }
     } else {
+      if (key.length !== 32) {
+        throw new TelnyxWebhookVerificationError(
+          `Invalid public key: expected 32 bytes, got ${key.length} bytes`,
+        );
+      }
       this.verifyKey = key;
     }
   }
@@ -138,7 +177,13 @@ export class TelnyxWebhook {
 
     // Validate timestamp format and prevent replay attacks
     try {
-      const webhookTime = parseInt(timestampHeader, 10);
+      if (!/^\d+$/.test(timestampHeader)) {
+        throw new TelnyxWebhookVerificationError(`Invalid timestamp format: ${timestampHeader}`);
+      }
+      const webhookTime = Number(timestampHeader);
+      if (!Number.isSafeInteger(webhookTime)) {
+        throw new TelnyxWebhookVerificationError(`Invalid timestamp format: ${timestampHeader}`);
+      }
       const currentTime = Math.floor(Date.now() / 1000);
 
       // Allow 5 minutes tolerance
@@ -155,7 +200,7 @@ export class TelnyxWebhook {
     // Decode the signature from base64
     let signature: Uint8Array;
     try {
-      const signatureBuffer = Buffer.from(signatureHeader, 'base64');
+      const signatureBuffer = decodeBase64(signatureHeader);
 
       if (signatureBuffer.length !== 64) {
         throw new Error(`Invalid signature length: expected 64 bytes, got ${signatureBuffer.length} bytes`);
@@ -166,13 +211,9 @@ export class TelnyxWebhook {
       throw new TelnyxWebhookVerificationError(`Invalid signature format: ${signatureHeader}`);
     }
 
-    // Create the signed payload: timestamp|payload
+    // Create the exact signed payload: timestamp|unmodified payload
     const encoder = new TextEncoder();
-    const signedPayload = new Uint8Array([
-      ...encoder.encode(timestampHeader),
-      ...encoder.encode('|'),
-      ...encoder.encode(payload),
-    ]);
+    const signedPayload = encoder.encode(`${timestampHeader}|${payload}`);
 
     // Verify the signature using native crypto
     let isValid: boolean;

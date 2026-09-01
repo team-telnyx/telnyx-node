@@ -6,25 +6,19 @@ import * as NumberOrdersAPI from './number-orders';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 import * as ThreadsAPI from './email-inboxes/threads/threads';
-import { Webhook } from 'standardwebhooks';
 import { EmailBracketCursorPagination } from '../core/pagination';
+import { unsafeUnwrapWebhook, unwrapWebhook } from '../lib/webhooks';
 
 export class Webhooks extends APIResource {
-  unwrap(
+  async unwrap(
     body: string,
     { headers, key }: { headers: Record<string, string>; key?: string },
-  ): UnwrapWebhookEvent {
-    if (headers !== undefined) {
-      const keyStr: string | null = key === undefined ? this._client.publicKey : key;
-      if (keyStr === null) throw new Error('Webhook key must not be null in order to unwrap');
-      const wh = new Webhook(keyStr);
-      wh.verify(body, headers);
-    }
-    return JSON.parse(body) as UnwrapWebhookEvent;
+  ): Promise<UnwrapWebhookEvent> {
+    return unwrapWebhook<UnwrapWebhookEvent>(body, { headers, key }, this._client.publicKey);
   }
 
   unsafeUnwrap(body: string): UnsafeUnwrapWebhookEvent {
-    return JSON.parse(body) as UnsafeUnwrapWebhookEvent;
+    return unsafeUnwrapWebhook<UnsafeUnwrapWebhookEvent>(body);
   }
 }
 

@@ -5842,3 +5842,17 @@ Methods:
 - <code title="get /meeting_sessions/{id}/artifacts">client.meetingSessions.artifacts.<a href="./src/resources/meeting-sessions/artifacts.ts">list</a>(id) -> ArtifactListResponse</code>
 - <code title="post /meeting_sessions/{id}/artifacts">client.meetingSessions.artifacts.<a href="./src/resources/meeting-sessions/artifacts.ts">create</a>(id, { ...params }) -> MeetingSessionArtifactResponse</code>
 - <code title="get /meeting_sessions/{id}/artifacts/{artifact_id}">client.meetingSessions.artifacts.<a href="./src/resources/meeting-sessions/artifacts.ts">retrieve</a>(artifactID, { ...params }) -> MeetingSessionArtifactResponse</code>
+
+# ExternalRequirements
+
+## SubNumberOrders
+
+Types:
+
+- <code><a href="./src/resources/external-requirements/sub-number-orders.ts">SubNumberOrderRetrieveResponse</a></code>
+- <code><a href="./src/resources/external-requirements/sub-number-orders.ts">SubNumberOrderUpdateResponse</a></code>
+
+Methods:
+
+- <code title="get /external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}">client.externalRequirements.subNumberOrders.<a href="./src/resources/external-requirements/sub-number-orders.ts">retrieve</a>(subNumberOrderID, { ...params }) -> SubNumberOrderRetrieveResponse</code>
+- <code title="post /external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}">client.externalRequirements.subNumberOrders.<a href="./src/resources/external-requirements/sub-number-orders.ts">update</a>(subNumberOrderID, { ...params }) -> SubNumberOrderUpdateResponse</code>
