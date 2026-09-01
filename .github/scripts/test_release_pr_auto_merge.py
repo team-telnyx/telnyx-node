@@ -5,6 +5,8 @@
 from __future__ import annotations
 
 import copy
+from pathlib import Path
+import re
 import unittest
 import dataclasses
 from unittest import mock
@@ -408,6 +410,27 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         self.assertIn("  policy-test:\n", workflow)
         self.assertNotIn("\n  test:\n", workflow)
 
+    def test_release_readiness_only_runs_for_open_pr_events(self):
+        with open(
+            ".github/workflows/release-pr-readiness.yml", encoding="utf-8"
+        ) as workflow_file:
+            workflow = workflow_file.read()
+
+        self.assertEqual(
+            sum(line == "  release-provenance:" for line in workflow.splitlines()), 1
+        )
+        self.assertIn(
+            "types: [opened, reopened, synchronize, ready_for_review]", workflow
+        )
+        self.assertNotIn("ready_for_review, labeled", workflow)
+        self.assertIn(
+            "  release-provenance:\n"
+            "    if: >-\n"
+            "      github.event_name == 'workflow_dispatch' ||\n"
+            "      github.event.pull_request.state == 'open'\n",
+            workflow,
+        )
+
     def test_merge_uses_immediate_rest_put_and_never_enables_auto_merge(self):
         client = GitHubClient(GateConfig.python(), "test-token")
         completed = mock.Mock(
@@ -430,6 +453,30 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         self.assertIn("sha=%s" % HEAD, command)
         self.assertIn("commit_title=release: 4.174.0", command)
         self.assertNotIn("pr", command)
+
+
+class WorkflowDependencyPolicyTests(unittest.TestCase):
+    def test_external_workflow_actions_use_immutable_commit_shas(self):
+        root = Path(__file__).resolve().parents[2]
+        for workflow in sorted((root / ".github/workflows").glob("*.y*ml")):
+            for line_number, line in enumerate(workflow.read_text().splitlines(), 1):
+                match = re.search(r"-\s+uses:\s*([^\s#]+)", line)
+                if not match:
+                    continue
+                action = match.group(1)
+                if action.startswith(("./", "docker://")):
+                    continue
+                with self.subTest(workflow=workflow.name, line=line_number, action=action):
+                    self.assertRegex(action, r"@[0-9a-f]{40}$")
+
+    def test_mcp_publisher_download_is_fixed_and_hash_verified(self):
+        root = Path(__file__).resolve().parents[2]
+        workflow = (root / ".github/workflows/publish-mcp.yml").read_text()
+        self.assertIn("mcp-publisher_1.2.3_linux_amd64.tar.gz", workflow)
+        self.assertIn("868a54268f21580ec97ec9dfc4fc3442a7f69c241ee7c745c7032f2e43cdf47b", workflow)
+        self.assertIn("sha256sum --check", workflow)
+        self.assertNotIn("curl -L", workflow)
+        self.assertNotIn("| tar", workflow)
 
 
 if __name__ == "__main__":

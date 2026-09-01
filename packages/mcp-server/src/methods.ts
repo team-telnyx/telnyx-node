@@ -7517,6 +7517,18 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/meeting_sessions/{id}/artifacts/{artifact_id}',
   },
+  {
+    clientCallName: 'client.externalRequirements.subNumberOrders.retrieve',
+    fullyQualifiedName: 'externalRequirements.subNumberOrders.retrieve',
+    httpMethod: 'get',
+    httpPath: '/external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}',
+  },
+  {
+    clientCallName: 'client.externalRequirements.subNumberOrders.update',
+    fullyQualifiedName: 'externalRequirements.subNumberOrders.update',
+    httpMethod: 'post',
+    httpPath: '/external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

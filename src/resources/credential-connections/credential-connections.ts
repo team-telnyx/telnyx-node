@@ -130,8 +130,8 @@ export type ConnectionNoiseSuppression = 'inbound' | 'outbound' | 'both' | 'disa
 
 export interface ConnectionRtcpSettings {
   /**
-   * BETA - Enable the capture and storage of RTCP messages to create QoS reports on
-   * the Telnyx Mission Control Portal.
+   * Enable the capture and storage of RTCP messages to create QoS reports on the
+   * Telnyx Mission Control Portal.
    */
   capture_enabled?: boolean;
 
