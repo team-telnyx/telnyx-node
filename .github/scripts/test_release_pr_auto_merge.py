@@ -183,6 +183,12 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
         with self.assertRaisesRegex(GateError, "unsupported repository"):
             GateConfig.for_repository("team-telnyx/telnyx-java")
 
+    def test_node_lockfile_is_version_coupled_release_metadata(self):
+        node = GateConfig.for_repository("team-telnyx/telnyx-node")
+        self.assertIn("pnpm-lock.yaml", node.release_files)
+        python = GateConfig.for_repository("team-telnyx/telnyx-python")
+        self.assertNotIn("pnpm-lock.yaml", python.release_files)
+
     def test_promotion_must_be_reachable_from_current_next(self):
         client = FixtureClient()
         client.snapshot["promotion"]["reachable_from_next"] = False
