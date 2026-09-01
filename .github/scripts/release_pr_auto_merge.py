@@ -116,7 +116,8 @@ class GateConfig:
                     ".release-please-manifest.json",
                 },
                 "checks": {
-                    "build": github, "lint": github, "protected-paths": github,
+                    "build": github, "lint": github, "test": github,
+                    "protected-paths": github,
                     "release doctor": github, "Analyze (actions)": github,
                     "Analyze (javascript-typescript)": github,
                     "CodeQL": advanced_security,

@@ -36,6 +36,15 @@ def push(branch, sha="a" * 40, message="ordinary commit"):
     }
 
 
+class ProductionCIWorkflowContractTests(unittest.TestCase):
+    def test_full_ci_runs_complete_jest_suite(self):
+        workflow = (MODULE_PATH.parents[1] / "workflows" / "ci.yml").read_text()
+        self.assertIn("\n  test:\n", workflow)
+        self.assertIn("name: test", workflow)
+        self.assertIn("run: ./scripts/test", workflow)
+        self.assertIn("needs: classify-production-ci", workflow)
+
+
 class ClassificationTests(unittest.TestCase):
     def test_release_pr_runs_full_ci(self):
         event = {
