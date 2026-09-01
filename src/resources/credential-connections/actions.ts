@@ -10,9 +10,9 @@ import { path } from '../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
-   * Checks the registration_status for a credential connection,
-   * (`registration_status`) as well as the timestamp for the last SIP registration
-   * event (`registration_status_updated_at`)
+   * Returns the live SIP registration status for a credential connection. Reports
+   * whether the endpoint is currently registered (`status`) and the timestamp of the
+   * last SIP registration event (`last_registration`).
    *
    * @example
    * ```ts
@@ -39,17 +39,17 @@ export namespace ActionCheckRegistrationStatusResponse {
     /**
      * The ip used during the SIP connection
      */
-    ip_address?: string;
+    ip_address?: string | null;
 
     /**
      * ISO 8601 formatted date indicating when the resource was last updated.
      */
-    last_registration?: string;
+    last_registration?: string | null;
 
     /**
      * The port of the SIP connection
      */
-    port?: number;
+    port?: number | null;
 
     /**
      * Identifies the type of the resource.
@@ -59,7 +59,7 @@ export namespace ActionCheckRegistrationStatusResponse {
     /**
      * The user name of the SIP connection
      */
-    sip_username?: string;
+    sip_username?: string | null;
 
     /**
      * The current registration status of your SIP connection
@@ -69,12 +69,12 @@ export namespace ActionCheckRegistrationStatusResponse {
     /**
      * The protocol of the SIP connection
      */
-    transport?: string;
+    transport?: string | null;
 
     /**
      * The user agent of the SIP connection
      */
-    user_agent?: string;
+    user_agent?: string | null;
   }
 }
 

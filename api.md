@@ -5301,16 +5301,6 @@ Methods:
 - <code title="get /voice_sdk_call_reports">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">list</a>({ ...params }) -> VoiceSDKCallReportsDefaultFlatPagination</code>
 - <code title="get /voice_sdk_call_reports/{call_id}">client.voiceSDKCallReports.<a href="./src/resources/voice-sdk-call-reports.ts">retrieve</a>(callID) -> VoiceSDKCallReportRetrieveResponse</code>
 
-# SipRegistrationStatus
-
-Types:
-
-- <code><a href="./src/resources/sip-registration-status.ts">SipRegistrationStatusRetrieveResponse</a></code>
-
-Methods:
-
-- <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">retrieve</a>({ ...params }) -> SipRegistrationStatusRetrieveResponse</code>
-
 # CallReasons
 
 Types:
