@@ -108,6 +108,7 @@ describe('resource versions', () => {
               model: 'deepgram/flux',
               region: 'region',
               settings: {
+                context: 'context',
                 eager_eot_threshold: 0.3,
                 enable_endpoint_detection: true,
                 end_of_turn_confidence_threshold: 0,
@@ -115,6 +116,7 @@ describe('resource versions', () => {
                 eot_timeout_ms: 500,
                 interim_results: true,
                 keyterm: 'keyterm',
+                language_hints: ['string'],
                 max_endpoint_delay_ms: 500,
                 max_turn_silence: 100,
                 min_turn_silence: 100,
@@ -167,6 +169,7 @@ describe('resource versions', () => {
               model: 'deepgram/flux',
               region: 'region',
               settings: {
+                context: 'context',
                 eager_eot_threshold: 0.3,
                 enable_endpoint_detection: true,
                 end_of_turn_confidence_threshold: 0,
@@ -174,6 +177,7 @@ describe('resource versions', () => {
                 eot_timeout_ms: 500,
                 interim_results: true,
                 keyterm: 'keyterm',
+                language_hints: ['string'],
                 max_endpoint_delay_ms: 500,
                 max_turn_silence: 100,
                 min_turn_silence: 100,
@@ -366,6 +370,7 @@ describe('resource versions', () => {
         model: 'deepgram/flux',
         region: 'region',
         settings: {
+          context: 'context',
           eager_eot_threshold: 0.3,
           enable_endpoint_detection: true,
           end_of_turn_confidence_threshold: 0,
@@ -373,6 +378,7 @@ describe('resource versions', () => {
           eot_timeout_ms: 500,
           interim_results: true,
           keyterm: 'keyterm',
+          language_hints: ['string'],
           max_endpoint_delay_ms: 500,
           max_turn_silence: 100,
           min_turn_silence: 100,

@@ -112,7 +112,7 @@ class GateConfig:
                 "default_branch": "master",
                 "staging_repository": "team-telnyx/telnyx-typescript-staging",
                 "release_files": {
-                    "CHANGELOG.md", "package.json", "src/version.ts",
+                    "CHANGELOG.md", "package.json", "pnpm-lock.yaml", "src/version.ts",
                     ".release-please-manifest.json",
                 },
                 "checks": {

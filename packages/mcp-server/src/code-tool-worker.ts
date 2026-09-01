@@ -1362,6 +1362,8 @@ const fuse = new Fuse(
     'client.meetingSessions.artifacts.create',
     'client.meetingSessions.artifacts.list',
     'client.meetingSessions.artifacts.retrieve',
+    'client.externalRequirements.subNumberOrders.retrieve',
+    'client.externalRequirements.subNumberOrders.update',
   ],
   { threshold: 1, shouldSort: true },
 );
