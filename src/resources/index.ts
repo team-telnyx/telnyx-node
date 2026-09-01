@@ -459,6 +459,7 @@ export {
   type ExternalConnectionUpdateLocationParams,
   type ExternalConnectionsDefaultFlatPagination,
 } from './external-connections/external-connections';
+export { ExternalRequirements } from './external-requirements/external-requirements';
 export {
   FaxApplications,
   type FaxApplication,
