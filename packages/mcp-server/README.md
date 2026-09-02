@@ -2,6 +2,21 @@
 
 It is generated with [Stainless](https://www.stainless.com/).
 
+## Migrating from the legacy Python MCP server
+
+The maintained `telnyx-mcp` package in this repository supersedes the archived [`team-telnyx/telnyx-mcp-server`](https://github.com/team-telnyx/telnyx-mcp-server) Python project.
+
+Do not use the legacy `uvx --from git+https://github.com/team-telnyx/telnyx-mcp-server.git telnyx-mcp-server` command for new installations. That implementation depends on Python's Unix-only `socketserver.UnixStreamServer` and cannot start on native Windows.
+
+For native Windows, install [Node.js 20 LTS or later](https://nodejs.org/) and run the maintained TypeScript server from PowerShell:
+
+```powershell
+$env:TELNYX_API_KEY = "My API Key"
+npx -y telnyx-mcp@latest
+```
+
+Existing legacy users on macOS or Linux should migrate to the same `npx` command. The MCP client configuration examples below use the maintained package.
+
 ## Installation
 
 ### Direct invocation
