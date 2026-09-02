@@ -1,4 +1,4 @@
-name: Exact-head release PR auto-merge
+name: Exact-head release PR attestation
 
 on:
   pull_request:
@@ -6,6 +6,10 @@ on:
     paths:
       - .github/scripts/release_pr_auto_merge.py
       - .github/scripts/test_release_pr_auto_merge.py
+      - .github/scripts/install_release_please.sh
+      - .github/scripts/test_release_workflow_hardening.py
+      - .github/scripts/copy_package_version.py
+      - .github/scripts/test_copy_package_version.py
       - .github/workflows/release-pr-auto-merge.yml
   pull_request_target:
     branches: [master]
@@ -16,11 +20,6 @@ on:
         description: Release Please PR number
         required: true
         type: number
-      dry_run:
-        description: Attest without merging
-        required: true
-        default: true
-        type: boolean
 
 permissions:
   contents: read
@@ -38,9 +37,14 @@ jobs:
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Run policy tests
-        run: python3 .github/scripts/test_release_pr_auto_merge.py -v
+        run: |
+          python3 .github/scripts/test_release_pr_auto_merge.py -v
+          python3 .github/scripts/test_release_workflow_hardening.py -v
+          python3 .github/scripts/test_copy_package_version.py -v
       - name: Compile policy
-        run: python3 -m py_compile .github/scripts/release_pr_auto_merge.py .github/scripts/test_release_pr_auto_merge.py
+        run: python3 -m py_compile .github/scripts/release_pr_auto_merge.py .github/scripts/test_release_pr_auto_merge.py .github/scripts/test_release_workflow_hardening.py .github/scripts/copy_package_version.py .github/scripts/test_copy_package_version.py
+      - name: Validate installer shell
+        run: bash -n .github/scripts/install_release_please.sh
 
   gate:
     if: >-
@@ -69,7 +73,7 @@ jobs:
           fetch-depth: 0
           persist-credentials: false
 
-      - name: Attest exact head and merge normally
+      - name: Attest exact head without merging
         env:
           GH_TOKEN: ${{ github.token }}
           MERGE_TOKEN: ${{ secrets.SDK_WRITE_TOKEN }}
@@ -77,24 +81,18 @@ jobs:
           EVENT_PR_NUMBER: ${{ github.event.pull_request.number }}
           EVENT_HEAD_SHA: ${{ github.event.pull_request.head.sha }}
           INPUT_PR_NUMBER: ${{ inputs.pr_number }}
-          INPUT_DRY_RUN: ${{ inputs.dry_run }}
         run: |
           set -euo pipefail
           if [ "$EVENT_NAME" = "workflow_dispatch" ]; then
             PR_NUMBER="$INPUT_PR_NUMBER"
             EXPECTED_HEAD=""
-            DRY_RUN="$INPUT_DRY_RUN"
           else
             PR_NUMBER="$EVENT_PR_NUMBER"
             EXPECTED_HEAD="$EVENT_HEAD_SHA"
-            DRY_RUN="false"
           fi
 
-          args=(--pr-number "$PR_NUMBER")
+          args=(--pr-number "$PR_NUMBER" --dry-run)
           if [ -n "$EXPECTED_HEAD" ]; then
             args+=(--expected-head "$EXPECTED_HEAD")
-          fi
-          if [ "$DRY_RUN" = "true" ]; then
-            args+=(--dry-run)
           fi
           python3 .github/scripts/release_pr_auto_merge.py "${args[@]}"
