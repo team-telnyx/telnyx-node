@@ -47,6 +47,30 @@ class ChecksPending(GateError):
     """Expected checks have not reached an accepted terminal state."""
 
 
+def require_version_only_change(kind: str, head_text: str, next_text: str, expected_version: str) -> None:
+    """Require the head file to equal next after replacing one marked version."""
+    patterns = {
+        "json-version": re.compile(r'(?m)^(?P<prefix>\s*"version"\s*:\s*")[^"]+(?P<suffix>",?\s*)$'),
+        "toml-version": re.compile(r'(?m)^(?P<prefix>version\s*=\s*")[^"]+(?P<suffix>"\s*)$'),
+        "gradle-version": re.compile(r'(?m)^(?P<prefix>version\s*=\s*")[^"]+(?P<suffix>"\s*// x-release-please-version\s*)$'),
+    }
+    pattern = patterns.get(kind)
+    if pattern is None:
+        raise GateError(f"unsupported version-only file kind: {kind}")
+    head_matches = list(pattern.finditer(head_text))
+    next_matches = list(pattern.finditer(next_text))
+    if len(head_matches) != 1 or len(next_matches) != 1:
+        raise GateError(f"version-only file marker drift for {kind}")
+    head_match, next_match = head_matches[0], next_matches[0]
+    head_version = head_text[head_match.end("prefix"):head_match.start("suffix")]
+    next_version = next_text[next_match.end("prefix"):next_match.start("suffix")]
+    if head_version != expected_version:
+        raise GateError(f"release manifest version {head_version!r} != {expected_version!r}")
+    normalized = head_text[:head_match.end("prefix")] + next_version + head_text[head_match.start("suffix"): ]
+    if normalized != next_text:
+        raise GateError("release manifest changed outside its marked version field")
+
+
 @dataclasses.dataclass(frozen=True)
 class GateConfig:
     repository: str
@@ -54,6 +78,7 @@ class GateConfig:
     staging_repository: str
     release_files: frozenset[str]
     expected_checks: Mapping[str, str]
+    version_only_files: Mapping[str, str]
     author_login: str = "ankitTelnyx"
     author_id: int = 253082483
     staging_default_branch: str = "main"
@@ -150,6 +175,30 @@ class GateConfig:
                     "CodeQL": advanced_security,
                 },
             },
+            "team-telnyx/telnyx-java": {
+                "default_branch": "master",
+                "staging_repository": "team-telnyx/telnyx-java-staging",
+                "release_files": {
+                    "CHANGELOG.md", "README.md", "build.gradle.kts",
+                    ".release-please-manifest.json",
+                },
+                "checks": {
+                    "build": github, "lint": github,
+                    "test": github, "protected-paths": github,
+                    "release doctor": github, "Analyze (actions)": github,
+                    "Analyze (java-kotlin)": github, "CodeQL": advanced_security,
+                },
+            },
+        }
+        version_only_inventory = {
+            "team-telnyx/telnyx-python": {"pyproject.toml": "toml-version"},
+            "team-telnyx/telnyx-node": {"package.json": "json-version"},
+            "team-telnyx/telnyx-java": {"build.gradle.kts": "gradle-version"},
+        }
+        exact_generated_inventory = {
+            "team-telnyx/telnyx-node": {"pnpm-lock.yaml"},
+            "team-telnyx/telnyx-ruby": {"telnyx.gemspec"},
+            "team-telnyx/telnyx-php": {"composer.json", "composer.lock"},
         }
         values = inventory.get(repository)
         if values is None:
@@ -158,7 +207,8 @@ class GateConfig:
             repository=repository,
             default_branch=values["default_branch"],
             staging_repository=values["staging_repository"],
-            release_files=frozenset(values["release_files"]),
+            release_files=frozenset(set(values["release_files"]) - exact_generated_inventory.get(repository, set())),
+            version_only_files=version_only_inventory.get(repository, {}),
             expected_checks=dict(values["checks"]),
         )
 
@@ -292,7 +342,7 @@ class ReleasePRAutoMergeGate:
         parent = self._mapping(parents[0], "head parent")
         self._require(parent.get("sha") == default_sha, "head parent is not current base")
 
-        self._attest_tree(snapshot)
+        self._attest_tree(snapshot, version)
         staging_sha, config_sha = self._attest_provenance(snapshot, version)
         self._attest_checks(snapshot, head_sha)
         return Attestation(
@@ -305,11 +355,17 @@ class ReleasePRAutoMergeGate:
             config_sha,
         )
 
-    def _attest_tree(self, snapshot: Mapping[str, Any]) -> None:
+    def _attest_tree(self, snapshot: Mapping[str, Any], version: str) -> None:
         head_tree = self._tree(snapshot.get("head_tree"), "PR head tree")
         next_tree = self._tree(snapshot.get("next_tree"), "next tree")
         head_filtered = {k: v for k, v in head_tree.items() if k not in self.config.release_files}
         next_filtered = {k: v for k, v in next_tree.items() if k not in self.config.release_files}
+        contents = snapshot.get("version_file_contents")
+        self._require(isinstance(contents, Mapping), "missing version-only file contents")
+        for path, kind in self.config.version_only_files.items():
+            pair = contents.get(path) if isinstance(contents, Mapping) else None
+            self._require(isinstance(pair, Mapping), "missing exact contents for version-only file %s" % path)
+            require_version_only_change(kind, str(pair.get("head", "")), str(pair.get("next", "")), version)
         self._require(head_filtered == next_filtered, "non-release tree differs from current next")
 
     def _attest_provenance(
@@ -579,6 +635,10 @@ class GitHubClient:
             "head_commit": head_commit,
             "head_tree": self._ls_tree(head_sha),
             "next_tree": self._ls_tree(next_sha),
+            "version_file_contents": {
+                path: {"head": self._show_file(head_sha, path), "next": self._show_file(next_sha, path)}
+                for path in self.config.version_only_files
+            },
             "promotion": promotion,
             "staging_prs": staging_prs,
             "generated_staging_prs": generated_staging_prs,
@@ -697,6 +757,12 @@ class GitHubClient:
                     raise GateError("ambiguous generated staging ancestor PR")
                 return generated
         raise GateError("no generated staging ancestor in bounded history")
+
+    def _show_file(self, sha: str, path: str) -> str:
+        completed = subprocess.run(["git", "show", "%s:%s" % (sha, path)], text=True, capture_output=True)
+        if completed.returncode != 0:
+            raise GateError("could not read exact file %s at %s" % (path, sha))
+        return completed.stdout
 
     def _ls_tree(self, sha: str) -> Dict[str, Tuple[str, str, str]]:
         completed = subprocess.run(
