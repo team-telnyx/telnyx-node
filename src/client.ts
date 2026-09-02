@@ -850,11 +850,6 @@ import {
   SimCardOrdersDefaultFlatPagination,
 } from './resources/sim-card-orders';
 import {
-  SipRegistrationStatus,
-  SipRegistrationStatusRetrieveParams,
-  SipRegistrationStatusRetrieveResponse,
-} from './resources/sip-registration-status';
-import {
   SiprecConnectorCreateParams,
   SiprecConnectorResponse,
   SiprecConnectorUpdateParams,
@@ -3200,10 +3195,6 @@ export class Telnyx {
    */
   voiceSDKCallReports: API.VoiceSDKCallReports = new API.VoiceSDKCallReports(this);
   /**
-   * UAC connection operations
-   */
-  sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
-  /**
    * Static reference values the API accepts: call reasons, document types, rejection types.
    */
   callReasons: API.CallReasons = new API.CallReasons(this);
@@ -3417,7 +3408,6 @@ Telnyx.TermsOfService = TermsOfService;
 Telnyx.PronunciationDicts = PronunciationDicts;
 Telnyx.UacConnections = UacConnections;
 Telnyx.VoiceSDKCallReports = VoiceSDKCallReports;
-Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 Telnyx.CallReasons = CallReasons;
 Telnyx.DirResource = DirResource;
 Telnyx.InfringementClaims = InfringementClaims;
@@ -5283,12 +5273,6 @@ export declare namespace Telnyx {
     type VoiceSDKCallReportRetrieveResponse as VoiceSDKCallReportRetrieveResponse,
     type VoiceSDKCallReportsDefaultFlatPagination as VoiceSDKCallReportsDefaultFlatPagination,
     type VoiceSDKCallReportListParams as VoiceSDKCallReportListParams,
-  };
-
-  export {
-    SipRegistrationStatus as SipRegistrationStatus,
-    type SipRegistrationStatusRetrieveResponse as SipRegistrationStatusRetrieveResponse,
-    type SipRegistrationStatusRetrieveParams as SipRegistrationStatusRetrieveParams,
   };
 
   export {
