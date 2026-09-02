@@ -6750,12 +6750,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/voice_sdk_call_reports/{call_id}',
   },
   {
-    clientCallName: 'client.sipRegistrationStatus.retrieve',
-    fullyQualifiedName: 'sipRegistrationStatus.retrieve',
-    httpMethod: 'get',
-    httpPath: '/sip_registration_status',
-  },
-  {
     clientCallName: 'client.callReasons.list',
     fullyQualifiedName: 'callReasons.list',
     httpMethod: 'get',

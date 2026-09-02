@@ -45,6 +45,96 @@ const response = await client.calls.dial({
 console.log(response.data);
 ```
 
+## Examples
+
+Runnable examples are available for:
+
+- [Searching available phone numbers](examples/numbers/)
+- [Sending messages](examples/messaging/)
+- [Receiving messaging webhooks](examples/messaging-inbound-webhook/)
+- [Verifying webhook signatures](examples/webhook-verification/)
+- [Call Control](examples/call-control/)
+- [AI](examples/ai/), [addresses](examples/addresses/), and [connections](examples/connections/)
+
+### Search for and order a phone number
+
+```ts
+const { data: availableNumbers } = await client.availablePhoneNumbers.list({
+  filter: {
+    country_code: 'US',
+    national_destination_code: '312',
+    limit: 1,
+  },
+});
+
+const phoneNumber = availableNumbers?.[0]?.phone_number;
+if (!phoneNumber) throw new Error('No phone numbers found');
+
+const { data: order } = await client.numberOrders.create({
+  phone_numbers: [{ phone_number: phoneNumber }],
+});
+```
+
+### Send an SMS
+
+```ts
+const { data: message } = await client.messages.send({
+  from: '+15551234567',
+  to: '+15557654321',
+  text: 'Hello from Telnyx!',
+});
+```
+
+### Start a Call Control call
+
+```ts
+const { data: call } = await client.calls.dial({
+  connection_id: 'your-connection-id',
+  from: '+15551234567',
+  to: '+15557654321',
+  webhook_url: 'https://example.com/webhooks',
+});
+```
+
+### Verify an inbound webhook
+
+Configure the client with your Telnyx public key and pass the exact raw request body to `unwrap`. Parsing or re-serializing the body before verification invalidates the signature.
+
+```ts
+const webhookClient = new Telnyx({
+  apiKey: process.env['TELNYX_API_KEY'],
+  publicKey: process.env['TELNYX_PUBLIC_KEY'],
+});
+
+const event = webhookClient.webhooks.unwrap(rawBody, {
+  headers: requestHeaders,
+});
+```
+
+See the [complete Express webhook verification example](examples/webhook-verification/) for raw-body handling and error responses.
+
+### Configure retries
+
+Connection failures and retryable HTTP responses are retried twice by default. Set `maxRetries` for the client or override it for an individual request:
+
+```ts
+const retryingClient = new Telnyx({
+  apiKey: process.env['TELNYX_API_KEY'],
+  maxRetries: 4,
+});
+
+await retryingClient.messages.send(
+  {
+    from: '+15551234567',
+    to: '+15557654321',
+    text: 'Hello from Telnyx!',
+  },
+  { maxRetries: 0 },
+);
+```
+
+See [Handling errors](#handling-errors) and [Retries](#retries) for details.
+
 ### Request & Response types
 
 This library includes TypeScript definitions for all request params and response fields. You may import and use them like so:

@@ -1234,7 +1234,6 @@ const fuse = new Fuse(
     'client.uacConnections.actions.checkRegistrationStatus',
     'client.voiceSDKCallReports.list',
     'client.voiceSDKCallReports.retrieve',
-    'client.sipRegistrationStatus.retrieve',
     'client.callReasons.list',
     'client.callReasons.validate',
     'client.dir.delete',
