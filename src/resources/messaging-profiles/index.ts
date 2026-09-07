@@ -16,6 +16,7 @@ export {
 } from './autoresp-configs';
 export {
   MessagingProfiles,
+  type MessagingMessagingProfile,
   type MessagingProfile,
   type NumberPoolSettings,
   type URLShortenerSettings,
@@ -31,5 +32,5 @@ export {
   type MessagingProfileListShortCodesParams,
   type MessagingProfileListAlphanumericSenderIDsParams,
   type MessagingProfileRetrieveMetricsParams,
-  type MessagingProfilesDefaultFlatPagination,
+  type MessagingMessagingProfilesDefaultFlatPagination,
 } from './messaging-profiles';

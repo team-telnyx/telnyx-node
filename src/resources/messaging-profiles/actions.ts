@@ -24,7 +24,7 @@ export class Actions extends APIResource {
 }
 
 export interface ActionRegenerateSecretResponse {
-  data?: MessagingProfilesAPI.MessagingProfile;
+  data?: MessagingProfilesAPI.MessagingMessagingProfile;
 }
 
 export declare namespace Actions {

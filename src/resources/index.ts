@@ -772,6 +772,7 @@ export {
 } from './messaging-profile-metrics';
 export {
   MessagingProfiles,
+  type MessagingMessagingProfile,
   type MessagingProfile,
   type NumberPoolSettings,
   type URLShortenerSettings,
@@ -787,7 +788,7 @@ export {
   type MessagingProfileListShortCodesParams,
   type MessagingProfileListAlphanumericSenderIDsParams,
   type MessagingProfileRetrieveMetricsParams,
-  type MessagingProfilesDefaultFlatPagination,
+  type MessagingMessagingProfilesDefaultFlatPagination,
 } from './messaging-profiles/messaging-profiles';
 export { MessagingTollfree } from './messaging-tollfree/messaging-tollfree';
 export {
