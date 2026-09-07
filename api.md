@@ -2456,6 +2456,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingMessagingProfile</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfile</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">NumberPoolSettings</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">URLShortenerSettings</a></code>
@@ -2467,7 +2468,7 @@ Types:
 
 Methods:
 
-- <code title="get /messaging_profiles">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">list</a>({ ...params }) -> MessagingProfilesDefaultFlatPagination</code>
+- <code title="get /messaging_profiles">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">list</a>({ ...params }) -> MessagingMessagingProfilesDefaultFlatPagination</code>
 - <code title="post /messaging_profiles">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">create</a>({ ...params }) -> MessagingProfileCreateResponse</code>
 - <code title="delete /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">delete</a>(messagingProfileID) -> MessagingProfileDeleteResponse</code>
 - <code title="get /messaging_profiles/{id}">client.messagingProfiles.<a href="./src/resources/messaging-profiles/messaging-profiles.ts">retrieve</a>(messagingProfileID) -> MessagingProfileRetrieveResponse</code>

@@ -1505,6 +1505,8 @@ import {
   MessagingHostedNumberOrders,
 } from './resources/messaging-hosted-number-orders/messaging-hosted-number-orders';
 import {
+  MessagingMessagingProfile,
+  MessagingMessagingProfilesDefaultFlatPagination,
   MessagingProfile,
   MessagingProfileCreateParams,
   MessagingProfileCreateResponse,
@@ -1519,7 +1521,6 @@ import {
   MessagingProfileUpdateParams,
   MessagingProfileUpdateResponse,
   MessagingProfiles,
-  MessagingProfilesDefaultFlatPagination,
   NumberPoolSettings,
   URLShortenerSettings,
 } from './resources/messaging-profiles/messaging-profiles';
@@ -4328,6 +4329,7 @@ export declare namespace Telnyx {
 
   export {
     MessagingProfiles as MessagingProfiles,
+    type MessagingMessagingProfile as MessagingMessagingProfile,
     type MessagingProfile as MessagingProfile,
     type NumberPoolSettings as NumberPoolSettings,
     type URLShortenerSettings as URLShortenerSettings,
@@ -4336,7 +4338,7 @@ export declare namespace Telnyx {
     type MessagingProfileUpdateResponse as MessagingProfileUpdateResponse,
     type MessagingProfileDeleteResponse as MessagingProfileDeleteResponse,
     type MessagingProfileRetrieveMetricsResponse as MessagingProfileRetrieveMetricsResponse,
-    type MessagingProfilesDefaultFlatPagination as MessagingProfilesDefaultFlatPagination,
+    type MessagingMessagingProfilesDefaultFlatPagination as MessagingMessagingProfilesDefaultFlatPagination,
     type MessagingProfileListParams as MessagingProfileListParams,
     type MessagingProfileCreateParams as MessagingProfileCreateParams,
     type MessagingProfileUpdateParams as MessagingProfileUpdateParams,
