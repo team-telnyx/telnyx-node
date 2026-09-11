@@ -36,6 +36,8 @@ describe('resource v1', () => {
       max_retries: 0,
       mcp_servers: [{ foo: 'bar' }],
       metadata: { foo: 'bar' },
+      mode: 'preferred',
+      region: 'USA',
       service_tier: 'service_tier',
       stop_sequences: ['string'],
       stream: true,
