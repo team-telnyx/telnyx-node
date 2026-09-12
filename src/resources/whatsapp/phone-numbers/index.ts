@@ -19,6 +19,7 @@ export {
   type PhoneNumberListResponse,
   type PhoneNumberGetResponse,
   type PhoneNumberRetrieveConversationWindowResponse,
+  type PhoneNumberRetrievePhoneNumberResponse,
   type PhoneNumberListParams,
   type PhoneNumberResendVerificationParams,
   type PhoneNumberVerifyParams,

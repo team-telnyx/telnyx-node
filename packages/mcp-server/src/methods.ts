@@ -6276,6 +6276,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/whatsapp/phone_numbers',
   },
   {
+    clientCallName: 'client.whatsapp.phoneNumbers.retrievePhoneNumber',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.retrievePhoneNumber',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/phone_numbers/{phone_number}',
+  },
+  {
     clientCallName: 'client.whatsapp.phoneNumbers.callingSettings.retrieve',
     fullyQualifiedName: 'whatsapp.phoneNumbers.callingSettings.retrieve',
     httpMethod: 'get',
@@ -6370,6 +6376,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'x402.creditAccount.createQuote',
     httpMethod: 'post',
     httpPath: '/v2/x402/credit_account/quote',
+  },
+  {
+    clientCallName: 'client.x402.creditAccount.payments.list',
+    fullyQualifiedName: 'x402.creditAccount.payments.list',
+    httpMethod: 'get',
+    httpPath: '/v2/x402/credit_account/payments',
+  },
+  {
+    clientCallName: 'client.x402.creditAccount.payments.retrieve',
+    fullyQualifiedName: 'x402.creditAccount.payments.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v2/x402/credit_account/payments/{id}',
   },
   {
     clientCallName: 'client.voiceClones.list',
@@ -7522,6 +7540,30 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'externalRequirements.subNumberOrders.update',
     httpMethod: 'post',
     httpPath: '/external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}',
+  },
+  {
+    clientCallName: 'client.compute.funcs.retrieveLogs',
+    fullyQualifiedName: 'compute.funcs.retrieveLogs',
+    httpMethod: 'get',
+    httpPath: '/compute/funcs/{id}/logs',
+  },
+  {
+    clientCallName: 'client.compute.funcs.retrieveMetricAggregates',
+    fullyQualifiedName: 'compute.funcs.retrieveMetricAggregates',
+    httpMethod: 'get',
+    httpPath: '/compute/funcs/{id}/metric_aggregates',
+  },
+  {
+    clientCallName: 'client.compute.funcs.retrieveRevisions',
+    fullyQualifiedName: 'compute.funcs.retrieveRevisions',
+    httpMethod: 'get',
+    httpPath: '/compute/funcs/{id}/revisions',
+  },
+  {
+    clientCallName: 'client.compute.funcs.retrieveShipInspection',
+    fullyQualifiedName: 'compute.funcs.retrieveShipInspection',
+    httpMethod: 'get',
+    httpPath: '/compute/funcs/{id}/ship_inspection',
   },
 ];
 

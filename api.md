@@ -290,6 +290,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">OutboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClick</a></code>
 - <code><a href="./src/resources/webhooks.ts">Transcription</a></code>
+- <code><a href="./src/resources/webhooks.ts">WhatsappAccountUpdate</a></code>
+- <code><a href="./src/resources/webhooks.ts">WhatsappMessageEcho</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
@@ -547,6 +549,7 @@ Types:
 
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ArithmeticExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Assistant</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantA2AAgent</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantIntegration</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantMcpServer</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantTool</a></code>
@@ -2458,6 +2461,7 @@ Types:
 
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingMessagingProfile</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfile</a></code>
+- <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileFeatures</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">NumberPoolSettings</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">URLShortenerSettings</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileCreateResponse</a></code>
@@ -4946,6 +4950,7 @@ Types:
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberListResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberGetResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberRetrieveConversationWindowResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberRetrievePhoneNumberResponse</a></code>
 
 Methods:
 
@@ -4955,6 +4960,7 @@ Methods:
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/verify">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">verify</a>(phoneNumber, { ...params }) -> void</code>
 - <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversation_window">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">retrieveConversationWindow</a>(phoneNumber, { ...params }) -> PhoneNumberRetrieveConversationWindowResponse</code>
 - <code title="get /whatsapp/phone_numbers">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">get</a>({ ...params }) -> PhoneNumberGetResponse</code>
+- <code title="get /whatsapp/phone_numbers/{phone_number}">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">retrievePhoneNumber</a>(phoneNumber) -> PhoneNumberRetrievePhoneNumberResponse</code>
 
 ### CallingSettings
 
@@ -5040,13 +5046,25 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountCreateQuoteResponse</a></code>
-- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountSettleResponse</a></code>
+- <code><a href="./src/resources/x402/credit-account/credit-account.ts">CreditAccountCreateQuoteResponse</a></code>
+- <code><a href="./src/resources/x402/credit-account/credit-account.ts">CreditAccountSettleResponse</a></code>
 
 Methods:
 
-- <code title="post /v2/x402/credit_account">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">settle</a>({ ...params }) -> CreditAccountSettleResponse</code>
-- <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">createQuote</a>({ ...params }) -> CreditAccountCreateQuoteResponse</code>
+- <code title="post /v2/x402/credit_account">client.x402.creditAccount.<a href="./src/resources/x402/credit-account/credit-account.ts">settle</a>({ ...params }) -> CreditAccountSettleResponse</code>
+- <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account/credit-account.ts">createQuote</a>({ ...params }) -> CreditAccountCreateQuoteResponse</code>
+
+### Payments
+
+Types:
+
+- <code><a href="./src/resources/x402/credit-account/payments.ts">X402TransactionRecord</a></code>
+- <code><a href="./src/resources/x402/credit-account/payments.ts">PaymentRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/x402/credit_account/payments">client.x402.creditAccount.payments.<a href="./src/resources/x402/credit-account/payments.ts">list</a>({ ...params }) -> X402TransactionRecordsDefaultFlatPagination</code>
+- <code title="get /v2/x402/credit_account/payments/{id}">client.x402.creditAccount.payments.<a href="./src/resources/x402/credit-account/payments.ts">retrieve</a>(id) -> PaymentRetrieveResponse</code>
 
 # VoiceClones
 
@@ -5847,3 +5865,23 @@ Methods:
 
 - <code title="get /external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}">client.externalRequirements.subNumberOrders.<a href="./src/resources/external-requirements/sub-number-orders.ts">retrieve</a>(subNumberOrderID, { ...params }) -> SubNumberOrderRetrieveResponse</code>
 - <code title="post /external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}">client.externalRequirements.subNumberOrders.<a href="./src/resources/external-requirements/sub-number-orders.ts">update</a>(subNumberOrderID, { ...params }) -> SubNumberOrderUpdateResponse</code>
+
+# Compute
+
+## Funcs
+
+Types:
+
+- <code><a href="./src/resources/compute/funcs.ts">FunctionsObservabilityPaginationMeta</a></code>
+- <code><a href="./src/resources/compute/funcs.ts">LogsMeta</a></code>
+- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveLogsResponse</a></code>
+- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveMetricAggregatesResponse</a></code>
+- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveRevisionsResponse</a></code>
+- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveShipInspectionResponse</a></code>
+
+Methods:
+
+- <code title="get /compute/funcs/{id}/logs">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveLogs</a>(id, { ...params }) -> FuncRetrieveLogsResponse</code>
+- <code title="get /compute/funcs/{id}/metric_aggregates">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveMetricAggregates</a>(id, { ...params }) -> FuncRetrieveMetricAggregatesResponse</code>
+- <code title="get /compute/funcs/{id}/revisions">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveRevisions</a>(id, { ...params }) -> FuncRetrieveRevisionsResponse</code>
+- <code title="get /compute/funcs/{id}/ship_inspection">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveShipInspection</a>(id) -> FuncRetrieveShipInspectionResponse</code>

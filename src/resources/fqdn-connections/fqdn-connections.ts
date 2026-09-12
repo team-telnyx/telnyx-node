@@ -249,7 +249,10 @@ export interface FqdnConnection {
   outbound?: OutboundFqdn;
 
   /**
-   * The password for the FQDN connection.
+   * The password for the FQDN connection. For primary accounts created on or after
+   * September 8, 2026, this password is returned as `********`. The password is
+   * returned in full on create, and on update only when that update changed the
+   * password. Accounts created before September 8, 2026 are unaffected.
    */
   password?: string;
 
