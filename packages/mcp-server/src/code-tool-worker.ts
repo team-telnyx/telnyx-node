@@ -1172,6 +1172,8 @@ const fuse = new Fuse(
     'client.whatsappMessageTemplates.update',
     'client.x402.creditAccount.createQuote',
     'client.x402.creditAccount.settle',
+    'client.x402.creditAccount.payments.list',
+    'client.x402.creditAccount.payments.retrieve',
     'client.voiceClones.create',
     'client.voiceClones.createFromUpload',
     'client.voiceClones.delete',

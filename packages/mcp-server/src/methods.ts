@@ -6378,6 +6378,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/x402/credit_account/quote',
   },
   {
+    clientCallName: 'client.x402.creditAccount.payments.list',
+    fullyQualifiedName: 'x402.creditAccount.payments.list',
+    httpMethod: 'get',
+    httpPath: '/v2/x402/credit_account/payments',
+  },
+  {
+    clientCallName: 'client.x402.creditAccount.payments.retrieve',
+    fullyQualifiedName: 'x402.creditAccount.payments.retrieve',
+    httpMethod: 'get',
+    httpPath: '/v2/x402/credit_account/payments/{id}',
+  },
+  {
     clientCallName: 'client.voiceClones.list',
     fullyQualifiedName: 'voiceClones.list',
     httpMethod: 'get',

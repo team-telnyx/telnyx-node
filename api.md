@@ -5046,13 +5046,25 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountCreateQuoteResponse</a></code>
-- <code><a href="./src/resources/x402/credit-account.ts">CreditAccountSettleResponse</a></code>
+- <code><a href="./src/resources/x402/credit-account/credit-account.ts">CreditAccountCreateQuoteResponse</a></code>
+- <code><a href="./src/resources/x402/credit-account/credit-account.ts">CreditAccountSettleResponse</a></code>
 
 Methods:
 
-- <code title="post /v2/x402/credit_account">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">settle</a>({ ...params }) -> CreditAccountSettleResponse</code>
-- <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account.ts">createQuote</a>({ ...params }) -> CreditAccountCreateQuoteResponse</code>
+- <code title="post /v2/x402/credit_account">client.x402.creditAccount.<a href="./src/resources/x402/credit-account/credit-account.ts">settle</a>({ ...params }) -> CreditAccountSettleResponse</code>
+- <code title="post /v2/x402/credit_account/quote">client.x402.creditAccount.<a href="./src/resources/x402/credit-account/credit-account.ts">createQuote</a>({ ...params }) -> CreditAccountCreateQuoteResponse</code>
+
+### Payments
+
+Types:
+
+- <code><a href="./src/resources/x402/credit-account/payments.ts">X402TransactionRecord</a></code>
+- <code><a href="./src/resources/x402/credit-account/payments.ts">PaymentRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/x402/credit_account/payments">client.x402.creditAccount.payments.<a href="./src/resources/x402/credit-account/payments.ts">list</a>({ ...params }) -> X402TransactionRecordsDefaultFlatPagination</code>
+- <code title="get /v2/x402/credit_account/payments/{id}">client.x402.creditAccount.payments.<a href="./src/resources/x402/credit-account/payments.ts">retrieve</a>(id) -> PaymentRetrieveResponse</code>
 
 # VoiceClones
 
