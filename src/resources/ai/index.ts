@@ -15,6 +15,7 @@ export {
   Assistants,
   type ArithmeticExpression,
   type Assistant,
+  type AssistantA2AAgent,
   type AssistantIntegration,
   type AssistantMcpServer,
   type AssistantTool,

@@ -115,4 +115,16 @@ describe('resource phoneNumbers', () => {
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
   });
+
+  // Mock server tests are disabled
+  test.skip('retrievePhoneNumber', async () => {
+    const responsePromise = client.whatsapp.phoneNumbers.retrievePhoneNumber('phone_number');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
 });

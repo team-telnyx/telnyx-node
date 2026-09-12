@@ -163,6 +163,26 @@ export class PhoneNumbers extends APIResource {
   ): APIPromise<PhoneNumberGetResponse> {
     return this._client.get('/whatsapp/phone_numbers', { query, ...options });
   }
+
+  /**
+   * Returns one WhatsApp phone number linked to the authenticated Telnyx account.
+   * For a coexistence number in the `syncing` state, the response includes
+   * `sync_progress`.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.whatsapp.phoneNumbers.retrievePhoneNumber(
+   *     'phone_number',
+   *   );
+   * ```
+   */
+  retrievePhoneNumber(
+    phoneNumber: string,
+    options?: RequestOptions,
+  ): APIPromise<PhoneNumberRetrievePhoneNumberResponse> {
+    return this._client.get(path`/whatsapp/phone_numbers/${phoneNumber}`, options);
+  }
 }
 
 export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>;
@@ -170,11 +190,33 @@ export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPaginatio
 export interface PhoneNumberListResponse {
   calling_enabled?: boolean;
 
+  /**
+   * Current lifecycle state for a coexistence number. This is null for a standard
+   * Cloud API number.
+   */
+  coexistence_state?:
+    | 'pending_onboarding'
+    | 'sync_pending'
+    | 'syncing'
+    | 'sync_complete'
+    | 'active'
+    | 'history_declined'
+    | 'sync_deadline_expired'
+    | 'offboarded'
+    | 'disconnected'
+    | null;
+
   created_at?: string;
 
   display_name?: string;
 
   enabled?: boolean;
+
+  /**
+   * Indicates whether the number is connected to both the WhatsApp Business app and
+   * Cloud API through WhatsApp Coexistence.
+   */
+  is_on_biz_app?: boolean;
 
   /**
    * Phone number in E164 format
@@ -196,6 +238,18 @@ export interface PhoneNumberListResponse {
   status?: string;
 
   /**
+   * Deadline for initiating the current coexistence synchronization cycle. This is
+   * null when no deadline applies.
+   */
+  sync_deadline?: string | null;
+
+  /**
+   * Synchronization progress. This object is returned only while a coexistence
+   * number is synchronizing.
+   */
+  sync_progress?: PhoneNumberListResponse.SyncProgress | null;
+
+  /**
    * User ID
    */
   user_id?: string;
@@ -204,6 +258,24 @@ export interface PhoneNumberListResponse {
    * WABA ID of Whatsapp business account
    */
   waba_id?: string;
+}
+
+export namespace PhoneNumberListResponse {
+  /**
+   * Synchronization progress. This object is returned only while a coexistence
+   * number is synchronizing.
+   */
+  export interface SyncProgress {
+    contacts_status?: string;
+
+    history_chunk_order?: number | null;
+
+    history_phase?: number | null;
+
+    history_progress?: number | null;
+
+    history_status?: string;
+  }
 }
 
 export interface PhoneNumberGetResponse {
@@ -216,11 +288,33 @@ export namespace PhoneNumberGetResponse {
   export interface Data {
     calling_enabled?: boolean;
 
+    /**
+     * Current lifecycle state for a coexistence number. This is null for a standard
+     * Cloud API number.
+     */
+    coexistence_state?:
+      | 'pending_onboarding'
+      | 'sync_pending'
+      | 'syncing'
+      | 'sync_complete'
+      | 'active'
+      | 'history_declined'
+      | 'sync_deadline_expired'
+      | 'offboarded'
+      | 'disconnected'
+      | null;
+
     created_at?: string;
 
     display_name?: string;
 
     enabled?: boolean;
+
+    /**
+     * Indicates whether the number is connected to both the WhatsApp Business app and
+     * Cloud API through WhatsApp Coexistence.
+     */
+    is_on_biz_app?: boolean;
 
     /**
      * Phone number in E164 format
@@ -242,6 +336,18 @@ export namespace PhoneNumberGetResponse {
     status?: string;
 
     /**
+     * Deadline for initiating the current coexistence synchronization cycle. This is
+     * null when no deadline applies.
+     */
+    sync_deadline?: string | null;
+
+    /**
+     * Synchronization progress. This object is returned only while a coexistence
+     * number is synchronizing.
+     */
+    sync_progress?: Data.SyncProgress | null;
+
+    /**
      * User ID
      */
     user_id?: string;
@@ -250,6 +356,24 @@ export namespace PhoneNumberGetResponse {
      * WABA ID of Whatsapp business account
      */
     waba_id?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Synchronization progress. This object is returned only while a coexistence
+     * number is synchronizing.
+     */
+    export interface SyncProgress {
+      contacts_status?: string;
+
+      history_chunk_order?: number | null;
+
+      history_phase?: number | null;
+
+      history_progress?: number | null;
+
+      history_status?: string;
+    }
   }
 }
 
@@ -278,6 +402,103 @@ export namespace PhoneNumberRetrieveConversationWindowResponse {
      * Window type. Currently always 24h when present.
      */
     window_type?: string;
+  }
+}
+
+export interface PhoneNumberRetrievePhoneNumberResponse {
+  data: PhoneNumberRetrievePhoneNumberResponse.Data;
+}
+
+export namespace PhoneNumberRetrievePhoneNumberResponse {
+  export interface Data {
+    calling_enabled?: boolean;
+
+    /**
+     * Current lifecycle state for a coexistence number. This is null for a standard
+     * Cloud API number.
+     */
+    coexistence_state?:
+      | 'pending_onboarding'
+      | 'sync_pending'
+      | 'syncing'
+      | 'sync_complete'
+      | 'active'
+      | 'history_declined'
+      | 'sync_deadline_expired'
+      | 'offboarded'
+      | 'disconnected'
+      | null;
+
+    created_at?: string;
+
+    display_name?: string;
+
+    enabled?: boolean;
+
+    /**
+     * Indicates whether the number is connected to both the WhatsApp Business app and
+     * Cloud API through WhatsApp Coexistence.
+     */
+    is_on_biz_app?: boolean;
+
+    /**
+     * Phone number in E164 format
+     */
+    phone_number?: string;
+
+    /**
+     * Whatsapp phone number ID
+     */
+    phone_number_id?: string;
+
+    /**
+     * Whatsapp quality rating
+     */
+    quality_rating?: string;
+
+    record_type?: string;
+
+    status?: string;
+
+    /**
+     * Deadline for initiating the current coexistence synchronization cycle. This is
+     * null when no deadline applies.
+     */
+    sync_deadline?: string | null;
+
+    /**
+     * Synchronization progress. This object is returned only while a coexistence
+     * number is synchronizing.
+     */
+    sync_progress?: Data.SyncProgress | null;
+
+    /**
+     * User ID
+     */
+    user_id?: string;
+
+    /**
+     * WABA ID of Whatsapp business account
+     */
+    waba_id?: string;
+  }
+
+  export namespace Data {
+    /**
+     * Synchronization progress. This object is returned only while a coexistence
+     * number is synchronizing.
+     */
+    export interface SyncProgress {
+      contacts_status?: string;
+
+      history_chunk_order?: number | null;
+
+      history_phase?: number | null;
+
+      history_progress?: number | null;
+
+      history_status?: string;
+    }
   }
 }
 
@@ -313,6 +534,7 @@ export declare namespace PhoneNumbers {
     type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberGetResponse as PhoneNumberGetResponse,
     type PhoneNumberRetrieveConversationWindowResponse as PhoneNumberRetrieveConversationWindowResponse,
+    type PhoneNumberRetrievePhoneNumberResponse as PhoneNumberRetrievePhoneNumberResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,

@@ -18,6 +18,7 @@ export {
   MessagingProfiles,
   type MessagingMessagingProfile,
   type MessagingProfile,
+  type MessagingProfileFeatures,
   type NumberPoolSettings,
   type URLShortenerSettings,
   type MessagingProfileCreateResponse,

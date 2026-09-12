@@ -72,11 +72,33 @@ export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPaginatio
 export interface PhoneNumberListResponse {
   calling_enabled?: boolean;
 
+  /**
+   * Current lifecycle state for a coexistence number. This is null for a standard
+   * Cloud API number.
+   */
+  coexistence_state?:
+    | 'pending_onboarding'
+    | 'sync_pending'
+    | 'syncing'
+    | 'sync_complete'
+    | 'active'
+    | 'history_declined'
+    | 'sync_deadline_expired'
+    | 'offboarded'
+    | 'disconnected'
+    | null;
+
   created_at?: string;
 
   display_name?: string;
 
   enabled?: boolean;
+
+  /**
+   * Indicates whether the number is connected to both the WhatsApp Business app and
+   * Cloud API through WhatsApp Coexistence.
+   */
+  is_on_biz_app?: boolean;
 
   /**
    * Phone number in E164 format
@@ -98,6 +120,18 @@ export interface PhoneNumberListResponse {
   status?: string;
 
   /**
+   * Deadline for initiating the current coexistence synchronization cycle. This is
+   * null when no deadline applies.
+   */
+  sync_deadline?: string | null;
+
+  /**
+   * Synchronization progress. This object is returned only while a coexistence
+   * number is synchronizing.
+   */
+  sync_progress?: PhoneNumberListResponse.SyncProgress | null;
+
+  /**
    * User ID
    */
   user_id?: string;
@@ -106,6 +140,24 @@ export interface PhoneNumberListResponse {
    * WABA ID of Whatsapp business account
    */
   waba_id?: string;
+}
+
+export namespace PhoneNumberListResponse {
+  /**
+   * Synchronization progress. This object is returned only while a coexistence
+   * number is synchronizing.
+   */
+  export interface SyncProgress {
+    contacts_status?: string;
+
+    history_chunk_order?: number | null;
+
+    history_phase?: number | null;
+
+    history_progress?: number | null;
+
+    history_status?: string;
+  }
 }
 
 export interface PhoneNumberListParams extends DefaultFlatPaginationParams {}

@@ -37,6 +37,25 @@ describe('resource assistants', () => {
     const response = await client.ai.assistants.create({
       instructions: 'instructions',
       name: 'name',
+      a2a_agents: [
+        {
+          name: 'billing_agent',
+          url: 'https://agents.example.com',
+          async: true,
+          headers: [
+            { name: 'X-Api-Key', value: '{{#integration_secret}}my_agent_api_key{{/integration_secret}}' },
+          ],
+          messages: [
+            {
+              content: 'x',
+              type: 'request_start',
+              timing_ms: 100,
+            },
+          ],
+          poll_interval_ms: 500,
+          timeout_ms: 30000,
+        },
+      ],
       conversation_flow: {
         nodes: [
           {
@@ -248,6 +267,7 @@ describe('resource assistants', () => {
       telephony_settings: {
         default_texml_app_id: 'default_texml_app_id',
         disable_dtmf: true,
+        fallback_destination: 'fallback_destination',
         noise_suppression: 'krisp',
         noise_suppression_config: { attenuation_limit: 0, mode: 'advanced' },
         recording_settings: {

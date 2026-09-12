@@ -1154,6 +1154,7 @@ const fuse = new Fuse(
     'client.whatsapp.phoneNumbers.list',
     'client.whatsapp.phoneNumbers.resendVerification',
     'client.whatsapp.phoneNumbers.retrieveConversationWindow',
+    'client.whatsapp.phoneNumbers.retrievePhoneNumber',
     'client.whatsapp.phoneNumbers.verify',
     'client.whatsapp.phoneNumbers.callingSettings.retrieve',
     'client.whatsapp.phoneNumbers.callingSettings.update',
@@ -1363,6 +1364,10 @@ const fuse = new Fuse(
     'client.meetingSessions.artifacts.retrieve',
     'client.externalRequirements.subNumberOrders.retrieve',
     'client.externalRequirements.subNumberOrders.update',
+    'client.compute.funcs.retrieveLogs',
+    'client.compute.funcs.retrieveMetricAggregates',
+    'client.compute.funcs.retrieveRevisions',
+    'client.compute.funcs.retrieveShipInspection',
   ],
   { threshold: 1, shouldSort: true },
 );
