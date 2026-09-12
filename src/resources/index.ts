@@ -185,6 +185,7 @@ export {
   type CommentListParams,
   type CommentCreateParams,
 } from './comments';
+export { Compute } from './compute/compute';
 export {
   Conferences,
   type Conference,
@@ -774,6 +775,7 @@ export {
   MessagingProfiles,
   type MessagingMessagingProfile,
   type MessagingProfile,
+  type MessagingProfileFeatures,
   type NumberPoolSettings,
   type URLShortenerSettings,
   type MessagingProfileCreateResponse,
@@ -1623,6 +1625,8 @@ export {
   type OutboundMessage,
   type ReplacedLinkClick,
   type Transcription,
+  type WhatsappAccountUpdate,
+  type WhatsappMessageEcho,
   type CallAIGatherEndedWebhookEvent,
   type CallAIGatherMessageHistoryUpdatedWebhookEvent,
   type CallAIGatherPartialResultsWebhookEvent,

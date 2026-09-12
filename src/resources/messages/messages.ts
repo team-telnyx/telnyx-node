@@ -257,6 +257,12 @@ export interface MessagingInboundMessagePayload {
    */
   id?: string;
 
+  /**
+   * WhatsApp message body. For message edits and revocations, inspect `type` and the
+   * corresponding `edit` or `revoke` object.
+   */
+  body?: MessagingInboundMessagePayload.Body;
+
   cc?: Array<MessagingInboundMessagePayload.Cc>;
 
   /**
@@ -359,12 +365,16 @@ export interface MessagingInboundMessagePayload {
    */
   text?: string;
 
-  to?: Array<MessagingInboundMessagePayload.To>;
+  /**
+   * Receiving address. SMS and MMS webhooks use an array of recipients. WhatsApp
+   * webhooks use one E.164 phone number.
+   */
+  to?: Array<MessagingInboundMessagePayload.UnionMember0> | string;
 
   /**
-   * The type of message. This value can be either 'sms' or 'mms'.
+   * The messaging channel used for the message.
    */
-  type?: 'SMS' | 'MMS';
+  type?: 'SMS' | 'MMS' | 'WHATSAPP';
 
   /**
    * Not used for inbound messages.
@@ -384,6 +394,79 @@ export interface MessagingInboundMessagePayload {
 }
 
 export namespace MessagingInboundMessagePayload {
+  /**
+   * WhatsApp message body. For message edits and revocations, inspect `type` and the
+   * corresponding `edit` or `revoke` object.
+   */
+  export interface Body {
+    /**
+     * Telnyx identifier for this webhook message.
+     */
+    id?: string;
+
+    /**
+     * Details for an edited WhatsApp message.
+     */
+    edit?: Body.Edit;
+
+    /**
+     * Meta WhatsApp message identifier for this webhook event.
+     */
+    foreign_id?: string;
+
+    /**
+     * WhatsApp sender in E.164 format.
+     */
+    from?: string;
+
+    /**
+     * Details for a revoked WhatsApp message.
+     */
+    revoke?: Body.Revoke;
+
+    /**
+     * Unix timestamp supplied by Meta.
+     */
+    timestamp?: string;
+
+    /**
+     * WhatsApp message body type. Edit and revoke events use `edit` and `revoke`,
+     * respectively.
+     */
+    type?: string;
+
+    [k: string]: unknown;
+  }
+
+  export namespace Body {
+    /**
+     * Details for an edited WhatsApp message.
+     */
+    export interface Edit {
+      /**
+       * Replacement WhatsApp message content. Its shape depends on the message type.
+       */
+      message: { [key: string]: unknown };
+
+      /**
+       * Telnyx message ID when a mapping exists, otherwise the original Meta WhatsApp
+       * message ID. Treat this value as opaque.
+       */
+      original_message_id: string;
+    }
+
+    /**
+     * Details for a revoked WhatsApp message.
+     */
+    export interface Revoke {
+      /**
+       * Telnyx message ID when a mapping exists, otherwise the original Meta WhatsApp
+       * message ID. Treat this value as opaque.
+       */
+      original_message_id: string;
+    }
+  }
+
   export interface Cc {
     /**
      * The carrier of the receiver.
@@ -414,12 +497,12 @@ export namespace MessagingInboundMessagePayload {
     /**
      * The amount deducted from your account.
      */
-    amount?: string;
+    amount?: string | null;
 
     /**
      * The ISO 4217 currency identifier.
      */
-    currency?: string;
+    currency?: string | null;
   }
 
   /**
@@ -499,7 +582,7 @@ export namespace MessagingInboundMessagePayload {
     url?: string;
   }
 
-  export interface To {
+  export interface UnionMember0 {
     /**
      * The carrier of the receiver.
      */

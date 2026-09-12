@@ -274,6 +274,13 @@ export interface MessagingMessagingProfile {
   enabled?: boolean;
 
   /**
+   * Telnyx product features the messaging customer can enable on the messaging
+   * profile. Keys map to individual feature flags; unknown keys are accepted and
+   * preserved for forward compatibility with rolling deployments.
+   */
+  features?: MessagingProfileFeatures | null;
+
+  /**
    * DEPRECATED: health check url service checking
    */
   health_webhook_url?: string | null;
@@ -544,6 +551,23 @@ export interface MessagingProfile {
 }
 
 /**
+ * Telnyx product features the messaging customer can enable on the messaging
+ * profile. Keys map to individual feature flags; unknown keys are accepted and
+ * preserved for forward compatibility with rolling deployments.
+ */
+export interface MessagingProfileFeatures {
+  /**
+   * Enables AI detection of inbound opt-out messages that do not follow the standard
+   * STOP/UNSTOP/HELP opt-out keyword pattern. When enabled, the messaging platform
+   * applies an AI model to identify non-standard opt-out requests (e.g.
+   * natural-language phrases) and treats them as opt-outs.
+   */
+  ai_opt_out_detection_enabled?: boolean;
+
+  [k: string]: unknown;
+}
+
+/**
  * Number Pool allows you to send messages from a pool of numbers of different
  * types, assigning weights to each type. The pool consists of all the long code
  * and toll free numbers assigned to the messaging profile.
@@ -721,6 +745,13 @@ export interface MessagingProfileCreateParams {
   enabled?: boolean;
 
   /**
+   * Telnyx product features the messaging customer can enable on the messaging
+   * profile. Keys map to individual feature flags; unknown keys are accepted and
+   * preserved for forward compatibility with rolling deployments.
+   */
+  features?: MessagingProfileFeatures | null;
+
+  /**
    * A URL to receive health check webhooks for numbers in this profile.
    */
   health_webhook_url?: string | null;
@@ -817,6 +848,13 @@ export interface MessagingProfileUpdateParams {
    * Specifies whether the messaging profile is enabled or not.
    */
   enabled?: boolean;
+
+  /**
+   * Telnyx product features the messaging customer can enable on the messaging
+   * profile. Keys map to individual feature flags; unknown keys are accepted and
+   * preserved for forward compatibility with rolling deployments.
+   */
+  features?: MessagingProfileFeatures | null;
 
   /**
    * enables SMS fallback for MMS messages.
@@ -932,6 +970,7 @@ export declare namespace MessagingProfiles {
   export {
     type MessagingMessagingProfile as MessagingMessagingProfile,
     type MessagingProfile as MessagingProfile,
+    type MessagingProfileFeatures as MessagingProfileFeatures,
     type NumberPoolSettings as NumberPoolSettings,
     type URLShortenerSettings as URLShortenerSettings,
     type MessagingProfileCreateResponse as MessagingProfileCreateResponse,
