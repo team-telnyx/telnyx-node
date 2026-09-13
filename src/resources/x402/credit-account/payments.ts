@@ -32,7 +32,7 @@ export class Payments extends APIResource {
     options?: RequestOptions,
   ): PagePromise<X402TransactionRecordsDefaultFlatPagination, X402TransactionRecord> {
     return this._client.getAPIList(
-      '/v2/x402/credit_account/payments',
+      '/x402/credit_account/payments',
       DefaultFlatPagination<X402TransactionRecord>,
       { query, ...options },
     );
@@ -53,7 +53,7 @@ export class Payments extends APIResource {
    * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<PaymentRetrieveResponse> {
-    return this._client.get(path`/v2/x402/credit_account/payments/${id}`, options);
+    return this._client.get(path`/x402/credit_account/payments/${id}`, options);
   }
 }
 

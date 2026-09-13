@@ -38,7 +38,7 @@ export class CreditAccount extends APIResource {
     options?: RequestOptions,
   ): APIPromise<CreditAccountSettleResponse> {
     const { header_payment_signature, ...body } = params;
-    return this._client.post('/v2/x402/credit_account', {
+    return this._client.post('/x402/credit_account', {
       body,
       ...options,
       headers: buildHeaders([
@@ -69,7 +69,7 @@ export class CreditAccount extends APIResource {
     body: CreditAccountCreateQuoteParams,
     options?: RequestOptions,
   ): APIPromise<CreditAccountCreateQuoteResponse> {
-    return this._client.post('/v2/x402/credit_account/quote', { body, ...options });
+    return this._client.post('/x402/credit_account/quote', { body, ...options });
   }
 }
 
