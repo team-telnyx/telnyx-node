@@ -415,6 +415,14 @@ export interface EmailMessage {
    * send has been processed or cancelled.
    */
   scheduled_at?: string;
+
+  /**
+   * Recipients excluded from delivery by suppression checks, with reasons. On batch
+   * items, present when that item had suppressed recipients; all other recipients of
+   * the item still receive the message. For single sends this information appears at
+   * the top level of the response instead (see EmailMessageResponse.suppressed).
+   */
+  suppressed?: Array<EmailMessagesAPI.SuppressedRecipient>;
 }
 
 export namespace EmailMessage {

@@ -45,6 +45,7 @@ import * as AssistantsAPI from './assistants/assistants';
 import {
   ArithmeticExpression,
   Assistant,
+  AssistantA2AAgent,
   AssistantChatParams,
   AssistantChatResponse,
   AssistantCloneParams,
@@ -648,6 +649,7 @@ export declare namespace AI {
     Assistants as Assistants,
     type ArithmeticExpression as ArithmeticExpression,
     type Assistant as Assistant,
+    type AssistantA2AAgent as AssistantA2AAgent,
     type AssistantIntegration as AssistantIntegration,
     type AssistantMcpServer as AssistantMcpServer,
     type AssistantTool as AssistantTool,

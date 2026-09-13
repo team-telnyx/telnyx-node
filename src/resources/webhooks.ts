@@ -4500,6 +4500,175 @@ export namespace Transcription {
   }
 }
 
+export interface WhatsappAccountUpdate {
+  data: WhatsappAccountUpdate.Data;
+}
+
+export namespace WhatsappAccountUpdate {
+  export interface Data {
+    id: string;
+
+    event_type: 'whatsapp.account.update';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Account event reported by Meta. Coexistence lifecycle values include
+       * `ACCOUNT_OFFBOARDED`, `ACCOUNT_RECONNECTED`, and `PARTNER_REMOVED`. Preserve
+       * unknown values for forward compatibility.
+       */
+      event: string;
+
+      record_type: 'whatsapp_account';
+
+      /**
+       * Meta WhatsApp Business Account identifier.
+       */
+      waba_id: string;
+    }
+  }
+}
+
+export interface WhatsappMessageEcho {
+  data: WhatsappMessageEcho.Data;
+}
+
+export namespace WhatsappMessageEcho {
+  export interface Data {
+    id: string;
+
+    event_type: 'message.echo';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Telnyx identifier for the mirrored message.
+       */
+      id: string;
+
+      /**
+       * Mirrored WhatsApp message content. The content property matches the value of
+       * `type`.
+       */
+      body: Payload.Body;
+
+      /**
+       * No charge is created for a Business app message echo.
+       */
+      cost: Payload.Cost;
+
+      /**
+       * Indicates that the business sent the message to the WhatsApp user.
+       */
+      direction: 'outbound';
+
+      errors: Array<MessagesAPI.MessagingError0b38e7044b>;
+
+      from: Payload.From;
+
+      messaging_profile_id: string;
+
+      organization_id: string;
+
+      /**
+       * Identifies the WhatsApp Business app as the source of the message.
+       */
+      origin: 'whatsapp_business_app';
+
+      record_type: 'message';
+
+      /**
+       * WhatsApp user who received the Business app message.
+       */
+      to: string;
+
+      type: 'WHATSAPP';
+
+      received_at?: string;
+
+      tags?: Array<string>;
+
+      webhook_failover_url?: string | null;
+
+      webhook_url?: string | null;
+    }
+
+    export namespace Payload {
+      /**
+       * Mirrored WhatsApp message content. The content property matches the value of
+       * `type`.
+       */
+      export interface Body {
+        /**
+         * Telnyx identifier for the mirrored message.
+         */
+        id: string;
+
+        /**
+         * Meta WhatsApp message identifier, also known as a wamid.
+         */
+        foreign_id: string;
+
+        /**
+         * Unix timestamp supplied by Meta.
+         */
+        timestamp: string;
+
+        /**
+         * WhatsApp message content type.
+         */
+        type: string;
+
+        /**
+         * WhatsApp user who received the message.
+         */
+        from?: string;
+
+        /**
+         * Opaque recipient identifier when Meta does not supply a phone number.
+         */
+        from_user_id?: string;
+
+        [k: string]: unknown;
+      }
+
+      /**
+       * No charge is created for a Business app message echo.
+       */
+      export interface Cost {
+        amount?: string | null;
+
+        currency?: string | null;
+      }
+
+      export interface From {
+        /**
+         * Coexistence-enabled business phone number in E.164 format.
+         */
+        phone_number: string;
+
+        carrier?: string;
+
+        line_type?: string;
+      }
+    }
+  }
+}
+
 export interface CallAIGatherEndedWebhookEvent {
   data?: CallAIGatherEnded;
 }
@@ -7751,7 +7920,9 @@ export type UnsafeUnwrapWebhookEvent =
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
-  | TranscriptionWebhookEvent;
+  | TranscriptionWebhookEvent
+  | WhatsappAccountUpdate
+  | WhatsappMessageEcho;
 
 export type UnwrapWebhookEvent =
   | CallAIGatherEndedWebhookEvent
@@ -7826,7 +7997,9 @@ export type UnwrapWebhookEvent =
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
-  | TranscriptionWebhookEvent;
+  | TranscriptionWebhookEvent
+  | WhatsappAccountUpdate
+  | WhatsappMessageEcho;
 
 export declare namespace Webhooks {
   export {
@@ -7891,6 +8064,8 @@ export declare namespace Webhooks {
     type OutboundMessage as OutboundMessage,
     type ReplacedLinkClick as ReplacedLinkClick,
     type Transcription as Transcription,
+    type WhatsappAccountUpdate as WhatsappAccountUpdate,
+    type WhatsappMessageEcho as WhatsappMessageEcho,
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,

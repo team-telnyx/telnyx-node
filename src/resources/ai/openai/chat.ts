@@ -76,22 +76,6 @@ export interface ChatCreateCompletionParams {
   frequency_penalty?: number;
 
   /**
-   * If specified, the output will be exactly one of the choices.
-   */
-  guided_choice?: Array<string>;
-
-  /**
-   * Must be a valid JSON schema. If specified, the output will follow the JSON
-   * schema.
-   */
-  guided_json?: { [key: string]: unknown };
-
-  /**
-   * If specified, the output will follow the regex pattern.
-   */
-  guided_regex?: string;
-
-  /**
    * This is used with `use_beam_search` to prefer shorter or longer completions.
    */
   length_penalty?: number;
@@ -158,10 +142,15 @@ export interface ChatCreateCompletionParams {
   region?: 'USA' | 'EU' | 'AUS' | 'UAE';
 
   /**
-   * Use this is you want to guarantee a JSON output without defining a schema. For
-   * control over the schema, use `guided_json`.
+   * Controls the format of the model output. `json_object` guarantees valid JSON
+   * output without defining a schema; `json_schema` constrains the output to the
+   * JSON schema you supply via the `json_schema` property and is the supported way
+   * to get guaranteed structured output on Telnyx-hosted models.
    */
-  response_format?: ChatCreateCompletionParams.ResponseFormat;
+  response_format?:
+    | ChatCreateCompletionParams.ResponseFormatText
+    | ChatCreateCompletionParams.ResponseFormatJsonObject
+    | ChatCreateCompletionParams.ResponseFormatJsonSchemaParam;
 
   /**
    * If specified, the system will make a best effort to sample deterministically,
@@ -245,11 +234,68 @@ export namespace ChatCreateCompletionParams {
   }
 
   /**
-   * Use this is you want to guarantee a JSON output without defining a schema. For
-   * control over the schema, use `guided_json`.
+   * Plain text output.
    */
-  export interface ResponseFormat {
-    type: 'text' | 'json_object';
+  export interface ResponseFormatText {
+    type: 'text';
+  }
+
+  /**
+   * JSON mode: the model output is valid JSON, without a schema.
+   */
+  export interface ResponseFormatJsonObject {
+    type: 'json_object';
+  }
+
+  /**
+   * Structured output: the model output is constrained to the JSON schema supplied
+   * in `json_schema`.
+   */
+  export interface ResponseFormatJsonSchemaParam {
+    /**
+     * The JSON schema configuration, required when `type` is `json_schema`. Matches
+     * the
+     * [OpenAI structured outputs](https://platform.openai.com/docs/guides/structured-outputs)
+     * `json_schema` response format.
+     */
+    json_schema: ResponseFormatJsonSchemaParam.JsonSchema;
+
+    type: 'json_schema';
+  }
+
+  export namespace ResponseFormatJsonSchemaParam {
+    /**
+     * The JSON schema configuration, required when `type` is `json_schema`. Matches
+     * the
+     * [OpenAI structured outputs](https://platform.openai.com/docs/guides/structured-outputs)
+     * `json_schema` response format.
+     */
+    export interface JsonSchema {
+      /**
+       * The name of the response format. Used for clarity only.
+       */
+      name: string;
+
+      /**
+       * A description of what the response format is for, typically used to guide the
+       * model.
+       */
+      description?: string;
+
+      /**
+       * The JSON schema the model output must conform to. A valid
+       * [JSON Schema](https://json-schema.org) object, e.g. a Pydantic
+       * `model_json_schema()` export.
+       */
+      schema?: { [key: string]: unknown };
+
+      /**
+       * Enables strict schema adherence when supported by the model. If the generated
+       * output does not match the provided schema, the request fails instead of
+       * returning non-conformant output.
+       */
+      strict?: boolean;
+    }
   }
 
   export interface Function {

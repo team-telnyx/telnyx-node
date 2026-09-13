@@ -109,7 +109,9 @@ export class EmailMessages extends APIResource {
   }
 
   /**
-   * Creates up to 50 email messages in a single request.
+   * Creates up to 1,000 email messages in a single request. Each message is
+   * validated and sent independently; per-message failures do not affect other
+   * messages in the batch. All responses use 207 Multi-Status.
    *
    * @example
    * ```ts
@@ -336,6 +338,7 @@ export namespace EmailMessageBatchResponse {
       | 'not_found'
       | 'forbidden'
       | 'service_unavailable'
+      | 'unprocessable_entity'
       | 'validation_error'
       | 'recipient_suppressed'
       | 'reputation_suspended';
@@ -548,7 +551,9 @@ export interface EmailMessageCreateParams {
 
 export interface EmailMessageBatchParams {
   /**
-   * Body param
+   * Body param: Array of email messages to send. Up to 1,000 messages per batch
+   * request. Each message is validated and sent independently; per-message failures
+   * do not affect other messages in the batch.
    */
   messages: Array<EmailMessageBatchParams.Message>;
 

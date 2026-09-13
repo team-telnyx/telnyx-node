@@ -1145,6 +1145,8 @@ import {
   UnsafeUnwrapWebhookEvent,
   UnwrapWebhookEvent,
   Webhooks,
+  WhatsappAccountUpdate,
+  WhatsappMessageEcho,
 } from './resources/webhooks';
 import {
   WellKnown,
@@ -1240,6 +1242,7 @@ import {
   StreamBidirectionalTargetLegs,
   StreamCodec,
 } from './resources/calls/calls';
+import { Compute } from './resources/compute/compute';
 import {
   Conference,
   ConferenceCreateParams,
@@ -1511,6 +1514,7 @@ import {
   MessagingProfileCreateParams,
   MessagingProfileCreateResponse,
   MessagingProfileDeleteResponse,
+  MessagingProfileFeatures,
   MessagingProfileListAlphanumericSenderIDsParams,
   MessagingProfileListParams,
   MessagingProfileListPhoneNumbersParams,
@@ -3241,6 +3245,7 @@ export class Telnyx {
   webSearch: API.WebSearch = new API.WebSearch(this);
   meetingSessions: API.MeetingSessions = new API.MeetingSessions(this);
   externalRequirements: API.ExternalRequirements = new API.ExternalRequirements(this);
+  compute: API.Compute = new API.Compute(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3425,6 +3430,7 @@ Telnyx.Pricing = Pricing;
 Telnyx.WebSearch = WebSearch;
 Telnyx.MeetingSessions = MeetingSessions;
 Telnyx.ExternalRequirements = ExternalRequirements;
+Telnyx.Compute = Compute;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3605,6 +3611,8 @@ export declare namespace Telnyx {
     type OutboundMessage as OutboundMessage,
     type ReplacedLinkClick as ReplacedLinkClick,
     type Transcription as Transcription,
+    type WhatsappAccountUpdate as WhatsappAccountUpdate,
+    type WhatsappMessageEcho as WhatsappMessageEcho,
     type CallAIGatherEndedWebhookEvent as CallAIGatherEndedWebhookEvent,
     type CallAIGatherMessageHistoryUpdatedWebhookEvent as CallAIGatherMessageHistoryUpdatedWebhookEvent,
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
@@ -4331,6 +4339,7 @@ export declare namespace Telnyx {
     MessagingProfiles as MessagingProfiles,
     type MessagingMessagingProfile as MessagingMessagingProfile,
     type MessagingProfile as MessagingProfile,
+    type MessagingProfileFeatures as MessagingProfileFeatures,
     type NumberPoolSettings as NumberPoolSettings,
     type URLShortenerSettings as URLShortenerSettings,
     type MessagingProfileCreateResponse as MessagingProfileCreateResponse,
@@ -5450,6 +5459,8 @@ export declare namespace Telnyx {
   };
 
   export { ExternalRequirements as ExternalRequirements };
+
+  export { Compute as Compute };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

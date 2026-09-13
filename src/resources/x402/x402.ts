@@ -1,14 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as CreditAccountAPI from './credit-account';
+import * as CreditAccountAPI from './credit-account/credit-account';
 import {
   CreditAccount,
   CreditAccountCreateQuoteParams,
   CreditAccountCreateQuoteResponse,
   CreditAccountSettleParams,
   CreditAccountSettleResponse,
-} from './credit-account';
+} from './credit-account/credit-account';
 
 export class X402 extends APIResource {
   creditAccount: CreditAccountAPI.CreditAccount = new CreditAccountAPI.CreditAccount(this._client);
