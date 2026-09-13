@@ -373,6 +373,130 @@ export interface Assistant {
 }
 
 /**
+ * A remote agent, reachable over the A2A (Agent2Agent) protocol, that an assistant
+ * can delegate to. Tools are not configured here: at the start of every
+ * conversation the agent's card is fetched and one tool is derived per skill the
+ * card advertises.
+ */
+export interface AssistantA2AAgent {
+  /**
+   * Identifies the agent and seeds the names of the tools derived from its card
+   * (`a2a_<name>_<skill_id>`). Characters outside `[A-Za-z0-9_]` are replaced with
+   * `_` before the tool name is built, so two agents whose names differ only in
+   * punctuation collide and are rejected.
+   */
+  name: string;
+
+  /**
+   * The agent's base URL, or the URL of its agent card. At most 2,048 bytes once
+   * UTF-8 encoded. `/.well-known/agent-card.json` is appended to the path unless it
+   * already ends in `.json`. Must be an `http://` or `https://` URL for an
+   * externally reachable host: internal destinations (`localhost`, private and
+   * reserved IP ranges, `.local` domains) are rejected, and the hostname may not
+   * contain a `{{...}}` placeholder. Placeholders in the path are allowed.
+   */
+  url: string;
+
+  /**
+   * When `true`, the assistant hands the turn straight back to the model and the
+   * agent's answer is delivered into the conversation once it arrives, instead of
+   * the caller waiting for it in silence.
+   */
+  async?: boolean;
+
+  /**
+   * Headers sent when fetching this agent's card and on every call made to it. Use
+   * them to authenticate to the agent.
+   */
+  headers?: Array<AssistantA2AAgent.Header>;
+
+  /**
+   * Filler messages spoken while a call to this agent is in progress.
+   * `request_start` messages are spoken immediately when the call begins.
+   * `request_response_delayed` messages are spoken after `timing_ms` has elapsed
+   * only if the agent has not answered yet. Filler messages are not used when
+   * `async` is `true`.
+   */
+  messages?: Array<
+    AssistantA2AAgent.A2AAgentRequestStartMessage | AssistantA2AAgent.A2AAgentRequestResponseDelayedMessage
+  >;
+
+  /**
+   * How often, in milliseconds, to poll an agent task that has not finished yet.
+   * Defaults to 500.
+   */
+  poll_interval_ms?: number;
+
+  /**
+   * Total budget, in milliseconds, for one call to this agent, including any time
+   * spent polling a task that is still running. Omit to inherit the assistant's tool
+   * timeout.
+   */
+  timeout_ms?: number;
+}
+
+export namespace AssistantA2AAgent {
+  /**
+   * A header sent when fetching an A2A agent's card and on every call made to that
+   * agent.
+   */
+  export interface Header {
+    /**
+     * HTTP header name. May only contain alphanumeric characters, hyphens, and
+     * underscores, or a `{{dynamic_variable}}` placeholder surrounded by those
+     * characters.
+     */
+    name: string;
+
+    /**
+     * Header value, stored exactly as written. It may be a literal, a
+     * `{{dynamic_variable}}`, or an
+     * `{{#integration_secret}}identifier{{/integration_secret}}` section that resolves
+     * to a stored integration secret when the conversation starts. Control characters
+     * are not allowed. The encrypted `{{variable | encryption_secret_ref}}` form used
+     * for per-caller credentials is not resolved here and is rejected when the
+     * assistant is saved.
+     */
+    value: string;
+  }
+
+  export interface A2AAgentRequestStartMessage {
+    /**
+     * The text the assistant speaks.
+     */
+    content: string;
+
+    /**
+     * Speak the filler message immediately when the call to the agent begins.
+     */
+    type: 'request_start';
+
+    /**
+     * An optional delay value. This value is ignored for `request_start` messages.
+     */
+    timing_ms?: number;
+  }
+
+  export interface A2AAgentRequestResponseDelayedMessage {
+    /**
+     * The text the assistant speaks.
+     */
+    content: string;
+
+    /**
+     * How long to wait, in milliseconds, before speaking this message.
+     */
+    timing_ms: number;
+
+    /**
+     * Speak the filler message only if the agent has not answered yet after
+     * `timing_ms`.
+     */
+    type: 'request_response_delayed';
+  }
+}
+
+/**
  * Reference to a connected integration attached to an assistant. Discover
  * available integrations with `/ai/integrations` and connected integrations with
  * `/ai/integrations/connections`.
@@ -1716,6 +1840,18 @@ export interface InferenceEmbedding {
   name: string;
 
   /**
+   * A2A agents this assistant can delegate to. Tools are not stored here: at the
+   * start of every conversation each agent's card is fetched and one tool is derived
+   * per skill the card advertises, named `a2a_<name>_<skill_id>`. The following
+   * limits are not enforced when the assistant is saved, and anything past them is
+   * dropped when the conversation starts: 64 agents per assistant, 64 skills per
+   * card, 128 derived tools per assistant, and a 6 second budget for all card
+   * fetches combined. An agent whose card cannot be fetched costs the assistant that
+   * capability for the conversation; it does not fail the call.
+   */
+  a2a_agents?: Array<AssistantA2AAgent>;
+
+  /**
    * Conversation flow as returned by the API.
    */
   conversation_flow?: ConversationFlow;
@@ -2414,6 +2550,17 @@ export interface TelephonySettings {
    * node — enforced at write time.
    */
   disable_dtmf?: boolean;
+
+  /**
+   * Destination number or SIP URI to transfer the caller to when the AI conversation
+   * ends abnormally, for example because of an assistant-side error, so the caller
+   * is not left in dead air. This only fires for abnormal ends: it does not fire
+   * when the conversation ends on purpose (the caller hung up, the assistant
+   * completed normally, the caller hung up after a relay handoff, or voicemail was
+   * detected), and it does not fire when the assistant already transferred or
+   * bridged the call.
+   */
+  fallback_destination?: string;
 
   /**
    * The noise suppression engine to use. Use 'disabled' to turn off noise
@@ -3313,6 +3460,18 @@ export interface AssistantCreateParams {
   name: string;
 
   /**
+   * Body param: A2A agents this assistant can delegate to. Tools are not stored
+   * here: at the start of every conversation each agent's card is fetched and one
+   * tool is derived per skill the card advertises, named `a2a_<name>_<skill_id>`.
+   * The following limits are not enforced when the assistant is saved, and anything
+   * past them is dropped when the conversation starts: 64 agents per assistant, 64
+   * skills per card, 128 derived tools per assistant, and a 6 second budget for all
+   * card fetches combined. An agent whose card cannot be fetched costs the assistant
+   * that capability for the conversation; it does not fail the call.
+   */
+  a2a_agents?: Array<AssistantA2AAgent>;
+
+  /**
    * Body param: Conversation flow as supplied by API clients (create / update).
    *
    * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
@@ -3557,6 +3716,19 @@ export interface AssistantRetrieveParams {
 }
 
 export interface AssistantUpdateParams {
+  /**
+   * A2A agents this assistant can delegate to. Tools are not stored here: at the
+   * start of every conversation each agent's card is fetched and one tool is derived
+   * per skill the card advertises, named `a2a_<name>_<skill_id>`. The following
+   * limits are not enforced when the assistant is saved, and anything past them is
+   * dropped when the conversation starts: 64 agents per assistant, 64 skills per
+   * card, 128 derived tools per assistant, and a 6 second budget for all card
+   * fetches combined. An agent whose card cannot be fetched costs the assistant that
+   * capability for the conversation; it does not fail the call. Omit this field to
+   * leave the assistant's agents unchanged; send an empty array to remove them all.
+   */
+  a2a_agents?: Array<AssistantA2AAgent>;
+
   /**
    * Conversation flow as supplied by API clients (create / update).
    *
@@ -3811,6 +3983,7 @@ export declare namespace Assistants {
   export {
     type ArithmeticExpression as ArithmeticExpression,
     type Assistant as Assistant,
+    type AssistantA2AAgent as AssistantA2AAgent,
     type AssistantIntegration as AssistantIntegration,
     type AssistantMcpServer as AssistantMcpServer,
     type AssistantTool as AssistantTool,

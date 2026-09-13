@@ -39,6 +39,7 @@ import {
   PhoneNumberResendVerificationParams,
   PhoneNumberRetrieveConversationWindowParams,
   PhoneNumberRetrieveConversationWindowResponse,
+  PhoneNumberRetrievePhoneNumberResponse,
   PhoneNumberVerifyParams,
   PhoneNumbers,
 } from './phone-numbers/phone-numbers';
@@ -83,6 +84,7 @@ export declare namespace Whatsapp {
     type PhoneNumberListResponse as PhoneNumberListResponse,
     type PhoneNumberGetResponse as PhoneNumberGetResponse,
     type PhoneNumberRetrieveConversationWindowResponse as PhoneNumberRetrieveConversationWindowResponse,
+    type PhoneNumberRetrievePhoneNumberResponse as PhoneNumberRetrievePhoneNumberResponse,
     type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,

@@ -62,6 +62,7 @@ describe('resource messagingProfiles', () => {
       daily_spend_limit: '269125115713',
       daily_spend_limit_enabled: true,
       enabled: true,
+      features: { ai_opt_out_detection_enabled: true },
       health_webhook_url: 'health_webhook_url',
       mms_fall_back_to_sms: true,
       mms_transcoding: true,
