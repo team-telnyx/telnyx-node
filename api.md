@@ -286,6 +286,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">FaxSendingStarted</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundSipHeader</a></code>
+- <code><a href="./src/resources/webhooks.ts">MessagingInboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdate</a></code>
 - <code><a href="./src/resources/webhooks.ts">OutboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClick</a></code>
@@ -761,6 +762,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/audio.ts">AudioTranscriptionResponseWord</a></code>
 - <code><a href="./src/resources/ai/audio.ts">AudioTranscribeResponse</a></code>
 
 Methods:
@@ -1169,6 +1171,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/openai/chat.ts">FunctionDefinition</a></code>
 - <code><a href="./src/resources/ai/openai/chat.ts">ChatCreateCompletionResponse</a></code>
 
 Methods:
@@ -1645,12 +1648,14 @@ Types:
 - <code><a href="./src/resources/connections.ts">Connection</a></code>
 - <code><a href="./src/resources/connections.ts">ConnectionRetrieveResponse</a></code>
 - <code><a href="./src/resources/connections.ts">ConnectionListActiveCallsResponse</a></code>
+- <code><a href="./src/resources/connections.ts">ConnectionRetrieveCountResponse</a></code>
 
 Methods:
 
 - <code title="get /connections">client.connections.<a href="./src/resources/connections.ts">list</a>({ ...params }) -> ConnectionsDefaultFlatPagination</code>
 - <code title="get /connections/{connection_id}/active_calls">client.connections.<a href="./src/resources/connections.ts">listActiveCalls</a>(connectionID, { ...params }) -> ConnectionListActiveCallsResponsesDefaultFlatPagination</code>
 - <code title="get /connections/{id}">client.connections.<a href="./src/resources/connections.ts">retrieve</a>(id) -> ConnectionRetrieveResponse</code>
+- <code title="get /connections/count">client.connections.<a href="./src/resources/connections.ts">retrieveCount</a>() -> ConnectionRetrieveCountResponse</code>
 
 # CountryCoverage
 
@@ -4136,6 +4141,16 @@ Methods:
 - <code title="post /texml/secrets">client.texml.<a href="./src/resources/texml/texml.ts">secrets</a>({ ...params }) -> TexmlSecretsResponse</code>
 - <code title="post /texml/ai_calls/{connection_id}">client.texml.<a href="./src/resources/texml/texml.ts">initiateAICall</a>(connectionID, { ...params }) -> TexmlInitiateAICallResponse</code>
 
+## Calls
+
+Types:
+
+- <code><a href="./src/resources/texml/calls.ts">CallCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /texml/calls/{connection_id}">client.texml.calls.<a href="./src/resources/texml/calls.ts">create</a>(connectionID, { ...params }) -> CallCreateResponse</code>
+
 ## Accounts
 
 Types:
@@ -5885,3 +5900,44 @@ Methods:
 - <code title="get /compute/funcs/{id}/metric_aggregates">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveMetricAggregates</a>(id, { ...params }) -> FuncRetrieveMetricAggregatesResponse</code>
 - <code title="get /compute/funcs/{id}/revisions">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveRevisions</a>(id, { ...params }) -> FuncRetrieveRevisionsResponse</code>
 - <code title="get /compute/funcs/{id}/ship_inspection">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveShipInspection</a>(id) -> FuncRetrieveShipInspectionResponse</code>
+
+# NoiseSuppressionEngines
+
+Types:
+
+- <code><a href="./src/resources/noise-suppression-engines.ts">NoiseSuppressionEngineListResponse</a></code>
+
+Methods:
+
+- <code title="get /noise_suppression_engines">client.noiseSuppressionEngines.<a href="./src/resources/noise-suppression-engines.ts">list</a>() -> NoiseSuppressionEngineListResponse</code>
+
+# BotChallenge
+
+Types:
+
+- <code><a href="./src/resources/bot-challenge.ts">BotChallengeCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/bot_challenge">client.botChallenge.<a href="./src/resources/bot-challenge.ts">create</a>({ ...params }) -> BotChallengeCreateResponse</code>
+
+# BotSessions
+
+Types:
+
+- <code><a href="./src/resources/bot-sessions.ts">BotSessionListResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/bot_sessions">client.botSessions.<a href="./src/resources/bot-sessions.ts">list</a>({ ...params }) -> BotSessionListResponse</code>
+
+# BotSignup
+
+Types:
+
+- <code><a href="./src/resources/bot-signup.ts">SuccessResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/bot_signup">client.botSignup.<a href="./src/resources/bot-signup.ts">create</a>({ ...params }) -> SuccessResponse</code>
+- <code title="post /v2/bot_signup/resend_magic_link">client.botSignup.<a href="./src/resources/bot-signup.ts">resendMagicLink</a>({ ...params }) -> SuccessResponse</code>

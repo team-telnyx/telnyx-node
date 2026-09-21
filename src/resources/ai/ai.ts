@@ -2,7 +2,12 @@
 
 import { APIResource } from '../../core/resource';
 import * as AudioAPI from './audio';
-import { Audio, AudioTranscribeParams, AudioTranscribeResponse } from './audio';
+import {
+  Audio,
+  AudioTranscribeParams,
+  AudioTranscribeResponse,
+  AudioTranscriptionResponseWord,
+} from './audio';
 import * as ChatAPI from './chat';
 import { BucketIDs, Chat, ChatCompletionRequest } from './chat';
 import * as ClustersAPI from './clusters';
@@ -714,6 +719,7 @@ export declare namespace AI {
 
   export {
     Audio as Audio,
+    type AudioTranscriptionResponseWord as AudioTranscriptionResponseWord,
     type AudioTranscribeResponse as AudioTranscribeResponse,
     type AudioTranscribeParams as AudioTranscribeParams,
   };

@@ -101,6 +101,18 @@ export {
   type BillingGroupsDefaultFlatPagination,
 } from './billing-groups';
 export {
+  BotChallenge,
+  type BotChallengeCreateResponse,
+  type BotChallengeCreateParams,
+} from './bot-challenge';
+export { BotSessions, type BotSessionListResponse, type BotSessionListParams } from './bot-sessions';
+export {
+  BotSignup,
+  type SuccessResponse,
+  type BotSignupCreateParams,
+  type BotSignupResendMagicLinkParams,
+} from './bot-signup';
+export {
   BulkSimCardActions,
   type BulkSimCardActionDetailed,
   type SimCardActionsSummary,
@@ -208,6 +220,7 @@ export {
   type Connection,
   type ConnectionRetrieveResponse,
   type ConnectionListActiveCallsResponse,
+  type ConnectionRetrieveCountResponse,
   type ConnectionListParams,
   type ConnectionListActiveCallsParams,
   type ConnectionsDefaultFlatPagination,
@@ -859,6 +872,10 @@ export {
   type NetworksDefaultFlatPagination,
   type NetworkListInterfacesResponsesDefaultFlatPagination,
 } from './networks/networks';
+export {
+  NoiseSuppressionEngines,
+  type NoiseSuppressionEngineListResponse,
+} from './noise-suppression-engines';
 export {
   NotificationChannels,
   type NotificationChannel,
@@ -1621,6 +1638,7 @@ export {
   type FaxSendingStarted,
   type InboundMessage,
   type InboundSipHeader,
+  type MessagingInboundMessage,
   type NumberOrderStatusUpdate,
   type OutboundMessage,
   type ReplacedLinkClick,

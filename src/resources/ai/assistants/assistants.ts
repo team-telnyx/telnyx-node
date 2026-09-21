@@ -57,6 +57,7 @@ import {
   VersionUpdateParams,
   Versions,
 } from './versions';
+import * as OpenAIChatAPI from '../openai/chat';
 import * as TestsAPI from './tests/tests';
 import {
   AssistantTest,
@@ -543,11 +544,12 @@ export interface AssistantMcpServer {
  * user.
  */
 export type AssistantTool =
+  | AssistantTool.Function
   | InferenceEmbeddingWebhookToolParams
   | AssistantTool.ClientSideTool
   | RetrievalTool
   | AssistantTool.Handoff
-  | HangupTool
+  | AssistantTool.Hangup
   | AssistantTool.Transfer
   | AssistantTool.Invite
   | AssistantTool.Refer
@@ -558,10 +560,38 @@ export type AssistantTool =
   | AssistantTool.UpdateDynamicVariables;
 
 export namespace AssistantTool {
+  export interface Function {
+    function: OpenAIChatAPI.FunctionDefinition;
+
+    type: 'function';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
+  }
+
   export interface ClientSideTool {
     client_side_tool: ClientSideTool.ClientSideTool;
 
     type: 'client_side_tool';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 
   export namespace ClientSideTool {
@@ -615,6 +645,17 @@ export namespace AssistantTool {
     handoff: Handoff.Handoff;
 
     type: 'handoff';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 
   export namespace Handoff {
@@ -648,10 +689,38 @@ export namespace AssistantTool {
     }
   }
 
+  export interface Hangup {
+    hangup: AssistantsAPI.HangupToolParams;
+
+    type: 'hangup';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
+  }
+
   export interface Transfer {
     transfer: Transfer.Transfer;
 
     type: 'transfer';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 
   export namespace Transfer {
@@ -922,6 +991,17 @@ export namespace AssistantTool {
     invite: Invite.Invite;
 
     type: 'invite';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 
   export namespace Invite {
@@ -1013,6 +1093,17 @@ export namespace AssistantTool {
     refer: Refer.Refer;
 
     type: 'refer';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 
   export namespace Refer {
@@ -1088,6 +1179,17 @@ export namespace AssistantTool {
     send_dtmf: { [key: string]: unknown };
 
     type: 'send_dtmf';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 
   /**
@@ -1100,6 +1202,17 @@ export namespace AssistantTool {
     send_message: SendMessage.SendMessage;
 
     type: 'send_message';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 
   export namespace SendMessage {
@@ -1121,6 +1234,17 @@ export namespace AssistantTool {
     skip_turn: SkipTurn.SkipTurn;
 
     type: 'skip_turn';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 
   export namespace SkipTurn {
@@ -1142,6 +1266,17 @@ export namespace AssistantTool {
     pay: ToolsAPI.PayToolParams;
 
     type: 'pay';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 
   /**
@@ -1158,6 +1293,17 @@ export namespace AssistantTool {
      * Configuration for an update_dynamic_variables tool.
      */
     update_dynamic_variables: ToolsAPI.UpdateDynamicVariablesToolParams;
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
   }
 }
 
@@ -1944,10 +2090,10 @@ export interface InferenceEmbedding {
   /**
    * Configuration for post-conversation processing. When enabled, the assistant
    * receives one additional LLM turn after the conversation ends, allowing it to
-   * execute tool calls such as logging to a CRM or sending a summary. The assistant
-   * can execute multiple parallel or sequential tools during this phase.
-   * Telephony-control tools (e.g. hangup, transfer) are unavailable
-   * post-conversation. Beta feature.
+   * execute final tool calls such as sending a summary or updating a record via
+   * webhook or function tools. Integration and MCP server tools are not available
+   * post-conversation; call-control tools (e.g. hangup, transfer) are also
+   * unavailable. Beta feature.
    */
   post_conversation_settings?: PostConversationSettings;
 
@@ -1967,9 +2113,12 @@ export interface InferenceEmbedding {
   telephony_settings?: TelephonySettings;
 
   /**
-   * Deprecated for new integrations. Inline tool definitions available to the
-   * assistant. Prefer `tool_ids` to attach shared tools created with the AI Tools
-   * endpoints.
+   * The assistant's tools. Responses merge the assistant's shared Tools Library
+   * tools into this array alongside inline tools, each flagged `shared: true`;
+   * inline tools carry `shared: false`. On update, a sent `tools` array fully
+   * replaces the inline tools only — shared tools stay attached unless `tool_ids`
+   * changes. Each tool type except `function`, `webhook`, and `client_side_tool`
+   * allows at most one instance per assistant across both sources.
    */
   tools?: Array<AssistantTool>;
 
@@ -2019,6 +2168,12 @@ export interface InferenceEmbeddingInterruptionSettings {
   enable?: boolean;
 
   /**
+   * Interrupt-prediction sensitivity, from 0.0 to 1.0. Set to null or 0.0 to disable
+   * interrupt prediction.
+   */
+  interrupt_prediction_threshold?: number | null;
+
+  /**
    * Controls when the assistant starts speaking after the user stops. These
    * thresholds primarily apply to non turn-taking transcription models. For
    * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
@@ -2031,6 +2186,17 @@ export interface InferenceEmbeddingWebhookToolParams {
   type: 'webhook';
 
   webhook: InferenceEmbeddingWebhookToolParams.Webhook;
+
+  /**
+   * Whether this tool comes from the shared Tools Library. Responses merge shared
+   * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+   * Read-only: set by the server, not accepted in requests. When updating an
+   * assistant, omit `shared: true` tools from the request `tools` array and manage
+   * them through `tool_ids` instead — re-sending their definitions creates an inline
+   * duplicate (rejected with error code 10015 when the type allows only one instance
+   * per assistant).
+   */
+  shared?: boolean;
 }
 
 export namespace InferenceEmbeddingWebhookToolParams {
@@ -2379,10 +2545,10 @@ export type ObservabilityStatus = 'enabled' | 'disabled';
 /**
  * Configuration for post-conversation processing. When enabled, the assistant
  * receives one additional LLM turn after the conversation ends, allowing it to
- * execute tool calls such as logging to a CRM or sending a summary. The assistant
- * can execute multiple parallel or sequential tools during this phase.
- * Telephony-control tools (e.g. hangup, transfer) are unavailable
- * post-conversation. Beta feature.
+ * execute final tool calls such as sending a summary or updating a record via
+ * webhook or function tools. Integration and MCP server tools are not available
+ * post-conversation; call-control tools (e.g. hangup, transfer) are also
+ * unavailable. Beta feature.
  */
 export interface PostConversationSettings {
   /**
@@ -2396,10 +2562,10 @@ export interface PostConversationSettings {
 /**
  * Configuration for post-conversation processing. When enabled, the assistant
  * receives one additional LLM turn after the conversation ends, allowing it to
- * execute tool calls such as logging to a CRM or sending a summary. The assistant
- * can execute multiple parallel or sequential tools during this phase.
- * Telephony-control tools (e.g. hangup, transfer) are unavailable
- * post-conversation. Beta feature.
+ * execute final tool calls such as sending a summary or updating a record via
+ * webhook or function tools. Integration and MCP server tools are not available
+ * post-conversation; call-control tools (e.g. hangup, transfer) are also
+ * unavailable. Beta feature.
  */
 export interface PostConversationSettingsReq {
   /**
@@ -2420,6 +2586,22 @@ export interface PrivacySettings {
    * force regardless of your selection here.
    */
   data_retention?: boolean;
+
+  /**
+   * Requires every model call made for a web chat turn to be received and served
+   * inside your organization's data-locality region, rather than only stored there.
+   * Applies to web chat only — voice and messaging assistants are unaffected.
+   * Enabling it requires a data-locality region with in-region inference (USA, EU,
+   * AUS, UAE; see
+   * [Inference regions](https://developers.telnyx.com/docs/inference/models/regions))
+   * and Telnyx-hosted models for the assistant, its fallback, and any
+   * conversation-flow node that overrides the model; the request is rejected
+   * otherwise. Once enabled, send chat requests to your region's API hostname: a
+   * request entering the platform in another region is rejected rather than
+   * forwarded, because forwarding it would already have moved the content across the
+   * border. Defaults to false.
+   */
+  in_transit_data_locality?: boolean;
 }
 
 /**
@@ -2435,6 +2617,17 @@ export interface RetrievalTool {
   retrieval: ChatAPI.BucketIDs;
 
   type: 'retrieval';
+
+  /**
+   * Whether this tool comes from the shared Tools Library. Responses merge shared
+   * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+   * Read-only: set by the server, not accepted in requests. When updating an
+   * assistant, omit `shared: true` tools from the request `tools` array and manage
+   * them through `tool_ids` instead — re-sending their definitions creates an inline
+   * duplicate (rejected with error code 10015 when the type allows only one instance
+   * per assistant).
+   */
+  shared?: boolean;
 }
 
 /**
@@ -2563,14 +2756,17 @@ export interface TelephonySettings {
   fallback_destination?: string;
 
   /**
-   * The noise suppression engine to use. Use 'disabled' to turn off noise
-   * suppression.
+   * The noise suppression engine to use. 'aicoustics' is STT-optimized and
+   * recommended for AI assistants (configure through noise_suppression_config). Use
+   * 'disabled' to turn off noise suppression.
    */
-  noise_suppression?: 'krisp' | 'deepfilternet' | 'disabled';
+  noise_suppression?: 'aicoustics' | 'krisp' | 'deepfilternet' | 'disabled';
 
   /**
-   * Configuration for noise suppression. Only applicable when noise_suppression is
-   * 'deepfilternet'.
+   * Configuration for noise suppression. Applicable fields depend on the engine:
+   * 'attenuation_limit' and 'mode' only when noise_suppression is 'deepfilternet';
+   * 'family', 'size' and 'enhancement_level' only when noise_suppression is
+   * 'aicoustics'.
    */
   noise_suppression_config?: TelephonySettings.NoiseSuppressionConfig;
 
@@ -2634,19 +2830,42 @@ export interface TelephonySettings {
 
 export namespace TelephonySettings {
   /**
-   * Configuration for noise suppression. Only applicable when noise_suppression is
-   * 'deepfilternet'.
+   * Configuration for noise suppression. Applicable fields depend on the engine:
+   * 'attenuation_limit' and 'mode' only when noise_suppression is 'deepfilternet';
+   * 'family', 'size' and 'enhancement_level' only when noise_suppression is
+   * 'aicoustics'.
    */
   export interface NoiseSuppressionConfig {
     /**
-     * Attenuation limit for noise suppression. Range: 0-100.
+     * Attenuation limit for noise suppression. Range: 0-100. Only applicable when
+     * noise_suppression is 'deepfilternet'.
      */
     attenuation_limit?: number;
 
     /**
-     * Mode for noise suppression configuration.
+     * AiCoustics enhancement intensity. Range: 0-1. Only applicable when
+     * noise_suppression is 'aicoustics'.
+     */
+    enhancement_level?: number;
+
+    /**
+     * AiCoustics model family optimized for Voice AI and STT. Only applicable when
+     * noise_suppression is 'aicoustics'.
+     */
+    family?: 'quail';
+
+    /**
+     * Mode for noise suppression configuration. Only applicable when noise_suppression
+     * is 'deepfilternet'.
      */
     mode?: 'advanced';
+
+    /**
+     * AiCoustics model size. 'vf' tracks the latest model release; 'vf_2_0_l' is
+     * pinned to version 2.0 for consistent, predictable behavior. Only applicable when
+     * noise_suppression is 'aicoustics'.
+     */
+    size?: 'vf' | 'vf_2_0_l';
   }
 
   /**
@@ -2882,14 +3101,17 @@ export interface TranscriptionSettings {
    * - `deepgram/nova-3` is multilingual with automatic language detection.
    * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
    * - `azure/fast` is a multilingual Azure transcription model.
-   * - `assemblyai/universal-streaming` is a multilingual streaming model with
-   *   configurable turn detection.
+   * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with
+   *   configurable turn detection. The legacy alias `assemblyai/universal-streaming`
+   *   is still accepted and resolves to the same model.
    * - `xai/grok-stt` is a multilingual Grok STT model.
    * - `soniox/stt-rt-v4` and `soniox/stt-rt-v5` are multilingual streaming models
    *   with automatic language detection, configurable endpointing, term biasing
    *   (`context`), and `language_hints`.
    * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic
    *   language detection.
+   * - `omi-health/omi-med-stt-v1` is an English-only medical transcription model
+   *   (Parakeet-based).
    * - `humain/realtime` is a streaming model with native Arabic and Arabic/English
    *   code-switching support.
    * - `reson8/turns` is a turn-based streaming model covering 10 European languages
@@ -2901,11 +3123,13 @@ export interface TranscriptionSettings {
     | 'deepgram/nova-3'
     | 'deepgram/nova-2'
     | 'azure/fast'
+    | 'assemblyai/universal-3-5-pro'
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
     | 'soniox/stt-rt-v4'
     | 'soniox/stt-rt-v5'
     | 'nvidia/parakeet-v3'
+    | 'omi-health/omi-med-stt-v1'
     | 'humain/realtime'
     | 'reson8/turns'
     | 'cohere/ar-stt'
@@ -2948,9 +3172,9 @@ export interface TranscriptionSettingsConfig {
   enable_endpoint_detection?: boolean;
 
   /**
-   * Available only for assemblyai/universal-streaming. Confidence level required to
-   * trigger an end of turn. Higher values require more certainty before ending a
-   * turn.
+   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+   * assemblyai/universal-streaming). Confidence level required to trigger an end of
+   * turn. Higher values require more certainty before ending a turn.
    */
   end_of_turn_confidence_threshold?: number;
 
@@ -2998,15 +3222,16 @@ export interface TranscriptionSettingsConfig {
   max_endpoint_delay_ms?: number;
 
   /**
-   * Available only for assemblyai/universal-streaming. Maximum duration of silence
-   * in milliseconds before forcing an end of turn.
+   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+   * assemblyai/universal-streaming). Maximum duration of silence in milliseconds
+   * before forcing an end of turn.
    */
   max_turn_silence?: number;
 
   /**
-   * Available only for assemblyai/universal-streaming. Minimum duration of silence
-   * in milliseconds before a turn can end. Must be less than or equal to
-   * max_turn_silence.
+   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+   * assemblyai/universal-streaming). Minimum duration of silence in milliseconds
+   * before a turn can end. Must be less than or equal to max_turn_silence.
    */
   min_turn_silence?: number;
 
@@ -3597,10 +3822,10 @@ export interface AssistantCreateParams {
   /**
    * Body param: Configuration for post-conversation processing. When enabled, the
    * assistant receives one additional LLM turn after the conversation ends, allowing
-   * it to execute tool calls such as logging to a CRM or sending a summary. The
-   * assistant can execute multiple parallel or sequential tools during this phase.
-   * Telephony-control tools (e.g. hangup, transfer) are unavailable
-   * post-conversation. Beta feature.
+   * it to execute final tool calls such as sending a summary or updating a record
+   * via webhook or function tools. Integration and MCP server tools are not
+   * available post-conversation; call-control tools (e.g. hangup, transfer) are also
+   * unavailable. Beta feature.
    */
   post_conversation_settings?: PostConversationSettingsReq;
 
@@ -3841,10 +4066,10 @@ export interface AssistantUpdateParams {
   /**
    * Configuration for post-conversation processing. When enabled, the assistant
    * receives one additional LLM turn after the conversation ends, allowing it to
-   * execute tool calls such as logging to a CRM or sending a summary. The assistant
-   * can execute multiple parallel or sequential tools during this phase.
-   * Telephony-control tools (e.g. hangup, transfer) are unavailable
-   * post-conversation. Beta feature.
+   * execute final tool calls such as sending a summary or updating a record via
+   * webhook or function tools. Integration and MCP server tools are not available
+   * post-conversation; call-control tools (e.g. hangup, transfer) are also
+   * unavailable. Beta feature.
    */
   post_conversation_settings?: PostConversationSettingsReq;
 
@@ -3866,14 +4091,25 @@ export interface AssistantUpdateParams {
 
   /**
    * IDs of shared tools to attach to the assistant. New integrations should prefer
-   * `tool_ids` over inline `tools`.
+   * `tool_ids` over inline `tools`. On update, a sent `tool_ids` array fully
+   * replaces the assistant's attached shared tools; omit the field to leave them
+   * unchanged. Single-instance tool types are counted across inline `tools` and
+   * `tool_ids` combined, so attaching a shared tool of such a type when an instance
+   * already exists returns HTTP 400 with error code 10015.
    */
   tool_ids?: Array<string>;
 
   /**
    * Deprecated for new integrations. Inline tool definitions available to the
    * assistant. Prefer `tool_ids` to attach shared tools created with the AI Tools
-   * endpoints.
+   * endpoints. On update, a sent `tools` array fully replaces the assistant's inline
+   * tools; omit the field to leave the inline tools unchanged. Each tool type except
+   * `function`, `webhook`, and `client_side_tool` allows at most one instance per
+   * assistant, counted across inline `tools` and shared `tool_ids` combined —
+   * sending a duplicate of such a type returns HTTP 400 with error code 10015.
+   * Responses merge shared tools into `tools` with `shared: true`; when updating,
+   * omit those tools from the `tools` array and manage them through `tool_ids`
+   * instead.
    */
   tools?: Array<AssistantTool>;
 

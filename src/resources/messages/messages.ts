@@ -2,7 +2,6 @@
 
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
-import * as Shared from '../shared';
 import * as RcsAPI from './rcs';
 import {
   RcGenerateDeeplinkParams,
@@ -258,8 +257,9 @@ export interface MessagingInboundMessagePayload {
   id?: string;
 
   /**
-   * WhatsApp message body. For message edits and revocations, inspect `type` and the
-   * corresponding `edit` or `revoke` object.
+   * Message body for RCS and WhatsApp. RCS messages contain text, user_file,
+   * location, or suggestion_response. For WhatsApp edits and revocations, inspect
+   * type and the corresponding edit or revoke object.
    */
   body?: MessagingInboundMessagePayload.Body;
 
@@ -366,15 +366,16 @@ export interface MessagingInboundMessagePayload {
   text?: string;
 
   /**
-   * Receiving address. SMS and MMS webhooks use an array of recipients. WhatsApp
-   * webhooks use one E.164 phone number.
+   * Receiving address. SMS, MMS and RCS webhooks use an array of recipients. RCS
+   * recipients are identified by agent_id and agent_name. WhatsApp webhooks use one
+   * E.164 phone number.
    */
   to?: Array<MessagingInboundMessagePayload.UnionMember0> | string;
 
   /**
    * The messaging channel used for the message.
    */
-  type?: 'SMS' | 'MMS' | 'WHATSAPP';
+  type?: 'SMS' | 'MMS' | 'WHATSAPP' | 'RCS';
 
   /**
    * Not used for inbound messages.
@@ -395,8 +396,9 @@ export interface MessagingInboundMessagePayload {
 
 export namespace MessagingInboundMessagePayload {
   /**
-   * WhatsApp message body. For message edits and revocations, inspect `type` and the
-   * corresponding `edit` or `revoke` object.
+   * Message body for RCS and WhatsApp. RCS messages contain text, user_file,
+   * location, or suggestion_response. For WhatsApp edits and revocations, inspect
+   * type and the corresponding edit or revoke object.
    */
   export interface Body {
     /**
@@ -420,9 +422,24 @@ export namespace MessagingInboundMessagePayload {
     from?: string;
 
     /**
+     * Location shared in an RCS message.
+     */
+    location?: Body.Location;
+
+    /**
      * Details for a revoked WhatsApp message.
      */
     revoke?: Body.Revoke;
+
+    /**
+     * Selected RCS suggestion.
+     */
+    suggestion_response?: Body.SuggestionResponse;
+
+    /**
+     * RCS text string or WhatsApp text object.
+     */
+    text?: string | Body.Body;
 
     /**
      * Unix timestamp supplied by Meta.
@@ -434,6 +451,11 @@ export namespace MessagingInboundMessagePayload {
      * respectively.
      */
     type?: string;
+
+    /**
+     * RCS file attachment and optional thumbnail.
+     */
+    user_file?: Body.UserFile;
 
     [k: string]: unknown;
   }
@@ -456,6 +478,15 @@ export namespace MessagingInboundMessagePayload {
     }
 
     /**
+     * Location shared in an RCS message.
+     */
+    export interface Location {
+      latitude?: number;
+
+      longitude?: number;
+    }
+
+    /**
      * Details for a revoked WhatsApp message.
      */
     export interface Revoke {
@@ -464,6 +495,52 @@ export namespace MessagingInboundMessagePayload {
        * message ID. Treat this value as opaque.
        */
       original_message_id: string;
+    }
+
+    /**
+     * Selected RCS suggestion.
+     */
+    export interface SuggestionResponse {
+      postback_data?: string;
+
+      text?: string;
+    }
+
+    export interface Body {
+      body?: string;
+
+      [k: string]: unknown;
+    }
+
+    /**
+     * RCS file attachment and optional thumbnail.
+     */
+    export interface UserFile {
+      payload?: UserFile.Payload;
+
+      thumbnail?: UserFile.Thumbnail;
+    }
+
+    export namespace UserFile {
+      export interface Payload {
+        file_name?: string;
+
+        file_size_bytes?: number;
+
+        file_uri?: string;
+
+        mime_type?: string;
+      }
+
+      export interface Thumbnail {
+        file_name?: string;
+
+        file_size_bytes?: number;
+
+        file_uri?: string;
+
+        mime_type?: string;
+      }
     }
   }
 
@@ -549,7 +626,7 @@ export namespace MessagingInboundMessagePayload {
     /**
      * The line-type of the sender.
      */
-    line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '';
+    line_type?: 'Wireline' | 'Wireless' | 'VoWiFi' | 'VoIP' | 'Pre-Paid Wireless' | '' | 'long_code';
 
     /**
      * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
@@ -557,7 +634,7 @@ export namespace MessagingInboundMessagePayload {
      */
     phone_number?: string;
 
-    status?: 'received' | 'delivered';
+    status?: 'received' | 'delivered' | 'webhook_delivered';
   }
 
   export interface Media {
@@ -583,6 +660,16 @@ export namespace MessagingInboundMessagePayload {
   }
 
   export interface UnionMember0 {
+    /**
+     * RCS agent identifier.
+     */
+    agent_id?: string;
+
+    /**
+     * RCS agent name.
+     */
+    agent_name?: string;
+
     /**
      * The carrier of the receiver.
      */
@@ -615,6 +702,11 @@ export interface MessagingOutboundMessagePayload {
    * Identifies the type of resource.
    */
   id?: string;
+
+  /**
+   * RCS webhook message body. Text messages use the text property.
+   */
+  body?: MessagingOutboundMessagePayload.Body;
 
   cc?: Array<MessagingOutboundMessagePayload.Cc>;
 
@@ -731,7 +823,7 @@ export interface MessagingOutboundMessagePayload {
   /**
    * The type of message.
    */
-  type?: 'SMS' | 'MMS';
+  type?: 'SMS' | 'MMS' | 'RCS';
 
   /**
    * Message must be out of the queue by this time or else it will be discarded and
@@ -760,6 +852,16 @@ export interface MessagingOutboundMessagePayload {
 }
 
 export namespace MessagingOutboundMessagePayload {
+  /**
+   * RCS webhook message body. Text messages use the text property.
+   */
+  export interface Body {
+    /**
+     * RCS text message.
+     */
+    text?: string;
+  }
+
   export interface Cc {
     /**
      * The carrier of the receiver.
@@ -835,6 +937,16 @@ export namespace MessagingOutboundMessagePayload {
 
   export interface From {
     /**
+     * RCS agent identifier.
+     */
+    agent_id?: string;
+
+    /**
+     * RCS agent name.
+     */
+    agent_name?: string;
+
+    /**
      * The carrier of the receiver.
      */
     carrier?: string;
@@ -900,7 +1012,8 @@ export namespace MessagingOutboundMessagePayload {
       | 'sending_failed'
       | 'delivery_unconfirmed'
       | 'delivered'
-      | 'delivery_failed';
+      | 'delivery_failed'
+      | 'read';
   }
 }
 
@@ -909,6 +1022,11 @@ export interface OutboundMessagePayload {
    * Identifies the type of resource.
    */
   id?: string;
+
+  /**
+   * RCS webhook message body. Text messages use the text property.
+   */
+  body?: OutboundMessagePayload.Body;
 
   cc?: Array<OutboundMessagePayload.Cc>;
 
@@ -939,7 +1057,7 @@ export interface OutboundMessagePayload {
    * These errors may point at addressees when referring to unsuccessful/unconfirmed
    * delivery statuses.
    */
-  errors?: Array<Shared.MessagingError>;
+  errors?: Array<MessagingError0b38e7044b>;
 
   from?: OutboundMessagePayload.From;
 
@@ -1025,7 +1143,7 @@ export interface OutboundMessagePayload {
   /**
    * The type of message.
    */
-  type?: 'SMS' | 'MMS';
+  type?: 'SMS' | 'MMS' | 'RCS';
 
   /**
    * Message must be out of the queue by this time or else it will be discarded and
@@ -1054,6 +1172,16 @@ export interface OutboundMessagePayload {
 }
 
 export namespace OutboundMessagePayload {
+  /**
+   * RCS webhook message body. Text messages use the text property.
+   */
+  export interface Body {
+    /**
+     * RCS text message.
+     */
+    text?: string;
+  }
+
   export interface Cc {
     /**
      * The carrier of the receiver.
@@ -1129,6 +1257,16 @@ export namespace OutboundMessagePayload {
 
   export interface From {
     /**
+     * RCS agent identifier.
+     */
+    agent_id?: string;
+
+    /**
+     * RCS agent name.
+     */
+    agent_name?: string;
+
+    /**
      * The carrier of the receiver.
      */
     carrier?: string;
@@ -1194,7 +1332,8 @@ export namespace OutboundMessagePayload {
       | 'sending_failed'
       | 'delivery_unconfirmed'
       | 'delivered'
-      | 'delivery_failed';
+      | 'delivery_failed'
+      | 'read';
   }
 }
 
@@ -1917,7 +2056,7 @@ export interface WhatsappReaction {
 }
 
 export interface MessageRetrieveResponse {
-  data?: MessagingOutboundMessagePayload | MessagingInboundMessagePayload;
+  data?: OutboundMessagePayload | MessagingInboundMessagePayload;
 }
 
 export interface MessageCancelScheduledResponse {
@@ -2216,31 +2355,31 @@ export namespace MessageCancelScheduledResponse {
 }
 
 export interface MessageRetrieveGroupMessagesResponse {
-  data?: Array<MessagingOutboundMessagePayload>;
+  data?: Array<OutboundMessagePayload>;
 }
 
 export interface MessageScheduleResponse {
-  data?: MessagingOutboundMessagePayload;
+  data?: OutboundMessagePayload;
 }
 
 export interface MessageSendResponse {
-  data?: MessagingOutboundMessagePayload;
+  data?: OutboundMessagePayload;
 }
 
 export interface MessageSendGroupMmsResponse {
-  data?: MessagingOutboundMessagePayload;
+  data?: OutboundMessagePayload;
 }
 
 export interface MessageSendLongCodeResponse {
-  data?: MessagingOutboundMessagePayload;
+  data?: OutboundMessagePayload;
 }
 
 export interface MessageSendNumberPoolResponse {
-  data?: MessagingOutboundMessagePayload;
+  data?: OutboundMessagePayload;
 }
 
 export interface MessageSendShortCodeResponse {
-  data?: MessagingOutboundMessagePayload;
+  data?: OutboundMessagePayload;
 }
 
 export interface MessageSendWithAlphanumericSenderResponse {

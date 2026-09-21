@@ -1963,6 +1963,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/connections/{id}',
   },
   {
+    clientCallName: 'client.connections.retrieveCount',
+    fullyQualifiedName: 'connections.retrieveCount',
+    httpMethod: 'get',
+    httpPath: '/connections/count',
+  },
+  {
     clientCallName: 'client.countryCoverage.retrieve',
     fullyQualifiedName: 'countryCoverage.retrieve',
     httpMethod: 'get',
@@ -5186,6 +5192,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/texml/ai_calls/{connection_id}',
   },
   {
+    clientCallName: 'client.texml.calls.create',
+    fullyQualifiedName: 'texml.calls.create',
+    httpMethod: 'post',
+    httpPath: '/texml/calls/{connection_id}',
+  },
+  {
     clientCallName: 'client.texml.accounts.retrieveRecordingsJson',
     fullyQualifiedName: 'texml.accounts.retrieveRecordingsJson',
     httpMethod: 'get',
@@ -7564,6 +7576,36 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'compute.funcs.retrieveShipInspection',
     httpMethod: 'get',
     httpPath: '/compute/funcs/{id}/ship_inspection',
+  },
+  {
+    clientCallName: 'client.noiseSuppressionEngines.list',
+    fullyQualifiedName: 'noiseSuppressionEngines.list',
+    httpMethod: 'get',
+    httpPath: '/noise_suppression_engines',
+  },
+  {
+    clientCallName: 'client.botChallenge.create',
+    fullyQualifiedName: 'botChallenge.create',
+    httpMethod: 'post',
+    httpPath: '/v2/bot_challenge',
+  },
+  {
+    clientCallName: 'client.botSessions.list',
+    fullyQualifiedName: 'botSessions.list',
+    httpMethod: 'get',
+    httpPath: '/v2/bot_sessions',
+  },
+  {
+    clientCallName: 'client.botSignup.create',
+    fullyQualifiedName: 'botSignup.create',
+    httpMethod: 'post',
+    httpPath: '/v2/bot_signup',
+  },
+  {
+    clientCallName: 'client.botSignup.resendMagicLink',
+    fullyQualifiedName: 'botSignup.resendMagicLink',
+    httpMethod: 'post',
+    httpPath: '/v2/bot_signup/resend_magic_link',
   },
 ];
 

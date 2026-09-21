@@ -8,6 +8,7 @@ export {
   type AccountRetrieveRecordingsJsonParams,
   type AccountRetrieveTranscriptionsJsonParams,
 } from './accounts/index';
+export { Calls, type CallCreateResponse, type CallCreateParams } from './calls';
 export {
   Texml,
   type TexmlInitiateAICallResponse,

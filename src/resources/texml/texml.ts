@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as CallsAPI from './calls';
+import { CallCreateParams, CallCreateResponse, Calls } from './calls';
 import * as AccountsAPI from './accounts/accounts';
 import {
   AccountRetrieveRecordingsJsonParams,
@@ -18,6 +20,7 @@ import { path } from '../../internal/utils/path';
  * TeXML REST Commands
  */
 export class Texml extends APIResource {
+  calls: CallsAPI.Calls = new CallsAPI.Calls(this._client);
   accounts: AccountsAPI.Accounts = new AccountsAPI.Accounts(this._client);
 
   /**
@@ -373,6 +376,7 @@ export namespace TexmlInitiateAICallParams {
   }
 }
 
+Texml.Calls = Calls;
 Texml.Accounts = Accounts;
 
 export declare namespace Texml {
@@ -381,6 +385,12 @@ export declare namespace Texml {
     type TexmlSecretsResponse as TexmlSecretsResponse,
     type TexmlSecretsParams as TexmlSecretsParams,
     type TexmlInitiateAICallParams as TexmlInitiateAICallParams,
+  };
+
+  export {
+    Calls as Calls,
+    type CallCreateResponse as CallCreateResponse,
+    type CallCreateParams as CallCreateParams,
   };
 
   export {

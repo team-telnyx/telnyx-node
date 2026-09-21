@@ -124,6 +124,18 @@ import {
   BillingGroupsDefaultFlatPagination,
 } from './resources/billing-groups';
 import {
+  BotChallenge,
+  BotChallengeCreateParams,
+  BotChallengeCreateResponse,
+} from './resources/bot-challenge';
+import { BotSessionListParams, BotSessionListResponse, BotSessions } from './resources/bot-sessions';
+import {
+  BotSignup,
+  BotSignupCreateParams,
+  BotSignupResendMagicLinkParams,
+  SuccessResponse,
+} from './resources/bot-signup';
+import {
   BulkSimCardActionDetailed,
   BulkSimCardActionDetailedsDefaultFlatPagination,
   BulkSimCardActionListParams,
@@ -194,6 +206,7 @@ import {
   ConnectionListActiveCallsResponse,
   ConnectionListActiveCallsResponsesDefaultFlatPagination,
   ConnectionListParams,
+  ConnectionRetrieveCountResponse,
   ConnectionRetrieveResponse,
   Connections,
   ConnectionsDefaultFlatPagination,
@@ -547,6 +560,10 @@ import {
   NetworkCoverageListResponse,
   NetworkCoverageListResponsesDefaultFlatPagination,
 } from './resources/network-coverage';
+import {
+  NoiseSuppressionEngineListResponse,
+  NoiseSuppressionEngines,
+} from './resources/noise-suppression-engines';
 import {
   NotificationChannel,
   NotificationChannelCreateParams,
@@ -1132,6 +1149,7 @@ import {
   InboundMessage,
   InboundMessageWebhookEvent,
   InboundSipHeader,
+  MessagingInboundMessage,
   NumberOrderStatusUpdate,
   NumberOrderStatusUpdateWebhookEvent,
   OutboundMessage,
@@ -3246,6 +3264,22 @@ export class Telnyx {
   meetingSessions: API.MeetingSessions = new API.MeetingSessions(this);
   externalRequirements: API.ExternalRequirements = new API.ExternalRequirements(this);
   compute: API.Compute = new API.Compute(this);
+  /**
+   * Noise suppression engines that can be selected when configuring noise suppression on voice connections.
+   */
+  noiseSuppressionEngines: API.NoiseSuppressionEngines = new API.NoiseSuppressionEngines(this);
+  /**
+   * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge designed to be easy for LLMs and hard for humans, registers an account, and signs in by consuming a magic link emailed to the account owner. All endpoints are public and unauthenticated; signup endpoints are additionally gated by the freemium feature flags and per-country availability.
+   */
+  botChallenge: API.BotChallenge = new API.BotChallenge(this);
+  /**
+   * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge designed to be easy for LLMs and hard for humans, registers an account, and signs in by consuming a magic link emailed to the account owner. All endpoints are public and unauthenticated; signup endpoints are additionally gated by the freemium feature flags and per-country availability.
+   */
+  botSessions: API.BotSessions = new API.BotSessions(this);
+  /**
+   * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge designed to be easy for LLMs and hard for humans, registers an account, and signs in by consuming a magic link emailed to the account owner. All endpoints are public and unauthenticated; signup endpoints are additionally gated by the freemium feature flags and per-country availability.
+   */
+  botSignup: API.BotSignup = new API.BotSignup(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3431,6 +3465,10 @@ Telnyx.WebSearch = WebSearch;
 Telnyx.MeetingSessions = MeetingSessions;
 Telnyx.ExternalRequirements = ExternalRequirements;
 Telnyx.Compute = Compute;
+Telnyx.NoiseSuppressionEngines = NoiseSuppressionEngines;
+Telnyx.BotChallenge = BotChallenge;
+Telnyx.BotSessions = BotSessions;
+Telnyx.BotSignup = BotSignup;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3607,6 +3645,7 @@ export declare namespace Telnyx {
     type FaxSendingStarted as FaxSendingStarted,
     type InboundMessage as InboundMessage,
     type InboundSipHeader as InboundSipHeader,
+    type MessagingInboundMessage as MessagingInboundMessage,
     type NumberOrderStatusUpdate as NumberOrderStatusUpdate,
     type OutboundMessage as OutboundMessage,
     type ReplacedLinkClick as ReplacedLinkClick,
@@ -3891,6 +3930,7 @@ export declare namespace Telnyx {
     type Connection as Connection,
     type ConnectionRetrieveResponse as ConnectionRetrieveResponse,
     type ConnectionListActiveCallsResponse as ConnectionListActiveCallsResponse,
+    type ConnectionRetrieveCountResponse as ConnectionRetrieveCountResponse,
     type ConnectionsDefaultFlatPagination as ConnectionsDefaultFlatPagination,
     type ConnectionListActiveCallsResponsesDefaultFlatPagination as ConnectionListActiveCallsResponsesDefaultFlatPagination,
     type ConnectionListParams as ConnectionListParams,
@@ -5461,6 +5501,30 @@ export declare namespace Telnyx {
   export { ExternalRequirements as ExternalRequirements };
 
   export { Compute as Compute };
+
+  export {
+    NoiseSuppressionEngines as NoiseSuppressionEngines,
+    type NoiseSuppressionEngineListResponse as NoiseSuppressionEngineListResponse,
+  };
+
+  export {
+    BotChallenge as BotChallenge,
+    type BotChallengeCreateResponse as BotChallengeCreateResponse,
+    type BotChallengeCreateParams as BotChallengeCreateParams,
+  };
+
+  export {
+    BotSessions as BotSessions,
+    type BotSessionListResponse as BotSessionListResponse,
+    type BotSessionListParams as BotSessionListParams,
+  };
+
+  export {
+    BotSignup as BotSignup,
+    type SuccessResponse as SuccessResponse,
+    type BotSignupCreateParams as BotSignupCreateParams,
+    type BotSignupResendMagicLinkParams as BotSignupResendMagicLinkParams,
+  };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

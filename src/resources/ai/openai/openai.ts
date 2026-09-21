@@ -3,7 +3,7 @@
 import { APIResource } from '../../../core/resource';
 import * as AIAPI from '../ai';
 import * as ChatAPI from './chat';
-import { Chat, ChatCreateCompletionParams, ChatCreateCompletionResponse } from './chat';
+import { Chat, ChatCreateCompletionParams, ChatCreateCompletionResponse, FunctionDefinition } from './chat';
 import * as EmbeddingsAPI from './embeddings';
 import {
   EmbeddingCreateEmbeddingsParams,
@@ -191,6 +191,7 @@ export declare namespace OpenAI {
 
   export {
     Chat as Chat,
+    type FunctionDefinition as FunctionDefinition,
     type ChatCreateCompletionResponse as ChatCreateCompletionResponse,
     type ChatCreateCompletionParams as ChatCreateCompletionParams,
   };
