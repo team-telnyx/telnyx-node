@@ -10,7 +10,8 @@ router.route('/inbound').post(async function inboundMessageController(req: any, 
 
   if (event?.payload) {
     console.log(`Received inbound message with ID: ${event?.payload?.id}`);
-    const toNumber = event.payload.to?.at(0)?.phone_number as string;
+    const to = event.payload.to?.at(0);
+    const toNumber = typeof to === 'string' ? to : to?.phone_number;
     const fromNumber = event.payload.from?.phone_number as string;
     const type = event.payload.type;
     const text = event.payload.text;
