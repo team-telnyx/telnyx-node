@@ -7578,6 +7578,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/compute/funcs/{id}/ship_inspection',
   },
   {
+    clientCallName: 'client.compute.funcs.export.deleteAll',
+    fullyQualifiedName: 'compute.funcs.export.deleteAll',
+    httpMethod: 'delete',
+    httpPath: '/compute/funcs/{id}/logs/export',
+  },
+  {
+    clientCallName: 'client.compute.funcs.export.list',
+    fullyQualifiedName: 'compute.funcs.export.list',
+    httpMethod: 'get',
+    httpPath: '/compute/funcs/{id}/logs/export',
+  },
+  {
+    clientCallName: 'client.compute.funcs.export.create',
+    fullyQualifiedName: 'compute.funcs.export.create',
+    httpMethod: 'put',
+    httpPath: '/compute/funcs/{id}/logs/export',
+  },
+  {
     clientCallName: 'client.noiseSuppressionEngines.list',
     fullyQualifiedName: 'noiseSuppressionEngines.list',
     httpMethod: 'get',

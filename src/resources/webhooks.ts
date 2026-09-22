@@ -4360,7 +4360,7 @@ export namespace NumberOrderStatusUpdate {
     /**
      * The type of event being sent
      */
-    event_type: string;
+    event_type: 'number_order.complete';
 
     /**
      * ISO 8601 timestamp of when the event occurred
@@ -5926,7 +5926,7 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
     /**
      * The type of event being sent
      */
-    event_type: string;
+    event_type: 'number_order.complete';
 
     /**
      * ISO 8601 timestamp of when the event occurred
@@ -7489,7 +7489,7 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
     /**
      * The type of event being sent
      */
-    event_type: string;
+    event_type: 'number_order.complete';
 
     /**
      * ISO 8601 timestamp of when the event occurred

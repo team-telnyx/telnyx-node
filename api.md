@@ -5887,19 +5887,31 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/compute/funcs.ts">FunctionsObservabilityPaginationMeta</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">LogsMeta</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveLogsResponse</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveMetricAggregatesResponse</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveRevisionsResponse</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveShipInspectionResponse</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FunctionsObservabilityPaginationMeta</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">LogsMeta</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveLogsResponse</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveMetricAggregatesResponse</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveRevisionsResponse</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveShipInspectionResponse</a></code>
 
 Methods:
 
-- <code title="get /compute/funcs/{id}/logs">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveLogs</a>(id, { ...params }) -> FuncRetrieveLogsResponse</code>
-- <code title="get /compute/funcs/{id}/metric_aggregates">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveMetricAggregates</a>(id, { ...params }) -> FuncRetrieveMetricAggregatesResponse</code>
-- <code title="get /compute/funcs/{id}/revisions">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveRevisions</a>(id, { ...params }) -> FuncRetrieveRevisionsResponse</code>
-- <code title="get /compute/funcs/{id}/ship_inspection">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveShipInspection</a>(id) -> FuncRetrieveShipInspectionResponse</code>
+- <code title="get /compute/funcs/{id}/logs">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveLogs</a>(id, { ...params }) -> FuncRetrieveLogsResponse</code>
+- <code title="get /compute/funcs/{id}/metric_aggregates">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveMetricAggregates</a>(id, { ...params }) -> FuncRetrieveMetricAggregatesResponse</code>
+- <code title="get /compute/funcs/{id}/revisions">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveRevisions</a>(id, { ...params }) -> FuncRetrieveRevisionsResponse</code>
+- <code title="get /compute/funcs/{id}/ship_inspection">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveShipInspection</a>(id) -> FuncRetrieveShipInspectionResponse</code>
+
+### Export
+
+Types:
+
+- <code><a href="./src/resources/compute/funcs/export.ts">FuncLogExportConfigResponse</a></code>
+
+Methods:
+
+- <code title="delete /compute/funcs/{id}/logs/export">client.compute.funcs.export.<a href="./src/resources/compute/funcs/export.ts">deleteAll</a>(id) -> void</code>
+- <code title="get /compute/funcs/{id}/logs/export">client.compute.funcs.export.<a href="./src/resources/compute/funcs/export.ts">list</a>(id) -> FuncLogExportConfigResponse</code>
+- <code title="put /compute/funcs/{id}/logs/export">client.compute.funcs.export.<a href="./src/resources/compute/funcs/export.ts">create</a>(id, { ...params }) -> FuncLogExportConfigResponse</code>
 
 # NoiseSuppressionEngines
 

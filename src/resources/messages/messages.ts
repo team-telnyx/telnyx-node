@@ -257,6 +257,12 @@ export interface MessagingInboundMessagePayload {
   id?: string;
 
   /**
+   * Automatic response type triggered by an inbound opt-in, opt-out, or help
+   * keyword. Examples include START, STOP, and HELP.
+   */
+  autoresponse_type?: string;
+
+  /**
    * Message body for RCS and WhatsApp. RCS messages contain text, user_file,
    * location, or suggestion_response. For WhatsApp edits and revocations, inspect
    * type and the corresponding edit or revoke object.
