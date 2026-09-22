@@ -1219,6 +1219,18 @@ Methods:
 
 - <code title="get /ai/knowledge/collections/{slug}/documents">client.ai.knowledge.collections.<a href="./src/resources/ai/knowledge/collections.ts">retrieveDocuments</a>(slug, { ...params }) -> CollectionRetrieveDocumentsResponse</code>
 
+## Typesafe
+
+### V1
+
+Types:
+
+- <code><a href="./src/resources/ai/typesafe/v1.ts">V1SystemoneResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/typesafe/v1/systemone">client.ai.typesafe.v1.<a href="./src/resources/ai/typesafe/v1.ts">systemone</a>({ ...params }) -> V1SystemoneResponse</code>
+
 # AuditEvents
 
 Types:

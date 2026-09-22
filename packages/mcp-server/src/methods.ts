@@ -1321,6 +1321,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/knowledge/collections/{slug}/documents',
   },
   {
+    clientCallName: 'client.ai.typesafe.v1.systemone',
+    fullyQualifiedName: 'ai.typesafe.v1.systemone',
+    httpMethod: 'post',
+    httpPath: '/ai/typesafe/v1/systemone',
+  },
+  {
     clientCallName: 'client.auditEvents.list',
     fullyQualifiedName: 'auditEvents.list',
     httpMethod: 'get',

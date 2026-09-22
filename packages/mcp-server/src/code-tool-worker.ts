@@ -328,6 +328,7 @@ const fuse = new Fuse(
     'client.ai.tools.update',
     'client.ai.anthropic.v1.messages',
     'client.ai.knowledge.collections.retrieveDocuments',
+    'client.ai.typesafe.v1.systemone',
     'client.auditEvents.list',
     'client.authenticationProviders.create',
     'client.authenticationProviders.delete',

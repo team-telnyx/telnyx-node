@@ -171,6 +171,8 @@ import {
 } from './missions/missions';
 import * as OpenAIAPI from './openai/openai';
 import { OpenAI, OpenAICreateResponseParams, OpenAICreateResponseResponse } from './openai/openai';
+import * as TypesafeAPI from './typesafe/typesafe';
+import { Typesafe } from './typesafe/typesafe';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
 import { buildHeaders } from '../../internal/headers';
@@ -192,6 +194,7 @@ export class AI extends APIResource {
   tools: ToolsAPI.Tools = new ToolsAPI.Tools(this._client);
   anthropic: AnthropicAPI.Anthropic = new AnthropicAPI.Anthropic(this._client);
   knowledge: KnowledgeAPI.Knowledge = new KnowledgeAPI.Knowledge(this._client);
+  typesafe: TypesafeAPI.Typesafe = new TypesafeAPI.Typesafe(this._client);
 
   /**
    * Generate a summary of a file's contents.
@@ -638,6 +641,7 @@ AI.OpenAI = OpenAI;
 AI.Tools = Tools;
 AI.Anthropic = Anthropic;
 AI.Knowledge = Knowledge;
+AI.Typesafe = Typesafe;
 
 export declare namespace AI {
   export {
@@ -827,4 +831,6 @@ export declare namespace AI {
   export { Anthropic as Anthropic };
 
   export { Knowledge as Knowledge };
+
+  export { Typesafe as Typesafe };
 }

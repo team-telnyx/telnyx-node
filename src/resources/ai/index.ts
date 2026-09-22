@@ -165,3 +165,4 @@ export {
   type ToolUpdateParams,
   type SharedToolResponsesDefaultFlatPagination,
 } from './tools';
+export { Typesafe } from './typesafe/index';
