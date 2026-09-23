@@ -4753,6 +4753,12 @@ export namespace ArtifactCompletedWebhookEvent {
     model_provenance: Data.ModelProvenance;
 
     /**
+     * The prompt that produced this artifact, or null for a named type. Non-null only
+     * when `type` is `custom`; the five named types always return `null`.
+     */
+    prompt: string | null;
+
+    /**
      * The meeting session this event belongs to.
      */
     session_id: string;
@@ -4760,7 +4766,7 @@ export namespace ArtifactCompletedWebhookEvent {
     /**
      * Type of the completed artifact.
      */
-    type: 'summary' | 'action_items';
+    type: 'summary' | 'action_items' | 'decisions' | 'topics' | 'open_questions' | 'custom';
   }
 
   export namespace Data {
@@ -4830,7 +4836,7 @@ export namespace ArtifactFailedWebhookEvent {
     /**
      * Type of the failed artifact.
      */
-    type: 'summary' | 'action_items';
+    type: 'summary' | 'action_items' | 'decisions' | 'topics' | 'open_questions' | 'custom';
   }
 }
 
@@ -6316,6 +6322,12 @@ export namespace ArtifactCompletedWebhookEvent {
     model_provenance: Data.ModelProvenance;
 
     /**
+     * The prompt that produced this artifact, or null for a named type. Non-null only
+     * when `type` is `custom`; the five named types always return `null`.
+     */
+    prompt: string | null;
+
+    /**
      * The meeting session this event belongs to.
      */
     session_id: string;
@@ -6323,7 +6335,7 @@ export namespace ArtifactCompletedWebhookEvent {
     /**
      * Type of the completed artifact.
      */
-    type: 'summary' | 'action_items';
+    type: 'summary' | 'action_items' | 'decisions' | 'topics' | 'open_questions' | 'custom';
   }
 
   export namespace Data {
@@ -6393,7 +6405,7 @@ export namespace ArtifactFailedWebhookEvent {
     /**
      * Type of the failed artifact.
      */
-    type: 'summary' | 'action_items';
+    type: 'summary' | 'action_items' | 'decisions' | 'topics' | 'open_questions' | 'custom';
   }
 }
 
