@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../core/resource';
 import * as ChatAPI from './chat';
+import * as OpenAIChatAPI from './openai/chat';
 
 export class Chat extends APIResource {}
 
@@ -282,19 +283,9 @@ export namespace ChatCompletionRequest {
   }
 
   export interface Function {
-    function: Function.Function;
+    function: OpenAIChatAPI.FunctionDefinition;
 
     type: 'function';
-  }
-
-  export namespace Function {
-    export interface Function {
-      name: string;
-
-      description?: string;
-
-      parameters?: { [key: string]: unknown };
-    }
   }
 
   export interface Retrieval {

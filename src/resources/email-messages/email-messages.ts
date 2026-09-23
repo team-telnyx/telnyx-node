@@ -109,9 +109,11 @@ export class EmailMessages extends APIResource {
   }
 
   /**
-   * Creates up to 1,000 email messages in a single request. Each message is
-   * validated and sent independently; per-message failures do not affect other
-   * messages in the batch. All responses use 207 Multi-Status.
+   * Creates up to 1,000 email messages in a single request. Request-wide admission
+   * checks run first and can reject the whole batch before message creation. After
+   * those checks pass, each message is validated and sent independently; item-level
+   * failures do not affect other messages, and the processed batch returns 207
+   * Multi-Status.
    *
    * @example
    * ```ts

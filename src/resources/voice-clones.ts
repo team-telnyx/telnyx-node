@@ -58,8 +58,10 @@ export class VoiceClones extends APIResource {
 
   /**
    * Creates a new voice clone by uploading an audio file directly. Supported
-   * formats: WAV, MP3, FLAC, OGG, M4A. For best results, provide 5–10 seconds of
-   * clear speech. Maximum file size: 5MB for Telnyx, 20MB for Minimax.
+   * formats: WAV, MP3, FLAC, OGG, M4A. For best results, provide 5–60 seconds of
+   * clear speech (Ultra accepts up to 60 seconds; Qwen3TTS auto-trims to 10 seconds;
+   * Minimax accepts up to 5 minutes). Maximum file size: 5MB for Telnyx, 20MB for
+   * Minimax.
    *
    * @example
    * ```ts
@@ -412,8 +414,8 @@ export namespace VoiceCloneCreateFromUploadParams {
   export interface TelnyxUltraClone {
     /**
      * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A.
-     * For best quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum
-     * size: 5MB.
+     * For best quality, provide up to 60 seconds of clear, uninterrupted speech.
+     * Maximum size: 5MB.
      */
     audio_file: Uploadable;
 

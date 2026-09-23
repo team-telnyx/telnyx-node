@@ -42,6 +42,15 @@ export class Connections extends APIResource {
   retrieve(id: string, options?: RequestOptions): APIPromise<ConnectionRetrieveResponse> {
     return this._client.get(path`/connections/${id}`, options);
   }
+
+  /**
+   * Returns the number of connections associated with the authenticated user,
+   * grouped by connection type, together with the connection limits that apply to
+   * the user. Forward-only connections are excluded from the counts.
+   */
+  retrieveCount(options?: RequestOptions): APIPromise<ConnectionRetrieveCountResponse> {
+    return this._client.get('/connections/count', options);
+  }
 }
 
 export type ConnectionsDefaultFlatPagination = DefaultFlatPagination<Connection>;
@@ -146,6 +155,129 @@ export interface ConnectionListActiveCallsResponse {
   record_type: 'call';
 }
 
+export interface ConnectionRetrieveCountResponse {
+  data: ConnectionRetrieveCountResponse.Data;
+}
+
+export namespace ConnectionRetrieveCountResponse {
+  export interface Data {
+    /**
+     * Counts of the authenticated user's connections, grouped by connection type.
+     * Forward-only connections are excluded.
+     */
+    counts: Data.Counts;
+
+    /**
+     * Connection limits that apply to the user. Contains a single global_limit when a
+     * global connection limit applies, or per-type limits (standard_limit, texml_limit
+     * and uac_limit) when the user has per-type connection count capabilities.
+     */
+    limits: Data.GlobalConnectionLimit | Data.PerTypeConnectionLimits;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type: string;
+  }
+
+  export namespace Data {
+    /**
+     * Counts of the authenticated user's connections, grouped by connection type.
+     * Forward-only connections are excluded.
+     */
+    export interface Counts {
+      /**
+       * Number of Call Control applications.
+       */
+      call_control_applications: number;
+
+      /**
+       * Number of credential connections.
+       */
+      credential_connections: number;
+
+      /**
+       * Number of external connections.
+       */
+      external_connections: number;
+
+      /**
+       * Number of Fax applications.
+       */
+      fax_connections: number;
+
+      /**
+       * Number of FQDN connections.
+       */
+      fqdn_connections: number;
+
+      /**
+       * Number of IP connections.
+       */
+      ip_connections: number;
+
+      /**
+       * Number of Microsoft Teams SBC (direct routing) connections.
+       */
+      microsoft_teams_sbc_connections: number;
+
+      /**
+       * Number of mobile voice (IMS) connections.
+       */
+      mobile_voice_connections: number;
+
+      /**
+       * Number of Microsoft Operator Connect connections.
+       */
+      operator_connect_connections: number;
+
+      /**
+       * Number of TeXML applications.
+       */
+      texml_applications: number;
+
+      /**
+       * Number of third-party provider connections.
+       */
+      third_party_provider_connections: number;
+
+      /**
+       * Number of UAC connections.
+       */
+      uac_connections: number;
+
+      /**
+       * Number of Zoom SBC connections.
+       */
+      zoom_sbc_connections: number;
+    }
+
+    export interface GlobalConnectionLimit {
+      /**
+       * Maximum total number of connections allowed, when a global limit applies.
+       */
+      global_limit: number;
+    }
+
+    export interface PerTypeConnectionLimits {
+      /**
+       * Maximum number of standard connections allowed, when per-type limits apply.
+       */
+      standard_limit: number;
+
+      /**
+       * Maximum number of TeXML applications allowed, when per-type limits apply.
+       */
+      texml_limit: number;
+
+      /**
+       * Maximum number of UAC connections allowed, when per-type limits apply.
+       */
+      uac_limit: number;
+    }
+  }
+}
+
 export interface ConnectionListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally:
@@ -219,6 +351,7 @@ export declare namespace Connections {
     type Connection as Connection,
     type ConnectionRetrieveResponse as ConnectionRetrieveResponse,
     type ConnectionListActiveCallsResponse as ConnectionListActiveCallsResponse,
+    type ConnectionRetrieveCountResponse as ConnectionRetrieveCountResponse,
     type ConnectionsDefaultFlatPagination as ConnectionsDefaultFlatPagination,
     type ConnectionListActiveCallsResponsesDefaultFlatPagination as ConnectionListActiveCallsResponsesDefaultFlatPagination,
     type ConnectionListParams as ConnectionListParams,
