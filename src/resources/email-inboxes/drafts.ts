@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as EmailEventsAPI from '../email-events';
 import * as EmailMessagesAPI from '../email-messages/email-messages';
 import { APIPromise } from '../../core/api-promise';
 import {
@@ -354,9 +355,14 @@ export interface EmailMessage {
 
   created_at: string;
 
-  events: Array<EmailMessagesAPI.MessageEvent>;
+  events: Array<EmailMessage.Event>;
 
   from: EmailAddress;
+
+  /**
+   * Customer-supplied metadata stored with the message.
+   */
+  metadata: { [key: string]: unknown };
 
   record_type: 'email_message';
 
@@ -385,6 +391,11 @@ export interface EmailMessage {
     | 'unsubscribed';
 
   subject: string;
+
+  /**
+   * Customer-supplied tags stored with the message.
+   */
+  tags: Array<string>;
 
   template_id: string | null;
 
@@ -459,6 +470,26 @@ export namespace EmailMessage {
      * Telnyx-hosted public URL for the attachment content.
      */
     url: string | null;
+  }
+
+  /**
+   * An event embedded in a message response. The dedicated per-message events
+   * endpoint additionally returns event_type and canonical_event_type.
+   */
+  export interface Event {
+    occurred_at: string;
+
+    /**
+     * Bare stored event names returned by message history. In addition to the normal
+     * send and delivery lifecycle, polling can expose suppression, scan, and
+     * quarantine lifecycle rows. Sharp canonical names gw_reject, injection_timeout,
+     * and expired distinguish gateway rejection, ambiguous injection timeout, and MTA
+     * expiration. The failed and bounced names remain valid for system/admin failures
+     * and hard bounces respectively. Existing stored rows retain their original names.
+     */
+    type: EmailEventsAPI.EmailEventType;
+
+    payload?: { [key: string]: unknown };
   }
 }
 

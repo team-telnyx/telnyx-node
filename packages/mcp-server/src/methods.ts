@@ -7038,6 +7038,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/email_domains/{id}/health',
   },
   {
+    clientCallName: 'client.emailDomains.rotateDkim',
+    fullyQualifiedName: 'emailDomains.rotateDkim',
+    httpMethod: 'post',
+    httpPath: '/email_domains/{domain_id}/rotate_dkim',
+  },
+  {
     clientCallName: 'client.emailDomains.webhooks.list',
     fullyQualifiedName: 'emailDomains.webhooks.list',
     httpMethod: 'get',
@@ -7288,6 +7294,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'emailMessages.retrieve',
     httpMethod: 'get',
     httpPath: '/email_messages/{id}',
+  },
+  {
+    clientCallName: 'client.emailMessages.updateSchedule',
+    fullyQualifiedName: 'emailMessages.updateSchedule',
+    httpMethod: 'patch',
+    httpPath: '/email_messages/{email_id}/schedule',
   },
   {
     clientCallName: 'client.emailMessages.recipients.list',

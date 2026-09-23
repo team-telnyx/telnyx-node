@@ -296,11 +296,11 @@ import {
 import {
   EmailEventListParams,
   EmailEventListResponse,
-  EmailEventListResponsesEmailCursorPagination,
   EmailEventRetrieveStatsParams,
   EmailEventRetrieveStatsResponse,
   EmailEventType,
   EmailEvents,
+  EmailWebhookRecipient,
   TimeRange,
 } from './resources/email-events';
 import {
@@ -1343,6 +1343,7 @@ import {
   EmailDomainResponse,
   EmailDomainRetrieveDNSRecordsResponse,
   EmailDomainRetrieveHealthResponse,
+  EmailDomainRotateDkimResponse,
   EmailDomainStatus,
   EmailDomainType,
   EmailDomainUpdateParams,
@@ -1365,9 +1366,10 @@ import {
   EmailMessageBatchResponse,
   EmailMessageCreateParams,
   EmailMessageDeleteAllParams,
+  EmailMessageDetailResponse,
   EmailMessageListParams,
   EmailMessageRetrieveEventsParams,
-  EmailMessageRetrieveResponse,
+  EmailMessageUpdateScheduleParams,
   EmailMessages,
   MessageEvent,
   MessageEventsEmailCursorPagination,
@@ -5398,6 +5400,7 @@ export declare namespace Telnyx {
     type EmailDomainVerification as EmailDomainVerification,
     type EmailDomainRetrieveDNSRecordsResponse as EmailDomainRetrieveDNSRecordsResponse,
     type EmailDomainRetrieveHealthResponse as EmailDomainRetrieveHealthResponse,
+    type EmailDomainRotateDkimResponse as EmailDomainRotateDkimResponse,
     type EmailDomainsDefaultFlatPagination as EmailDomainsDefaultFlatPagination,
     type EmailDomainListParams as EmailDomainListParams,
     type EmailDomainCreateParams as EmailDomainCreateParams,
@@ -5408,10 +5411,10 @@ export declare namespace Telnyx {
   export {
     EmailEvents as EmailEvents,
     type EmailEventType as EmailEventType,
+    type EmailWebhookRecipient as EmailWebhookRecipient,
     type TimeRange as TimeRange,
     type EmailEventListResponse as EmailEventListResponse,
     type EmailEventRetrieveStatsResponse as EmailEventRetrieveStatsResponse,
-    type EmailEventListResponsesEmailCursorPagination as EmailEventListResponsesEmailCursorPagination,
     type EmailEventListParams as EmailEventListParams,
     type EmailEventRetrieveStatsParams as EmailEventRetrieveStatsParams,
   };
@@ -5429,10 +5432,10 @@ export declare namespace Telnyx {
     EmailMessages as EmailMessages,
     type AttachmentRequest as AttachmentRequest,
     type EmailAddressInput as EmailAddressInput,
+    type EmailMessageDetailResponse as EmailMessageDetailResponse,
     type MessageEvent as MessageEvent,
     type SuppressedRecipient as SuppressedRecipient,
     type TrackingSettings as TrackingSettings,
-    type EmailMessageRetrieveResponse as EmailMessageRetrieveResponse,
     type EmailMessageBatchResponse as EmailMessageBatchResponse,
     type MessageEventsEmailCursorPagination as MessageEventsEmailCursorPagination,
     type EmailMessageDeleteAllParams as EmailMessageDeleteAllParams,
@@ -5440,6 +5443,7 @@ export declare namespace Telnyx {
     type EmailMessageCreateParams as EmailMessageCreateParams,
     type EmailMessageBatchParams as EmailMessageBatchParams,
     type EmailMessageRetrieveEventsParams as EmailMessageRetrieveEventsParams,
+    type EmailMessageUpdateScheduleParams as EmailMessageUpdateScheduleParams,
   };
 
   export {

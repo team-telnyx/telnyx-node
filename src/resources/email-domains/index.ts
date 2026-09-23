@@ -12,6 +12,7 @@ export {
   type EmailDomainVerification,
   type EmailDomainRetrieveDNSRecordsResponse,
   type EmailDomainRetrieveHealthResponse,
+  type EmailDomainRotateDkimResponse,
   type EmailDomainListParams,
   type EmailDomainCreateParams,
   type EmailDomainDeleteParams,

@@ -165,9 +165,11 @@ export interface EmailWebhook {
 }
 
 /**
- * Event types a webhook may subscribe to. The union of email._ events (published
- * by email-api) and email_domain._ lifecycle events (published by this service).
- * An event not listed here can never be subscribed to and is silently dropped.
+ * Event types accepted by domain webhook subscriptions. Allowlists match the
+ * legacy event_type, not canonical_event_type. Of the 22 accepted types,
+ * email.sending is stored but intentionally not published. Cancellation,
+ * daily-limit failures, and system failures publish after commit when a matching
+ * domain webhook is configured.
  */
 export type EmailWebhookEvent =
   | 'email.scheduled'
@@ -184,11 +186,14 @@ export type EmailWebhookEvent =
   | 'email.clicked'
   | 'email.unsubscribed'
   | 'email.received'
+  | 'email.cancelled'
+  | 'email.daily_limit_exceeded'
   | 'email_domain.created'
   | 'email_domain.verified'
   | 'email_domain.degraded'
   | 'email_domain.suspended'
-  | 'email_domain.deleted';
+  | 'email_domain.deleted'
+  | 'email_domain.dkim_rotated';
 
 export interface EmailWebhookResponse {
   data: EmailWebhook;

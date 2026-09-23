@@ -178,6 +178,28 @@ export class EmailDomains extends APIResource {
   retrieveHealth(id: string, options?: RequestOptions): APIPromise<EmailDomainRetrieveHealthResponse> {
     return this._client.get(path`/email_domains/${id}/health`, options);
   }
+
+  /**
+   * Generates a new DKIM key for the domain, activates it, and retires the previous
+   * key. The response includes the updated DKIM DNS records the customer must
+   * publish. Selectors are fixed, so rotation replaces the TXT value at the existing
+   * `<selector>._domainkey.<domain>` host rather than adding a second record —
+   * `old_selector_retained` is false and the new TXT value must be published
+   * promptly, since signing switches to the new key immediately and the old TXT
+   * value will no longer match. The previous key is retired to a `retiring` state
+   * (retained, not revoked) so it can be revoked after the DNS propagation grace
+   * period.
+   *
+   * @example
+   * ```ts
+   * const response = await client.emailDomains.rotateDkim(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   * );
+   * ```
+   */
+  rotateDkim(domainID: string, options?: RequestOptions): APIPromise<EmailDomainRotateDkimResponse> {
+    return this._client.post(path`/email_domains/${domainID}/rotate_dkim`, options);
+  }
 }
 
 export type EmailDomainsDefaultFlatPagination = DefaultFlatPagination<EmailDomain>;
@@ -401,6 +423,103 @@ export namespace EmailDomainRetrieveHealthResponse {
   }
 }
 
+export interface EmailDomainRotateDkimResponse {
+  /**
+   * Result of rotating a domain's DKIM key. The new key is active and signing
+   * switches to it immediately; the previous key is retired to a `retiring` state
+   * (retained, not revoked) so it can be revoked after the DNS propagation grace
+   * period. Selectors are fixed, so the DKIM DNS record's TXT value is replaced in
+   * place at the shared `<selector>._domainkey.<domain>` host —
+   * `old_selector_retained` is false and the returned dns_records carry the new
+   * value the customer must publish promptly.
+   */
+  data: EmailDomainRotateDkimResponse.Data;
+}
+
+export namespace EmailDomainRotateDkimResponse {
+  /**
+   * Result of rotating a domain's DKIM key. The new key is active and signing
+   * switches to it immediately; the previous key is retired to a `retiring` state
+   * (retained, not revoked) so it can be revoked after the DNS propagation grace
+   * period. Selectors are fixed, so the DKIM DNS record's TXT value is replaced in
+   * place at the shared `<selector>._domainkey.<domain>` host —
+   * `old_selector_retained` is false and the returned dns_records carry the new
+   * value the customer must publish promptly.
+   */
+  export interface Data {
+    /**
+     * The new active DKIM key.
+     */
+    dkim: Data.Dkim;
+
+    /**
+     * The DKIM DNS records the customer must publish, carrying the new key's TXT value
+     * with verification reset to pending.
+     */
+    dns_records: Array<EmailDomainsAPI.DNSRecord>;
+
+    domain: string;
+
+    domain_id: string;
+
+    /**
+     * False for this service: one selector is fixed per domain, so rotation replaces
+     * the TXT value at the existing \_domainkey host. There is no dual-selector
+     * overlap; publish the replacement TXT promptly because signing switches
+     * immediately.
+     */
+    old_selector_retained: boolean;
+
+    /**
+     * The retired previous key, or null when the domain had no active key before
+     * rotation. Retained in a `retiring` state so it can be revoked after the DNS
+     * propagation grace period.
+     */
+    previous_dkim_key: Data.PreviousDkimKey | null;
+
+    record_type: 'email_domain_dkim_rotation';
+  }
+
+  export namespace Data {
+    /**
+     * The new active DKIM key.
+     */
+    export interface Dkim {
+      id: string;
+
+      algorithm: 'rsa-sha256';
+
+      key_length: 2048;
+
+      selector: string;
+
+      status: 'active';
+
+      /**
+       * Monotonically increasing per-domain key version.
+       */
+      version: number;
+
+      activated_at?: string | null;
+    }
+
+    /**
+     * The retired previous key, or null when the domain had no active key before
+     * rotation. Retained in a `retiring` state so it can be revoked after the DNS
+     * propagation grace period.
+     */
+    export interface PreviousDkimKey {
+      id: string;
+
+      selector: string;
+
+      status: 'retiring' | 'revoked';
+
+      version: number;
+    }
+  }
+}
+
 export interface EmailDomainListParams extends DefaultFlatPaginationParams {
   /**
    * Partial match on domain name (case-insensitive)
@@ -506,6 +625,7 @@ export declare namespace EmailDomains {
     type EmailDomainVerification as EmailDomainVerification,
     type EmailDomainRetrieveDNSRecordsResponse as EmailDomainRetrieveDNSRecordsResponse,
     type EmailDomainRetrieveHealthResponse as EmailDomainRetrieveHealthResponse,
+    type EmailDomainRotateDkimResponse as EmailDomainRotateDkimResponse,
     type EmailDomainsDefaultFlatPagination as EmailDomainsDefaultFlatPagination,
     type EmailDomainListParams as EmailDomainListParams,
     type EmailDomainCreateParams as EmailDomainCreateParams,

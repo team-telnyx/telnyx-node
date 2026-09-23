@@ -101,7 +101,9 @@ export interface EmailRecipient {
     | 'bounced'
     | 'failed'
     | 'gw_reject'
-    | 'cancelled';
+    | 'cancelled'
+    | 'injection_timeout'
+    | 'expired';
 
   delivered_at?: string | null;
 
@@ -142,7 +144,9 @@ export interface RecipientListParams extends EmailCursorPaginationParams {
     | 'bounced'
     | 'failed'
     | 'gw_reject'
-    | 'cancelled';
+    | 'cancelled'
+    | 'injection_timeout'
+    | 'expired';
 }
 
 export interface RecipientRetrieveParams {

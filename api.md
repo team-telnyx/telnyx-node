@@ -5510,6 +5510,7 @@ Types:
 - <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainVerification</a></code>
 - <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainRetrieveDNSRecordsResponse</a></code>
 - <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainRetrieveHealthResponse</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainRotateDkimResponse</a></code>
 
 Methods:
 
@@ -5521,6 +5522,7 @@ Methods:
 - <code title="get /email_domains/{id}">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">retrieve</a>(id) -> EmailDomainResponse</code>
 - <code title="patch /email_domains/{id}">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">update</a>(id, { ...params }) -> EmailDomainResponse</code>
 - <code title="get /email_domains/{id}/health">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">retrieveHealth</a>(id) -> EmailDomainRetrieveHealthResponse</code>
+- <code title="post /email_domains/{domain_id}/rotate_dkim">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">rotateDkim</a>(domainID) -> EmailDomainRotateDkimResponse</code>
 
 ## Webhooks
 
@@ -5544,13 +5546,14 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/email-events.ts">EmailEventType</a></code>
+- <code><a href="./src/resources/email-events.ts">EmailWebhookRecipient</a></code>
 - <code><a href="./src/resources/email-events.ts">TimeRange</a></code>
 - <code><a href="./src/resources/email-events.ts">EmailEventListResponse</a></code>
 - <code><a href="./src/resources/email-events.ts">EmailEventRetrieveStatsResponse</a></code>
 
 Methods:
 
-- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponsesEmailCursorPagination</code>
+- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponse</code>
 - <code title="get /email_events/stats">client.emailEvents.<a href="./src/resources/email-events.ts">retrieveStats</a>({ ...params }) -> EmailEventRetrieveStatsResponse</code>
 
 # EmailInboxes
@@ -5680,10 +5683,10 @@ Types:
 
 - <code><a href="./src/resources/email-messages/email-messages.ts">AttachmentRequest</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailAddressInput</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageDetailResponse</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">MessageEvent</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">SuppressedRecipient</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">TrackingSettings</a></code>
-- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageRetrieveResponse</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageBatchResponse</a></code>
 
 Methods:
@@ -5695,7 +5698,8 @@ Methods:
 - <code title="get /email_messages/{email_id}/events">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieveEvents</a>(emailID, { ...params }) -> MessageEventsEmailCursorPagination</code>
 - <code title="delete /email_messages/{email_id}/schedule">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">deleteSchedule</a>(emailID) -> EmailMessageResponse</code>
 - <code title="delete /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">delete</a>(id) -> void</code>
-- <code title="get /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieve</a>(id) -> EmailMessageRetrieveResponse</code>
+- <code title="get /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieve</a>(id) -> EmailMessageDetailResponse</code>
+- <code title="patch /email_messages/{email_id}/schedule">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">updateSchedule</a>(emailID, { ...params }) -> EmailMessageDetailResponse</code>
 
 ## Recipients
 

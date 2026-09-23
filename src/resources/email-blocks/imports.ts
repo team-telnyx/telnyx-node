@@ -20,9 +20,23 @@ export class Imports extends APIResource {
    * - header-only / all-blank / undetectable provider → `400` Returns `202` with the
    *   import record (status `pending`); an Oban worker (`EmailBlockImportWorker`,
    *   max_attempts 3) transitions `pending → processing → completed | failed`.
-   *   `block_ttl_days` applies only to imported `manual_block` rows; other reasons
-   *   get `expires_at: nil`. Provider is auto-detected from the CSV header
-   *   (`sendgrid` / `mailgun` / `ses` / `generic`).
+   *
+   * Native Telnyx exports are detected by the stable first-12-column header
+   * signature (`id` … `group_id`) and are restored with their original `from`,
+   * `domain_id`, `group_id`, `source`, `status`, `expires_at`, plus
+   * `bounce_category`, `dsn_code`, and `meta` when present (`scope` is re-derived
+   * from `domain_id`/`from`; the exported `scope` cell must be a valid enum value).
+   * Lifecycle changes reconcile through the same create path as the API: a row
+   * already in the requested state restores its mutable backup fields without a new
+   * audit event, and a real transition (e.g. tombstone → active) appends the
+   * matching lifecycle event. `block_ttl_days` is not applied to native rows — their
+   * exported `expires_at` is preserved verbatim.
+   *
+   * Competitor and generic imports (SendGrid / Mailgun / SES / generic) remain
+   * account-scoped (`from`, `domain_id`, `group_id`, `scope` are not read) and
+   * `block_ttl_days` applies only to imported `manual_block` rows; other reasons get
+   * `expires_at: nil`. Provider is auto-detected from the CSV header (`sendgrid` /
+   * `mailgun` / `ses` / `generic`).
    *
    * @example
    * ```ts
@@ -94,7 +108,9 @@ export interface EmailBlockImport {
   created_count?: number;
 
   /**
-   * Only when `status == completed`.
+   * Rows that passed CSV parsing but failed suppression creation. This is the
+   * creation-failure subset of `skipped_count`; parser-rejected rows equal
+   * `skipped_count - error_count`. Only when `status == completed`.
    */
   error_count?: number;
 
