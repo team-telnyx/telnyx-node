@@ -5965,3 +5965,13 @@ Methods:
 
 - <code title="post /v2/bot_signup">client.botSignup.<a href="./src/resources/bot-signup.ts">create</a>({ ...params }) -> SuccessResponse</code>
 - <code title="post /v2/bot_signup/resend_magic_link">client.botSignup.<a href="./src/resources/bot-signup.ts">resendMagicLink</a>({ ...params }) -> SuccessResponse</code>
+
+# MachinePayments
+
+Types:
+
+- <code><a href="./src/resources/machine-payments.ts">MachinePaymentAccountCreditResponse</a></code>
+
+Methods:
+
+- <code title="post /machine-payments/account-credit">client.machinePayments.<a href="./src/resources/machine-payments.ts">accountCredit</a>({ ...params }) -> MachinePaymentAccountCreditResponse</code>

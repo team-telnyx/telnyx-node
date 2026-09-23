@@ -7631,6 +7631,12 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'post',
     httpPath: '/v2/bot_signup/resend_magic_link',
   },
+  {
+    clientCallName: 'client.machinePayments.accountCredit',
+    fullyQualifiedName: 'machinePayments.accountCredit',
+    httpMethod: 'post',
+    httpPath: '/machine-payments/account-credit',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

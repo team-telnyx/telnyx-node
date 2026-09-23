@@ -662,6 +662,11 @@ export {
 export { Legacy } from './legacy/legacy';
 export { List, type ListRetrieveAllResponse, type ListRetrieveByZoneResponse } from './list';
 export {
+  MachinePayments,
+  type MachinePaymentAccountCreditResponse,
+  type MachinePaymentAccountCreditParams,
+} from './machine-payments';
+export {
   ManagedAccounts,
   type ManagedAccount,
   type ManagedAccountBalance,

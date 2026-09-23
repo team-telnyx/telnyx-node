@@ -482,6 +482,11 @@ import {
 } from './resources/ledger-billing-group-reports';
 import { List, ListRetrieveAllResponse, ListRetrieveByZoneResponse } from './resources/list';
 import {
+  MachinePaymentAccountCreditParams,
+  MachinePaymentAccountCreditResponse,
+  MachinePayments,
+} from './resources/machine-payments';
+import {
   Media,
   MediaListParams,
   MediaListResponse,
@@ -3280,6 +3285,10 @@ export class Telnyx {
    * Agentic (bot) signup for Telnyx accounts. An AI agent solves a reverse-CAPTCHA challenge designed to be easy for LLMs and hard for humans, registers an account, and signs in by consuming a magic link emailed to the account owner. All endpoints are public and unauthenticated; signup endpoints are additionally gated by the freemium feature flags and per-country availability.
    */
   botSignup: API.BotSignup = new API.BotSignup(this);
+  /**
+   * Machine payment (MPP) account-credit operations. Fund your Telnyx account programmatically from a machine or agent using the Machine Payment Protocol, an HTTP-402 flow settled via Stripe or Tempo.
+   */
+  machinePayments: API.MachinePayments = new API.MachinePayments(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3469,6 +3478,7 @@ Telnyx.NoiseSuppressionEngines = NoiseSuppressionEngines;
 Telnyx.BotChallenge = BotChallenge;
 Telnyx.BotSessions = BotSessions;
 Telnyx.BotSignup = BotSignup;
+Telnyx.MachinePayments = MachinePayments;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5524,6 +5534,12 @@ export declare namespace Telnyx {
     type SuccessResponse as SuccessResponse,
     type BotSignupCreateParams as BotSignupCreateParams,
     type BotSignupResendMagicLinkParams as BotSignupResendMagicLinkParams,
+  };
+
+  export {
+    MachinePayments as MachinePayments,
+    type MachinePaymentAccountCreditResponse as MachinePaymentAccountCreditResponse,
+    type MachinePaymentAccountCreditParams as MachinePaymentAccountCreditParams,
   };
 
   export type APIError = API.APIError;

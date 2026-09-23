@@ -1381,6 +1381,7 @@ const fuse = new Fuse(
     'client.botSessions.list',
     'client.botSignup.create',
     'client.botSignup.resendMagicLink',
+    'client.machinePayments.accountCredit',
   ],
   { threshold: 1, shouldSort: true },
 );
