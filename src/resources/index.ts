@@ -1129,12 +1129,13 @@ export {
   type PrivateWirelessGateway,
   type PrivateWirelessGatewayStatus,
   type PwgAssignedResourcesSummary,
+  type WirelessPrivateWirelessGateway,
   type PrivateWirelessGatewayCreateResponse,
   type PrivateWirelessGatewayRetrieveResponse,
   type PrivateWirelessGatewayDeleteResponse,
   type PrivateWirelessGatewayListParams,
   type PrivateWirelessGatewayCreateParams,
-  type PrivateWirelessGatewaysDefaultFlatPagination,
+  type WirelessPrivateWirelessGatewaysDefaultFlatPagination,
 } from './private-wireless-gateways';
 export {
   PronunciationDicts,

@@ -59,6 +59,7 @@ describe('resource privateWirelessGateways', () => {
     const response = await client.privateWirelessGateways.create({
       name: 'My private wireless gateway',
       network_id: '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
+      address_mode: 'static',
       region_code: 'dc2',
     });
   });

@@ -744,8 +744,9 @@ import {
   PrivateWirelessGatewayRetrieveResponse,
   PrivateWirelessGatewayStatus,
   PrivateWirelessGateways,
-  PrivateWirelessGatewaysDefaultFlatPagination,
   PwgAssignedResourcesSummary,
+  WirelessPrivateWirelessGateway,
+  WirelessPrivateWirelessGatewaysDefaultFlatPagination,
 } from './resources/private-wireless-gateways';
 import {
   PronunciationDictAliasItem,
@@ -4691,10 +4692,11 @@ export declare namespace Telnyx {
     type PrivateWirelessGateway as PrivateWirelessGateway,
     type PrivateWirelessGatewayStatus as PrivateWirelessGatewayStatus,
     type PwgAssignedResourcesSummary as PwgAssignedResourcesSummary,
+    type WirelessPrivateWirelessGateway as WirelessPrivateWirelessGateway,
     type PrivateWirelessGatewayCreateResponse as PrivateWirelessGatewayCreateResponse,
     type PrivateWirelessGatewayRetrieveResponse as PrivateWirelessGatewayRetrieveResponse,
     type PrivateWirelessGatewayDeleteResponse as PrivateWirelessGatewayDeleteResponse,
-    type PrivateWirelessGatewaysDefaultFlatPagination as PrivateWirelessGatewaysDefaultFlatPagination,
+    type WirelessPrivateWirelessGatewaysDefaultFlatPagination as WirelessPrivateWirelessGatewaysDefaultFlatPagination,
     type PrivateWirelessGatewayListParams as PrivateWirelessGatewayListParams,
     type PrivateWirelessGatewayCreateParams as PrivateWirelessGatewayCreateParams,
   };

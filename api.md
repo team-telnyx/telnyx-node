@@ -3354,13 +3354,14 @@ Types:
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGateway</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGatewayStatus</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PwgAssignedResourcesSummary</a></code>
+- <code><a href="./src/resources/private-wireless-gateways.ts">WirelessPrivateWirelessGateway</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGatewayCreateResponse</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGatewayRetrieveResponse</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGatewayDeleteResponse</a></code>
 
 Methods:
 
-- <code title="get /private_wireless_gateways">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">list</a>({ ...params }) -> PrivateWirelessGatewaysDefaultFlatPagination</code>
+- <code title="get /private_wireless_gateways">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">list</a>({ ...params }) -> WirelessPrivateWirelessGatewaysDefaultFlatPagination</code>
 - <code title="post /private_wireless_gateways">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">create</a>({ ...params }) -> PrivateWirelessGatewayCreateResponse</code>
 - <code title="delete /private_wireless_gateways/{id}">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">delete</a>(id) -> PrivateWirelessGatewayDeleteResponse</code>
 - <code title="get /private_wireless_gateways/{id}">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">retrieve</a>(id) -> PrivateWirelessGatewayRetrieveResponse</code>
