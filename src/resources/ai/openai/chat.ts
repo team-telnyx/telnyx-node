@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as OpenAIChatAPI from './chat';
 import * as ChatAPI from '../chat';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
@@ -32,6 +33,14 @@ export class Chat extends APIResource {
   ): APIPromise<ChatCreateCompletionResponse> {
     return this._client.post('/ai/openai/chat/completions', { body, ...options });
   }
+}
+
+export interface FunctionDefinition {
+  name: string;
+
+  description?: string;
+
+  parameters?: { [key: string]: unknown };
 }
 
 export type ChatCreateCompletionResponse = { [key: string]: unknown };
@@ -299,19 +308,9 @@ export namespace ChatCreateCompletionParams {
   }
 
   export interface Function {
-    function: Function.Function;
+    function: OpenAIChatAPI.FunctionDefinition;
 
     type: 'function';
-  }
-
-  export namespace Function {
-    export interface Function {
-      name: string;
-
-      description?: string;
-
-      parameters?: { [key: string]: unknown };
-    }
   }
 
   export interface Retrieval {
@@ -323,6 +322,7 @@ export namespace ChatCreateCompletionParams {
 
 export declare namespace Chat {
   export {
+    type FunctionDefinition as FunctionDefinition,
     type ChatCreateCompletionResponse as ChatCreateCompletionResponse,
     type ChatCreateCompletionParams as ChatCreateCompletionParams,
   };

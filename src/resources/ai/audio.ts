@@ -1,6 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as AudioAPI from './audio';
 import { APIPromise } from '../../core/api-promise';
 import { type Uploadable } from '../../core/uploads';
 import { RequestOptions } from '../../internal/request-options';
@@ -28,11 +29,55 @@ export class Audio extends APIResource {
 }
 
 /**
+ * Word-level timing detail. Only present when using a `deepgram/*` model with
+ * `model_config` options that enable word timestamps.
+ */
+export interface AudioTranscriptionResponseWord {
+  /**
+   * End time of the word in seconds.
+   */
+  end: number;
+
+  /**
+   * Start time of the word in seconds.
+   */
+  start: number;
+
+  /**
+   * The transcribed word.
+   */
+  word: string;
+
+  /**
+   * Confidence score for the word (0.0 to 1.0).
+   */
+  confidence?: number;
+
+  /**
+   * The transcribed word with punctuation and capitalisation applied. Only present
+   * when `punctuate` or `smart_format` is enabled via `model_config`.
+   */
+  punctuated_word?: string;
+
+  /**
+   * Speaker index. Only present when diarization is enabled via `model_config`.
+   */
+  speaker?: number;
+
+  /**
+   * Confidence score for the speaker assignment (0.0 to 1.0). Only present when
+   * diarization is enabled via `model_config`.
+   */
+  speaker_confidence?: number;
+}
+
+/**
  * Response fields vary by model. `distil-whisper/distil-large-v2` returns `text`,
  * `duration`, and `segments` in `verbose_json` mode.
- * `openai/whisper-large-v3-turbo` returns `text` only. `deepgram/nova-3` returns
- * `text` and, depending on `model_config`, may include `words` with per-word
- * timestamps and speaker labels.
+ * `openai/whisper-large-v3-turbo` returns `text` only. The `deepgram/*` models
+ * return `text` and, depending on `model_config`, may include `words` with
+ * per-word timestamps and speaker labels. The Parakeet models
+ * (`nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`) return `text` only.
  */
 export interface AudioTranscribeResponse {
   /**
@@ -42,23 +87,25 @@ export interface AudioTranscribeResponse {
 
   /**
    * The duration of the audio file in seconds. Returned by
-   * `distil-whisper/distil-large-v2` and `deepgram/nova-3` when `response_format` is
-   * `verbose_json`. Not returned by `openai/whisper-large-v3-turbo`.
+   * `distil-whisper/distil-large-v2` and the `deepgram/*` models when
+   * `response_format` is `verbose_json`. Not returned by
+   * `openai/whisper-large-v3-turbo`.
    */
   duration?: number;
 
   /**
    * Segments of the transcribed text and their corresponding details. Returned by
-   * `distil-whisper/distil-large-v2` when `response_format` is `verbose_json`. Not
-   * returned by `openai/whisper-large-v3-turbo`.
+   * `distil-whisper/distil-large-v2` and the `deepgram/*` models when
+   * `response_format` is `verbose_json`; Deepgram segments also carry nested `words`
+   * and `speakers`. Not returned by `openai/whisper-large-v3-turbo`.
    */
   segments?: Array<AudioTranscribeResponse.Segment>;
 
   /**
-   * Word-level timestamps and optional speaker labels. Only returned by
-   * `deepgram/nova-3` when word-level output is enabled via `model_config`.
+   * Word-level timestamps and optional speaker labels. Only returned by the
+   * `deepgram/*` models when word-level output is enabled via `model_config`.
    */
-  words?: Array<AudioTranscribeResponse.Word>;
+  words?: Array<AudioTranscriptionResponseWord>;
 }
 
 export namespace AudioTranscribeResponse {
@@ -82,37 +129,18 @@ export namespace AudioTranscribeResponse {
      * Text content of the segment.
      */
     text: string;
-  }
-
-  /**
-   * Word-level timing detail. Only present when using `deepgram/nova-3` with
-   * `model_config` options that enable word timestamps.
-   */
-  export interface Word {
-    /**
-     * End time of the word in seconds.
-     */
-    end: number;
 
     /**
-     * Start time of the word in seconds.
+     * Speaker indices heard in this segment. Returned by the `deepgram/*` models when
+     * `diarize` is enabled via `model_config`.
      */
-    start: number;
+    speakers?: Array<number>;
 
     /**
-     * The transcribed word.
+     * Word-level timing detail for this segment. Returned by the `deepgram/*` models
+     * when word-level output is enabled via `model_config`.
      */
-    word: string;
-
-    /**
-     * Confidence score for the word (0.0 to 1.0).
-     */
-    confidence?: number;
-
-    /**
-     * Speaker index. Only present when diarization is enabled via `model_config`.
-     */
-    speaker?: number;
+    words?: Array<AudioAPI.AudioTranscriptionResponseWord>;
   }
 }
 
@@ -120,37 +148,56 @@ export interface AudioTranscribeParams {
   /**
    * ID of the model to use. `distil-whisper/distil-large-v2` is lower latency but
    * English-only. `openai/whisper-large-v3-turbo` is multi-lingual but slightly
-   * higher latency. `deepgram/nova-3` supports English variants (en, en-US, en-GB,
-   * en-AU, en-NZ, en-IN) and only accepts mp3/wav files.
+   * higher latency. The `deepgram/*` models only accept mp3/wav files:
+   * `deepgram/nova-3` covers ~49 languages plus `multi` and `deepgram/nova-2` covers
+   * ~33, while the `-medical` variants are tuned for clinical vocabulary and accept
+   * English only (`en` and its regional variants, e.g. `en-US`, `en-GB`).
+   * `nvidia/parakeet-v3` is multilingual with automatic language detection;
+   * `omi-health/omi-med-stt-v1` is a medical model, English only.
    */
-  model: 'distil-whisper/distil-large-v2' | 'openai/whisper-large-v3-turbo' | 'deepgram/nova-3';
+  model:
+    | 'distil-whisper/distil-large-v2'
+    | 'openai/whisper-large-v3-turbo'
+    | 'deepgram/nova-2'
+    | 'deepgram/nova-2-medical'
+    | 'deepgram/nova-3'
+    | 'deepgram/nova-3-medical'
+    | 'nvidia/parakeet-v3'
+    | 'omi-health/omi-med-stt-v1';
 
   /**
    * The audio file object to transcribe, in one of these formats: flac, mp3, mp4,
    * mpeg, mpga, m4a, ogg, wav, or webm. File uploads are limited to 100 MB. Cannot
-   * be used together with `file_url`. Note: `deepgram/nova-3` only supports mp3 and
-   * wav formats.
+   * be used together with `file_url`. Note: the `deepgram/*` models only support mp3
+   * and wav formats.
    */
   file?: Uploadable;
 
   /**
    * Link to audio file in one of these formats: flac, mp3, mp4, mpeg, mpga, m4a,
    * ogg, wav, or webm. Support for hosted files is limited to 100MB. Cannot be used
-   * together with `file`. Note: `deepgram/nova-3` only supports mp3 and wav formats.
+   * together with `file`. Note: the `deepgram/*` models only support mp3 and wav
+   * formats.
    */
   file_url?: string;
 
   /**
-   * The language of the audio to be transcribed. For `deepgram/nova-3`, only English
-   * variants are supported: `en`, `en-US`, `en-GB`, `en-AU`, `en-NZ`, `en-IN`. For
+   * The language of the audio to be transcribed. `deepgram/nova-3` supports ~49
+   * languages plus `multi`, and `deepgram/nova-2` supports ~33 plus `multi`; the
+   * `-medical` variants are English only (`en` and its regional variants, e.g.
+   * `en-US`, `en-GB`). Deepgram models validate on the base language and forward the
+   * full tag, so regional variants such as `de-CH` and `pt-BR` are accepted where
+   * the base language is supported; an unsupported language returns a 400. For
    * `openai/whisper-large-v3-turbo`, supports multiple languages.
    * `distil-whisper/distil-large-v2` does not support language parameter.
+   * `nvidia/parakeet-v3` detects the language automatically;
+   * `omi-health/omi-med-stt-v1` is English only.
    */
   language?: string;
 
   /**
-   * Additional model-specific configuration parameters. Only allowed with
-   * `deepgram/nova-3` model. Can include Deepgram-specific options such as
+   * Additional model-specific configuration parameters. Only allowed with the
+   * `deepgram/*` models. Can include Deepgram-specific options such as
    * `smart_format`, `punctuate`, `diarize`, `utterance`, `numerals`, and `language`.
    * If `language` is provided both as a top-level parameter and in `model_config`,
    * the top-level parameter takes precedence.
@@ -173,6 +220,7 @@ export interface AudioTranscribeParams {
 
 export declare namespace Audio {
   export {
+    type AudioTranscriptionResponseWord as AudioTranscriptionResponseWord,
     type AudioTranscribeResponse as AudioTranscribeResponse,
     type AudioTranscribeParams as AudioTranscribeParams,
   };

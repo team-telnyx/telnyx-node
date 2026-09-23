@@ -12,4 +12,4 @@ export {
   type FuncRetrieveLogsParams,
   type FuncRetrieveMetricAggregatesParams,
   type FuncRetrieveRevisionsParams,
-} from './funcs';
+} from './funcs/index';

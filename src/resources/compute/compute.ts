@@ -1,7 +1,7 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
-import * as FuncsAPI from './funcs';
+import * as FuncsAPI from './funcs/funcs';
 import {
   FuncRetrieveLogsParams,
   FuncRetrieveLogsResponse,
@@ -13,7 +13,7 @@ import {
   Funcs,
   FunctionsObservabilityPaginationMeta,
   LogsMeta,
-} from './funcs';
+} from './funcs/funcs';
 
 export class Compute extends APIResource {
   funcs: FuncsAPI.Funcs = new FuncsAPI.Funcs(this._client);

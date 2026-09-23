@@ -1680,7 +1680,8 @@ export interface TranscriptionConfig {
    * hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For
    * `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect;
    * ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language. For
-   * `assemblyai/universal-streaming`, `auto` (or unset) enables native multilingual
+   * `assemblyai/universal-3-5-pro` (and its legacy alias
+   * `assemblyai/universal-streaming`), `auto` (or unset) enables native multilingual
    * code-switching; ISO 639-1 codes (`en`, `es`, `de`, `fr`, `pt`, `it`, `tr`, `nl`,
    * `sv`, `no`, `da`, `fi`, `hi`, `vi`, `ar`, `he`, `ja`, `zh`) bias the session to
    * that language. For `humain/realtime`, supported values are `ar`, `en`,
@@ -1703,12 +1704,16 @@ export interface TranscriptionConfig {
    * - `deepgram/nova-3` and `deepgram/nova-2` for live streaming transcription.
    * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming
    *   transcription.
-   * - `assemblyai/universal-streaming` for live streaming transcription.
+   * - `assemblyai/universal-3-5-pro` for live streaming transcription. The legacy
+   *   alias `assemblyai/universal-streaming` is still accepted and resolves to the
+   *   same model.
    * - `xai/grok-stt` for live streaming transcription.
    * - `soniox/stt-rt-v4` for live streaming multilingual transcription with
    *   automatic language detection.
    * - `nvidia/parakeet-v3` for multilingual transcription with automatic language
    *   detection.
+   * - `omi-health/omi-med-stt-v1` for English-only medical transcription
+   *   (Parakeet-based).
    * - `humain/realtime` for live streaming transcription with native Arabic and
    *   Arabic/English code-switching support.
    * - `reson8/turns` for live streaming turn-based transcription of 10 European
@@ -1729,10 +1734,12 @@ export interface TranscriptionConfig {
     | 'deepgram/nova-2'
     | 'speechmatics/standard'
     | 'speechmatics/enhanced'
+    | 'assemblyai/universal-3-5-pro'
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
     | 'soniox/stt-rt-v4'
     | 'nvidia/parakeet-v3'
+    | 'omi-health/omi-med-stt-v1'
     | 'humain/realtime'
     | 'reson8/turns'
     | 'cohere/ar-stt'
@@ -1833,9 +1840,10 @@ export interface TranscriptionEngineAssemblyaiConfig {
   transcription_engine?: 'AssemblyAI';
 
   /**
-   * The model to use for transcription.
+   * The model to use for transcription. `assemblyai/universal-streaming` is a legacy
+   * alias of `assemblyai/universal-3-5-pro` and resolves to the same model.
    */
-  transcription_model?: 'assemblyai/universal-streaming';
+  transcription_model?: 'assemblyai/universal-3-5-pro' | 'assemblyai/universal-streaming';
 }
 
 export interface TranscriptionEngineAzureConfig {
@@ -2085,7 +2093,7 @@ export interface TranscriptionEngineParakeetConfig {
   /**
    * The model to use for transcription.
    */
-  transcription_model?: 'nvidia/parakeet-v3';
+  transcription_model?: 'nvidia/parakeet-v3' | 'omi-health/omi-med-stt-v1';
 }
 
 export interface TranscriptionEngineReson8Config {
@@ -4792,11 +4800,12 @@ export interface ActionTransferParams {
   custom_headers?: Array<CallsAPI.CustomSipHeader>;
 
   /**
-   * The number the inbound call being transferred was originally received on, in
-   * +E164 format. Supplying it lets an unverified non-Telnyx `from` be used as the
-   * caller id, provided that number is still on an active inbound call to this
-   * `diversion` number for your account. The `diversion` number itself must be one
-   * you own or have verified.
+   * The `to` number of an active inbound call, in +E164 format. Telnyx checks
+   * whether there is currently an active inbound call where `to` matches this
+   * `diversion` value and `from` matches the `from` number supplied for this
+   * request. If such a call exists, the `from` number is treated as verified (since
+   * it is already on an active inbound call to you) and can be used as the caller id
+   * for this outbound call.
    */
   diversion?: string;
 
@@ -5045,6 +5054,52 @@ export namespace ActionTransferParams {
      * beeps whose volume is too unsteady for the default profile.
      */
     beep_detection_profile?: 'both' | 'freq_only';
+
+    /**
+     * Highest frequency, in Hz, that a tone can reach and still be treated as a beep.
+     * Only used when beep detection is active.
+     */
+    beep_max_frequency_hz?: number;
+
+    /**
+     * Lowest frequency, in Hz, that a tone must reach to be treated as a beep. Raising
+     * it above 480 excludes North American ringback (440 + 480 Hz), which can
+     * otherwise be reported as a beep when the `freq_only` profile is in use. Only
+     * used when beep detection is active.
+     */
+    beep_min_frequency_hz?: number;
+
+    /**
+     * Shortest tone, in milliseconds, that can be treated as a beep. Raising it
+     * rejects brief tones such as call-progress blips. Only used when beep detection
+     * is active.
+     */
+    beep_min_tone_duration_millis?: number;
+
+    /**
+     * When enabled, a candidate beep must pass an additional spectral check before it
+     * is reported. Only used when beep detection is active.
+     */
+    beep_spectral_confirmation?: boolean;
+
+    /**
+     * Minimum spectral purity, from 0 to 1, for a tone to be treated as a beep.
+     * Raising it rejects mixed tones such as ringback, which combines two frequencies.
+     * Only used when beep detection is active.
+     */
+    beep_spectral_min_purity?: number;
+
+    /**
+     * When enabled, the fax CNG tone is rejected rather than reported as a beep. Only
+     * used when beep detection is active.
+     */
+    beep_spectral_reject_fax_cng?: boolean;
+
+    /**
+     * Length of the spectral confirmation window, in milliseconds. Only used when beep
+     * detection is active.
+     */
+    beep_spectral_window_millis?: number;
 
     /**
      * Maximum threshold for silence between words.

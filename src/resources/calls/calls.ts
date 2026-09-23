@@ -1006,11 +1006,12 @@ export interface CallDialParams {
   dialogflow_config?: DialogflowConfig;
 
   /**
-   * The number the inbound call being transferred was originally received on, in
-   * +E164 format. Supplying it lets an unverified non-Telnyx `from` be used as the
-   * caller id, provided that number is still on an active inbound call to this
-   * `diversion` number for your account. The `diversion` number itself must be one
-   * you own or have verified.
+   * The `to` number of an active inbound call, in +E164 format. Telnyx checks
+   * whether there is currently an active inbound call where `to` matches this
+   * `diversion` value and `from` matches the `from` number supplied for this
+   * request. If such a call exists, the `from` number is treated as verified (since
+   * it is already on an active inbound call to you) and can be used as the caller id
+   * for this outbound call.
    */
   diversion?: string;
 
@@ -1334,6 +1335,52 @@ export namespace CallDialParams {
      * beeps whose volume is too unsteady for the default profile.
      */
     beep_detection_profile?: 'both' | 'freq_only';
+
+    /**
+     * Highest frequency, in Hz, that a tone can reach and still be treated as a beep.
+     * Only used when beep detection is active.
+     */
+    beep_max_frequency_hz?: number;
+
+    /**
+     * Lowest frequency, in Hz, that a tone must reach to be treated as a beep. Raising
+     * it above 480 excludes North American ringback (440 + 480 Hz), which can
+     * otherwise be reported as a beep when the `freq_only` profile is in use. Only
+     * used when beep detection is active.
+     */
+    beep_min_frequency_hz?: number;
+
+    /**
+     * Shortest tone, in milliseconds, that can be treated as a beep. Raising it
+     * rejects brief tones such as call-progress blips. Only used when beep detection
+     * is active.
+     */
+    beep_min_tone_duration_millis?: number;
+
+    /**
+     * When enabled, a candidate beep must pass an additional spectral check before it
+     * is reported. Only used when beep detection is active.
+     */
+    beep_spectral_confirmation?: boolean;
+
+    /**
+     * Minimum spectral purity, from 0 to 1, for a tone to be treated as a beep.
+     * Raising it rejects mixed tones such as ringback, which combines two frequencies.
+     * Only used when beep detection is active.
+     */
+    beep_spectral_min_purity?: number;
+
+    /**
+     * When enabled, the fax CNG tone is rejected rather than reported as a beep. Only
+     * used when beep detection is active.
+     */
+    beep_spectral_reject_fax_cng?: boolean;
+
+    /**
+     * Length of the spectral confirmation window, in milliseconds. Only used when beep
+     * detection is active.
+     */
+    beep_spectral_window_millis?: number;
 
     /**
      * Maximum threshold for silence between words.

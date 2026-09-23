@@ -77,7 +77,12 @@ export {
   type AssistantCloneParams,
   type AssistantSendSMSParams,
 } from './assistants/index';
-export { Audio, type AudioTranscribeResponse, type AudioTranscribeParams } from './audio';
+export {
+  Audio,
+  type AudioTranscriptionResponseWord,
+  type AudioTranscribeResponse,
+  type AudioTranscribeParams,
+} from './audio';
 export { Chat, type BucketIDs, type ChatCompletionRequest } from './chat';
 export {
   Clusters,
@@ -160,3 +165,4 @@ export {
   type ToolUpdateParams,
   type SharedToolResponsesDefaultFlatPagination,
 } from './tools';
+export { Typesafe } from './typesafe/index';

@@ -4320,6 +4320,30 @@ export interface InboundSipHeader {
   value: string;
 }
 
+export interface MessagingInboundMessage {
+  /**
+   * Identifies the type of resource.
+   */
+  id?: string;
+
+  /**
+   * The type of event being delivered.
+   */
+  event_type?: 'message.received';
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  occurred_at?: string;
+
+  payload?: MessagesAPI.MessagingInboundMessagePayload;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: 'event';
+}
+
 export interface NumberOrderStatusUpdate {
   data: NumberOrderStatusUpdate.Data;
 
@@ -4336,7 +4360,7 @@ export namespace NumberOrderStatusUpdate {
     /**
      * The type of event being sent
      */
-    event_type: string;
+    event_type: 'number_order.complete';
 
     /**
      * ISO 8601 timestamp of when the event occurred
@@ -4373,7 +4397,7 @@ export interface OutboundMessage {
   /**
    * The type of event being delivered.
    */
-  event_type?: 'message.sent' | 'message.finalized';
+  event_type?: 'message.sent' | 'message.finalized' | 'message.read';
 
   /**
    * ISO 8601 formatted date indicating when the resource was created.
@@ -5883,33 +5907,7 @@ export namespace HostedNumberOrderEventWebhookEvent {
 }
 
 export interface InboundMessageWebhookEvent {
-  data?: InboundMessageWebhookEvent.Data;
-}
-
-export namespace InboundMessageWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'message.received';
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    occurred_at?: string;
-
-    payload?: MessagesAPI.MessagingInboundMessagePayload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
+  data?: MessagingInboundMessage;
 }
 
 export interface NumberOrderStatusUpdateWebhookEvent {
@@ -5928,7 +5926,7 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
     /**
      * The type of event being sent
      */
-    event_type: string;
+    event_type: 'number_order.complete';
 
     /**
      * ISO 8601 timestamp of when the event occurred
@@ -7472,33 +7470,7 @@ export namespace HostedNumberOrderEventWebhookEvent {
 }
 
 export interface InboundMessageWebhookEvent {
-  data?: InboundMessageWebhookEvent.Data;
-}
-
-export namespace InboundMessageWebhookEvent {
-  export interface Data {
-    /**
-     * Identifies the type of resource.
-     */
-    id?: string;
-
-    /**
-     * The type of event being delivered.
-     */
-    event_type?: 'message.received';
-
-    /**
-     * ISO 8601 formatted date indicating when the resource was created.
-     */
-    occurred_at?: string;
-
-    payload?: MessagesAPI.MessagingInboundMessagePayload;
-
-    /**
-     * Identifies the type of the resource.
-     */
-    record_type?: 'event';
-  }
+  data?: MessagingInboundMessage;
 }
 
 export interface NumberOrderStatusUpdateWebhookEvent {
@@ -7517,7 +7489,7 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
     /**
      * The type of event being sent
      */
-    event_type: string;
+    event_type: 'number_order.complete';
 
     /**
      * ISO 8601 timestamp of when the event occurred
@@ -8060,6 +8032,7 @@ export declare namespace Webhooks {
     type FaxSendingStarted as FaxSendingStarted,
     type InboundMessage as InboundMessage,
     type InboundSipHeader as InboundSipHeader,
+    type MessagingInboundMessage as MessagingInboundMessage,
     type NumberOrderStatusUpdate as NumberOrderStatusUpdate,
     type OutboundMessage as OutboundMessage,
     type ReplacedLinkClick as ReplacedLinkClick,

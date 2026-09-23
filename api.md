@@ -286,6 +286,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">FaxSendingStarted</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundSipHeader</a></code>
+- <code><a href="./src/resources/webhooks.ts">MessagingInboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdate</a></code>
 - <code><a href="./src/resources/webhooks.ts">OutboundMessage</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClick</a></code>
@@ -761,6 +762,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/audio.ts">AudioTranscriptionResponseWord</a></code>
 - <code><a href="./src/resources/ai/audio.ts">AudioTranscribeResponse</a></code>
 
 Methods:
@@ -1169,6 +1171,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/openai/chat.ts">FunctionDefinition</a></code>
 - <code><a href="./src/resources/ai/openai/chat.ts">ChatCreateCompletionResponse</a></code>
 
 Methods:
@@ -1215,6 +1218,18 @@ Types:
 Methods:
 
 - <code title="get /ai/knowledge/collections/{slug}/documents">client.ai.knowledge.collections.<a href="./src/resources/ai/knowledge/collections.ts">retrieveDocuments</a>(slug, { ...params }) -> CollectionRetrieveDocumentsResponse</code>
+
+## Typesafe
+
+### V1
+
+Types:
+
+- <code><a href="./src/resources/ai/typesafe/v1.ts">V1SystemoneResponse</a></code>
+
+Methods:
+
+- <code title="post /ai/typesafe/v1/systemone">client.ai.typesafe.v1.<a href="./src/resources/ai/typesafe/v1.ts">systemone</a>({ ...params }) -> V1SystemoneResponse</code>
 
 # AuditEvents
 
@@ -1645,12 +1660,14 @@ Types:
 - <code><a href="./src/resources/connections.ts">Connection</a></code>
 - <code><a href="./src/resources/connections.ts">ConnectionRetrieveResponse</a></code>
 - <code><a href="./src/resources/connections.ts">ConnectionListActiveCallsResponse</a></code>
+- <code><a href="./src/resources/connections.ts">ConnectionRetrieveCountResponse</a></code>
 
 Methods:
 
 - <code title="get /connections">client.connections.<a href="./src/resources/connections.ts">list</a>({ ...params }) -> ConnectionsDefaultFlatPagination</code>
 - <code title="get /connections/{connection_id}/active_calls">client.connections.<a href="./src/resources/connections.ts">listActiveCalls</a>(connectionID, { ...params }) -> ConnectionListActiveCallsResponsesDefaultFlatPagination</code>
 - <code title="get /connections/{id}">client.connections.<a href="./src/resources/connections.ts">retrieve</a>(id) -> ConnectionRetrieveResponse</code>
+- <code title="get /connections/count">client.connections.<a href="./src/resources/connections.ts">retrieveCount</a>() -> ConnectionRetrieveCountResponse</code>
 
 # CountryCoverage
 
@@ -4136,6 +4153,16 @@ Methods:
 - <code title="post /texml/secrets">client.texml.<a href="./src/resources/texml/texml.ts">secrets</a>({ ...params }) -> TexmlSecretsResponse</code>
 - <code title="post /texml/ai_calls/{connection_id}">client.texml.<a href="./src/resources/texml/texml.ts">initiateAICall</a>(connectionID, { ...params }) -> TexmlInitiateAICallResponse</code>
 
+## Calls
+
+Types:
+
+- <code><a href="./src/resources/texml/calls.ts">CallCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /texml/calls/{connection_id}">client.texml.calls.<a href="./src/resources/texml/calls.ts">create</a>(connectionID, { ...params }) -> CallCreateResponse</code>
+
 ## Accounts
 
 Types:
@@ -5872,16 +5899,79 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/compute/funcs.ts">FunctionsObservabilityPaginationMeta</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">LogsMeta</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveLogsResponse</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveMetricAggregatesResponse</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveRevisionsResponse</a></code>
-- <code><a href="./src/resources/compute/funcs.ts">FuncRetrieveShipInspectionResponse</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FunctionsObservabilityPaginationMeta</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">LogsMeta</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveLogsResponse</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveMetricAggregatesResponse</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveRevisionsResponse</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveShipInspectionResponse</a></code>
 
 Methods:
 
-- <code title="get /compute/funcs/{id}/logs">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveLogs</a>(id, { ...params }) -> FuncRetrieveLogsResponse</code>
-- <code title="get /compute/funcs/{id}/metric_aggregates">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveMetricAggregates</a>(id, { ...params }) -> FuncRetrieveMetricAggregatesResponse</code>
-- <code title="get /compute/funcs/{id}/revisions">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveRevisions</a>(id, { ...params }) -> FuncRetrieveRevisionsResponse</code>
-- <code title="get /compute/funcs/{id}/ship_inspection">client.compute.funcs.<a href="./src/resources/compute/funcs.ts">retrieveShipInspection</a>(id) -> FuncRetrieveShipInspectionResponse</code>
+- <code title="get /compute/funcs/{id}/logs">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveLogs</a>(id, { ...params }) -> FuncRetrieveLogsResponse</code>
+- <code title="get /compute/funcs/{id}/metric_aggregates">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveMetricAggregates</a>(id, { ...params }) -> FuncRetrieveMetricAggregatesResponse</code>
+- <code title="get /compute/funcs/{id}/revisions">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveRevisions</a>(id, { ...params }) -> FuncRetrieveRevisionsResponse</code>
+- <code title="get /compute/funcs/{id}/ship_inspection">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveShipInspection</a>(id) -> FuncRetrieveShipInspectionResponse</code>
+
+### Export
+
+Types:
+
+- <code><a href="./src/resources/compute/funcs/export.ts">FuncLogExportConfigResponse</a></code>
+
+Methods:
+
+- <code title="delete /compute/funcs/{id}/logs/export">client.compute.funcs.export.<a href="./src/resources/compute/funcs/export.ts">deleteAll</a>(id) -> void</code>
+- <code title="get /compute/funcs/{id}/logs/export">client.compute.funcs.export.<a href="./src/resources/compute/funcs/export.ts">list</a>(id) -> FuncLogExportConfigResponse</code>
+- <code title="put /compute/funcs/{id}/logs/export">client.compute.funcs.export.<a href="./src/resources/compute/funcs/export.ts">create</a>(id, { ...params }) -> FuncLogExportConfigResponse</code>
+
+# NoiseSuppressionEngines
+
+Types:
+
+- <code><a href="./src/resources/noise-suppression-engines.ts">NoiseSuppressionEngineListResponse</a></code>
+
+Methods:
+
+- <code title="get /noise_suppression_engines">client.noiseSuppressionEngines.<a href="./src/resources/noise-suppression-engines.ts">list</a>() -> NoiseSuppressionEngineListResponse</code>
+
+# BotChallenge
+
+Types:
+
+- <code><a href="./src/resources/bot-challenge.ts">BotChallengeCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/bot_challenge">client.botChallenge.<a href="./src/resources/bot-challenge.ts">create</a>({ ...params }) -> BotChallengeCreateResponse</code>
+
+# BotSessions
+
+Types:
+
+- <code><a href="./src/resources/bot-sessions.ts">BotSessionListResponse</a></code>
+
+Methods:
+
+- <code title="get /v2/bot_sessions">client.botSessions.<a href="./src/resources/bot-sessions.ts">list</a>({ ...params }) -> BotSessionListResponse</code>
+
+# BotSignup
+
+Types:
+
+- <code><a href="./src/resources/bot-signup.ts">SuccessResponse</a></code>
+
+Methods:
+
+- <code title="post /v2/bot_signup">client.botSignup.<a href="./src/resources/bot-signup.ts">create</a>({ ...params }) -> SuccessResponse</code>
+- <code title="post /v2/bot_signup/resend_magic_link">client.botSignup.<a href="./src/resources/bot-signup.ts">resendMagicLink</a>({ ...params }) -> SuccessResponse</code>
+
+# MachinePayments
+
+Types:
+
+- <code><a href="./src/resources/machine-payments.ts">MachinePaymentAccountCreditResponse</a></code>
+
+Methods:
+
+- <code title="post /machine-payments/account-credit">client.machinePayments.<a href="./src/resources/machine-payments.ts">accountCredit</a>({ ...params }) -> MachinePaymentAccountCreditResponse</code>
