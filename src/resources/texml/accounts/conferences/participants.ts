@@ -485,12 +485,58 @@ export interface ParticipantParticipantsParams {
   MachineDetection?: 'Enable' | 'DetectMessageEnd';
 
   /**
+   * Body param: Highest frequency, in Hz, that a tone can reach and still be treated
+   * as a beep. Only used when MachineDetection is enabled.
+   */
+  MachineDetectionBeepMaxFrequency?: number;
+
+  /**
+   * Body param: Lowest frequency, in Hz, that a tone must reach to be treated as a
+   * beep. Raising it above 480 excludes North American ringback (440 + 480 Hz),
+   * which can otherwise be reported as a beep when the `freq_only` profile is in
+   * use. Only used when MachineDetection is enabled.
+   */
+  MachineDetectionBeepMinFrequency?: number;
+
+  /**
+   * Body param: Shortest tone, in milliseconds, that can be treated as a beep.
+   * Raising it rejects brief tones such as call-progress blips. Only used when
+   * MachineDetection is enabled.
+   */
+  MachineDetectionBeepMinToneDuration?: number;
+
+  /**
    * Body param: Selects which detectors must validate a beep. `both` requires the
    * amplitude and frequency detectors to agree. `freq_only` uses the frequency
    * detector alone, for beeps whose volume is too unsteady for the default profile.
    * Only used when MachineDetection is enabled.
    */
   MachineDetectionBeepProfile?: 'both' | 'freq_only';
+
+  /**
+   * Body param: When enabled, a candidate beep must pass an additional spectral
+   * check before it is reported. Only used when MachineDetection is enabled.
+   */
+  MachineDetectionBeepSpectralConfirmation?: boolean;
+
+  /**
+   * Body param: Minimum spectral purity, from 0 to 1, for a tone to be treated as a
+   * beep. Raising it rejects mixed tones such as ringback, which combines two
+   * frequencies. Only used when MachineDetection is enabled.
+   */
+  MachineDetectionBeepSpectralMinPurity?: number;
+
+  /**
+   * Body param: When enabled, the fax CNG tone is rejected rather than reported as a
+   * beep. Only used when MachineDetection is enabled.
+   */
+  MachineDetectionBeepSpectralRejectFaxCng?: boolean;
+
+  /**
+   * Body param: Length of the spectral confirmation window, in milliseconds. Only
+   * used when MachineDetection is enabled.
+   */
+  MachineDetectionBeepSpectralWindow?: number;
 
   /**
    * Body param: If initial silence duration is greater than this value, consider it

@@ -674,6 +674,13 @@ describe('resource actions', () => {
       answering_machine_detection_config: {
         after_greeting_silence_millis: 1000,
         beep_detection_profile: 'freq_only',
+        beep_max_frequency_hz: 2000,
+        beep_min_frequency_hz: 550,
+        beep_min_tone_duration_millis: 300,
+        beep_spectral_confirmation: true,
+        beep_spectral_min_purity: 0.8,
+        beep_spectral_reject_fax_cng: true,
+        beep_spectral_window_millis: 100,
         between_words_silence_millis: 1000,
         greeting_duration_millis: 1000,
         greeting_silence_duration_millis: 2000,
