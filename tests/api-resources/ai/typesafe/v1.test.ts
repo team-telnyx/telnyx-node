@@ -67,6 +67,7 @@ describe('resource v1', () => {
         },
       },
       state: 'Our production calls are failing. Every customer is affected.',
+      model: 'telnyx/decision-flash',
     });
   });
 });
