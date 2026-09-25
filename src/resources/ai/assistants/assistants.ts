@@ -2396,6 +2396,14 @@ export interface InferenceEmbeddingWebhookToolParams {
    * per assistant).
    */
   shared?: boolean;
+
+  /**
+   * The maximum number of milliseconds to wait for the webhook to respond before the
+   * tool call is aborted. Set this at the tool level, as a sibling of `type` — a
+   * `timeout_ms` nested inside the `webhook` object is stored but not applied, and
+   * the tool runs at this default instead. Applies when `webhook.async` is false.
+   */
+  timeout_ms?: number;
 }
 
 export namespace InferenceEmbeddingWebhookToolParams {
@@ -2507,12 +2515,6 @@ export namespace InferenceEmbeddingWebhookToolParams {
      * dot-notation path to the value in the response body.
      */
     store_fields_as_variables?: Array<Webhook.StoreFieldsAsVariable>;
-
-    /**
-     * The maximum number of milliseconds to wait for the webhook to respond. Only
-     * applicable when async is false.
-     */
-    timeout_ms?: number;
   }
 
   export namespace Webhook {
@@ -3653,6 +3655,14 @@ export interface WebhookTool {
   type: 'webhook';
 
   webhook: WebhookTool.Webhook;
+
+  /**
+   * The maximum number of milliseconds to wait for the webhook to respond before the
+   * tool call is aborted. Set this at the tool level, as a sibling of `type` — a
+   * `timeout_ms` nested inside the `webhook` object is not applied, and the tool
+   * runs at this default instead.
+   */
+  timeout_ms?: number;
 }
 
 export namespace WebhookTool {
