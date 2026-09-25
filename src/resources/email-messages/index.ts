@@ -4,16 +4,17 @@ export {
   EmailMessages,
   type AttachmentRequest,
   type EmailAddressInput,
+  type EmailMessageDetailResponse,
   type MessageEvent,
   type SuppressedRecipient,
   type TrackingSettings,
-  type EmailMessageRetrieveResponse,
   type EmailMessageBatchResponse,
   type EmailMessageDeleteAllParams,
   type EmailMessageListParams,
   type EmailMessageCreateParams,
   type EmailMessageBatchParams,
   type EmailMessageRetrieveEventsParams,
+  type EmailMessageUpdateScheduleParams,
   type MessageEventsEmailCursorPagination,
 } from './email-messages';
 export {

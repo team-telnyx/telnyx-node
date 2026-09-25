@@ -290,7 +290,7 @@ export interface UpdateAssistant {
    */
   version_name?: string;
 
-  voice_settings?: AssistantsAPI.VoiceSettings;
+  voice_settings?: AssistantsAPI.InferenceEmbeddingVoiceSettings;
 
   /**
    * Configuration settings for the assistant's web widget.
@@ -534,7 +534,7 @@ export interface VersionUpdateParams {
   /**
    * Body param
    */
-  voice_settings?: AssistantsAPI.VoiceSettings;
+  voice_settings?: AssistantsAPI.InferenceEmbeddingVoiceSettings;
 
   /**
    * Body param: Configuration settings for the assistant's web widget.

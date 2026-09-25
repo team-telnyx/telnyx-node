@@ -46,10 +46,9 @@ describe('resource meetingSessions', () => {
       meeting_url: 'https://zoom.us/j/1234567890',
       assistant: {
         id: 'asst_fake-uuid-1234',
-        call_control_connection_id: 'conn-fake-abcdef',
-        from: '+12025550199',
-        loopback_sip_uri: 'sip:loopback@example.invalid',
         audio_gate: 'half_duplex',
+        dynamic_variables: { candidate_name: 'Ada Lovelace', role: 'Staff Engineer' },
+        leave_on_end: true,
       },
       avatar: {
         api_key: 'fake_avatar_api_key_do_not_use',
@@ -63,6 +62,7 @@ describe('resource meetingSessions', () => {
           '/9j/4AAQSkZJRgABAQAAAQABAAD/2wBDAAMCAgMCAgMDAwMEAwMEBQgFBQQEBQoHBwYIDAoMDAsKCwsNDhIQDQ4RDgsLEBYQERMUFRUVDA8XGBYUGBIUFRT/wAALCAACAAIBAREA/8QAFAABAAAAAAAAAAAAAAAAAAAACP/EAB4QAAAEBwAAAAAAAAAAAAAAAAAEBgcCFic1RVNi/9oACAEBAAA/AH8hGJbWR09TxKW4vhC2qHgf/9k=',
         format: 'jpeg',
       },
+      chat_on_enter: 'x',
       idempotency_key: 'x',
       join_at: '2019-12-27T18:11:19.117Z',
       metadata: { foo: 'bar' },

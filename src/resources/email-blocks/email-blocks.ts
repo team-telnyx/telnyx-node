@@ -78,9 +78,11 @@ export class EmailBlocks extends APIResource {
    * stream `ORDER BY created_at ASC, id ASC` with no pagination.
    *
    * CSV columns:
-   * `id,to,from,reason,source,scope,status,domain_id, created_at,updated_at,expires_at,group_id`.
-   * The CSV carries the `group_id` column so group-scoped suppressions' group link
-   * survives the export (empty for account-scope rows).
+   * `id,to,from,reason,source,scope,status,domain_id, created_at,updated_at,expires_at,group_id,bounce_category,dsn_code, meta`
+   * (15 columns). The first 12 columns are the stable native signature;
+   * `bounce_category`, `dsn_code`, and `meta` are optional backup fields (empty when
+   * unset). The CSV carries the `group_id` column so group-scoped suppressions'
+   * group link survives the export (empty for account-scope rows).
    *
    * @example
    * ```ts
@@ -201,6 +203,12 @@ export interface EmailBlock {
    */
   domain_id?: string | null;
 
+  /**
+   * Optional expiration time. An active row stops matching send-time suppression
+   * checks as soon as `expires_at <= now()`. A maintenance worker later transitions
+   * the row to `status: expired` and appends an `expired` audit event (normally
+   * within 15 minutes).
+   */
   expires_at?: string | null;
 
   /**
@@ -267,7 +275,7 @@ export interface EmailBlockRetrieveEventsResponse {
 
 /**
  * CSV with header row
- * `id,to,from,reason,source,scope,status,domain_id,created_at,updated_at,expires_at,group_id`.
+ * `id,to,from,reason,source,scope,status,domain_id,created_at,updated_at,expires_at,group_id,bounce_category,dsn_code,meta`.
  */
 export type EmailBlockRetrieveExportResponse = string;
 

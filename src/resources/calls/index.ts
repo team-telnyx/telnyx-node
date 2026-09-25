@@ -16,6 +16,7 @@ export {
   type InterruptionSettings,
   type Loopcount,
   type PayPromptValue,
+  type SonioxVoiceSettings,
   type StopRecordingRequest,
   type SystemMessage,
   type TelnyxTranscriptionLanguage,

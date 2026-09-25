@@ -16,7 +16,7 @@ export class PrivateWirelessGateways extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const privateWirelessGateway of client.privateWirelessGateways.list()) {
+   * for await (const wirelessPrivateWirelessGateway of client.privateWirelessGateways.list()) {
    *   // ...
    * }
    * ```
@@ -24,10 +24,10 @@ export class PrivateWirelessGateways extends APIResource {
   list(
     query: PrivateWirelessGatewayListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PrivateWirelessGatewaysDefaultFlatPagination, PrivateWirelessGateway> {
+  ): PagePromise<WirelessPrivateWirelessGatewaysDefaultFlatPagination, WirelessPrivateWirelessGateway> {
     return this._client.getAPIList(
       '/private_wireless_gateways',
-      DefaultFlatPagination<PrivateWirelessGateway>,
+      DefaultFlatPagination<WirelessPrivateWirelessGateway>,
       { query, ...options },
     );
   }
@@ -84,7 +84,8 @@ export class PrivateWirelessGateways extends APIResource {
   }
 }
 
-export type PrivateWirelessGatewaysDefaultFlatPagination = DefaultFlatPagination<PrivateWirelessGateway>;
+export type WirelessPrivateWirelessGatewaysDefaultFlatPagination =
+  DefaultFlatPagination<WirelessPrivateWirelessGateway>;
 
 export interface PrivateWirelessGateway {
   /**
@@ -180,16 +181,73 @@ export interface PwgAssignedResourcesSummary {
   record_type?: string;
 }
 
+export interface WirelessPrivateWirelessGateway {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
+  /**
+   * The address mode of the private wireless gateway. With static, each SIM card
+   * gets a fixed IP address from the gateway's IP range that is preserved across
+   * sessions. With dynamic, IP addresses are assigned by the network at attach time
+   * and may change between sessions.
+   */
+  address_mode?: 'static' | 'dynamic';
+
+  /**
+   * A list of the resources that have been assigned to the Private Wireless Gateway.
+   */
+  assigned_resources?: Array<PwgAssignedResourcesSummary>;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was created.
+   */
+  created_at?: string;
+
+  /**
+   * IP block used to assign IPs to the SIM cards in the Private Wireless Gateway.
+   */
+  ip_range?: string;
+
+  /**
+   * The private wireless gateway name.
+   */
+  name?: string;
+
+  /**
+   * The identification of the related network resource.
+   */
+  network_id?: string;
+
+  record_type?: string;
+
+  /**
+   * The name of the region where the Private Wireless Gateway is deployed.
+   */
+  region_code?: string;
+
+  /**
+   * The current status or failure details of the Private Wireless Gateway.
+   */
+  status?: PrivateWirelessGatewayStatus;
+
+  /**
+   * ISO 8601 formatted date-time indicating when the resource was updated.
+   */
+  updated_at?: string;
+}
+
 export interface PrivateWirelessGatewayCreateResponse {
-  data?: PrivateWirelessGateway;
+  data?: WirelessPrivateWirelessGateway;
 }
 
 export interface PrivateWirelessGatewayRetrieveResponse {
-  data?: PrivateWirelessGateway;
+  data?: WirelessPrivateWirelessGateway;
 }
 
 export interface PrivateWirelessGatewayDeleteResponse {
-  data?: PrivateWirelessGateway;
+  data?: WirelessPrivateWirelessGateway;
 }
 
 export interface PrivateWirelessGatewayListParams extends DefaultFlatPaginationParams {
@@ -231,6 +289,15 @@ export interface PrivateWirelessGatewayCreateParams {
   network_id: string;
 
   /**
+   * Determines how IP addresses are assigned to SIM cards using this gateway. With
+   * static, each SIM card gets a fixed IP address from the gateway's IP range that
+   * is preserved across sessions. With dynamic, an IP address is assigned by the
+   * network at attach time and may change between sessions. If omitted, the gateway
+   * is created with the default address mode, dynamic.
+   */
+  address_mode?: 'static' | 'dynamic';
+
+  /**
    * The code of the region where the private wireless gateway will be assigned. A
    * list of available regions can be found at the regions endpoint
    */
@@ -242,10 +309,11 @@ export declare namespace PrivateWirelessGateways {
     type PrivateWirelessGateway as PrivateWirelessGateway,
     type PrivateWirelessGatewayStatus as PrivateWirelessGatewayStatus,
     type PwgAssignedResourcesSummary as PwgAssignedResourcesSummary,
+    type WirelessPrivateWirelessGateway as WirelessPrivateWirelessGateway,
     type PrivateWirelessGatewayCreateResponse as PrivateWirelessGatewayCreateResponse,
     type PrivateWirelessGatewayRetrieveResponse as PrivateWirelessGatewayRetrieveResponse,
     type PrivateWirelessGatewayDeleteResponse as PrivateWirelessGatewayDeleteResponse,
-    type PrivateWirelessGatewaysDefaultFlatPagination as PrivateWirelessGatewaysDefaultFlatPagination,
+    type WirelessPrivateWirelessGatewaysDefaultFlatPagination as WirelessPrivateWirelessGatewaysDefaultFlatPagination,
     type PrivateWirelessGatewayListParams as PrivateWirelessGatewayListParams,
     type PrivateWirelessGatewayCreateParams as PrivateWirelessGatewayCreateParams,
   };

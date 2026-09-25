@@ -42,7 +42,12 @@ describe('resource emailMessages', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.emailMessages.list(
-        { page_cursor: 'page_cursor', page_size: 1 },
+        {
+          'filter[metadata]': 'filter[metadata]',
+          'filter[tags]': 'filter[tags]',
+          page_cursor: 'page_cursor',
+          page_size: 1,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
@@ -252,5 +257,26 @@ describe('resource emailMessages', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('updateSchedule: only required params', async () => {
+    const responsePromise = client.emailMessages.updateSchedule('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      scheduled_at: '2099-08-07T14:30:00Z',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('updateSchedule: required and optional params', async () => {
+    const response = await client.emailMessages.updateSchedule('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      scheduled_at: '2099-08-07T14:30:00Z',
+    });
   });
 });

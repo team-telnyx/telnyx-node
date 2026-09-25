@@ -353,12 +353,23 @@ export interface NumbersPhoneNumberDetailed {
   inbound_call_screening?: 'disabled' | 'reject_calls' | 'flag_calls';
 
   /**
-   * Identifies the messaging profile associated with the phone number.
+   * Identifies the messaging campaign associated with the phone number's messaging
+   * profile. If the messaging profile details could not be retrieved, this value is
+   * the string `UNAVAILABLE`.
+   */
+  messaging_campaign_id?: string | null;
+
+  /**
+   * Identifies the messaging profile associated with the phone number. If the
+   * messaging profile details could not be retrieved, this value is the string
+   * `UNAVAILABLE`.
    */
   messaging_profile_id?: string | null;
 
   /**
-   * The name of the messaging profile associated with the phone number.
+   * The name of the messaging profile associated with the phone number. If the
+   * messaging profile details could not be retrieved, this value is the string
+   * `UNAVAILABLE`.
    */
   messaging_profile_name?: string | null;
 
