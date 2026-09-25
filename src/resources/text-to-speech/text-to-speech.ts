@@ -118,7 +118,7 @@ export class TextToSpeech extends APIResource {
    * `Authorization: Bearer <API_KEY>` header. Send JSON frames with text to
    * synthesize; receive JSON frames containing base64-encoded audio chunks.
    *
-   * Supported providers: `aws`, `telnyx`, `azure`, `murfai`, `minimax`, `resemble`,
+   * Supported providers: `aws`, `telnyx`, `azure`, `minimax`, `resemble`,
    * `elevenlabs`, `xai`, `humain`.
    *
    * **Connection flow:**
@@ -194,8 +194,8 @@ export namespace StreamServerEvent {
   export interface AudioChunkFrame {
     /**
      * Base64-encoded audio data. May be `null` for providers that use
-     * `drop_concatenated_audio` mode (Telnyx, Minimax, MurfAI, Resemble) — in that
-     * case only streamed chunks carry audio.
+     * `drop_concatenated_audio` mode (Telnyx, Minimax, Resemble) — in that case only
+     * streamed chunks carry audio.
      */
     audio?: string | null;
 
@@ -688,7 +688,7 @@ export interface TextToSpeechRetrieveSpeechParams {
    * TTS provider. Defaults to `telnyx` if not specified. Ignored when `voice` is
    * provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'murfai' | 'resemble' | 'xai' | 'humain';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain';
 
   /**
    * Client-provided socket identifier for tracking. If not provided, one is
