@@ -45,10 +45,20 @@ export class Calls extends APIResource {
    */
   retrieveCalls(
     accountSid: string,
-    query: CallRetrieveCallsParams | null | undefined = {},
+    params: CallRetrieveCallsParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<CallRetrieveCallsResponse> {
-    return this._client.get(path`/texml/Accounts/${accountSid}/Calls`, { query, ...options });
+    const { EndTime_lt, EndTime_gt, StartTime_lt, StartTime_gt, ...query } = params ?? {};
+    return this._client.get(path`/texml/Accounts/${accountSid}/Calls`, {
+      query: {
+        'EndTime<': EndTime_lt,
+        'EndTime>': EndTime_gt,
+        'StartTime<': StartTime_lt,
+        'StartTime>': StartTime_gt,
+        ...query,
+      },
+      ...options,
+    });
   }
 
   /**
@@ -434,14 +444,14 @@ export interface CallRetrieveCallsParams {
   EndTime?: string;
 
   /**
-   * Filters calls by their end date (after). Expected format is YYYY-MM-DD
-   */
-  EndTime_gt?: string;
-
-  /**
    * Filters calls by their end date (before). Expected format is YYYY-MM-DD
    */
   EndTime_lt?: string;
+
+  /**
+   * Filters calls by their end date (after). Expected format is YYYY-MM-DD
+   */
+  EndTime_gt?: string;
 
   /**
    * Filters calls by the from number.
@@ -470,14 +480,14 @@ export interface CallRetrieveCallsParams {
   StartTime?: string;
 
   /**
-   * Filters calls by their start date (after). Expected format is YYYY-MM-DD
-   */
-  StartTime_gt?: string;
-
-  /**
    * Filters calls by their start date (before). Expected format is YYYY-MM-DD
    */
   StartTime_lt?: string;
+
+  /**
+   * Filters calls by their start date (after). Expected format is YYYY-MM-DD
+   */
+  StartTime_gt?: string;
 
   /**
    * Filters calls by status.

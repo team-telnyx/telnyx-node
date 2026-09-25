@@ -807,6 +807,15 @@ export namespace AssistantTool {
         to: string;
 
         /**
+         * DTMF digits to send automatically after the transfer destination answers. Useful
+         * for reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once
+         * the called party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause),
+         * `W` (1s pause), `*`, `#`. Maximum 64 characters. When omitted, no automatic DTMF
+         * is sent.
+         */
+        extension?: string;
+
+        /**
          * The warm transfer message to deliver to this specific target. When set, it takes
          * precedence over the message the assistant composes from
          * `warm_transfer_instructions`.
@@ -817,6 +826,18 @@ export namespace AssistantTool {
          * The name of the target.
          */
         name?: string;
+
+        /**
+         * SIP Authentication password used for SIP challenges. Applies when `to` is a SIP
+         * URI.
+         */
+        sip_auth_password?: string;
+
+        /**
+         * SIP Authentication username used for SIP challenges. Applies when `to` is a SIP
+         * URI.
+         */
+        sip_auth_username?: string;
       }
 
       export interface CustomHeader {
