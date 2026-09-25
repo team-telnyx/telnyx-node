@@ -807,6 +807,15 @@ export namespace AssistantTool {
         to: string;
 
         /**
+         * DTMF digits to send automatically after the transfer destination answers. Useful
+         * for reaching an extension behind an IVR (e.g. `"200"` to dial extension 200 once
+         * the called party picks up). Allowed characters: `0-9`, `A-D`, `w` (0.5s pause),
+         * `W` (1s pause), `*`, `#`. Maximum 64 characters. When omitted, no automatic DTMF
+         * is sent.
+         */
+        extension?: string;
+
+        /**
          * The warm transfer message to deliver to this specific target. When set, it takes
          * precedence over the message the assistant composes from
          * `warm_transfer_instructions`.
@@ -817,6 +826,18 @@ export namespace AssistantTool {
          * The name of the target.
          */
         name?: string;
+
+        /**
+         * SIP Authentication password used for SIP challenges. Applies when `to` is a SIP
+         * URI.
+         */
+        sip_auth_password?: string;
+
+        /**
+         * SIP Authentication username used for SIP challenges. Applies when `to` is a SIP
+         * URI.
+         */
+        sip_auth_username?: string;
       }
 
       export interface CustomHeader {
@@ -1843,7 +1864,7 @@ export interface FlowNode {
   /**
    * Per-node voice override (response form).
    */
-  voice_settings?: VoiceSettings;
+  voice_settings?: InferenceEmbeddingVoiceSettings;
 }
 
 /**
@@ -1935,7 +1956,7 @@ export interface FlowNodeReq {
    * Per-node voice override. Only fields set here override the assistant-level voice
    * settings; unset fields cascade.
    */
-  voice_settings?: VoiceSettings;
+  voice_settings?: InferenceEmbeddingVoiceSettings;
 }
 
 export interface HangupTool {
@@ -2140,7 +2161,7 @@ export interface InferenceEmbedding {
    */
   version_name?: string;
 
-  voice_settings?: VoiceSettings;
+  voice_settings?: InferenceEmbeddingVoiceSettings;
 
   /**
    * Configuration settings for the assistant's web widget.
@@ -2182,6 +2203,184 @@ export interface InferenceEmbeddingInterruptionSettings {
   start_speaking_plan?: StartSpeakingPlan;
 }
 
+export interface InferenceEmbeddingVoiceSettings {
+  /**
+   * The voice to be used by the voice assistant. Check the full list of
+   * [available voices](https://developers.telnyx.com/docs/tts-stt/tts-available-voices)
+   * via our voices API. To use ElevenLabs, you must reference your ElevenLabs API
+   * key as an integration secret under the `api_key_ref` field. See
+   * [integration secrets documentation](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
+   * for details. For Telnyx voices, use `Telnyx.<model_id>.<voice_id>` (e.g.
+   * Telnyx.KokoroTTS.af_heart). For Soniox voices, use `Soniox.tts-rt-v2.<voice_id>`
+   * (e.g. Soniox.tts-rt-v2.Emma); every Soniox voice speaks all supported languages.
+   * The voice portion of the identifier supports
+   * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
+   * using mustache syntax (e.g. `Telnyx.Ultra.{{voice_id}}`). The variable is
+   * resolved at call time from your dynamic variables webhook, allowing you to
+   * select the voice dynamically per call.
+   */
+  voice: string;
+
+  /**
+   * The `identifier` for an integration secret
+   * [/v2/integration_secrets](https://developers.telnyx.com/api-reference/integration-secrets/create-a-secret)
+   * that refers to your ElevenLabs API key. Warning: Free plans are unlikely to work
+   * with this integration.
+   */
+  api_key_ref?: string;
+
+  /**
+   * Optional background audio to play on the call. Use a predefined media bed, or
+   * supply a looped MP3 URL. If a media URL is chosen in the portal, customers can
+   * preview it before saving.
+   */
+  background_audio?:
+    | InferenceEmbeddingVoiceSettings.UnionMember0
+    | InferenceEmbeddingVoiceSettings.UnionMember1
+    | InferenceEmbeddingVoiceSettings.UnionMember2;
+
+  /**
+   * Enables emotionally expressive speech using SSML emotion tags. When enabled, the
+   * assistant uses audio tags like angry, excited, content, and sad to add emotional
+   * nuance. Only supported for Telnyx Ultra voices.
+   */
+  expressive_mode?: boolean;
+
+  /**
+   * Enhances recognition for specific languages and dialects during MiniMax TTS
+   * synthesis. Default is null (no boost). Set to 'auto' for automatic language
+   * detection. Only applicable when using MiniMax voices.
+   */
+  language_boost?:
+    | 'auto'
+    | 'Chinese'
+    | 'Chinese,Yue'
+    | 'English'
+    | 'Arabic'
+    | 'Russian'
+    | 'Spanish'
+    | 'French'
+    | 'Portuguese'
+    | 'German'
+    | 'Turkish'
+    | 'Dutch'
+    | 'Ukrainian'
+    | 'Vietnamese'
+    | 'Indonesian'
+    | 'Japanese'
+    | 'Italian'
+    | 'Korean'
+    | 'Thai'
+    | 'Polish'
+    | 'Romanian'
+    | 'Greek'
+    | 'Czech'
+    | 'Finnish'
+    | 'Hindi'
+    | 'Bulgarian'
+    | 'Danish'
+    | 'Hebrew'
+    | 'Malay'
+    | 'Persian'
+    | 'Slovak'
+    | 'Swedish'
+    | 'Croatian'
+    | 'Filipino'
+    | 'Hungarian'
+    | 'Norwegian'
+    | 'Slovenian'
+    | 'Catalan'
+    | 'Nynorsk'
+    | 'Tamil'
+    | 'Afrikaans'
+    | null;
+
+  /**
+   * Determines how closely the AI should adhere to the original voice when
+   * attempting to replicate it. Only applicable when using ElevenLabs.
+   */
+  similarity_boost?: number;
+
+  /**
+   * Adjusts speech velocity. 1.0 is default speed; values less than 1.0 slow speech;
+   * values greater than 1.0 accelerate it. Only applicable when using ElevenLabs.
+   */
+  speed?: number;
+
+  /**
+   * Determines the style exaggeration of the voice. Amplifies speaker style but
+   * consumes additional resources when set above 0. Only applicable when using
+   * ElevenLabs.
+   */
+  style?: number;
+
+  /**
+   * Determines how stable the voice is and the randomness between each generation.
+   * Lower values create a broader emotional range; higher values produce more
+   * consistent, monotonous output. Only applicable when using ElevenLabs.
+   */
+  temperature?: number;
+
+  /**
+   * Amplifies similarity to the original speaker voice. Increases computational load
+   * and latency slightly. Only applicable when using ElevenLabs.
+   */
+  use_speaker_boost?: boolean;
+
+  /**
+   * The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger
+   * numbers make the voice faster, smaller numbers make it slower. This is only
+   * applicable for Telnyx Natural voices and Soniox voices (0.7 to 1.3 for Soniox).
+   */
+  voice_speed?: number;
+}
+
+export namespace InferenceEmbeddingVoiceSettings {
+  export interface UnionMember0 {
+    /**
+     * Select from predefined media options.
+     */
+    type: 'predefined_media';
+
+    /**
+     * The predefined media to use. `silence` disables background audio.
+     */
+    value: 'silence' | 'office';
+
+    /**
+     * Volume level for the predefined background audio. Supports values from 0.1 to
+     * 1.0 in 0.1 increments.
+     */
+    volume?: number;
+  }
+
+  export interface UnionMember1 {
+    /**
+     * Provide a direct URL to an MP3 file. The audio will loop during the call.
+     */
+    type: 'media_url';
+
+    /**
+     * HTTPS URL to an MP3 file.
+     */
+    value: string;
+  }
+
+  export interface UnionMember2 {
+    /**
+     * Reference a previously uploaded media by its name from Telnyx Media Storage.
+     */
+    type: 'media_name';
+
+    /**
+     * The `name` of a media asset created via
+     * [Media Storage API](https://developers.telnyx.com/api/media-storage/create-media-storage).
+     * The audio will loop during the call.
+     */
+    value: string;
+  }
+}
+
 export interface InferenceEmbeddingWebhookToolParams {
   type: 'webhook';
 
@@ -2197,6 +2396,14 @@ export interface InferenceEmbeddingWebhookToolParams {
    * per assistant).
    */
   shared?: boolean;
+
+  /**
+   * The maximum number of milliseconds to wait for the webhook to respond before the
+   * tool call is aborted. Set this at the tool level, as a sibling of `type` — a
+   * `timeout_ms` nested inside the `webhook` object is stored but not applied, and
+   * the tool runs at this default instead. Applies when `webhook.async` is false.
+   */
+  timeout_ms?: number;
 }
 
 export namespace InferenceEmbeddingWebhookToolParams {
@@ -2308,12 +2515,6 @@ export namespace InferenceEmbeddingWebhookToolParams {
      * dot-notation path to the value in the response body.
      */
     store_fields_as_variables?: Array<Webhook.StoreFieldsAsVariable>;
-
-    /**
-     * The maximum number of milliseconds to wait for the webhook to respond. Only
-     * applicable when async is false.
-     */
-    timeout_ms?: number;
   }
 
   export namespace Webhook {
@@ -3454,6 +3655,14 @@ export interface WebhookTool {
   type: 'webhook';
 
   webhook: WebhookTool.Webhook;
+
+  /**
+   * The maximum number of milliseconds to wait for the webhook to respond before the
+   * tool call is aborted. Set this at the tool level, as a sibling of `type` — a
+   * `timeout_ms` nested inside the `webhook` object is not applied, and the tool
+   * runs at this default instead.
+   */
+  timeout_ms?: number;
 }
 
 export namespace WebhookTool {
@@ -3866,7 +4075,7 @@ export interface AssistantCreateParams {
   /**
    * Body param
    */
-  voice_settings?: VoiceSettings;
+  voice_settings?: InferenceEmbeddingVoiceSettings;
 
   /**
    * Body param: Configuration settings for the assistant's web widget.
@@ -4120,7 +4329,7 @@ export interface AssistantUpdateParams {
    */
   version_name?: string;
 
-  voice_settings?: VoiceSettings;
+  voice_settings?: InferenceEmbeddingVoiceSettings;
 
   /**
    * Configuration settings for the assistant's web widget.
@@ -4244,6 +4453,7 @@ export declare namespace Assistants {
     type ImportMetadata as ImportMetadata,
     type InferenceEmbedding as InferenceEmbedding,
     type InferenceEmbeddingInterruptionSettings as InferenceEmbeddingInterruptionSettings,
+    type InferenceEmbeddingVoiceSettings as InferenceEmbeddingVoiceSettings,
     type InferenceEmbeddingWebhookToolParams as InferenceEmbeddingWebhookToolParams,
     type InsightSettings as InsightSettings,
     type MessagingSettings as MessagingSettings,

@@ -25,11 +25,17 @@ export class Artifacts extends APIResource {
   }
 
   /**
-   * Requests asynchronous generation of one `summary` or `action_items` artifact.
-   * Each type requires its own request. Generation requires transcript content and
-   * configured inference and currently reads at most the first 10,000 segments, so
-   * exceptionally long transcripts may produce incomplete artifacts or fail model
-   * limits.
+   * Requests asynchronous generation of one artifact: `summary`, `action_items`,
+   * `decisions`, `topics`, `open_questions`, or `custom`. Each request produces one
+   * artifact. `custom` is answered from a `prompt` you supply, which is required for
+   * `custom` and rejected on the five named types. Generation requires transcript
+   * content and configured inference and currently reads at most the first 10,000
+   * segments, so exceptionally long transcripts may produce incomplete artifacts or
+   * fail model limits. **Not idempotent, and every call is billed**: each request is
+   * a separate inference run, so a retry or a duplicate POST produces a second
+   * artifact and a second charge. Guard the call rather than relying on the service
+   * to collapse it. The automatic `summarize_on_end` attempt is billed on the same
+   * basis.
    *
    * @example
    * ```ts
@@ -81,11 +87,17 @@ export interface MeetingSessionArtifact {
 
   model_provenance: MeetingSessionArtifact.ModelProvenance | null;
 
+  /**
+   * The prompt that produced this artifact, or null for a named type. Non-null only
+   * when `type` is `custom`; the five named types always return `null`.
+   */
+  prompt: string | null;
+
   session_id: string;
 
   status: 'pending' | 'completed' | 'failed';
 
-  type: 'summary' | 'action_items';
+  type: 'summary' | 'action_items' | 'decisions' | 'topics' | 'open_questions' | 'custom';
 
   updated_at: string;
 }
@@ -110,11 +122,30 @@ export interface ArtifactListResponse {
   data: Array<MeetingSessionArtifact>;
 }
 
-export interface ArtifactCreateParams {
-  /**
-   * Type of artifact to generate from the session.
-   */
-  type: 'summary' | 'action_items';
+export type ArtifactCreateParams = ArtifactCreateParams.NamedArtifact | ArtifactCreateParams.CustomArtifact;
+
+export declare namespace ArtifactCreateParams {
+  export interface NamedArtifact {
+    /**
+     * What to generate from the transcript. `custom` is answered from a `prompt` you
+     * supply; the five named types need none.
+     */
+    type: 'summary' | 'action_items' | 'decisions' | 'topics' | 'open_questions';
+  }
+
+  export interface CustomArtifact {
+    /**
+     * An open-ended request answered from the transcript. Required when `type` is
+     * `custom`, and rejected with 400 on any named type. Trimmed before storage and
+     * echoed back in artifact responses and the `artifact.completed` webhook.
+     */
+    prompt: string;
+
+    /**
+     * Answered from the `prompt` below rather than a fixed question.
+     */
+    type: 'custom';
+  }
 }
 
 export interface ArtifactRetrieveParams {

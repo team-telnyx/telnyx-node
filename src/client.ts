@@ -296,11 +296,11 @@ import {
 import {
   EmailEventListParams,
   EmailEventListResponse,
-  EmailEventListResponsesEmailCursorPagination,
   EmailEventRetrieveStatsParams,
   EmailEventRetrieveStatsResponse,
   EmailEventType,
   EmailEvents,
+  EmailWebhookRecipient,
   TimeRange,
 } from './resources/email-events';
 import {
@@ -744,8 +744,9 @@ import {
   PrivateWirelessGatewayRetrieveResponse,
   PrivateWirelessGatewayStatus,
   PrivateWirelessGateways,
-  PrivateWirelessGatewaysDefaultFlatPagination,
   PwgAssignedResourcesSummary,
+  WirelessPrivateWirelessGateway,
+  WirelessPrivateWirelessGatewaysDefaultFlatPagination,
 } from './resources/private-wireless-gateways';
 import {
   PronunciationDictAliasItem,
@@ -1342,6 +1343,7 @@ import {
   EmailDomainResponse,
   EmailDomainRetrieveDNSRecordsResponse,
   EmailDomainRetrieveHealthResponse,
+  EmailDomainRotateDkimResponse,
   EmailDomainStatus,
   EmailDomainType,
   EmailDomainUpdateParams,
@@ -1364,9 +1366,10 @@ import {
   EmailMessageBatchResponse,
   EmailMessageCreateParams,
   EmailMessageDeleteAllParams,
+  EmailMessageDetailResponse,
   EmailMessageListParams,
   EmailMessageRetrieveEventsParams,
-  EmailMessageRetrieveResponse,
+  EmailMessageUpdateScheduleParams,
   EmailMessages,
   MessageEvent,
   MessageEventsEmailCursorPagination,
@@ -4691,10 +4694,11 @@ export declare namespace Telnyx {
     type PrivateWirelessGateway as PrivateWirelessGateway,
     type PrivateWirelessGatewayStatus as PrivateWirelessGatewayStatus,
     type PwgAssignedResourcesSummary as PwgAssignedResourcesSummary,
+    type WirelessPrivateWirelessGateway as WirelessPrivateWirelessGateway,
     type PrivateWirelessGatewayCreateResponse as PrivateWirelessGatewayCreateResponse,
     type PrivateWirelessGatewayRetrieveResponse as PrivateWirelessGatewayRetrieveResponse,
     type PrivateWirelessGatewayDeleteResponse as PrivateWirelessGatewayDeleteResponse,
-    type PrivateWirelessGatewaysDefaultFlatPagination as PrivateWirelessGatewaysDefaultFlatPagination,
+    type WirelessPrivateWirelessGatewaysDefaultFlatPagination as WirelessPrivateWirelessGatewaysDefaultFlatPagination,
     type PrivateWirelessGatewayListParams as PrivateWirelessGatewayListParams,
     type PrivateWirelessGatewayCreateParams as PrivateWirelessGatewayCreateParams,
   };
@@ -5396,6 +5400,7 @@ export declare namespace Telnyx {
     type EmailDomainVerification as EmailDomainVerification,
     type EmailDomainRetrieveDNSRecordsResponse as EmailDomainRetrieveDNSRecordsResponse,
     type EmailDomainRetrieveHealthResponse as EmailDomainRetrieveHealthResponse,
+    type EmailDomainRotateDkimResponse as EmailDomainRotateDkimResponse,
     type EmailDomainsDefaultFlatPagination as EmailDomainsDefaultFlatPagination,
     type EmailDomainListParams as EmailDomainListParams,
     type EmailDomainCreateParams as EmailDomainCreateParams,
@@ -5406,10 +5411,10 @@ export declare namespace Telnyx {
   export {
     EmailEvents as EmailEvents,
     type EmailEventType as EmailEventType,
+    type EmailWebhookRecipient as EmailWebhookRecipient,
     type TimeRange as TimeRange,
     type EmailEventListResponse as EmailEventListResponse,
     type EmailEventRetrieveStatsResponse as EmailEventRetrieveStatsResponse,
-    type EmailEventListResponsesEmailCursorPagination as EmailEventListResponsesEmailCursorPagination,
     type EmailEventListParams as EmailEventListParams,
     type EmailEventRetrieveStatsParams as EmailEventRetrieveStatsParams,
   };
@@ -5427,10 +5432,10 @@ export declare namespace Telnyx {
     EmailMessages as EmailMessages,
     type AttachmentRequest as AttachmentRequest,
     type EmailAddressInput as EmailAddressInput,
+    type EmailMessageDetailResponse as EmailMessageDetailResponse,
     type MessageEvent as MessageEvent,
     type SuppressedRecipient as SuppressedRecipient,
     type TrackingSettings as TrackingSettings,
-    type EmailMessageRetrieveResponse as EmailMessageRetrieveResponse,
     type EmailMessageBatchResponse as EmailMessageBatchResponse,
     type MessageEventsEmailCursorPagination as MessageEventsEmailCursorPagination,
     type EmailMessageDeleteAllParams as EmailMessageDeleteAllParams,
@@ -5438,6 +5443,7 @@ export declare namespace Telnyx {
     type EmailMessageCreateParams as EmailMessageCreateParams,
     type EmailMessageBatchParams as EmailMessageBatchParams,
     type EmailMessageRetrieveEventsParams as EmailMessageRetrieveEventsParams,
+    type EmailMessageUpdateScheduleParams as EmailMessageUpdateScheduleParams,
   };
 
   export {

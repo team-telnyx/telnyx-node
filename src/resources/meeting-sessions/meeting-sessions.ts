@@ -139,8 +139,6 @@ export class MeetingSessions extends APIResource {
   }
 
   /**
-   * **Not yet available in production** — this route is not currently routed on
-   * api.telnyx.com and returns a generic 404; it is documented ahead of rollout.
    * Irreversibly requests deletion of provider-hosted aggregate recording media
    * under the provider contract. The operation retains the Telnyx-local Meeting
    * session, transcript segments, events, artifacts, and usage records. It is
@@ -353,9 +351,20 @@ export namespace MeetingSession {
     id: string;
 
     /**
-     * Audio gating strategy for the assistant call leg.
+     * Audio gating strategy in force for the assistant call leg.
      */
-    audio_gate: 'none' | 'half_duplex';
+    audio_gate: 'half_duplex' | 'full_duplex';
+
+    /**
+     * The dynamic variables in force for this session, or null when none were
+     * supplied.
+     */
+    dynamic_variables: { [key: string]: string } | null;
+
+    /**
+     * Whether the bot leaves when the Assistant's conversation ends or fails.
+     */
+    leave_on_end: boolean;
   }
 
   /**
@@ -380,6 +389,11 @@ export namespace MeetingSession {
      * sessions reject `barge_in: true`.
      */
     barge_in: boolean;
+
+    /**
+     * The message posted to chat on join, or null when unset.
+     */
+    chat_on_enter: string | null;
 
     /**
      * Text spoken on meeting entry, or null if not set.
@@ -520,10 +534,10 @@ export interface MeetingSessionCreateParams {
   meeting_url: string;
 
   /**
-   * Request options for attaching a voice assistant to the session. Routing fields
-   * (`call_control_connection_id`, `from`, and `loopback_sip_uri`) are used only to
-   * establish the assistant call leg and are omitted from response objects.
-   * `audio_gate` is returned with `id` in the assistant response object.
+   * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the
+   * Meeting service connects it to the meeting directly. The Call Control
+   * connection, caller ID and loopback SIP URI previously required here have been
+   * removed and are now rejected as unknown fields.
    */
   assistant?: MeetingSessionCreateParams.Assistant;
 
@@ -557,6 +571,15 @@ export interface MeetingSessionCreateParams {
     | MeetingSessionCreateParams.MeetingSessionCameraImageURLSource;
 
   /**
+   * A message the bot posts to the meeting's chat as soon as it becomes active —
+   * typically a recording disclosure. Delivered at most once. Independent of
+   * `speak_on_enter`: both may be set, and the chat message posts first because it
+   * does not wait for text-to-speech or avatar startup. Rejected with 422
+   * `unsupported_capability` on platforms without meeting chat.
+   */
+  chat_on_enter?: string;
+
+  /**
    * Client-supplied idempotency key to safely retry creation requests without
    * duplicating sessions. Lookup is scoped to the authenticated account and compares
    * the key only; the request payload is not fingerprinted or compared.
@@ -576,7 +599,10 @@ export interface MeetingSessionCreateParams {
   metadata?: { [key: string]: unknown };
 
   /**
-   * Text the bot speaks when it enters the meeting.
+   * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant`
+   * is attached**: the value is accepted and echoed back on the session, but the
+   * assistant owns the voice and the line is never delivered, with no event
+   * reporting the omission. Use `chat_on_enter` to announce an assistant-backed bot.
    */
   speak_on_enter?: string;
 
@@ -602,10 +628,10 @@ export interface MeetingSessionCreateParams {
 
 export namespace MeetingSessionCreateParams {
   /**
-   * Request options for attaching a voice assistant to the session. Routing fields
-   * (`call_control_connection_id`, `from`, and `loopback_sip_uri`) are used only to
-   * establish the assistant call leg and are omitted from response objects.
-   * `audio_gate` is returned with `id` in the assistant response object.
+   * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the
+   * Meeting service connects it to the meeting directly. The Call Control
+   * connection, caller ID and loopback SIP URI previously required here have been
+   * removed and are now rejected as unknown fields.
    */
   export interface Assistant {
     /**
@@ -614,24 +640,37 @@ export namespace MeetingSessionCreateParams {
     id: string;
 
     /**
-     * Call control connection used to bridge the assistant into the meeting audio.
+     * Audio gating strategy for the assistant call leg. `half_duplex` (default) sends
+     * the assistant a single mixed meeting stream and mutes it while the assistant
+     * speaks, so the assistant cannot hear itself and cannot be interrupted.
+     * `full_duplex` sends a separate stream per participant, which allows barge-in and
+     * removes self-hearing, and COSTS SIGNIFICANTLY MORE: per-participant streams
+     * multiply the per-minute cost by the number of participants.
      */
-    call_control_connection_id: string;
+    audio_gate?: 'half_duplex' | 'full_duplex';
 
     /**
-     * E.164 calling number used as the originating party for the assistant call leg.
+     * Per-conversation values for the
+     * [dynamic variables](/docs/inference/ai-assistants/dynamic-variables) used in the
+     * Assistant's instructions, greeting, or tools. Delivered before the Assistant's
+     * first utterance, so they resolve for the opening line as well as the rest of the
+     * conversation. At most 63 entries; keys 1-128 characters; values must be strings.
+     * The map is budgeted in aggregate at 1,047,552 bytes (1023 KiB) rather than
+     * capped per value. `streaming_audio`, `ai_assistant_streaming_audio` and
+     * `meeting_session_id` are reserved and rejected with `400 invalid_request` --
+     * they toggle provider infrastructure or are set by the service rather than fill a
+     * prompt template.
      */
-    from: string;
+    dynamic_variables?: { [key: string]: string };
 
     /**
-     * SIP URI to which the assistant media loopback is established.
+     * Leave the meeting when the Assistant's conversation reaches a terminal state --
+     * `ended` **or** `failed`. Off by default, which leaves the bot in the meeting
+     * after the Assistant stops. Fires once: a second terminal transition does not
+     * leave twice, and a leave the provider refuses is logged without changing how the
+     * session settles.
      */
-    loopback_sip_uri: string;
-
-    /**
-     * Audio gating strategy for the assistant call leg.
-     */
-    audio_gate?: 'none' | 'half_duplex';
+    leave_on_end?: boolean;
   }
 
   /**

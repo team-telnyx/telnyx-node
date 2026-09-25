@@ -368,6 +368,7 @@ export {
   type EmailDomainVerification,
   type EmailDomainRetrieveDNSRecordsResponse,
   type EmailDomainRetrieveHealthResponse,
+  type EmailDomainRotateDkimResponse,
   type EmailDomainListParams,
   type EmailDomainCreateParams,
   type EmailDomainDeleteParams,
@@ -377,12 +378,12 @@ export {
 export {
   EmailEvents,
   type EmailEventType,
+  type EmailWebhookRecipient,
   type TimeRange,
   type EmailEventListResponse,
   type EmailEventRetrieveStatsResponse,
   type EmailEventListParams,
   type EmailEventRetrieveStatsParams,
-  type EmailEventListResponsesEmailCursorPagination,
 } from './email-events';
 export {
   EmailInboxes,
@@ -396,16 +397,17 @@ export {
   EmailMessages,
   type AttachmentRequest,
   type EmailAddressInput,
+  type EmailMessageDetailResponse,
   type MessageEvent,
   type SuppressedRecipient,
   type TrackingSettings,
-  type EmailMessageRetrieveResponse,
   type EmailMessageBatchResponse,
   type EmailMessageDeleteAllParams,
   type EmailMessageListParams,
   type EmailMessageCreateParams,
   type EmailMessageBatchParams,
   type EmailMessageRetrieveEventsParams,
+  type EmailMessageUpdateScheduleParams,
   type MessageEventsEmailCursorPagination,
 } from './email-messages/email-messages';
 export {
@@ -1129,12 +1131,13 @@ export {
   type PrivateWirelessGateway,
   type PrivateWirelessGatewayStatus,
   type PwgAssignedResourcesSummary,
+  type WirelessPrivateWirelessGateway,
   type PrivateWirelessGatewayCreateResponse,
   type PrivateWirelessGatewayRetrieveResponse,
   type PrivateWirelessGatewayDeleteResponse,
   type PrivateWirelessGatewayListParams,
   type PrivateWirelessGatewayCreateParams,
-  type PrivateWirelessGatewaysDefaultFlatPagination,
+  type WirelessPrivateWirelessGatewaysDefaultFlatPagination,
 } from './private-wireless-gateways';
 export {
   PronunciationDicts,

@@ -2,6 +2,7 @@
 
 import { APIResource } from '../../../core/resource';
 import { APIPromise } from '../../../core/api-promise';
+import { DefaultFlatPagination } from '../../../core/pagination';
 import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -81,7 +82,9 @@ export class Sources extends APIResource {
   }
 }
 
-export interface Source {
+export type SourcesDefaultFlatPagination = DefaultFlatPagination<Source>;
+
+export interface CollectionsSource {
   id?: string;
 
   /**
@@ -104,6 +107,36 @@ export interface Source {
   source_type?: SourceType;
 
   status?: string;
+}
+
+export interface Source {
+  /**
+   * Identifies one source within its profile: an ingested session, or one remembered
+   * fact. Returned by `ingest` and `remember` when the write is accepted.
+   * Re-ingesting a session keeps its source id.
+   */
+  id: string;
+
+  /**
+   * Memories extracted from this source. A memory derived from several sources is
+   * not counted here.
+   */
+  memory_count: number;
+
+  /**
+   * The session this source was ingested as. Null for a remembered fact.
+   */
+  session_id: string | null;
+
+  /**
+   * When the source was first stored.
+   */
+  created_at?: string | null;
+
+  /**
+   * When the source was last written; re-ingesting moves it.
+   */
+  updated_at?: string | null;
 }
 
 export interface SourceRequest {
@@ -132,15 +165,15 @@ export type SourceType = 'voice' | 'meeting_bot' | 'message' | 'bucket';
  * Envelope containing a single collection source.
  */
 export interface SourceCreateResponse {
-  data?: Source;
+  data?: CollectionsSource;
 }
 
 export interface SourceListResponse {
-  data?: Array<Source>;
+  data?: Array<CollectionsSource>;
 }
 
 export interface SourceReplaceResponse {
-  data?: Array<Source>;
+  data?: Array<CollectionsSource>;
 
   /**
    * Reports which source IDs were added, retained, and removed by a replace
@@ -191,6 +224,7 @@ export interface SourceDeleteParams {
 
 export declare namespace Sources {
   export {
+    type CollectionsSource as CollectionsSource,
     type Source as Source,
     type SourceRequest as SourceRequest,
     type SourceType as SourceType,

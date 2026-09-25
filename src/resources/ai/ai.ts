@@ -87,6 +87,7 @@ import {
   ImportMetadata,
   InferenceEmbedding,
   InferenceEmbeddingInterruptionSettings,
+  InferenceEmbeddingVoiceSettings,
   InferenceEmbeddingWebhookToolParams,
   InsightSettings,
   MessagingSettings,
@@ -155,6 +156,8 @@ import * as IntegrationsAPI from './integrations/integrations';
 import { Integration, IntegrationListResponse, Integrations } from './integrations/integrations';
 import * as KnowledgeAPI from './knowledge/knowledge';
 import { Knowledge } from './knowledge/knowledge';
+import * as MemoryAPI from './memory/memory';
+import { Memory } from './memory/memory';
 import * as MissionsAPI from './missions/missions';
 import {
   EventsListResponse,
@@ -195,6 +198,7 @@ export class AI extends APIResource {
   anthropic: AnthropicAPI.Anthropic = new AnthropicAPI.Anthropic(this._client);
   knowledge: KnowledgeAPI.Knowledge = new KnowledgeAPI.Knowledge(this._client);
   typesafe: TypesafeAPI.Typesafe = new TypesafeAPI.Typesafe(this._client);
+  memory: MemoryAPI.Memory = new MemoryAPI.Memory(this._client);
 
   /**
    * Generate a summary of a file's contents.
@@ -642,6 +646,7 @@ AI.Tools = Tools;
 AI.Anthropic = Anthropic;
 AI.Knowledge = Knowledge;
 AI.Typesafe = Typesafe;
+AI.Memory = Memory;
 
 export declare namespace AI {
   export {
@@ -683,6 +688,7 @@ export declare namespace AI {
     type ImportMetadata as ImportMetadata,
     type InferenceEmbedding as InferenceEmbedding,
     type InferenceEmbeddingInterruptionSettings as InferenceEmbeddingInterruptionSettings,
+    type InferenceEmbeddingVoiceSettings as InferenceEmbeddingVoiceSettings,
     type InferenceEmbeddingWebhookToolParams as InferenceEmbeddingWebhookToolParams,
     type InsightSettings as InsightSettings,
     type MessagingSettings as MessagingSettings,
@@ -833,4 +839,6 @@ export declare namespace AI {
   export { Knowledge as Knowledge };
 
   export { Typesafe as Typesafe };
+
+  export { Memory as Memory };
 }

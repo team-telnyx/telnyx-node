@@ -575,6 +575,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ImportMetadata</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbedding</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingInterruptionSettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingVoiceSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingWebhookToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InsightSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">MessagingSettings</a></code>
@@ -828,6 +829,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/collections/sources.ts">CollectionsSource</a></code>
 - <code><a href="./src/resources/ai/collections/sources.ts">Source</a></code>
 - <code><a href="./src/resources/ai/collections/sources.ts">SourceRequest</a></code>
 - <code><a href="./src/resources/ai/collections/sources.ts">SourceType</a></code>
@@ -1231,6 +1233,75 @@ Methods:
 
 - <code title="post /ai/typesafe/v1/systemone">client.ai.typesafe.v1.<a href="./src/resources/ai/typesafe/v1.ts">systemone</a>({ ...params }) -> V1SystemoneResponse</code>
 
+## Memory
+
+### Namespaces
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">NamespaceRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/operations/{operation_id}">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">retrieve</a>(operationID, { ...params }) -> NamespaceRetrieveResponse</code>
+
+#### Profiles
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">PageMeta</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileListResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileDeleteResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileIngestResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRecallResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRememberResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRetrieveSummaryResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/profiles">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">list</a>(namespace, { ...params }) -> ProfileListResponsesDefaultFlatPagination</code>
+- <code title="delete /ai/memory/namespaces/{namespace}/profiles/{profile_id}">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">delete</a>(profileID, { ...params }) -> ProfileDeleteResponse</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/ingest">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ingest</a>(profileID, { ...params }) -> ProfileIngestResponse</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/recall">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">recall</a>(profileID, { ...params }) -> ProfileRecallResponse</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/remember">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">remember</a>(profileID, { ...params }) -> ProfileRememberResponse</code>
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">retrieveSummary</a>(profileID, { ...params }) -> ProfileRetrieveSummaryResponse</code>
+
+##### Memories
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/memories.ts">MemoryRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/memories.ts">MemoryListResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/memories">client.ai.memory.namespaces.profiles.memories.<a href="./src/resources/ai/memory/namespaces/profiles/memories.ts">list</a>(profileID, { ...params }) -> MemoryListResponsesDefaultFlatPagination</code>
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/memories/{memory_id}">client.ai.memory.namespaces.profiles.memories.<a href="./src/resources/ai/memory/namespaces/profiles/memories.ts">retrieve</a>(memoryID, { ...params }) -> MemoryRetrieveResponse</code>
+
+##### Sources
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">SourceRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">SourceDeleteResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/sources">client.ai.memory.namespaces.profiles.sources.<a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">list</a>(profileID, { ...params }) -> SourcesDefaultFlatPagination</code>
+- <code title="delete /ai/memory/namespaces/{namespace}/profiles/{profile_id}/sources/{source_id}">client.ai.memory.namespaces.profiles.sources.<a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">delete</a>(sourceID, { ...params }) -> SourceDeleteResponse</code>
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/sources/{source_id}">client.ai.memory.namespaces.profiles.sources.<a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">retrieve</a>(sourceID, { ...params }) -> SourceRetrieveResponse</code>
+
+#### Settings
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/settings.ts">NamespaceSettingsResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/settings">client.ai.memory.namespaces.settings.<a href="./src/resources/ai/memory/namespaces/settings.ts">list</a>(namespace) -> NamespaceSettingsResponse</code>
+- <code title="patch /ai/memory/namespaces/{namespace}/settings">client.ai.memory.namespaces.settings.<a href="./src/resources/ai/memory/namespaces/settings.ts">patchAll</a>(namespace, { ...params }) -> NamespaceSettingsResponse</code>
+
 # AuditEvents
 
 Types:
@@ -1431,6 +1502,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">InterruptionSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">Loopcount</a></code>
 - <code><a href="./src/resources/calls/actions.ts">PayPromptValue</a></code>
+- <code><a href="./src/resources/calls/actions.ts">SonioxVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">StopRecordingRequest</a></code>
 - <code><a href="./src/resources/calls/actions.ts">SystemMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TelnyxTranscriptionLanguage</a></code>
@@ -3354,13 +3426,14 @@ Types:
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGateway</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGatewayStatus</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PwgAssignedResourcesSummary</a></code>
+- <code><a href="./src/resources/private-wireless-gateways.ts">WirelessPrivateWirelessGateway</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGatewayCreateResponse</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGatewayRetrieveResponse</a></code>
 - <code><a href="./src/resources/private-wireless-gateways.ts">PrivateWirelessGatewayDeleteResponse</a></code>
 
 Methods:
 
-- <code title="get /private_wireless_gateways">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">list</a>({ ...params }) -> PrivateWirelessGatewaysDefaultFlatPagination</code>
+- <code title="get /private_wireless_gateways">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">list</a>({ ...params }) -> WirelessPrivateWirelessGatewaysDefaultFlatPagination</code>
 - <code title="post /private_wireless_gateways">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">create</a>({ ...params }) -> PrivateWirelessGatewayCreateResponse</code>
 - <code title="delete /private_wireless_gateways/{id}">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">delete</a>(id) -> PrivateWirelessGatewayDeleteResponse</code>
 - <code title="get /private_wireless_gateways/{id}">client.privateWirelessGateways.<a href="./src/resources/private-wireless-gateways.ts">retrieve</a>(id) -> PrivateWirelessGatewayRetrieveResponse</code>
@@ -5509,6 +5582,7 @@ Types:
 - <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainVerification</a></code>
 - <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainRetrieveDNSRecordsResponse</a></code>
 - <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainRetrieveHealthResponse</a></code>
+- <code><a href="./src/resources/email-domains/email-domains.ts">EmailDomainRotateDkimResponse</a></code>
 
 Methods:
 
@@ -5520,6 +5594,7 @@ Methods:
 - <code title="get /email_domains/{id}">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">retrieve</a>(id) -> EmailDomainResponse</code>
 - <code title="patch /email_domains/{id}">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">update</a>(id, { ...params }) -> EmailDomainResponse</code>
 - <code title="get /email_domains/{id}/health">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">retrieveHealth</a>(id) -> EmailDomainRetrieveHealthResponse</code>
+- <code title="post /email_domains/{domain_id}/rotate_dkim">client.emailDomains.<a href="./src/resources/email-domains/email-domains.ts">rotateDkim</a>(domainID) -> EmailDomainRotateDkimResponse</code>
 
 ## Webhooks
 
@@ -5543,13 +5618,14 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/email-events.ts">EmailEventType</a></code>
+- <code><a href="./src/resources/email-events.ts">EmailWebhookRecipient</a></code>
 - <code><a href="./src/resources/email-events.ts">TimeRange</a></code>
 - <code><a href="./src/resources/email-events.ts">EmailEventListResponse</a></code>
 - <code><a href="./src/resources/email-events.ts">EmailEventRetrieveStatsResponse</a></code>
 
 Methods:
 
-- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponsesEmailCursorPagination</code>
+- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponse</code>
 - <code title="get /email_events/stats">client.emailEvents.<a href="./src/resources/email-events.ts">retrieveStats</a>({ ...params }) -> EmailEventRetrieveStatsResponse</code>
 
 # EmailInboxes
@@ -5679,10 +5755,10 @@ Types:
 
 - <code><a href="./src/resources/email-messages/email-messages.ts">AttachmentRequest</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailAddressInput</a></code>
+- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageDetailResponse</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">MessageEvent</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">SuppressedRecipient</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">TrackingSettings</a></code>
-- <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageRetrieveResponse</a></code>
 - <code><a href="./src/resources/email-messages/email-messages.ts">EmailMessageBatchResponse</a></code>
 
 Methods:
@@ -5694,7 +5770,8 @@ Methods:
 - <code title="get /email_messages/{email_id}/events">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieveEvents</a>(emailID, { ...params }) -> MessageEventsEmailCursorPagination</code>
 - <code title="delete /email_messages/{email_id}/schedule">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">deleteSchedule</a>(emailID) -> EmailMessageResponse</code>
 - <code title="delete /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">delete</a>(id) -> void</code>
-- <code title="get /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieve</a>(id) -> EmailMessageRetrieveResponse</code>
+- <code title="get /email_messages/{id}">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">retrieve</a>(id) -> EmailMessageDetailResponse</code>
+- <code title="patch /email_messages/{email_id}/schedule">client.emailMessages.<a href="./src/resources/email-messages/email-messages.ts">updateSchedule</a>(emailID, { ...params }) -> EmailMessageDetailResponse</code>
 
 ## Recipients
 

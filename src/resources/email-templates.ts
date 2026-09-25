@@ -139,6 +139,12 @@ export class EmailTemplates extends APIResource {
    * Renders a template using the provided Liquid variables. Missing
    * `template_variables` defaults to `{}`.
    *
+   * When the template has `strict_variables` enabled and a required variable (per
+   * `variable_schema`) is missing, returns 422 naming the variable. When the
+   * template has `autoescape` enabled, the rendered `html_body` expression output is
+   * HTML-escaped at the output boundary; `subject` and `text_body` are not
+   * autoescaped.
+   *
    * @example
    * ```ts
    * const response = await client.emailTemplates.render(
@@ -161,6 +167,13 @@ export type EmailTemplatesEmailCursorPagination = EmailCursorPagination<EmailTem
 export interface EmailTemplate {
   id: string;
 
+  /**
+   * Whether HTML autoescaping is enabled for this template. When `true`, only
+   * rendered `html_body` expression output is HTML-escaped at the output boundary;
+   * `subject` and `text_body` are never autoescaped.
+   */
+  autoescape: boolean;
+
   created_at: string;
 
   html_body: string | null;
@@ -169,13 +182,44 @@ export interface EmailTemplate {
 
   record_type: 'email_template';
 
+  /**
+   * Whether strict variable validation is enabled for this template. When `true`,
+   * sends and renders that are missing a variable marked `required: true` in
+   * `variable_schema` fail with 422 naming the variable.
+   */
+  strict_variables: boolean;
+
   subject: string | null;
 
   text_body: string | null;
 
   updated_at: string;
 
+  /**
+   * Structured variable requirements, or `null` when the template uses only the
+   * legacy `variables` array.
+   */
+  variable_schema: { [key: string]: EmailTemplate.VariableSchema } | null;
+
+  /**
+   * Legacy unstructured variable names. This path remains supported unchanged.
+   */
   variables: Array<string>;
+}
+
+export namespace EmailTemplate {
+  export interface VariableSchema {
+    /**
+     * Whether the variable must be supplied when strict variable validation is
+     * enabled.
+     */
+    required: boolean;
+
+    /**
+     * Default value for an optional variable. Rejected when `required` is `true`.
+     */
+    default?: string;
+  }
 }
 
 export interface EmailTemplateResponse {
@@ -184,11 +228,21 @@ export interface EmailTemplateResponse {
 
 export interface UpdateEmailTemplateRequest {
   /**
+   * Per-template HTML autoescaping setting.
+   */
+  autoescape?: boolean;
+
+  /**
    * Liquid template HTML body.
    */
   html_body?: string | null;
 
   name?: string;
+
+  /**
+   * Per-template strict variable-validation setting.
+   */
+  strict_variables?: boolean;
 
   /**
    * Liquid template subject.
@@ -200,7 +254,28 @@ export interface UpdateEmailTemplateRequest {
    */
   text_body?: string | null;
 
+  /**
+   * Structured variable requirements. Required variables cannot define defaults;
+   * invalid combinations return 422. Set to `null` to clear the schema.
+   */
+  variable_schema?: { [key: string]: UpdateEmailTemplateRequest.VariableSchema } | null;
+
   variables?: Array<string>;
+}
+
+export namespace UpdateEmailTemplateRequest {
+  export interface VariableSchema {
+    /**
+     * Whether the variable must be supplied when strict variable validation is
+     * enabled.
+     */
+    required: boolean;
+
+    /**
+     * Default value for an optional variable. Rejected when `required` is `true`.
+     */
+    default?: string;
+  }
 }
 
 export interface EmailTemplateRenderResponse {
@@ -230,9 +305,31 @@ export interface EmailTemplateCreateParams {
   name: string;
 
   /**
+   * Body param: Per-template HTML autoescaping setting. Defaults to `false` for
+   * backward compatibility. When `true`, the rendered `html_body` HTML-escapes each
+   * Liquid expression's output at the output boundary (after its filters run, before
+   * concatenation with literal template markup). Input values are never mutated and
+   * `subject`/`text_body` are never autoescaped. The boundary escape is idempotent:
+   * HTML entities already present in the output (e.g. from an explicit `escape`
+   * filter) are preserved, so an explicit `escape`/`escape_once` is never
+   * double-escaped, and markup introduced by any later filter in the chain is still
+   * escaped.
+   */
+  autoescape?: boolean;
+
+  /**
    * Body param: Liquid template HTML body.
    */
   html_body?: string | null;
+
+  /**
+   * Body param: Per-template strict variable-validation setting. Defaults to `false`
+   * for backward compatibility. When `true`, a send or render that is missing a
+   * variable marked `required: true` in `variable_schema` fails with 422 naming the
+   * variable. Missing optional variables never fail; their schema `default` (when
+   * set) is applied to the render.
+   */
+  strict_variables?: boolean;
 
   /**
    * Body param: Liquid template subject.
@@ -243,6 +340,17 @@ export interface EmailTemplateCreateParams {
    * Body param: Liquid template text body.
    */
   text_body?: string | null;
+
+  /**
+   * Body param: Structured variable requirements. Required variables cannot define
+   * defaults; invalid combinations return 422. This is independent of the legacy
+   * `variables` array. On render with `strict_variables` enabled: `required`
+   * variables must be supplied as non-empty values — absent, `null`, empty string,
+   * empty object `{}`, and empty array `[]` all fail with 422 naming the variable,
+   * while present values such as `false` and `0` pass (they are present, not empty).
+   * Optional variables fall back to their `default` when absent.
+   */
+  variable_schema?: { [key: string]: EmailTemplateCreateParams.VariableSchema } | null;
 
   /**
    * Body param: Template variables. Auto-extracted from subject/body fields when
@@ -263,13 +371,38 @@ export interface EmailTemplateCreateParams {
   'Idempotency-Key'?: string;
 }
 
+export namespace EmailTemplateCreateParams {
+  export interface VariableSchema {
+    /**
+     * Whether the variable must be supplied when strict variable validation is
+     * enabled.
+     */
+    required: boolean;
+
+    /**
+     * Default value for an optional variable. Rejected when `required` is `true`.
+     */
+    default?: string;
+  }
+}
+
 export interface EmailTemplateReplaceParams {
+  /**
+   * Per-template HTML autoescaping setting.
+   */
+  autoescape?: boolean;
+
   /**
    * Liquid template HTML body.
    */
   html_body?: string | null;
 
   name?: string;
+
+  /**
+   * Per-template strict variable-validation setting.
+   */
+  strict_variables?: boolean;
 
   /**
    * Liquid template subject.
@@ -280,17 +413,48 @@ export interface EmailTemplateReplaceParams {
    * Liquid template text body.
    */
   text_body?: string | null;
+
+  /**
+   * Structured variable requirements. Required variables cannot define defaults;
+   * invalid combinations return 422. Set to `null` to clear the schema.
+   */
+  variable_schema?: { [key: string]: EmailTemplateReplaceParams.VariableSchema } | null;
 
   variables?: Array<string>;
 }
 
+export namespace EmailTemplateReplaceParams {
+  export interface VariableSchema {
+    /**
+     * Whether the variable must be supplied when strict variable validation is
+     * enabled.
+     */
+    required: boolean;
+
+    /**
+     * Default value for an optional variable. Rejected when `required` is `true`.
+     */
+    default?: string;
+  }
+}
+
 export interface EmailTemplateUpdateParams {
+  /**
+   * Per-template HTML autoescaping setting.
+   */
+  autoescape?: boolean;
+
   /**
    * Liquid template HTML body.
    */
   html_body?: string | null;
 
   name?: string;
+
+  /**
+   * Per-template strict variable-validation setting.
+   */
+  strict_variables?: boolean;
 
   /**
    * Liquid template subject.
@@ -302,7 +466,28 @@ export interface EmailTemplateUpdateParams {
    */
   text_body?: string | null;
 
+  /**
+   * Structured variable requirements. Required variables cannot define defaults;
+   * invalid combinations return 422. Set to `null` to clear the schema.
+   */
+  variable_schema?: { [key: string]: EmailTemplateUpdateParams.VariableSchema } | null;
+
   variables?: Array<string>;
+}
+
+export namespace EmailTemplateUpdateParams {
+  export interface VariableSchema {
+    /**
+     * Whether the variable must be supplied when strict variable validation is
+     * enabled.
+     */
+    required: boolean;
+
+    /**
+     * Default value for an optional variable. Rejected when `required` is `true`.
+     */
+    default?: string;
+  }
 }
 
 export interface EmailTemplateRenderParams {

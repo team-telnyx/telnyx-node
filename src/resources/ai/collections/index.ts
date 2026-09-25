@@ -20,6 +20,7 @@ export {
 } from './settings';
 export {
   Sources,
+  type CollectionsSource,
   type Source,
   type SourceRequest,
   type SourceType,
@@ -29,4 +30,5 @@ export {
   type SourceCreateParams,
   type SourceReplaceParams,
   type SourceDeleteParams,
+  type SourcesDefaultFlatPagination,
 } from './sources';

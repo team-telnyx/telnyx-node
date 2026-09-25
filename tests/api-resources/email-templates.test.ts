@@ -47,9 +47,12 @@ describe('resource emailTemplates', () => {
   test.skip('create: required and optional params', async () => {
     const response = await client.emailTemplates.create({
       name: 'Welcome Email',
+      autoescape: true,
       html_body: '<h1>Hello {{ first_name }}</h1>',
+      strict_variables: true,
       subject: 'Welcome, {{ first_name }}!',
       text_body: 'Hello {{ first_name }}',
+      variable_schema: { foo: { required: true, default: 'default' } },
       variables: ['string'],
       'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
