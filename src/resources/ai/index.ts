@@ -141,6 +141,7 @@ export {
   type McpServerUpdateParams,
   type McpServersDefaultFlatPaginationTopLevelArray,
 } from './mcp-servers';
+export { Memory } from './memory/index';
 export {
   Missions,
   type EventsListResponse,

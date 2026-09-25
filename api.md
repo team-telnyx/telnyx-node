@@ -829,6 +829,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/collections/sources.ts">CollectionsSource</a></code>
 - <code><a href="./src/resources/ai/collections/sources.ts">Source</a></code>
 - <code><a href="./src/resources/ai/collections/sources.ts">SourceRequest</a></code>
 - <code><a href="./src/resources/ai/collections/sources.ts">SourceType</a></code>
@@ -1231,6 +1232,75 @@ Types:
 Methods:
 
 - <code title="post /ai/typesafe/v1/systemone">client.ai.typesafe.v1.<a href="./src/resources/ai/typesafe/v1.ts">systemone</a>({ ...params }) -> V1SystemoneResponse</code>
+
+## Memory
+
+### Namespaces
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">NamespaceRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/operations/{operation_id}">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">retrieve</a>(operationID, { ...params }) -> NamespaceRetrieveResponse</code>
+
+#### Profiles
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">PageMeta</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileListResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileDeleteResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileIngestResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRecallResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRememberResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRetrieveSummaryResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/profiles">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">list</a>(namespace, { ...params }) -> ProfileListResponsesDefaultFlatPagination</code>
+- <code title="delete /ai/memory/namespaces/{namespace}/profiles/{profile_id}">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">delete</a>(profileID, { ...params }) -> ProfileDeleteResponse</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/ingest">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ingest</a>(profileID, { ...params }) -> ProfileIngestResponse</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/recall">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">recall</a>(profileID, { ...params }) -> ProfileRecallResponse</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/remember">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">remember</a>(profileID, { ...params }) -> ProfileRememberResponse</code>
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">retrieveSummary</a>(profileID, { ...params }) -> ProfileRetrieveSummaryResponse</code>
+
+##### Memories
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/memories.ts">MemoryRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/memories.ts">MemoryListResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/memories">client.ai.memory.namespaces.profiles.memories.<a href="./src/resources/ai/memory/namespaces/profiles/memories.ts">list</a>(profileID, { ...params }) -> MemoryListResponsesDefaultFlatPagination</code>
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/memories/{memory_id}">client.ai.memory.namespaces.profiles.memories.<a href="./src/resources/ai/memory/namespaces/profiles/memories.ts">retrieve</a>(memoryID, { ...params }) -> MemoryRetrieveResponse</code>
+
+##### Sources
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">SourceRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">SourceDeleteResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/sources">client.ai.memory.namespaces.profiles.sources.<a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">list</a>(profileID, { ...params }) -> SourcesDefaultFlatPagination</code>
+- <code title="delete /ai/memory/namespaces/{namespace}/profiles/{profile_id}/sources/{source_id}">client.ai.memory.namespaces.profiles.sources.<a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">delete</a>(sourceID, { ...params }) -> SourceDeleteResponse</code>
+- <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/sources/{source_id}">client.ai.memory.namespaces.profiles.sources.<a href="./src/resources/ai/memory/namespaces/profiles/sources.ts">retrieve</a>(sourceID, { ...params }) -> SourceRetrieveResponse</code>
+
+#### Settings
+
+Types:
+
+- <code><a href="./src/resources/ai/memory/namespaces/settings.ts">NamespaceSettingsResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/memory/namespaces/{namespace}/settings">client.ai.memory.namespaces.settings.<a href="./src/resources/ai/memory/namespaces/settings.ts">list</a>(namespace) -> NamespaceSettingsResponse</code>
+- <code title="patch /ai/memory/namespaces/{namespace}/settings">client.ai.memory.namespaces.settings.<a href="./src/resources/ai/memory/namespaces/settings.ts">patchAll</a>(namespace, { ...params }) -> NamespaceSettingsResponse</code>
 
 # AuditEvents
 

@@ -13,6 +13,7 @@ import {
 } from './settings';
 import * as SourcesAPI from './sources';
 import {
+  CollectionsSource,
   Source,
   SourceCreateParams,
   SourceCreateResponse,
@@ -166,7 +167,7 @@ export interface Collection {
 
   slug?: string;
 
-  sources?: Array<SourcesAPI.Source>;
+  sources?: Array<SourcesAPI.CollectionsSource>;
 
   status?: string;
 
@@ -239,6 +240,7 @@ export declare namespace Collections {
 
   export {
     Sources as Sources,
+    type CollectionsSource as CollectionsSource,
     type Source as Source,
     type SourceRequest as SourceRequest,
     type SourceType as SourceType,
