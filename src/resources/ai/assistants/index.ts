@@ -29,6 +29,7 @@ export {
   type ImportMetadata,
   type InferenceEmbedding,
   type InferenceEmbeddingInterruptionSettings,
+  type InferenceEmbeddingVoiceSettings,
   type InferenceEmbeddingWebhookToolParams,
   type InsightSettings,
   type MessagingSettings,

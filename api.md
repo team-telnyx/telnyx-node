@@ -575,6 +575,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ImportMetadata</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbedding</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingInterruptionSettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingVoiceSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InferenceEmbeddingWebhookToolParams</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">InsightSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">MessagingSettings</a></code>
@@ -1431,6 +1432,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">InterruptionSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">Loopcount</a></code>
 - <code><a href="./src/resources/calls/actions.ts">PayPromptValue</a></code>
+- <code><a href="./src/resources/calls/actions.ts">SonioxVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">StopRecordingRequest</a></code>
 - <code><a href="./src/resources/calls/actions.ts">SystemMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">TelnyxTranscriptionLanguage</a></code>

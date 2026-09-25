@@ -42,7 +42,7 @@ export class TextToSpeech extends APIResource {
    * parameters.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`,
-   * `resemble`, `xai`, `humain`.
+   * `resemble`, `xai`, `humain`, `soniox`.
    *
    * The Telnyx `Ultra` model supports 44 languages with emotion control, speed
    * adjustment, and volume control. Use the `telnyx` provider-specific parameters to
@@ -86,6 +86,13 @@ export class TextToSpeech extends APIResource {
    *     sample_rate: 'string',
    *     format: 'string',
    *   },
+   *   soniox: {
+   *     voice_id: 'Emma',
+   *     model_id: 'tts-rt-v2',
+   *     language: 'en',
+   *     speed: 1,
+   *     audio_format: 'mp3',
+   *   },
    *   telnyx: {
    *     voice_speed: 1,
    *     response_format: 'mp3',
@@ -119,7 +126,7 @@ export class TextToSpeech extends APIResource {
    * synthesize; receive JSON frames containing base64-encoded audio chunks.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `minimax`, `resemble`,
-   * `elevenlabs`, `xai`, `humain`.
+   * `elevenlabs`, `xai`, `humain`, `soniox`.
    *
    * **Connection flow:**
    *
@@ -337,7 +344,7 @@ export interface TextToSpeechListVoicesParams {
   /**
    * Filter voices by provider. If omitted, voices from all providers are returned.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain' | 'soniox';
 }
 
 export interface TextToSpeechGenerateSpeechParams {
@@ -387,12 +394,18 @@ export interface TextToSpeechGenerateSpeechParams {
   /**
    * TTS provider. Required unless `voice` is provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain' | 'soniox';
 
   /**
    * Resemble AI provider-specific parameters.
    */
   resemble?: TextToSpeechGenerateSpeechParams.Resemble;
+
+  /**
+   * Soniox provider-specific parameters. Every voice speaks all supported languages;
+   * set `language` to the language of the text.
+   */
+  soniox?: TextToSpeechGenerateSpeechParams.Soniox;
 
   /**
    * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`,
@@ -603,6 +616,50 @@ export namespace TextToSpeechGenerateSpeechParams {
   }
 
   /**
+   * Soniox provider-specific parameters. Every voice speaks all supported languages;
+   * set `language` to the language of the text.
+   */
+  export interface Soniox {
+    /**
+     * Soniox voice name from the
+     * [voices listing](https://developers.telnyx.com/api-reference/text-to-speech-commands/list-available-voices),
+     * for example `Emma`.
+     */
+    voice_id: string;
+
+    /**
+     * Audio output format.
+     */
+    audio_format?: 'mp3' | 'wav' | 'pcm_s16le' | 'pcm_mulaw' | 'pcm_alaw';
+
+    /**
+     * Two-letter ISO 639-1 code of the text.
+     */
+    language?: string;
+
+    /**
+     * Soniox model.
+     */
+    model_id?: 'tts-rt-v2';
+
+    /**
+     * Shortens the pauses between words.
+     */
+    reduce_silence?: boolean;
+
+    /**
+     * Audio sample rate in Hz. `pcm_mulaw` and `pcm_alaw` accept 8000 only; `mp3` does
+     * not accept 8000. Defaults to 24000, or 8000 for `pcm_mulaw` and `pcm_alaw`.
+     */
+    sample_rate?: 8000 | 16000 | 24000 | 44100 | 48000;
+
+    /**
+     * Speaking rate. 1.0 is normal speed.
+     */
+    speed?: number;
+  }
+
+  /**
    * Telnyx provider-specific parameters. For the `Ultra` model, use `voice_speed`,
    * `volume`, and `emotion`. `Bayan` and `Sukhan` don't use `temperature`, `volume`,
    * or `emotion`, and don't support `voice_speed`. `Sukhan`'s `response_format` is
@@ -688,7 +745,7 @@ export interface TextToSpeechRetrieveSpeechParams {
    * TTS provider. Defaults to `telnyx` if not specified. Ignored when `voice` is
    * provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain';
+  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain' | 'soniox';
 
   /**
    * Client-provided socket identifier for tracking. If not provided, one is
