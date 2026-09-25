@@ -438,7 +438,7 @@ export namespace MeetingSessionDeleteRecordingMediaResponse {
      */
     meeting_session_id: string;
 
-    provider: 'recall';
+    provider: 'telnyx';
 
     scope: 'provider_recording_media';
   }
