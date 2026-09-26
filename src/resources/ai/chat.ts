@@ -72,9 +72,14 @@ export interface ChatCompletionRequest {
   logprobs?: boolean;
 
   /**
-   * Maximum number of completion tokens the model should generate.
+   * Maximum number of completion (output) tokens the model may generate per request.
+   * Defaults to 8192 when omitted or `null`. Set a higher value to allow longer
+   * completions. The model's `max_completion_tokens` metadata (see
+   * `GET /ai/models`), when set, caps both the default and any larger explicit
+   * value. Reasoning models consume this budget across reasoning and answer tokens
+   * combined.
    */
-  max_tokens?: number;
+  max_tokens?: number | null;
 
   /**
    * This is an alternative to `top_p` that

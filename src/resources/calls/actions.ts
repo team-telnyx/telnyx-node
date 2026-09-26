@@ -4192,9 +4192,12 @@ export interface ActionReferParams {
 
 export interface ActionRejectParams {
   /**
-   * Cause for call rejection.
+   * Cause for call rejection. The cause sets the SIP response the caller receives:
+   * `USER_BUSY` sends 486 User Busy, `CALL_REJECTED` sends 603 Decline, `NOT_FOUND`
+   * sends 404 Not Found, and `TEMPORARILY_UNAVAILABLE` sends 480 Temporarily
+   * Unavailable.
    */
-  cause: 'CALL_REJECTED' | 'USER_BUSY';
+  cause: 'CALL_REJECTED' | 'NOT_FOUND' | 'TEMPORARILY_UNAVAILABLE' | 'USER_BUSY';
 
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
