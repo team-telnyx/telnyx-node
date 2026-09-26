@@ -398,8 +398,9 @@ export interface ModelMetadata {
   is_vision_supported?: boolean;
 
   /**
-   * Maximum number of completion (output) tokens the model will generate per
-   * request. `null` if unconstrained beyond `context_length`.
+   * Maximum completion (output) tokens the model may generate per request. This
+   * value caps the Chat Completions `max_tokens` default and any larger explicit
+   * value on that model. `null` if unconstrained beyond `context_length`.
    */
   max_completion_tokens?: number | null;
 
