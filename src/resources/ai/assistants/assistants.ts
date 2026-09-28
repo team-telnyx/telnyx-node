@@ -1429,7 +1429,7 @@ export interface ConversationFlow {
 export interface ConversationFlowReq {
   /**
    * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node
-   * (`type: prompt`) or a tool node (`type: tool`).
+   * (`type: prompt`), a tool node (`type: tool`), or a speak node (`type: speak`).
    */
   nodes: Array<FlowNodeReq | ToolNodeReq | SpeakNodeReq>;
 
@@ -1960,7 +1960,8 @@ export interface FlowNodeReq {
 
   /**
    * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a
-   * standalone tool execution (see `ToolNodeReq`).
+   * standalone tool execution and `speak` a scripted message (see `ToolNodeReq` /
+   * `SpeakNodeReq`).
    */
   type?: 'prompt';
 
@@ -3181,12 +3182,23 @@ export interface ToolNode {
   /**
    * ID of the single shared (org-level) tool this node executes. When the flow
    * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
-   * `tool_result` edges then route on the outcome. Arguments are filled from the
-   * conversation's dynamic variables by name — a dynamic variable whose name matches
-   * one of the tool's parameters supplies that argument. Cross-validated against the
-   * org's shared tools on write.
+   * `llm` / `expression` edges route the flow on the tool's outcome. Arguments are
+   * filled from the conversation's dynamic variables by name — a dynamic variable
+   * whose name matches one of the tool's parameters supplies that argument.
+   * Cross-validated against the org's shared tools on write.
    */
   shared_tool_id: string;
+
+  /**
+   * Optional message delivered to the user verbatim immediately before the tool
+   * executes — an announcement such as 'One moment while I look that up.' No LLM
+   * turn and no customer turn: the message is spoken/sent, then the tool runs, in
+   * the same deterministic step. `{{variable}}` placeholders are interpolated from
+   * the conversation's dynamic variables (unresolved → empty string); the tool's own
+   * result is not yet available when the message is rendered. Omit for a silent tool
+   * step.
+   */
+  message?: string;
 
   /**
    * Optional human-readable label, displayed in authoring UIs.
@@ -3218,8 +3230,10 @@ export interface ToolNode {
  *
  * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
  * turn. Reaching it deterministically runs one shared tool (arguments filled from
- * matching dynamic variables by name), then routes on the result via outgoing
- * `tool_result` edges.
+ * matching dynamic variables by name), then routes via outgoing `llm` /
+ * `expression` edges, with exactly one `default` fallback edge required when the
+ * node has any outgoing edges (the tool's outcome is readable as
+ * `telnyx_last_tool_status_code` in `expression` conditions).
  */
 export interface ToolNodeReq {
   /**
@@ -3230,12 +3244,23 @@ export interface ToolNodeReq {
   /**
    * ID of the single shared (org-level) tool this node executes. When the flow
    * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
-   * `tool_result` edges then route on the outcome. Arguments are filled from the
-   * conversation's dynamic variables by name — a dynamic variable whose name matches
-   * one of the tool's parameters supplies that argument. Cross-validated against the
-   * org's shared tools on write.
+   * `llm` / `expression` edges route the flow on the tool's outcome. Arguments are
+   * filled from the conversation's dynamic variables by name — a dynamic variable
+   * whose name matches one of the tool's parameters supplies that argument.
+   * Cross-validated against the org's shared tools on write.
    */
   shared_tool_id: string;
+
+  /**
+   * Optional message delivered to the user verbatim immediately before the tool
+   * executes — an announcement such as 'One moment while I look that up.' No LLM
+   * turn and no customer turn: the message is spoken/sent, then the tool runs, in
+   * the same deterministic step. `{{variable}}` placeholders are interpolated from
+   * the conversation's dynamic variables (unresolved → empty string); the tool's own
+   * result is not yet available when the message is rendered. Omit for a silent tool
+   * step.
+   */
+  message?: string;
 
   /**
    * Optional human-readable label, displayed in authoring UIs.
