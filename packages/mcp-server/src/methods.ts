@@ -7733,6 +7733,30 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'post',
     httpPath: '/machine-payments/account-credit',
   },
+  {
+    clientCallName: 'client.spendLimits.list',
+    fullyQualifiedName: 'spendLimits.list',
+    httpMethod: 'get',
+    httpPath: '/spend_limits',
+  },
+  {
+    clientCallName: 'client.spendLimits.create',
+    fullyQualifiedName: 'spendLimits.create',
+    httpMethod: 'post',
+    httpPath: '/spend_limits',
+  },
+  {
+    clientCallName: 'client.spendLimits.delete',
+    fullyQualifiedName: 'spendLimits.delete',
+    httpMethod: 'delete',
+    httpPath: '/spend_limits/{product}',
+  },
+  {
+    clientCallName: 'client.spendLimits.update',
+    fullyQualifiedName: 'spendLimits.update',
+    httpMethod: 'patch',
+    httpPath: '/spend_limits/{product}',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

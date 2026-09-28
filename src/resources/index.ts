@@ -1358,6 +1358,16 @@ export {
   type SpeechToTextListProvidersParams,
   type SpeechToTextRetrieveTranscriptionParams,
 } from './speech-to-text';
+export {
+  SpendLimits,
+  type SpendLimit,
+  type SpendLimitPeriod,
+  type SpendLimitResponse,
+  type SpendLimitListResponse,
+  type SpendLimitCreateParams,
+  type SpendLimitDeleteParams,
+  type SpendLimitUpdateParams,
+} from './spend-limits';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
 export {
   SubNumberOrders,

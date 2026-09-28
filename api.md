@@ -6052,3 +6052,19 @@ Types:
 Methods:
 
 - <code title="post /machine-payments/account-credit">client.machinePayments.<a href="./src/resources/machine-payments.ts">accountCredit</a>({ ...params }) -> MachinePaymentAccountCreditResponse</code>
+
+# SpendLimits
+
+Types:
+
+- <code><a href="./src/resources/spend-limits.ts">SpendLimit</a></code>
+- <code><a href="./src/resources/spend-limits.ts">SpendLimitPeriod</a></code>
+- <code><a href="./src/resources/spend-limits.ts">SpendLimitResponse</a></code>
+- <code><a href="./src/resources/spend-limits.ts">SpendLimitListResponse</a></code>
+
+Methods:
+
+- <code title="get /spend_limits">client.spendLimits.<a href="./src/resources/spend-limits.ts">list</a>() -> SpendLimitListResponse</code>
+- <code title="post /spend_limits">client.spendLimits.<a href="./src/resources/spend-limits.ts">create</a>({ ...params }) -> SpendLimitResponse</code>
+- <code title="delete /spend_limits/{product}">client.spendLimits.<a href="./src/resources/spend-limits.ts">delete</a>(product, { ...params }) -> SpendLimitResponse</code>
+- <code title="patch /spend_limits/{product}">client.spendLimits.<a href="./src/resources/spend-limits.ts">update</a>(product, { ...params }) -> SpendLimitResponse</code>

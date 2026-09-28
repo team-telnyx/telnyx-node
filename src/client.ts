@@ -879,6 +879,16 @@ import {
   SiprecConnectors,
 } from './resources/siprec-connectors';
 import {
+  SpendLimit,
+  SpendLimitCreateParams,
+  SpendLimitDeleteParams,
+  SpendLimitListResponse,
+  SpendLimitPeriod,
+  SpendLimitResponse,
+  SpendLimitUpdateParams,
+  SpendLimits,
+} from './resources/spend-limits';
+import {
   NumbersSubNumberOrder,
   SubNumberOrder,
   SubNumberOrderCancelResponse,
@@ -3292,6 +3302,16 @@ export class Telnyx {
    * Machine payment (MPP) account-credit operations. Fund your Telnyx account programmatically from a machine or agent using the Machine Payment Protocol, an HTTP-402 flow settled via Stripe or Tempo.
    */
   machinePayments: API.MachinePayments = new API.MachinePayments(this);
+  /**
+   * Daily and monthly spend limits per product. A limit applies to the organization of the authenticated user, or to the user's own account when they belong to no organization; every user of the organization sees and changes the same limits.
+   *
+   * - **Periods.** `daily` covers the current UTC day and `monthly` the current UTC calendar month. The two limits are independent: you can set either, both or neither.
+   * - **Blocking.** When spend in a period goes above the limit (strictly greater), the product is blocked until the period ends: 00:00 UTC the next day for `daily`, 00:00 UTC on the 1st of the next month for `monthly`. A block appears within about 2 minutes (daily) or 10 minutes (monthly) of the spend being recorded.
+   * - **Changes apply immediately.** Creating, updating or deleting a limit checks the period's spend in the same request: raising the limit above the spend, or removing it, lifts that period's block, and lowering it below the spend blocks the product at once. The `evaluation` object in the response says what happened.
+   * - **Supported products.** Today only `inference` supports spend limits. A blocked account gets HTTP 403 with the error title `Inference spend limit reached` (code `10039`) on new billable chat completions, Responses, Anthropic Messages and classification requests; requests already running finish normally. Take the list of products from the list operation.
+   * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is listed with `origin: operator` and you can update or delete it like your own.
+   */
+  spendLimits: API.SpendLimits = new API.SpendLimits(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3482,6 +3502,7 @@ Telnyx.BotChallenge = BotChallenge;
 Telnyx.BotSessions = BotSessions;
 Telnyx.BotSignup = BotSignup;
 Telnyx.MachinePayments = MachinePayments;
+Telnyx.SpendLimits = SpendLimits;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5546,6 +5567,17 @@ export declare namespace Telnyx {
     MachinePayments as MachinePayments,
     type MachinePaymentAccountCreditResponse as MachinePaymentAccountCreditResponse,
     type MachinePaymentAccountCreditParams as MachinePaymentAccountCreditParams,
+  };
+
+  export {
+    SpendLimits as SpendLimits,
+    type SpendLimit as SpendLimit,
+    type SpendLimitPeriod as SpendLimitPeriod,
+    type SpendLimitResponse as SpendLimitResponse,
+    type SpendLimitListResponse as SpendLimitListResponse,
+    type SpendLimitCreateParams as SpendLimitCreateParams,
+    type SpendLimitDeleteParams as SpendLimitDeleteParams,
+    type SpendLimitUpdateParams as SpendLimitUpdateParams,
   };
 
   export type APIError = API.APIError;

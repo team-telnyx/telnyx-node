@@ -1398,6 +1398,10 @@ const fuse = new Fuse(
     'client.botSignup.create',
     'client.botSignup.resendMagicLink',
     'client.machinePayments.accountCredit',
+    'client.spendLimits.create',
+    'client.spendLimits.delete',
+    'client.spendLimits.list',
+    'client.spendLimits.update',
   ],
   { threshold: 1, shouldSort: true },
 );
