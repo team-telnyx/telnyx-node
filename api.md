@@ -561,6 +561,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ComparisonExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlow</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlowReq</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">DelegationSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">EnabledFeatures</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Expression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ExternalLlm</a></code>
@@ -600,6 +601,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TransferTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">VoiceSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">WebhookTool</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">WebsocketSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">WidgetSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantDeleteResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantChatResponse</a></code>

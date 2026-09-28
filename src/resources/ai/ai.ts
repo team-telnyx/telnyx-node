@@ -73,6 +73,7 @@ import {
   ComparisonExpression,
   ConversationFlow,
   ConversationFlowReq,
+  DelegationSettings,
   EnabledFeatures,
   Expression,
   ExternalLlm,
@@ -112,6 +113,7 @@ import {
   TransferTool,
   VoiceSettings,
   WebhookTool,
+  WebsocketSettings,
   WidgetSettings,
 } from './assistants/assistants';
 import * as CollectionsAPI from './collections/collections';
@@ -675,6 +677,7 @@ export declare namespace AI {
     type ComparisonExpression as ComparisonExpression,
     type ConversationFlow as ConversationFlow,
     type ConversationFlowReq as ConversationFlowReq,
+    type DelegationSettings as DelegationSettings,
     type EnabledFeatures as EnabledFeatures,
     type Expression as Expression,
     type ExternalLlm as ExternalLlm,
@@ -714,6 +717,7 @@ export declare namespace AI {
     type TransferTool as TransferTool,
     type VoiceSettings as VoiceSettings,
     type WebhookTool as WebhookTool,
+    type WebsocketSettings as WebsocketSettings,
     type WidgetSettings as WidgetSettings,
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
