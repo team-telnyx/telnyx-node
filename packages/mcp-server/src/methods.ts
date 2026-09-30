@@ -1333,6 +1333,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/memory/namespaces/{namespace}/operations/{operation_id}',
   },
   {
+    clientCallName: 'client.ai.memory.namespaces.list',
+    fullyQualifiedName: 'ai.memory.namespaces.list',
+    httpMethod: 'get',
+    httpPath: '/ai/memory/namespaces',
+  },
+  {
+    clientCallName: 'client.ai.memory.namespaces.create',
+    fullyQualifiedName: 'ai.memory.namespaces.create',
+    httpMethod: 'post',
+    httpPath: '/ai/memory/namespaces',
+  },
+  {
+    clientCallName: 'client.ai.memory.namespaces.delete',
+    fullyQualifiedName: 'ai.memory.namespaces.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/memory/namespaces/{namespace}',
+  },
+  {
     clientCallName: 'client.ai.memory.namespaces.profiles.list',
     fullyQualifiedName: 'ai.memory.namespaces.profiles.list',
     httpMethod: 'get',

@@ -22,12 +22,10 @@ import {
   Profiles,
 } from './profiles/profiles';
 import { APIPromise } from '../../../../core/api-promise';
+import { buildHeaders } from '../../../../internal/headers';
 import { RequestOptions } from '../../../../internal/request-options';
 import { path } from '../../../../internal/utils/path';
 
-/**
- * Whether a write has finished.
- */
 export class Namespaces extends APIResource {
   profiles: ProfilesAPI.Profiles = new ProfilesAPI.Profiles(this._client);
   settings: SettingsAPI.Settings = new SettingsAPI.Settings(this._client);
@@ -54,6 +52,71 @@ export class Namespaces extends APIResource {
     const { namespace } = params;
     return this._client.get(path`/ai/memory/namespaces/${namespace}/operations/${operationID}`, options);
   }
+
+  /**
+   * Every namespace in your organization, `default` among them.
+   *
+   * @example
+   * ```ts
+   * const namespaces = await client.ai.memory.namespaces.list();
+   * ```
+   */
+  list(options?: RequestOptions): APIPromise<NamespaceListResponse> {
+    return this._client.get('/ai/memory/namespaces', options);
+  }
+
+  /**
+   * Create a namespace. An organization can have at most five, `default` among them
+   * — a sixth returns `403`.
+   *
+   * @example
+   * ```ts
+   * const namespace = await client.ai.memory.namespaces.create({
+   *   name: 'staging',
+   * });
+   * ```
+   */
+  create(body: NamespaceCreateParams, options?: RequestOptions): APIPromise<NamespaceCreateResponse> {
+    return this._client.post('/ai/memory/namespaces', { body, ...options });
+  }
+
+  /**
+   * Delete a namespace and every profile and memory in it. `default` cannot be
+   * deleted. This cannot be undone.
+   *
+   * @example
+   * ```ts
+   * await client.ai.memory.namespaces.delete('namespace');
+   * ```
+   */
+  delete(namespace: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/memory/namespaces/${namespace}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
+  }
+}
+
+/**
+ * An isolated memory store within your organization.
+ */
+export interface Namespace {
+  /**
+   * The namespace's unique identifier.
+   */
+  id: string;
+
+  /**
+   * The namespace's name, used in the path. `default` exists for every organization.
+   */
+  name: string;
+}
+
+export interface NamespaceCreateResponse {
+  /**
+   * An isolated memory store within your organization.
+   */
+  data: Namespace;
 }
 
 export interface NamespaceRetrieveResponse {
@@ -77,8 +140,19 @@ export namespace NamespaceRetrieveResponse {
   }
 }
 
+export interface NamespaceListResponse {
+  data: Array<Namespace>;
+}
+
 export interface NamespaceRetrieveParams {
   namespace: string;
+}
+
+export interface NamespaceCreateParams {
+  /**
+   * A name for the new namespace, unique within your organization.
+   */
+  name: string;
 }
 
 Namespaces.Profiles = Profiles;
@@ -86,8 +160,12 @@ Namespaces.Settings = Settings;
 
 export declare namespace Namespaces {
   export {
+    type Namespace as Namespace,
+    type NamespaceCreateResponse as NamespaceCreateResponse,
     type NamespaceRetrieveResponse as NamespaceRetrieveResponse,
+    type NamespaceListResponse as NamespaceListResponse,
     type NamespaceRetrieveParams as NamespaceRetrieveParams,
+    type NamespaceCreateParams as NamespaceCreateParams,
   };
 
   export {

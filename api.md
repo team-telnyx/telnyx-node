@@ -1241,11 +1241,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">Namespace</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">NamespaceCreateResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">NamespaceRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">NamespaceListResponse</a></code>
 
 Methods:
 
 - <code title="get /ai/memory/namespaces/{namespace}/operations/{operation_id}">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">retrieve</a>(operationID, { ...params }) -> NamespaceRetrieveResponse</code>
+- <code title="get /ai/memory/namespaces">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">list</a>() -> NamespaceListResponse</code>
+- <code title="post /ai/memory/namespaces">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">create</a>({ ...params }) -> NamespaceCreateResponse</code>
+- <code title="delete /ai/memory/namespaces/{namespace}">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">delete</a>(namespace) -> void</code>
 
 #### Profiles
 
