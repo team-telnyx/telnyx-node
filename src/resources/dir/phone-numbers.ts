@@ -225,6 +225,10 @@ export namespace PhoneNumberRemoveResponse {
 }
 
 export interface PhoneNumberRemoveParams {
+  /**
+   * The phone numbers to remove from this brand, in E.164 format, up to 100 per
+   * request. They must currently be attached to this brand.
+   */
   phone_numbers: Array<string>;
 }
 

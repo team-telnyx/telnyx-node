@@ -1314,19 +1314,25 @@ import {
   EncryptedMedia,
 } from './resources/credential-connections/credential-connections';
 import {
+  BpoAuthorizationInput,
   Dir,
+  DirBpoLoaParams,
+  DirDeleteResponse,
   DirList,
   DirListDocumentTypesResponse,
   DirListInfringementClaimsParams,
   DirListParams,
   DirNewLoaParams,
   DirResource,
+  DirRetrieveBpoAuthorizationsParams,
+  DirRetrieveBpoAuthorizationsResponse,
   DirStatus,
   DirUpdateInfringementParams,
   DirUpdateParams,
   DirWrapped,
   DirsDefaultFlatPagination,
   Document,
+  SignaturePayload,
 } from './resources/dir/dir';
 import {
   EmailBlock,
@@ -5373,18 +5379,24 @@ export declare namespace Telnyx {
 
   export {
     DirResource as DirResource,
+    type BpoAuthorizationInput as BpoAuthorizationInput,
     type Dir as Dir,
     type DirList as DirList,
     type DirStatus as DirStatus,
     type DirWrapped as DirWrapped,
     type Document as Document,
+    type SignaturePayload as SignaturePayload,
+    type DirDeleteResponse as DirDeleteResponse,
     type DirListDocumentTypesResponse as DirListDocumentTypesResponse,
+    type DirRetrieveBpoAuthorizationsResponse as DirRetrieveBpoAuthorizationsResponse,
     type DirsDefaultFlatPagination as DirsDefaultFlatPagination,
     type DirListParams as DirListParams,
     type DirUpdateParams as DirUpdateParams,
     type DirListInfringementClaimsParams as DirListInfringementClaimsParams,
     type DirUpdateInfringementParams as DirUpdateInfringementParams,
     type DirNewLoaParams as DirNewLoaParams,
+    type DirRetrieveBpoAuthorizationsParams as DirRetrieveBpoAuthorizationsParams,
+    type DirBpoLoaParams as DirBpoLoaParams,
   };
 
   export {

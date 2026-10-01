@@ -61,10 +61,19 @@ export interface TermsOfServiceRetrieveInfoResponse {
 
 export namespace TermsOfServiceRetrieveInfoResponse {
   export interface Agreement {
+    /**
+     * The latest published version of these terms.
+     */
     current_version?: string;
 
+    /**
+     * A short summary of the product these terms cover.
+     */
     description?: string;
 
+    /**
+     * The date this version took effect.
+     */
     effective_date?: string;
 
     /**
@@ -72,6 +81,9 @@ export namespace TermsOfServiceRetrieveInfoResponse {
      */
     product_type?: AgreementsAPI.TosProductType;
 
+    /**
+     * A link to the full terms text.
+     */
     terms_url?: string;
   }
 }
@@ -111,6 +123,9 @@ export namespace TermsOfServiceRetrieveStatusResponse {
      */
     product_type: AgreementsAPI.TosProductType;
 
+    /**
+     * When you accepted the terms, or null if you have not.
+     */
     agreed_at?: string | null;
 
     /**

@@ -187,4 +187,36 @@ describe('resource dir', () => {
       signature: { image_base64: 'x', signer_name: 'signer_name' },
     });
   });
+
+  // Mock server tests are disabled
+  test.skip('retrieveBpoAuthorizations', async () => {
+    const responsePromise = client.dir.retrieveBpoAuthorizations('16635d38-75a6-4481-82e8-69af60e05011');
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveBpoAuthorizations: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.dir.retrieveBpoAuthorizations(
+        '16635d38-75a6-4481-82e8-69af60e05011',
+        { 'page[number]': 1, 'page[size]': 20 },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('bpoLoa: required and optional params', async () => {
+    const response = await client.dir.bpoLoa('182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e', {
+      bpo_enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+      signature: { image_base64: 'x', signer_name: 'signer_name' },
+    });
+  });
 });

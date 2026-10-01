@@ -5317,6 +5317,17 @@ Methods:
 - <code title="get /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir.ts">list</a>(enterpriseID, { ...params }) -> DirsDefaultFlatPagination</code>
 - <code title="post /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir.ts">create</a>(enterpriseID, { ...params }) -> DirWrapped</code>
 
+## VerifyEmail
+
+Types:
+
+- <code><a href="./src/resources/enterprises/verify-email.ts">EnterpriseEmailVerificationStatusWrapped</a></code>
+
+Methods:
+
+- <code title="post /enterprises/{enterprise_id}/verify_email">client.enterprises.verifyEmail.<a href="./src/resources/enterprises/verify-email.ts">create</a>(enterpriseID) -> EnterpriseEmailVerificationStatusWrapped</code>
+- <code title="post /enterprises/{enterprise_id}/verify_email/confirm">client.enterprises.verifyEmail.<a href="./src/resources/enterprises/verify-email.ts">confirm</a>(enterpriseID, { ...params }) -> EnterpriseEmailVerificationStatusWrapped</code>
+
 # Reputation
 
 ## Numbers
@@ -5445,24 +5456,30 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/dir/dir.ts">BpoAuthorizationInput</a></code>
 - <code><a href="./src/resources/dir/dir.ts">Dir</a></code>
 - <code><a href="./src/resources/dir/dir.ts">DirList</a></code>
 - <code><a href="./src/resources/dir/dir.ts">DirStatus</a></code>
 - <code><a href="./src/resources/dir/dir.ts">DirWrapped</a></code>
 - <code><a href="./src/resources/dir/dir.ts">Document</a></code>
+- <code><a href="./src/resources/dir/dir.ts">SignaturePayload</a></code>
+- <code><a href="./src/resources/dir/dir.ts">DirDeleteResponse</a></code>
 - <code><a href="./src/resources/dir/dir.ts">DirListDocumentTypesResponse</a></code>
+- <code><a href="./src/resources/dir/dir.ts">DirRetrieveBpoAuthorizationsResponse</a></code>
 
 Methods:
 
 - <code title="get /dir">client.dir.<a href="./src/resources/dir/dir.ts">list</a>({ ...params }) -> DirsDefaultFlatPagination</code>
 - <code title="get /dir/document_types">client.dir.<a href="./src/resources/dir/dir.ts">listDocumentTypes</a>() -> DirListDocumentTypesResponse</code>
-- <code title="delete /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">delete</a>(dirID) -> void</code>
+- <code title="delete /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">delete</a>(dirID) -> DirDeleteResponse</code>
 - <code title="get /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">retrieve</a>(dirID) -> DirWrapped</code>
 - <code title="patch /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">update</a>(dirID, { ...params }) -> DirWrapped</code>
 - <code title="get /dir/{dir_id}/infringement_claims">client.dir.<a href="./src/resources/dir/dir.ts">listInfringementClaims</a>(dirID, { ...params }) -> InfringementClaimsDefaultFlatPagination</code>
 - <code title="put /dir/{dir_id}/infringement_update">client.dir.<a href="./src/resources/dir/dir.ts">updateInfringement</a>(dirID, { ...params }) -> DirWrapped</code>
 - <code title="post /dir/{dir_id}/submit">client.dir.<a href="./src/resources/dir/dir.ts">submit</a>(dirID) -> DirWrapped</code>
 - <code title="post /dir/{dir_id}/loa">client.dir.<a href="./src/resources/dir/dir.ts">newLoa</a>(dirID, { ...params }) -> Response</code>
+- <code title="get /dir/{dir_id}/bpo_authorizations">client.dir.<a href="./src/resources/dir/dir.ts">retrieveBpoAuthorizations</a>(dirID, { ...params }) -> DirRetrieveBpoAuthorizationsResponse</code>
+- <code title="post /dir/{dir_id}/bpo_loa">client.dir.<a href="./src/resources/dir/dir.ts">bpoLoa</a>(dirID, { ...params }) -> Response</code>
 
 ## Comments
 

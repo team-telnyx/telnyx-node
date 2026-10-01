@@ -72,6 +72,12 @@ describe('resource dir', () => {
       certify_ip_ownership: true,
       certify_no_shaft_content: true,
       display_name: 'Acme Plumbing',
+      bpo_authorizations: [
+        {
+          bpo_enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+          loa_document_id: '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',
+        },
+      ],
       documents: [
         {
           document_id: '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',
@@ -81,6 +87,7 @@ describe('resource dir', () => {
       ],
       logo_url: 'https://acmeplumbing.example.com/logo-256.bmp',
       reselling: false,
+      webhook_url: 'https://mapleridge.example.com/webhooks/branded-calling',
     });
   });
 });

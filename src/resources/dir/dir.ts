@@ -110,22 +110,23 @@ export class DirResource extends APIResource {
   }
 
   /**
-   * Delete a DIR. Failure modes: `400` if a child phone number is in a non-deletable
-   * status, `409` if the DIR has an unresolved infringement claim, `404` if the DIR
-   * is not yours.
+   * Request deletion of a DIR. This does not remove the DIR on this call: it records
+   * the request, moves the DIR to `delete_requested`, and Telnyx completes the
+   * removal (de-registration and cleanup) shortly after. A verified DIR keeps
+   * serving its branded identity, and keeps billing, until the removal is executed.
+   * Failure modes: `400` if a child phone number is still attached or the DIR is
+   * `in_review` (wait for the review to finish), `409` if the DIR has an unresolved
+   * infringement claim, `404` if the DIR is not yours.
    *
    * @example
    * ```ts
-   * await client.dir.delete(
+   * const dir = await client.dir.delete(
    *   '16635d38-75a6-4481-82e8-69af60e05011',
    * );
    * ```
    */
-  delete(dirID: string, options?: RequestOptions): APIPromise<void> {
-    return this._client.delete(path`/dir/${dirID}`, {
-      ...options,
-      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
-    });
+  delete(dirID: string, options?: RequestOptions): APIPromise<DirDeleteResponse> {
+    return this._client.delete(path`/dir/${dirID}`, options);
   }
 
   /**
@@ -147,11 +148,14 @@ export class DirResource extends APIResource {
    * Edit a DIR. DIRs in `draft`, `rejected`, `unsuccessful`, or `suspended` can be
    * edited freely: PATCH is a pure edit, `status` is never changed, and you re-vet
    * by calling `POST /v2/dir/{dir_id}/submit` explicitly. A `verified` DIR can also
-   * be edited in place: a PATCH that changes any value returns the DIR to `draft`
-   * and branded delivery stops until you re-submit and the DIR is approved again,
-   * while a PATCH that changes nothing (an empty body or values identical to the
-   * current ones) leaves the DIR `verified`, so idempotent retries are safe. DIRs in
-   * any other status (`submitted`, `in_review`, `expired`, `infringement_claimed`,
+   * be edited in place: a PATCH that changes any value returns the DIR to `draft`;
+   * the currently approved identity keeps displaying, and the edited content goes
+   * live only after you re-submit and the DIR is approved again. A PATCH that
+   * changes nothing (an empty body or values identical to the current ones) leaves
+   * the DIR `verified`, so idempotent retries are safe. Changing only
+   * `bpo_authorizations` or `webhook_url` is the exception: the DIR stays
+   * `verified`. Each BPO authorization is reviewed on its own instead. DIRs in any
+   * other status (`submitted`, `in_review`, `expired`, `infringement_claimed`,
    * `permanently_rejected`) cannot be edited.
    *
    * @example
@@ -289,9 +293,94 @@ export class DirResource extends APIResource {
       __binaryResponse: true,
     });
   }
+
+  /**
+   * List the BPO (Business Process Outsourcer) accounts a Brand Owner has authorized
+   * on this DIR, together with the review state of each authorization.
+   *
+   * Authorizations are supplied as the `bpo_authorizations` array when creating or
+   * updating a DIR, and each one is reviewed on its own. Only an `approved`
+   * authorization adds that BPO to this DIR's authorized callers in the branded
+   * calling registry; `pending` and `rejected` authorizations do not. Each entry
+   * includes the `loa_document_id` you submitted: because `bpo_authorizations`
+   * replaces the whole list on every DIR update, send each entry you want to keep
+   * back with its `loa_document_id` unchanged, and it keeps its review state. A
+   * rejected entry carries a `rejection_reason`. Returns an empty list when the DIR
+   * has authorized no BPOs.
+   *
+   * @example
+   * ```ts
+   * const response = await client.dir.retrieveBpoAuthorizations(
+   *   '16635d38-75a6-4481-82e8-69af60e05011',
+   * );
+   * ```
+   */
+  retrieveBpoAuthorizations(
+    dirID: string,
+    query: DirRetrieveBpoAuthorizationsParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<DirRetrieveBpoAuthorizationsResponse> {
+    return this._client.get(path`/dir/${dirID}/bpo_authorizations`, { query, ...options });
+  }
+
+  /**
+   * The Letter of Authorization in which a Brand Owner authorizes an approved BPO
+   * (Business Process Outsourcer) to place branded calls that display this DIR on
+   * the owner's behalf. Both parties are read from the caller's account: the Brand
+   * Owner is the enterprise that owns the DIR, and the BPO is `bpo_enterprise_id`.
+   * No business identity is accepted in the body.
+   *
+   * When `signature` is omitted the PDF is returned unsigned so the Brand Owner can
+   * sign it externally and the BPO can upload it via the Documents API. When
+   * `signature` is present the PDF embeds the supplied image, printed name, and
+   * signed-at date.
+   *
+   * Returns `application/pdf`.
+   *
+   * @example
+   * ```ts
+   * const response = await client.dir.bpoLoa(
+   *   '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+   *   {
+   *     bpo_enterprise_id:
+   *       '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *   },
+   * );
+   *
+   * const content = await response.blob();
+   * console.log(content);
+   * ```
+   */
+  bpoLoa(dirID: string, body: DirBpoLoaParams, options?: RequestOptions): APIPromise<Response> {
+    return this._client.post(path`/dir/${dirID}/bpo_loa`, {
+      body,
+      ...options,
+      headers: buildHeaders([{ Accept: 'application/pdf' }, options?.headers]),
+      __binaryResponse: true,
+    });
+  }
 }
 
 export type DirsDefaultFlatPagination = DefaultFlatPagination<Dir>;
+
+/**
+ * One authorization to include when creating or updating a DIR: an approved BPO
+ * (Business Process Outsourcer) account plus the signed Letter of Authorization
+ * the Brand Owner granted it.
+ */
+export interface BpoAuthorizationInput {
+  /**
+   * Enterprise id of an approved BPO (Business Process Outsourcer) account on your
+   * organization to authorize for this DIR.
+   */
+  bpo_enterprise_id: string;
+
+  /**
+   * Id of the signed Letter of Authorization document (uploaded via the Telnyx
+   * Documents API) in which the Brand Owner authorizes this BPO.
+   */
+  loa_document_id: string;
+}
 
 export interface Dir {
   id?: string;
@@ -309,6 +398,12 @@ export interface Dir {
   certify_no_shaft_content?: boolean;
 
   created_at?: string;
+
+  /**
+   * When deletion was requested. Set once the DIR enters `delete_requested`; `null`
+   * otherwise.
+   */
+  delete_requested_at?: string | null;
 
   display_name?: string;
 
@@ -345,6 +440,10 @@ export interface Dir {
    * - `infringement_claimed` - a trademark/impersonation claim is open against this
    *   DIR.
    * - `permanently_rejected` - terminal; cannot be resubmitted.
+   * - `delete_requested` - you have requested deletion; the DIR still exists and
+   *   Telnyx is completing the removal (de-registration and cleanup). A verified DIR
+   *   keeps serving its branded identity, and keeps billing, until the removal
+   *   finishes.
    */
   status?: DirStatus;
 
@@ -353,6 +452,12 @@ export interface Dir {
   updated_at?: string;
 
   verified_at?: string | null;
+
+  /**
+   * `https://` URL that receives webhook notifications for this DIR's
+   * compliance-review outcomes. `null` when not subscribed.
+   */
+  webhook_url?: string | null;
 }
 
 export namespace Dir {
@@ -390,6 +495,10 @@ export interface DirList {
  * - `infringement_claimed` - a trademark/impersonation claim is open against this
  *   DIR.
  * - `permanently_rejected` - terminal; cannot be resubmitted.
+ * - `delete_requested` - you have requested deletion; the DIR still exists and
+ *   Telnyx is completing the removal (de-registration and cleanup). A verified DIR
+ *   keeps serving its branded identity, and keeps billing, until the removal
+ *   finishes.
  */
 export type DirStatus =
   | 'draft'
@@ -401,7 +510,8 @@ export type DirStatus =
   | 'suspended'
   | 'expired'
   | 'infringement_claimed'
-  | 'permanently_rejected';
+  | 'permanently_rejected'
+  | 'delete_requested';
 
 export interface DirWrapped {
   data: Dir;
@@ -434,7 +544,41 @@ export interface Document {
     | 'bank_statement'
     | 'other';
 
+  /**
+   * An optional note describing this document, for example what it proves.
+   */
   description?: string;
+}
+
+export interface SignaturePayload {
+  /**
+   * PNG image, base64-encoded.
+   */
+  image_base64: string;
+
+  /**
+   * Optional. When absent the rendered PDF falls back to the enterprise contact's
+   * legal name.
+   */
+  signer_name?: string | null;
+}
+
+export interface DirDeleteResponse {
+  data: DirDeleteResponse.Data;
+}
+
+export namespace DirDeleteResponse {
+  export interface Data {
+    /**
+     * Id of the DIR whose deletion was requested.
+     */
+    id: string;
+
+    /**
+     * Always `delete_requested`: the DIR has been queued for removal, not yet removed.
+     */
+    status: 'delete_requested';
+  }
 }
 
 export interface DirListDocumentTypesResponse {
@@ -460,6 +604,58 @@ export namespace DirListDocumentTypesResponse {
      * Stable identifier passed to `Document.document_type`.
      */
     short_name?: string;
+  }
+}
+
+/**
+ * Paginated list of a DIR's BPO authorizations.
+ */
+export interface DirRetrieveBpoAuthorizationsResponse {
+  data: Array<DirRetrieveBpoAuthorizationsResponse.Data>;
+
+  /**
+   * JSON:API pagination metadata returned with every paginated list response. Page
+   * numbering is 1-based. `page_size` reports the number of items actually returned
+   * in `data` for this page; the requested size is taken from the `page[size]` query
+   * parameter.
+   */
+  meta: CallReasonsAPI.BrandedCallingPaginationMeta;
+}
+
+export namespace DirRetrieveBpoAuthorizationsResponse {
+  /**
+   * A single authorization of a BPO (Business Process Outsourcer) account on a DIR.
+   */
+  export interface Data {
+    /**
+     * The authorized BPO account's enterprise id.
+     */
+    bpo_enterprise_id: string;
+
+    /**
+     * Id of the signed Letter of Authorization document submitted for this BPO. Send
+     * it back unchanged in `bpo_authorizations` when updating the DIR to keep this
+     * authorization and its review state.
+     */
+    loa_document_id: string;
+
+    /**
+     * Always `bpo_authorization`.
+     */
+    record_type: 'bpo_authorization';
+
+    /**
+     * Review state of this authorization. `pending` on create or when the Letter of
+     * Authorization is re-uploaded; an admin moves it to `approved` or `rejected`.
+     * Only an `approved` authorization adds the BPO to this DIR's authorized callers
+     * in the branded calling registry.
+     */
+    status: 'pending' | 'approved' | 'rejected';
+
+    /**
+     * Why the authorization was rejected. `null` unless `status` is `rejected`.
+     */
+    rejection_reason?: string | null;
   }
 }
 
@@ -524,6 +720,16 @@ export interface DirUpdateParams {
   authorizer_name?: string;
 
   /**
+   * Optional. Replace this DIR's authorized BPO (Business Process Outsourcer)
+   * accounts with these, each with its signed Letter of Authorization. The supplied
+   * list replaces the current one: a BPO left out has its authorization removed, and
+   * a new BPO (or a changed Letter of Authorization) is created `pending` admin
+   * review. Send an empty list to clear all authorizations; omit the field to leave
+   * them unchanged. Editing this list does not re-vet the DIR. Maximum 10.
+   */
+  bpo_authorizations?: Array<BpoAuthorizationInput>;
+
+  /**
    * 1–10 reasons your business calls customers. Validate phrasing against
    * `POST /call_reasons/validate`.
    */
@@ -570,6 +776,13 @@ export interface DirUpdateParams {
    * (BPO/reseller). Updating this triggers re-vetting on next submit.
    */
   reselling?: boolean;
+
+  /**
+   * Optional `https://` URL that receives webhook notifications when this DIR's
+   * compliance review completes. Send `null` to clear. Changing only this field on a
+   * `verified` DIR does not re-vet it. Maximum 2048 characters.
+   */
+  webhook_url?: string | null;
 }
 
 export interface DirListInfringementClaimsParams extends DefaultFlatPaginationParams {}
@@ -586,7 +799,8 @@ export interface DirUpdateInfringementParams {
   certify_ip_ownership: true;
 
   /**
-   * Must be `true`.
+   * Check to certify that the brand no longer infringes anyone else's trademark or
+   * intellectual property.
    */
   certify_no_infringement: true;
 
@@ -602,6 +816,10 @@ export interface DirUpdateInfringementParams {
 
   call_reasons?: Array<string> | null;
 
+  /**
+   * The business name shown to call recipients, 1 to 35 characters, no emoji, not
+   * blank.
+   */
   display_name?: string | null;
 
   /**
@@ -634,27 +852,34 @@ export interface DirNewLoaParams {
    * name, and signed-at date. When absent the PDF is returned unsigned so the
    * customer can sign externally and upload it via the Documents API.
    */
-  signature?: DirNewLoaParams.Signature;
+  signature?: SignaturePayload;
 }
 
-export namespace DirNewLoaParams {
+export interface DirRetrieveBpoAuthorizationsParams {
+  /**
+   * 1-based page number. Out-of-range values return an empty page with correct meta.
+   */
+  'page[number]'?: number;
+
+  /**
+   * Items per page. Maximum 250; values above are clamped to 250.
+   */
+  'page[size]'?: number;
+}
+
+export interface DirBpoLoaParams {
+  /**
+   * The approved BPO enterprise the Brand Owner is authorizing. Must be a BPO
+   * account on the caller's organization that has already been approved.
+   */
+  bpo_enterprise_id: string;
+
   /**
    * Optional. When provided the rendered PDF embeds the signature image, printed
-   * name, and signed-at date. When absent the PDF is returned unsigned so the
-   * customer can sign externally and upload it via the Documents API.
+   * name, and signed-at date. When absent the PDF is returned unsigned so the Brand
+   * Owner can sign externally and the BPO can upload it via the Documents API.
    */
-  export interface Signature {
-    /**
-     * PNG image, base64-encoded.
-     */
-    image_base64: string;
-
-    /**
-     * Optional. When absent the rendered PDF falls back to the enterprise contact's
-     * legal name.
-     */
-    signer_name?: string | null;
-  }
+  signature?: SignaturePayload;
 }
 
 DirResource.Comments = Comments;
@@ -665,18 +890,24 @@ DirResource.VerifyEmail = VerifyEmail;
 
 export declare namespace DirResource {
   export {
+    type BpoAuthorizationInput as BpoAuthorizationInput,
     type Dir as Dir,
     type DirList as DirList,
     type DirStatus as DirStatus,
     type DirWrapped as DirWrapped,
     type Document as Document,
+    type SignaturePayload as SignaturePayload,
+    type DirDeleteResponse as DirDeleteResponse,
     type DirListDocumentTypesResponse as DirListDocumentTypesResponse,
+    type DirRetrieveBpoAuthorizationsResponse as DirRetrieveBpoAuthorizationsResponse,
     type DirsDefaultFlatPagination as DirsDefaultFlatPagination,
     type DirListParams as DirListParams,
     type DirUpdateParams as DirUpdateParams,
     type DirListInfringementClaimsParams as DirListInfringementClaimsParams,
     type DirUpdateInfringementParams as DirUpdateInfringementParams,
     type DirNewLoaParams as DirNewLoaParams,
+    type DirRetrieveBpoAuthorizationsParams as DirRetrieveBpoAuthorizationsParams,
+    type DirBpoLoaParams as DirBpoLoaParams,
   };
 
   export {

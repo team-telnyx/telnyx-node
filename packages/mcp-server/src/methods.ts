@@ -6756,6 +6756,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/dir',
   },
   {
+    clientCallName: 'client.enterprises.verifyEmail.create',
+    fullyQualifiedName: 'enterprises.verifyEmail.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/verify_email',
+  },
+  {
+    clientCallName: 'client.enterprises.verifyEmail.confirm',
+    fullyQualifiedName: 'enterprises.verifyEmail.confirm',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/verify_email/confirm',
+  },
+  {
     clientCallName: 'client.reputation.numbers.list',
     fullyQualifiedName: 'reputation.numbers.list',
     httpMethod: 'get',
@@ -6952,6 +6964,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'dir.newLoa',
     httpMethod: 'post',
     httpPath: '/dir/{dir_id}/loa',
+  },
+  {
+    clientCallName: 'client.dir.retrieveBpoAuthorizations',
+    fullyQualifiedName: 'dir.retrieveBpoAuthorizations',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/bpo_authorizations',
+  },
+  {
+    clientCallName: 'client.dir.bpoLoa',
+    fullyQualifiedName: 'dir.bpoLoa',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/bpo_loa',
   },
   {
     clientCallName: 'client.dir.comments.list',

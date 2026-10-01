@@ -287,17 +287,23 @@ export {
 } from './dialogflow-connections';
 export {
   DirResource,
+  type BpoAuthorizationInput,
   type Dir,
   type DirList,
   type DirStatus,
   type DirWrapped,
   type Document,
+  type SignaturePayload,
+  type DirDeleteResponse,
   type DirListDocumentTypesResponse,
+  type DirRetrieveBpoAuthorizationsResponse,
   type DirListParams,
   type DirUpdateParams,
   type DirListInfringementClaimsParams,
   type DirUpdateInfringementParams,
   type DirNewLoaParams,
+  type DirRetrieveBpoAuthorizationsParams,
+  type DirBpoLoaParams,
   type DirsDefaultFlatPagination,
 } from './dir/dir';
 export {
