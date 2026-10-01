@@ -547,4 +547,31 @@ describe('resource assistants', () => {
       'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
+
+  // Mock server tests are disabled
+  test.skip('whatsapp: only required params', async () => {
+    const responsePromise = client.ai.assistants.whatsapp('assistant_id', {
+      content: 'Send the login verification code 482913 to the customer.',
+      from: '+13125550001',
+      to: '+13125550002',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('whatsapp: required and optional params', async () => {
+    const response = await client.ai.assistants.whatsapp('assistant_id', {
+      content: 'Send the login verification code 482913 to the customer.',
+      from: '+13125550001',
+      to: '+13125550002',
+      conversation_metadata: { order_id: 'A1' },
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
+    });
+  });
 });

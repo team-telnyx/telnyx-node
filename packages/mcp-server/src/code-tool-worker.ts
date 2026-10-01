@@ -182,6 +182,7 @@ const fuse = new Fuse(
     'client.ai.assistants.retrieve',
     'client.ai.assistants.sendSMS',
     'client.ai.assistants.update',
+    'client.ai.assistants.whatsapp',
     'client.ai.assistants.tests.create',
     'client.ai.assistants.tests.delete',
     'client.ai.assistants.tests.list',

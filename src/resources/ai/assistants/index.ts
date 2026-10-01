@@ -61,6 +61,7 @@ export {
   type AssistantChatResponse,
   type AssistantGetTexmlResponse,
   type AssistantSendSMSResponse,
+  type AssistantWhatsappResponse,
   type AssistantCreateParams,
   type AssistantImportsParams,
   type AssistantRetrieveParams,
@@ -68,6 +69,7 @@ export {
   type AssistantChatParams,
   type AssistantCloneParams,
   type AssistantSendSMSParams,
+  type AssistantWhatsappParams,
 } from './assistants';
 export {
   CanaryDeploys,

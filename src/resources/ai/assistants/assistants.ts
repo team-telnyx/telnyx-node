@@ -306,6 +306,53 @@ export class Assistants extends APIResource {
       ]),
     });
   }
+
+  /**
+   * Start a WhatsApp conversation with a customer from the business side. This
+   * endpoint:
+   *
+   * 1. Validates that `from` is a WhatsApp number on your account whose messaging
+   *    profile has this assistant configured
+   * 2. Creates a new `whatsapp_chat` conversation with the provided metadata
+   * 3. Asks the assistant to pick one of its approved WhatsApp templates and fill
+   *    its variables from `content`
+   * 4. Sends the template from `from` to `to`
+   * 5. Returns the conversation ID and the message ID
+   *
+   * When the customer replies, the reply is routed to the same conversation and the
+   * assistant answers within the 24-hour customer service window. The assistant
+   * needs a `whatsapp_template` tool with at least one approved template, data
+   * retention enabled and PII redaction disabled.
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.assistants.whatsapp(
+   *   'assistant_id',
+   *   {
+   *     content:
+   *       'Send the login verification code 482913 to the customer.',
+   *     from: '+13125550001',
+   *     to: '+13125550002',
+   *     conversation_metadata: { order_id: 'A1' },
+   *   },
+   * );
+   * ```
+   */
+  whatsapp(
+    assistantID: string,
+    params: AssistantWhatsappParams,
+    options?: RequestOptions,
+  ): APIPromise<AssistantWhatsappResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post(path`/ai/assistants/${assistantID}/chat/whatsapp`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
+  }
 }
 
 /**
@@ -4034,6 +4081,18 @@ export interface AssistantSendSMSResponse {
   conversation_id?: string;
 }
 
+export interface AssistantWhatsappResponse {
+  /**
+   * ID of the conversation created for this WhatsApp chat.
+   */
+  conversation_id: string;
+
+  /**
+   * ID of the WhatsApp template message that was sent.
+   */
+  message_id: string;
+}
+
 export interface AssistantCreateParams {
   /**
    * Body param: System instructions for the assistant. These may be templated with
@@ -4609,6 +4668,44 @@ export interface AssistantSendSMSParams {
   'Idempotency-Key'?: string;
 }
 
+export interface AssistantWhatsappParams {
+  /**
+   * Body param: Instruction for the assistant, including the values for the template
+   * variables, e.g. `Send the login verification code 482913 to the customer.`
+   */
+  content: string;
+
+  /**
+   * Body param: WhatsApp number on your account to send from, in E.164 format. Its
+   * messaging profile must have this assistant configured.
+   */
+  from: string;
+
+  /**
+   * Body param: Customer to message, as an E.164 phone number or a WhatsApp
+   * business-scoped user ID (BSUID).
+   */
+  to: string;
+
+  /**
+   * Body param: Metadata stored on the conversation. Keys starting with `telnyx_`
+   * and the `assistant_id` key are reserved.
+   */
+  conversation_metadata?: { [key: string]: string | number | boolean };
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
+}
+
 Assistants.Tests = Tests;
 Assistants.CanaryDeploys = CanaryDeploys;
 Assistants.ScheduledEvents = ScheduledEvents;
@@ -4678,6 +4775,7 @@ export declare namespace Assistants {
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
     type AssistantSendSMSResponse as AssistantSendSMSResponse,
+    type AssistantWhatsappResponse as AssistantWhatsappResponse,
     type AssistantCreateParams as AssistantCreateParams,
     type AssistantImportsParams as AssistantImportsParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
@@ -4685,6 +4783,7 @@ export declare namespace Assistants {
     type AssistantChatParams as AssistantChatParams,
     type AssistantCloneParams as AssistantCloneParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
+    type AssistantWhatsappParams as AssistantWhatsappParams,
   };
 
   export {

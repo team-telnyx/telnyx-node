@@ -65,6 +65,8 @@ import {
   AssistantSendSMSResponse,
   AssistantTool,
   AssistantUpdateParams,
+  AssistantWhatsappParams,
+  AssistantWhatsappResponse,
   Assistants,
   AssistantsList,
   AudioVisualizerConfig,
@@ -723,6 +725,7 @@ export declare namespace AI {
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
     type AssistantSendSMSResponse as AssistantSendSMSResponse,
+    type AssistantWhatsappResponse as AssistantWhatsappResponse,
     type AssistantCreateParams as AssistantCreateParams,
     type AssistantImportsParams as AssistantImportsParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
@@ -730,6 +733,7 @@ export declare namespace AI {
     type AssistantChatParams as AssistantChatParams,
     type AssistantCloneParams as AssistantCloneParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
+    type AssistantWhatsappParams as AssistantWhatsappParams,
   };
 
   export {

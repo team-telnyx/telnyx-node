@@ -607,6 +607,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantChatResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantGetTexmlResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantSendSMSResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantWhatsappResponse</a></code>
 
 Methods:
 
@@ -620,6 +621,7 @@ Methods:
 - <code title="post /ai/assistants/{assistant_id}/clone">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">clone</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}/texml">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">getTexml</a>(assistantID) -> string</code>
 - <code title="post /ai/assistants/{assistant_id}/chat/sms">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">sendSMS</a>(assistantID, { ...params }) -> AssistantSendSMSResponse</code>
+- <code title="post /ai/assistants/{assistant_id}/chat/whatsapp">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">whatsapp</a>(assistantID, { ...params }) -> AssistantWhatsappResponse</code>
 
 ### Tests
 

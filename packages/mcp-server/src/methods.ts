@@ -445,6 +445,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/chat/sms',
   },
   {
+    clientCallName: 'client.ai.assistants.whatsapp',
+    fullyQualifiedName: 'ai.assistants.whatsapp',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/{assistant_id}/chat/whatsapp',
+  },
+  {
     clientCallName: 'client.ai.assistants.tests.list',
     fullyQualifiedName: 'ai.assistants.tests.list',
     httpMethod: 'get',
