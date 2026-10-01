@@ -1,6 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Namespaces, type NamespaceRetrieveResponse, type NamespaceRetrieveParams } from './namespaces';
+export {
+  Namespaces,
+  type Namespace,
+  type NamespaceCreateResponse,
+  type NamespaceRetrieveResponse,
+  type NamespaceListResponse,
+  type NamespaceRetrieveParams,
+  type NamespaceCreateParams,
+} from './namespaces';
 export {
   Profiles,
   type PageMeta,

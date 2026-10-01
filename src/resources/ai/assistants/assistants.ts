@@ -306,6 +306,53 @@ export class Assistants extends APIResource {
       ]),
     });
   }
+
+  /**
+   * Start a WhatsApp conversation with a customer from the business side. This
+   * endpoint:
+   *
+   * 1. Validates that `from` is a WhatsApp number on your account whose messaging
+   *    profile has this assistant configured
+   * 2. Creates a new `whatsapp_chat` conversation with the provided metadata
+   * 3. Asks the assistant to pick one of its approved WhatsApp templates and fill
+   *    its variables from `content`
+   * 4. Sends the template from `from` to `to`
+   * 5. Returns the conversation ID and the message ID
+   *
+   * When the customer replies, the reply is routed to the same conversation and the
+   * assistant answers within the 24-hour customer service window. The assistant
+   * needs a `whatsapp_template` tool with at least one approved template, data
+   * retention enabled and PII redaction disabled.
+   *
+   * @example
+   * ```ts
+   * const response = await client.ai.assistants.whatsapp(
+   *   'assistant_id',
+   *   {
+   *     content:
+   *       'Send the login verification code 482913 to the customer.',
+   *     from: '+13125550001',
+   *     to: '+13125550002',
+   *     conversation_metadata: { order_id: 'A1' },
+   *   },
+   * );
+   * ```
+   */
+  whatsapp(
+    assistantID: string,
+    params: AssistantWhatsappParams,
+    options?: RequestOptions,
+  ): APIPromise<AssistantWhatsappResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post(path`/ai/assistants/${assistantID}/chat/whatsapp`, {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
+  }
 }
 
 /**
@@ -1429,7 +1476,7 @@ export interface ConversationFlow {
 export interface ConversationFlowReq {
   /**
    * All nodes in the flow. Must contain `start_node_id`. Each node is a prompt node
-   * (`type: prompt`) or a tool node (`type: tool`).
+   * (`type: prompt`), a tool node (`type: tool`), or a speak node (`type: speak`).
    */
   nodes: Array<FlowNodeReq | ToolNodeReq | SpeakNodeReq>;
 
@@ -1442,6 +1489,73 @@ export interface ConversationFlowReq {
    * Directed transitions between nodes. May be empty for a single-node flow.
    */
   edges?: Array<FlowEdge>;
+}
+
+/**
+ * Splits the conversation between a frontend model that talks to the caller and a
+ * backend model that does the work. On the GPT-Live route the frontend model
+ * cannot call tools at all — when it needs something done it raises a delegation
+ * and waits. On the chat completion route the frontend keeps a single `delegate`
+ * tool that returns immediately, so the conversation carries on while the backend
+ * works. Either way the backend's answer is spoken as commentary or kept as silent
+ * context, depending on `speak_results`. Beta feature.
+ */
+export interface DelegationSettings {
+  /**
+   * Whether the assistant delegates work to a backend model. Defaults to `true`: a
+   * GPT-Live assistant with delegation disabled can hold a conversation but can
+   * never look anything up or run a tool.
+   */
+  enabled?: boolean;
+
+  /**
+   * Run the backend on your own OpenAI-compatible endpoint instead of a
+   * Telnyx-hosted model. As above, a raw `api_key` here is rejected — reference an
+   * integration secret with `external_llm.llm_api_key_ref` instead.
+   */
+  external_llm?: ExternalLlm;
+
+  /**
+   * Extra instructions for the backend model, in addition to the assistant's own.
+   * Use this for the business rules the backend needs and the talking model does
+   * not.
+   */
+  instructions?: string;
+
+  /**
+   * Integration secret identifier for the backend model's API key. Required for
+   * models from providers other than Telnyx, OpenAI and Anthropic. A raw `api_key`
+   * is rejected rather than ignored, so that no plaintext credential is stored on
+   * the assistant.
+   */
+  llm_api_key_ref?: string;
+
+  /**
+   * Who answers a delegation. `telnyx` runs the backend model on Telnyx with the
+   * assistant's own tools, MCP servers and observability. `client` relays the
+   * delegation to a server you host over the WebSocket configured in
+   * `websocket_settings`: Telnyx sends a `session.delegation.created` frame and
+   * waits for your `session.delegation.completed` answer. That answer is text only,
+   * since the socket offers no tool vocabulary. If no socket is connected the
+   * delegation is refused and the assistant tells the caller it cannot look things
+   * up right now. Defaults to `telnyx`.
+   */
+  mode?: 'telnyx' | 'client';
+
+  /**
+   * The backend model that answers delegations. Must be a model available for AI
+   * Assistants. When enabling `telnyx` delegation, explicitly set this field or
+   * `external_llm.model`; a configuration without either backend model is rejected.
+   * Only applies when `mode` is `telnyx`.
+   */
+  model?: string;
+
+  /**
+   * Whether the backend's answer is spoken to the caller. When `true` the result is
+   * appended as commentary and paraphrased aloud; when `false` it is kept as silent
+   * context that informs later answers without being read out. Defaults to `true`.
+   */
+  speak_results?: boolean;
 }
 
 /**
@@ -1644,9 +1758,14 @@ export interface FallbackConfigReq {
  * Directed transition from one node to a target, gated by a condition.
  *
  * The target is either another node in the same flow (`NodeTarget`) or a different
- * assistant (`AssistantTarget`). Multiple edges may share a `start_node_id`; the
- * runtime evaluates them in the order they're declared and takes the first whose
- * condition is true.
+ * assistant (`AssistantTarget`). Multiple edges may share a `start_node_id`. On
+ * calls, `expression` conditions are evaluated before the model turn and take
+ * precedence over `llm` conditions regardless of declaration order, while `llm`
+ * conditions are offered to the assistant's model as transition tools and fire
+ * when the model selects one. On chat channels, an `expression` condition that is
+ * true when the turn begins routes before the reply is generated; all conditioned
+ * edges that remain are considered together in declaration order after the reply,
+ * and the first true one wins.
  */
 export interface FlowEdge {
   /**
@@ -1674,15 +1793,22 @@ export interface FlowEdge {
 
 export namespace FlowEdge {
   /**
-   * Edge condition evaluated by the LLM from a natural-language prompt.
+   * Edge condition routed by the assistant's LLM from a natural-language prompt.
    *
-   * The model is asked to judge the prompt against conversation context and returns
-   * true/false. Use this for fuzzy intents that aren't expressible as a
-   * deterministic expression (e.g. 'user wants to escalate to a human').
+   * How the edge is decided depends on the channel. On calls, each outgoing `llm`
+   * condition is offered to the assistant's model as a transition tool alongside the
+   * assistant's tools, and the edge fires when the model selects it; the platform
+   * does not evaluate the prompt itself, and instructions that forbid or discourage
+   * tool calls can stop these edges from firing. On chat channels, the edge prompts
+   * are evaluated in a separate model call after the reply, which does not use the
+   * assistant's instructions. Use this for fuzzy intents that aren't expressible as
+   * a deterministic expression (e.g. 'user wants to escalate to a human').
    */
   export interface LlmCondition {
     /**
-     * Natural-language criterion the LLM judges as true/false.
+     * Natural-language criterion the model routes on. On calls this is offered to the
+     * model as the transition tool's description; on chat channels it is judged as a
+     * statement in the post-reply evaluation call.
      */
     prompt: string;
 
@@ -1948,7 +2074,8 @@ export interface FlowNodeReq {
 
   /**
    * Node kind discriminator. `prompt` (default) is an LLM-driven step; `tool` is a
-   * standalone tool execution (see `ToolNodeReq`).
+   * standalone tool execution and `speak` a scripted message (see `ToolNodeReq` /
+   * `SpeakNodeReq`).
    */
   type?: 'prompt';
 
@@ -2022,6 +2149,17 @@ export interface InferenceEmbedding {
    * Conversation flow as returned by the API.
    */
   conversation_flow?: ConversationFlow;
+
+  /**
+   * Splits the conversation between a frontend model that talks to the caller and a
+   * backend model that does the work. On the GPT-Live route the frontend model
+   * cannot call tools at all — when it needs something done it raises a delegation
+   * and waits. On the chat completion route the frontend keeps a single `delegate`
+   * tool that returns immediately, so the conversation carries on while the backend
+   * works. Either way the backend's answer is spoken as commentary or kept as silent
+   * context, depending on `speak_results`. Beta feature.
+   */
+  delegation_settings?: DelegationSettings;
 
   description?: string;
 
@@ -2162,6 +2300,15 @@ export interface InferenceEmbedding {
   version_name?: string;
 
   voice_settings?: InferenceEmbeddingVoiceSettings;
+
+  /**
+   * Streams conversation and telephony events to a WebSocket server you host, and
+   * accepts messages injected back into the conversation. Telnyx opens the
+   * connection as a client, once per conversation. Delivery is best effort
+   * throughout: while the connection is down events are dropped rather than queued,
+   * and no socket failure is ever allowed to affect the call. Beta feature.
+   */
+  websocket_settings?: WebsocketSettings;
 
   /**
    * Configuration settings for the assistant's web widget.
@@ -3169,12 +3316,23 @@ export interface ToolNode {
   /**
    * ID of the single shared (org-level) tool this node executes. When the flow
    * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
-   * `tool_result` edges then route on the outcome. Arguments are filled from the
-   * conversation's dynamic variables by name — a dynamic variable whose name matches
-   * one of the tool's parameters supplies that argument. Cross-validated against the
-   * org's shared tools on write.
+   * `llm` / `expression` edges route the flow on the tool's outcome. Arguments are
+   * filled from the conversation's dynamic variables by name — a dynamic variable
+   * whose name matches one of the tool's parameters supplies that argument.
+   * Cross-validated against the org's shared tools on write.
    */
   shared_tool_id: string;
+
+  /**
+   * Optional message delivered to the user verbatim immediately before the tool
+   * executes — an announcement such as 'One moment while I look that up.' No LLM
+   * turn and no customer turn: the message is spoken/sent, then the tool runs, in
+   * the same deterministic step. `{{variable}}` placeholders are interpolated from
+   * the conversation's dynamic variables (unresolved → empty string); the tool's own
+   * result is not yet available when the message is rendered. Omit for a silent tool
+   * step.
+   */
+  message?: string;
 
   /**
    * Optional human-readable label, displayed in authoring UIs.
@@ -3206,8 +3364,10 @@ export interface ToolNode {
  *
  * Unlike a prompt node, a tool node has no instructions or model — it isn't an LLM
  * turn. Reaching it deterministically runs one shared tool (arguments filled from
- * matching dynamic variables by name), then routes on the result via outgoing
- * `tool_result` edges.
+ * matching dynamic variables by name), then routes via outgoing `llm` /
+ * `expression` edges, with exactly one `default` fallback edge required when the
+ * node has any outgoing edges (the tool's outcome is readable as
+ * `telnyx_last_tool_status_code` in `expression` conditions).
  */
 export interface ToolNodeReq {
   /**
@@ -3218,12 +3378,23 @@ export interface ToolNodeReq {
   /**
    * ID of the single shared (org-level) tool this node executes. When the flow
    * reaches this node the tool runs as a deliberate step (no LLM turn); its outgoing
-   * `tool_result` edges then route on the outcome. Arguments are filled from the
-   * conversation's dynamic variables by name — a dynamic variable whose name matches
-   * one of the tool's parameters supplies that argument. Cross-validated against the
-   * org's shared tools on write.
+   * `llm` / `expression` edges route the flow on the tool's outcome. Arguments are
+   * filled from the conversation's dynamic variables by name — a dynamic variable
+   * whose name matches one of the tool's parameters supplies that argument.
+   * Cross-validated against the org's shared tools on write.
    */
   shared_tool_id: string;
+
+  /**
+   * Optional message delivered to the user verbatim immediately before the tool
+   * executes — an announcement such as 'One moment while I look that up.' No LLM
+   * turn and no customer turn: the message is spoken/sent, then the tool runs, in
+   * the same deterministic step. `{{variable}}` placeholders are interpolated from
+   * the conversation's dynamic variables (unresolved → empty string); the tool's own
+   * result is not yet available when the message is rendered. Omit for a silent tool
+   * step.
+   */
+  message?: string;
 
   /**
    * Optional human-readable label, displayed in authoring UIs.
@@ -3800,6 +3971,35 @@ export namespace WebhookTool {
 }
 
 /**
+ * Streams conversation and telephony events to a WebSocket server you host, and
+ * accepts messages injected back into the conversation. Telnyx opens the
+ * connection as a client, once per conversation. Delivery is best effort
+ * throughout: while the connection is down events are dropped rather than queued,
+ * and no socket failure is ever allowed to affect the call. Beta feature.
+ */
+export interface WebsocketSettings {
+  /**
+   * Integration secret identifier whose value Telnyx sends as an
+   * `Authorization: Bearer <value>` header on the upgrade request. Resolved on every
+   * connection attempt, so a rotated secret is picked up by the next reconnect.
+   */
+  auth_ref?: string;
+
+  /**
+   * Whether Telnyx opens a WebSocket to `url` for each of this assistant's
+   * conversations. Defaults to `false`.
+   */
+  enabled?: boolean;
+
+  /**
+   * The `ws://` or `wss://` endpoint Telnyx connects to. Required when `enabled` is
+   * `true`. Must be externally reachable — localhost, private IP ranges and `.local`
+   * domains are rejected.
+   */
+  url?: string;
+}
+
+/**
  * Configuration settings for the assistant's web widget.
  */
 export interface WidgetSettings {
@@ -3881,6 +4081,18 @@ export interface AssistantSendSMSResponse {
   conversation_id?: string;
 }
 
+export interface AssistantWhatsappResponse {
+  /**
+   * ID of the conversation created for this WhatsApp chat.
+   */
+  conversation_id: string;
+
+  /**
+   * ID of the WhatsApp template message that was sent.
+   */
+  message_id: string;
+}
+
 export interface AssistantCreateParams {
   /**
    * Body param: System instructions for the assistant. These may be templated with
@@ -3913,6 +4125,17 @@ export interface AssistantCreateParams {
    * every edge's endpoints reference real nodes.
    */
   conversation_flow?: ConversationFlowReq;
+
+  /**
+   * Body param: Splits the conversation between a frontend model that talks to the
+   * caller and a backend model that does the work. On the GPT-Live route the
+   * frontend model cannot call tools at all — when it needs something done it raises
+   * a delegation and waits. On the chat completion route the frontend keeps a single
+   * `delegate` tool that returns immediately, so the conversation carries on while
+   * the backend works. Either way the backend's answer is spoken as commentary or
+   * kept as silent context, depending on `speak_results`. Beta feature.
+   */
+  delegation_settings?: DelegationSettings;
 
   /**
    * Body param
@@ -4078,6 +4301,15 @@ export interface AssistantCreateParams {
   voice_settings?: InferenceEmbeddingVoiceSettings;
 
   /**
+   * Body param: Streams conversation and telephony events to a WebSocket server you
+   * host, and accepts messages injected back into the conversation. Telnyx opens the
+   * connection as a client, once per conversation. Delivery is best effort
+   * throughout: while the connection is down events are dropped rather than queued,
+   * and no socket failure is ever allowed to affect the call. Beta feature.
+   */
+  websocket_settings?: WebsocketSettings;
+
+  /**
    * Body param: Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
@@ -4171,6 +4403,17 @@ export interface AssistantUpdateParams {
    * every edge's endpoints reference real nodes.
    */
   conversation_flow?: ConversationFlowReq;
+
+  /**
+   * Splits the conversation between a frontend model that talks to the caller and a
+   * backend model that does the work. On the GPT-Live route the frontend model
+   * cannot call tools at all — when it needs something done it raises a delegation
+   * and waits. On the chat completion route the frontend keeps a single `delegate`
+   * tool that returns immediately, so the conversation carries on while the backend
+   * works. Either way the backend's answer is spoken as commentary or kept as silent
+   * context, depending on `speak_results`. Beta feature.
+   */
+  delegation_settings?: DelegationSettings;
 
   description?: string;
 
@@ -4332,6 +4575,15 @@ export interface AssistantUpdateParams {
   voice_settings?: InferenceEmbeddingVoiceSettings;
 
   /**
+   * Streams conversation and telephony events to a WebSocket server you host, and
+   * accepts messages injected back into the conversation. Telnyx opens the
+   * connection as a client, once per conversation. Delivery is best effort
+   * throughout: while the connection is down events are dropped rather than queued,
+   * and no socket failure is ever allowed to affect the call. Beta feature.
+   */
+  websocket_settings?: WebsocketSettings;
+
+  /**
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: WidgetSettings;
@@ -4416,6 +4668,44 @@ export interface AssistantSendSMSParams {
   'Idempotency-Key'?: string;
 }
 
+export interface AssistantWhatsappParams {
+  /**
+   * Body param: Instruction for the assistant, including the values for the template
+   * variables, e.g. `Send the login verification code 482913 to the customer.`
+   */
+  content: string;
+
+  /**
+   * Body param: WhatsApp number on your account to send from, in E.164 format. Its
+   * messaging profile must have this assistant configured.
+   */
+  from: string;
+
+  /**
+   * Body param: Customer to message, as an E.164 phone number or a WhatsApp
+   * business-scoped user ID (BSUID).
+   */
+  to: string;
+
+  /**
+   * Body param: Metadata stored on the conversation. Keys starting with `telnyx_`
+   * and the `assistant_id` key are reserved.
+   */
+  conversation_metadata?: { [key: string]: string | number | boolean };
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
+}
+
 Assistants.Tests = Tests;
 Assistants.CanaryDeploys = CanaryDeploys;
 Assistants.ScheduledEvents = ScheduledEvents;
@@ -4439,6 +4729,7 @@ export declare namespace Assistants {
     type ComparisonExpression as ComparisonExpression,
     type ConversationFlow as ConversationFlow,
     type ConversationFlowReq as ConversationFlowReq,
+    type DelegationSettings as DelegationSettings,
     type EnabledFeatures as EnabledFeatures,
     type Expression as Expression,
     type ExternalLlm as ExternalLlm,
@@ -4478,11 +4769,13 @@ export declare namespace Assistants {
     type TransferTool as TransferTool,
     type VoiceSettings as VoiceSettings,
     type WebhookTool as WebhookTool,
+    type WebsocketSettings as WebsocketSettings,
     type WidgetSettings as WidgetSettings,
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
     type AssistantSendSMSResponse as AssistantSendSMSResponse,
+    type AssistantWhatsappResponse as AssistantWhatsappResponse,
     type AssistantCreateParams as AssistantCreateParams,
     type AssistantImportsParams as AssistantImportsParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
@@ -4490,6 +4783,7 @@ export declare namespace Assistants {
     type AssistantChatParams as AssistantChatParams,
     type AssistantCloneParams as AssistantCloneParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
+    type AssistantWhatsappParams as AssistantWhatsappParams,
   };
 
   export {

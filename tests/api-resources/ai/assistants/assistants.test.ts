@@ -201,6 +201,23 @@ describe('resource assistants', () => {
           },
         ],
       },
+      delegation_settings: {
+        enabled: true,
+        external_llm: {
+          base_url: 'base_url',
+          model: 'model',
+          authentication_method: 'token',
+          certificate_ref: 'certificate_ref',
+          forward_metadata: true,
+          llm_api_key_ref: 'llm_api_key_ref',
+          token_retrieval_url: 'token_retrieval_url',
+        },
+        instructions: 'instructions',
+        llm_api_key_ref: 'llm_api_key_ref',
+        mode: 'telnyx',
+        model: 'model',
+        speak_results: true,
+      },
       description: 'description',
       dynamic_variables: { foo: 'bar' },
       dynamic_variables_webhook_timeout_ms: 1,
@@ -348,6 +365,11 @@ describe('resource assistants', () => {
         temperature: 0,
         use_speaker_boost: true,
         voice_speed: 0,
+      },
+      websocket_settings: {
+        auth_ref: 'auth_ref',
+        enabled: true,
+        url: 'url',
       },
       widget_settings: {
         agent_thinking_text: 'agent_thinking_text',
@@ -522,6 +544,33 @@ describe('resource assistants', () => {
       conversation_metadata: { foo: 'string' },
       should_create_conversation: false,
       text: 'Text',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('whatsapp: only required params', async () => {
+    const responsePromise = client.ai.assistants.whatsapp('assistant_id', {
+      content: 'Send the login verification code 482913 to the customer.',
+      from: '+13125550001',
+      to: '+13125550002',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('whatsapp: required and optional params', async () => {
+    const response = await client.ai.assistants.whatsapp('assistant_id', {
+      content: 'Send the login verification code 482913 to the customer.',
+      from: '+13125550001',
+      to: '+13125550002',
+      conversation_metadata: { order_id: 'A1' },
       'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });

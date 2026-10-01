@@ -139,6 +139,17 @@ export interface UpdateAssistant {
    */
   conversation_flow?: AssistantsAPI.ConversationFlowReq;
 
+  /**
+   * Splits the conversation between a frontend model that talks to the caller and a
+   * backend model that does the work. On the GPT-Live route the frontend model
+   * cannot call tools at all — when it needs something done it raises a delegation
+   * and waits. On the chat completion route the frontend keeps a single `delegate`
+   * tool that returns immediately, so the conversation carries on while the backend
+   * works. Either way the backend's answer is spoken as commentary or kept as silent
+   * context, depending on `speak_results`. Beta feature.
+   */
+  delegation_settings?: AssistantsAPI.DelegationSettings;
+
   description?: string;
 
   /**
@@ -293,6 +304,15 @@ export interface UpdateAssistant {
   voice_settings?: AssistantsAPI.InferenceEmbeddingVoiceSettings;
 
   /**
+   * Streams conversation and telephony events to a WebSocket server you host, and
+   * accepts messages injected back into the conversation. Telnyx opens the
+   * connection as a client, once per conversation. Delivery is best effort
+   * throughout: while the connection is down events are dropped rather than queued,
+   * and no socket failure is ever allowed to affect the call. Beta feature.
+   */
+  websocket_settings?: AssistantsAPI.WebsocketSettings;
+
+  /**
    * Configuration settings for the assistant's web widget.
    */
   widget_settings?: AssistantsAPI.WidgetSettings;
@@ -345,6 +365,17 @@ export interface VersionUpdateParams {
    * every edge's endpoints reference real nodes.
    */
   conversation_flow?: AssistantsAPI.ConversationFlowReq;
+
+  /**
+   * Body param: Splits the conversation between a frontend model that talks to the
+   * caller and a backend model that does the work. On the GPT-Live route the
+   * frontend model cannot call tools at all — when it needs something done it raises
+   * a delegation and waits. On the chat completion route the frontend keeps a single
+   * `delegate` tool that returns immediately, so the conversation carries on while
+   * the backend works. Either way the backend's answer is spoken as commentary or
+   * kept as silent context, depending on `speak_results`. Beta feature.
+   */
+  delegation_settings?: AssistantsAPI.DelegationSettings;
 
   /**
    * Body param
@@ -535,6 +566,15 @@ export interface VersionUpdateParams {
    * Body param
    */
   voice_settings?: AssistantsAPI.InferenceEmbeddingVoiceSettings;
+
+  /**
+   * Body param: Streams conversation and telephony events to a WebSocket server you
+   * host, and accepts messages injected back into the conversation. Telnyx opens the
+   * connection as a client, once per conversation. Delivery is best effort
+   * throughout: while the connection is down events are dropped rather than queued,
+   * and no socket failure is ever allowed to affect the call. Beta feature.
+   */
+  websocket_settings?: AssistantsAPI.WebsocketSettings;
 
   /**
    * Body param: Configuration settings for the assistant's web widget.

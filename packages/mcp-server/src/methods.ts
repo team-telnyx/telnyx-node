@@ -445,6 +445,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/chat/sms',
   },
   {
+    clientCallName: 'client.ai.assistants.whatsapp',
+    fullyQualifiedName: 'ai.assistants.whatsapp',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/{assistant_id}/chat/whatsapp',
+  },
+  {
     clientCallName: 'client.ai.assistants.tests.list',
     fullyQualifiedName: 'ai.assistants.tests.list',
     httpMethod: 'get',
@@ -1331,6 +1337,24 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.memory.namespaces.retrieve',
     httpMethod: 'get',
     httpPath: '/ai/memory/namespaces/{namespace}/operations/{operation_id}',
+  },
+  {
+    clientCallName: 'client.ai.memory.namespaces.list',
+    fullyQualifiedName: 'ai.memory.namespaces.list',
+    httpMethod: 'get',
+    httpPath: '/ai/memory/namespaces',
+  },
+  {
+    clientCallName: 'client.ai.memory.namespaces.create',
+    fullyQualifiedName: 'ai.memory.namespaces.create',
+    httpMethod: 'post',
+    httpPath: '/ai/memory/namespaces',
+  },
+  {
+    clientCallName: 'client.ai.memory.namespaces.delete',
+    fullyQualifiedName: 'ai.memory.namespaces.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/memory/namespaces/{namespace}',
   },
   {
     clientCallName: 'client.ai.memory.namespaces.profiles.list',
@@ -6738,6 +6762,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/dir',
   },
   {
+    clientCallName: 'client.enterprises.verifyEmail.create',
+    fullyQualifiedName: 'enterprises.verifyEmail.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/verify_email',
+  },
+  {
+    clientCallName: 'client.enterprises.verifyEmail.confirm',
+    fullyQualifiedName: 'enterprises.verifyEmail.confirm',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/verify_email/confirm',
+  },
+  {
     clientCallName: 'client.reputation.numbers.list',
     fullyQualifiedName: 'reputation.numbers.list',
     httpMethod: 'get',
@@ -6934,6 +6970,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'dir.newLoa',
     httpMethod: 'post',
     httpPath: '/dir/{dir_id}/loa',
+  },
+  {
+    clientCallName: 'client.dir.retrieveBpoAuthorizations',
+    fullyQualifiedName: 'dir.retrieveBpoAuthorizations',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/bpo_authorizations',
+  },
+  {
+    clientCallName: 'client.dir.bpoLoa',
+    fullyQualifiedName: 'dir.bpoLoa',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/bpo_loa',
   },
   {
     clientCallName: 'client.dir.comments.list',
@@ -7732,6 +7780,30 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'machinePayments.accountCredit',
     httpMethod: 'post',
     httpPath: '/machine-payments/account-credit',
+  },
+  {
+    clientCallName: 'client.spendLimits.list',
+    fullyQualifiedName: 'spendLimits.list',
+    httpMethod: 'get',
+    httpPath: '/spend_limits',
+  },
+  {
+    clientCallName: 'client.spendLimits.create',
+    fullyQualifiedName: 'spendLimits.create',
+    httpMethod: 'post',
+    httpPath: '/spend_limits',
+  },
+  {
+    clientCallName: 'client.spendLimits.delete',
+    fullyQualifiedName: 'spendLimits.delete',
+    httpMethod: 'delete',
+    httpPath: '/spend_limits/{product}',
+  },
+  {
+    clientCallName: 'client.spendLimits.update',
+    fullyQualifiedName: 'spendLimits.update',
+    httpMethod: 'patch',
+    httpPath: '/spend_limits/{product}',
   },
 ];
 
