@@ -70,7 +70,7 @@ export class Embeddings extends APIResource {
    *     bucket_name: 'Bucket Name',
    *     document_chunk_overlap_size: 512,
    *     document_chunk_size: 1024,
-   *     embedding_model: 'thenlper/gte-large',
+   *     embedding_model: 'intfloat/multilingual-e5-large',
    *     loader: 'default',
    *   },
    * );

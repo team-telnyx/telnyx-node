@@ -7,27 +7,10 @@ const client = new Telnyx({
   baseURL: process.env['TEST_API_BASE_URL'] ?? 'http://127.0.0.1:4010',
 });
 
-describe('resource namespaces', () => {
-  // Mock server tests are disabled
-  test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.ai.memory.namespaces.retrieve('operation_id', { namespace: 'namespace' });
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieve: required and optional params', async () => {
-    const response = await client.ai.memory.namespaces.retrieve('operation_id', { namespace: 'namespace' });
-  });
-
+describe('resource spendLimits', () => {
   // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.ai.memory.namespaces.list();
+    const responsePromise = client.spendLimits.list();
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -39,7 +22,7 @@ describe('resource namespaces', () => {
 
   // Mock server tests are disabled
   test.skip('create: only required params', async () => {
-    const responsePromise = client.ai.memory.namespaces.create({ name: 'staging' });
+    const responsePromise = client.spendLimits.create({ amount: 100, product: 'inference' });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -51,12 +34,18 @@ describe('resource namespaces', () => {
 
   // Mock server tests are disabled
   test.skip('create: required and optional params', async () => {
-    const response = await client.ai.memory.namespaces.create({ name: 'staging' });
+    const response = await client.spendLimits.create({
+      amount: 100,
+      product: 'inference',
+      period: 'daily',
+      reason: 'Team budget',
+      unlimited: false,
+    });
   });
 
   // Mock server tests are disabled
   test.skip('delete', async () => {
-    const responsePromise = client.ai.memory.namespaces.delete('namespace');
+    const responsePromise = client.spendLimits.delete('inference');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -64,5 +53,39 @@ describe('resource namespaces', () => {
     const dataAndResponse = await responsePromise.withResponse();
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('delete: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.spendLimits.delete(
+        'inference',
+        { period: 'daily', reason: 'reason' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('update: only required params', async () => {
+    const responsePromise = client.spendLimits.update('inference', { amount: 100 });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('update: required and optional params', async () => {
+    const response = await client.spendLimits.update('inference', {
+      amount: 100,
+      period: 'daily',
+      reason: 'Raised for the product launch',
+      unlimited: false,
+    });
   });
 });

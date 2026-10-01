@@ -561,6 +561,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ComparisonExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlow</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlowReq</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">DelegationSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">EnabledFeatures</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">Expression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ExternalLlm</a></code>
@@ -600,11 +601,13 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TransferTool</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">VoiceSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">WebhookTool</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">WebsocketSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">WidgetSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantDeleteResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantChatResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantGetTexmlResponse</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantSendSMSResponse</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantWhatsappResponse</a></code>
 
 Methods:
 
@@ -618,6 +621,7 @@ Methods:
 - <code title="post /ai/assistants/{assistant_id}/clone">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">clone</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="get /ai/assistants/{assistant_id}/texml">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">getTexml</a>(assistantID) -> string</code>
 - <code title="post /ai/assistants/{assistant_id}/chat/sms">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">sendSMS</a>(assistantID, { ...params }) -> AssistantSendSMSResponse</code>
+- <code title="post /ai/assistants/{assistant_id}/chat/whatsapp">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">whatsapp</a>(assistantID, { ...params }) -> AssistantWhatsappResponse</code>
 
 ### Tests
 
@@ -1239,11 +1243,17 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">Namespace</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">NamespaceCreateResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">NamespaceRetrieveResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/namespaces.ts">NamespaceListResponse</a></code>
 
 Methods:
 
 - <code title="get /ai/memory/namespaces/{namespace}/operations/{operation_id}">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">retrieve</a>(operationID, { ...params }) -> NamespaceRetrieveResponse</code>
+- <code title="get /ai/memory/namespaces">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">list</a>() -> NamespaceListResponse</code>
+- <code title="post /ai/memory/namespaces">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">create</a>({ ...params }) -> NamespaceCreateResponse</code>
+- <code title="delete /ai/memory/namespaces/{namespace}">client.ai.memory.namespaces.<a href="./src/resources/ai/memory/namespaces/namespaces.ts">delete</a>(namespace) -> void</code>
 
 #### Profiles
 
@@ -5309,6 +5319,17 @@ Methods:
 - <code title="get /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir.ts">list</a>(enterpriseID, { ...params }) -> DirsDefaultFlatPagination</code>
 - <code title="post /enterprises/{enterprise_id}/dir">client.enterprises.dir.<a href="./src/resources/enterprises/dir.ts">create</a>(enterpriseID, { ...params }) -> DirWrapped</code>
 
+## VerifyEmail
+
+Types:
+
+- <code><a href="./src/resources/enterprises/verify-email.ts">EnterpriseEmailVerificationStatusWrapped</a></code>
+
+Methods:
+
+- <code title="post /enterprises/{enterprise_id}/verify_email">client.enterprises.verifyEmail.<a href="./src/resources/enterprises/verify-email.ts">create</a>(enterpriseID) -> EnterpriseEmailVerificationStatusWrapped</code>
+- <code title="post /enterprises/{enterprise_id}/verify_email/confirm">client.enterprises.verifyEmail.<a href="./src/resources/enterprises/verify-email.ts">confirm</a>(enterpriseID, { ...params }) -> EnterpriseEmailVerificationStatusWrapped</code>
+
 # Reputation
 
 ## Numbers
@@ -5437,24 +5458,30 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/dir/dir.ts">BpoAuthorizationInput</a></code>
 - <code><a href="./src/resources/dir/dir.ts">Dir</a></code>
 - <code><a href="./src/resources/dir/dir.ts">DirList</a></code>
 - <code><a href="./src/resources/dir/dir.ts">DirStatus</a></code>
 - <code><a href="./src/resources/dir/dir.ts">DirWrapped</a></code>
 - <code><a href="./src/resources/dir/dir.ts">Document</a></code>
+- <code><a href="./src/resources/dir/dir.ts">SignaturePayload</a></code>
+- <code><a href="./src/resources/dir/dir.ts">DirDeleteResponse</a></code>
 - <code><a href="./src/resources/dir/dir.ts">DirListDocumentTypesResponse</a></code>
+- <code><a href="./src/resources/dir/dir.ts">DirRetrieveBpoAuthorizationsResponse</a></code>
 
 Methods:
 
 - <code title="get /dir">client.dir.<a href="./src/resources/dir/dir.ts">list</a>({ ...params }) -> DirsDefaultFlatPagination</code>
 - <code title="get /dir/document_types">client.dir.<a href="./src/resources/dir/dir.ts">listDocumentTypes</a>() -> DirListDocumentTypesResponse</code>
-- <code title="delete /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">delete</a>(dirID) -> void</code>
+- <code title="delete /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">delete</a>(dirID) -> DirDeleteResponse</code>
 - <code title="get /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">retrieve</a>(dirID) -> DirWrapped</code>
 - <code title="patch /dir/{dir_id}">client.dir.<a href="./src/resources/dir/dir.ts">update</a>(dirID, { ...params }) -> DirWrapped</code>
 - <code title="get /dir/{dir_id}/infringement_claims">client.dir.<a href="./src/resources/dir/dir.ts">listInfringementClaims</a>(dirID, { ...params }) -> InfringementClaimsDefaultFlatPagination</code>
 - <code title="put /dir/{dir_id}/infringement_update">client.dir.<a href="./src/resources/dir/dir.ts">updateInfringement</a>(dirID, { ...params }) -> DirWrapped</code>
 - <code title="post /dir/{dir_id}/submit">client.dir.<a href="./src/resources/dir/dir.ts">submit</a>(dirID) -> DirWrapped</code>
 - <code title="post /dir/{dir_id}/loa">client.dir.<a href="./src/resources/dir/dir.ts">newLoa</a>(dirID, { ...params }) -> Response</code>
+- <code title="get /dir/{dir_id}/bpo_authorizations">client.dir.<a href="./src/resources/dir/dir.ts">retrieveBpoAuthorizations</a>(dirID, { ...params }) -> DirRetrieveBpoAuthorizationsResponse</code>
+- <code title="post /dir/{dir_id}/bpo_loa">client.dir.<a href="./src/resources/dir/dir.ts">bpoLoa</a>(dirID, { ...params }) -> Response</code>
 
 ## Comments
 
@@ -6052,3 +6079,19 @@ Types:
 Methods:
 
 - <code title="post /machine-payments/account-credit">client.machinePayments.<a href="./src/resources/machine-payments.ts">accountCredit</a>({ ...params }) -> MachinePaymentAccountCreditResponse</code>
+
+# SpendLimits
+
+Types:
+
+- <code><a href="./src/resources/spend-limits.ts">SpendLimit</a></code>
+- <code><a href="./src/resources/spend-limits.ts">SpendLimitPeriod</a></code>
+- <code><a href="./src/resources/spend-limits.ts">SpendLimitResponse</a></code>
+- <code><a href="./src/resources/spend-limits.ts">SpendLimitListResponse</a></code>
+
+Methods:
+
+- <code title="get /spend_limits">client.spendLimits.<a href="./src/resources/spend-limits.ts">list</a>() -> SpendLimitListResponse</code>
+- <code title="post /spend_limits">client.spendLimits.<a href="./src/resources/spend-limits.ts">create</a>({ ...params }) -> SpendLimitResponse</code>
+- <code title="delete /spend_limits/{product}">client.spendLimits.<a href="./src/resources/spend-limits.ts">delete</a>(product, { ...params }) -> SpendLimitResponse</code>
+- <code title="patch /spend_limits/{product}">client.spendLimits.<a href="./src/resources/spend-limits.ts">update</a>(product, { ...params }) -> SpendLimitResponse</code>
