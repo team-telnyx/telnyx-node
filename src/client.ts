@@ -1060,6 +1060,7 @@ import {
   CallAnsweredWebhookEvent,
   CallBridged,
   CallBridgedWebhookEvent,
+  CallConversationCreatedWebhookEvent,
   CallConversationEnded,
   CallConversationEndedWebhookEvent,
   CallConversationInsightsGenerated,
@@ -1088,8 +1089,10 @@ import {
   CallMachineDetectionEndedWebhookEvent,
   CallMachineGreetingEnded,
   CallMachineGreetingEndedWebhookEvent,
+  CallMachinePremiumCallScreeningDetectedWebhookEvent,
   CallMachinePremiumDetectionEnded,
   CallMachinePremiumDetectionEndedWebhookEvent,
+  CallMachinePremiumDetectionStartedWebhookEvent,
   CallMachinePremiumGreetingEnded,
   CallMachinePremiumGreetingEndedWebhookEvent,
   CallPaymentCompletedWebhookEvent,
@@ -1466,6 +1469,7 @@ import {
   WebhookAPIVersion,
 } from './resources/fqdn-connections/fqdn-connections';
 import { Legacy } from './resources/legacy/legacy';
+import { LlmTokenGateway } from './resources/llm-token-gateway/llm-token-gateway';
 import {
   ManagedAccount,
   ManagedAccountBalance,
@@ -3318,6 +3322,7 @@ export class Telnyx {
    * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is listed with `origin: operator` and you can update or delete it like your own.
    */
   spendLimits: API.SpendLimits = new API.SpendLimits(this);
+  llmTokenGateway: API.LlmTokenGateway = new API.LlmTokenGateway(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3509,6 +3514,7 @@ Telnyx.BotSessions = BotSessions;
 Telnyx.BotSignup = BotSignup;
 Telnyx.MachinePayments = MachinePayments;
 Telnyx.SpendLimits = SpendLimits;
+Telnyx.LlmTokenGateway = LlmTokenGateway;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3699,6 +3705,7 @@ export declare namespace Telnyx {
     type ArtifactFailedWebhookEvent as ArtifactFailedWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
+    type CallConversationCreatedWebhookEvent as CallConversationCreatedWebhookEvent,
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
     type CallConversationInsightsGeneratedWebhookEvent as CallConversationInsightsGeneratedWebhookEvent,
     type CallCostWebhookEvent as CallCostWebhookEvent,
@@ -3715,7 +3722,9 @@ export declare namespace Telnyx {
     type CallLeftQueueWebhookEvent as CallLeftQueueWebhookEvent,
     type CallMachineDetectionEndedWebhookEvent as CallMachineDetectionEndedWebhookEvent,
     type CallMachineGreetingEndedWebhookEvent as CallMachineGreetingEndedWebhookEvent,
+    type CallMachinePremiumCallScreeningDetectedWebhookEvent as CallMachinePremiumCallScreeningDetectedWebhookEvent,
     type CallMachinePremiumDetectionEndedWebhookEvent as CallMachinePremiumDetectionEndedWebhookEvent,
+    type CallMachinePremiumDetectionStartedWebhookEvent as CallMachinePremiumDetectionStartedWebhookEvent,
     type CallMachinePremiumGreetingEndedWebhookEvent as CallMachinePremiumGreetingEndedWebhookEvent,
     type CallPaymentCompletedWebhookEvent as CallPaymentCompletedWebhookEvent,
     type CallPaymentProgressWebhookEvent as CallPaymentProgressWebhookEvent,
@@ -5591,6 +5600,8 @@ export declare namespace Telnyx {
     type SpendLimitDeleteParams as SpendLimitDeleteParams,
     type SpendLimitUpdateParams as SpendLimitUpdateParams,
   };
+
+  export { LlmTokenGateway as LlmTokenGateway };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

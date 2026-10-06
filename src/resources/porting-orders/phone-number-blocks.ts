@@ -130,7 +130,15 @@ export interface PortingPhoneNumberBlock {
   /**
    * Specifies the phone number type for this porting phone number block.
    */
-  phone_number_type?: 'landline' | 'local' | 'mobile' | 'national' | 'shared_cost' | 'toll_free';
+  phone_number_type?:
+    | 'landline'
+    | 'local'
+    | 'mobile'
+    | 'multipurpose'
+    | 'national'
+    | 'other'
+    | 'shared_cost'
+    | 'toll_free';
 
   /**
    * Identifies the type of the resource.

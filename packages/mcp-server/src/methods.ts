@@ -451,6 +451,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/chat/whatsapp',
   },
   {
+    clientCallName: 'client.ai.assistants.restore',
+    fullyQualifiedName: 'ai.assistants.restore',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/{assistant_id}/restore',
+  },
+  {
     clientCallName: 'client.ai.assistants.tests.list',
     fullyQualifiedName: 'ai.assistants.tests.list',
     httpMethod: 'get',
@@ -635,6 +641,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.assistants.instructions.enhance',
     httpMethod: 'post',
     httpPath: '/ai/assistants/{assistant_id}/instructions/enhance',
+  },
+  {
+    clientCallName: 'client.ai.assistants.deleted.list',
+    fullyQualifiedName: 'ai.assistants.deleted.list',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/deleted',
+  },
+  {
+    clientCallName: 'client.ai.assistants.deleted.get',
+    fullyQualifiedName: 'ai.assistants.deleted.get',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/{assistant_id}/deleted',
   },
   {
     clientCallName: 'client.ai.audio.transcribe',
@@ -6462,6 +6480,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/conversational_components',
   },
   {
+    clientCallName: 'client.whatsapp.phoneNumbers.callingRouting.list',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.callingRouting.list',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/phone_numbers/{id}/calling_routing',
+  },
+  {
+    clientCallName: 'client.whatsapp.phoneNumbers.callingRouting.patchAll',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.callingRouting.patchAll',
+    httpMethod: 'patch',
+    httpPath: '/whatsapp/phone_numbers/{id}/calling_routing',
+  },
+  {
     clientCallName: 'client.whatsapp.userData.retrieve',
     fullyQualifiedName: 'whatsapp.userData.retrieve',
     httpMethod: 'get',
@@ -7804,6 +7834,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'spendLimits.update',
     httpMethod: 'patch',
     httpPath: '/spend_limits/{product}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.usage.retrieveSummary',
+    fullyQualifiedName: 'llmTokenGateway.usage.retrieveSummary',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/usage/summary',
   },
 ];
 

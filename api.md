@@ -300,6 +300,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
@@ -316,7 +317,9 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallLeftQueueWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumCallScreeningDetectedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
@@ -366,6 +369,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
@@ -382,7 +386,9 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallLeftQueueWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumCallScreeningDetectedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
@@ -614,7 +620,7 @@ Methods:
 - <code title="get /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">list</a>() -> AssistantsList</code>
 - <code title="post /ai/assistants">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">create</a>({ ...params }) -> InferenceEmbedding</code>
 - <code title="post /ai/assistants/import">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">imports</a>({ ...params }) -> AssistantsList</code>
-- <code title="delete /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">delete</a>(assistantID) -> AssistantDeleteResponse</code>
+- <code title="delete /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">delete</a>(assistantID, { ...params }) -> AssistantDeleteResponse</code>
 - <code title="get /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">retrieve</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="post /ai/assistants/{assistant_id}">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">update</a>(assistantID, { ...params }) -> InferenceEmbedding</code>
 - <code title="post /ai/assistants/{assistant_id}/chat">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">chat</a>(assistantID, { ...params }) -> AssistantChatResponse</code>
@@ -622,6 +628,7 @@ Methods:
 - <code title="get /ai/assistants/{assistant_id}/texml">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">getTexml</a>(assistantID) -> string</code>
 - <code title="post /ai/assistants/{assistant_id}/chat/sms">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">sendSMS</a>(assistantID, { ...params }) -> AssistantSendSMSResponse</code>
 - <code title="post /ai/assistants/{assistant_id}/chat/whatsapp">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">whatsapp</a>(assistantID, { ...params }) -> AssistantWhatsappResponse</code>
+- <code title="post /ai/assistants/{assistant_id}/restore">client.ai.assistants.<a href="./src/resources/ai/assistants/assistants.ts">restore</a>(assistantID) -> InferenceEmbedding</code>
 
 ### Tests
 
@@ -762,6 +769,17 @@ Types:
 Methods:
 
 - <code title="post /ai/assistants/{assistant_id}/instructions/enhance">client.ai.assistants.instructions.<a href="./src/resources/ai/assistants/instructions.ts">enhance</a>(assistantID, { ...params }) -> string</code>
+
+### Deleted
+
+Types:
+
+- <code><a href="./src/resources/ai/assistants/deleted.ts">DeletedAssistant</a></code>
+
+Methods:
+
+- <code title="get /ai/assistants/deleted">client.ai.assistants.deleted.<a href="./src/resources/ai/assistants/deleted.ts">list</a>({ ...params }) -> DeletedAssistantsDefaultFlatPagination</code>
+- <code title="get /ai/assistants/{assistant_id}/deleted">client.ai.assistants.deleted.<a href="./src/resources/ai/assistants/deleted.ts">get</a>(assistantID) -> DeletedAssistant</code>
 
 ## Audio
 
@@ -1191,13 +1209,12 @@ Types:
 - <code><a href="./src/resources/ai/tools.ts">PayToolParams</a></code>
 - <code><a href="./src/resources/ai/tools.ts">SharedToolResponse</a></code>
 - <code><a href="./src/resources/ai/tools.ts">UpdateDynamicVariablesToolParams</a></code>
-- <code><a href="./src/resources/ai/tools.ts">ToolDeleteResponse</a></code>
 
 Methods:
 
 - <code title="get /ai/tools">client.ai.tools.<a href="./src/resources/ai/tools.ts">list</a>({ ...params }) -> SharedToolResponsesDefaultFlatPagination</code>
 - <code title="post /ai/tools">client.ai.tools.<a href="./src/resources/ai/tools.ts">create</a>({ ...params }) -> SharedToolResponse</code>
-- <code title="delete /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">delete</a>(toolID) -> unknown</code>
+- <code title="delete /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">delete</a>(toolID) -> void</code>
 - <code title="get /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">retrieve</a>(toolID) -> SharedToolResponse</code>
 - <code title="patch /ai/tools/{tool_id}">client.ai.tools.<a href="./src/resources/ai/tools.ts">update</a>(toolID, { ...params }) -> SharedToolResponse</code>
 
@@ -5124,6 +5141,19 @@ Methods:
 - <code title="get /v2/whatsapp/phone_numbers/{phone_number}/conversational_components">client.whatsapp.phoneNumbers.conversationalComponents.<a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">list</a>(phoneNumber) -> ConversationalComponentListResponse</code>
 - <code title="patch /v2/whatsapp/phone_numbers/{phone_number}/conversational_components">client.whatsapp.phoneNumbers.conversationalComponents.<a href="./src/resources/whatsapp/phone-numbers/conversational-components.ts">patchAll</a>(phoneNumber, { ...params }) -> ConversationalComponentPatchAllResponse</code>
 
+### CallingRouting
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/phone-numbers/calling-routing.ts">WhatsappCallingRoutingData</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/calling-routing.ts">CallingRoutingListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/calling-routing.ts">CallingRoutingPatchAllResponse</a></code>
+
+Methods:
+
+- <code title="get /whatsapp/phone_numbers/{id}/calling_routing">client.whatsapp.phoneNumbers.callingRouting.<a href="./src/resources/whatsapp/phone-numbers/calling-routing.ts">list</a>(id) -> CallingRoutingListResponse</code>
+- <code title="patch /whatsapp/phone_numbers/{id}/calling_routing">client.whatsapp.phoneNumbers.callingRouting.<a href="./src/resources/whatsapp/phone-numbers/calling-routing.ts">patchAll</a>(id, { ...params }) -> CallingRoutingPatchAllResponse</code>
+
 ## UserData
 
 Types:
@@ -6095,3 +6125,15 @@ Methods:
 - <code title="post /spend_limits">client.spendLimits.<a href="./src/resources/spend-limits.ts">create</a>({ ...params }) -> SpendLimitResponse</code>
 - <code title="delete /spend_limits/{product}">client.spendLimits.<a href="./src/resources/spend-limits.ts">delete</a>(product, { ...params }) -> SpendLimitResponse</code>
 - <code title="patch /spend_limits/{product}">client.spendLimits.<a href="./src/resources/spend-limits.ts">update</a>(product, { ...params }) -> SpendLimitResponse</code>
+
+# LlmTokenGateway
+
+## Usage
+
+Types:
+
+- <code><a href="./src/resources/llm-token-gateway/usage.ts">UsageRetrieveSummaryResponse</a></code>
+
+Methods:
+
+- <code title="get /llm_token_gateway/usage/summary">client.llmTokenGateway.usage.<a href="./src/resources/llm-token-gateway/usage.ts">retrieveSummary</a>({ ...params }) -> UsageRetrieveSummaryResponse</code>

@@ -18,6 +18,13 @@ import {
   RuleOutput,
   Serve,
 } from './canary-deploys';
+import * as DeletedAPI from './deleted';
+import {
+  Deleted,
+  DeletedAssistant,
+  DeletedAssistantsDefaultFlatPagination,
+  DeletedListParams,
+} from './deleted';
 import * as InstructionsAPI from './instructions';
 import { InstructionEnhanceParams, InstructionEnhanceResponse, Instructions } from './instructions';
 import * as ScheduledEventsAPI from './scheduled-events';
@@ -84,6 +91,7 @@ export class Assistants extends APIResource {
   versions: VersionsAPI.Versions = new VersionsAPI.Versions(this._client);
   tags: TagsAPI.Tags = new TagsAPI.Tags(this._client);
   instructions: InstructionsAPI.Instructions = new InstructionsAPI.Instructions(this._client);
+  deleted: DeletedAPI.Deleted = new DeletedAPI.Deleted(this._client);
 
   /**
    * Retrieve a list of all AI Assistants configured by the user.
@@ -151,6 +159,20 @@ export class Assistants extends APIResource {
   /**
    * Delete an AI Assistant by `assistant_id`.
    *
+   * By default this performs a soft delete: the assistant moves to the Recently
+   * Deleted list and stays restorable for 30 days, after which it is permanently
+   * deleted automatically. The assistant's versions and TeXML application are
+   * preserved during the retention window.
+   *
+   * Pass `hard_delete=true` to skip the retention window and permanently delete the
+   * assistant immediately. A hard delete erases the assistant and all of its
+   * versions, and deletes its TeXML application unless phone numbers are still
+   * assigned to it. It does not delete conversations, recordings, shared tools the
+   * assistant referenced, or knowledge-base embeddings.
+   *
+   * Deletion fails with `400` if other assistants reference this one through a
+   * handoff tool or a conversation-flow edge — remove those references first.
+   *
    * @example
    * ```ts
    * const assistant = await client.ai.assistants.delete(
@@ -158,8 +180,13 @@ export class Assistants extends APIResource {
    * );
    * ```
    */
-  delete(assistantID: string, options?: RequestOptions): APIPromise<AssistantDeleteResponse> {
-    return this._client.delete(path`/ai/assistants/${assistantID}`, options);
+  delete(
+    assistantID: string,
+    params: AssistantDeleteParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<AssistantDeleteResponse> {
+    const { hard_delete } = params ?? {};
+    return this._client.delete(path`/ai/assistants/${assistantID}`, { query: { hard_delete }, ...options });
   }
 
   /**
@@ -352,6 +379,23 @@ export class Assistants extends APIResource {
         options?.headers,
       ]),
     });
+  }
+
+  /**
+   * Restore a soft-deleted assistant from the Recently Deleted list.
+   *
+   * The assistant becomes fully active again with its versions and TeXML application
+   * as they were at deletion time. Restoring does not re-enable numbers or
+   * connections that were released separately after the deletion.
+   *
+   * @example
+   * ```ts
+   * const inferenceEmbedding =
+   *   await client.ai.assistants.restore('assistant_id');
+   * ```
+   */
+  restore(assistantID: string, options?: RequestOptions): APIPromise<InferenceEmbedding> {
+    return this._client.post(path`/ai/assistants/${assistantID}/restore`, options);
   }
 }
 
@@ -2475,9 +2519,10 @@ export interface InferenceEmbeddingVoiceSettings {
   use_speaker_boost?: boolean;
 
   /**
-   * The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger
-   * numbers make the voice faster, smaller numbers make it slower. This is only
-   * applicable for Telnyx Natural voices and Soniox voices (0.7 to 1.3 for Soniox).
+   * The speed of the voice in the range [0.6, 1.5]. 1.0 is the default speed. Larger
+   * numbers make the voice faster, smaller numbers make it slower. Applies to Telnyx
+   * `Ultra` voices; values outside this range are rejected by the synthesis engine.
+   * Soniox voices support a speed range of 0.7 to 1.3.
    */
   voice_speed?: number;
 }
@@ -3769,9 +3814,9 @@ export interface VoiceSettings {
   use_speaker_boost?: boolean;
 
   /**
-   * The speed of the voice in the range [0.25, 2.0]. 1.0 is deafult speed. Larger
-   * numbers make the voice faster, smaller numbers make it slower. This is only
-   * applicable for Telnyx Natural voices.
+   * The speed of the voice in the range [0.6, 1.5]. 1.0 is the default speed. Larger
+   * numbers make the voice faster, smaller numbers make it slower. Applies to Telnyx
+   * `Ultra` voices; values outside this range are rejected by the synthesis engine.
    */
   voice_speed?: number;
 }
@@ -4359,6 +4404,14 @@ export interface AssistantImportsParams {
   'Idempotency-Key'?: string;
 }
 
+export interface AssistantDeleteParams {
+  /**
+   * Permanently delete the assistant immediately instead of soft-deleting it to the
+   * Recently Deleted list, where it stays restorable for 30 days.
+   */
+  hard_delete?: boolean;
+}
+
 export interface AssistantRetrieveParams {
   /**
    * Filter results by call control id.
@@ -4713,6 +4766,7 @@ Assistants.Tools = Tools;
 Assistants.Versions = Versions;
 Assistants.Tags = Tags;
 Assistants.Instructions = Instructions;
+Assistants.Deleted = Deleted;
 
 export declare namespace Assistants {
   export {
@@ -4778,6 +4832,7 @@ export declare namespace Assistants {
     type AssistantWhatsappResponse as AssistantWhatsappResponse,
     type AssistantCreateParams as AssistantCreateParams,
     type AssistantImportsParams as AssistantImportsParams,
+    type AssistantDeleteParams as AssistantDeleteParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
@@ -4855,5 +4910,12 @@ export declare namespace Assistants {
     Instructions as Instructions,
     type InstructionEnhanceResponse as InstructionEnhanceResponse,
     type InstructionEnhanceParams as InstructionEnhanceParams,
+  };
+
+  export {
+    Deleted as Deleted,
+    type DeletedAssistant as DeletedAssistant,
+    type DeletedAssistantsDefaultFlatPagination as DeletedAssistantsDefaultFlatPagination,
+    type DeletedListParams as DeletedListParams,
   };
 }

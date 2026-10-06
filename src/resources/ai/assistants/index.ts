@@ -64,6 +64,7 @@ export {
   type AssistantWhatsappResponse,
   type AssistantCreateParams,
   type AssistantImportsParams,
+  type AssistantDeleteParams,
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
@@ -83,6 +84,12 @@ export {
   type CanaryDeployCreateParams,
   type CanaryDeployUpdateParams,
 } from './canary-deploys';
+export {
+  Deleted,
+  type DeletedAssistant,
+  type DeletedListParams,
+  type DeletedAssistantsDefaultFlatPagination,
+} from './deleted';
 export { Instructions, type InstructionEnhanceResponse, type InstructionEnhanceParams } from './instructions';
 export {
   ScheduledEvents,
