@@ -445,6 +445,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/assistants/{assistant_id}/chat/sms',
   },
   {
+    clientCallName: 'client.ai.assistants.whatsapp',
+    fullyQualifiedName: 'ai.assistants.whatsapp',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/{assistant_id}/chat/whatsapp',
+  },
+  {
+    clientCallName: 'client.ai.assistants.restore',
+    fullyQualifiedName: 'ai.assistants.restore',
+    httpMethod: 'post',
+    httpPath: '/ai/assistants/{assistant_id}/restore',
+  },
+  {
     clientCallName: 'client.ai.assistants.tests.list',
     fullyQualifiedName: 'ai.assistants.tests.list',
     httpMethod: 'get',
@@ -629,6 +641,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.assistants.instructions.enhance',
     httpMethod: 'post',
     httpPath: '/ai/assistants/{assistant_id}/instructions/enhance',
+  },
+  {
+    clientCallName: 'client.ai.assistants.deleted.list',
+    fullyQualifiedName: 'ai.assistants.deleted.list',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/deleted',
+  },
+  {
+    clientCallName: 'client.ai.assistants.deleted.get',
+    fullyQualifiedName: 'ai.assistants.deleted.get',
+    httpMethod: 'get',
+    httpPath: '/ai/assistants/{assistant_id}/deleted',
   },
   {
     clientCallName: 'client.ai.audio.transcribe',
@@ -1331,6 +1355,24 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.memory.namespaces.retrieve',
     httpMethod: 'get',
     httpPath: '/ai/memory/namespaces/{namespace}/operations/{operation_id}',
+  },
+  {
+    clientCallName: 'client.ai.memory.namespaces.list',
+    fullyQualifiedName: 'ai.memory.namespaces.list',
+    httpMethod: 'get',
+    httpPath: '/ai/memory/namespaces',
+  },
+  {
+    clientCallName: 'client.ai.memory.namespaces.create',
+    fullyQualifiedName: 'ai.memory.namespaces.create',
+    httpMethod: 'post',
+    httpPath: '/ai/memory/namespaces',
+  },
+  {
+    clientCallName: 'client.ai.memory.namespaces.delete',
+    fullyQualifiedName: 'ai.memory.namespaces.delete',
+    httpMethod: 'delete',
+    httpPath: '/ai/memory/namespaces/{namespace}',
   },
   {
     clientCallName: 'client.ai.memory.namespaces.profiles.list',
@@ -6438,6 +6480,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/phone_numbers/{phone_number}/conversational_components',
   },
   {
+    clientCallName: 'client.whatsapp.phoneNumbers.callingRouting.list',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.callingRouting.list',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/phone_numbers/{id}/calling_routing',
+  },
+  {
+    clientCallName: 'client.whatsapp.phoneNumbers.callingRouting.patchAll',
+    fullyQualifiedName: 'whatsapp.phoneNumbers.callingRouting.patchAll',
+    httpMethod: 'patch',
+    httpPath: '/whatsapp/phone_numbers/{id}/calling_routing',
+  },
+  {
     clientCallName: 'client.whatsapp.userData.retrieve',
     fullyQualifiedName: 'whatsapp.userData.retrieve',
     httpMethod: 'get',
@@ -6738,6 +6792,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/dir',
   },
   {
+    clientCallName: 'client.enterprises.verifyEmail.create',
+    fullyQualifiedName: 'enterprises.verifyEmail.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/verify_email',
+  },
+  {
+    clientCallName: 'client.enterprises.verifyEmail.confirm',
+    fullyQualifiedName: 'enterprises.verifyEmail.confirm',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/verify_email/confirm',
+  },
+  {
     clientCallName: 'client.reputation.numbers.list',
     fullyQualifiedName: 'reputation.numbers.list',
     httpMethod: 'get',
@@ -6934,6 +7000,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'dir.newLoa',
     httpMethod: 'post',
     httpPath: '/dir/{dir_id}/loa',
+  },
+  {
+    clientCallName: 'client.dir.retrieveBpoAuthorizations',
+    fullyQualifiedName: 'dir.retrieveBpoAuthorizations',
+    httpMethod: 'get',
+    httpPath: '/dir/{dir_id}/bpo_authorizations',
+  },
+  {
+    clientCallName: 'client.dir.bpoLoa',
+    fullyQualifiedName: 'dir.bpoLoa',
+    httpMethod: 'post',
+    httpPath: '/dir/{dir_id}/bpo_loa',
   },
   {
     clientCallName: 'client.dir.comments.list',
@@ -7732,6 +7810,36 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'machinePayments.accountCredit',
     httpMethod: 'post',
     httpPath: '/machine-payments/account-credit',
+  },
+  {
+    clientCallName: 'client.spendLimits.list',
+    fullyQualifiedName: 'spendLimits.list',
+    httpMethod: 'get',
+    httpPath: '/spend_limits',
+  },
+  {
+    clientCallName: 'client.spendLimits.create',
+    fullyQualifiedName: 'spendLimits.create',
+    httpMethod: 'post',
+    httpPath: '/spend_limits',
+  },
+  {
+    clientCallName: 'client.spendLimits.delete',
+    fullyQualifiedName: 'spendLimits.delete',
+    httpMethod: 'delete',
+    httpPath: '/spend_limits/{product}',
+  },
+  {
+    clientCallName: 'client.spendLimits.update',
+    fullyQualifiedName: 'spendLimits.update',
+    httpMethod: 'patch',
+    httpPath: '/spend_limits/{product}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.usage.retrieveSummary',
+    fullyQualifiedName: 'llmTokenGateway.usage.retrieveSummary',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/usage/summary',
   },
 ];
 

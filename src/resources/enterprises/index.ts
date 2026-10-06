@@ -22,3 +22,8 @@ export {
   type ReputationEnableParams,
   type ReputationUpdateFrequencyParams,
 } from './reputation/index';
+export {
+  VerifyEmail,
+  type EnterpriseEmailVerificationStatusWrapped,
+  type VerifyEmailConfirmParams,
+} from './verify-email';

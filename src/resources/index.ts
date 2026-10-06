@@ -287,17 +287,23 @@ export {
 } from './dialogflow-connections';
 export {
   DirResource,
+  type BpoAuthorizationInput,
   type Dir,
   type DirList,
   type DirStatus,
   type DirWrapped,
   type Document,
+  type SignaturePayload,
+  type DirDeleteResponse,
   type DirListDocumentTypesResponse,
+  type DirRetrieveBpoAuthorizationsResponse,
   type DirListParams,
   type DirUpdateParams,
   type DirListInfringementClaimsParams,
   type DirUpdateInfringementParams,
   type DirNewLoaParams,
+  type DirRetrieveBpoAuthorizationsParams,
+  type DirBpoLoaParams,
   type DirsDefaultFlatPagination,
 } from './dir/dir';
 export {
@@ -663,6 +669,7 @@ export {
 } from './ledger-billing-group-reports';
 export { Legacy } from './legacy/legacy';
 export { List, type ListRetrieveAllResponse, type ListRetrieveByZoneResponse } from './list';
+export { LlmTokenGateway } from './llm-token-gateway/llm-token-gateway';
 export {
   MachinePayments,
   type MachinePaymentAccountCreditResponse,
@@ -1358,6 +1365,16 @@ export {
   type SpeechToTextListProvidersParams,
   type SpeechToTextRetrieveTranscriptionParams,
 } from './speech-to-text';
+export {
+  SpendLimits,
+  type SpendLimit,
+  type SpendLimitPeriod,
+  type SpendLimitResponse,
+  type SpendLimitListResponse,
+  type SpendLimitCreateParams,
+  type SpendLimitDeleteParams,
+  type SpendLimitUpdateParams,
+} from './spend-limits';
 export { Storage, type StorageListMigrationSourceCoverageResponse } from './storage/storage';
 export {
   SubNumberOrders,
@@ -1660,6 +1677,7 @@ export {
   type ArtifactFailedWebhookEvent,
   type CallAnsweredWebhookEvent,
   type CallBridgedWebhookEvent,
+  type CallConversationCreatedWebhookEvent,
   type CallConversationEndedWebhookEvent,
   type CallConversationInsightsGeneratedWebhookEvent,
   type CallCostWebhookEvent,
@@ -1676,7 +1694,9 @@ export {
   type CallLeftQueueWebhookEvent,
   type CallMachineDetectionEndedWebhookEvent,
   type CallMachineGreetingEndedWebhookEvent,
+  type CallMachinePremiumCallScreeningDetectedWebhookEvent,
   type CallMachinePremiumDetectionEndedWebhookEvent,
+  type CallMachinePremiumDetectionStartedWebhookEvent,
   type CallMachinePremiumGreetingEndedWebhookEvent,
   type CallPaymentCompletedWebhookEvent,
   type CallPaymentProgressWebhookEvent,

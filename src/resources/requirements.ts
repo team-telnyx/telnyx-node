@@ -97,7 +97,7 @@ export interface DocReqsRequirement {
    * Indicates the phone_number_type this requirement applies to. Leave blank if this
    * requirement applies to all number_types.
    */
-  phone_number_type?: 'local' | 'national' | 'toll_free';
+  phone_number_type?: 'local' | 'mobile' | 'multipurpose' | 'national' | 'shared_cost' | 'toll_free';
 
   /**
    * Identifies the type of the resource.
@@ -173,7 +173,7 @@ export namespace RequirementListParams {
     /**
      * Filters results to those applying to a specific phone_number_type
      */
-    phone_number_type?: 'local' | 'national' | 'toll_free';
+    phone_number_type?: 'local' | 'mobile' | 'multipurpose' | 'national' | 'shared_cost' | 'toll_free';
   }
 }
 

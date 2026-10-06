@@ -18,6 +18,8 @@ export class Actions extends APIResource {
    *
    * **Expected Webhooks:**
    *
+   * - [`call.conversation.created`](/api-reference/callbacks/call-conversation-created)
+   *   includes `conversation_id` during startup
    * - `call.conversation.ended`
    * - `call.conversation_insights.generated`
    *
@@ -60,9 +62,33 @@ export class Actions extends APIResource {
    * Answer an incoming call. You must issue this command before executing subsequent
    * commands on an incoming call.
    *
+   * To answer with an AI assistant, include `assistant.id` and any per-call
+   * overrides in the `assistant` object. Telnyx attempts to warm up the assistant
+   * before answering the call, then starts the assistant automatically when the call
+   * is answered. Do not also send `ai_assistant_start` for this flow. The HTTP
+   * success response can arrive before the call is answered; use the `call.answered`
+   * webhook to track the answer. If warm-up fails, Telnyx falls back to starting the
+   * assistant after answering.
+   *
+   * When `assistant.id` is supplied, obtain the conversation ID from
+   * `data.payload.conversation_id` in the
+   * [call.conversation.created](/api-reference/callbacks/call-conversation-created)
+   * webhook and correlate it using `data.payload.call_control_id`. The `answer` HTTP
+   * response does not include `conversation_id`. The created event is emitted during
+   * assistant startup and does not indicate that the assistant is ready to speak.
+   *
+   * Set the assistant voice with `assistant.voice_settings.voice` and speech-to-text
+   * settings with `assistant.transcription`. You can reuse one stored assistant with
+   * different per-call settings. Warm-up prepares assistant configuration and
+   * dependencies; it does not wait for the greeting audio to be ready or guarantee
+   * zero silence after answer. A plain `answer` followed by `ai_assistant_start`
+   * performs assistant startup after the call has already been answered.
+   *
    * **Expected Webhooks:**
    *
    * - `call.answered`
+   * - `call.conversation.created` when the requested assistant conversation is
+   *   created
    * - `call.hold` and `call.unhold` if the call is held/unheld
    * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
    * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an
@@ -266,6 +292,8 @@ export class Actions extends APIResource {
    *
    * **Expected Webhooks:**
    *
+   * - [`call.conversation.created`](/api-reference/callbacks/call-conversation-created)
+   *   includes `conversation_id` during startup
    * - `call.ai_gather.ended`
    * - `call.conversation.ended`
    * - `call.ai_gather.partial_results` (if `send_partial_results` is set to `true`)
@@ -888,6 +916,9 @@ export class Actions extends APIResource {
    *   `answering_machine_detection=premium` was requested
    * - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium`
    *   was requested and a beep was detected
+   * - `call.machine.premium.call_screening.detected` if
+   *   `answering_machine_detection=premium_ios_call_screening_detection` was
+   *   requested and an Apple Call Screening tone was detected
    *
    * @example
    * ```ts
@@ -1652,9 +1683,10 @@ export interface TelnyxVoiceSettings {
   type: 'telnyx';
 
   /**
-   * The voice speed to be used for the voice. The voice speed must be between 0.1
-   * and 2.0. Default value is 1.0. Not supported for `Telnyx.Bayan.*` or
-   * `Telnyx.Sukhan.*` voices.
+   * The voice speed to be used for the voice. Telnyx `Ultra` voices accept values
+   * from 0.6 to 1.5; values outside that range are rejected by the synthesis engine.
+   * `Qwen3TTS` and `KokoroTTS` accept the field but do not apply it. Default value
+   * is 1.0. Not supported for `Telnyx.Bayan.*` or `Telnyx.Sukhan.*` voices.
    */
   voice_speed?: number;
 }
@@ -2539,9 +2571,11 @@ export interface ActionUpdateClientStateResponse {
 
 export interface ActionStartAIAssistantParams {
   /**
-   * AI Assistant configuration. All fields except `id` are optional — the
-   * assistant's stored configuration will be used as fallback for any omitted
-   * fields.
+   * AI Assistant configuration and per-call overrides. All fields except `id` are
+   * optional. Omitted assistant fields use the stored configuration. Supplied
+   * `voice_settings` and `transcription` objects replace their stored objects rather
+   * than merging individual settings; include every setting you want to retain.
+   * `dynamic_variables` are merged, with request values taking precedence.
    */
   assistant?: CallsAPI.CallAssistantRequest;
 
@@ -2613,9 +2647,11 @@ export interface ActionStopAIAssistantParams {
 
 export interface ActionAnswerParams {
   /**
-   * AI Assistant configuration. All fields except `id` are optional — the
-   * assistant's stored configuration will be used as fallback for any omitted
-   * fields.
+   * AI Assistant configuration and per-call overrides. All fields except `id` are
+   * optional. Omitted assistant fields use the stored configuration. Supplied
+   * `voice_settings` and `transcription` objects replace their stored objects rather
+   * than merging individual settings; include every setting you want to retain.
+   * `dynamic_variables` are merged, with request values taking precedence.
    */
   assistant?: CallsAPI.CallAssistantRequest;
 
@@ -2766,7 +2802,9 @@ export interface ActionAnswerParams {
   stream_url?: string;
 
   /**
-   * Enable transcription upon call answer. The default value is false.
+   * Enable standalone call transcription upon call answer. The default value is
+   * false. Configure this feature with `transcription_config`. To configure speech
+   * recognition for an AI assistant, use `assistant.transcription` instead.
    */
   transcription?: boolean;
 
@@ -4192,9 +4230,12 @@ export interface ActionReferParams {
 
 export interface ActionRejectParams {
   /**
-   * Cause for call rejection.
+   * Cause for call rejection. The cause sets the SIP response the caller receives:
+   * `USER_BUSY` sends 486 User Busy, `CALL_REJECTED` sends 603 Decline, `NOT_FOUND`
+   * sends 404 Not Found, and `TEMPORARILY_UNAVAILABLE` sends 480 Temporarily
+   * Unavailable.
    */
-  cause: 'CALL_REJECTED' | 'USER_BUSY';
+  cause: 'CALL_REJECTED' | 'NOT_FOUND' | 'TEMPORARILY_UNAVAILABLE' | 'USER_BUSY';
 
   /**
    * Use this field to add state to every subsequent webhook. It must be a valid
@@ -4795,10 +4836,20 @@ export interface ActionTransferParams {
    * 'greeting_end' or 'detect_words' is used and a 'machine' is detected, you will
    * receive another 'call.machine.greeting.ended' webhook when the answering machine
    * greeting ends with a beep or silence. If `detect_beep` is used, you will only
-   * receive 'call.machine.greeting.ended' if a beep is detected.
+   * receive 'call.machine.greeting.ended' if a beep is detected. If
+   * `answering_machine_detection` is set to `premium_ios_call_screening_detection`,
+   * Premium AMD runs with iOS Call Screening support: after an initial `machine`
+   * result, Telnyx listens for the iOS call-screening prompt to end or for an Apple
+   * Call Screening tone, sends `call.machine.premium.greeting.ended` with
+   * `result=prompt_ended` or `call.machine.premium.call_screening.detected` with
+   * `result=screening` respectively. When the Apple Call Screening tone is detected,
+   * Premium AMD is restarted on the screened call and a
+   * `call.machine.premium.detection.ended` webhook with the post-screening
+   * classification follows.
    */
   answering_machine_detection?:
     | 'premium'
+    | 'premium_ios_call_screening_detection'
     | 'detect'
     | 'detect_beep'
     | 'detect_words'
@@ -4809,7 +4860,8 @@ export interface ActionTransferParams {
    * Optional configuration parameters to modify 'answering_machine_detection'
    * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
    * parameters are applicable when `premium` is selected as
-   * answering_machine_detection.
+   * answering_machine_detection. `prompt_end_timeout_millis` is additionally
+   * applicable when `premium_ios_call_screening_detection` is selected.
    */
   answering_machine_detection_config?: ActionTransferParams.AnsweringMachineDetectionConfig;
 
@@ -5077,7 +5129,8 @@ export namespace ActionTransferParams {
    * Optional configuration parameters to modify 'answering_machine_detection'
    * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
    * parameters are applicable when `premium` is selected as
-   * answering_machine_detection.
+   * answering_machine_detection. `prompt_end_timeout_millis` is additionally
+   * applicable when `premium_ios_call_screening_detection` is selected.
    */
   export interface AnsweringMachineDetectionConfig {
     /**
@@ -5176,6 +5229,14 @@ export namespace ActionTransferParams {
      * If a single word lasts longer than this threshold, consider it a machine.
      */
     maximum_word_length_millis?: number;
+
+    /**
+     * Maximum time Telnyx waits, in milliseconds, for the iOS call-screening prompt to
+     * end after Premium AMD initially detects a `machine`. Used when
+     * `answering_machine_detection` is `premium_ios_call_screening_detection`.
+     * Defaults to 5000 milliseconds.
+     */
+    prompt_end_timeout_millis?: number;
 
     /**
      * Minimum noise threshold for any analysis.

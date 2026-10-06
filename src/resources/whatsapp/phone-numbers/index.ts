@@ -1,6 +1,13 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 export {
+  CallingRouting,
+  type WhatsappCallingRoutingData,
+  type CallingRoutingListResponse,
+  type CallingRoutingPatchAllResponse,
+  type CallingRoutingPatchAllParams,
+} from './calling-routing';
+export {
   CallingSettings,
   type WhatsappCallingSettingsData,
   type CallingSettingRetrieveResponse,

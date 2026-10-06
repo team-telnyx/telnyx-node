@@ -60,11 +60,14 @@ export class Tools extends APIResource {
    *
    * @example
    * ```ts
-   * const tool = await client.ai.tools.delete('tool_id');
+   * await client.ai.tools.delete('tool_id');
    * ```
    */
-  delete(toolID: string, options?: RequestOptions): APIPromise<unknown> {
-    return this._client.delete(path`/ai/tools/${toolID}`, options);
+  delete(toolID: string, options?: RequestOptions): APIPromise<void> {
+    return this._client.delete(path`/ai/tools/${toolID}`, {
+      ...options,
+      headers: buildHeaders([{ Accept: '*/*' }, options?.headers]),
+    });
   }
 
   /**
@@ -180,8 +183,6 @@ export namespace UpdateDynamicVariablesToolParams {
     type?: string;
   }
 }
-
-export type ToolDeleteResponse = unknown;
 
 export interface ToolListParams extends DefaultFlatPaginationParams {
   /**
@@ -300,7 +301,6 @@ export declare namespace Tools {
     type PayToolParams as PayToolParams,
     type SharedToolResponse as SharedToolResponse,
     type UpdateDynamicVariablesToolParams as UpdateDynamicVariablesToolParams,
-    type ToolDeleteResponse as ToolDeleteResponse,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
     type ToolListParams as ToolListParams,
     type ToolCreateParams as ToolCreateParams,

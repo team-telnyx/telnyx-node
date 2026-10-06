@@ -150,6 +150,9 @@ export class Calls extends APIResource {
    *   `answering_machine_detection=premium` was requested
    * - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium`
    *   was requested and a beep was detected
+   * - `call.machine.premium.call_screening.detected` if
+   *   `answering_machine_detection=premium_ios_call_screening_detection` was
+   *   requested and an Apple Call Screening tone was detected
    * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
    * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an
    *   error occurred
@@ -188,9 +191,11 @@ export class Calls extends APIResource {
 }
 
 /**
- * AI Assistant configuration. All fields except `id` are optional — the
- * assistant's stored configuration will be used as fallback for any omitted
- * fields.
+ * AI Assistant configuration and per-call overrides. All fields except `id` are
+ * optional. Omitted assistant fields use the stored configuration. Supplied
+ * `voice_settings` and `transcription` objects replace their stored objects rather
+ * than merging individual settings; include every setting you want to retain.
+ * `dynamic_variables` are merged, with request values taking precedence.
  */
 export interface CallAssistantRequest {
   /**
@@ -282,6 +287,19 @@ export interface CallAssistantRequest {
     | Shared.CallControlRetrievalTool
   >;
 
+  /**
+   * Per-call speech-to-text configuration for the assistant. If omitted, the stored
+   * assistant transcription configuration is used. If supplied, this object replaces
+   * the stored transcription settings. This is separate from the top-level
+   * `transcription` boolean on answer and dial commands.
+   */
+  transcription?: ActionsAPI.TranscriptionConfig;
+
+  /**
+   * Per-call voice configuration. Set the voice identifier in
+   * `voice_settings.voice`, not in `assistant.voice`. If supplied, this object
+   * replaces the stored voice settings.
+   */
   voice_settings?: AssistantsAPI.VoiceSettings;
 }
 
@@ -921,10 +939,20 @@ export interface CallDialParams {
    * `greeting_end` or `detect_words` is used and a `machine` is detected, you will
    * receive another `call.machine.greeting.ended` webhook when the answering machine
    * greeting ends with a beep or silence. If `detect_beep` is used, you will only
-   * receive `call.machine.greeting.ended` if a beep is detected.
+   * receive `call.machine.greeting.ended` if a beep is detected. If
+   * `answering_machine_detection` is set to `premium_ios_call_screening_detection`,
+   * Premium AMD runs with iOS Call Screening support: after an initial `machine`
+   * result, Telnyx listens for the iOS call-screening prompt to end or for an Apple
+   * Call Screening tone, sends `call.machine.premium.greeting.ended` with
+   * `result=prompt_ended` or `call.machine.premium.call_screening.detected` with
+   * `result=screening` respectively. When the Apple Call Screening tone is detected,
+   * Premium AMD is restarted on the screened call and a
+   * `call.machine.premium.detection.ended` webhook with the post-screening
+   * classification follows.
    */
   answering_machine_detection?:
     | 'premium'
+    | 'premium_ios_call_screening_detection'
     | 'detect'
     | 'detect_beep'
     | 'detect_words'
@@ -935,14 +963,17 @@ export interface CallDialParams {
    * Optional configuration parameters to modify 'answering_machine_detection'
    * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
    * parameters are applicable when `premium` is selected as
-   * answering_machine_detection.
+   * answering_machine_detection. `prompt_end_timeout_millis` is additionally
+   * applicable when `premium_ios_call_screening_detection` is selected.
    */
   answering_machine_detection_config?: CallDialParams.AnsweringMachineDetectionConfig;
 
   /**
-   * AI Assistant configuration. All fields except `id` are optional — the
-   * assistant's stored configuration will be used as fallback for any omitted
-   * fields.
+   * AI Assistant configuration and per-call overrides. All fields except `id` are
+   * optional. Omitted assistant fields use the stored configuration. Supplied
+   * `voice_settings` and `transcription` objects replace their stored objects rather
+   * than merging individual settings; include every setting you want to retain.
+   * `dynamic_variables` are merged, with request values taking precedence.
    */
   assistant?: CallAssistantRequest;
 
@@ -1329,7 +1360,8 @@ export namespace CallDialParams {
    * Optional configuration parameters to modify 'answering_machine_detection'
    * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
    * parameters are applicable when `premium` is selected as
-   * answering_machine_detection.
+   * answering_machine_detection. `prompt_end_timeout_millis` is additionally
+   * applicable when `premium_ios_call_screening_detection` is selected.
    */
   export interface AnsweringMachineDetectionConfig {
     /**
@@ -1428,6 +1460,14 @@ export namespace CallDialParams {
      * If a single word lasts longer than this threshold, consider it a machine.
      */
     maximum_word_length_millis?: number;
+
+    /**
+     * Maximum time Telnyx waits, in milliseconds, for the iOS call-screening prompt to
+     * end after Premium AMD initially detects a `machine`. Used when
+     * `answering_machine_detection` is `premium_ios_call_screening_detection`.
+     * Defaults to 5000 milliseconds.
+     */
+    prompt_end_timeout_millis?: number;
 
     /**
      * Minimum noise threshold for any analysis.

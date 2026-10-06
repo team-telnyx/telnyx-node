@@ -15,6 +15,7 @@ export {
   type ComparisonExpression,
   type ConversationFlow,
   type ConversationFlowReq,
+  type DelegationSettings,
   type EnabledFeatures,
   type Expression,
   type ExternalLlm,
@@ -54,18 +55,22 @@ export {
   type TransferTool,
   type VoiceSettings,
   type WebhookTool,
+  type WebsocketSettings,
   type WidgetSettings,
   type AssistantDeleteResponse,
   type AssistantChatResponse,
   type AssistantGetTexmlResponse,
   type AssistantSendSMSResponse,
+  type AssistantWhatsappResponse,
   type AssistantCreateParams,
   type AssistantImportsParams,
+  type AssistantDeleteParams,
   type AssistantRetrieveParams,
   type AssistantUpdateParams,
   type AssistantChatParams,
   type AssistantCloneParams,
   type AssistantSendSMSParams,
+  type AssistantWhatsappParams,
 } from './assistants';
 export {
   CanaryDeploys,
@@ -79,6 +84,12 @@ export {
   type CanaryDeployCreateParams,
   type CanaryDeployUpdateParams,
 } from './canary-deploys';
+export {
+  Deleted,
+  type DeletedAssistant,
+  type DeletedListParams,
+  type DeletedAssistantsDefaultFlatPagination,
+} from './deleted';
 export { Instructions, type InstructionEnhanceResponse, type InstructionEnhanceParams } from './instructions';
 export {
   ScheduledEvents,

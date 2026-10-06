@@ -417,7 +417,15 @@ export interface PortingOrder {
   /**
    * The type of the phone number
    */
-  phone_number_type?: 'landline' | 'local' | 'mobile' | 'national' | 'shared_cost' | 'toll_free';
+  phone_number_type?:
+    | 'landline'
+    | 'local'
+    | 'mobile'
+    | 'multipurpose'
+    | 'national'
+    | 'other'
+    | 'shared_cost'
+    | 'toll_free';
 
   /**
    * List of phone numbers associated with this porting order
