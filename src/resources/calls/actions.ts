@@ -3313,10 +3313,10 @@ export interface ActionGatherUsingAIParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
    *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
@@ -5456,10 +5456,10 @@ export interface ActionStartConversationRelayParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
    *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
