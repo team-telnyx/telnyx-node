@@ -3,6 +3,12 @@
 import { APIResource } from '../../core/resource';
 import * as DirAPI from './dir';
 import { Dir, DirCreateParams, DirListParams } from './dir';
+import * as VerifyEmailAPI from './verify-email';
+import {
+  EnterpriseEmailVerificationStatusWrapped,
+  VerifyEmail,
+  VerifyEmailConfirmParams,
+} from './verify-email';
 import * as ReputationAPI from './reputation/reputation';
 import {
   EnterpriseReputationPublic,
@@ -24,6 +30,7 @@ import { path } from '../../internal/utils/path';
 export class Enterprises extends APIResource {
   reputation: ReputationAPI.Reputation = new ReputationAPI.Reputation(this._client);
   dir: DirAPI.Dir = new DirAPI.Dir(this._client);
+  verifyEmail: VerifyEmailAPI.VerifyEmail = new VerifyEmailAPI.VerifyEmail(this._client);
 
   /**
    * Return the enterprises you own, paginated. The default page size is 20; the
@@ -159,6 +166,21 @@ export class Enterprises extends APIResource {
    * cannot be changed: including any of them in the body is rejected with
    * `400 Bad Request` (`Field 'X' is not allowed in this request`).
    *
+   * For an approved BPO enterprise (`role_type` `bpo`), changing any identity field
+   * (legal name, DBA, website, FEIN, industry, number of employees, physical
+   * address, organization contact, D-U-N-S number, legal type, SIC code, corporate
+   * registration number, professional license number, or jurisdiction of
+   * incorporation) resets `bpo_verification_status` to `pending` for re-approval and
+   * sets every DIR authorization for that BPO to `rejected`. After re-approval, link
+   * it again with a newly signed LOA (a new `loa_document_id`); resending the old
+   * one keeps the authorization `rejected`. Re-sending an unchanged value does not
+   * reset anything.
+   *
+   * If Number Reputation is enabled on the enterprise, `legal_name`,
+   * `doing_business_as`, `website`, `fein`, `industry`, `number_of_employees`,
+   * `organization_physical_address`, `organization_contact`, and
+   * `dun_bradstreet_number` cannot be changed: the request is rejected with `400`.
+   *
    * @example
    * ```ts
    * const enterprisePublicWrapped = await client.enterprises.update(
@@ -213,8 +235,7 @@ export class Enterprises extends APIResource {
   }
 
   /**
-   * Branded Calling is a paid product that must be activated on each enterprise.
-   * Activation is idempotent:
+   * Branded Calling must be activated on each enterprise. Activation is idempotent:
    *
    * - First call: marks the enterprise as activated and begins onboarding it with
    *   the Branded Calling platform asynchronously. Returns `200` with
@@ -228,11 +249,15 @@ export class Enterprises extends APIResource {
    *
    * Failure modes:
    *
+   * - `400` - the account has no available credit. Add funds and retry.
+   * - `400` - the enterprise is not in the United States. Branded Calling is
+   *   currently available only to US enterprises.
    * - `403` - Branded Calling Terms of Service not accepted.
    * - `404` - enterprise does not exist or does not belong to your account.
    *
-   * **Pricing:** This is a billable action. See https://telnyx.com/pricing/numbers
-   * for current pricing.
+   * **Pricing:** Activation itself is free, but the account must have available
+   * credit. Branded Calling fees are charged per DIR and per branded call. See
+   * https://telnyx.com/pricing/branded-calling for current pricing.
    *
    * @example
    * ```ts
@@ -250,14 +275,27 @@ export class Enterprises extends APIResource {
 export type EnterprisePublicsDefaultFlatPagination = DefaultFlatPagination<EnterprisePublic>;
 
 export interface BillingContact {
+  /**
+   * The email address of the person Telnyx should contact about billing for this
+   * account.
+   */
   email: string;
 
+  /**
+   * The first name of the person Telnyx should contact about billing for this
+   * account.
+   */
   first_name: string;
 
+  /**
+   * The last name of the person Telnyx should contact about billing for this
+   * account.
+   */
   last_name: string;
 
   /**
-   * E.164 format with leading `+`.
+   * The phone number of the billing contact, in E.164 format, for example
+   * +12125551234.
    */
   phone_number: string;
 }
@@ -270,13 +308,29 @@ export interface EnterprisePublic {
   billing_contact?: BillingContact;
 
   /**
+   * Reason Telnyx rejected the BPO (Business Process Outsourcer) verification, when
+   * `bpo_verification_status` is `rejected`; `null` otherwise.
+   */
+  bpo_verification_rejection_reason?: string | null;
+
+  /**
+   * Whether Telnyx has approved this BPO (Business Process Outsourcer) account. Only
+   * set for accounts created with `role_type` `bpo`; `null` for normal enterprises.
+   * A BPO enterprise must be `approved` before a DIR can be linked to it through
+   * `bpo_authorizations`.
+   */
+  bpo_verification_status?: 'pending' | 'approved' | 'rejected' | null;
+
+  /**
    * True once Branded Calling has been activated on this enterprise (see
    * `POST /enterprises/{id}/branded_calling`).
    */
   branded_calling_enabled?: boolean;
 
   /**
-   * Optional corporate-registration / company-number identifier.
+   * The official number your company received when it was legally registered or
+   * incorporated (for example from your state or national business registry). It is
+   * on your certificate of incorporation.
    */
   corporate_registration_number?: string | null;
 
@@ -284,23 +338,52 @@ export interface EnterprisePublic {
 
   created_at?: string;
 
+  /**
+   * Your own label for this account. Enter any reference that helps you find it in
+   * your records. Telnyx does not use it during vetting.
+   */
   customer_reference?: string;
 
+  /**
+   * The trade name your business operates under if it is different from your legal
+   * name, also called a Doing Business As (DBA) name. Leave blank if you only use
+   * your legal name.
+   */
   doing_business_as?: string;
 
   /**
-   * Optional D-U-N-S Number issued by Dun & Bradstreet.
+   * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique
+   * identifier for your business. Leave blank if you do not have one.
    */
   dun_bradstreet_number?: string | null;
 
+  /**
+   * US Federal Employer Identification Number (`NN-NNNNNNN`) or Canadian equivalent.
+   */
   fein?: string;
 
+  /**
+   * The industry your business operates in. Choose the closest match from the list;
+   * if your value is not accepted, pick the nearest category.
+   */
   industry?: string;
 
+  /**
+   * The state, province, or country where your business was legally incorporated,
+   * for example Delaware.
+   */
   jurisdiction_of_incorporation?: string;
 
+  /**
+   * Your business's full registered legal name, exactly as it appears on your
+   * incorporation or tax documents, 3 to 64 characters.
+   */
   legal_name?: string;
 
+  /**
+   * Approximate headcount range. Used for vetting heuristics; pick the bucket that
+   * contains your current employee count.
+   */
   number_of_employees?: string;
 
   /**
@@ -311,6 +394,17 @@ export interface EnterprisePublic {
 
   organization_contact?: OrganizationContact;
 
+  /**
+   * Legal-entity form. Pick the form that matches your incorporation documents:
+   *
+   * - `corporation` - C-corp or S-corp.
+   * - `llc` - limited liability company.
+   * - `partnership` - general/limited partnership.
+   * - `nonprofit` - non-profit corporation, charitable trust, or
+   *   501(c)(3)/equivalent.
+   * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.).
+   *   You may be asked for additional documents during vetting.
+   */
   organization_legal_type?: string;
 
   organization_physical_address?: PhysicalAddress;
@@ -318,19 +412,27 @@ export interface EnterprisePublic {
   organization_type?: string;
 
   /**
-   * Optional SIC code for the primary line of business.
+   * The 4-digit Standard Industrial Classification code for your main line of
+   * business, which tells us what industry you operate in. Look it up in the SIC
+   * code directory if you are unsure.
    */
   primary_business_domain_sic_code?: string | null;
 
   /**
-   * Optional professional-license number for regulated industries.
+   * If your business operates under a professional license (for example legal,
+   * medical, or financial services), enter the license number issued by the
+   * licensing authority. Leave blank if it does not apply.
    */
   professional_license_number?: string | null;
 
-  role_type?: string;
+  role_type?: 'enterprise' | 'bpo';
 
   updated_at?: string;
 
+  /**
+   * Your business's public website address, including https://. Leave blank if your
+   * business has no website.
+   */
   website?: string;
 }
 
@@ -368,16 +470,30 @@ export interface NumberReputationPaginationMeta {
 }
 
 export interface OrganizationContact {
+  /**
+   * The email address of the main person Telnyx should contact about this account.
+   * For a call center (BPO) account this is the email you will verify later, so use
+   * a mailbox you can access.
+   */
   email: string;
 
+  /**
+   * The first name of the main person Telnyx should contact about this account.
+   */
   first_name: string;
 
+  /**
+   * The job title of the main person Telnyx should contact about this account.
+   */
   job_title: string;
 
+  /**
+   * The last name of the main person Telnyx should contact about this account.
+   */
   last_name: string;
 
   /**
-   * E.164 format with leading `+`.
+   * The phone number of the main contact, in E.164 format, for example +12125551234.
    */
   phone_number: string;
 }
@@ -388,6 +504,9 @@ export interface PhysicalAddress {
    */
   administrative_area: string;
 
+  /**
+   * The city of your registered business address.
+   */
   city: string;
 
   /**
@@ -395,10 +514,21 @@ export interface PhysicalAddress {
    */
   country: string;
 
+  /**
+   * The postal or ZIP code of your registered business address.
+   */
   postal_code: string;
 
+  /**
+   * The street address of your registered business, including the building number
+   * and street name.
+   */
   street_address: string;
 
+  /**
+   * An optional second address line, such as a suite, unit, or floor. Leave blank if
+   * it does not apply.
+   */
   extended_address?: string | null;
 }
 
@@ -407,6 +537,12 @@ export interface EnterpriseListParams extends DefaultFlatPaginationParams {
    * Case-insensitive partial match on legal name.
    */
   'filter[legal_name][contains]'?: string;
+
+  /**
+   * Only return enterprises of this type: `bpo` for call-center (BPO) enterprises,
+   * `enterprise` for normal enterprises. Omit to return both.
+   */
+  'filter[role_type]'?: 'enterprise' | 'bpo';
 
   /**
    * Filter by legal name (partial match).
@@ -424,6 +560,11 @@ export interface EnterpriseCreateParams {
    */
   country_code: string;
 
+  /**
+   * The trade name your business operates under if it is different from your legal
+   * name, also called a Doing Business As (DBA) name. Leave blank if you only use
+   * your legal name.
+   */
   doing_business_as: string;
 
   /**
@@ -432,7 +573,8 @@ export interface EnterpriseCreateParams {
   fein: string;
 
   /**
-   * Industry classification.
+   * The industry your business operates in. Choose the closest match from the list;
+   * if your value is not accepted, pick the nearest category.
    */
   industry:
     | 'accounting'
@@ -479,10 +621,15 @@ export interface EnterpriseCreateParams {
     | 'hospitality'
     | 'hotel';
 
+  /**
+   * The state, province, or country where your business was legally incorporated,
+   * for example Delaware.
+   */
   jurisdiction_of_incorporation: string;
 
   /**
-   * Legal name of the enterprise.
+   * Your business's full registered legal name, exactly as it appears on your
+   * incorporation or tax documents, 3 to 64 characters.
    */
   legal_name: string;
 
@@ -520,37 +667,54 @@ export interface EnterpriseCreateParams {
    */
   organization_type: 'commercial' | 'government' | 'non_profit';
 
+  /**
+   * Your business's public website address, including https://. Leave blank if your
+   * business has no website.
+   */
   website: string;
 
   /**
-   * Optional corporate-registration / company-number identifier.
+   * The official number your company received when it was legally registered or
+   * incorporated (for example from your state or national business registry). It is
+   * on your certificate of incorporation.
    */
   corporate_registration_number?: string | null;
 
   /**
-   * Optional free-form string the caller can attach for their own bookkeeping.
-   * Telnyx does not interpret it.
+   * Your own label for this account. Enter any reference that helps you find it in
+   * your records. Telnyx does not use it during vetting.
    */
   customer_reference?: string;
 
   /**
-   * Optional D-U-N-S Number.
+   * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique
+   * identifier for your business. Leave blank if you do not have one.
    */
   dun_bradstreet_number?: string | null;
 
   /**
-   * Optional SIC code for the primary line of business.
+   * The 4-digit Standard Industrial Classification code for your main line of
+   * business, which tells us what industry you operate in. Look it up in the SIC
+   * code directory if you are unsure.
    */
   primary_business_domain_sic_code?: string | null;
 
   /**
-   * Optional professional-license number for regulated industries.
+   * If your business operates under a professional license (for example legal,
+   * medical, or financial services), enter the license number issued by the
+   * licensing authority. Leave blank if it does not apply.
    */
   professional_license_number?: string | null;
 
   /**
-   * `enterprise` for an organization registering its own DIRs; `bpo` for a Business
-   * Process Outsourcer placing calls on behalf of one or more enterprises.
+   * `enterprise` for an organization registering its own DIRs (the default, and the
+   * right choice when the calls display your own brand). `bpo` for a Business
+   * Process Outsourcer: a call center that places calls on behalf of other
+   * enterprises and displays their brand. A `bpo` enterprise describes the call
+   * center itself and cannot own a DIR. Each client the call center calls for gets
+   * its own `enterprise` in the same account, with the client's DIR under it; that
+   * DIR is then linked to the `bpo` enterprise through `bpo_authorizations`. Fixed
+   * at creation.
    */
   role_type?: 'enterprise' | 'bpo';
 }
@@ -560,16 +724,41 @@ export interface EnterpriseUpdateParams {
 
   billing_contact?: BillingContact;
 
+  /**
+   * The official number your company received when it was legally registered or
+   * incorporated (for example from your state or national business registry). It is
+   * on your certificate of incorporation.
+   */
   corporate_registration_number?: string | null;
 
+  /**
+   * Your own label for this account. Enter any reference that helps you find it in
+   * your records. Telnyx does not use it during vetting.
+   */
   customer_reference?: string;
 
+  /**
+   * The trade name your business operates under if it is different from your legal
+   * name, also called a Doing Business As (DBA) name. Leave blank if you only use
+   * your legal name.
+   */
   doing_business_as?: string;
 
+  /**
+   * Your optional 9-digit D-U-N-S Number issued by Dun & Bradstreet, a unique
+   * identifier for your business. Leave blank if you do not have one.
+   */
   dun_bradstreet_number?: string | null;
 
+  /**
+   * US Federal Employer Identification Number (`NN-NNNNNNN`) or Canadian equivalent.
+   */
   fein?: string;
 
+  /**
+   * The industry your business operates in. Choose the closest match from the list;
+   * if your value is not accepted, pick the nearest category.
+   */
   industry?:
     | 'accounting'
     | 'finance'
@@ -616,32 +805,64 @@ export interface EnterpriseUpdateParams {
     | 'hotel';
 
   /**
-   * Updated state/province/country of incorporation. Optional on update.
+   * The state, province, or country where your business was legally incorporated,
+   * for example Delaware.
    */
   jurisdiction_of_incorporation?: string;
 
   /**
-   * Legal name of the enterprise.
+   * Your business's full registered legal name, exactly as it appears on your
+   * incorporation or tax documents, 3 to 64 characters.
    */
   legal_name?: string;
 
+  /**
+   * Approximate headcount range. Used for vetting heuristics; pick the bucket that
+   * contains your current employee count.
+   */
   number_of_employees?: string;
 
   organization_contact?: OrganizationContact;
 
+  /**
+   * Legal-entity form. Pick the form that matches your incorporation documents:
+   *
+   * - `corporation` - C-corp or S-corp.
+   * - `llc` - limited liability company.
+   * - `partnership` - general/limited partnership.
+   * - `nonprofit` - non-profit corporation, charitable trust, or
+   *   501(c)(3)/equivalent.
+   * - `other` - anything else (sole proprietorships, government bodies, DBAs, etc.).
+   *   You may be asked for additional documents during vetting.
+   */
   organization_legal_type?: string;
 
   organization_physical_address?: PhysicalAddress;
 
+  /**
+   * The 4-digit Standard Industrial Classification code for your main line of
+   * business, which tells us what industry you operate in. Look it up in the SIC
+   * code directory if you are unsure.
+   */
   primary_business_domain_sic_code?: string | null;
 
+  /**
+   * If your business operates under a professional license (for example legal,
+   * medical, or financial services), enter the license number issued by the
+   * licensing authority. Leave blank if it does not apply.
+   */
   professional_license_number?: string | null;
 
+  /**
+   * Your business's public website address, including https://. Leave blank if your
+   * business has no website.
+   */
   website?: string;
 }
 
 Enterprises.Reputation = Reputation;
 Enterprises.Dir = Dir;
+Enterprises.VerifyEmail = VerifyEmail;
 
 export declare namespace Enterprises {
   export {
@@ -667,4 +888,10 @@ export declare namespace Enterprises {
   };
 
   export { Dir as Dir, type DirListParams as DirListParams, type DirCreateParams as DirCreateParams };
+
+  export {
+    VerifyEmail as VerifyEmail,
+    type EnterpriseEmailVerificationStatusWrapped as EnterpriseEmailVerificationStatusWrapped,
+    type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
+  };
 }

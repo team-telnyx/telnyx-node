@@ -2,6 +2,14 @@
 
 import { APIResource } from '../../../core/resource';
 import * as Shared from '../../shared';
+import * as CallingRoutingAPI from './calling-routing';
+import {
+  CallingRouting,
+  CallingRoutingListResponse,
+  CallingRoutingPatchAllParams,
+  CallingRoutingPatchAllResponse,
+  WhatsappCallingRoutingData,
+} from './calling-routing';
 import * as CallingSettingsAPI from './calling-settings';
 import {
   CallingSettingRetrieveResponse,
@@ -44,6 +52,7 @@ export class PhoneNumbers extends APIResource {
   profile: ProfileAPI.Profile = new ProfileAPI.Profile(this._client);
   conversationalComponents: ConversationalComponentsAPI.ConversationalComponents =
     new ConversationalComponentsAPI.ConversationalComponents(this._client);
+  callingRouting: CallingRoutingAPI.CallingRouting = new CallingRoutingAPI.CallingRouting(this._client);
 
   /**
    * Returns WhatsApp phone numbers linked to the authenticated Telnyx account.
@@ -528,6 +537,7 @@ export interface PhoneNumberGetParams {
 PhoneNumbers.CallingSettings = CallingSettings;
 PhoneNumbers.Profile = Profile;
 PhoneNumbers.ConversationalComponents = ConversationalComponents;
+PhoneNumbers.CallingRouting = CallingRouting;
 
 export declare namespace PhoneNumbers {
   export {
@@ -565,5 +575,13 @@ export declare namespace PhoneNumbers {
     type ConversationalComponentListResponse as ConversationalComponentListResponse,
     type ConversationalComponentPatchAllResponse as ConversationalComponentPatchAllResponse,
     type ConversationalComponentPatchAllParams as ConversationalComponentPatchAllParams,
+  };
+
+  export {
+    CallingRouting as CallingRouting,
+    type WhatsappCallingRoutingData as WhatsappCallingRoutingData,
+    type CallingRoutingListResponse as CallingRoutingListResponse,
+    type CallingRoutingPatchAllResponse as CallingRoutingPatchAllResponse,
+    type CallingRoutingPatchAllParams as CallingRoutingPatchAllParams,
   };
 }

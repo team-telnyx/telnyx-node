@@ -176,7 +176,8 @@ export interface DirCreateParams {
   call_reasons: Array<string>;
 
   /**
-   * Must be `true`.
+   * Certification that the DIR information is accurate. Must be `true` for the DIR
+   * to be submitted for vetting.
    */
   certify_brand_is_accurate: true;
 
@@ -197,6 +198,16 @@ export interface DirCreateParams {
   display_name: string;
 
   /**
+   * Optional. Approved BPO (Business Process Outsourcer) accounts on your
+   * organization authorized to place branded calls for this DIR, each with the
+   * signed Letter of Authorization the Brand Owner granted it. Each authorization
+   * starts `pending` and takes effect only after an admin reviews its Letter of
+   * Authorization. Omit or send an empty list to authorize no BPO on this DIR.
+   * Maximum 10.
+   */
+  bpo_authorizations?: Array<DirAPI.BpoAuthorizationInput>;
+
+  /**
    * Supporting documents. Each `document_id` may appear at most once on a DIR.
    */
   documents?: Array<DirAPI.Document>;
@@ -211,6 +222,13 @@ export interface DirCreateParams {
    * (BPO/reseller).
    */
   reselling?: boolean;
+
+  /**
+   * Optional `https://` URL that receives webhook notifications when this DIR's
+   * compliance review completes (rejection outcomes include structured rejection
+   * reasons). Maximum 2048 characters.
+   */
+  webhook_url?: string | null;
 }
 
 export declare namespace Dir {

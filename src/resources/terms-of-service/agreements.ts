@@ -49,10 +49,19 @@ export type TosAgreementsDefaultFlatPagination = DefaultFlatPagination<TosAgreem
  * their own identity.
  */
 export interface TosAgreement {
+  /**
+   * The unique identifier of this recorded agreement.
+   */
   id?: string;
 
+  /**
+   * When you accepted this version of the terms.
+   */
   agreed_at?: string;
 
+  /**
+   * When this agreement record was created.
+   */
   created_at?: string;
 
   /**
@@ -60,6 +69,9 @@ export interface TosAgreement {
    */
   product_type?: TosProductType;
 
+  /**
+   * The version of the terms you accepted.
+   */
   terms_version?: string;
 
   /**

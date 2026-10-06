@@ -27,6 +27,7 @@ describe('resource enterprises', () => {
       client.enterprises.list(
         {
           'filter[legal_name][contains]': 'Acme',
+          'filter[role_type]': 'bpo',
           legal_name: 'Acme',
           'page[number]': 1,
           'page[size]': 10,

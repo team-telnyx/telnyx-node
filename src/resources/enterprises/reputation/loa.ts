@@ -75,28 +75,70 @@ export class Loa extends APIResource {
  * when the enterprise works directly with Telnyx.
  */
 export interface AgentInput {
+  /**
+   * The state or province of the partner's address, as its code, for example IL or
+   * ON.
+   */
   administrative_area: string;
 
+  /**
+   * The city of the partner's address.
+   */
   city: string;
 
+  /**
+   * The email address of the contact person at the partner.
+   */
   contact_email: string;
 
+  /**
+   * The name of a contact person at the partner.
+   */
   contact_name: string;
 
+  /**
+   * The phone number of the contact person at the partner, in E.164 format, for
+   * example +13125550000.
+   */
   contact_phone: string;
 
+  /**
+   * The job title of the contact person at the partner.
+   */
   contact_title: string;
 
+  /**
+   * The two-letter country code of the partner's address, for example US.
+   */
   country: string;
 
+  /**
+   * The legal name of the third-party partner or reseller managing these numbers on
+   * your behalf.
+   */
   legal_name: string;
 
+  /**
+   * The postal or ZIP code of the partner's address.
+   */
   postal_code: string;
 
+  /**
+   * The street address of the partner, including the building number and street
+   * name.
+   */
   street_address: string;
 
+  /**
+   * The trade name (Doing Business As) the partner operates under, if different from
+   * its legal name. Leave blank if it does not apply.
+   */
   dba?: string | null;
 
+  /**
+   * An optional second address line for the partner, such as a suite, unit, or
+   * floor. Leave blank if it does not apply.
+   */
   extended_address?: string | null;
 }
 
@@ -114,7 +156,7 @@ export interface LoaRenderParams {
    * Third-party reseller / partner managing the enterprise's phone numbers. Omit
    * when the enterprise works directly with Telnyx.
    */
-  agent?: AgentInput;
+  agent?: LoaRenderParams.Agent;
 
   /**
    * Optional signature embedded in the rendered PDF. When omitted the PDF is
@@ -124,6 +166,36 @@ export interface LoaRenderParams {
 }
 
 export namespace LoaRenderParams {
+  /**
+   * Third-party reseller / partner managing the enterprise's phone numbers. Omit
+   * when the enterprise works directly with Telnyx.
+   */
+  export interface Agent {
+    administrative_area: string;
+
+    city: string;
+
+    contact_email: string;
+
+    contact_name: string;
+
+    contact_phone: string;
+
+    contact_title: string;
+
+    country: string;
+
+    legal_name: string;
+
+    postal_code: string;
+
+    street_address: string;
+
+    dba?: string | null;
+
+    extended_address?: string | null;
+  }
+
   /**
    * Optional signature embedded in the rendered PDF. When omitted the PDF is
    * returned unsigned for the customer to sign and upload.

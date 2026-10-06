@@ -38,7 +38,6 @@ import {
   SharedToolResponse,
   SharedToolResponsesDefaultFlatPagination,
   ToolCreateParams,
-  ToolDeleteResponse,
   ToolListParams,
   ToolUpdateParams,
   Tools,
@@ -55,6 +54,7 @@ import {
   AssistantChatResponse,
   AssistantCloneParams,
   AssistantCreateParams,
+  AssistantDeleteParams,
   AssistantDeleteResponse,
   AssistantGetTexmlResponse,
   AssistantImportsParams,
@@ -65,6 +65,8 @@ import {
   AssistantSendSMSResponse,
   AssistantTool,
   AssistantUpdateParams,
+  AssistantWhatsappParams,
+  AssistantWhatsappResponse,
   Assistants,
   AssistantsList,
   AudioVisualizerConfig,
@@ -73,6 +75,7 @@ import {
   ComparisonExpression,
   ConversationFlow,
   ConversationFlowReq,
+  DelegationSettings,
   EnabledFeatures,
   Expression,
   ExternalLlm,
@@ -112,6 +115,7 @@ import {
   TransferTool,
   VoiceSettings,
   WebhookTool,
+  WebsocketSettings,
   WidgetSettings,
 } from './assistants/assistants';
 import * as CollectionsAPI from './collections/collections';
@@ -398,8 +402,9 @@ export interface ModelMetadata {
   is_vision_supported?: boolean;
 
   /**
-   * Maximum number of completion (output) tokens the model will generate per
-   * request. `null` if unconstrained beyond `context_length`.
+   * Maximum completion (output) tokens the model may generate per request. This
+   * value caps the Chat Completions `max_tokens` default and any larger explicit
+   * value on that model. `null` if unconstrained beyond `context_length`.
    */
   max_completion_tokens?: number | null;
 
@@ -674,6 +679,7 @@ export declare namespace AI {
     type ComparisonExpression as ComparisonExpression,
     type ConversationFlow as ConversationFlow,
     type ConversationFlowReq as ConversationFlowReq,
+    type DelegationSettings as DelegationSettings,
     type EnabledFeatures as EnabledFeatures,
     type Expression as Expression,
     type ExternalLlm as ExternalLlm,
@@ -713,18 +719,22 @@ export declare namespace AI {
     type TransferTool as TransferTool,
     type VoiceSettings as VoiceSettings,
     type WebhookTool as WebhookTool,
+    type WebsocketSettings as WebsocketSettings,
     type WidgetSettings as WidgetSettings,
     type AssistantDeleteResponse as AssistantDeleteResponse,
     type AssistantChatResponse as AssistantChatResponse,
     type AssistantGetTexmlResponse as AssistantGetTexmlResponse,
     type AssistantSendSMSResponse as AssistantSendSMSResponse,
+    type AssistantWhatsappResponse as AssistantWhatsappResponse,
     type AssistantCreateParams as AssistantCreateParams,
     type AssistantImportsParams as AssistantImportsParams,
+    type AssistantDeleteParams as AssistantDeleteParams,
     type AssistantRetrieveParams as AssistantRetrieveParams,
     type AssistantUpdateParams as AssistantUpdateParams,
     type AssistantChatParams as AssistantChatParams,
     type AssistantCloneParams as AssistantCloneParams,
     type AssistantSendSMSParams as AssistantSendSMSParams,
+    type AssistantWhatsappParams as AssistantWhatsappParams,
   };
 
   export {
@@ -827,7 +837,6 @@ export declare namespace AI {
     type PayToolParams as PayToolParams,
     type SharedToolResponse as SharedToolResponse,
     type UpdateDynamicVariablesToolParams as UpdateDynamicVariablesToolParams,
-    type ToolDeleteResponse as ToolDeleteResponse,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
     type ToolListParams as ToolListParams,
     type ToolCreateParams as ToolCreateParams,
