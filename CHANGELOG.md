@@ -1,5 +1,12 @@
 # Changelog
 
+## [7.26.0](https://github.com/team-telnyx/telnyx-node/compare/v7.25.0...v7.26.0) (2026-10-09)
+
+
+### Features
+
+* promote from staging 24e25dd ([f6f9947](https://github.com/team-telnyx/telnyx-node/commit/f6f9947819bacdabfba107a8924df7c096bb7e1c))
+
 ## [7.25.0](https://github.com/team-telnyx/telnyx-node/compare/v7.24.0...v7.25.0) (2026-10-06)
 
 

@@ -2112,7 +2112,11 @@ export interface FlowNodeReq {
 
   /**
    * Per-node transcription override (model/language/region). Unset fields cascade
-   * from the assistant-level transcription.
+   * from the assistant-level transcription. A node that sets `model`,
+   * `fallback_models`, or `challenger` doesn't inherit the assistant's
+   * `fallback_models` or `challenger`; it uses only the ones it sets. Otherwise it
+   * inherits them, and they must fit the model and language the node runs; a change
+   * they no longer fit is rejected.
    */
   transcription?: TranscriptionSettings;
 
@@ -3490,6 +3494,24 @@ export interface TranscriptionSettings {
   api_key_ref?: string;
 
   /**
+   * A second speech-to-text model that transcribes alongside `transcription.model`,
+   * and the rule that decides which transcript the assistant uses.
+   */
+  challenger?: TranscriptionSettings.Challenger | null;
+
+  /**
+   * Up to 3 streaming models that take over transcription, in this order, when the
+   * model in use fails, at the start of a call or mid-call. `model` must be a
+   * streaming model too, and must support `language` alongside other models. On
+   * update, a list replaces the stored one: omit the field to keep the stored list,
+   * or send `null` or `[]` to remove it. When an update changes `model` or
+   * `language`, stored fallbacks that no longer fit are removed without an error.
+   * Can't be combined with `challenger`, the language booster; to replace a stored
+   * language booster, send `challenger: null` in the same request.
+   */
+  fallback_models?: Array<TranscriptionSettings.FallbackModel> | null;
+
+  /**
    * The language of the audio to be transcribed. If not set, or if set to `auto`,
    * supported models will automatically detect the language. For `deepgram/flux`,
    * supported values are: `auto` (Telnyx language detection controls the language
@@ -3534,6 +3556,7 @@ export interface TranscriptionSettings {
    * - `reson8/turns` is a turn-based streaming model covering 10 European languages
    *   with automatic language detection.
    * - `cohere/ar-stt` is a non-streaming Arabic and English transcription model.
+   * - `telnyx/basira` is a non-streaming Arabic transcription model.
    */
   model?:
     | 'deepgram/flux'
@@ -3550,6 +3573,7 @@ export interface TranscriptionSettings {
     | 'humain/realtime'
     | 'reson8/turns'
     | 'cohere/ar-stt'
+    | 'telnyx/basira'
     | 'distil-whisper/distil-large-v2'
     | 'openai/whisper-large-v3-turbo';
 
@@ -3560,6 +3584,124 @@ export interface TranscriptionSettings {
   region?: string;
 
   settings?: TranscriptionSettingsConfig;
+}
+
+export namespace TranscriptionSettings {
+  /**
+   * A second speech-to-text model that transcribes alongside `transcription.model`,
+   * and the rule that decides which transcript the assistant uses.
+   */
+  export interface Challenger {
+    /**
+     * The language booster's model. It must be the same kind of model as
+     * `transcription.model`: both streaming (`deepgram/flux`, `deepgram/nova-3`,
+     * `deepgram/nova-2`, `assemblyai/universal-3-5-pro` or its legacy alias
+     * `assemblyai/universal-streaming`, `xai/grok-stt`, `soniox/stt-rt-v4`,
+     * `soniox/stt-rt-v5`, `humain/realtime`, `reson8/turns`) or both non-streaming
+     * (`azure/fast`, `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`,
+     * `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
+     * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
+     * `transcription.model` on a different `language`.
+     */
+    model:
+      | 'deepgram/flux'
+      | 'deepgram/nova-3'
+      | 'deepgram/nova-2'
+      | 'azure/fast'
+      | 'assemblyai/universal-3-5-pro'
+      | 'assemblyai/universal-streaming'
+      | 'xai/grok-stt'
+      | 'soniox/stt-rt-v4'
+      | 'soniox/stt-rt-v5'
+      | 'nvidia/parakeet-v3'
+      | 'omi-health/omi-med-stt-v1'
+      | 'humain/realtime'
+      | 'reson8/turns'
+      | 'cohere/ar-stt'
+      | 'telnyx/basira'
+      | 'distil-whisper/distil-large-v2'
+      | 'openai/whisper-large-v3-turbo';
+
+    /**
+     * The language this model transcribes. Omit it or set it to `null` to use the
+     * language of `transcription.model`. The request is rejected when this model
+     * doesn't support the language it would run. It is also rejected when it would run
+     * the same model on the same language as `transcription.model`.
+     */
+    language?: string | null;
+
+    /**
+     * How the assistant picks the transcript it uses. The models are compared on how
+     * complete and confident their transcripts are, not on language, so the rules work
+     * best when both models understand the callers' language.
+     *
+     * - `best_turn` (default): both models transcribe the whole call. Each turn uses
+     *   the language booster's transcript only when it scores higher than the
+     *   transcript of `transcription.model` (clearly higher with non-streaming
+     *   models). With streaming models, `transcription.model` also decides when each
+     *   turn ends. Available for every pair.
+     * - `best_engine`: both models transcribe the first turns, then the call continues
+     *   alone on the model whose transcripts scored higher. If neither clearly leads,
+     *   `transcription.model` continues. Streaming models only.
+     * - `merge_words`: both models transcribe each utterance and their words are
+     *   merged, keeping Arabic and English spoken in the same sentence. Available only
+     *   for `telnyx/basira` with `cohere/ar-stt`, in either order. The pair runs on
+     *   the language that applies to `telnyx/basira` (its own, or that of
+     *   `transcription.model`), which must be Arabic (`ar` or an `ar-` locale),
+     *   `multi`, or `auto`.
+     */
+    rule?: 'best_turn' | 'best_engine' | 'merge_words';
+
+    /**
+     * Settings for the language booster, with the same fields and limits as
+     * `transcription.settings`. Fields that don't apply to this model's provider are
+     * dropped, and the provider's defaults fill in the rest. Omit it or set it to
+     * `null` to use the settings of `transcription.model` where they apply to this
+     * model.
+     */
+    settings?: AssistantsAPI.TranscriptionSettingsConfig | null;
+  }
+
+  /**
+   * A streaming speech-to-text model that takes over transcription when the model in
+   * use fails.
+   */
+  export interface FallbackModel {
+    /**
+     * The fallback model. It must be a streaming model other than
+     * `transcription.model` and the other fallbacks: `deepgram/flux`,
+     * `deepgram/nova-3`, `deepgram/nova-2`, `assemblyai/universal-3-5-pro` (or its
+     * legacy alias `assemblyai/universal-streaming`), `xai/grok-stt`,
+     * `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
+     */
+    model:
+      | 'deepgram/flux'
+      | 'deepgram/nova-3'
+      | 'deepgram/nova-2'
+      | 'assemblyai/universal-3-5-pro'
+      | 'assemblyai/universal-streaming'
+      | 'xai/grok-stt'
+      | 'soniox/stt-rt-v4'
+      | 'soniox/stt-rt-v5'
+      | 'humain/realtime'
+      | 'reson8/turns';
+
+    /**
+     * The language the fallback transcribes. Omit it or set it to `null` to use the
+     * language of `transcription.model`. The request is rejected when the fallback
+     * model doesn't support the language it would run.
+     */
+    language?: string | null;
+
+    /**
+     * Settings for the fallback, with the same fields and limits as
+     * `transcription.settings`. Fields that don't apply to this model's provider are
+     * dropped, and the provider's defaults fill in the rest. Omit it or set it to
+     * `null` to use the settings of `transcription.model` where they apply to this
+     * model.
+     */
+    settings?: AssistantsAPI.TranscriptionSettingsConfig | null;
+  }
 }
 
 export interface TranscriptionSettingsConfig {
