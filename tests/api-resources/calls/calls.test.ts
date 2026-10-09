@@ -48,7 +48,6 @@ describe('resource calls', () => {
         initial_silence_millis: 1000,
         maximum_number_of_words: 1000,
         maximum_word_length_millis: 2000,
-        prompt_end_timeout_millis: 5000,
         silence_threshold: 512,
         total_analysis_time_millis: 5000,
       },

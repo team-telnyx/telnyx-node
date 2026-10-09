@@ -18,8 +18,6 @@ export class Actions extends APIResource {
    *
    * **Expected Webhooks:**
    *
-   * - [`call.conversation.created`](/api-reference/callbacks/call-conversation-created)
-   *   includes `conversation_id` during startup
    * - `call.conversation.ended`
    * - `call.conversation_insights.generated`
    *
@@ -70,13 +68,6 @@ export class Actions extends APIResource {
    * webhook to track the answer. If warm-up fails, Telnyx falls back to starting the
    * assistant after answering.
    *
-   * When `assistant.id` is supplied, obtain the conversation ID from
-   * `data.payload.conversation_id` in the
-   * [call.conversation.created](/api-reference/callbacks/call-conversation-created)
-   * webhook and correlate it using `data.payload.call_control_id`. The `answer` HTTP
-   * response does not include `conversation_id`. The created event is emitted during
-   * assistant startup and does not indicate that the assistant is ready to speak.
-   *
    * Set the assistant voice with `assistant.voice_settings.voice` and speech-to-text
    * settings with `assistant.transcription`. You can reuse one stored assistant with
    * different per-call settings. Warm-up prepares assistant configuration and
@@ -87,8 +78,6 @@ export class Actions extends APIResource {
    * **Expected Webhooks:**
    *
    * - `call.answered`
-   * - `call.conversation.created` when the requested assistant conversation is
-   *   created
    * - `call.hold` and `call.unhold` if the call is held/unheld
    * - `call.deepfake_detection.result` if `deepfake_detection` was enabled
    * - `call.deepfake_detection.error` if `deepfake_detection` was enabled and an
@@ -292,8 +281,6 @@ export class Actions extends APIResource {
    *
    * **Expected Webhooks:**
    *
-   * - [`call.conversation.created`](/api-reference/callbacks/call-conversation-created)
-   *   includes `conversation_id` during startup
    * - `call.ai_gather.ended`
    * - `call.conversation.ended`
    * - `call.ai_gather.partial_results` (if `send_partial_results` is set to `true`)
@@ -916,9 +903,6 @@ export class Actions extends APIResource {
    *   `answering_machine_detection=premium` was requested
    * - `call.machine.premium.greeting.ended` if `answering_machine_detection=premium`
    *   was requested and a beep was detected
-   * - `call.machine.premium.call_screening.detected` if
-   *   `answering_machine_detection=premium_ios_call_screening_detection` was
-   *   requested and an Apple Call Screening tone was detected
    *
    * @example
    * ```ts
@@ -3313,10 +3297,10 @@ export interface ActionGatherUsingAIParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
-   *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
-   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
+   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
+   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
+   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
    *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
@@ -4836,20 +4820,10 @@ export interface ActionTransferParams {
    * 'greeting_end' or 'detect_words' is used and a 'machine' is detected, you will
    * receive another 'call.machine.greeting.ended' webhook when the answering machine
    * greeting ends with a beep or silence. If `detect_beep` is used, you will only
-   * receive 'call.machine.greeting.ended' if a beep is detected. If
-   * `answering_machine_detection` is set to `premium_ios_call_screening_detection`,
-   * Premium AMD runs with iOS Call Screening support: after an initial `machine`
-   * result, Telnyx listens for the iOS call-screening prompt to end or for an Apple
-   * Call Screening tone, sends `call.machine.premium.greeting.ended` with
-   * `result=prompt_ended` or `call.machine.premium.call_screening.detected` with
-   * `result=screening` respectively. When the Apple Call Screening tone is detected,
-   * Premium AMD is restarted on the screened call and a
-   * `call.machine.premium.detection.ended` webhook with the post-screening
-   * classification follows.
+   * receive 'call.machine.greeting.ended' if a beep is detected.
    */
   answering_machine_detection?:
     | 'premium'
-    | 'premium_ios_call_screening_detection'
     | 'detect'
     | 'detect_beep'
     | 'detect_words'
@@ -4860,8 +4834,7 @@ export interface ActionTransferParams {
    * Optional configuration parameters to modify 'answering_machine_detection'
    * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
    * parameters are applicable when `premium` is selected as
-   * answering_machine_detection. `prompt_end_timeout_millis` is additionally
-   * applicable when `premium_ios_call_screening_detection` is selected.
+   * answering_machine_detection.
    */
   answering_machine_detection_config?: ActionTransferParams.AnsweringMachineDetectionConfig;
 
@@ -5129,8 +5102,7 @@ export namespace ActionTransferParams {
    * Optional configuration parameters to modify 'answering_machine_detection'
    * performance. Only `total_analysis_time_millis` and `greeting_duration_millis`
    * parameters are applicable when `premium` is selected as
-   * answering_machine_detection. `prompt_end_timeout_millis` is additionally
-   * applicable when `premium_ios_call_screening_detection` is selected.
+   * answering_machine_detection.
    */
   export interface AnsweringMachineDetectionConfig {
     /**
@@ -5229,14 +5201,6 @@ export namespace ActionTransferParams {
      * If a single word lasts longer than this threshold, consider it a machine.
      */
     maximum_word_length_millis?: number;
-
-    /**
-     * Maximum time Telnyx waits, in milliseconds, for the iOS call-screening prompt to
-     * end after Premium AMD initially detects a `machine`. Used when
-     * `answering_machine_detection` is `premium_ios_call_screening_detection`.
-     * Defaults to 5000 milliseconds.
-     */
-    prompt_end_timeout_millis?: number;
 
     /**
      * Minimum noise threshold for any analysis.
@@ -5456,10 +5420,10 @@ export interface ActionStartConversationRelayParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
-   *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
-   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
+   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
+   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
+   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
    *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
