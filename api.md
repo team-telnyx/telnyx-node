@@ -300,7 +300,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
@@ -317,9 +316,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallLeftQueueWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumCallScreeningDetectedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
@@ -369,7 +366,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
@@ -386,9 +382,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallLeftQueueWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumCallScreeningDetectedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
