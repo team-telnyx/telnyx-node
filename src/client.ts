@@ -874,6 +874,11 @@ import {
   SimCardOrdersDefaultFlatPagination,
 } from './resources/sim-card-orders';
 import {
+  SipRegistrationStatus,
+  SipRegistrationStatusListParams,
+  SipRegistrationStatusListResponse,
+} from './resources/sip-registration-status';
+import {
   SiprecConnectorCreateParams,
   SiprecConnectorResponse,
   SiprecConnectorUpdateParams,
@@ -3329,6 +3334,10 @@ export class Telnyx {
    */
   spendLimits: API.SpendLimits = new API.SpendLimits(this);
   llmTokenGateway: API.LlmTokenGateway = new API.LlmTokenGateway(this);
+  /**
+   * UAC connection operations
+   */
+  sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3521,6 +3530,7 @@ Telnyx.BotSignup = BotSignup;
 Telnyx.MachinePayments = MachinePayments;
 Telnyx.SpendLimits = SpendLimits;
 Telnyx.LlmTokenGateway = LlmTokenGateway;
+Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5614,6 +5624,12 @@ export declare namespace Telnyx {
   };
 
   export { LlmTokenGateway as LlmTokenGateway };
+
+  export {
+    SipRegistrationStatus as SipRegistrationStatus,
+    type SipRegistrationStatusListResponse as SipRegistrationStatusListResponse,
+    type SipRegistrationStatusListParams as SipRegistrationStatusListParams,
+  };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

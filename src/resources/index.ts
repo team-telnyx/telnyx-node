@@ -1352,6 +1352,11 @@ export {
   type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
 } from './sim-cards/sim-cards';
 export {
+  SipRegistrationStatus,
+  type SipRegistrationStatusListResponse,
+  type SipRegistrationStatusListParams,
+} from './sip-registration-status';
+export {
   SiprecConnectors,
   type SiprecConnectorResponse,
   type SiprecConnectorCreateParams,

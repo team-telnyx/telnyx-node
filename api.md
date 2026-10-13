@@ -6227,3 +6227,13 @@ Methods:
 - <code title="delete /llm_token_gateway/token_keys/{id}">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">delete</a>(id, { ...params }) -> void</code>
 - <code title="get /llm_token_gateway/token_keys/{id}">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">retrieve</a>(id) -> TokenKeyResponse</code>
 - <code title="patch /llm_token_gateway/token_keys/{id}">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">update</a>(id, { ...params }) -> TokenKeyResponse</code>
+
+# SipRegistrationStatus
+
+Types:
+
+- <code><a href="./src/resources/sip-registration-status.ts">SipRegistrationStatusListResponse</a></code>
+
+Methods:
+
+- <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">list</a>({ ...params }) -> SipRegistrationStatusListResponse</code>

@@ -7961,6 +7961,12 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'patch',
     httpPath: '/llm_token_gateway/token_keys/{id}',
   },
+  {
+    clientCallName: 'client.sipRegistrationStatus.list',
+    fullyQualifiedName: 'sipRegistrationStatus.list',
+    httpMethod: 'get',
+    httpPath: '/sip_registration_status',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

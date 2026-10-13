@@ -238,11 +238,13 @@ export class Enterprises extends APIResource {
   /**
    * Branded Calling must be activated on each enterprise. Activation is idempotent:
    *
-   * - First call: marks the enterprise as activated and begins onboarding it with
-   *   the Branded Calling platform asynchronously. Returns `200` with
+   * - First call: marks the enterprise as activated, effective immediately; you can
+   *   create a DIR right away. The enterprise is registered with the Branded Calling
+   *   platform later, after its first DIR is approved. Returns `200` with
    *   `branded_calling_enabled: true`.
    * - Re-call after success: no-op, returns the same enterprise body.
-   * - Re-call after a prior failure: re-queues onboarding, returns `200`.
+   * - Re-call after a failed registration: re-queues the registration, returns
+   *   `200`.
    *
    * Prerequisite: the calling user must have agreed to the Branded Calling Terms of
    * Service (`POST /terms_of_service/branded_calling/agree`). Without that, this
