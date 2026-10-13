@@ -29,8 +29,10 @@ describe('resource numbers', () => {
       client.enterprises.reputation.numbers.list(
         '4a6192a4-573d-446d-b3ce-aff9117272a6',
         {
+          'filter[ownership_status]': 'verified',
           'filter[phone_number][contains]': '+16035551234',
           'filter[phone_number][eq]': '+16035551234',
+          'filter[source]': 'external',
           'page[number]': 1,
           'page[size]': 10,
         },
@@ -126,5 +128,50 @@ describe('resource numbers', () => {
       '4a6192a4-573d-446d-b3ce-aff9117272a6',
       { phone_numbers: ['+19493253498'] },
     );
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveOwnership: only required params', async () => {
+    const responsePromise = client.enterprises.reputation.numbers.retrieveOwnership('+19493253498', {
+      enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveOwnership: required and optional params', async () => {
+    const response = await client.enterprises.reputation.numbers.retrieveOwnership('+19493253498', {
+      enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+    });
+  });
+
+  // Mock server tests are disabled
+  test.skip('ownershipConfirm: only required params', async () => {
+    const responsePromise = client.enterprises.reputation.numbers.ownershipConfirm('+19493253498', {
+      enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+      still_own: true,
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('ownershipConfirm: required and optional params', async () => {
+    const response = await client.enterprises.reputation.numbers.ownershipConfirm('+19493253498', {
+      enterprise_id: '4a6192a4-573d-446d-b3ce-aff9117272a6',
+      still_own: true,
+      evidence_document_id: '2a7e8337-e803-4057-a4ae-26c40eb0bc6c',
+    });
   });
 });

@@ -17,6 +17,7 @@ import {
   ReputationCheckFrequency,
   ReputationEnableParams,
   ReputationUpdateFrequencyParams,
+  ReputationUpdateWebhookParams,
 } from './reputation/reputation';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -885,6 +886,7 @@ export declare namespace Enterprises {
     type ReputationCheckFrequency as ReputationCheckFrequency,
     type ReputationEnableParams as ReputationEnableParams,
     type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
+    type ReputationUpdateWebhookParams as ReputationUpdateWebhookParams,
   };
 
   export { Dir as Dir, type DirListParams as DirListParams, type DirCreateParams as DirCreateParams };

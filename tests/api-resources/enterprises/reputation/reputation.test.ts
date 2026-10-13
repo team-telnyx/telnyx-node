@@ -76,4 +76,27 @@ describe('resource reputation', () => {
       { check_frequency: 'weekly' },
     );
   });
+
+  // Mock server tests are disabled
+  test.skip('updateWebhook: only required params', async () => {
+    const responsePromise = client.enterprises.reputation.updateWebhook(
+      '4a6192a4-573d-446d-b3ce-aff9117272a6',
+      { webhook_url: 'https://example.com/webhooks/telnyx' },
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('updateWebhook: required and optional params', async () => {
+    const response = await client.enterprises.reputation.updateWebhook(
+      '4a6192a4-573d-446d-b3ce-aff9117272a6',
+      { webhook_url: 'https://example.com/webhooks/telnyx' },
+    );
+  });
 });

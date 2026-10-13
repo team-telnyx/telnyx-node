@@ -1,6 +1,13 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
+import * as ExternalVerificationAPI from './external-verification';
+import {
+  ExternalVerification,
+  ExternalVerificationCreateParams,
+  ExternalVerificationStatus,
+  ExternalVerificationWrapped,
+} from './external-verification';
 import * as LoaAPI from './loa';
 import { AgentInput, Loa, LoaRenderParams, LoaUpdateParams } from './loa';
 import * as NumbersAPI from './numbers';
@@ -8,10 +15,15 @@ import {
   NumberAssociateParams,
   NumberDisassociateParams,
   NumberListParams,
+  NumberOwnershipConfirmParams,
   NumberRefreshParams,
   NumberRefreshResponse,
+  NumberRetrieveOwnershipParams,
+  NumberRetrieveOwnershipResponse,
   NumberRetrieveParams,
   Numbers,
+  ReputationNumberSource,
+  ReputationOwnershipStatus,
   ReputationPhoneNumber,
   ReputationPhoneNumberList,
   ReputationPhoneNumberListWithReputation,
@@ -43,6 +55,8 @@ export class Reputation extends APIResource {
   numbers: NumbersAPI.Numbers = new NumbersAPI.Numbers(this._client);
   loa: LoaAPI.Loa = new LoaAPI.Loa(this._client);
   remediation: RemediationAPI.Remediation = new RemediationAPI.Remediation(this._client);
+  externalVerification: ExternalVerificationAPI.ExternalVerification =
+    new ExternalVerificationAPI.ExternalVerification(this._client);
 
   /**
    * Disable Phone Number Reputation. All registered numbers are de-registered as a
@@ -147,6 +161,29 @@ export class Reputation extends APIResource {
   ): APIPromise<EnterpriseReputationPublicWrapped> {
     return this._client.patch(path`/enterprises/${enterpriseID}/reputation/frequency`, { body, ...options });
   }
+
+  /**
+   * Set the HTTPS URL that receives number-ownership events for this enterprise:
+   * `number_reputation.number.flagged`, `number_reputation.number.removed` and
+   * `number_reputation.external_verification.status_changed`. Send
+   * `webhook_url: null` to stop receiving them.
+   *
+   * @example
+   * ```ts
+   * const enterpriseReputationPublicWrapped =
+   *   await client.enterprises.reputation.updateWebhook(
+   *     '4a6192a4-573d-446d-b3ce-aff9117272a6',
+   *     { webhook_url: 'https://example.com/webhooks/telnyx' },
+   *   );
+   * ```
+   */
+  updateWebhook(
+    enterpriseID: string,
+    body: ReputationUpdateWebhookParams,
+    options?: RequestOptions,
+  ): APIPromise<EnterpriseReputationPublicWrapped> {
+    return this._client.patch(path`/enterprises/${enterpriseID}/reputation/webhook`, { body, ...options });
+  }
 }
 
 export interface EnterpriseReputationPublic {
@@ -159,6 +196,12 @@ export interface EnterpriseReputationPublic {
   created_at?: string;
 
   enterprise_id?: string;
+
+  /**
+   * Review state of the ownership proof that allows adding phone numbers hosted with
+   * another provider.
+   */
+  external_verification_status?: ExternalVerificationAPI.ExternalVerificationStatus | null;
 
   /**
    * Id of the signed LOA document.
@@ -182,6 +225,11 @@ export interface EnterpriseReputationPublic {
   status?: 'pending' | 'approved' | 'deleted' | 'rejected';
 
   updated_at?: string;
+
+  /**
+   * HTTPS URL that receives number-ownership webhook events for this enterprise.
+   */
+  webhook_url?: string | null;
 }
 
 export interface EnterpriseReputationPublicWrapped {
@@ -223,9 +271,18 @@ export interface ReputationUpdateFrequencyParams {
   check_frequency: ReputationCheckFrequency;
 }
 
+export interface ReputationUpdateWebhookParams {
+  /**
+   * HTTPS URL on a publicly routable host. Send `null` to stop receiving
+   * number-ownership events.
+   */
+  webhook_url: string | null;
+}
+
 Reputation.Numbers = Numbers;
 Reputation.Loa = Loa;
 Reputation.Remediation = Remediation;
+Reputation.ExternalVerification = ExternalVerification;
 
 export declare namespace Reputation {
   export {
@@ -234,21 +291,27 @@ export declare namespace Reputation {
     type ReputationCheckFrequency as ReputationCheckFrequency,
     type ReputationEnableParams as ReputationEnableParams,
     type ReputationUpdateFrequencyParams as ReputationUpdateFrequencyParams,
+    type ReputationUpdateWebhookParams as ReputationUpdateWebhookParams,
   };
 
   export {
     Numbers as Numbers,
+    type ReputationNumberSource as ReputationNumberSource,
+    type ReputationOwnershipStatus as ReputationOwnershipStatus,
     type ReputationPhoneNumber as ReputationPhoneNumber,
     type ReputationPhoneNumberList as ReputationPhoneNumberList,
     type ReputationPhoneNumberListWithReputation as ReputationPhoneNumberListWithReputation,
     type ReputationPhoneNumberWithReputation as ReputationPhoneNumberWithReputation,
     type NumberRefreshResponse as NumberRefreshResponse,
+    type NumberRetrieveOwnershipResponse as NumberRetrieveOwnershipResponse,
     type ReputationPhoneNumbersDefaultFlatPagination as ReputationPhoneNumbersDefaultFlatPagination,
     type NumberListParams as NumberListParams,
     type NumberAssociateParams as NumberAssociateParams,
     type NumberDisassociateParams as NumberDisassociateParams,
     type NumberRetrieveParams as NumberRetrieveParams,
     type NumberRefreshParams as NumberRefreshParams,
+    type NumberRetrieveOwnershipParams as NumberRetrieveOwnershipParams,
+    type NumberOwnershipConfirmParams as NumberOwnershipConfirmParams,
   };
 
   export {
@@ -269,5 +332,12 @@ export declare namespace Reputation {
     type RemediationListParams as RemediationListParams,
     type RemediationCreateParams as RemediationCreateParams,
     type RemediationRetrieveParams as RemediationRetrieveParams,
+  };
+
+  export {
+    ExternalVerification as ExternalVerification,
+    type ExternalVerificationStatus as ExternalVerificationStatus,
+    type ExternalVerificationWrapped as ExternalVerificationWrapped,
+    type ExternalVerificationCreateParams as ExternalVerificationCreateParams,
   };
 }

@@ -354,6 +354,9 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
@@ -420,6 +423,9 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
@@ -5290,16 +5296,20 @@ Methods:
 - <code title="get /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">retrieve</a>(enterpriseID) -> EnterpriseReputationPublicWrapped</code>
 - <code title="post /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">enable</a>(enterpriseID, { ...params }) -> EnterpriseReputationPublicWrapped</code>
 - <code title="patch /enterprises/{enterprise_id}/reputation/frequency">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">updateFrequency</a>(enterpriseID, { ...params }) -> EnterpriseReputationPublicWrapped</code>
+- <code title="patch /enterprises/{enterprise_id}/reputation/webhook">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">updateWebhook</a>(enterpriseID, { ...params }) -> EnterpriseReputationPublicWrapped</code>
 
 ### Numbers
 
 Types:
 
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationNumberSource</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationOwnershipStatus</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumber</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumberList</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumberListWithReputation</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumberWithReputation</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRefreshResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRetrieveOwnershipResponse</a></code>
 
 Methods:
 
@@ -5308,6 +5318,8 @@ Methods:
 - <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">disassociate</a>(phoneNumber, { ...params }) -> void</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> ReputationPhoneNumberWithReputation</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/numbers/refresh">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">refresh</a>(enterpriseID, { ...params }) -> NumberRefreshResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieveOwnership</a>(phoneNumber, { ...params }) -> NumberRetrieveOwnershipResponse</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership_confirm">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">ownershipConfirm</a>(phoneNumber, { ...params }) -> ReputationPhoneNumberWithReputation</code>
 
 ### Loa
 
@@ -5335,6 +5347,18 @@ Methods:
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">list</a>(enterpriseID, { ...params }) -> RemediationListResponsesDefaultFlatPagination</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">create</a>(enterpriseID, { ...params }) -> RemediationRequestWrapped</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation/{remediation_id}">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">retrieve</a>(remediationID, { ...params }) -> RemediationRequestWrapped</code>
+
+### ExternalVerification
+
+Types:
+
+- <code><a href="./src/resources/enterprises/reputation/external-verification.ts">ExternalVerificationStatus</a></code>
+- <code><a href="./src/resources/enterprises/reputation/external-verification.ts">ExternalVerificationWrapped</a></code>
+
+Methods:
+
+- <code title="get /enterprises/{enterprise_id}/reputation/external_verification">client.enterprises.reputation.externalVerification.<a href="./src/resources/enterprises/reputation/external-verification.ts">list</a>(enterpriseID) -> ExternalVerificationWrapped</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/external_verification">client.enterprises.reputation.externalVerification.<a href="./src/resources/enterprises/reputation/external-verification.ts">create</a>(enterpriseID, { ...params }) -> ExternalVerificationWrapped</code>
 
 ## Dir
 

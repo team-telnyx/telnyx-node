@@ -6,6 +6,7 @@ import * as NumberOrdersAPI from './number-orders';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 import * as ThreadsAPI from './email-inboxes/threads/threads';
+import * as NumbersAPI from './enterprises/reputation/numbers';
 import { EmailBracketCursorPagination } from '../core/pagination';
 import { unsafeUnwrapWebhook, unwrapWebhook } from '../lib/webhooks';
 
@@ -6101,6 +6102,177 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
   }
 }
 
+export interface NumberReputationExternalVerificationStatusChangedWebhookEvent {
+  data: NumberReputationExternalVerificationStatusChangedWebhookEvent.Data;
+
+  meta: NumberReputationExternalVerificationStatusChangedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationExternalVerificationStatusChangedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.external_verification.status_changed';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      enterprise_id: string;
+
+      record_type: 'reputation_external_verification';
+
+      /**
+       * When the review decision was made. Always set: this event is only sent after a
+       * review.
+       */
+      reviewed_at: string;
+
+      /**
+       * The review outcome. `pending` is never delivered: the event is sent only once
+       * the proof is reviewed.
+       */
+      status: 'approved' | 'rejected';
+
+      /**
+       * Set only when `status` is `rejected`.
+       */
+      rejection_reason?: string | null;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
+export interface NumberReputationNumberFlaggedWebhookEvent {
+  data: NumberReputationNumberFlaggedWebhookEvent.Data;
+
+  meta: NumberReputationNumberFlaggedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationNumberFlaggedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.number.flagged';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Confirm ownership before this time or the number is removed (carrier change) or
+       * flagged (re-verification).
+       */
+      confirm_by: string;
+
+      enterprise_id: string;
+
+      /**
+       * `carrier_changed`: the number moved to a different carrier.
+       * `reverification_due`: the periodic ownership re-verification is due.
+       */
+      flag_reason: 'carrier_changed' | 'reverification_due';
+
+      ownership_status: 'pending_confirmation';
+
+      phone_number: string;
+
+      record_type: 'reputation_phone_number';
+
+      /**
+       * Where the phone number is hosted. `telnyx`: in your Telnyx inventory.
+       * `external`: a number you own that is hosted with another provider.
+       */
+      source: NumbersAPI.ReputationNumberSource;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
+export interface NumberReputationNumberRemovedWebhookEvent {
+  data: NumberReputationNumberRemovedWebhookEvent.Data;
+
+  meta: NumberReputationNumberRemovedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationNumberRemovedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.number.removed';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      enterprise_id: string;
+
+      ownership_status: 'removed';
+
+      phone_number: string;
+
+      record_type: 'reputation_phone_number';
+
+      /**
+       * `ported_away`: you confirmed you no longer own it after a carrier change.
+       * `unconfirmed_ownership`: the confirmation deadline passed. `reassigned`: the
+       * number was reported as permanently disconnected. `customer_reported`: you
+       * reported that you no longer own it. Removing a number yourself with `DELETE`
+       * sends no event.
+       */
+      removal_reason: 'ported_away' | 'unconfirmed_ownership' | 'reassigned' | 'customer_reported';
+
+      removed_at: string;
+
+      /**
+       * Where the phone number is hosted. `telnyx`: in your Telnyx inventory.
+       * `external`: a number you own that is hosted with another provider.
+       */
+      source: NumbersAPI.ReputationNumberSource;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
 export interface RecordingAvailableWebhookEvent {
   /**
    * Unique event id; deduplicate deliveries on it.
@@ -7670,6 +7842,177 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
   }
 }
 
+export interface NumberReputationExternalVerificationStatusChangedWebhookEvent {
+  data: NumberReputationExternalVerificationStatusChangedWebhookEvent.Data;
+
+  meta: NumberReputationExternalVerificationStatusChangedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationExternalVerificationStatusChangedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.external_verification.status_changed';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      enterprise_id: string;
+
+      record_type: 'reputation_external_verification';
+
+      /**
+       * When the review decision was made. Always set: this event is only sent after a
+       * review.
+       */
+      reviewed_at: string;
+
+      /**
+       * The review outcome. `pending` is never delivered: the event is sent only once
+       * the proof is reviewed.
+       */
+      status: 'approved' | 'rejected';
+
+      /**
+       * Set only when `status` is `rejected`.
+       */
+      rejection_reason?: string | null;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
+export interface NumberReputationNumberFlaggedWebhookEvent {
+  data: NumberReputationNumberFlaggedWebhookEvent.Data;
+
+  meta: NumberReputationNumberFlaggedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationNumberFlaggedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.number.flagged';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Confirm ownership before this time or the number is removed (carrier change) or
+       * flagged (re-verification).
+       */
+      confirm_by: string;
+
+      enterprise_id: string;
+
+      /**
+       * `carrier_changed`: the number moved to a different carrier.
+       * `reverification_due`: the periodic ownership re-verification is due.
+       */
+      flag_reason: 'carrier_changed' | 'reverification_due';
+
+      ownership_status: 'pending_confirmation';
+
+      phone_number: string;
+
+      record_type: 'reputation_phone_number';
+
+      /**
+       * Where the phone number is hosted. `telnyx`: in your Telnyx inventory.
+       * `external`: a number you own that is hosted with another provider.
+       */
+      source: NumbersAPI.ReputationNumberSource;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
+export interface NumberReputationNumberRemovedWebhookEvent {
+  data: NumberReputationNumberRemovedWebhookEvent.Data;
+
+  meta: NumberReputationNumberRemovedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationNumberRemovedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.number.removed';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      enterprise_id: string;
+
+      ownership_status: 'removed';
+
+      phone_number: string;
+
+      record_type: 'reputation_phone_number';
+
+      /**
+       * `ported_away`: you confirmed you no longer own it after a carrier change.
+       * `unconfirmed_ownership`: the confirmation deadline passed. `reassigned`: the
+       * number was reported as permanently disconnected. `customer_reported`: you
+       * reported that you no longer own it. Removing a number yourself with `DELETE`
+       * sends no event.
+       */
+      removal_reason: 'ported_away' | 'unconfirmed_ownership' | 'reassigned' | 'customer_reported';
+
+      removed_at: string;
+
+      /**
+       * Where the phone number is hosted. `telnyx`: in your Telnyx inventory.
+       * `external`: a number you own that is hosted with another provider.
+       */
+      source: NumbersAPI.ReputationNumberSource;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
 export interface RecordingAvailableWebhookEvent {
   /**
    * Unique event id; deduplicate deliveries on it.
@@ -7900,6 +8243,9 @@ export type UnsafeUnwrapWebhookEvent =
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdateWebhookEvent
+  | NumberReputationExternalVerificationStatusChangedWebhookEvent
+  | NumberReputationNumberFlaggedWebhookEvent
+  | NumberReputationNumberRemovedWebhookEvent
   | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
@@ -7977,6 +8323,9 @@ export type UnwrapWebhookEvent =
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdateWebhookEvent
+  | NumberReputationExternalVerificationStatusChangedWebhookEvent
+  | NumberReputationNumberFlaggedWebhookEvent
+  | NumberReputationNumberRemovedWebhookEvent
   | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
@@ -8112,6 +8461,9 @@ export declare namespace Webhooks {
     type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
     type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
+    type NumberReputationExternalVerificationStatusChangedWebhookEvent as NumberReputationExternalVerificationStatusChangedWebhookEvent,
+    type NumberReputationNumberFlaggedWebhookEvent as NumberReputationNumberFlaggedWebhookEvent,
+    type NumberReputationNumberRemovedWebhookEvent as NumberReputationNumberRemovedWebhookEvent,
     type RecordingAvailableWebhookEvent as RecordingAvailableWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,

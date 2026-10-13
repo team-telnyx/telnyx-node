@@ -6720,6 +6720,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/reputation/frequency',
   },
   {
+    clientCallName: 'client.enterprises.reputation.updateWebhook',
+    fullyQualifiedName: 'enterprises.reputation.updateWebhook',
+    httpMethod: 'patch',
+    httpPath: '/enterprises/{enterprise_id}/reputation/webhook',
+  },
+  {
     clientCallName: 'client.enterprises.reputation.numbers.list',
     fullyQualifiedName: 'enterprises.reputation.numbers.list',
     httpMethod: 'get',
@@ -6750,6 +6756,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/reputation/numbers/refresh',
   },
   {
+    clientCallName: 'client.enterprises.reputation.numbers.retrieveOwnership',
+    fullyQualifiedName: 'enterprises.reputation.numbers.retrieveOwnership',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.numbers.ownershipConfirm',
+    fullyQualifiedName: 'enterprises.reputation.numbers.ownershipConfirm',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership_confirm',
+  },
+  {
     clientCallName: 'client.enterprises.reputation.loa.update',
     fullyQualifiedName: 'enterprises.reputation.loa.update',
     httpMethod: 'patch',
@@ -6778,6 +6796,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'enterprises.reputation.remediation.retrieve',
     httpMethod: 'get',
     httpPath: '/enterprises/{enterprise_id}/reputation/remediation/{remediation_id}',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.externalVerification.list',
+    fullyQualifiedName: 'enterprises.reputation.externalVerification.list',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/external_verification',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.externalVerification.create',
+    fullyQualifiedName: 'enterprises.reputation.externalVerification.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/external_verification',
   },
   {
     clientCallName: 'client.enterprises.dir.list',
