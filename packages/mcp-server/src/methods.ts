@@ -6504,6 +6504,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/user_data',
   },
   {
+    clientCallName: 'client.whatsapp.signup.list',
+    fullyQualifiedName: 'whatsapp.signup.list',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/signup',
+  },
+  {
+    clientCallName: 'client.whatsapp.signup.retrieveStatus',
+    fullyQualifiedName: 'whatsapp.signup.retrieveStatus',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/signup/{id}/status',
+  },
+  {
     clientCallName: 'client.whatsappMessageTemplates.delete',
     fullyQualifiedName: 'whatsappMessageTemplates.delete',
     httpMethod: 'delete',
@@ -7870,6 +7882,84 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'llmTokenGateway.usage.retrieveSummary',
     httpMethod: 'get',
     httpPath: '/llm_token_gateway/usage/summary',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.usage.retrieveExport',
+    fullyQualifiedName: 'llmTokenGateway.usage.retrieveExport',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/usage/export',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.spend.retrieveEvents',
+    fullyQualifiedName: 'llmTokenGateway.spend.retrieveEvents',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/spend/events',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.spend.retrieveSummary',
+    fullyQualifiedName: 'llmTokenGateway.spend.retrieveSummary',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/spend/summary',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.list',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.list',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/token_groups',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.create',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.create',
+    httpMethod: 'post',
+    httpPath: '/llm_token_gateway/token_groups',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.delete',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.delete',
+    httpMethod: 'delete',
+    httpPath: '/llm_token_gateway/token_groups/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.retrieve',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.retrieve',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/token_groups/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.update',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.update',
+    httpMethod: 'patch',
+    httpPath: '/llm_token_gateway/token_groups/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.list',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.list',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/token_keys',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.create',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.create',
+    httpMethod: 'post',
+    httpPath: '/llm_token_gateway/token_keys',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.delete',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.delete',
+    httpMethod: 'delete',
+    httpPath: '/llm_token_gateway/token_keys/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.retrieve',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.retrieve',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/token_keys/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.update',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.update',
+    httpMethod: 'patch',
+    httpPath: '/llm_token_gateway/token_keys/{id}',
   },
 ];
 

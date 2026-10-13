@@ -300,8 +300,10 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallConversationStartFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionErrorWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionResultWebhookEvent</a></code>
@@ -316,7 +318,9 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallLeftQueueWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumCallScreeningDetectedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
@@ -362,6 +366,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">WhatsappWabaAddedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
@@ -369,8 +374,10 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallConversationStartFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionErrorWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionResultWebhookEvent</a></code>
@@ -385,7 +392,9 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallLeftQueueWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineDetectionEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachineGreetingEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumCallScreeningDetectedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionEndedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallMachinePremiumDetectionStartedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallMachinePremiumGreetingEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallPaymentProgressWebhookEvent</a></code>
@@ -431,6 +440,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">WhatsappWabaAddedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnsafeUnwrapWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnwrapWebhookEvent</a></code>
 
@@ -1521,6 +1531,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResult</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResultWithConversationID</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ConversationRelayInterruptible</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ConversationRelayTranscriptionEngineConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova2Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova3Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeveloperMessage</a></code>
@@ -5167,6 +5178,18 @@ Methods:
 - <code title="get /v2/whatsapp/user_data">client.whatsapp.userData.<a href="./src/resources/whatsapp/user-data.ts">retrieve</a>() -> UserDataRetrieveResponse</code>
 - <code title="patch /v2/whatsapp/user_data">client.whatsapp.userData.<a href="./src/resources/whatsapp/user-data.ts">update</a>({ ...params }) -> UserDataUpdateResponse</code>
 
+## Signup
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/signup.ts">SignupListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/signup.ts">SignupRetrieveStatusResponse</a></code>
+
+Methods:
+
+- <code title="get /whatsapp/signup">client.whatsapp.signup.<a href="./src/resources/whatsapp/signup.ts">list</a>({ ...params }) -> SignupListResponsesDefaultFlatPagination</code>
+- <code title="get /whatsapp/signup/{id}/status">client.whatsapp.signup.<a href="./src/resources/whatsapp/signup.ts">retrieveStatus</a>(id) -> SignupRetrieveStatusResponse</code>
+
 # WhatsappMessageTemplates
 
 Types:
@@ -5865,6 +5888,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/email-templates.ts">EmailTemplate</a></code>
+- <code><a href="./src/resources/email-templates.ts">EmailTemplateCommon</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateResponse</a></code>
 - <code><a href="./src/resources/email-templates.ts">UpdateEmailTemplateRequest</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateRenderResponse</a></code>
@@ -6150,8 +6174,56 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/llm-token-gateway/usage.ts">GuardrailFinding</a></code>
+- <code><a href="./src/resources/llm-token-gateway/usage.ts">UsageRetrieveExportResponse</a></code>
 - <code><a href="./src/resources/llm-token-gateway/usage.ts">UsageRetrieveSummaryResponse</a></code>
 
 Methods:
 
 - <code title="get /llm_token_gateway/usage/summary">client.llmTokenGateway.usage.<a href="./src/resources/llm-token-gateway/usage.ts">retrieveSummary</a>({ ...params }) -> UsageRetrieveSummaryResponse</code>
+- <code title="get /llm_token_gateway/usage/export">client.llmTokenGateway.usage.<a href="./src/resources/llm-token-gateway/usage.ts">retrieveExport</a>({ ...params }) -> UsageRetrieveExportResponse</code>
+
+## Spend
+
+Types:
+
+- <code><a href="./src/resources/llm-token-gateway/spend.ts">SpendGroupBy</a></code>
+- <code><a href="./src/resources/llm-token-gateway/spend.ts">SpendRetrieveEventsResponse</a></code>
+- <code><a href="./src/resources/llm-token-gateway/spend.ts">SpendRetrieveSummaryResponse</a></code>
+
+Methods:
+
+- <code title="get /llm_token_gateway/spend/events">client.llmTokenGateway.spend.<a href="./src/resources/llm-token-gateway/spend.ts">retrieveEvents</a>({ ...params }) -> SpendRetrieveEventsResponse</code>
+- <code title="get /llm_token_gateway/spend/summary">client.llmTokenGateway.spend.<a href="./src/resources/llm-token-gateway/spend.ts">retrieveSummary</a>({ ...params }) -> SpendRetrieveSummaryResponse</code>
+
+## TokenGroups
+
+Types:
+
+- <code><a href="./src/resources/llm-token-gateway/token-groups.ts">AIGatewayResourcesPageMeta</a></code>
+- <code><a href="./src/resources/llm-token-gateway/token-groups.ts">BudgetDuration</a></code>
+- <code><a href="./src/resources/llm-token-gateway/token-groups.ts">TokenGroup</a></code>
+- <code><a href="./src/resources/llm-token-gateway/token-groups.ts">TokenGroupResponse</a></code>
+
+Methods:
+
+- <code title="get /llm_token_gateway/token_groups">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">list</a>({ ...params }) -> TokenGroupsDefaultFlatPagination</code>
+- <code title="post /llm_token_gateway/token_groups">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">create</a>({ ...params }) -> TokenGroupResponse</code>
+- <code title="delete /llm_token_gateway/token_groups/{id}">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">delete</a>(id, { ...params }) -> void</code>
+- <code title="get /llm_token_gateway/token_groups/{id}">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">retrieve</a>(id) -> TokenGroupResponse</code>
+- <code title="patch /llm_token_gateway/token_groups/{id}">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">update</a>(id, { ...params }) -> TokenGroupResponse</code>
+
+## TokenKeys
+
+Types:
+
+- <code><a href="./src/resources/llm-token-gateway/token-keys.ts">TokenKey</a></code>
+- <code><a href="./src/resources/llm-token-gateway/token-keys.ts">TokenKeyResponse</a></code>
+
+Methods:
+
+- <code title="get /llm_token_gateway/token_keys">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">list</a>({ ...params }) -> TokenKeysDefaultFlatPagination</code>
+- <code title="post /llm_token_gateway/token_keys">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">create</a>({ ...params }) -> TokenKeyResponse</code>
+- <code title="delete /llm_token_gateway/token_keys/{id}">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">delete</a>(id, { ...params }) -> void</code>
+- <code title="get /llm_token_gateway/token_keys/{id}">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">retrieve</a>(id) -> TokenKeyResponse</code>
+- <code title="patch /llm_token_gateway/token_keys/{id}">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">update</a>(id, { ...params }) -> TokenKeyResponse</code>

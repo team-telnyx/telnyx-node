@@ -2430,8 +2430,8 @@ export interface InferenceEmbeddingVoiceSettings {
    * preview it before saving.
    */
   background_audio?:
-    | InferenceEmbeddingVoiceSettings.UnionMember0
-    | InferenceEmbeddingVoiceSettings.UnionMember1
+    | InferenceEmbeddingVoiceSettings.BackgroundAudioUnionMember0
+    | InferenceEmbeddingVoiceSettings.BackgroundAudioUnionMember1
     | InferenceEmbeddingVoiceSettings.UnionMember2;
 
   /**
@@ -2517,6 +2517,17 @@ export interface InferenceEmbeddingVoiceSettings {
   temperature?: number;
 
   /**
+   * Optional sound played to the caller while the assistant runs a tool (for example
+   * a webhook or MCP tool). It replaces the background audio until the tool
+   * responds, then the background audio resumes. Defaults to null, which plays no
+   * sound; send `null` on update to clear it. Not played in conference calls.
+   */
+  tool_call_audio?:
+    | InferenceEmbeddingVoiceSettings.ToolCallAudioUnionMember0
+    | InferenceEmbeddingVoiceSettings.ToolCallAudioUnionMember1
+    | null;
+
+  /**
    * Amplifies similarity to the original speaker voice. Increases computational load
    * and latency slightly. Only applicable when using ElevenLabs.
    */
@@ -2532,7 +2543,7 @@ export interface InferenceEmbeddingVoiceSettings {
 }
 
 export namespace InferenceEmbeddingVoiceSettings {
-  export interface UnionMember0 {
+  export interface BackgroundAudioUnionMember0 {
     /**
      * Select from predefined media options.
      */
@@ -2550,7 +2561,7 @@ export namespace InferenceEmbeddingVoiceSettings {
     volume?: number;
   }
 
-  export interface UnionMember1 {
+  export interface BackgroundAudioUnionMember1 {
     /**
      * Provide a direct URL to an MP3 file. The audio will loop during the call.
      */
@@ -2572,6 +2583,36 @@ export namespace InferenceEmbeddingVoiceSettings {
      * The `name` of a media asset created via
      * [Media Storage API](https://developers.telnyx.com/api/media-storage/create-media-storage).
      * The audio will loop during the call.
+     */
+    value: string;
+  }
+
+  export interface ToolCallAudioUnionMember0 {
+    /**
+     * Select from predefined media options.
+     */
+    type: 'predefined_media';
+
+    /**
+     * The predefined media to use. `typing` plays a keyboard typing sound.
+     */
+    value: 'typing';
+
+    /**
+     * Volume level for the predefined media. Supports values from 0.0 to 1.0 in 0.1
+     * increments. `0.0` plays no sound.
+     */
+    volume?: number;
+  }
+
+  export interface ToolCallAudioUnionMember1 {
+    /**
+     * Provide a direct URL to an MP3 file. The audio loops while the tool runs.
+     */
+    type: 'media_url';
+
+    /**
+     * HTTPS URL to an MP3 file.
      */
     value: string;
   }

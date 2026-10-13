@@ -13,7 +13,11 @@ import { path } from '../internal/utils/path';
  */
 export class EmailTemplates extends APIResource {
   /**
-   * Lists templates sorted newest first by `created_at desc, id desc`.
+   * Lists templates sorted newest first by `created_at desc, id desc`. Optional
+   * filters match a case-insensitive literal name/subject query, stored body
+   * presence, and the `strict_variables` and `autoescape` settings. Filters
+   * intersect, remain scoped to the authenticated account, and apply before cursor
+   * pagination. Invalid filter names or values return 400.
    *
    * @example
    * ```ts
@@ -164,7 +168,11 @@ export class EmailTemplates extends APIResource {
 
 export type EmailTemplatesEmailCursorPagination = EmailCursorPagination<EmailTemplate>;
 
-export interface EmailTemplate {
+export interface EmailTemplate extends EmailTemplateCommon {
+  subject: string | null;
+}
+
+export interface EmailTemplateCommon {
   id: string;
 
   /**
@@ -189,8 +197,6 @@ export interface EmailTemplate {
    */
   strict_variables: boolean;
 
-  subject: string | null;
-
   text_body: string | null;
 
   updated_at: string;
@@ -199,15 +205,23 @@ export interface EmailTemplate {
    * Structured variable requirements, or `null` when the template uses only the
    * legacy `variables` array.
    */
-  variable_schema: { [key: string]: EmailTemplate.VariableSchema } | null;
+  variable_schema: { [key: string]: EmailTemplateCommon.VariableSchema } | null;
 
   /**
-   * Legacy unstructured variable names. This path remains supported unchanged.
+   * Persisted variable names. In `explicit` mode this array preserves the exact
+   * provided order, duplicates, and string contents; in `automatic` mode it is
+   * derived from the stored subject and bodies.
    */
   variables: Array<string>;
+
+  /**
+   * `automatic` when variable names are derived from template content; `explicit`
+   * when `variables` is the exact manually managed array.
+   */
+  variables_mode: 'automatic' | 'explicit';
 }
 
-export namespace EmailTemplate {
+export namespace EmailTemplateCommon {
   export interface VariableSchema {
     /**
      * Whether the variable must be supplied when strict variable validation is
@@ -260,7 +274,22 @@ export interface UpdateEmailTemplateRequest {
    */
   variable_schema?: { [key: string]: UpdateEmailTemplateRequest.VariableSchema } | null;
 
-  variables?: Array<string>;
+  /**
+   * Persisted variable names. In `automatic` mode a non-null array is rejected; in
+   * `explicit` mode this is the exact manual array and each item is limited to 255
+   * Unicode code points.
+   */
+  variables?: Array<string> | null;
+
+  /**
+   * Controls how `variables` is maintained. Setting `automatic` re-extracts
+   * immediately from the effective subject, HTML body, and text body and rejects a
+   * simultaneous non-null array. Setting `explicit` requires the exact non-null
+   * array, including valid `[]`. With the mode omitted, a non-null array selects
+   * explicit mode, null selects automatic mode, and omitting both fields preserves
+   * the current mode. Source-content changes re-extract only in automatic mode.
+   */
+  variables_mode?: 'automatic' | 'explicit';
 }
 
 export namespace UpdateEmailTemplateRequest {
@@ -281,8 +310,8 @@ export namespace UpdateEmailTemplateRequest {
 export interface EmailTemplateRenderResponse {
   /**
    * Template object with `subject`, `html_body`, and `text_body` replaced by their
-   * Liquid-rendered values. All other template fields (id, name, variables, etc.)
-   * remain unchanged.
+   * Liquid-rendered values. Rendered content is not limited by the stored
+   * template-field lengths. All other template fields remain unchanged.
    */
   data: EmailTemplateRenderResponse.Data;
 }
@@ -290,13 +319,44 @@ export interface EmailTemplateRenderResponse {
 export namespace EmailTemplateRenderResponse {
   /**
    * Template object with `subject`, `html_body`, and `text_body` replaced by their
-   * Liquid-rendered values. All other template fields (id, name, variables, etc.)
-   * remain unchanged.
+   * Liquid-rendered values. Rendered content is not limited by the stored
+   * template-field lengths. All other template fields remain unchanged.
    */
-  export interface Data extends EmailTemplatesAPI.EmailTemplate {}
+  export interface Data extends EmailTemplatesAPI.EmailTemplateCommon {
+    subject: string | null;
+  }
 }
 
-export interface EmailTemplateListParams extends EmailCursorPaginationParams {}
+export interface EmailTemplateListParams extends EmailCursorPaginationParams {
+  /**
+   * Exact match on the template's `autoescape` option. Only the exact query strings
+   * `true` and `false` are accepted; other values, including blank, return 400.
+   */
+  'filter[autoescape]'?: 'true' | 'false';
+
+  /**
+   * Matches templates by stored body presence. `html_and_text` requires both an HTML
+   * and text body; `html_only` requires HTML and no text body; `text_only` requires
+   * text and no HTML body; `no_body` requires neither. `null` and exactly `""` count
+   * as absent; whitespace-only strings count as content. An empty or unsupported
+   * value returns a 400 response.
+   */
+  'filter[content_type]'?: 'html_and_text' | 'html_only' | 'text_only' | 'no_body';
+
+  /**
+   * Case-insensitive literal substring match over the template `name` or stored
+   * `subject` only; bodies are never searched. `%`, `_`, and `\` are literal
+   * characters with no wildcard meaning. A blank value is treated as omitted.
+   */
+  'filter[query]'?: string;
+
+  /**
+   * Exact match on the template's `strict_variables` option. Only the exact query
+   * strings `true` and `false` are accepted; other values, including blank,
+   * return 400.
+   */
+  'filter[strict_variables]'?: 'true' | 'false';
+}
 
 export interface EmailTemplateCreateParams {
   /**
@@ -353,10 +413,21 @@ export interface EmailTemplateCreateParams {
   variable_schema?: { [key: string]: EmailTemplateCreateParams.VariableSchema } | null;
 
   /**
-   * Body param: Template variables. Auto-extracted from subject/body fields when
-   * absent.
+   * Body param: Persisted variable names. In `automatic` mode a non-null array is
+   * rejected; in `explicit` mode this is the exact manual array and each item is
+   * limited to 255 Unicode code points.
    */
-  variables?: Array<string>;
+  variables?: Array<string> | null;
+
+  /**
+   * Body param: Controls how `variables` is maintained. If both fields are omitted
+   * (or `variables` is null), the template uses `automatic` mode and extracts
+   * variable names from the effective subject, HTML body, and text body. A non-null
+   * `variables` array with no mode selects `explicit`. `automatic` rejects a
+   * simultaneous non-null array; `explicit` requires a non-null array, including
+   * valid `[]`, and preserves its exact order, duplicates, and string contents.
+   */
+  variables_mode?: 'automatic' | 'explicit';
 
   /**
    * Header param: Optional opaque, unquoted key for safely retrying the same logical
@@ -420,7 +491,22 @@ export interface EmailTemplateReplaceParams {
    */
   variable_schema?: { [key: string]: EmailTemplateReplaceParams.VariableSchema } | null;
 
-  variables?: Array<string>;
+  /**
+   * Persisted variable names. In `automatic` mode a non-null array is rejected; in
+   * `explicit` mode this is the exact manual array and each item is limited to 255
+   * Unicode code points.
+   */
+  variables?: Array<string> | null;
+
+  /**
+   * Controls how `variables` is maintained. Setting `automatic` re-extracts
+   * immediately from the effective subject, HTML body, and text body and rejects a
+   * simultaneous non-null array. Setting `explicit` requires the exact non-null
+   * array, including valid `[]`. With the mode omitted, a non-null array selects
+   * explicit mode, null selects automatic mode, and omitting both fields preserves
+   * the current mode. Source-content changes re-extract only in automatic mode.
+   */
+  variables_mode?: 'automatic' | 'explicit';
 }
 
 export namespace EmailTemplateReplaceParams {
@@ -472,7 +558,22 @@ export interface EmailTemplateUpdateParams {
    */
   variable_schema?: { [key: string]: EmailTemplateUpdateParams.VariableSchema } | null;
 
-  variables?: Array<string>;
+  /**
+   * Persisted variable names. In `automatic` mode a non-null array is rejected; in
+   * `explicit` mode this is the exact manual array and each item is limited to 255
+   * Unicode code points.
+   */
+  variables?: Array<string> | null;
+
+  /**
+   * Controls how `variables` is maintained. Setting `automatic` re-extracts
+   * immediately from the effective subject, HTML body, and text body and rejects a
+   * simultaneous non-null array. Setting `explicit` requires the exact non-null
+   * array, including valid `[]`. With the mode omitted, a non-null array selects
+   * explicit mode, null selects automatic mode, and omitting both fields preserves
+   * the current mode. Source-content changes re-extract only in automatic mode.
+   */
+  variables_mode?: 'automatic' | 'explicit';
 }
 
 export namespace EmailTemplateUpdateParams {
@@ -501,6 +602,7 @@ export interface EmailTemplateRenderParams {
 export declare namespace EmailTemplates {
   export {
     type EmailTemplate as EmailTemplate,
+    type EmailTemplateCommon as EmailTemplateCommon,
     type EmailTemplateResponse as EmailTemplateResponse,
     type UpdateEmailTemplateRequest as UpdateEmailTemplateRequest,
     type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
