@@ -14,6 +14,7 @@ export {
   type ProfileListResponse,
   type ProfileDeleteResponse,
   type ProfileIngestResponse,
+  type ProfilePreviewResponse,
   type ProfileRecallResponse,
   type ProfileRememberResponse,
   type ProfileRetrieveSummaryResponse,
@@ -23,6 +24,7 @@ export {
   type ProfileRecallParams,
   type ProfileRememberParams,
   type ProfileRetrieveSummaryParams,
+  type ProfilePreviewParams,
   type ProfileListResponsesDefaultFlatPagination,
 } from './profiles';
 export {

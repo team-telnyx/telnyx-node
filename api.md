@@ -1292,6 +1292,7 @@ Types:
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileListResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileDeleteResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileIngestResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfilePreviewResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRecallResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRememberResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRetrieveSummaryResponse</a></code>
@@ -1304,6 +1305,7 @@ Methods:
 - <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/recall">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">recall</a>(profileID, { ...params }) -> ProfileRecallResponse</code>
 - <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/remember">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">remember</a>(profileID, { ...params }) -> ProfileRememberResponse</code>
 - <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">retrieveSummary</a>(profileID, { ...params }) -> ProfileRetrieveSummaryResponse</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary/preview">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">preview</a>(profileID, { ...params }) -> ProfilePreviewResponse</code>
 
 ##### Memories
 

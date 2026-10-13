@@ -340,6 +340,7 @@ const fuse = new Fuse(
     'client.ai.memory.namespaces.profiles.delete',
     'client.ai.memory.namespaces.profiles.ingest',
     'client.ai.memory.namespaces.profiles.list',
+    'client.ai.memory.namespaces.profiles.preview',
     'client.ai.memory.namespaces.profiles.recall',
     'client.ai.memory.namespaces.profiles.remember',
     'client.ai.memory.namespaces.profiles.retrieveSummary',

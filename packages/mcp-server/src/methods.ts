@@ -1411,6 +1411,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary',
   },
   {
+    clientCallName: 'client.ai.memory.namespaces.profiles.preview',
+    fullyQualifiedName: 'ai.memory.namespaces.profiles.preview',
+    httpMethod: 'post',
+    httpPath: '/ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary/preview',
+  },
+  {
     clientCallName: 'client.ai.memory.namespaces.profiles.memories.list',
     fullyQualifiedName: 'ai.memory.namespaces.profiles.memories.list',
     httpMethod: 'get',

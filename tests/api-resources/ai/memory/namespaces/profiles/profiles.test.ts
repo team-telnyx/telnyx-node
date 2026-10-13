@@ -144,4 +144,26 @@ describe('resource profiles', () => {
       namespace: 'namespace',
     });
   });
+
+  // Mock server tests are disabled
+  test.skip('preview: only required params', async () => {
+    const responsePromise = client.ai.memory.namespaces.profiles.preview('profile_id', {
+      namespace: 'namespace',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('preview: required and optional params', async () => {
+    const response = await client.ai.memory.namespaces.profiles.preview('profile_id', {
+      namespace: 'namespace',
+      instructions: 'Lead with billing status. Prefer plain language over jargon.',
+    });
+  });
 });
