@@ -100,6 +100,12 @@ describe('resource versions', () => {
           timeout_ms: 30000,
         },
       ],
+      avatar_settings: {
+        avatar_id: 'elena',
+        background_id: 'office',
+        model: 'foxtrot-1',
+        provider: 'telnyx',
+      },
       conversation_flow: {
         nodes: [
           {

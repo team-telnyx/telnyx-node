@@ -1441,6 +1441,33 @@ export interface AudioVisualizerConfig {
 export type AuthenticationMethod = 'token' | 'certificate';
 
 /**
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
+ * catalog supports six avatars and office, studio, or reception backgrounds.
+ */
+export interface AvatarSettingsRequest {
+  /**
+   * The Telnyx avatar to render.
+   */
+  avatar_id: 'elena' | 'ben' | 'jordan' | 'lin' | 'avery' | 'raphael';
+
+  /**
+   * The background to render.
+   */
+  background_id: 'office' | 'studio' | 'reception';
+
+  /**
+   * Required avatar model identifier, separate from `avatar_id`. The supported value
+   * is `foxtrot-1`. Omission, null, and unsupported model identifiers are rejected.
+   */
+  model: 'foxtrot-1';
+
+  /**
+   * Selects the Telnyx open-source avatar provider.
+   */
+  provider: 'telnyx';
+}
+
+/**
  * Combine sub-expressions with a logical operator (`and` / `or` / `not`).
  *
  * `and` and `or` accept two or more operands; `not` accepts exactly one.
@@ -2192,6 +2219,12 @@ export interface InferenceEmbedding {
    * capability for the conversation; it does not fail the call.
    */
   a2a_agents?: Array<AssistantA2AAgent>;
+
+  /**
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
+   * catalog supports six avatars and office, studio, or reception backgrounds.
+   */
+  avatar_settings?: TelnyxAvatarSettings | null;
 
   /**
    * Conversation flow as returned by the API.
@@ -3395,6 +3428,33 @@ export namespace TelephonySettings {
 }
 
 /**
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
+ * catalog supports six avatars and office, studio, or reception backgrounds.
+ */
+export interface TelnyxAvatarSettings {
+  /**
+   * The Telnyx avatar to render.
+   */
+  avatar_id: 'elena' | 'ben' | 'jordan' | 'lin' | 'avery' | 'raphael';
+
+  /**
+   * The background to render.
+   */
+  background_id: 'office' | 'studio' | 'reception';
+
+  /**
+   * Required avatar model identifier, separate from `avatar_id`. The supported value
+   * is `foxtrot-1`. Omission, null, and unsupported model identifiers are rejected.
+   */
+  model: 'foxtrot-1';
+
+  /**
+   * Selects the Telnyx open-source avatar provider.
+   */
+  provider: 'telnyx';
+}
+
+/**
  * A standalone tool step in a conversation flow, as returned by the API.
  */
 export interface ToolNode {
@@ -4346,6 +4406,13 @@ export interface AssistantCreateParams {
   a2a_agents?: Array<AssistantA2AAgent>;
 
   /**
+   * Body param: **Beta:** Configuration for the Telnyx open-source avatar provider.
+   * The launch catalog supports six avatars and office, studio, or reception
+   * backgrounds.
+   */
+  avatar_settings?: AvatarSettingsRequest | null;
+
+  /**
    * Body param: Conversation flow as supplied by API clients (create / update).
    *
    * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
@@ -4630,6 +4697,12 @@ export interface AssistantUpdateParams {
    * leave the assistant's agents unchanged; send an empty array to remove them all.
    */
   a2a_agents?: Array<AssistantA2AAgent>;
+
+  /**
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
+   * catalog supports six avatars and office, studio, or reception backgrounds.
+   */
+  avatar_settings?: AvatarSettingsRequest | null;
 
   /**
    * Conversation flow as supplied by API clients (create / update).
@@ -4962,6 +5035,7 @@ export declare namespace Assistants {
     type AssistantsList as AssistantsList,
     type AudioVisualizerConfig as AudioVisualizerConfig,
     type AuthenticationMethod as AuthenticationMethod,
+    type AvatarSettingsRequest as AvatarSettingsRequest,
     type BooleanOpExpression as BooleanOpExpression,
     type ComparisonExpression as ComparisonExpression,
     type ConversationFlow as ConversationFlow,
@@ -4998,6 +5072,7 @@ export declare namespace Assistants {
     type SpeakNodeReq as SpeakNodeReq,
     type StartSpeakingPlan as StartSpeakingPlan,
     type TelephonySettings as TelephonySettings,
+    type TelnyxAvatarSettings as TelnyxAvatarSettings,
     type ToolNode as ToolNode,
     type ToolNodeReq as ToolNodeReq,
     type TranscriptionEndpointingPlan as TranscriptionEndpointingPlan,

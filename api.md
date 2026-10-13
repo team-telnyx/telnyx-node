@@ -573,6 +573,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantsList</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AudioVisualizerConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AuthenticationMethod</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AvatarSettingsRequest</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">BooleanOpExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ComparisonExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlow</a></code>
@@ -609,6 +610,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">SpeakNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">StartSpeakingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">TelnyxAvatarSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNode</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionEndpointingPlan</a></code>

@@ -131,6 +131,12 @@ export interface UpdateAssistant {
   a2a_agents?: Array<AssistantsAPI.AssistantA2AAgent>;
 
   /**
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
+   * catalog supports six avatars and office, studio, or reception backgrounds.
+   */
+  avatar_settings?: AssistantsAPI.AvatarSettingsRequest | null;
+
+  /**
    * Conversation flow as supplied by API clients (create / update).
    *
    * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
@@ -356,6 +362,13 @@ export interface VersionUpdateParams {
    * all.
    */
   a2a_agents?: Array<AssistantsAPI.AssistantA2AAgent>;
+
+  /**
+   * Body param: **Beta:** Configuration for the Telnyx open-source avatar provider.
+   * The launch catalog supports six avatars and office, studio, or reception
+   * backgrounds.
+   */
+  avatar_settings?: AssistantsAPI.AvatarSettingsRequest | null;
 
   /**
    * Body param: Conversation flow as supplied by API clients (create / update).
