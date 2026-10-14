@@ -648,6 +648,7 @@ export type AssistantTool =
   | AssistantTool.SendDtmf
   | AssistantTool.SendMessage
   | AssistantTool.SkipTurn
+  | AssistantTool.Vision
   | AssistantTool.Pay
   | AssistantTool.UpdateDynamicVariables;
 
@@ -1381,6 +1382,30 @@ export namespace AssistantTool {
        */
       description?: string;
     }
+  }
+
+  /**
+   * (BETA) Lets the assistant look at recent image frames the client sent into the
+   * conversation (for example webcam or screen-share frames). Frames are sent with
+   * `conversation.item.create` and `item.buffer: true`; they never trigger a
+   * response on their own. The assistant decides when to look and which frames it
+   * needs. Requires a model that supports image input.
+   */
+  export interface Vision {
+    type: 'vision';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
+
+    vision?: ToolsAPI.VisionToolParams;
   }
 
   /**

@@ -1221,6 +1221,7 @@ Types:
 - <code><a href="./src/resources/ai/tools.ts">PayToolParams</a></code>
 - <code><a href="./src/resources/ai/tools.ts">SharedToolResponse</a></code>
 - <code><a href="./src/resources/ai/tools.ts">UpdateDynamicVariablesToolParams</a></code>
+- <code><a href="./src/resources/ai/tools.ts">VisionToolParams</a></code>
 
 Methods:
 
