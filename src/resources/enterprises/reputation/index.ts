@@ -1,18 +1,29 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
+export {
+  ExternalVerification,
+  type ExternalVerificationStatus,
+  type ExternalVerificationWrapped,
+  type ExternalVerificationCreateParams,
+} from './external-verification';
 export { Loa, type AgentInput, type LoaUpdateParams, type LoaRenderParams } from './loa';
 export {
   Numbers,
+  type ReputationNumberSource,
+  type ReputationOwnershipStatus,
   type ReputationPhoneNumber,
   type ReputationPhoneNumberList,
   type ReputationPhoneNumberListWithReputation,
   type ReputationPhoneNumberWithReputation,
   type NumberRefreshResponse,
+  type NumberRetrieveOwnershipResponse,
   type NumberListParams,
   type NumberAssociateParams,
   type NumberDisassociateParams,
   type NumberRetrieveParams,
   type NumberRefreshParams,
+  type NumberRetrieveOwnershipParams,
+  type NumberOwnershipConfirmParams,
   type ReputationPhoneNumbersDefaultFlatPagination,
 } from './numbers';
 export {
@@ -34,4 +45,5 @@ export {
   type ReputationCheckFrequency,
   type ReputationEnableParams,
   type ReputationUpdateFrequencyParams,
+  type ReputationUpdateWebhookParams,
 } from './reputation';

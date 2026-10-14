@@ -21,6 +21,13 @@ export {
   type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers/index';
 export {
+  Signup,
+  type SignupListResponse,
+  type SignupRetrieveStatusResponse,
+  type SignupListParams,
+  type SignupListResponsesDefaultFlatPagination,
+} from './signup';
+export {
   Templates,
   type WhatsappTemplateBodyComponent,
   type WhatsappTemplateButtonsComponent,

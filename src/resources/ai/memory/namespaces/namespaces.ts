@@ -13,6 +13,8 @@ import {
   ProfileListParams,
   ProfileListResponse,
   ProfileListResponsesDefaultFlatPagination,
+  ProfilePreviewParams,
+  ProfilePreviewResponse,
   ProfileRecallParams,
   ProfileRecallResponse,
   ProfileRememberParams,
@@ -174,6 +176,7 @@ export declare namespace Namespaces {
     type ProfileListResponse as ProfileListResponse,
     type ProfileDeleteResponse as ProfileDeleteResponse,
     type ProfileIngestResponse as ProfileIngestResponse,
+    type ProfilePreviewResponse as ProfilePreviewResponse,
     type ProfileRecallResponse as ProfileRecallResponse,
     type ProfileRememberResponse as ProfileRememberResponse,
     type ProfileRetrieveSummaryResponse as ProfileRetrieveSummaryResponse,
@@ -184,6 +187,7 @@ export declare namespace Namespaces {
     type ProfileRecallParams as ProfileRecallParams,
     type ProfileRememberParams as ProfileRememberParams,
     type ProfileRetrieveSummaryParams as ProfileRetrieveSummaryParams,
+    type ProfilePreviewParams as ProfilePreviewParams,
   };
 
   export {

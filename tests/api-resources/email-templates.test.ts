@@ -25,7 +25,14 @@ describe('resource emailTemplates', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.emailTemplates.list(
-        { page_cursor: 'page_cursor', page_size: 1 },
+        {
+          'filter[autoescape]': 'true',
+          'filter[content_type]': 'html_and_text',
+          'filter[query]': 'filter[query]',
+          'filter[strict_variables]': 'true',
+          page_cursor: 'page_cursor',
+          page_size: 1,
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
@@ -54,6 +61,7 @@ describe('resource emailTemplates', () => {
       text_body: 'Hello {{ first_name }}',
       variable_schema: { foo: { required: true, default: 'default' } },
       variables: ['string'],
+      variables_mode: 'automatic',
       'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });

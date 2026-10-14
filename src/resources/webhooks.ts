@@ -6,6 +6,7 @@ import * as NumberOrdersAPI from './number-orders';
 import * as CallsAPI from './calls/calls';
 import * as MessagesAPI from './messages/messages';
 import * as ThreadsAPI from './email-inboxes/threads/threads';
+import * as NumbersAPI from './enterprises/reputation/numbers';
 import { EmailBracketCursorPagination } from '../core/pagination';
 import { unsafeUnwrapWebhook, unwrapWebhook } from '../lib/webhooks';
 
@@ -535,6 +536,16 @@ export namespace CallConversationEnded {
     llm_model?: string;
 
     /**
+     * The conversation transcript, in order. By default it contains only `user` and
+     * `assistant` text turns. When the assistant's
+     * `telephony_settings.conversation_ended_full_history` is `true`, it contains the
+     * full conversation history, including assistant tool calls, tool results, and
+     * `system` and `developer` entries. Redacted when data retention is disabled for
+     * the account.
+     */
+    messages?: Array<Payload.Message>;
+
+    /**
      * Reason the conversation ended. For Conversation Relay, `customer_disconnect`
      * indicates that the customer WebSocket disconnected.
      */
@@ -564,6 +575,73 @@ export namespace CallConversationEnded {
      * Voice ID used for TTS.
      */
     tts_voice_id?: string;
+  }
+
+  export namespace Payload {
+    export interface Message {
+      /**
+       * The text of the message. For a tool result, the tool output. May be absent on an
+       * assistant message that only contains `tool_calls`.
+       */
+      content?: string;
+
+      /**
+       * The author of the message. `tool`, `system`, and `developer` only appear when
+       * `conversation_ended_full_history` is enabled. `system` and `developer` entries
+       * are informational (for example idle check-ins, voicemail prompts,
+       * participant-left notices, or messages added through the API); their wording is
+       * not a stable contract.
+       */
+      role?: 'user' | 'assistant' | 'tool' | 'system' | 'developer';
+
+      /**
+       * ISO 8601 datetime of when the message was added to the conversation.
+       */
+      timestamp?: string;
+
+      /**
+       * The `id` of the tool call this message answers. Only present on `tool` messages
+       * when `conversation_ended_full_history` is enabled.
+       */
+      tool_call_id?: string;
+
+      /**
+       * Tools the assistant called in this turn. Only present on `assistant` messages
+       * when `conversation_ended_full_history` is enabled.
+       */
+      tool_calls?: Array<Message.ToolCall>;
+    }
+
+    export namespace Message {
+      export interface ToolCall {
+        /**
+         * Identifier of the tool call, referenced by the matching tool result's
+         * `tool_call_id`.
+         */
+        id?: string;
+
+        function?: ToolCall.Function;
+
+        /**
+         * The type of tool call.
+         */
+        type?: 'function';
+      }
+
+      export namespace ToolCall {
+        export interface Function {
+          /**
+           * The arguments passed to the tool, as a JSON-encoded string.
+           */
+          arguments?: string;
+
+          /**
+           * The name of the tool that was called.
+           */
+          name?: string;
+        }
+      }
+    }
   }
 }
 
@@ -4950,6 +5028,108 @@ export interface CallConversationInsightsGeneratedWebhookEvent {
   data?: CallConversationInsightsGenerated;
 }
 
+export interface CallConversationStartFailedWebhookEvent {
+  /**
+   * The AI assistant requested for the call could not be started, so no conversation
+   * was created. No `call.conversation.created` or `call.conversation.ended` is sent
+   * for this attempt.
+   */
+  data?: CallConversationStartFailedWebhookEvent.Data;
+}
+
+export namespace CallConversationStartFailedWebhookEvent {
+  /**
+   * The AI assistant requested for the call could not be started, so no conversation
+   * was created. No `call.conversation.created` or `call.conversation.ended` is sent
+   * for this attempt.
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * Timestamp when the event was created in the system.
+     */
+    created_at?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.conversation.start_failed';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Identifier of the AI assistant that failed to start.
+       */
+      assistant_id?: string;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call leg.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session (group of related call legs).
+       */
+      call_session_id?: string;
+
+      /**
+       * The type of calling party connection.
+       */
+      calling_party_type?: 'pstn' | 'sip';
+
+      /**
+       * Base64-encoded state received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * The caller's number or identifier.
+       */
+      from?: string;
+
+      /**
+       * Why the conversation could not be started. `invalid_request`: the assistant
+       * request was rejected, for example because the assistant ID does not exist.
+       * `service_error`: the assistant could not be started because of an error on the
+       * Telnyx side.
+       */
+      reason?: 'invalid_request' | 'service_error';
+
+      /**
+       * The callee's number or SIP address.
+       */
+      to?: string;
+    }
+  }
+}
+
 export interface CallCostWebhookEvent {
   data?: CallCostWebhookEvent.Data;
 }
@@ -6344,6 +6524,177 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
   }
 }
 
+export interface NumberReputationExternalVerificationStatusChangedWebhookEvent {
+  data: NumberReputationExternalVerificationStatusChangedWebhookEvent.Data;
+
+  meta: NumberReputationExternalVerificationStatusChangedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationExternalVerificationStatusChangedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.external_verification.status_changed';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      enterprise_id: string;
+
+      record_type: 'reputation_external_verification';
+
+      /**
+       * When the review decision was made. Always set: this event is only sent after a
+       * review.
+       */
+      reviewed_at: string;
+
+      /**
+       * The review outcome. `pending` is never delivered: the event is sent only once
+       * the proof is reviewed.
+       */
+      status: 'approved' | 'rejected';
+
+      /**
+       * Set only when `status` is `rejected`.
+       */
+      rejection_reason?: string | null;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
+export interface NumberReputationNumberFlaggedWebhookEvent {
+  data: NumberReputationNumberFlaggedWebhookEvent.Data;
+
+  meta: NumberReputationNumberFlaggedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationNumberFlaggedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.number.flagged';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Confirm ownership before this time or the number is removed (carrier change) or
+       * flagged (re-verification).
+       */
+      confirm_by: string;
+
+      enterprise_id: string;
+
+      /**
+       * `carrier_changed`: the number moved to a different carrier.
+       * `reverification_due`: the periodic ownership re-verification is due.
+       */
+      flag_reason: 'carrier_changed' | 'reverification_due';
+
+      ownership_status: 'pending_confirmation';
+
+      phone_number: string;
+
+      record_type: 'reputation_phone_number';
+
+      /**
+       * Where the phone number is hosted. `telnyx`: in your Telnyx inventory.
+       * `external`: a number you own that is hosted with another provider.
+       */
+      source: NumbersAPI.ReputationNumberSource;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
+export interface NumberReputationNumberRemovedWebhookEvent {
+  data: NumberReputationNumberRemovedWebhookEvent.Data;
+
+  meta: NumberReputationNumberRemovedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationNumberRemovedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.number.removed';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      enterprise_id: string;
+
+      ownership_status: 'removed';
+
+      phone_number: string;
+
+      record_type: 'reputation_phone_number';
+
+      /**
+       * `ported_away`: you confirmed you no longer own it after a carrier change.
+       * `unconfirmed_ownership`: the confirmation deadline passed. `reassigned`: the
+       * number was reported as permanently disconnected. `customer_reported`: you
+       * reported that you no longer own it. Removing a number yourself with `DELETE`
+       * sends no event.
+       */
+      removal_reason: 'ported_away' | 'unconfirmed_ownership' | 'reassigned' | 'customer_reported';
+
+      removed_at: string;
+
+      /**
+       * Where the phone number is hosted. `telnyx`: in your Telnyx inventory.
+       * `external`: a number you own that is hosted with another provider.
+       */
+      source: NumbersAPI.ReputationNumberSource;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
 export interface RecordingAvailableWebhookEvent {
   /**
    * Unique event id; deduplicate deliveries on it.
@@ -6503,6 +6854,56 @@ export namespace TranscriptCompletedWebhookEvent {
 
 export interface TranscriptionWebhookEvent {
   data?: Transcription;
+}
+
+export interface WhatsappWabaAddedWebhookEvent {
+  data: WhatsappWabaAddedWebhookEvent.Data;
+}
+
+export namespace WhatsappWabaAddedWebhookEvent {
+  export interface Data {
+    id: string;
+
+    event_type: 'whatsapp.waba_added';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Signup session ID.
+       */
+      event_id: string;
+
+      record_type: 'waba_account_added';
+
+      /**
+       * Signup session outcome.
+       */
+      status: 'SUCCESS' | 'FAILURE';
+
+      /**
+       * Meta WhatsApp Business Account identifier.
+       */
+      waba_id: string;
+
+      /**
+       * Errors recorded during provisioning.
+       */
+      errors?: Array<string>;
+
+      /**
+       * Phone numbers found on the WABA. Omitted for standard sessions started with a
+       * phone_number_id, and for sessions that fail before Telnyx fetches the numbers.
+       */
+      phone_numbers?: Array<string>;
+    }
+  }
 }
 
 export interface CallAIGatherEndedWebhookEvent {
@@ -6760,6 +7161,108 @@ export interface CallConversationInsightsGeneratedWebhookEvent {
   data?: CallConversationInsightsGenerated;
 }
 
+export interface CallConversationStartFailedWebhookEvent {
+  /**
+   * The AI assistant requested for the call could not be started, so no conversation
+   * was created. No `call.conversation.created` or `call.conversation.ended` is sent
+   * for this attempt.
+   */
+  data?: CallConversationStartFailedWebhookEvent.Data;
+}
+
+export namespace CallConversationStartFailedWebhookEvent {
+  /**
+   * The AI assistant requested for the call could not be started, so no conversation
+   * was created. No `call.conversation.created` or `call.conversation.ended` is sent
+   * for this attempt.
+   */
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * Timestamp when the event was created in the system.
+     */
+    created_at?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.conversation.start_failed';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Identifier of the AI assistant that failed to start.
+       */
+      assistant_id?: string;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call leg.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session (group of related call legs).
+       */
+      call_session_id?: string;
+
+      /**
+       * The type of calling party connection.
+       */
+      calling_party_type?: 'pstn' | 'sip';
+
+      /**
+       * Base64-encoded state received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * The caller's number or identifier.
+       */
+      from?: string;
+
+      /**
+       * Why the conversation could not be started. `invalid_request`: the assistant
+       * request was rejected, for example because the assistant ID does not exist.
+       * `service_error`: the assistant could not be started because of an error on the
+       * Telnyx side.
+       */
+      reason?: 'invalid_request' | 'service_error';
+
+      /**
+       * The callee's number or SIP address.
+       */
+      to?: string;
+    }
+  }
+}
+
 export interface CallCostWebhookEvent {
   data?: CallCostWebhookEvent.Data;
 }
@@ -8154,6 +8657,177 @@ export namespace NumberOrderStatusUpdateWebhookEvent {
   }
 }
 
+export interface NumberReputationExternalVerificationStatusChangedWebhookEvent {
+  data: NumberReputationExternalVerificationStatusChangedWebhookEvent.Data;
+
+  meta: NumberReputationExternalVerificationStatusChangedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationExternalVerificationStatusChangedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.external_verification.status_changed';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      enterprise_id: string;
+
+      record_type: 'reputation_external_verification';
+
+      /**
+       * When the review decision was made. Always set: this event is only sent after a
+       * review.
+       */
+      reviewed_at: string;
+
+      /**
+       * The review outcome. `pending` is never delivered: the event is sent only once
+       * the proof is reviewed.
+       */
+      status: 'approved' | 'rejected';
+
+      /**
+       * Set only when `status` is `rejected`.
+       */
+      rejection_reason?: string | null;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
+export interface NumberReputationNumberFlaggedWebhookEvent {
+  data: NumberReputationNumberFlaggedWebhookEvent.Data;
+
+  meta: NumberReputationNumberFlaggedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationNumberFlaggedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.number.flagged';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Confirm ownership before this time or the number is removed (carrier change) or
+       * flagged (re-verification).
+       */
+      confirm_by: string;
+
+      enterprise_id: string;
+
+      /**
+       * `carrier_changed`: the number moved to a different carrier.
+       * `reverification_due`: the periodic ownership re-verification is due.
+       */
+      flag_reason: 'carrier_changed' | 'reverification_due';
+
+      ownership_status: 'pending_confirmation';
+
+      phone_number: string;
+
+      record_type: 'reputation_phone_number';
+
+      /**
+       * Where the phone number is hosted. `telnyx`: in your Telnyx inventory.
+       * `external`: a number you own that is hosted with another provider.
+       */
+      source: NumbersAPI.ReputationNumberSource;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
+export interface NumberReputationNumberRemovedWebhookEvent {
+  data: NumberReputationNumberRemovedWebhookEvent.Data;
+
+  meta: NumberReputationNumberRemovedWebhookEvent.Meta;
+}
+
+export namespace NumberReputationNumberRemovedWebhookEvent {
+  export interface Data {
+    /**
+     * Identifies the event; the same id is reused if the event is redelivered.
+     */
+    id: string;
+
+    event_type: 'number_reputation.number.removed';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      enterprise_id: string;
+
+      ownership_status: 'removed';
+
+      phone_number: string;
+
+      record_type: 'reputation_phone_number';
+
+      /**
+       * `ported_away`: you confirmed you no longer own it after a carrier change.
+       * `unconfirmed_ownership`: the confirmation deadline passed. `reassigned`: the
+       * number was reported as permanently disconnected. `customer_reported`: you
+       * reported that you no longer own it. Removing a number yourself with `DELETE`
+       * sends no event.
+       */
+      removal_reason: 'ported_away' | 'unconfirmed_ownership' | 'reassigned' | 'customer_reported';
+
+      removed_at: string;
+
+      /**
+       * Where the phone number is hosted. `telnyx`: in your Telnyx inventory.
+       * `external`: a number you own that is hosted with another provider.
+       */
+      source: NumbersAPI.ReputationNumberSource;
+    }
+  }
+
+  export interface Meta {
+    attempt: number;
+
+    delivered_to: string;
+  }
+}
+
 export interface RecordingAvailableWebhookEvent {
   /**
    * Unique event id; deduplicate deliveries on it.
@@ -8315,6 +8989,56 @@ export interface TranscriptionWebhookEvent {
   data?: Transcription;
 }
 
+export interface WhatsappWabaAddedWebhookEvent {
+  data: WhatsappWabaAddedWebhookEvent.Data;
+}
+
+export namespace WhatsappWabaAddedWebhookEvent {
+  export interface Data {
+    id: string;
+
+    event_type: 'whatsapp.waba_added';
+
+    occurred_at: string;
+
+    payload: Data.Payload;
+
+    record_type: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Signup session ID.
+       */
+      event_id: string;
+
+      record_type: 'waba_account_added';
+
+      /**
+       * Signup session outcome.
+       */
+      status: 'SUCCESS' | 'FAILURE';
+
+      /**
+       * Meta WhatsApp Business Account identifier.
+       */
+      waba_id: string;
+
+      /**
+       * Errors recorded during provisioning.
+       */
+      errors?: Array<string>;
+
+      /**
+       * Phone numbers found on the WABA. Omitted for standard sessions started with a
+       * phone_number_id, and for sessions that fail before Telnyx fetches the numbers.
+       */
+      phone_numbers?: Array<string>;
+    }
+  }
+}
+
 export type UnsafeUnwrapWebhookEvent =
   | CallAIGatherEndedWebhookEvent
   | CallAIGatherMessageHistoryUpdatedWebhookEvent
@@ -8326,6 +9050,7 @@ export type UnsafeUnwrapWebhookEvent =
   | CallConversationCreatedWebhookEvent
   | CallConversationEndedWebhookEvent
   | CallConversationInsightsGeneratedWebhookEvent
+  | CallConversationStartFailedWebhookEvent
   | CallCostWebhookEvent
   | CallDeepfakeDetectionErrorWebhookEvent
   | CallDeepfakeDetectionResultWebhookEvent
@@ -8387,13 +9112,17 @@ export type UnsafeUnwrapWebhookEvent =
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdateWebhookEvent
+  | NumberReputationExternalVerificationStatusChangedWebhookEvent
+  | NumberReputationNumberFlaggedWebhookEvent
+  | NumberReputationNumberRemovedWebhookEvent
   | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
   | TranscriptionWebhookEvent
   | WhatsappAccountUpdate
-  | WhatsappMessageEcho;
+  | WhatsappMessageEcho
+  | WhatsappWabaAddedWebhookEvent;
 
 export type UnwrapWebhookEvent =
   | CallAIGatherEndedWebhookEvent
@@ -8406,6 +9135,7 @@ export type UnwrapWebhookEvent =
   | CallConversationCreatedWebhookEvent
   | CallConversationEndedWebhookEvent
   | CallConversationInsightsGeneratedWebhookEvent
+  | CallConversationStartFailedWebhookEvent
   | CallCostWebhookEvent
   | CallDeepfakeDetectionErrorWebhookEvent
   | CallDeepfakeDetectionResultWebhookEvent
@@ -8467,13 +9197,17 @@ export type UnwrapWebhookEvent =
   | HostedNumberOrderEventWebhookEvent
   | InboundMessageWebhookEvent
   | NumberOrderStatusUpdateWebhookEvent
+  | NumberReputationExternalVerificationStatusChangedWebhookEvent
+  | NumberReputationNumberFlaggedWebhookEvent
+  | NumberReputationNumberRemovedWebhookEvent
   | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
   | TranscriptionWebhookEvent
   | WhatsappAccountUpdate
-  | WhatsappMessageEcho;
+  | WhatsappMessageEcho
+  | WhatsappWabaAddedWebhookEvent;
 
 export declare namespace Webhooks {
   export {
@@ -8551,6 +9285,7 @@ export declare namespace Webhooks {
     type CallConversationCreatedWebhookEvent as CallConversationCreatedWebhookEvent,
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
     type CallConversationInsightsGeneratedWebhookEvent as CallConversationInsightsGeneratedWebhookEvent,
+    type CallConversationStartFailedWebhookEvent as CallConversationStartFailedWebhookEvent,
     type CallCostWebhookEvent as CallCostWebhookEvent,
     type CallDeepfakeDetectionErrorWebhookEvent as CallDeepfakeDetectionErrorWebhookEvent,
     type CallDeepfakeDetectionResultWebhookEvent as CallDeepfakeDetectionResultWebhookEvent,
@@ -8605,11 +9340,15 @@ export declare namespace Webhooks {
     type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
     type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
+    type NumberReputationExternalVerificationStatusChangedWebhookEvent as NumberReputationExternalVerificationStatusChangedWebhookEvent,
+    type NumberReputationNumberFlaggedWebhookEvent as NumberReputationNumberFlaggedWebhookEvent,
+    type NumberReputationNumberRemovedWebhookEvent as NumberReputationNumberRemovedWebhookEvent,
     type RecordingAvailableWebhookEvent as RecordingAvailableWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
     type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
+    type WhatsappWabaAddedWebhookEvent as WhatsappWabaAddedWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
     type UnwrapWebhookEvent as UnwrapWebhookEvent,
   };

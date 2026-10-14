@@ -203,6 +203,42 @@ export class Profiles extends APIResource {
     const { namespace } = params;
     return this._client.get(path`/ai/memory/namespaces/${namespace}/profiles/${profileID}/summary`, options);
   }
+
+  /**
+   * Try a candidate note on one profile and see how that profile's summary would
+   * read under it, without saving the note and without touching the stored summary.
+   * Composes the same source query the apply path
+   * (`PATCH /ai/memory/namespaces/{namespace}/settings`) would use, so a preview
+   * cannot drift from what saving the note would produce. Reads the candidate alone
+   * -- the namespace's current instructions and the profile's stored summary are
+   * neither read nor replaced. Bounded at 120 seconds: the summary is generated on
+   * the spot rather than read from a stored one. Nothing about the request is
+   * stored.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.ai.memory.namespaces.profiles.preview(
+   *     'profile_id',
+   *     {
+   *       namespace: 'namespace',
+   *       instructions:
+   *         'Lead with billing status. Prefer plain language over jargon.',
+   *     },
+   *   );
+   * ```
+   */
+  preview(
+    profileID: string,
+    params: ProfilePreviewParams,
+    options?: RequestOptions,
+  ): APIPromise<ProfilePreviewResponse> {
+    const { namespace, ...body } = params;
+    return this._client.post(path`/ai/memory/namespaces/${namespace}/profiles/${profileID}/summary/preview`, {
+      body,
+      ...options,
+    });
+  }
 }
 
 export type ProfileListResponsesDefaultFlatPagination = DefaultFlatPagination<ProfileListResponse>;
@@ -284,6 +320,23 @@ export namespace ProfileIngestResponse {
      * Re-ingesting a session keeps its source id.
      */
     source_id: string;
+  }
+}
+
+export interface ProfilePreviewResponse {
+  data: ProfilePreviewResponse.Data;
+}
+
+export namespace ProfilePreviewResponse {
+  export interface Data {
+    profile_id: string;
+
+    /**
+     * The summary this profile would carry under the candidate note. Null when nothing
+     * was generated -- the same signal `GET /summary` uses for a profile with no card
+     * yet.
+     */
+    text: string | null;
   }
 }
 
@@ -441,6 +494,22 @@ export interface ProfileRetrieveSummaryParams {
   namespace: string;
 }
 
+export interface ProfilePreviewParams {
+  /**
+   * Path param: The namespace. `default` exists for every organization.
+   */
+  namespace: string;
+
+  /**
+   * Body param: The candidate note to try. `null`, empty, or whitespace-only
+   * previews the neutral default -- the summary a profile returns to when
+   * instructions are cleared. Capped at 2000 characters, the same cap
+   * `PATCH /settings` applies on save; a longer note is refused with `422` before
+   * anything is generated.
+   */
+  instructions?: string | null;
+}
+
 Profiles.Memories = Memories;
 Profiles.Sources = Sources;
 
@@ -450,6 +519,7 @@ export declare namespace Profiles {
     type ProfileListResponse as ProfileListResponse,
     type ProfileDeleteResponse as ProfileDeleteResponse,
     type ProfileIngestResponse as ProfileIngestResponse,
+    type ProfilePreviewResponse as ProfilePreviewResponse,
     type ProfileRecallResponse as ProfileRecallResponse,
     type ProfileRememberResponse as ProfileRememberResponse,
     type ProfileRetrieveSummaryResponse as ProfileRetrieveSummaryResponse,
@@ -460,6 +530,7 @@ export declare namespace Profiles {
     type ProfileRecallParams as ProfileRecallParams,
     type ProfileRememberParams as ProfileRememberParams,
     type ProfileRetrieveSummaryParams as ProfileRetrieveSummaryParams,
+    type ProfilePreviewParams as ProfilePreviewParams,
   };
 
   export {

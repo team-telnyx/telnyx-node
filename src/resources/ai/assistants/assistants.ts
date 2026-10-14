@@ -3,6 +3,7 @@
 import { APIResource } from '../../../core/resource';
 import * as AssistantsAPI from './assistants';
 import * as Shared from '../../shared';
+import * as AvatarsAPI from '../avatars';
 import * as ChatAPI from '../chat';
 import * as ToolsAPI from '../tools';
 import * as CanaryDeploysAPI from './canary-deploys';
@@ -1095,6 +1096,20 @@ export namespace AssistantTool {
          * `shared` the exchange stays in the conversation like any other messages.
          */
         end_user_target_context_mode?: 'private' | 'shared';
+
+        /**
+         * Fail closed when the acceptance consult cannot run. Off by default: if the
+         * consult cannot be set up for any reason — including where acceptance is
+         * unavailable at all (`gather_using_ai`, Conversation Relay or web calls, a
+         * conference, or additional invited participants) — the transfer degrades to a
+         * plain warm transfer (the warm transfer message is played to the destination as
+         * audio and the calls are bridged anyway). Set to true to treat those paths as a
+         * decline instead: the destination is disconnected without being asked, the
+         * assistant returns to the caller, and no bridge happens without an acceptance.
+         * Only consult-setup failures are affected; the destination must still explicitly
+         * accept on every consult that does run.
+         */
+        require_acceptance?: boolean;
       }
     }
   }
@@ -1439,6 +1454,34 @@ export interface AudioVisualizerConfig {
  * Authentication method used when connecting to the external LLM endpoint.
  */
 export type AuthenticationMethod = 'token' | 'certificate';
+
+/**
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
+ * the six stock avatars or an organization-owned custom avatar returned by the
+ * Avatars API. Supported backgrounds are office, studio, and reception.
+ */
+export interface AvatarSettingsRequest {
+  /**
+   * The Telnyx stock avatar or organization-owned custom avatar to render.
+   */
+  avatar_id: AvatarsAPI.AvatarID;
+
+  /**
+   * The background to render.
+   */
+  background_id: 'office' | 'studio' | 'reception';
+
+  /**
+   * Required avatar model identifier, separate from `avatar_id`. The supported value
+   * is `foxtrot-1`. Omission, null, and unsupported model identifiers are rejected.
+   */
+  model: 'foxtrot-1';
+
+  /**
+   * Selects the Telnyx open-source avatar provider.
+   */
+  provider: 'telnyx';
+}
 
 /**
  * Combine sub-expressions with a logical operator (`and` / `or` / `not`).
@@ -2112,7 +2155,11 @@ export interface FlowNodeReq {
 
   /**
    * Per-node transcription override (model/language/region). Unset fields cascade
-   * from the assistant-level transcription.
+   * from the assistant-level transcription. A node that sets `model`,
+   * `fallback_models`, or `challenger` doesn't inherit the assistant's
+   * `fallback_models` or `challenger`; it uses only the ones it sets. Otherwise it
+   * inherits them, and they must fit the model and language the node runs; a change
+   * they no longer fit is rejected.
    */
   transcription?: TranscriptionSettings;
 
@@ -2188,6 +2235,13 @@ export interface InferenceEmbedding {
    * capability for the conversation; it does not fail the call.
    */
   a2a_agents?: Array<AssistantA2AAgent>;
+
+  /**
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
+   * the six stock avatars or an organization-owned custom avatar returned by the
+   * Avatars API. Supported backgrounds are office, studio, and reception.
+   */
+  avatar_settings?: TelnyxAvatarSettings | null;
 
   /**
    * Conversation flow as returned by the API.
@@ -2426,8 +2480,8 @@ export interface InferenceEmbeddingVoiceSettings {
    * preview it before saving.
    */
   background_audio?:
-    | InferenceEmbeddingVoiceSettings.UnionMember0
-    | InferenceEmbeddingVoiceSettings.UnionMember1
+    | InferenceEmbeddingVoiceSettings.BackgroundAudioUnionMember0
+    | InferenceEmbeddingVoiceSettings.BackgroundAudioUnionMember1
     | InferenceEmbeddingVoiceSettings.UnionMember2;
 
   /**
@@ -2513,6 +2567,17 @@ export interface InferenceEmbeddingVoiceSettings {
   temperature?: number;
 
   /**
+   * Optional sound played to the caller while the assistant runs a tool (for example
+   * a webhook or MCP tool). It replaces the background audio until the tool
+   * responds, then the background audio resumes. Defaults to null, which plays no
+   * sound; send `null` on update to clear it. Not played in conference calls.
+   */
+  tool_call_audio?:
+    | InferenceEmbeddingVoiceSettings.ToolCallAudioUnionMember0
+    | InferenceEmbeddingVoiceSettings.ToolCallAudioUnionMember1
+    | null;
+
+  /**
    * Amplifies similarity to the original speaker voice. Increases computational load
    * and latency slightly. Only applicable when using ElevenLabs.
    */
@@ -2528,7 +2593,7 @@ export interface InferenceEmbeddingVoiceSettings {
 }
 
 export namespace InferenceEmbeddingVoiceSettings {
-  export interface UnionMember0 {
+  export interface BackgroundAudioUnionMember0 {
     /**
      * Select from predefined media options.
      */
@@ -2546,7 +2611,7 @@ export namespace InferenceEmbeddingVoiceSettings {
     volume?: number;
   }
 
-  export interface UnionMember1 {
+  export interface BackgroundAudioUnionMember1 {
     /**
      * Provide a direct URL to an MP3 file. The audio will loop during the call.
      */
@@ -2568,6 +2633,36 @@ export namespace InferenceEmbeddingVoiceSettings {
      * The `name` of a media asset created via
      * [Media Storage API](https://developers.telnyx.com/api/media-storage/create-media-storage).
      * The audio will loop during the call.
+     */
+    value: string;
+  }
+
+  export interface ToolCallAudioUnionMember0 {
+    /**
+     * Select from predefined media options.
+     */
+    type: 'predefined_media';
+
+    /**
+     * The predefined media to use. `typing` plays a keyboard typing sound.
+     */
+    value: 'typing';
+
+    /**
+     * Volume level for the predefined media. Supports values from 0.0 to 1.0 in 0.1
+     * increments. `0.0` plays no sound.
+     */
+    volume?: number;
+  }
+
+  export interface ToolCallAudioUnionMember1 {
+    /**
+     * Provide a direct URL to an MP3 file. The audio loops while the tool runs.
+     */
+    type: 'media_url';
+
+    /**
+     * HTTPS URL to an MP3 file.
      */
     value: string;
   }
@@ -3125,6 +3220,16 @@ export interface StartSpeakingPlan {
 
 export interface TelephonySettings {
   /**
+   * When enabled, the `messages` array of the `call.conversation.ended` webhook
+   * contains the full conversation history in order: user and assistant turns,
+   * assistant tool calls (`tool_calls`), tool results (`role: tool` with
+   * `tool_call_id`), and informational `system` and `developer` entries. The
+   * assistant's instructions are never included. When disabled, `messages` contains
+   * only user and assistant text turns.
+   */
+  conversation_ended_full_history?: boolean;
+
+  /**
    * Default Texml App used for voice calls with your assistant. This will be created
    * automatically on assistant creation.
    */
@@ -3350,6 +3455,34 @@ export namespace TelephonySettings {
 }
 
 /**
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
+ * the six stock avatars or an organization-owned custom avatar returned by the
+ * Avatars API. Supported backgrounds are office, studio, and reception.
+ */
+export interface TelnyxAvatarSettings {
+  /**
+   * The Telnyx stock avatar or organization-owned custom avatar to render.
+   */
+  avatar_id: AvatarsAPI.AvatarID;
+
+  /**
+   * The background to render.
+   */
+  background_id: 'office' | 'studio' | 'reception';
+
+  /**
+   * Required avatar model identifier, separate from `avatar_id`. The supported value
+   * is `foxtrot-1`. Omission, null, and unsupported model identifiers are rejected.
+   */
+  model: 'foxtrot-1';
+
+  /**
+   * Selects the Telnyx open-source avatar provider.
+   */
+  provider: 'telnyx';
+}
+
+/**
  * A standalone tool step in a conversation flow, as returned by the API.
  */
 export interface ToolNode {
@@ -3490,6 +3623,24 @@ export interface TranscriptionSettings {
   api_key_ref?: string;
 
   /**
+   * A second speech-to-text model that transcribes alongside `transcription.model`,
+   * and the rule that decides which transcript the assistant uses.
+   */
+  challenger?: TranscriptionSettings.Challenger | null;
+
+  /**
+   * Up to 3 streaming models that take over transcription, in this order, when the
+   * model in use fails, at the start of a call or mid-call. `model` must be a
+   * streaming model too, and must support `language` alongside other models. On
+   * update, a list replaces the stored one: omit the field to keep the stored list,
+   * or send `null` or `[]` to remove it. When an update changes `model` or
+   * `language`, stored fallbacks that no longer fit are removed without an error.
+   * Can't be combined with `challenger`, the language booster; to replace a stored
+   * language booster, send `challenger: null` in the same request.
+   */
+  fallback_models?: Array<TranscriptionSettings.FallbackModel> | null;
+
+  /**
    * The language of the audio to be transcribed. If not set, or if set to `auto`,
    * supported models will automatically detect the language. For `deepgram/flux`,
    * supported values are: `auto` (Telnyx language detection controls the language
@@ -3534,6 +3685,7 @@ export interface TranscriptionSettings {
    * - `reson8/turns` is a turn-based streaming model covering 10 European languages
    *   with automatic language detection.
    * - `cohere/ar-stt` is a non-streaming Arabic and English transcription model.
+   * - `telnyx/basira` is a non-streaming Arabic transcription model.
    */
   model?:
     | 'deepgram/flux'
@@ -3550,6 +3702,7 @@ export interface TranscriptionSettings {
     | 'humain/realtime'
     | 'reson8/turns'
     | 'cohere/ar-stt'
+    | 'telnyx/basira'
     | 'distil-whisper/distil-large-v2'
     | 'openai/whisper-large-v3-turbo';
 
@@ -3560,6 +3713,124 @@ export interface TranscriptionSettings {
   region?: string;
 
   settings?: TranscriptionSettingsConfig;
+}
+
+export namespace TranscriptionSettings {
+  /**
+   * A second speech-to-text model that transcribes alongside `transcription.model`,
+   * and the rule that decides which transcript the assistant uses.
+   */
+  export interface Challenger {
+    /**
+     * The language booster's model. It must be the same kind of model as
+     * `transcription.model`: both streaming (`deepgram/flux`, `deepgram/nova-3`,
+     * `deepgram/nova-2`, `assemblyai/universal-3-5-pro` or its legacy alias
+     * `assemblyai/universal-streaming`, `xai/grok-stt`, `soniox/stt-rt-v4`,
+     * `soniox/stt-rt-v5`, `humain/realtime`, `reson8/turns`) or both non-streaming
+     * (`azure/fast`, `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`,
+     * `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
+     * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
+     * `transcription.model` on a different `language`.
+     */
+    model:
+      | 'deepgram/flux'
+      | 'deepgram/nova-3'
+      | 'deepgram/nova-2'
+      | 'azure/fast'
+      | 'assemblyai/universal-3-5-pro'
+      | 'assemblyai/universal-streaming'
+      | 'xai/grok-stt'
+      | 'soniox/stt-rt-v4'
+      | 'soniox/stt-rt-v5'
+      | 'nvidia/parakeet-v3'
+      | 'omi-health/omi-med-stt-v1'
+      | 'humain/realtime'
+      | 'reson8/turns'
+      | 'cohere/ar-stt'
+      | 'telnyx/basira'
+      | 'distil-whisper/distil-large-v2'
+      | 'openai/whisper-large-v3-turbo';
+
+    /**
+     * The language this model transcribes. Omit it or set it to `null` to use the
+     * language of `transcription.model`. The request is rejected when this model
+     * doesn't support the language it would run. It is also rejected when it would run
+     * the same model on the same language as `transcription.model`.
+     */
+    language?: string | null;
+
+    /**
+     * How the assistant picks the transcript it uses. The models are compared on how
+     * complete and confident their transcripts are, not on language, so the rules work
+     * best when both models understand the callers' language.
+     *
+     * - `best_turn` (default): both models transcribe the whole call. Each turn uses
+     *   the language booster's transcript only when it scores higher than the
+     *   transcript of `transcription.model` (clearly higher with non-streaming
+     *   models). With streaming models, `transcription.model` also decides when each
+     *   turn ends. Available for every pair.
+     * - `best_engine`: both models transcribe the first turns, then the call continues
+     *   alone on the model whose transcripts scored higher. If neither clearly leads,
+     *   `transcription.model` continues. Streaming models only.
+     * - `merge_words`: both models transcribe each utterance and their words are
+     *   merged, keeping Arabic and English spoken in the same sentence. Available only
+     *   for `telnyx/basira` with `cohere/ar-stt`, in either order. The pair runs on
+     *   the language that applies to `telnyx/basira` (its own, or that of
+     *   `transcription.model`), which must be Arabic (`ar` or an `ar-` locale),
+     *   `multi`, or `auto`.
+     */
+    rule?: 'best_turn' | 'best_engine' | 'merge_words';
+
+    /**
+     * Settings for the language booster, with the same fields and limits as
+     * `transcription.settings`. Fields that don't apply to this model's provider are
+     * dropped, and the provider's defaults fill in the rest. Omit it or set it to
+     * `null` to use the settings of `transcription.model` where they apply to this
+     * model.
+     */
+    settings?: AssistantsAPI.TranscriptionSettingsConfig | null;
+  }
+
+  /**
+   * A streaming speech-to-text model that takes over transcription when the model in
+   * use fails.
+   */
+  export interface FallbackModel {
+    /**
+     * The fallback model. It must be a streaming model other than
+     * `transcription.model` and the other fallbacks: `deepgram/flux`,
+     * `deepgram/nova-3`, `deepgram/nova-2`, `assemblyai/universal-3-5-pro` (or its
+     * legacy alias `assemblyai/universal-streaming`), `xai/grok-stt`,
+     * `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
+     */
+    model:
+      | 'deepgram/flux'
+      | 'deepgram/nova-3'
+      | 'deepgram/nova-2'
+      | 'assemblyai/universal-3-5-pro'
+      | 'assemblyai/universal-streaming'
+      | 'xai/grok-stt'
+      | 'soniox/stt-rt-v4'
+      | 'soniox/stt-rt-v5'
+      | 'humain/realtime'
+      | 'reson8/turns';
+
+    /**
+     * The language the fallback transcribes. Omit it or set it to `null` to use the
+     * language of `transcription.model`. The request is rejected when the fallback
+     * model doesn't support the language it would run.
+     */
+    language?: string | null;
+
+    /**
+     * Settings for the fallback, with the same fields and limits as
+     * `transcription.settings`. Fields that don't apply to this model's provider are
+     * dropped, and the provider's defaults fill in the rest. Omit it or set it to
+     * `null` to use the settings of `transcription.model` where they apply to this
+     * model.
+     */
+    settings?: AssistantsAPI.TranscriptionSettingsConfig | null;
+  }
 }
 
 export interface TranscriptionSettingsConfig {
@@ -4163,6 +4434,13 @@ export interface AssistantCreateParams {
   a2a_agents?: Array<AssistantA2AAgent>;
 
   /**
+   * Body param: **Beta:** Configuration for the Telnyx open-source avatar provider.
+   * Use one of the six stock avatars or an organization-owned custom avatar returned
+   * by the Avatars API. Supported backgrounds are office, studio, and reception.
+   */
+  avatar_settings?: AvatarSettingsRequest | null;
+
+  /**
    * Body param: Conversation flow as supplied by API clients (create / update).
    *
    * A directed graph of `FlowNodeReq` connected by `FlowEdge`s. Validation enforces
@@ -4447,6 +4725,13 @@ export interface AssistantUpdateParams {
    * leave the assistant's agents unchanged; send an empty array to remove them all.
    */
   a2a_agents?: Array<AssistantA2AAgent>;
+
+  /**
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
+   * the six stock avatars or an organization-owned custom avatar returned by the
+   * Avatars API. Supported backgrounds are office, studio, and reception.
+   */
+  avatar_settings?: AvatarSettingsRequest | null;
 
   /**
    * Conversation flow as supplied by API clients (create / update).
@@ -4779,6 +5064,7 @@ export declare namespace Assistants {
     type AssistantsList as AssistantsList,
     type AudioVisualizerConfig as AudioVisualizerConfig,
     type AuthenticationMethod as AuthenticationMethod,
+    type AvatarSettingsRequest as AvatarSettingsRequest,
     type BooleanOpExpression as BooleanOpExpression,
     type ComparisonExpression as ComparisonExpression,
     type ConversationFlow as ConversationFlow,
@@ -4815,6 +5101,7 @@ export declare namespace Assistants {
     type SpeakNodeReq as SpeakNodeReq,
     type StartSpeakingPlan as StartSpeakingPlan,
     type TelephonySettings as TelephonySettings,
+    type TelnyxAvatarSettings as TelnyxAvatarSettings,
     type ToolNode as ToolNode,
     type ToolNodeReq as ToolNodeReq,
     type TranscriptionEndpointingPlan as TranscriptionEndpointingPlan,

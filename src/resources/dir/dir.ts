@@ -249,7 +249,7 @@ export class DirResource extends APIResource {
    *
    * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `400`
    * if the DIR's business and financial references have not been submitted. Returns
-   * `409` if the DIR has an unresolved infringement claim.
+   * `400` if the DIR has an unresolved infringement claim.
    *
    * @example
    * ```ts
@@ -645,10 +645,12 @@ export namespace DirRetrieveBpoAuthorizationsResponse {
     record_type: 'bpo_authorization';
 
     /**
-     * Review state of this authorization. `pending` on create or when the Letter of
-     * Authorization is re-uploaded; an admin moves it to `approved` or `rejected`.
-     * Only an `approved` authorization adds the BPO to this DIR's authorized callers
-     * in the branded calling registry.
+     * Review state of this authorization. `pending` when the authorization is first
+     * added, or when you send a different `loa_document_id` for this BPO in
+     * `bpo_authorizations` (uploading a document alone changes nothing). Approving the
+     * DIR approves its pending authorizations; an admin can also approve or reject one
+     * on its own. Only an `approved` authorization adds the BPO to this DIR's
+     * authorized callers in the branded calling registry.
      */
     status: 'pending' | 'approved' | 'rejected';
 
@@ -842,8 +844,9 @@ export interface DirNewLoaParams {
   phone_numbers: Array<string>;
 
   /**
-   * Third-party reseller / partner managing the enterprise's phone numbers. Omit
-   * when the enterprise works directly with Telnyx.
+   * Third-party reseller / partner managing the enterprise's phone numbers on its
+   * behalf, such as a call center (BPO) acting for a client. Omit when the
+   * enterprise manages its own numbers.
    */
   agent?: LoaAPI.AgentInput;
 

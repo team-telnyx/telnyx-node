@@ -8,6 +8,18 @@ import {
   AudioTranscribeResponse,
   AudioTranscriptionResponseWord,
 } from './audio';
+import * as AvatarsAPI from './avatars';
+import {
+  Avatar,
+  AvatarCreateParams,
+  AvatarID,
+  AvatarListParams,
+  AvatarResponse,
+  AvatarType,
+  AvatarUpdateParams,
+  Avatars,
+  AvatarsDefaultFlatPagination,
+} from './avatars';
 import * as ChatAPI from './chat';
 import { BucketIDs, Chat, ChatCompletionRequest } from './chat';
 import * as ClustersAPI from './clusters';
@@ -71,6 +83,7 @@ import {
   AssistantsList,
   AudioVisualizerConfig,
   AuthenticationMethod,
+  AvatarSettingsRequest,
   BooleanOpExpression,
   ComparisonExpression,
   ConversationFlow,
@@ -107,6 +120,7 @@ import {
   SpeakNodeReq,
   StartSpeakingPlan,
   TelephonySettings,
+  TelnyxAvatarSettings,
   ToolNode,
   ToolNodeReq,
   TranscriptionEndpointingPlan,
@@ -203,6 +217,7 @@ export class AI extends APIResource {
   knowledge: KnowledgeAPI.Knowledge = new KnowledgeAPI.Knowledge(this._client);
   typesafe: TypesafeAPI.Typesafe = new TypesafeAPI.Typesafe(this._client);
   memory: MemoryAPI.Memory = new MemoryAPI.Memory(this._client);
+  avatars: AvatarsAPI.Avatars = new AvatarsAPI.Avatars(this._client);
 
   /**
    * Generate a summary of a file's contents.
@@ -402,9 +417,14 @@ export interface ModelMetadata {
   is_vision_supported?: boolean;
 
   /**
-   * Maximum completion (output) tokens the model may generate per request. This
-   * value caps the Chat Completions `max_tokens` default and any larger explicit
-   * value on that model. `null` if unconstrained beyond `context_length`.
+   * Model-specific completion-token ceiling. For Chat Completions, this value clamps
+   * explicit output limits and the 8192 default when that default applies. Models
+   * excluded from the default leave an omitted or null output limit unset for the
+   * serving engine, even when this metadata declares a ceiling; see
+   * `ChatCompletionRequest.max_tokens` for the hosted default and exclusion lists.
+   * This field does not report the effective default. `null` means no separate
+   * completion ceiling is declared; input and output together must still fit
+   * `context_length`.
    */
   max_completion_tokens?: number | null;
 
@@ -652,6 +672,7 @@ AI.Anthropic = Anthropic;
 AI.Knowledge = Knowledge;
 AI.Typesafe = Typesafe;
 AI.Memory = Memory;
+AI.Avatars = Avatars;
 
 export declare namespace AI {
   export {
@@ -675,6 +696,7 @@ export declare namespace AI {
     type AssistantsList as AssistantsList,
     type AudioVisualizerConfig as AudioVisualizerConfig,
     type AuthenticationMethod as AuthenticationMethod,
+    type AvatarSettingsRequest as AvatarSettingsRequest,
     type BooleanOpExpression as BooleanOpExpression,
     type ComparisonExpression as ComparisonExpression,
     type ConversationFlow as ConversationFlow,
@@ -711,6 +733,7 @@ export declare namespace AI {
     type SpeakNodeReq as SpeakNodeReq,
     type StartSpeakingPlan as StartSpeakingPlan,
     type TelephonySettings as TelephonySettings,
+    type TelnyxAvatarSettings as TelnyxAvatarSettings,
     type ToolNode as ToolNode,
     type ToolNodeReq as ToolNodeReq,
     type TranscriptionEndpointingPlan as TranscriptionEndpointingPlan,
@@ -850,4 +873,16 @@ export declare namespace AI {
   export { Typesafe as Typesafe };
 
   export { Memory as Memory };
+
+  export {
+    Avatars as Avatars,
+    type Avatar as Avatar,
+    type AvatarID as AvatarID,
+    type AvatarResponse as AvatarResponse,
+    type AvatarType as AvatarType,
+    type AvatarsDefaultFlatPagination as AvatarsDefaultFlatPagination,
+    type AvatarListParams as AvatarListParams,
+    type AvatarCreateParams as AvatarCreateParams,
+    type AvatarUpdateParams as AvatarUpdateParams,
+  };
 }

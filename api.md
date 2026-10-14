@@ -303,6 +303,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallConversationStartFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionErrorWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionResultWebhookEvent</a></code>
@@ -357,11 +358,15 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">WhatsappWabaAddedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherMessageHistoryUpdatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
@@ -372,6 +377,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationEndedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationInsightsGeneratedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallConversationStartFailedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallCostWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionErrorWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallDeepfakeDetectionResultWebhookEvent</a></code>
@@ -426,11 +432,15 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">HostedNumberOrderEventWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">InboundMessageWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberOrderStatusUpdateWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptionWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">WhatsappWabaAddedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnsafeUnwrapWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">UnwrapWebhookEvent</a></code>
 
@@ -563,6 +573,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AssistantsList</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AudioVisualizerConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">AuthenticationMethod</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">AvatarSettingsRequest</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">BooleanOpExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ComparisonExpression</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ConversationFlow</a></code>
@@ -599,6 +610,7 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">SpeakNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">StartSpeakingPlan</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelephonySettings</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">TelnyxAvatarSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNode</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNodeReq</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionEndpointingPlan</a></code>
@@ -1280,6 +1292,7 @@ Types:
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileListResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileDeleteResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileIngestResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfilePreviewResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRecallResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRememberResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileRetrieveSummaryResponse</a></code>
@@ -1292,6 +1305,7 @@ Methods:
 - <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/recall">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">recall</a>(profileID, { ...params }) -> ProfileRecallResponse</code>
 - <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/remember">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">remember</a>(profileID, { ...params }) -> ProfileRememberResponse</code>
 - <code title="get /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">retrieveSummary</a>(profileID, { ...params }) -> ProfileRetrieveSummaryResponse</code>
+- <code title="post /ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary/preview">client.ai.memory.namespaces.profiles.<a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">preview</a>(profileID, { ...params }) -> ProfilePreviewResponse</code>
 
 ##### Memories
 
@@ -1328,6 +1342,22 @@ Methods:
 
 - <code title="get /ai/memory/namespaces/{namespace}/settings">client.ai.memory.namespaces.settings.<a href="./src/resources/ai/memory/namespaces/settings.ts">list</a>(namespace) -> NamespaceSettingsResponse</code>
 - <code title="patch /ai/memory/namespaces/{namespace}/settings">client.ai.memory.namespaces.settings.<a href="./src/resources/ai/memory/namespaces/settings.ts">patchAll</a>(namespace, { ...params }) -> NamespaceSettingsResponse</code>
+
+## Avatars
+
+Types:
+
+- <code><a href="./src/resources/ai/avatars.ts">Avatar</a></code>
+- <code><a href="./src/resources/ai/avatars.ts">AvatarID</a></code>
+- <code><a href="./src/resources/ai/avatars.ts">AvatarResponse</a></code>
+- <code><a href="./src/resources/ai/avatars.ts">AvatarType</a></code>
+
+Methods:
+
+- <code title="get /ai/avatars">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">list</a>({ ...params }) -> AvatarsDefaultFlatPagination</code>
+- <code title="post /ai/avatars">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">create</a>({ ...params }) -> AvatarResponse</code>
+- <code title="get /ai/avatars/{avatar_id}">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">retrieve</a>(avatarID) -> AvatarResponse</code>
+- <code title="patch /ai/avatars/{avatar_id}">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">update</a>(avatarID, { ...params }) -> AvatarResponse</code>
 
 # AuditEvents
 
@@ -1521,6 +1551,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResult</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResultWithConversationID</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ConversationRelayInterruptible</a></code>
+- <code><a href="./src/resources/calls/actions.ts">ConversationRelayTranscriptionEngineConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova2Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova3Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeveloperMessage</a></code>
@@ -5167,6 +5198,18 @@ Methods:
 - <code title="get /v2/whatsapp/user_data">client.whatsapp.userData.<a href="./src/resources/whatsapp/user-data.ts">retrieve</a>() -> UserDataRetrieveResponse</code>
 - <code title="patch /v2/whatsapp/user_data">client.whatsapp.userData.<a href="./src/resources/whatsapp/user-data.ts">update</a>({ ...params }) -> UserDataUpdateResponse</code>
 
+## Signup
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/signup.ts">SignupListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/signup.ts">SignupRetrieveStatusResponse</a></code>
+
+Methods:
+
+- <code title="get /whatsapp/signup">client.whatsapp.signup.<a href="./src/resources/whatsapp/signup.ts">list</a>({ ...params }) -> SignupListResponsesDefaultFlatPagination</code>
+- <code title="get /whatsapp/signup/{id}/status">client.whatsapp.signup.<a href="./src/resources/whatsapp/signup.ts">retrieveStatus</a>(id) -> SignupRetrieveStatusResponse</code>
+
 # WhatsappMessageTemplates
 
 Types:
@@ -5296,16 +5339,20 @@ Methods:
 - <code title="get /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">retrieve</a>(enterpriseID) -> EnterpriseReputationPublicWrapped</code>
 - <code title="post /enterprises/{enterprise_id}/reputation">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">enable</a>(enterpriseID, { ...params }) -> EnterpriseReputationPublicWrapped</code>
 - <code title="patch /enterprises/{enterprise_id}/reputation/frequency">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">updateFrequency</a>(enterpriseID, { ...params }) -> EnterpriseReputationPublicWrapped</code>
+- <code title="patch /enterprises/{enterprise_id}/reputation/webhook">client.enterprises.reputation.<a href="./src/resources/enterprises/reputation/reputation.ts">updateWebhook</a>(enterpriseID, { ...params }) -> EnterpriseReputationPublicWrapped</code>
 
 ### Numbers
 
 Types:
 
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationNumberSource</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationOwnershipStatus</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumber</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumberList</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumberListWithReputation</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">ReputationPhoneNumberWithReputation</a></code>
 - <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRefreshResponse</a></code>
+- <code><a href="./src/resources/enterprises/reputation/numbers.ts">NumberRetrieveOwnershipResponse</a></code>
 
 Methods:
 
@@ -5314,6 +5361,8 @@ Methods:
 - <code title="delete /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">disassociate</a>(phoneNumber, { ...params }) -> void</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieve</a>(phoneNumber, { ...params }) -> ReputationPhoneNumberWithReputation</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/numbers/refresh">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">refresh</a>(enterpriseID, { ...params }) -> NumberRefreshResponse</code>
+- <code title="get /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">retrieveOwnership</a>(phoneNumber, { ...params }) -> NumberRetrieveOwnershipResponse</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership_confirm">client.enterprises.reputation.numbers.<a href="./src/resources/enterprises/reputation/numbers.ts">ownershipConfirm</a>(phoneNumber, { ...params }) -> ReputationPhoneNumberWithReputation</code>
 
 ### Loa
 
@@ -5341,6 +5390,18 @@ Methods:
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">list</a>(enterpriseID, { ...params }) -> RemediationListResponsesDefaultFlatPagination</code>
 - <code title="post /enterprises/{enterprise_id}/reputation/remediation">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">create</a>(enterpriseID, { ...params }) -> RemediationRequestWrapped</code>
 - <code title="get /enterprises/{enterprise_id}/reputation/remediation/{remediation_id}">client.enterprises.reputation.remediation.<a href="./src/resources/enterprises/reputation/remediation.ts">retrieve</a>(remediationID, { ...params }) -> RemediationRequestWrapped</code>
+
+### ExternalVerification
+
+Types:
+
+- <code><a href="./src/resources/enterprises/reputation/external-verification.ts">ExternalVerificationStatus</a></code>
+- <code><a href="./src/resources/enterprises/reputation/external-verification.ts">ExternalVerificationWrapped</a></code>
+
+Methods:
+
+- <code title="get /enterprises/{enterprise_id}/reputation/external_verification">client.enterprises.reputation.externalVerification.<a href="./src/resources/enterprises/reputation/external-verification.ts">list</a>(enterpriseID) -> ExternalVerificationWrapped</code>
+- <code title="post /enterprises/{enterprise_id}/reputation/external_verification">client.enterprises.reputation.externalVerification.<a href="./src/resources/enterprises/reputation/external-verification.ts">create</a>(enterpriseID, { ...params }) -> ExternalVerificationWrapped</code>
 
 ## Dir
 
@@ -5847,6 +5908,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/email-templates.ts">EmailTemplate</a></code>
+- <code><a href="./src/resources/email-templates.ts">EmailTemplateCommon</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateResponse</a></code>
 - <code><a href="./src/resources/email-templates.ts">UpdateEmailTemplateRequest</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateRenderResponse</a></code>
@@ -6132,8 +6194,66 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/llm-token-gateway/usage.ts">GuardrailFinding</a></code>
+- <code><a href="./src/resources/llm-token-gateway/usage.ts">UsageRetrieveExportResponse</a></code>
 - <code><a href="./src/resources/llm-token-gateway/usage.ts">UsageRetrieveSummaryResponse</a></code>
 
 Methods:
 
 - <code title="get /llm_token_gateway/usage/summary">client.llmTokenGateway.usage.<a href="./src/resources/llm-token-gateway/usage.ts">retrieveSummary</a>({ ...params }) -> UsageRetrieveSummaryResponse</code>
+- <code title="get /llm_token_gateway/usage/export">client.llmTokenGateway.usage.<a href="./src/resources/llm-token-gateway/usage.ts">retrieveExport</a>({ ...params }) -> UsageRetrieveExportResponse</code>
+
+## Spend
+
+Types:
+
+- <code><a href="./src/resources/llm-token-gateway/spend.ts">SpendGroupBy</a></code>
+- <code><a href="./src/resources/llm-token-gateway/spend.ts">SpendRetrieveEventsResponse</a></code>
+- <code><a href="./src/resources/llm-token-gateway/spend.ts">SpendRetrieveSummaryResponse</a></code>
+
+Methods:
+
+- <code title="get /llm_token_gateway/spend/events">client.llmTokenGateway.spend.<a href="./src/resources/llm-token-gateway/spend.ts">retrieveEvents</a>({ ...params }) -> SpendRetrieveEventsResponse</code>
+- <code title="get /llm_token_gateway/spend/summary">client.llmTokenGateway.spend.<a href="./src/resources/llm-token-gateway/spend.ts">retrieveSummary</a>({ ...params }) -> SpendRetrieveSummaryResponse</code>
+
+## TokenGroups
+
+Types:
+
+- <code><a href="./src/resources/llm-token-gateway/token-groups.ts">AIGatewayResourcesPageMeta</a></code>
+- <code><a href="./src/resources/llm-token-gateway/token-groups.ts">BudgetDuration</a></code>
+- <code><a href="./src/resources/llm-token-gateway/token-groups.ts">TokenGroup</a></code>
+- <code><a href="./src/resources/llm-token-gateway/token-groups.ts">TokenGroupResponse</a></code>
+
+Methods:
+
+- <code title="get /llm_token_gateway/token_groups">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">list</a>({ ...params }) -> TokenGroupsDefaultFlatPagination</code>
+- <code title="post /llm_token_gateway/token_groups">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">create</a>({ ...params }) -> TokenGroupResponse</code>
+- <code title="delete /llm_token_gateway/token_groups/{id}">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">delete</a>(id, { ...params }) -> void</code>
+- <code title="get /llm_token_gateway/token_groups/{id}">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">retrieve</a>(id) -> TokenGroupResponse</code>
+- <code title="patch /llm_token_gateway/token_groups/{id}">client.llmTokenGateway.tokenGroups.<a href="./src/resources/llm-token-gateway/token-groups.ts">update</a>(id, { ...params }) -> TokenGroupResponse</code>
+
+## TokenKeys
+
+Types:
+
+- <code><a href="./src/resources/llm-token-gateway/token-keys.ts">TokenKey</a></code>
+- <code><a href="./src/resources/llm-token-gateway/token-keys.ts">TokenKeyResponse</a></code>
+
+Methods:
+
+- <code title="get /llm_token_gateway/token_keys">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">list</a>({ ...params }) -> TokenKeysDefaultFlatPagination</code>
+- <code title="post /llm_token_gateway/token_keys">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">create</a>({ ...params }) -> TokenKeyResponse</code>
+- <code title="delete /llm_token_gateway/token_keys/{id}">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">delete</a>(id, { ...params }) -> void</code>
+- <code title="get /llm_token_gateway/token_keys/{id}">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">retrieve</a>(id) -> TokenKeyResponse</code>
+- <code title="patch /llm_token_gateway/token_keys/{id}">client.llmTokenGateway.tokenKeys.<a href="./src/resources/llm-token-gateway/token-keys.ts">update</a>(id, { ...params }) -> TokenKeyResponse</code>
+
+# SipRegistrationStatus
+
+Types:
+
+- <code><a href="./src/resources/sip-registration-status.ts">SipRegistrationStatusListResponse</a></code>
+
+Methods:
+
+- <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">list</a>({ ...params }) -> SipRegistrationStatusListResponse</code>

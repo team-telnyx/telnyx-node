@@ -15,9 +15,10 @@ import { path } from '../../internal/utils/path';
 export class Jobs extends APIResource {
   /**
    * Returns background jobs that operate on phone numbers. Filter by job type,
-   * target phone numbers, or job status, and sort by creation time. Multiple
-   * phone-number or status values use OR semantics within that filter; different
-   * filter categories use AND semantics. Results include pagination metadata.
+   * target phone numbers, job status, or creation-time customer reference, and sort
+   * by creation time. Multiple phone-number or status values use OR semantics within
+   * that filter; different filter categories use AND semantics. Results include
+   * pagination metadata.
    *
    * @example
    * ```ts
@@ -242,7 +243,8 @@ export interface JobUpdateEmergencySettingsBatchResponse {
 export interface JobListParams extends DefaultFlatPaginationParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type],
-   * filter[phone_number], filter[phone_number][], filter[status][]
+   * filter[phone_number], filter[phone_number][], filter[status][],
+   * filter[customer_reference]
    */
   filter?: JobListParams.Filter;
 
@@ -256,9 +258,20 @@ export interface JobListParams extends DefaultFlatPaginationParams {
 export namespace JobListParams {
   /**
    * Consolidated filter parameter (deepObject style). Originally: filter[type],
-   * filter[phone_number], filter[phone_number][], filter[status][]
+   * filter[phone_number], filter[phone_number][], filter[status][],
+   * filter[customer_reference]
    */
   export interface Filter {
+    /**
+     * Returns jobs whose creation-time customer reference exactly matches the supplied
+     * value, not the current reference on a phone number. Only jobs within the lookup
+     * window (90 days by default) are returned. Supply a single non-blank string of up
+     * to 250 characters, without null characters, using
+     * `filter[customer_reference]=yourcustomerrefhere`. An invalid filter value
+     * returns HTTP 422.
+     */
+    customer_reference?: string;
+
     /**
      * Returns jobs that targeted any of the supplied account-owned phone numbers.
      * Values beginning with `+` must contain 1 to 20 digits after the plus sign. The

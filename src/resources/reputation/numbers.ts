@@ -60,6 +60,13 @@ export interface NumberListParams extends DefaultFlatPaginationParams {
   'filter[enterprise_id]'?: string;
 
   /**
+   * Only numbers with this ownership status. `removed` lists the numbers that were
+   * removed, each with its `removal_reason` and `removed_at`; removed numbers are
+   * not returned otherwise.
+   */
+  'filter[ownership_status]'?: ReputationNumbersAPI.ReputationOwnershipStatus;
+
+  /**
    * Partial match on phone number. Must contain at least 5 digits.
    */
   'filter[phone_number][contains]'?: string;
@@ -68,6 +75,11 @@ export interface NumberListParams extends DefaultFlatPaginationParams {
    * Exact phone-number match (E.164).
    */
   'filter[phone_number][eq]'?: string;
+
+  /**
+   * Only numbers with this source.
+   */
+  'filter[source]'?: ReputationNumbersAPI.ReputationNumberSource;
 }
 
 export interface NumberRetrieveParams {

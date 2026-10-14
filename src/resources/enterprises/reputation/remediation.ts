@@ -160,8 +160,9 @@ export interface RemediationRequest {
   contact_email?: string | null;
 
   /**
-   * Per-category buckets. Populated once results are available. Null while the
-   * request is still pending.
+   * Per-category buckets of phone numbers, populated once results are available.
+   * Empty lists are kept (not omitted) so consumers can iterate without
+   * null-checking each key.
    */
   results?: RemediationPerNumberResults | null;
 

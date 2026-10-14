@@ -1180,6 +1180,36 @@ export interface CallControlCommandResultWithConversationID {
  */
 export type ConversationRelayInterruptible = 'none' | 'any' | 'speech' | 'dtmf';
 
+/**
+ * Engine-specific transcription settings for Conversation Relay. This accepts the
+ * same provider-specific options used by the Call Transcription Start command,
+ * such as `transcription_model`, without requiring the engine discriminator to be
+ * repeated inside this object. With Deepgram Flux (`deepgram/flux`),
+ * `interim_results`, `eot_threshold` and `eager_eot_threshold` control the interim
+ * prompts and the `eagerEndOfTurn` and `turnResumed` frames sent to your WebSocket
+ * server.
+ */
+export interface ConversationRelayTranscriptionEngineConfig {
+  /**
+   * Deepgram Flux: confidence at which an `eagerEndOfTurn` frame is sent before the
+   * final prompt, followed by `turnResumed` if the caller keeps talking. When
+   * omitted, these frames are not sent.
+   */
+  eager_eot_threshold?: number;
+
+  /**
+   * Deepgram Flux: confidence required to end the caller's turn.
+   */
+  eot_threshold?: number;
+
+  /**
+   * Deepgram Flux: send interim transcripts as `prompt` frames with `last: false`.
+   */
+  interim_results?: boolean;
+
+  [k: string]: unknown;
+}
+
 export interface DeepgramNova2Config {
   transcription_engine: 'deepgram/nova-2';
 
@@ -3313,10 +3343,10 @@ export interface ActionGatherUsingAIParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
    *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
@@ -5429,9 +5459,12 @@ export interface ActionStartConversationRelayParams {
    * Engine-specific transcription settings for Conversation Relay. This accepts the
    * same provider-specific options used by the Call Transcription Start command,
    * such as `transcription_model`, without requiring the engine discriminator to be
-   * repeated inside this object.
+   * repeated inside this object. With Deepgram Flux (`deepgram/flux`),
+   * `interim_results`, `eot_threshold` and `eager_eot_threshold` control the interim
+   * prompts and the `eagerEndOfTurn` and `turnResumed` frames sent to your WebSocket
+   * server.
    */
-  transcription_engine_config?: { [key: string]: unknown };
+  transcription_engine_config?: ConversationRelayTranscriptionEngineConfig;
 
   /**
    * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or
@@ -5456,10 +5489,10 @@ export interface ActionStartConversationRelayParams {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
    *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
@@ -5623,6 +5656,15 @@ export interface ActionPayParams {
   metadata?: { [key: string]: unknown };
 
   /**
+   * Minimum number of digits the caller must enter when collecting a credit-card
+   * billing postal code. Applies only when `postal_code` is `true` or `"true"` and
+   * no `payment_token` is supplied. The default is 1. The maximum number of digits
+   * collected is the greater of 10 and this value. This does not validate the length
+   * of a postal code supplied directly in `postal_code`.
+   */
+  min_postal_code_length?: number;
+
+  /**
    * Additional parameters forwarded to the Pay connector.
    */
   parameters?: { [key: string]: unknown };
@@ -5636,6 +5678,18 @@ export interface ActionPayParams {
    * Existing payment token. When supplied, payment-detail collection is skipped.
    */
   payment_token?: string;
+
+  /**
+   * Controls billing postal code collection for credit-card payments when no
+   * `payment_token` is supplied. Set to `true` or the string `"true"` (the default)
+   * to prompt the caller for a postal code. Set to `false` or the string `"false"`
+   * to skip the postal code prompt without supplying a postal code to the payment
+   * connector. Supply any other non-empty string, such as `"90210"`, to use that
+   * postal code without prompting. Empty or whitespace-only strings are rejected.
+   * This option does not affect ACH debit payments or payments using an existing
+   * token.
+   */
+  postal_code?: string | boolean;
 
   /**
    * Custom text-to-speech prompts keyed by payment collection step.
@@ -5722,6 +5776,7 @@ export declare namespace Actions {
     type CallControlCommandResult as CallControlCommandResult,
     type CallControlCommandResultWithConversationID as CallControlCommandResultWithConversationID,
     type ConversationRelayInterruptible as ConversationRelayInterruptible,
+    type ConversationRelayTranscriptionEngineConfig as ConversationRelayTranscriptionEngineConfig,
     type DeepgramNova2Config as DeepgramNova2Config,
     type DeepgramNova3Config as DeepgramNova3Config,
     type DeveloperMessage as DeveloperMessage,

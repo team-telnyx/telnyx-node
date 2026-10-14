@@ -10,9 +10,9 @@ import { path } from '../../../internal/utils/path';
  */
 export class CallingRouting extends APIResource {
   /**
-   * Retrieve the routing connection currently stored for a BYON (Bring Your Own
-   * Number) phone number: the connection that inbound WhatsApp calls to the number
-   * are delivered to.
+   * Retrieve the connection ID currently stored for a WhatsApp Calling BYON (Bring
+   * Your Own Number) phone number: the connection that inbound WhatsApp calls to the
+   * number are delivered to.
    *
    * Use it to check the result of
    * `PATCH /whatsapp/phone_numbers/{id}/calling_routing`. A read made immediately
@@ -33,8 +33,9 @@ export class CallingRouting extends APIResource {
   }
 
   /**
-   * Set or clear the connection that inbound WhatsApp calls to a BYON (Bring Your
-   * Own Number) phone number are delivered to.
+   * Set or clear the connection ID for a WhatsApp Calling BYON (Bring Your Own
+   * Number) phone number: the connection that inbound WhatsApp calls to the number
+   * are delivered to.
    *
    * The update is processed asynchronously. A `202` response means the request was
    * accepted, not that the routing changed. Check the result with

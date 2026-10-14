@@ -21,6 +21,7 @@ export {
   type ReputationCheckFrequency,
   type ReputationEnableParams,
   type ReputationUpdateFrequencyParams,
+  type ReputationUpdateWebhookParams,
 } from './reputation/index';
 export {
   VerifyEmail,
