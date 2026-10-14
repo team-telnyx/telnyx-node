@@ -31,6 +31,7 @@ describe('resource conversations', () => {
           last_message_at: 'last_message_at',
           limit: 1,
           'metadata->assistant_id': 'metadata->assistant_id',
+          'metadata->assistant_version_id': 'metadata->assistant_version_id',
           'metadata->call_control_id': 'metadata->call_control_id',
           'metadata->telnyx_agent_target': 'metadata->telnyx_agent_target',
           'metadata->telnyx_conversation_channel': 'metadata->telnyx_conversation_channel',

@@ -27,6 +27,7 @@ describe('resource jobs', () => {
       client.phoneNumbers.jobs.list(
         {
           filter: {
+            customer_reference: 'yourcustomerrefhere',
             phone_number: '+15551234567,1234567890123456789',
             status: ['pending', 'in_progress'],
             type: 'update_emergency_settings',

@@ -1411,6 +1411,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary',
   },
   {
+    clientCallName: 'client.ai.memory.namespaces.profiles.preview',
+    fullyQualifiedName: 'ai.memory.namespaces.profiles.preview',
+    httpMethod: 'post',
+    httpPath: '/ai/memory/namespaces/{namespace}/profiles/{profile_id}/summary/preview',
+  },
+  {
     clientCallName: 'client.ai.memory.namespaces.profiles.memories.list',
     fullyQualifiedName: 'ai.memory.namespaces.profiles.memories.list',
     httpMethod: 'get',
@@ -1451,6 +1457,30 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'ai.memory.namespaces.settings.patchAll',
     httpMethod: 'patch',
     httpPath: '/ai/memory/namespaces/{namespace}/settings',
+  },
+  {
+    clientCallName: 'client.ai.avatars.list',
+    fullyQualifiedName: 'ai.avatars.list',
+    httpMethod: 'get',
+    httpPath: '/ai/avatars',
+  },
+  {
+    clientCallName: 'client.ai.avatars.create',
+    fullyQualifiedName: 'ai.avatars.create',
+    httpMethod: 'post',
+    httpPath: '/ai/avatars',
+  },
+  {
+    clientCallName: 'client.ai.avatars.retrieve',
+    fullyQualifiedName: 'ai.avatars.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/avatars/{avatar_id}',
+  },
+  {
+    clientCallName: 'client.ai.avatars.update',
+    fullyQualifiedName: 'ai.avatars.update',
+    httpMethod: 'patch',
+    httpPath: '/ai/avatars/{avatar_id}',
   },
   {
     clientCallName: 'client.auditEvents.list',
@@ -6504,6 +6534,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/v2/whatsapp/user_data',
   },
   {
+    clientCallName: 'client.whatsapp.signup.list',
+    fullyQualifiedName: 'whatsapp.signup.list',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/signup',
+  },
+  {
+    clientCallName: 'client.whatsapp.signup.retrieveStatus',
+    fullyQualifiedName: 'whatsapp.signup.retrieveStatus',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/signup/{id}/status',
+  },
+  {
     clientCallName: 'client.whatsappMessageTemplates.delete',
     fullyQualifiedName: 'whatsappMessageTemplates.delete',
     httpMethod: 'delete',
@@ -6720,6 +6762,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/reputation/frequency',
   },
   {
+    clientCallName: 'client.enterprises.reputation.updateWebhook',
+    fullyQualifiedName: 'enterprises.reputation.updateWebhook',
+    httpMethod: 'patch',
+    httpPath: '/enterprises/{enterprise_id}/reputation/webhook',
+  },
+  {
     clientCallName: 'client.enterprises.reputation.numbers.list',
     fullyQualifiedName: 'enterprises.reputation.numbers.list',
     httpMethod: 'get',
@@ -6750,6 +6798,18 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/enterprises/{enterprise_id}/reputation/numbers/refresh',
   },
   {
+    clientCallName: 'client.enterprises.reputation.numbers.retrieveOwnership',
+    fullyQualifiedName: 'enterprises.reputation.numbers.retrieveOwnership',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.numbers.ownershipConfirm',
+    fullyQualifiedName: 'enterprises.reputation.numbers.ownershipConfirm',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/numbers/{phone_number}/ownership_confirm',
+  },
+  {
     clientCallName: 'client.enterprises.reputation.loa.update',
     fullyQualifiedName: 'enterprises.reputation.loa.update',
     httpMethod: 'patch',
@@ -6778,6 +6838,18 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'enterprises.reputation.remediation.retrieve',
     httpMethod: 'get',
     httpPath: '/enterprises/{enterprise_id}/reputation/remediation/{remediation_id}',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.externalVerification.list',
+    fullyQualifiedName: 'enterprises.reputation.externalVerification.list',
+    httpMethod: 'get',
+    httpPath: '/enterprises/{enterprise_id}/reputation/external_verification',
+  },
+  {
+    clientCallName: 'client.enterprises.reputation.externalVerification.create',
+    fullyQualifiedName: 'enterprises.reputation.externalVerification.create',
+    httpMethod: 'post',
+    httpPath: '/enterprises/{enterprise_id}/reputation/external_verification',
   },
   {
     clientCallName: 'client.enterprises.dir.list',
@@ -7840,6 +7912,90 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'llmTokenGateway.usage.retrieveSummary',
     httpMethod: 'get',
     httpPath: '/llm_token_gateway/usage/summary',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.usage.retrieveExport',
+    fullyQualifiedName: 'llmTokenGateway.usage.retrieveExport',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/usage/export',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.spend.retrieveEvents',
+    fullyQualifiedName: 'llmTokenGateway.spend.retrieveEvents',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/spend/events',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.spend.retrieveSummary',
+    fullyQualifiedName: 'llmTokenGateway.spend.retrieveSummary',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/spend/summary',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.list',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.list',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/token_groups',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.create',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.create',
+    httpMethod: 'post',
+    httpPath: '/llm_token_gateway/token_groups',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.delete',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.delete',
+    httpMethod: 'delete',
+    httpPath: '/llm_token_gateway/token_groups/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.retrieve',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.retrieve',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/token_groups/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenGroups.update',
+    fullyQualifiedName: 'llmTokenGateway.tokenGroups.update',
+    httpMethod: 'patch',
+    httpPath: '/llm_token_gateway/token_groups/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.list',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.list',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/token_keys',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.create',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.create',
+    httpMethod: 'post',
+    httpPath: '/llm_token_gateway/token_keys',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.delete',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.delete',
+    httpMethod: 'delete',
+    httpPath: '/llm_token_gateway/token_keys/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.retrieve',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.retrieve',
+    httpMethod: 'get',
+    httpPath: '/llm_token_gateway/token_keys/{id}',
+  },
+  {
+    clientCallName: 'client.llmTokenGateway.tokenKeys.update',
+    fullyQualifiedName: 'llmTokenGateway.tokenKeys.update',
+    httpMethod: 'patch',
+    httpPath: '/llm_token_gateway/token_keys/{id}',
+  },
+  {
+    clientCallName: 'client.sipRegistrationStatus.list',
+    fullyQualifiedName: 'sipRegistrationStatus.list',
+    httpMethod: 'get',
+    httpPath: '/sip_registration_status',
   },
 ];
 

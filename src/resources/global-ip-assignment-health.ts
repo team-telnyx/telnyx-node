@@ -109,19 +109,19 @@ export namespace GlobalIPAssignmentHealthRetrieveParams {
     /**
      * Filter by exact Global IP Assignment ID
      */
-    global_ip_assignment_id?: string | Filter.In;
+    global_ip_assignment_id?: string | Filter.GlobalIPAssignmentIDIn;
 
     /**
      * Filter by exact Global IP ID
      */
-    global_ip_id?: string | Filter.In;
+    global_ip_id?: string | Filter.GlobalIPIDIn;
   }
 
   export namespace Filter {
     /**
      * Filtering operations
      */
-    export interface In {
+    export interface GlobalIPAssignmentIDIn {
       /**
        * Filter by Global IP Assignment ID(s) separated by commas
        */
@@ -131,7 +131,7 @@ export namespace GlobalIPAssignmentHealthRetrieveParams {
     /**
      * Filtering operations
      */
-    export interface In {
+    export interface GlobalIPIDIn {
       /**
        * Filter by Global IP ID(s) separated by commas
        */

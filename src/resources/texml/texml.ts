@@ -43,8 +43,10 @@ export class Texml extends APIResource {
   }
 
   /**
-   * Initiate an outbound AI call with warm-up support. Validates parameters, builds
-   * an internal TeXML with an AI Assistant configuration, encodes instructions into
+   * Initiate an outbound AI call with warm-up support: Telnyx attempts to warm up
+   * the assistant identified by `AIAssistantId` before placing the call and starts
+   * it automatically when the called party answers. Validates parameters, builds an
+   * internal TeXML with an AI Assistant configuration, encodes instructions into
    * client state, and calls the dial API. The Twiml, Texml, and Url parameters are
    * not allowed and will result in a 422 error.
    *
@@ -121,7 +123,9 @@ export interface TexmlSecretsParams {
 
 export interface TexmlInitiateAICallParams {
   /**
-   * The ID of the AI assistant to use for the call.
+   * The ID of the AI assistant to use for the call. Telnyx attempts to warm up this
+   * assistant before the call is placed and starts it automatically when the called
+   * party answers.
    */
   AIAssistantId: string;
 

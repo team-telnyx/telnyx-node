@@ -93,6 +93,7 @@ import {
   CallControlCommandResult,
   CallControlCommandResultWithConversationID,
   ConversationRelayInterruptible,
+  ConversationRelayTranscriptionEngineConfig,
   DeepgramNova2Config,
   DeepgramNova3Config,
   DeveloperMessage,
@@ -138,10 +139,18 @@ export class Calls extends APIResource {
    * include a `call_leg_id` which can be used to correlate the command with
    * subsequent webhooks.
    *
+   * To place the call with an AI assistant from the start, include `assistant.id`
+   * and any per-call overrides in the `assistant` object; Telnyx attempts to warm up
+   * the assistant before placing the call and starts it automatically when the
+   * called party answers.
+   *
    * **Expected Webhooks:**
    *
    * - `call.initiated`
    * - `call.answered` or `call.hangup`
+   * - `call.conversation.created` when the requested assistant conversation is
+   *   created, or `call.conversation.start_failed` when it could not be started
+   *   after the called party answered
    * - `call.hold` and `call.unhold` if the call is held/unheld
    * - `call.machine.detection.ended` if `answering_machine_detection` was requested
    * - `call.machine.greeting.ended` if `answering_machine_detection` was requested
@@ -516,9 +525,12 @@ export interface ConversationRelayEmbeddedConfig {
    * Engine-specific transcription settings for Conversation Relay. This accepts the
    * same provider-specific options used by the Call Transcription Start command,
    * such as `transcription_model`, without requiring the engine discriminator to be
-   * repeated inside this object.
+   * repeated inside this object. With Deepgram Flux (`deepgram/flux`),
+   * `interim_results`, `eot_threshold` and `eager_eot_threshold` control the interim
+   * prompts and the `eagerEndOfTurn` and `turnResumed` frames sent to your WebSocket
+   * server.
    */
-  transcription_engine_config?: { [key: string]: unknown };
+  transcription_engine_config?: ActionsAPI.ConversationRelayTranscriptionEngineConfig;
 
   /**
    * Text-to-speech provider. If omitted, Telnyx derives it from `voice` or
@@ -537,10 +549,10 @@ export interface ConversationRelayEmbeddedConfig {
    *   the `VoiceId` (e.g., `AWS.Polly.Joanna-Neural`). Check the
    *   [available voices](https://docs.aws.amazon.com/polly/latest/dg/available-voices.html)
    *   for compatibility.
-   * - **Azure:** Use `Azure.<VoiceId>. (e.g. Azure.en-CA-ClaraNeural,
-   *   Azure.en-CA-LiamNeural, Azure.en-US-BrianMultilingualNeural,
-   *   Azure.en-US-Ava:DragonHDLatestNeural. For a complete list of voices, go to
-   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).)
+   * - **Azure:** Use `Azure.<VoiceId>` (e.g., `Azure.en-CA-ClaraNeural`,
+   *   `Azure.en-CA-LiamNeural`, `Azure.en-US-BrianMultilingualNeural`,
+   *   `Azure.en-US-Ava:DragonHDLatestNeural`). For a complete list of voices, go to
+   *   [Azure Voice Gallery](https://speech.microsoft.com/portal/voicegallery).
    * - **ElevenLabs:** Use `ElevenLabs.<ModelId>.<VoiceId>` (e.g.,
    *   `ElevenLabs.BaseModel.John`). The `ModelId` part is optional. To use
    *   ElevenLabs, you must provide your ElevenLabs API key as an integration secret
@@ -655,9 +667,12 @@ export interface ConversationRelayLanguage {
    * Engine-specific transcription settings for Conversation Relay. This accepts the
    * same provider-specific options used by the Call Transcription Start command,
    * such as `transcription_model`, without requiring the engine discriminator to be
-   * repeated inside this object.
+   * repeated inside this object. With Deepgram Flux (`deepgram/flux`),
+   * `interim_results`, `eot_threshold` and `eager_eot_threshold` control the interim
+   * prompts and the `eagerEndOfTurn` and `turnResumed` frames sent to your WebSocket
+   * server.
    */
-  transcription_engine_config?: { [key: string]: unknown };
+  transcription_engine_config?: ActionsAPI.ConversationRelayTranscriptionEngineConfig;
 
   /**
    * Conversation Relay transcription provider name. Prefer `transcription_engine`
@@ -1643,6 +1658,7 @@ export declare namespace Calls {
     type CallControlCommandResult as CallControlCommandResult,
     type CallControlCommandResultWithConversationID as CallControlCommandResultWithConversationID,
     type ConversationRelayInterruptible as ConversationRelayInterruptible,
+    type ConversationRelayTranscriptionEngineConfig as ConversationRelayTranscriptionEngineConfig,
     type DeepgramNova2Config as DeepgramNova2Config,
     type DeepgramNova3Config as DeepgramNova3Config,
     type DeveloperMessage as DeveloperMessage,

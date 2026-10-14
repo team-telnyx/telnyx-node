@@ -27,8 +27,10 @@ describe('resource numbers', () => {
       client.reputation.numbers.list(
         {
           'filter[enterprise_id]': '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
+          'filter[ownership_status]': 'verified',
           'filter[phone_number][contains]': '+16035551234',
           'filter[phone_number][eq]': '+16035551234',
+          'filter[source]': 'external',
           'page[number]': 1,
           'page[size]': 20,
         },

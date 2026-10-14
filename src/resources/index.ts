@@ -419,6 +419,7 @@ export {
 export {
   EmailTemplates,
   type EmailTemplate,
+  type EmailTemplateCommon,
   type EmailTemplateResponse,
   type UpdateEmailTemplateRequest,
   type EmailTemplateRenderResponse,
@@ -1351,6 +1352,11 @@ export {
   type SimCardListWirelessConnectivityLogsResponsesDefaultFlatPagination,
 } from './sim-cards/sim-cards';
 export {
+  SipRegistrationStatus,
+  type SipRegistrationStatusListResponse,
+  type SipRegistrationStatusListParams,
+} from './sip-registration-status';
+export {
   SiprecConnectors,
   type SiprecConnectorResponse,
   type SiprecConnectorCreateParams,
@@ -1680,6 +1686,7 @@ export {
   type CallConversationCreatedWebhookEvent,
   type CallConversationEndedWebhookEvent,
   type CallConversationInsightsGeneratedWebhookEvent,
+  type CallConversationStartFailedWebhookEvent,
   type CallCostWebhookEvent,
   type CallDeepfakeDetectionErrorWebhookEvent,
   type CallDeepfakeDetectionResultWebhookEvent,
@@ -1734,11 +1741,15 @@ export {
   type HostedNumberOrderEventWebhookEvent,
   type InboundMessageWebhookEvent,
   type NumberOrderStatusUpdateWebhookEvent,
+  type NumberReputationExternalVerificationStatusChangedWebhookEvent,
+  type NumberReputationNumberFlaggedWebhookEvent,
+  type NumberReputationNumberRemovedWebhookEvent,
   type RecordingAvailableWebhookEvent,
   type ReplacedLinkClickWebhookEvent,
   type SessionStatusChangedWebhookEvent,
   type TranscriptCompletedWebhookEvent,
   type TranscriptionWebhookEvent,
+  type WhatsappWabaAddedWebhookEvent,
   type UnsafeUnwrapWebhookEvent,
   type UnwrapWebhookEvent,
   type InboundMessagesEmailBracketCursorPagination,

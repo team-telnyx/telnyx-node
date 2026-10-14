@@ -232,12 +232,7 @@ export interface PhoneNumberRemoveParams {
   phone_numbers: Array<string>;
 }
 
-export interface PhoneNumberListParams extends DefaultFlatPaginationParams {
-  /**
-   * Filter by phone-number status.
-   */
-  status?: PhoneNumberBatchesAPI.DirPhoneNumberStatus;
-}
+export interface PhoneNumberListParams extends DefaultFlatPaginationParams {}
 
 export interface PhoneNumberAddParams {
   /**

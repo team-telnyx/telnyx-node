@@ -47,11 +47,7 @@ describe('resource phoneNumbers', () => {
     await expect(
       client.dir.phoneNumbers.list(
         '16635d38-75a6-4481-82e8-69af60e05011',
-        {
-          'page[number]': 1,
-          'page[size]': 20,
-          status: 'submitted',
-        },
+        { 'page[number]': 1, 'page[size]': 20 },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);

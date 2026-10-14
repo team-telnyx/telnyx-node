@@ -1,6 +1,14 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as SignupAPI from './signup';
+import {
+  Signup,
+  SignupListParams,
+  SignupListResponse,
+  SignupListResponsesDefaultFlatPagination,
+  SignupRetrieveStatusResponse,
+} from './signup';
 import * as TemplatesAPI from './templates';
 import {
   TemplateCreateParams,
@@ -51,12 +59,14 @@ export class Whatsapp extends APIResource {
   templates: TemplatesAPI.Templates = new TemplatesAPI.Templates(this._client);
   phoneNumbers: PhoneNumbersAPI.PhoneNumbers = new PhoneNumbersAPI.PhoneNumbers(this._client);
   userData: UserDataAPI.UserData = new UserDataAPI.UserData(this._client);
+  signup: SignupAPI.Signup = new SignupAPI.Signup(this._client);
 }
 
 Whatsapp.BusinessAccounts = BusinessAccounts;
 Whatsapp.Templates = Templates;
 Whatsapp.PhoneNumbers = PhoneNumbers;
 Whatsapp.UserData = UserData;
+Whatsapp.Signup = Signup;
 
 export declare namespace Whatsapp {
   export {
@@ -99,5 +109,13 @@ export declare namespace Whatsapp {
     type UserDataRetrieveResponse as UserDataRetrieveResponse,
     type UserDataUpdateResponse as UserDataUpdateResponse,
     type UserDataUpdateParams as UserDataUpdateParams,
+  };
+
+  export {
+    Signup as Signup,
+    type SignupListResponse as SignupListResponse,
+    type SignupRetrieveStatusResponse as SignupRetrieveStatusResponse,
+    type SignupListResponsesDefaultFlatPagination as SignupListResponsesDefaultFlatPagination,
+    type SignupListParams as SignupListParams,
   };
 }

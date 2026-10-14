@@ -305,6 +305,7 @@ import {
 } from './resources/email-events';
 import {
   EmailTemplate,
+  EmailTemplateCommon,
   EmailTemplateCreateParams,
   EmailTemplateListParams,
   EmailTemplateRenderParams,
@@ -873,6 +874,11 @@ import {
   SimCardOrdersDefaultFlatPagination,
 } from './resources/sim-card-orders';
 import {
+  SipRegistrationStatus,
+  SipRegistrationStatusListParams,
+  SipRegistrationStatusListResponse,
+} from './resources/sip-registration-status';
+import {
   SiprecConnectorCreateParams,
   SiprecConnectorResponse,
   SiprecConnectorUpdateParams,
@@ -1065,6 +1071,7 @@ import {
   CallConversationEndedWebhookEvent,
   CallConversationInsightsGenerated,
   CallConversationInsightsGeneratedWebhookEvent,
+  CallConversationStartFailedWebhookEvent,
   CallCostWebhookEvent,
   CallDeepfakeDetectionErrorWebhookEvent,
   CallDeepfakeDetectionResultWebhookEvent,
@@ -1171,6 +1178,9 @@ import {
   MessagingInboundMessage,
   NumberOrderStatusUpdate,
   NumberOrderStatusUpdateWebhookEvent,
+  NumberReputationExternalVerificationStatusChangedWebhookEvent,
+  NumberReputationNumberFlaggedWebhookEvent,
+  NumberReputationNumberRemovedWebhookEvent,
   OutboundMessage,
   RecordingAvailableWebhookEvent,
   ReplacedLinkClick,
@@ -1184,6 +1194,7 @@ import {
   Webhooks,
   WhatsappAccountUpdate,
   WhatsappMessageEcho,
+  WhatsappWabaAddedWebhookEvent,
 } from './resources/webhooks';
 import {
   WellKnown,
@@ -3323,6 +3334,10 @@ export class Telnyx {
    */
   spendLimits: API.SpendLimits = new API.SpendLimits(this);
   llmTokenGateway: API.LlmTokenGateway = new API.LlmTokenGateway(this);
+  /**
+   * UAC connection operations
+   */
+  sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3515,6 +3530,7 @@ Telnyx.BotSignup = BotSignup;
 Telnyx.MachinePayments = MachinePayments;
 Telnyx.SpendLimits = SpendLimits;
 Telnyx.LlmTokenGateway = LlmTokenGateway;
+Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3708,6 +3724,7 @@ export declare namespace Telnyx {
     type CallConversationCreatedWebhookEvent as CallConversationCreatedWebhookEvent,
     type CallConversationEndedWebhookEvent as CallConversationEndedWebhookEvent,
     type CallConversationInsightsGeneratedWebhookEvent as CallConversationInsightsGeneratedWebhookEvent,
+    type CallConversationStartFailedWebhookEvent as CallConversationStartFailedWebhookEvent,
     type CallCostWebhookEvent as CallCostWebhookEvent,
     type CallDeepfakeDetectionErrorWebhookEvent as CallDeepfakeDetectionErrorWebhookEvent,
     type CallDeepfakeDetectionResultWebhookEvent as CallDeepfakeDetectionResultWebhookEvent,
@@ -3762,11 +3779,15 @@ export declare namespace Telnyx {
     type HostedNumberOrderEventWebhookEvent as HostedNumberOrderEventWebhookEvent,
     type InboundMessageWebhookEvent as InboundMessageWebhookEvent,
     type NumberOrderStatusUpdateWebhookEvent as NumberOrderStatusUpdateWebhookEvent,
+    type NumberReputationExternalVerificationStatusChangedWebhookEvent as NumberReputationExternalVerificationStatusChangedWebhookEvent,
+    type NumberReputationNumberFlaggedWebhookEvent as NumberReputationNumberFlaggedWebhookEvent,
+    type NumberReputationNumberRemovedWebhookEvent as NumberReputationNumberRemovedWebhookEvent,
     type RecordingAvailableWebhookEvent as RecordingAvailableWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
     type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,
     type TranscriptionWebhookEvent as TranscriptionWebhookEvent,
+    type WhatsappWabaAddedWebhookEvent as WhatsappWabaAddedWebhookEvent,
     type UnsafeUnwrapWebhookEvent as UnsafeUnwrapWebhookEvent,
     type UnwrapWebhookEvent as UnwrapWebhookEvent,
   };
@@ -5491,6 +5512,7 @@ export declare namespace Telnyx {
   export {
     EmailTemplates as EmailTemplates,
     type EmailTemplate as EmailTemplate,
+    type EmailTemplateCommon as EmailTemplateCommon,
     type EmailTemplateResponse as EmailTemplateResponse,
     type UpdateEmailTemplateRequest as UpdateEmailTemplateRequest,
     type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
@@ -5602,6 +5624,12 @@ export declare namespace Telnyx {
   };
 
   export { LlmTokenGateway as LlmTokenGateway };
+
+  export {
+    SipRegistrationStatus as SipRegistrationStatus,
+    type SipRegistrationStatusListResponse as SipRegistrationStatusListResponse,
+    type SipRegistrationStatusListParams as SipRegistrationStatusListParams,
+  };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
