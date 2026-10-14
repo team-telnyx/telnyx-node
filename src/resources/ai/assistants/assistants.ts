@@ -3885,9 +3885,9 @@ export interface TranscriptionSettingsConfig {
   enable_endpoint_detection?: boolean;
 
   /**
-   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-   * assemblyai/universal-streaming). Confidence level required to trigger an end of
-   * turn. Higher values require more certainty before ending a turn.
+   * @deprecated Deprecated and ignored. Accepted for backwards compatibility.
+   * AssemblyAI turn detection is configured with min_turn_silence and
+   * max_turn_silence.
    */
   end_of_turn_confidence_threshold?: number;
 
@@ -3910,10 +3910,13 @@ export interface TranscriptionSettingsConfig {
   interim_results?: boolean;
 
   /**
-   * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of
-   * key terms to boost for recognition during transcription. Helps improve accuracy
-   * for domain-specific terminology, proper nouns, or uncommon words. This field may
-   * be templated with
+   * A comma-separated list of key terms to boost for recognition during
+   * transcription, used by Deepgram, Reson8, Speechmatics Linden 1 and AssemblyAI
+   * models. Helps improve accuracy for domain-specific terminology, proper nouns, or
+   * uncommon words. At most 1000 characters in total. For
+   * assemblyai/universal-3-5-pro (and its legacy alias
+   * assemblyai/universal-streaming), also at most 100 terms of up to 50 characters
+   * each. This field may be templated with
    * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
    * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are
    * resolved at call time before the value is sent to the speech-to-text engine.
@@ -3949,6 +3952,14 @@ export interface TranscriptionSettingsConfig {
   min_turn_silence?: number;
 
   numerals?: boolean;
+
+  /**
+   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+   * assemblyai/universal-streaming). Context about the conversation (domain, names,
+   * terms) to improve transcription; describe the content, do not give instructions.
+   * Leave empty unless needed. At most 1750 characters.
+   */
+  prompt?: string;
 
   smart_format?: boolean;
 }
