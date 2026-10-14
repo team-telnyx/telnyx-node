@@ -1343,6 +1343,22 @@ Methods:
 - <code title="get /ai/memory/namespaces/{namespace}/settings">client.ai.memory.namespaces.settings.<a href="./src/resources/ai/memory/namespaces/settings.ts">list</a>(namespace) -> NamespaceSettingsResponse</code>
 - <code title="patch /ai/memory/namespaces/{namespace}/settings">client.ai.memory.namespaces.settings.<a href="./src/resources/ai/memory/namespaces/settings.ts">patchAll</a>(namespace, { ...params }) -> NamespaceSettingsResponse</code>
 
+## Avatars
+
+Types:
+
+- <code><a href="./src/resources/ai/avatars.ts">Avatar</a></code>
+- <code><a href="./src/resources/ai/avatars.ts">AvatarID</a></code>
+- <code><a href="./src/resources/ai/avatars.ts">AvatarResponse</a></code>
+- <code><a href="./src/resources/ai/avatars.ts">AvatarType</a></code>
+
+Methods:
+
+- <code title="get /ai/avatars">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">list</a>({ ...params }) -> AvatarsDefaultFlatPagination</code>
+- <code title="post /ai/avatars">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">create</a>({ ...params }) -> AvatarResponse</code>
+- <code title="get /ai/avatars/{avatar_id}">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">retrieve</a>(avatarID) -> AvatarResponse</code>
+- <code title="patch /ai/avatars/{avatar_id}">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">update</a>(avatarID, { ...params }) -> AvatarResponse</code>
+
 # AuditEvents
 
 Types:

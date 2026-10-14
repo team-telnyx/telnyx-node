@@ -8,6 +8,18 @@ import {
   AudioTranscribeResponse,
   AudioTranscriptionResponseWord,
 } from './audio';
+import * as AvatarsAPI from './avatars';
+import {
+  Avatar,
+  AvatarCreateParams,
+  AvatarID,
+  AvatarListParams,
+  AvatarResponse,
+  AvatarType,
+  AvatarUpdateParams,
+  Avatars,
+  AvatarsDefaultFlatPagination,
+} from './avatars';
 import * as ChatAPI from './chat';
 import { BucketIDs, Chat, ChatCompletionRequest } from './chat';
 import * as ClustersAPI from './clusters';
@@ -205,6 +217,7 @@ export class AI extends APIResource {
   knowledge: KnowledgeAPI.Knowledge = new KnowledgeAPI.Knowledge(this._client);
   typesafe: TypesafeAPI.Typesafe = new TypesafeAPI.Typesafe(this._client);
   memory: MemoryAPI.Memory = new MemoryAPI.Memory(this._client);
+  avatars: AvatarsAPI.Avatars = new AvatarsAPI.Avatars(this._client);
 
   /**
    * Generate a summary of a file's contents.
@@ -659,6 +672,7 @@ AI.Anthropic = Anthropic;
 AI.Knowledge = Knowledge;
 AI.Typesafe = Typesafe;
 AI.Memory = Memory;
+AI.Avatars = Avatars;
 
 export declare namespace AI {
   export {
@@ -859,4 +873,16 @@ export declare namespace AI {
   export { Typesafe as Typesafe };
 
   export { Memory as Memory };
+
+  export {
+    Avatars as Avatars,
+    type Avatar as Avatar,
+    type AvatarID as AvatarID,
+    type AvatarResponse as AvatarResponse,
+    type AvatarType as AvatarType,
+    type AvatarsDefaultFlatPagination as AvatarsDefaultFlatPagination,
+    type AvatarListParams as AvatarListParams,
+    type AvatarCreateParams as AvatarCreateParams,
+    type AvatarUpdateParams as AvatarUpdateParams,
+  };
 }

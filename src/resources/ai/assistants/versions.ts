@@ -131,8 +131,9 @@ export interface UpdateAssistant {
   a2a_agents?: Array<AssistantsAPI.AssistantA2AAgent>;
 
   /**
-   * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
-   * catalog supports six avatars and office, studio, or reception backgrounds.
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
+   * the six stock avatars or an organization-owned custom avatar returned by the
+   * Avatars API. Supported backgrounds are office, studio, and reception.
    */
   avatar_settings?: AssistantsAPI.AvatarSettingsRequest | null;
 
@@ -365,8 +366,8 @@ export interface VersionUpdateParams {
 
   /**
    * Body param: **Beta:** Configuration for the Telnyx open-source avatar provider.
-   * The launch catalog supports six avatars and office, studio, or reception
-   * backgrounds.
+   * Use one of the six stock avatars or an organization-owned custom avatar returned
+   * by the Avatars API. Supported backgrounds are office, studio, and reception.
    */
   avatar_settings?: AssistantsAPI.AvatarSettingsRequest | null;
 

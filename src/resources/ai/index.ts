@@ -91,6 +91,17 @@ export {
   type AudioTranscribeResponse,
   type AudioTranscribeParams,
 } from './audio';
+export {
+  Avatars,
+  type Avatar,
+  type AvatarID,
+  type AvatarResponse,
+  type AvatarType,
+  type AvatarListParams,
+  type AvatarCreateParams,
+  type AvatarUpdateParams,
+  type AvatarsDefaultFlatPagination,
+} from './avatars';
 export { Chat, type BucketIDs, type ChatCompletionRequest } from './chat';
 export {
   Clusters,

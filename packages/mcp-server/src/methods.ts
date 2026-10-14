@@ -1459,6 +1459,30 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/memory/namespaces/{namespace}/settings',
   },
   {
+    clientCallName: 'client.ai.avatars.list',
+    fullyQualifiedName: 'ai.avatars.list',
+    httpMethod: 'get',
+    httpPath: '/ai/avatars',
+  },
+  {
+    clientCallName: 'client.ai.avatars.create',
+    fullyQualifiedName: 'ai.avatars.create',
+    httpMethod: 'post',
+    httpPath: '/ai/avatars',
+  },
+  {
+    clientCallName: 'client.ai.avatars.retrieve',
+    fullyQualifiedName: 'ai.avatars.retrieve',
+    httpMethod: 'get',
+    httpPath: '/ai/avatars/{avatar_id}',
+  },
+  {
+    clientCallName: 'client.ai.avatars.update',
+    fullyQualifiedName: 'ai.avatars.update',
+    httpMethod: 'patch',
+    httpPath: '/ai/avatars/{avatar_id}',
+  },
+  {
     clientCallName: 'client.auditEvents.list',
     fullyQualifiedName: 'auditEvents.list',
     httpMethod: 'get',

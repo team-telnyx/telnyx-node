@@ -3,6 +3,7 @@
 import { APIResource } from '../../../core/resource';
 import * as AssistantsAPI from './assistants';
 import * as Shared from '../../shared';
+import * as AvatarsAPI from '../avatars';
 import * as ChatAPI from '../chat';
 import * as ToolsAPI from '../tools';
 import * as CanaryDeploysAPI from './canary-deploys';
@@ -1095,6 +1096,20 @@ export namespace AssistantTool {
          * `shared` the exchange stays in the conversation like any other messages.
          */
         end_user_target_context_mode?: 'private' | 'shared';
+
+        /**
+         * Fail closed when the acceptance consult cannot run. Off by default: if the
+         * consult cannot be set up for any reason — including where acceptance is
+         * unavailable at all (`gather_using_ai`, Conversation Relay or web calls, a
+         * conference, or additional invited participants) — the transfer degrades to a
+         * plain warm transfer (the warm transfer message is played to the destination as
+         * audio and the calls are bridged anyway). Set to true to treat those paths as a
+         * decline instead: the destination is disconnected without being asked, the
+         * assistant returns to the caller, and no bridge happens without an acceptance.
+         * Only consult-setup failures are affected; the destination must still explicitly
+         * accept on every consult that does run.
+         */
+        require_acceptance?: boolean;
       }
     }
   }
@@ -1441,14 +1456,15 @@ export interface AudioVisualizerConfig {
 export type AuthenticationMethod = 'token' | 'certificate';
 
 /**
- * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
- * catalog supports six avatars and office, studio, or reception backgrounds.
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
+ * the six stock avatars or an organization-owned custom avatar returned by the
+ * Avatars API. Supported backgrounds are office, studio, and reception.
  */
 export interface AvatarSettingsRequest {
   /**
-   * The Telnyx avatar to render.
+   * The Telnyx stock avatar or organization-owned custom avatar to render.
    */
-  avatar_id: 'elena' | 'ben' | 'jordan' | 'lin' | 'avery' | 'raphael';
+  avatar_id: AvatarsAPI.AvatarID;
 
   /**
    * The background to render.
@@ -2221,8 +2237,9 @@ export interface InferenceEmbedding {
   a2a_agents?: Array<AssistantA2AAgent>;
 
   /**
-   * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
-   * catalog supports six avatars and office, studio, or reception backgrounds.
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
+   * the six stock avatars or an organization-owned custom avatar returned by the
+   * Avatars API. Supported backgrounds are office, studio, and reception.
    */
   avatar_settings?: TelnyxAvatarSettings | null;
 
@@ -3438,14 +3455,15 @@ export namespace TelephonySettings {
 }
 
 /**
- * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
- * catalog supports six avatars and office, studio, or reception backgrounds.
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
+ * the six stock avatars or an organization-owned custom avatar returned by the
+ * Avatars API. Supported backgrounds are office, studio, and reception.
  */
 export interface TelnyxAvatarSettings {
   /**
-   * The Telnyx avatar to render.
+   * The Telnyx stock avatar or organization-owned custom avatar to render.
    */
-  avatar_id: 'elena' | 'ben' | 'jordan' | 'lin' | 'avery' | 'raphael';
+  avatar_id: AvatarsAPI.AvatarID;
 
   /**
    * The background to render.
@@ -4417,8 +4435,8 @@ export interface AssistantCreateParams {
 
   /**
    * Body param: **Beta:** Configuration for the Telnyx open-source avatar provider.
-   * The launch catalog supports six avatars and office, studio, or reception
-   * backgrounds.
+   * Use one of the six stock avatars or an organization-owned custom avatar returned
+   * by the Avatars API. Supported backgrounds are office, studio, and reception.
    */
   avatar_settings?: AvatarSettingsRequest | null;
 
@@ -4709,8 +4727,9 @@ export interface AssistantUpdateParams {
   a2a_agents?: Array<AssistantA2AAgent>;
 
   /**
-   * **Beta:** Configuration for the Telnyx open-source avatar provider. The launch
-   * catalog supports six avatars and office, studio, or reception backgrounds.
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
+   * the six stock avatars or an organization-owned custom avatar returned by the
+   * Avatars API. Supported backgrounds are office, studio, and reception.
    */
   avatar_settings?: AvatarSettingsRequest | null;
 

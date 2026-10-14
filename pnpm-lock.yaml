@@ -84,7 +84,7 @@ importers:
         version: 0.2.4
       '@hono/node-server':
         specifier: ^1.19.10
-        version: 1.19.11(hono@4.12.5)
+        version: 1.19.11(hono@4.13.7)
       '@modelcontextprotocol/sdk':
         specifier: ^1.27.1
         version: 1.27.1(zod@3.25.76)
@@ -111,7 +111,7 @@ importers:
         version: 7.1.0
       hono:
         specifier: ^4.12.4
-        version: 4.12.5
+        version: 4.13.7
       jq-web:
         specifier: https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz
         version: https://github.com/stainless-api/jq-web/releases/download/v0.8.8/jq-web.tar.gz
@@ -2629,10 +2629,10 @@ packages:
         integrity: sha512-tzcUFauisWKNHaRkN4Wjl/ZA07gENAjFl3J/c480dprkGTg5EQstgaNFqBfUqCq54kZRIEcreTsAgF/m2quD7A==,
       }
 
-  hono@4.12.5:
+  hono@4.13.7:
     resolution:
       {
-        integrity: sha512-3qq+FUBtlTHhtYxbxheZgY8NIFnkkC/MR8u5TTsr7YZ3wixryQ3cCwn3iZbg8p8B88iDBBAYSfZDS75t8MN7Vg==,
+        integrity: sha512-c8/gF9ac8Y78/agExVocyLevgR+JlpNB444Py0FSX8pJoPdYUfUzRcXtYEYGwt6l19qIlVZPN5Mfsw9jFShmQQ==,
       }
     engines: { node: '>=16.9.0' }
 
@@ -4988,9 +4988,9 @@ snapshots:
       '@eslint/core': 0.17.0
       levn: 0.4.1
 
-  '@hono/node-server@1.19.11(hono@4.12.5)':
+  '@hono/node-server@1.19.11(hono@4.13.7)':
     dependencies:
-      hono: 4.12.5
+      hono: 4.13.7
 
   '@humanfs/core@0.19.1': {}
 
@@ -5338,7 +5338,7 @@ snapshots:
 
   '@modelcontextprotocol/sdk@1.27.1(zod@3.25.76)':
     dependencies:
-      '@hono/node-server': 1.19.11(hono@4.12.5)
+      '@hono/node-server': 1.19.11(hono@4.13.7)
       ajv: 8.18.0
       ajv-formats: 3.0.1(ajv@8.18.0)
       content-type: 1.0.5
@@ -5348,7 +5348,7 @@ snapshots:
       eventsource-parser: 3.0.6
       express: 5.2.1
       express-rate-limit: 8.3.1(express@5.2.1)
-      hono: 4.12.5
+      hono: 4.13.7
       jose: 6.1.3
       json-schema-typed: 8.0.2
       pkce-challenge: 5.0.0
@@ -6391,7 +6391,7 @@ snapshots:
 
   highlight.js@10.7.3: {}
 
-  hono@4.12.5: {}
+  hono@4.13.7: {}
 
   html-escaper@2.0.2: {}
 
