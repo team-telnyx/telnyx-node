@@ -471,6 +471,7 @@ describe('resource versions', () => {
       privacy_settings: { data_retention: true, in_transit_data_locality: true },
       tags: ['string'],
       telephony_settings: {
+        conversation_ended_full_history: true,
         default_texml_app_id: 'default_texml_app_id',
         disable_dtmf: true,
         fallback_destination: 'fallback_destination',

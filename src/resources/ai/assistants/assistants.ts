@@ -3203,6 +3203,16 @@ export interface StartSpeakingPlan {
 
 export interface TelephonySettings {
   /**
+   * When enabled, the `messages` array of the `call.conversation.ended` webhook
+   * contains the full conversation history in order: user and assistant turns,
+   * assistant tool calls (`tool_calls`), tool results (`role: tool` with
+   * `tool_call_id`), and informational `system` and `developer` entries. The
+   * assistant's instructions are never included. When disabled, `messages` contains
+   * only user and assistant text turns.
+   */
+  conversation_ended_full_history?: boolean;
+
+  /**
    * Default Texml App used for voice calls with your assistant. This will be created
    * automatically on assistant creation.
    */

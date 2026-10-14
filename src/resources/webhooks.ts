@@ -536,6 +536,16 @@ export namespace CallConversationEnded {
     llm_model?: string;
 
     /**
+     * The conversation transcript, in order. By default it contains only `user` and
+     * `assistant` text turns. When the assistant's
+     * `telephony_settings.conversation_ended_full_history` is `true`, it contains the
+     * full conversation history, including assistant tool calls, tool results, and
+     * `system` and `developer` entries. Redacted when data retention is disabled for
+     * the account.
+     */
+    messages?: Array<Payload.Message>;
+
+    /**
      * Reason the conversation ended. For Conversation Relay, `customer_disconnect`
      * indicates that the customer WebSocket disconnected.
      */
@@ -565,6 +575,73 @@ export namespace CallConversationEnded {
      * Voice ID used for TTS.
      */
     tts_voice_id?: string;
+  }
+
+  export namespace Payload {
+    export interface Message {
+      /**
+       * The text of the message. For a tool result, the tool output. May be absent on an
+       * assistant message that only contains `tool_calls`.
+       */
+      content?: string;
+
+      /**
+       * The author of the message. `tool`, `system`, and `developer` only appear when
+       * `conversation_ended_full_history` is enabled. `system` and `developer` entries
+       * are informational (for example idle check-ins, voicemail prompts,
+       * participant-left notices, or messages added through the API); their wording is
+       * not a stable contract.
+       */
+      role?: 'user' | 'assistant' | 'tool' | 'system' | 'developer';
+
+      /**
+       * ISO 8601 datetime of when the message was added to the conversation.
+       */
+      timestamp?: string;
+
+      /**
+       * The `id` of the tool call this message answers. Only present on `tool` messages
+       * when `conversation_ended_full_history` is enabled.
+       */
+      tool_call_id?: string;
+
+      /**
+       * Tools the assistant called in this turn. Only present on `assistant` messages
+       * when `conversation_ended_full_history` is enabled.
+       */
+      tool_calls?: Array<Message.ToolCall>;
+    }
+
+    export namespace Message {
+      export interface ToolCall {
+        /**
+         * Identifier of the tool call, referenced by the matching tool result's
+         * `tool_call_id`.
+         */
+        id?: string;
+
+        function?: ToolCall.Function;
+
+        /**
+         * The type of tool call.
+         */
+        type?: 'function';
+      }
+
+      export namespace ToolCall {
+        export interface Function {
+          /**
+           * The arguments passed to the tool, as a JSON-encoded string.
+           */
+          arguments?: string;
+
+          /**
+           * The name of the tool that was called.
+           */
+          name?: string;
+        }
+      }
+    }
   }
 }
 
