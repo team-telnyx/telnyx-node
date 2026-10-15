@@ -1399,7 +1399,6 @@ const fuse = new Fuse(
     'client.meetingSessions.list',
     'client.meetingSessions.retrieve',
     'client.meetingSessions.retrieveEvents',
-    'client.meetingSessions.retrieveRecordings',
     'client.meetingSessions.retrieveTranscript',
     'client.meetingSessions.update',
     'client.meetingSessions.actions.sendChat',

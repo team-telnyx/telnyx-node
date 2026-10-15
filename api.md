@@ -361,7 +361,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
@@ -435,7 +434,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
@@ -6035,7 +6033,6 @@ Types:
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionListResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionDeleteRecordingMediaResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveEventsResponse</a></code>
-- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveRecordingsResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveTranscriptResponse</a></code>
 
 Methods:
@@ -6047,7 +6044,6 @@ Methods:
 - <code title="patch /meeting_sessions/{id}">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">update</a>(id, { ...params }) -> MeetingSessionResponse</code>
 - <code title="get /meeting_sessions/{id}/events">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveEvents</a>(id, { ...params }) -> MeetingSessionRetrieveEventsResponse</code>
 - <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">deleteRecordingMedia</a>(id) -> MeetingSessionDeleteRecordingMediaResponse</code>
-- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveRecordings</a>(id) -> MeetingSessionRetrieveRecordingsResponse</code>
 - <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveTranscript</a>(id, { ...params }) -> MeetingSessionRetrieveTranscriptResponse</code>
 
 ## Actions

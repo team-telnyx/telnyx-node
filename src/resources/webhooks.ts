@@ -6695,50 +6695,6 @@ export namespace NumberReputationNumberRemovedWebhookEvent {
   }
 }
 
-export interface RecordingAvailableWebhookEvent {
-  /**
-   * Unique event id; deduplicate deliveries on it.
-   */
-  id: string;
-
-  /**
-   * Available recording types.
-   */
-  data: RecordingAvailableWebhookEvent.Data;
-
-  /**
-   * Event type.
-   */
-  event: 'recording.available';
-
-  /**
-   * When the event occurred.
-   */
-  occurred_at: string;
-
-  /**
-   * Envelope version.
-   */
-  version: string;
-}
-
-export namespace RecordingAvailableWebhookEvent {
-  /**
-   * Available recording types.
-   */
-  export interface Data {
-    /**
-     * Available recording types.
-     */
-    recording_types: Array<string>;
-
-    /**
-     * The meeting session this event belongs to.
-     */
-    session_id: string;
-  }
-}
-
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
 }
@@ -6791,8 +6747,7 @@ export namespace SessionStatusChangedWebhookEvent {
     status: string;
 
     /**
-     * Additional detail about the status (for example `timeout_exceeded_everyone_left`
-     * or `cancelled`), or null.
+     * Additional detail about the status (for example `cancelled`), or null.
      */
     status_detail: string | null;
   }
@@ -8828,50 +8783,6 @@ export namespace NumberReputationNumberRemovedWebhookEvent {
   }
 }
 
-export interface RecordingAvailableWebhookEvent {
-  /**
-   * Unique event id; deduplicate deliveries on it.
-   */
-  id: string;
-
-  /**
-   * Available recording types.
-   */
-  data: RecordingAvailableWebhookEvent.Data;
-
-  /**
-   * Event type.
-   */
-  event: 'recording.available';
-
-  /**
-   * When the event occurred.
-   */
-  occurred_at: string;
-
-  /**
-   * Envelope version.
-   */
-  version: string;
-}
-
-export namespace RecordingAvailableWebhookEvent {
-  /**
-   * Available recording types.
-   */
-  export interface Data {
-    /**
-     * Available recording types.
-     */
-    recording_types: Array<string>;
-
-    /**
-     * The meeting session this event belongs to.
-     */
-    session_id: string;
-  }
-}
-
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
 }
@@ -8924,8 +8835,7 @@ export namespace SessionStatusChangedWebhookEvent {
     status: string;
 
     /**
-     * Additional detail about the status (for example `timeout_exceeded_everyone_left`
-     * or `cancelled`), or null.
+     * Additional detail about the status (for example `cancelled`), or null.
      */
     status_detail: string | null;
   }
@@ -9115,7 +9025,6 @@ export type UnsafeUnwrapWebhookEvent =
   | NumberReputationExternalVerificationStatusChangedWebhookEvent
   | NumberReputationNumberFlaggedWebhookEvent
   | NumberReputationNumberRemovedWebhookEvent
-  | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
@@ -9200,7 +9109,6 @@ export type UnwrapWebhookEvent =
   | NumberReputationExternalVerificationStatusChangedWebhookEvent
   | NumberReputationNumberFlaggedWebhookEvent
   | NumberReputationNumberRemovedWebhookEvent
-  | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
@@ -9343,7 +9251,6 @@ export declare namespace Webhooks {
     type NumberReputationExternalVerificationStatusChangedWebhookEvent as NumberReputationExternalVerificationStatusChangedWebhookEvent,
     type NumberReputationNumberFlaggedWebhookEvent as NumberReputationNumberFlaggedWebhookEvent,
     type NumberReputationNumberRemovedWebhookEvent as NumberReputationNumberRemovedWebhookEvent,
-    type RecordingAvailableWebhookEvent as RecordingAvailableWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
     type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,

@@ -148,8 +148,8 @@ export class MeetingSessions extends APIResource {
    * The operation retains the Telnyx-local Meeting session, transcript segments,
    * events, artifacts, and usage records. It is separate from
    * `DELETE /meeting_sessions/{id}`, which stops or cancels participation without
-   * deleting the persisted session. A missing/foreign session returns 404; provider
-   * deletion failures return 502.
+   * deleting the persisted session. A missing/foreign session returns 404; a
+   * deletion request whose outcome is unknown returns 502.
    *
    * @example
    * ```ts
@@ -164,24 +164,6 @@ export class MeetingSessions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MeetingSessionDeleteRecordingMediaResponse> {
     return this._client.delete(path`/meeting_sessions/${id}/recording_media`, options);
-  }
-
-  /**
-   * Returns recordings for a meeting session.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.meetingSessions.retrieveRecordings(
-   *     'mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-   *   );
-   * ```
-   */
-  retrieveRecordings(
-    id: string,
-    options?: RequestOptions,
-  ): APIPromise<MeetingSessionRetrieveRecordingsResponse> {
-    return this._client.get(path`/meeting_sessions/${id}/recordings`, options);
   }
 
   /**
@@ -480,27 +462,6 @@ export namespace MeetingSessionRetrieveEventsResponse {
   }
 }
 
-export interface MeetingSessionRetrieveRecordingsResponse {
-  data: Array<MeetingSessionRetrieveRecordingsResponse.Data>;
-}
-
-export namespace MeetingSessionRetrieveRecordingsResponse {
-  export interface Data {
-    /**
-     * Expiry timestamp when available, or null. Currently returns null.
-     */
-    expires_at: string | null;
-
-    type: string;
-
-    /**
-     * Current provider download URL. The API does not guarantee URL lifetime or
-     * refresh behavior.
-     */
-    url: string;
-  }
-}
-
 export interface MeetingSessionRetrieveTranscriptResponse {
   data: Array<MeetingSessionRetrieveTranscriptResponse.Data>;
 
@@ -791,7 +752,6 @@ export declare namespace MeetingSessions {
     type MeetingSessionListResponse as MeetingSessionListResponse,
     type MeetingSessionDeleteRecordingMediaResponse as MeetingSessionDeleteRecordingMediaResponse,
     type MeetingSessionRetrieveEventsResponse as MeetingSessionRetrieveEventsResponse,
-    type MeetingSessionRetrieveRecordingsResponse as MeetingSessionRetrieveRecordingsResponse,
     type MeetingSessionRetrieveTranscriptResponse as MeetingSessionRetrieveTranscriptResponse,
     type MeetingSessionListParams as MeetingSessionListParams,
     type MeetingSessionCreateParams as MeetingSessionCreateParams,

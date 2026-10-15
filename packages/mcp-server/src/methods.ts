@@ -7746,12 +7746,6 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/meeting_sessions/{id}/recording_media',
   },
   {
-    clientCallName: 'client.meetingSessions.retrieveRecordings',
-    fullyQualifiedName: 'meetingSessions.retrieveRecordings',
-    httpMethod: 'get',
-    httpPath: '/meeting_sessions/{id}/recordings',
-  },
-  {
     clientCallName: 'client.meetingSessions.retrieveTranscript',
     fullyQualifiedName: 'meetingSessions.retrieveTranscript',
     httpMethod: 'get',
