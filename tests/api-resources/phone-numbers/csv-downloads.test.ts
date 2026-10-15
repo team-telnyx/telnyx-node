@@ -67,6 +67,7 @@ describe('resource csvDownloads', () => {
             },
             'voice.usage_payment_method': 'channel',
           },
+          include_managed_accounts: true,
         },
         { path: '/_stainless_unknown_path' },
       ),
