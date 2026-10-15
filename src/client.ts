@@ -1630,6 +1630,7 @@ import {
 } from './resources/payment/payment';
 import { PhoneNumberBlocks } from './resources/phone-number-blocks/phone-number-blocks';
 import {
+  NumbersError73c9788e53,
   NumbersPhoneNumberDetailed,
   NumbersPhoneNumberDetailedsDefaultFlatPagination,
   PhoneNumberDeleteResponse,
@@ -4664,6 +4665,7 @@ export declare namespace Telnyx {
 
   export {
     PhoneNumbers as PhoneNumbers,
+    type NumbersError73c9788e53 as NumbersError73c9788e53,
     type NumbersPhoneNumberDetailed as NumbersPhoneNumberDetailed,
     type PhoneNumberDetailed as PhoneNumberDetailed,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,

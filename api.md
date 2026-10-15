@@ -3028,6 +3028,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/phone-numbers/phone-numbers.ts">NumbersError73c9788e53</a></code>
 - <code><a href="./src/resources/phone-numbers/phone-numbers.ts">NumbersPhoneNumberDetailed</a></code>
 - <code><a href="./src/resources/phone-numbers/phone-numbers.ts">PhoneNumberDetailed</a></code>
 - <code><a href="./src/resources/phone-numbers/phone-numbers.ts">PhoneNumberRetrieveResponse</a></code>
@@ -3076,6 +3077,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/phone-numbers/jobs.ts">NumbersPhoneNumbersJob</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">PhoneNumbersJob</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">JobRetrieveResponse</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">JobDeleteBatchResponse</a></code>
@@ -3084,7 +3086,7 @@ Types:
 
 Methods:
 
-- <code title="get /phone_numbers/jobs">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">list</a>({ ...params }) -> PhoneNumbersJobsDefaultFlatPagination</code>
+- <code title="get /phone_numbers/jobs">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">list</a>({ ...params }) -> NumbersPhoneNumbersJobsDefaultFlatPagination</code>
 - <code title="post /phone_numbers/jobs/delete_phone_numbers">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">deleteBatch</a>({ ...params }) -> JobDeleteBatchResponse</code>
 - <code title="post /phone_numbers/jobs/update_emergency_settings">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">updateEmergencySettingsBatch</a>({ ...params }) -> JobUpdateEmergencySettingsBatchResponse</code>
 - <code title="post /phone_numbers/jobs/update_phone_numbers">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">updateBatch</a>({ ...params }) -> JobUpdateBatchResponse</code>
