@@ -46,14 +46,10 @@ describe('resource meetingSessions', () => {
       meeting_url: 'https://zoom.us/j/1234567890',
       assistant: {
         id: 'asst_fake-uuid-1234',
-        audio_gate: 'half_duplex',
-        dynamic_variables: { candidate_name: 'Ada Lovelace', role: 'Staff Engineer' },
+        audio_gate: 'full_duplex',
+        avatar: true,
+        dynamic_variables: { foo: 'string' },
         leave_on_end: true,
-      },
-      avatar: {
-        api_key: 'fake_avatar_api_key_do_not_use',
-        avatar_id: 'avatar_fake-001',
-        provider: 'anam',
       },
       barge_in: true,
       bot_name: 'Notetaker',
