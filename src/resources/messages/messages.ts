@@ -423,9 +423,17 @@ export namespace MessagingInboundMessagePayload {
     foreign_id?: string;
 
     /**
-     * WhatsApp sender in E.164 format.
+     * WhatsApp sender in E.164 format. Empty when the user hides their phone number;
+     * `from_user_id` then identifies the sender.
      */
     from?: string;
+
+    /**
+     * Business-scoped user ID (BSUID) of the WhatsApp sender when Meta provides one,
+     * for example `US.13491208655302741918`. When `from` is empty, pass this value as
+     * `to` to reply.
+     */
+    from_user_id?: string;
 
     /**
      * Location shared in an RCS message.
@@ -710,7 +718,8 @@ export interface MessagingOutboundMessagePayload {
   id?: string;
 
   /**
-   * RCS webhook message body. Text messages use the text property.
+   * Message body for RCS and WhatsApp. RCS text messages use the text property.
+   * WhatsApp messages contain the `whatsapp_message` object from the send request.
    */
   body?: MessagingOutboundMessagePayload.Body;
 
@@ -818,6 +827,17 @@ export interface MessagingOutboundMessagePayload {
   tcr_campaign_registered?: string | null;
 
   /**
+   * Telnyx ID of the WhatsApp template used by the message, when known.
+   */
+  template_id?: string;
+
+  /**
+   * Name of the WhatsApp template used by the message. Present for WhatsApp template
+   * messages.
+   */
+  template_name?: string;
+
+  /**
    * Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
@@ -829,7 +849,7 @@ export interface MessagingOutboundMessagePayload {
   /**
    * The type of message.
    */
-  type?: 'SMS' | 'MMS' | 'RCS';
+  type?: 'SMS' | 'MMS' | 'RCS' | 'WHATSAPP';
 
   /**
    * Message must be out of the queue by this time or else it will be discarded and
@@ -859,13 +879,16 @@ export interface MessagingOutboundMessagePayload {
 
 export namespace MessagingOutboundMessagePayload {
   /**
-   * RCS webhook message body. Text messages use the text property.
+   * Message body for RCS and WhatsApp. RCS text messages use the text property.
+   * WhatsApp messages contain the `whatsapp_message` object from the send request.
    */
   export interface Body {
     /**
      * RCS text message.
      */
     text?: string;
+
+    [k: string]: unknown;
   }
 
   export interface Cc {
@@ -1030,7 +1053,8 @@ export interface OutboundMessagePayload {
   id?: string;
 
   /**
-   * RCS webhook message body. Text messages use the text property.
+   * Message body for RCS and WhatsApp. RCS text messages use the text property.
+   * WhatsApp messages contain the `whatsapp_message` object from the send request.
    */
   body?: OutboundMessagePayload.Body;
 
@@ -1138,6 +1162,17 @@ export interface OutboundMessagePayload {
   tcr_campaign_registered?: string | null;
 
   /**
+   * Telnyx ID of the WhatsApp template used by the message, when known.
+   */
+  template_id?: string;
+
+  /**
+   * Name of the WhatsApp template used by the message. Present for WhatsApp template
+   * messages.
+   */
+  template_name?: string;
+
+  /**
    * Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
@@ -1149,7 +1184,7 @@ export interface OutboundMessagePayload {
   /**
    * The type of message.
    */
-  type?: 'SMS' | 'MMS' | 'RCS';
+  type?: 'SMS' | 'MMS' | 'RCS' | 'WHATSAPP';
 
   /**
    * Message must be out of the queue by this time or else it will be discarded and
@@ -1179,13 +1214,16 @@ export interface OutboundMessagePayload {
 
 export namespace OutboundMessagePayload {
   /**
-   * RCS webhook message body. Text messages use the text property.
+   * Message body for RCS and WhatsApp. RCS text messages use the text property.
+   * WhatsApp messages contain the `whatsapp_message` object from the send request.
    */
   export interface Body {
     /**
      * RCS text message.
      */
     text?: string;
+
+    [k: string]: unknown;
   }
 
   export interface Cc {
@@ -2913,11 +2951,13 @@ export interface MessageWhatsappParams {
   from: string;
 
   /**
-   * Phone number in +E.164 format
+   * Recipient phone number in +E.164 format, or the business-scoped user ID (BSUID)
+   * of a WhatsApp user who hides their phone number, for example
+   * `US.13491208655302741918`. Authentication templates cannot be sent to a BSUID.
    */
   to: string;
 
-  whatsapp_message: WhatsappMessageContent;
+  whatsapp_message: MessageWhatsappParams.WhatsappMessage;
 
   /**
    * Messaging profile ID - required if the 'from' number is not SMS-enabled
@@ -2933,6 +2973,482 @@ export interface MessageWhatsappParams {
    * The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+}
+
+export namespace MessageWhatsappParams {
+  export interface WhatsappMessage {
+    audio?: MessagesAPI.WhatsappMedia;
+
+    /**
+     * custom data to return with status update
+     */
+    biz_opaque_callback_data?: string;
+
+    contacts?: Array<WhatsappMessage.Contact>;
+
+    document?: MessagesAPI.WhatsappMedia;
+
+    image?: MessagesAPI.WhatsappMedia;
+
+    interactive?: WhatsappMessage.Interactive;
+
+    location?: MessagesAPI.WhatsappLocation;
+
+    reaction?: MessagesAPI.WhatsappReaction;
+
+    sticker?: MessagesAPI.WhatsappMedia;
+
+    /**
+     * Template message object. Provide either template_id or name + language to
+     * identify the template.
+     */
+    template?: WhatsappMessage.Template;
+
+    /**
+     * Text message content. Can only be sent within a 24-hour customer service window.
+     */
+    text?: WhatsappMessage.Text;
+
+    type?:
+      | 'audio'
+      | 'document'
+      | 'image'
+      | 'sticker'
+      | 'video'
+      | 'interactive'
+      | 'location'
+      | 'template'
+      | 'reaction'
+      | 'contacts'
+      | 'text';
+
+    video?: MessagesAPI.WhatsappMedia;
+  }
+
+  export namespace WhatsappMessage {
+    export interface Contact {
+      addresses?: Array<Contact.Address>;
+
+      birthday?: string;
+
+      emails?: Array<Contact.Email>;
+
+      name?: Contact.Name;
+
+      org?: Contact.Org;
+
+      phones?: Array<Contact.Phone>;
+
+      urls?: Array<Contact.URL>;
+    }
+
+    export namespace Contact {
+      export interface Address {
+        city?: string;
+
+        country?: string;
+
+        country_code?: string;
+
+        state?: string;
+
+        street?: string;
+
+        type?: string;
+
+        zip?: string;
+      }
+
+      export interface Email {
+        email?: string;
+
+        type?: string;
+      }
+
+      export interface Name {
+        /**
+         * contact's full name as displayed in the message
+         */
+        formatted_name: string;
+
+        first_name?: string;
+
+        last_name?: string;
+
+        middle_name?: string;
+
+        prefix?: string;
+
+        suffix?: string;
+      }
+
+      export interface Org {
+        company?: string;
+
+        department?: string;
+
+        title?: string;
+      }
+
+      export interface Phone {
+        phone?: string;
+
+        type?: string;
+
+        wa_id?: string;
+      }
+
+      export interface URL {
+        type?: string;
+
+        url?: string;
+      }
+    }
+
+    export interface Interactive {
+      action?: Interactive.Action;
+
+      body?: Interactive.Body;
+
+      footer?: Interactive.Footer;
+
+      header?: Interactive.Header;
+
+      type?: 'cta_url' | 'list' | 'carousel' | 'button' | 'location_request_message' | 'flow';
+    }
+
+    export namespace Interactive {
+      export interface Action {
+        button?: string;
+
+        buttons?: Array<Action.Button>;
+
+        cards?: Array<Action.Card>;
+
+        catalog_id?: string;
+
+        mode?: string;
+
+        name?: string;
+
+        parameters?: Action.Parameters;
+
+        product_retailer_id?: string;
+
+        sections?: Array<Action.Section>;
+      }
+
+      export namespace Action {
+        export interface Button {
+          reply?: Button.Reply;
+
+          type?: 'reply';
+        }
+
+        export namespace Button {
+          export interface Reply {
+            /**
+             * unique identifier for each button, 256 character maximum
+             */
+            id?: string;
+
+            /**
+             * button label, 20 character maximum
+             */
+            title?: string;
+          }
+        }
+
+        export interface Card {
+          action?: Card.Action;
+
+          body?: Card.Body;
+
+          /**
+           * unique index for each card (0-9)
+           */
+          card_index?: number;
+
+          header?: Card.Header;
+
+          type?: 'cta_url';
+        }
+
+        export namespace Card {
+          export interface Action {
+            /**
+             * the unique ID of the catalog
+             */
+            catalog_id?: string;
+
+            /**
+             * the unique retailer ID of the product
+             */
+            product_retailer_id?: string;
+          }
+
+          export interface Body {
+            /**
+             * 160 character maximum, up to 2 line breaks
+             */
+            text?: string;
+          }
+
+          export interface Header {
+            image?: MessagesAPI.WhatsappMedia;
+
+            type?: 'image' | 'video';
+
+            video?: MessagesAPI.WhatsappMedia;
+          }
+        }
+
+        export interface Parameters {
+          /**
+           * button label text, 20 character maximum
+           */
+          display_text?: string;
+
+          /**
+           * how the flow starts. navigate opens the screen in flow_action_payload;
+           * data_exchange requests the first screen from the business's flow endpoint.
+           * Defaults to navigate
+           */
+          flow_action?: 'navigate' | 'data_exchange';
+
+          /**
+           * optional initial screen and data. When omitted, the flow opens on its first
+           * entry screen. Must be omitted when flow_action is data_exchange
+           */
+          flow_action_payload?: Parameters.FlowActionPayload;
+
+          /**
+           * text of the button that opens the flow, 1-20 characters, no emoji. Required for
+           * flow messages
+           */
+          flow_cta?: string;
+
+          /**
+           * ID of the flow to open. Provide exactly one of flow_id or flow_name
+           */
+          flow_id?: string;
+
+          /**
+           * flow message version, must be 3. Required for flow messages
+           */
+          flow_message_version?: string;
+
+          /**
+           * name of the flow to open. Provide exactly one of flow_id or flow_name
+           */
+          flow_name?: string;
+
+          /**
+           * business-generated identifier for the flow session. Returned in the flow
+           * response for correlation
+           */
+          flow_token?: string;
+
+          /**
+           * use draft to test an unpublished flow. Defaults to published
+           */
+          mode?: 'draft' | 'published';
+
+          /**
+           * button URL to load when tapped by the user
+           */
+          url?: string;
+        }
+
+        export namespace Parameters {
+          /**
+           * optional initial screen and data. When omitted, the flow opens on its first
+           * entry screen. Must be omitted when flow_action is data_exchange
+           */
+          export interface FlowActionPayload {
+            /**
+             * input data for the first screen. Must be a non-empty object when provided
+             */
+            data?: unknown;
+
+            /**
+             * ID of the first screen to show
+             */
+            screen?: string;
+          }
+        }
+
+        export interface Section {
+          product_items?: Array<Section.ProductItem>;
+
+          rows?: Array<Section.Row>;
+
+          /**
+           * section title, 24 character maximum
+           */
+          title?: string;
+        }
+
+        export namespace Section {
+          export interface ProductItem {
+            product_retailer_id?: string;
+          }
+
+          export interface Row {
+            /**
+             * arbitrary string identifying the row, 200 character maximum
+             */
+            id?: string;
+
+            /**
+             * row description, 72 character maximum
+             */
+            description?: string;
+
+            /**
+             * row title, 24 character maximum
+             */
+            title?: string;
+          }
+        }
+      }
+
+      export interface Body {
+        /**
+         * body text, 1024 character maximum
+         */
+        text?: string;
+      }
+
+      export interface Footer {
+        /**
+         * footer text, 60 character maximum
+         */
+        text?: string;
+      }
+
+      export interface Header {
+        /**
+         * header type. Required when a header is provided; the matching document, image,
+         * text, or video field must be set
+         */
+        type: 'document' | 'image' | 'text' | 'video';
+
+        document?: MessagesAPI.WhatsappMedia;
+
+        image?: MessagesAPI.WhatsappMedia;
+
+        sub_text?: string;
+
+        /**
+         * header text, 60 character maximum
+         */
+        text?: string;
+
+        video?: MessagesAPI.WhatsappMedia;
+      }
+    }
+
+    /**
+     * Template message object. Provide either template_id or name + language to
+     * identify the template.
+     */
+    export interface Template {
+      /**
+       * Template parameter values for header, body, and button components.
+       */
+      components?: Array<Template.Component>;
+
+      /**
+       * Template language. Required unless template_id is provided.
+       */
+      language?: Template.Language;
+
+      /**
+       * Template name as registered with Meta. Required unless template_id is provided.
+       */
+      name?: string;
+
+      /**
+       * Telnyx template ID (the id field from template list/get responses). When
+       * provided, name and language are resolved automatically.
+       */
+      template_id?: string;
+    }
+
+    export namespace Template {
+      export interface Component {
+        /**
+         * Button index (required for button components)
+         */
+        index?: number;
+
+        parameters?: Array<Component.Parameter>;
+
+        sub_type?: 'quick_reply' | 'url' | 'flow';
+
+        type?: 'header' | 'body' | 'button';
+      }
+
+      export namespace Component {
+        export interface Parameter {
+          /**
+           * Flow button parameters. Used with type action on a flow button component
+           */
+          action?: Parameter.Action;
+
+          text?: string;
+
+          type?: 'text' | 'image' | 'video' | 'document' | 'currency' | 'date_time' | 'action';
+        }
+
+        export namespace Parameter {
+          /**
+           * Flow button parameters. Used with type action on a flow button component
+           */
+          export interface Action {
+            /**
+             * input data for the first screen of the flow
+             */
+            flow_action_data?: unknown;
+
+            /**
+             * business-generated identifier for the flow session. Returned in the flow
+             * response for correlation
+             */
+            flow_token?: string;
+          }
+        }
+      }
+
+      /**
+       * Template language. Required unless template_id is provided.
+       */
+      export interface Language {
+        /**
+         * Language code (e.g. en_US)
+         */
+        code: string;
+
+        policy?: string;
+      }
+    }
+
+    /**
+     * Text message content. Can only be sent within a 24-hour customer service window.
+     */
+    export interface Text {
+      /**
+       * The text message body.
+       */
+      body: string;
+
+      /**
+       * Whether to show a URL preview in the message.
+       */
+      preview_url?: boolean;
+    }
+  }
 }
 
 Messages.Rcs = Rcs;

@@ -6546,6 +6546,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/whatsapp/signup/{id}/status',
   },
   {
+    clientCallName: 'client.whatsapp.hostedSignups.list',
+    fullyQualifiedName: 'whatsapp.hostedSignups.list',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/hosted_signups',
+  },
+  {
+    clientCallName: 'client.whatsapp.hostedSignups.create',
+    fullyQualifiedName: 'whatsapp.hostedSignups.create',
+    httpMethod: 'post',
+    httpPath: '/whatsapp/hosted_signups',
+  },
+  {
+    clientCallName: 'client.whatsapp.hostedSignups.retrieve',
+    fullyQualifiedName: 'whatsapp.hostedSignups.retrieve',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/hosted_signups/{id}',
+  },
+  {
     clientCallName: 'client.whatsappMessageTemplates.delete',
     fullyQualifiedName: 'whatsappMessageTemplates.delete',
     httpMethod: 'delete',
@@ -7744,12 +7762,6 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'meetingSessions.deleteRecordingMedia',
     httpMethod: 'delete',
     httpPath: '/meeting_sessions/{id}/recording_media',
-  },
-  {
-    clientCallName: 'client.meetingSessions.retrieveRecordings',
-    fullyQualifiedName: 'meetingSessions.retrieveRecordings',
-    httpMethod: 'get',
-    httpPath: '/meeting_sessions/{id}/recordings',
   },
   {
     clientCallName: 'client.meetingSessions.retrieveTranscript',

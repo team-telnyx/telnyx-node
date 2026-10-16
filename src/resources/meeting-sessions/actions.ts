@@ -31,12 +31,15 @@ export class Actions extends APIResource {
 
   /**
    * Sends audio / text-to-speech into a meeting session. With a Telnyx AI Assistant
-   * (or avatar) attached, the bot is a webpage-output bot: the speak audio routes
-   * through the assistant's output page rather than the bot mic and plays once the
-   * assistant is connected -- it is not refused. If that page cannot be reached,
-   * delivery fails with the 502 below, which may arrive without an error envelope,
-   * so branch on the status code before parsing a body. The assistant is designed to
-   * own the conversation, so prefer letting it speak or use `send_chat`.
+   * attached, the bot is a webpage-output bot: the speak audio routes through the
+   * assistant's output page rather than the bot mic and plays once the assistant is
+   * connected -- it is not refused. If that page cannot be reached, delivery fails
+   * with the 502 below, which may arrive without an error envelope, so branch on the
+   * status code before parsing a body. The assistant is designed to own the
+   * conversation, so prefer letting it speak or use `send_chat`. With a digital
+   * avatar (`assistant.avatar: true`), speak is refused with 409 `invalid_state`
+   * (message prefix `avatar_requires_assistant_speech:`): the avatar renders only
+   * the assistant's own speech.
    *
    * @example
    * ```ts
@@ -54,7 +57,10 @@ export class Actions extends APIResource {
   }
 
   /**
-   * Stops any active text-to-speech playback in a meeting session.
+   * Stops any active text-to-speech playback in a meeting session. Sessions with a
+   * digital avatar (`assistant.avatar: true`) return 409 `invalid_state` (message
+   * prefix `avatar_requires_assistant_speech:`): the avatar renders only the
+   * assistant's own speech.
    *
    * @example
    * ```ts

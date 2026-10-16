@@ -4920,6 +4920,262 @@ export namespace ArtifactFailedWebhookEvent {
   }
 }
 
+export interface CallAnalyzedWebhookEvent {
+  data?: CallAnalyzedWebhookEvent.Data;
+}
+
+export namespace CallAnalyzedWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.analyzed';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Unique identifier of the assistant involved in the call.
+       */
+      assistant_id?: string;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call leg.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session (group of related call legs).
+       */
+      call_session_id?: string;
+
+      /**
+       * Base64-encoded state received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * ID unique to the conversation generated for the call.
+       */
+      conversation_id?: string;
+
+      /**
+       * The conversation's generated insights, when insight generation was enabled for
+       * the assistant and has completed. Each entry carries a `status` and the generated
+       * `conversation_insights` results. An empty array when the conversation has no
+       * generated insights; null when insight data could not be retrieved.
+       */
+      conversation_insights?: Array<Payload.ConversationInsight> | null;
+
+      /**
+       * The session's cost breakdown from Session Analysis, covering every product
+       * billed on the call: the AI Voice Assistant engine minutes
+       * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
+       * SIP trunking, and recording lines. If cost data could not be retrieved after
+       * retries, this field carries the placeholder string `No cost data available.`
+       * instead of an object.
+       */
+      cost?: Payload.UnionMember0 | string;
+
+      /**
+       * Duration of the conversation in seconds.
+       */
+      duration_sec?: number;
+
+      /**
+       * The caller's number or identifier.
+       */
+      from?: string;
+
+      /**
+       * The large language model used during the conversation.
+       */
+      llm_model?: string;
+
+      /**
+       * Reason the conversation ended.
+       */
+      reason?: string | null;
+
+      /**
+       * Recordings created for the call. An empty array when the call had no recordings;
+       * null when recording data could not be retrieved.
+       */
+      recordings?: Array<Payload.Recording> | null;
+
+      /**
+       * The speech-to-text model used in the conversation.
+       */
+      stt_model?: string;
+
+      /**
+       * The callee's number or SIP address.
+       */
+      to?: string;
+
+      /**
+       * The model ID used for text-to-speech synthesis.
+       */
+      tts_model_id?: string;
+
+      /**
+       * The text-to-speech provider used in the call.
+       */
+      tts_provider?: string;
+
+      /**
+       * Voice ID used for TTS.
+       */
+      tts_voice_id?: string;
+    }
+
+    export namespace Payload {
+      export interface ConversationInsight {
+        /**
+         * Generated insight results.
+         */
+        conversation_insights?: Array<ConversationInsight.ConversationInsight> | null;
+
+        /**
+         * Status of insight generation for this entry.
+         */
+        status?: string;
+      }
+
+      export namespace ConversationInsight {
+        export interface ConversationInsight {
+          /**
+           * Identifier of the insight template the result was generated from.
+           */
+          insight_id?: string;
+
+          /**
+           * The generated insight result.
+           */
+          result?: string;
+        }
+      }
+
+      /**
+       * The session's cost breakdown from Session Analysis, covering every product
+       * billed on the call: the AI Voice Assistant engine minutes
+       * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
+       * SIP trunking, and recording lines. If cost data could not be retrieved after
+       * retries, this field carries the placeholder string `No cost data available.`
+       * instead of an object.
+       */
+      export interface UnionMember0 {
+        /**
+         * Cost lines grouped by product.
+         */
+        breakdown?: Array<UnionMember0.Breakdown>;
+
+        /**
+         * The currency of the cost amounts.
+         */
+        currency?: string;
+
+        /**
+         * The total cost of the call, summed across every product in the breakdown.
+         */
+        total?: string;
+      }
+
+      export namespace UnionMember0 {
+        export interface Breakdown {
+          /**
+           * Total cost for this product across the call, in the currency given by
+           * `cost.currency`.
+           */
+          cost?: string;
+
+          /**
+           * The Telnyx product the cost line belongs to (for example `ai-voice-assistant`,
+           * `inference`, `callcontrol-cdrs`, `siptrunking-cdrs`, `recording-cdrs`).
+           */
+          product?: string;
+        }
+      }
+
+      export interface Recording {
+        /**
+         * Unique identifier of the recording.
+         */
+        id?: string;
+
+        /**
+         * The recording channel configuration.
+         */
+        channels?: string;
+
+        /**
+         * Download URL per format. URLs are pre-signed and expire.
+         */
+        download_urls?: Recording.DownloadURLs;
+
+        /**
+         * ISO 8601 datetime of when the recording ended.
+         */
+        end_time?: string;
+
+        /**
+         * The recording file format.
+         */
+        format?: string;
+
+        /**
+         * ISO 8601 datetime of when the recording started.
+         */
+        start_time?: string;
+      }
+
+      export namespace Recording {
+        /**
+         * Download URL per format. URLs are pre-signed and expire.
+         */
+        export interface DownloadURLs {
+          /**
+           * Pre-signed URL for the mp3 recording file.
+           */
+          mp3?: string;
+
+          /**
+           * Pre-signed URL for the wav recording file.
+           */
+          wav?: string;
+        }
+      }
+    }
+  }
+}
+
 export interface CallAnsweredWebhookEvent {
   data?: CallAnswered;
 }
@@ -6695,50 +6951,6 @@ export namespace NumberReputationNumberRemovedWebhookEvent {
   }
 }
 
-export interface RecordingAvailableWebhookEvent {
-  /**
-   * Unique event id; deduplicate deliveries on it.
-   */
-  id: string;
-
-  /**
-   * Available recording types.
-   */
-  data: RecordingAvailableWebhookEvent.Data;
-
-  /**
-   * Event type.
-   */
-  event: 'recording.available';
-
-  /**
-   * When the event occurred.
-   */
-  occurred_at: string;
-
-  /**
-   * Envelope version.
-   */
-  version: string;
-}
-
-export namespace RecordingAvailableWebhookEvent {
-  /**
-   * Available recording types.
-   */
-  export interface Data {
-    /**
-     * Available recording types.
-     */
-    recording_types: Array<string>;
-
-    /**
-     * The meeting session this event belongs to.
-     */
-    session_id: string;
-  }
-}
-
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
 }
@@ -6791,8 +7003,7 @@ export namespace SessionStatusChangedWebhookEvent {
     status: string;
 
     /**
-     * Additional detail about the status (for example `timeout_exceeded_everyone_left`
-     * or `cancelled`), or null.
+     * Additional detail about the status (for example `cancelled`), or null.
      */
     status_detail: string | null;
   }
@@ -7053,6 +7264,262 @@ export namespace ArtifactFailedWebhookEvent {
   }
 }
 
+export interface CallAnalyzedWebhookEvent {
+  data?: CallAnalyzedWebhookEvent.Data;
+}
+
+export namespace CallAnalyzedWebhookEvent {
+  export interface Data {
+    /**
+     * Unique identifier for the event.
+     */
+    id?: string;
+
+    /**
+     * The type of event being delivered.
+     */
+    event_type?: 'call.analyzed';
+
+    /**
+     * ISO 8601 datetime of when the event occurred.
+     */
+    occurred_at?: string;
+
+    payload?: Data.Payload;
+
+    /**
+     * Identifies the type of the resource.
+     */
+    record_type?: 'event';
+  }
+
+  export namespace Data {
+    export interface Payload {
+      /**
+       * Unique identifier of the assistant involved in the call.
+       */
+      assistant_id?: string;
+
+      /**
+       * Call ID used to issue commands via Call Control API.
+       */
+      call_control_id?: string;
+
+      /**
+       * ID that is unique to the call leg.
+       */
+      call_leg_id?: string;
+
+      /**
+       * ID that is unique to the call session (group of related call legs).
+       */
+      call_session_id?: string;
+
+      /**
+       * Base64-encoded state received from a command.
+       */
+      client_state?: string;
+
+      /**
+       * Call Control App ID (formerly Telnyx connection ID) used in the call.
+       */
+      connection_id?: string;
+
+      /**
+       * ID unique to the conversation generated for the call.
+       */
+      conversation_id?: string;
+
+      /**
+       * The conversation's generated insights, when insight generation was enabled for
+       * the assistant and has completed. Each entry carries a `status` and the generated
+       * `conversation_insights` results. An empty array when the conversation has no
+       * generated insights; null when insight data could not be retrieved.
+       */
+      conversation_insights?: Array<Payload.ConversationInsight> | null;
+
+      /**
+       * The session's cost breakdown from Session Analysis, covering every product
+       * billed on the call: the AI Voice Assistant engine minutes
+       * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
+       * SIP trunking, and recording lines. If cost data could not be retrieved after
+       * retries, this field carries the placeholder string `No cost data available.`
+       * instead of an object.
+       */
+      cost?: Payload.UnionMember0 | string;
+
+      /**
+       * Duration of the conversation in seconds.
+       */
+      duration_sec?: number;
+
+      /**
+       * The caller's number or identifier.
+       */
+      from?: string;
+
+      /**
+       * The large language model used during the conversation.
+       */
+      llm_model?: string;
+
+      /**
+       * Reason the conversation ended.
+       */
+      reason?: string | null;
+
+      /**
+       * Recordings created for the call. An empty array when the call had no recordings;
+       * null when recording data could not be retrieved.
+       */
+      recordings?: Array<Payload.Recording> | null;
+
+      /**
+       * The speech-to-text model used in the conversation.
+       */
+      stt_model?: string;
+
+      /**
+       * The callee's number or SIP address.
+       */
+      to?: string;
+
+      /**
+       * The model ID used for text-to-speech synthesis.
+       */
+      tts_model_id?: string;
+
+      /**
+       * The text-to-speech provider used in the call.
+       */
+      tts_provider?: string;
+
+      /**
+       * Voice ID used for TTS.
+       */
+      tts_voice_id?: string;
+    }
+
+    export namespace Payload {
+      export interface ConversationInsight {
+        /**
+         * Generated insight results.
+         */
+        conversation_insights?: Array<ConversationInsight.ConversationInsight> | null;
+
+        /**
+         * Status of insight generation for this entry.
+         */
+        status?: string;
+      }
+
+      export namespace ConversationInsight {
+        export interface ConversationInsight {
+          /**
+           * Identifier of the insight template the result was generated from.
+           */
+          insight_id?: string;
+
+          /**
+           * The generated insight result.
+           */
+          result?: string;
+        }
+      }
+
+      /**
+       * The session's cost breakdown from Session Analysis, covering every product
+       * billed on the call: the AI Voice Assistant engine minutes
+       * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
+       * SIP trunking, and recording lines. If cost data could not be retrieved after
+       * retries, this field carries the placeholder string `No cost data available.`
+       * instead of an object.
+       */
+      export interface UnionMember0 {
+        /**
+         * Cost lines grouped by product.
+         */
+        breakdown?: Array<UnionMember0.Breakdown>;
+
+        /**
+         * The currency of the cost amounts.
+         */
+        currency?: string;
+
+        /**
+         * The total cost of the call, summed across every product in the breakdown.
+         */
+        total?: string;
+      }
+
+      export namespace UnionMember0 {
+        export interface Breakdown {
+          /**
+           * Total cost for this product across the call, in the currency given by
+           * `cost.currency`.
+           */
+          cost?: string;
+
+          /**
+           * The Telnyx product the cost line belongs to (for example `ai-voice-assistant`,
+           * `inference`, `callcontrol-cdrs`, `siptrunking-cdrs`, `recording-cdrs`).
+           */
+          product?: string;
+        }
+      }
+
+      export interface Recording {
+        /**
+         * Unique identifier of the recording.
+         */
+        id?: string;
+
+        /**
+         * The recording channel configuration.
+         */
+        channels?: string;
+
+        /**
+         * Download URL per format. URLs are pre-signed and expire.
+         */
+        download_urls?: Recording.DownloadURLs;
+
+        /**
+         * ISO 8601 datetime of when the recording ended.
+         */
+        end_time?: string;
+
+        /**
+         * The recording file format.
+         */
+        format?: string;
+
+        /**
+         * ISO 8601 datetime of when the recording started.
+         */
+        start_time?: string;
+      }
+
+      export namespace Recording {
+        /**
+         * Download URL per format. URLs are pre-signed and expire.
+         */
+        export interface DownloadURLs {
+          /**
+           * Pre-signed URL for the mp3 recording file.
+           */
+          mp3?: string;
+
+          /**
+           * Pre-signed URL for the wav recording file.
+           */
+          wav?: string;
+        }
+      }
+    }
+  }
+}
+
 export interface CallAnsweredWebhookEvent {
   data?: CallAnswered;
 }
@@ -8828,50 +9295,6 @@ export namespace NumberReputationNumberRemovedWebhookEvent {
   }
 }
 
-export interface RecordingAvailableWebhookEvent {
-  /**
-   * Unique event id; deduplicate deliveries on it.
-   */
-  id: string;
-
-  /**
-   * Available recording types.
-   */
-  data: RecordingAvailableWebhookEvent.Data;
-
-  /**
-   * Event type.
-   */
-  event: 'recording.available';
-
-  /**
-   * When the event occurred.
-   */
-  occurred_at: string;
-
-  /**
-   * Envelope version.
-   */
-  version: string;
-}
-
-export namespace RecordingAvailableWebhookEvent {
-  /**
-   * Available recording types.
-   */
-  export interface Data {
-    /**
-     * Available recording types.
-     */
-    recording_types: Array<string>;
-
-    /**
-     * The meeting session this event belongs to.
-     */
-    session_id: string;
-  }
-}
-
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
 }
@@ -8924,8 +9347,7 @@ export namespace SessionStatusChangedWebhookEvent {
     status: string;
 
     /**
-     * Additional detail about the status (for example `timeout_exceeded_everyone_left`
-     * or `cancelled`), or null.
+     * Additional detail about the status (for example `cancelled`), or null.
      */
     status_detail: string | null;
   }
@@ -9045,6 +9467,7 @@ export type UnsafeUnwrapWebhookEvent =
   | CallAIGatherPartialResultsWebhookEvent
   | ArtifactCompletedWebhookEvent
   | ArtifactFailedWebhookEvent
+  | CallAnalyzedWebhookEvent
   | CallAnsweredWebhookEvent
   | CallBridgedWebhookEvent
   | CallConversationCreatedWebhookEvent
@@ -9115,7 +9538,6 @@ export type UnsafeUnwrapWebhookEvent =
   | NumberReputationExternalVerificationStatusChangedWebhookEvent
   | NumberReputationNumberFlaggedWebhookEvent
   | NumberReputationNumberRemovedWebhookEvent
-  | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
@@ -9130,6 +9552,7 @@ export type UnwrapWebhookEvent =
   | CallAIGatherPartialResultsWebhookEvent
   | ArtifactCompletedWebhookEvent
   | ArtifactFailedWebhookEvent
+  | CallAnalyzedWebhookEvent
   | CallAnsweredWebhookEvent
   | CallBridgedWebhookEvent
   | CallConversationCreatedWebhookEvent
@@ -9200,7 +9623,6 @@ export type UnwrapWebhookEvent =
   | NumberReputationExternalVerificationStatusChangedWebhookEvent
   | NumberReputationNumberFlaggedWebhookEvent
   | NumberReputationNumberRemovedWebhookEvent
-  | RecordingAvailableWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
@@ -9280,6 +9702,7 @@ export declare namespace Webhooks {
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
     type ArtifactCompletedWebhookEvent as ArtifactCompletedWebhookEvent,
     type ArtifactFailedWebhookEvent as ArtifactFailedWebhookEvent,
+    type CallAnalyzedWebhookEvent as CallAnalyzedWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
     type CallConversationCreatedWebhookEvent as CallConversationCreatedWebhookEvent,
@@ -9343,7 +9766,6 @@ export declare namespace Webhooks {
     type NumberReputationExternalVerificationStatusChangedWebhookEvent as NumberReputationExternalVerificationStatusChangedWebhookEvent,
     type NumberReputationNumberFlaggedWebhookEvent as NumberReputationNumberFlaggedWebhookEvent,
     type NumberReputationNumberRemovedWebhookEvent as NumberReputationNumberRemovedWebhookEvent,
-    type RecordingAvailableWebhookEvent as RecordingAvailableWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
     type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,

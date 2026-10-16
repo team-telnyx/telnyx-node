@@ -13,7 +13,10 @@ import { path } from '../../../internal/utils/path';
 export class Versions extends APIResource {
   /**
    * Retrieves all versions of a specific assistant with complete configuration and
-   * metadata
+   * metadata. An assistant keeps at most 10 versions, including the main version.
+   * When an update takes it past that limit, the oldest versions are permanently
+   * deleted. The main version and any version referenced by a traffic distribution
+   * rule are never deleted this way.
    *
    * @example
    * ```ts
@@ -131,9 +134,11 @@ export interface UpdateAssistant {
   a2a_agents?: Array<AssistantsAPI.AssistantA2AAgent>;
 
   /**
-   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
-   * the six stock avatars or an organization-owned custom avatar returned by the
-   * Avatars API. Supported backgrounds are office, studio, and reception.
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
+   * avatar or an organization-owned custom avatar returned by the Avatars API.
+   * Discover the available stock catalog with GET /v2/ai/avatars and
+   * filter[avatar_type]=stock; follow meta.total_pages to load every page. Supported
+   * backgrounds are office, studio, and reception.
    */
   avatar_settings?: AssistantsAPI.AvatarSettingsRequest | null;
 
@@ -366,8 +371,10 @@ export interface VersionUpdateParams {
 
   /**
    * Body param: **Beta:** Configuration for the Telnyx open-source avatar provider.
-   * Use one of the six stock avatars or an organization-owned custom avatar returned
-   * by the Avatars API. Supported backgrounds are office, studio, and reception.
+   * Use a stock avatar or an organization-owned custom avatar returned by the
+   * Avatars API. Discover the available stock catalog with GET /v2/ai/avatars and
+   * filter[avatar_type]=stock; follow meta.total_pages to load every page. Supported
+   * backgrounds are office, studio, and reception.
    */
   avatar_settings?: AssistantsAPI.AvatarSettingsRequest | null;
 

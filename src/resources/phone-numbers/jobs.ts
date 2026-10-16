@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as Shared from '../shared';
 import * as JobsAPI from '../phone-number-blocks/jobs';
+import * as PhoneNumbersAPI from './phone-numbers';
 import * as VoiceAPI from './voice';
 import { APIPromise } from '../../core/api-promise';
 import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } from '../../core/pagination';
@@ -23,7 +24,7 @@ export class Jobs extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const phoneNumbersJob of client.phoneNumbers.jobs.list()) {
+   * for await (const numbersPhoneNumbersJob of client.phoneNumbers.jobs.list()) {
    *   // ...
    * }
    * ```
@@ -31,8 +32,8 @@ export class Jobs extends APIResource {
   list(
     query: JobListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumbersJobsDefaultFlatPagination, PhoneNumbersJob> {
-    return this._client.getAPIList('/phone_numbers/jobs', DefaultFlatPagination<PhoneNumbersJob>, {
+  ): PagePromise<NumbersPhoneNumbersJobsDefaultFlatPagination, NumbersPhoneNumbersJob> {
+    return this._client.getAPIList('/phone_numbers/jobs', DefaultFlatPagination<NumbersPhoneNumbersJob>, {
       query,
       ...options,
     });
@@ -128,7 +129,301 @@ export class Jobs extends APIResource {
   }
 }
 
-export type PhoneNumbersJobsDefaultFlatPagination = DefaultFlatPagination<PhoneNumbersJob>;
+export type NumbersPhoneNumbersJobsDefaultFlatPagination = DefaultFlatPagination<NumbersPhoneNumbersJob>;
+
+export interface NumbersPhoneNumbersJob {
+  /**
+   * Identifies the resource.
+   */
+  id?: string;
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was created.
+   */
+  created_at?: string;
+
+  /**
+   * ISO 8601 formatted date indicating when the estimated time of completion of the
+   * background job.
+   */
+  etc?: string;
+
+  failed_operations?: Array<NumbersPhoneNumbersJob.FailedOperation>;
+
+  /**
+   * Effective parameters saved when the job was created, not a snapshot of the
+   * original HTTP request or current phone-number settings. Update jobs include the
+   * saved update fields; emergency-settings jobs include the saved emergency fields;
+   * delete jobs include only targets. Absent fields are omitted, and saved false,
+   * null and empty values are preserved. Tags may be normalized to arrays;
+   * filter-created jobs contain resolved target identifiers rather than the original
+   * filters. Historical jobs with no saved arguments return an empty object.
+   */
+  parameters?: NumbersPhoneNumbersJob.Parameters;
+
+  pending_operations?: Array<NumbersPhoneNumbersJob.PendingOperation>;
+
+  phone_numbers?: Array<Shared.PhoneNumbersJobPhoneNumber>;
+
+  /**
+   * Identifies the type of the resource.
+   */
+  record_type?: string;
+
+  /**
+   * Indicates the completion status of the background update.
+   */
+  status?: 'pending' | 'in_progress' | 'completed' | 'failed' | 'expired';
+
+  successful_operations?: Array<NumbersPhoneNumbersJob.SuccessfulOperation>;
+
+  /**
+   * Identifies the type of the background job.
+   */
+  type?: 'update_emergency_settings' | 'delete_phone_numbers' | 'update_phone_numbers';
+
+  /**
+   * ISO 8601 formatted date indicating when the resource was updated.
+   */
+  updated_at?: string;
+}
+
+export namespace NumbersPhoneNumbersJob {
+  export interface FailedOperation {
+    /**
+     * The phone number's ID
+     */
+    id?: string;
+
+    errors?: Array<PhoneNumbersAPI.NumbersError73c9788e53>;
+
+    /**
+     * The phone number in e164 format.
+     */
+    phone_number?: string;
+  }
+
+  /**
+   * Effective parameters saved when the job was created, not a snapshot of the
+   * original HTTP request or current phone-number settings. Update jobs include the
+   * saved update fields; emergency-settings jobs include the saved emergency fields;
+   * delete jobs include only targets. Absent fields are omitted, and saved false,
+   * null and empty values are preserved. Tags may be normalized to arrays;
+   * filter-created jobs contain resolved target identifiers rather than the original
+   * filters. Historical jobs with no saved arguments return an empty object.
+   */
+  export interface Parameters {
+    /**
+     * Saved add_tags for an update_phone_numbers job. Values reflect creation-time
+     * normalization.
+     */
+    add_tags?: Array<string> | null;
+
+    /**
+     * Saved billing_group_id supplied for an update_phone_numbers job.
+     */
+    billing_group_id?: string | null;
+
+    /**
+     * Saved connection_id supplied for an update_phone_numbers job.
+     */
+    connection_id?: string | null;
+
+    /**
+     * Saved customer_reference supplied for an update_phone_numbers job.
+     */
+    customer_reference?: string | null;
+
+    /**
+     * Saved deletion_lock_enabled supplied for an update_phone_numbers job.
+     */
+    deletion_lock_enabled?: boolean | null;
+
+    /**
+     * Saved emergency address identifier for an update_emergency_settings job. An
+     * explicitly supplied null is preserved.
+     */
+    emergency_address_id?: string | null;
+
+    /**
+     * Saved emergency-services setting for an update_emergency_settings job.
+     */
+    emergency_enabled?: boolean | null;
+
+    /**
+     * Saved external_pin supplied for an update_phone_numbers job.
+     */
+    external_pin?: string | null;
+
+    /**
+     * Saved hd_voice_enabled supplied for an update_phone_numbers job.
+     */
+    hd_voice_enabled?: boolean | null;
+
+    /**
+     * Saved target phone numbers in E.164 format and/or identifiers. Jobs created
+     * using filters contain the resolved identifiers, not the original filter
+     * expression. Stored identifier types are preserved.
+     */
+    phone_numbers?: Array<string | number>;
+
+    /**
+     * Saved remove_tags for an update_phone_numbers job. Values reflect creation-time
+     * normalization.
+     */
+    remove_tags?: Array<string> | null;
+
+    /**
+     * Saved tags for an update_phone_numbers job. Values reflect creation-time
+     * normalization.
+     */
+    tags?: Array<string> | null;
+
+    /**
+     * Saved voice settings for an update_phone_numbers job, using the public field
+     * names and nesting. Only settings present at creation are returned.
+     */
+    voice?: Parameters.Voice;
+  }
+
+  export namespace Parameters {
+    /**
+     * Saved voice settings for an update_phone_numbers job, using the public field
+     * names and nesting. Only settings present at creation are returned.
+     */
+    export interface Voice {
+      call_forwarding?: Voice.CallForwarding;
+
+      call_recording?: Voice.CallRecording;
+
+      /**
+       * Saved caller_id_name_enabled setting.
+       */
+      caller_id_name_enabled?: boolean | null;
+
+      cnam_listing?: Voice.CnamListing;
+
+      /**
+       * Saved inbound_call_screening setting.
+       */
+      inbound_call_screening?: string | null;
+
+      media_features?: Voice.MediaFeatures;
+
+      /**
+       * Saved tech_prefix_enabled setting.
+       */
+      tech_prefix_enabled?: boolean | null;
+
+      /**
+       * Saved usage_payment_method setting.
+       */
+      usage_payment_method?: string | null;
+    }
+
+    export namespace Voice {
+      export interface CallForwarding {
+        /**
+         * Saved call_forwarding_enabled setting.
+         */
+        call_forwarding_enabled?: boolean | null;
+
+        /**
+         * Saved forwarding_type setting.
+         */
+        forwarding_type?: string | null;
+
+        /**
+         * Saved forwards_to setting.
+         */
+        forwards_to?: string | null;
+      }
+
+      export interface CallRecording {
+        /**
+         * Saved inbound_call_recording_channels setting.
+         */
+        inbound_call_recording_channels?: string | null;
+
+        /**
+         * Saved inbound_call_recording_enabled setting.
+         */
+        inbound_call_recording_enabled?: boolean | null;
+
+        /**
+         * Saved inbound_call_recording_format setting.
+         */
+        inbound_call_recording_format?: string | null;
+
+        /**
+         * Saved record_continue_on_hold setting.
+         */
+        record_continue_on_hold?: boolean | null;
+      }
+
+      export interface CnamListing {
+        /**
+         * Saved cnam_listing_details setting.
+         */
+        cnam_listing_details?: string | null;
+
+        /**
+         * Saved cnam_listing_enabled setting.
+         */
+        cnam_listing_enabled?: boolean | null;
+      }
+
+      export interface MediaFeatures {
+        /**
+         * Saved accept_any_rtp_packets_enabled setting.
+         */
+        accept_any_rtp_packets_enabled?: boolean | null;
+
+        /**
+         * Saved rtp_auto_adjust_enabled setting.
+         */
+        rtp_auto_adjust_enabled?: boolean | null;
+
+        /**
+         * Saved t38_fax_gateway_enabled setting.
+         */
+        t38_fax_gateway_enabled?: boolean | null;
+      }
+    }
+  }
+
+  /**
+   * The phone numbers pending confirmation on update results. Entries in this list
+   * are transient, and will be moved to either successful_operations or
+   * failed_operations once the processing is done.
+   */
+  export interface PendingOperation {
+    /**
+     * The phone number's ID
+     */
+    id?: string;
+
+    /**
+     * The phone number in e164 format.
+     */
+    phone_number?: string;
+  }
+
+  /**
+   * The phone numbers successfully updated.
+   */
+  export interface SuccessfulOperation {
+    /**
+     * The phone number's ID
+     */
+    id?: string;
+
+    /**
+     * The phone number in e164 format.
+     */
+    phone_number?: string;
+  }
+}
 
 export interface PhoneNumbersJob {
   /**
@@ -225,19 +520,19 @@ export namespace PhoneNumbersJob {
 }
 
 export interface JobRetrieveResponse {
-  data?: PhoneNumbersJob;
+  data?: NumbersPhoneNumbersJob;
 }
 
 export interface JobDeleteBatchResponse {
-  data?: PhoneNumbersJob;
+  data?: NumbersPhoneNumbersJob;
 }
 
 export interface JobUpdateBatchResponse {
-  data?: PhoneNumbersJob;
+  data?: NumbersPhoneNumbersJob;
 }
 
 export interface JobUpdateEmergencySettingsBatchResponse {
-  data?: PhoneNumbersJob;
+  data?: NumbersPhoneNumbersJob;
 }
 
 export interface JobListParams extends DefaultFlatPaginationParams {
@@ -485,12 +780,13 @@ export namespace JobUpdateBatchParams {
 
 export declare namespace Jobs {
   export {
+    type NumbersPhoneNumbersJob as NumbersPhoneNumbersJob,
     type PhoneNumbersJob as PhoneNumbersJob,
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobDeleteBatchResponse as JobDeleteBatchResponse,
     type JobUpdateBatchResponse as JobUpdateBatchResponse,
     type JobUpdateEmergencySettingsBatchResponse as JobUpdateEmergencySettingsBatchResponse,
-    type PhoneNumbersJobsDefaultFlatPagination as PhoneNumbersJobsDefaultFlatPagination,
+    type NumbersPhoneNumbersJobsDefaultFlatPagination as NumbersPhoneNumbersJobsDefaultFlatPagination,
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
     type JobUpdateEmergencySettingsBatchParams as JobUpdateEmergencySettingsBatchParams,
