@@ -1681,6 +1681,7 @@ export {
   type CallAIGatherPartialResultsWebhookEvent,
   type ArtifactCompletedWebhookEvent,
   type ArtifactFailedWebhookEvent,
+  type CallAnalyzedWebhookEvent,
   type CallAnsweredWebhookEvent,
   type CallBridgedWebhookEvent,
   type CallConversationCreatedWebhookEvent,

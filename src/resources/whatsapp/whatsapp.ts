@@ -1,6 +1,16 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as HostedSignupsAPI from './hosted-signups';
+import {
+  HostedSignupCreateParams,
+  HostedSignupCreateResponse,
+  HostedSignupListParams,
+  HostedSignupListResponse,
+  HostedSignupListResponsesDefaultFlatPagination,
+  HostedSignupRetrieveResponse,
+  HostedSignups,
+} from './hosted-signups';
 import * as SignupAPI from './signup';
 import {
   Signup,
@@ -60,6 +70,7 @@ export class Whatsapp extends APIResource {
   phoneNumbers: PhoneNumbersAPI.PhoneNumbers = new PhoneNumbersAPI.PhoneNumbers(this._client);
   userData: UserDataAPI.UserData = new UserDataAPI.UserData(this._client);
   signup: SignupAPI.Signup = new SignupAPI.Signup(this._client);
+  hostedSignups: HostedSignupsAPI.HostedSignups = new HostedSignupsAPI.HostedSignups(this._client);
 }
 
 Whatsapp.BusinessAccounts = BusinessAccounts;
@@ -67,6 +78,7 @@ Whatsapp.Templates = Templates;
 Whatsapp.PhoneNumbers = PhoneNumbers;
 Whatsapp.UserData = UserData;
 Whatsapp.Signup = Signup;
+Whatsapp.HostedSignups = HostedSignups;
 
 export declare namespace Whatsapp {
   export {
@@ -117,5 +129,15 @@ export declare namespace Whatsapp {
     type SignupRetrieveStatusResponse as SignupRetrieveStatusResponse,
     type SignupListResponsesDefaultFlatPagination as SignupListResponsesDefaultFlatPagination,
     type SignupListParams as SignupListParams,
+  };
+
+  export {
+    HostedSignups as HostedSignups,
+    type HostedSignupCreateResponse as HostedSignupCreateResponse,
+    type HostedSignupRetrieveResponse as HostedSignupRetrieveResponse,
+    type HostedSignupListResponse as HostedSignupListResponse,
+    type HostedSignupListResponsesDefaultFlatPagination as HostedSignupListResponsesDefaultFlatPagination,
+    type HostedSignupListParams as HostedSignupListParams,
+    type HostedSignupCreateParams as HostedSignupCreateParams,
   };
 }

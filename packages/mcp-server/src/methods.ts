@@ -6546,6 +6546,24 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/whatsapp/signup/{id}/status',
   },
   {
+    clientCallName: 'client.whatsapp.hostedSignups.list',
+    fullyQualifiedName: 'whatsapp.hostedSignups.list',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/hosted_signups',
+  },
+  {
+    clientCallName: 'client.whatsapp.hostedSignups.create',
+    fullyQualifiedName: 'whatsapp.hostedSignups.create',
+    httpMethod: 'post',
+    httpPath: '/whatsapp/hosted_signups',
+  },
+  {
+    clientCallName: 'client.whatsapp.hostedSignups.retrieve',
+    fullyQualifiedName: 'whatsapp.hostedSignups.retrieve',
+    httpMethod: 'get',
+    httpPath: '/whatsapp/hosted_signups/{id}',
+  },
+  {
     clientCallName: 'client.whatsappMessageTemplates.delete',
     fullyQualifiedName: 'whatsappMessageTemplates.delete',
     httpMethod: 'delete',

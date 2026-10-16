@@ -298,6 +298,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ArtifactCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallAnalyzedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
@@ -371,6 +372,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ArtifactCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallAnalyzedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
@@ -5210,6 +5212,20 @@ Methods:
 
 - <code title="get /whatsapp/signup">client.whatsapp.signup.<a href="./src/resources/whatsapp/signup.ts">list</a>({ ...params }) -> SignupListResponsesDefaultFlatPagination</code>
 - <code title="get /whatsapp/signup/{id}/status">client.whatsapp.signup.<a href="./src/resources/whatsapp/signup.ts">retrieveStatus</a>(id) -> SignupRetrieveStatusResponse</code>
+
+## HostedSignups
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/hosted-signups.ts">HostedSignupCreateResponse</a></code>
+- <code><a href="./src/resources/whatsapp/hosted-signups.ts">HostedSignupRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp/hosted-signups.ts">HostedSignupListResponse</a></code>
+
+Methods:
+
+- <code title="get /whatsapp/hosted_signups">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">list</a>({ ...params }) -> HostedSignupListResponsesDefaultFlatPagination</code>
+- <code title="post /whatsapp/hosted_signups">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">create</a>({ ...params }) -> HostedSignupCreateResponse</code>
+- <code title="get /whatsapp/hosted_signups/{id}">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">retrieve</a>(id) -> HostedSignupRetrieveResponse</code>
 
 # WhatsappMessageTemplates
 

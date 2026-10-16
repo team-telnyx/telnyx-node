@@ -298,7 +298,14 @@ describe('resource messages', () => {
             ],
             birthday: 'birthday',
             emails: [{ email: 'email', type: 'type' }],
-            name: 'name',
+            name: {
+              formatted_name: 'formatted_name',
+              first_name: 'first_name',
+              last_name: 'last_name',
+              middle_name: 'middle_name',
+              prefix: 'prefix',
+              suffix: 'suffix',
+            },
             org: {
               company: 'company',
               department: 'department',
@@ -361,7 +368,21 @@ describe('resource messages', () => {
             catalog_id: 'catalog_id',
             mode: 'mode',
             name: 'name',
-            parameters: { display_text: 'display_text', url: 'url' },
+            parameters: {
+              display_text: 'display_text',
+              flow_action: 'navigate',
+              flow_action_payload: {
+                data: {},
+                screen: 'screen',
+              },
+              flow_cta: 'flow_cta',
+              flow_id: 'flow_id',
+              flow_message_version: 'flow_message_version',
+              flow_name: 'flow_name',
+              flow_token: 'flow_token',
+              mode: 'draft',
+              url: 'url',
+            },
             product_retailer_id: 'product_retailer_id',
             sections: [
               {
@@ -380,6 +401,7 @@ describe('resource messages', () => {
           body: { text: 'text' },
           footer: { text: 'text' },
           header: {
+            type: 'document',
             document: {
               caption: 'caption',
               filename: 'filename',
@@ -420,7 +442,16 @@ describe('resource messages', () => {
           components: [
             {
               index: 0,
-              parameters: [{ text: 'text', type: 'text' }],
+              parameters: [
+                {
+                  action: {
+                    flow_action_data: {},
+                    flow_token: 'flow_token',
+                  },
+                  text: 'text',
+                  type: 'text',
+                },
+              ],
               sub_type: 'quick_reply',
               type: 'header',
             },
