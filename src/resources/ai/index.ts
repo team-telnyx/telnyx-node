@@ -179,6 +179,7 @@ export {
   type PayToolParams,
   type SharedToolResponse,
   type UpdateDynamicVariablesToolParams,
+  type VisionToolParams,
   type ToolListParams,
   type ToolCreateParams,
   type ToolUpdateParams,

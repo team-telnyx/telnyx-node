@@ -1062,6 +1062,7 @@ import {
   CallAIGatherMessageHistoryUpdatedWebhookEvent,
   CallAIGatherPartialResults,
   CallAIGatherPartialResultsWebhookEvent,
+  CallAnalyzedWebhookEvent,
   CallAnswered,
   CallAnsweredWebhookEvent,
   CallBridged,
@@ -1182,7 +1183,6 @@ import {
   NumberReputationNumberFlaggedWebhookEvent,
   NumberReputationNumberRemovedWebhookEvent,
   OutboundMessage,
-  RecordingAvailableWebhookEvent,
   ReplacedLinkClick,
   ReplacedLinkClickWebhookEvent,
   SessionStatusChangedWebhookEvent,
@@ -1506,7 +1506,6 @@ import {
   MeetingSessionResponse,
   MeetingSessionRetrieveEventsParams,
   MeetingSessionRetrieveEventsResponse,
-  MeetingSessionRetrieveRecordingsResponse,
   MeetingSessionRetrieveTranscriptParams,
   MeetingSessionRetrieveTranscriptResponse,
   MeetingSessionUpdateParams,
@@ -1632,6 +1631,7 @@ import {
 } from './resources/payment/payment';
 import { PhoneNumberBlocks } from './resources/phone-number-blocks/phone-number-blocks';
 import {
+  NumbersError73c9788e53,
   NumbersPhoneNumberDetailed,
   NumbersPhoneNumberDetailedsDefaultFlatPagination,
   PhoneNumberDeleteResponse,
@@ -3719,6 +3719,7 @@ export declare namespace Telnyx {
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
     type ArtifactCompletedWebhookEvent as ArtifactCompletedWebhookEvent,
     type ArtifactFailedWebhookEvent as ArtifactFailedWebhookEvent,
+    type CallAnalyzedWebhookEvent as CallAnalyzedWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
     type CallConversationCreatedWebhookEvent as CallConversationCreatedWebhookEvent,
@@ -3782,7 +3783,6 @@ export declare namespace Telnyx {
     type NumberReputationExternalVerificationStatusChangedWebhookEvent as NumberReputationExternalVerificationStatusChangedWebhookEvent,
     type NumberReputationNumberFlaggedWebhookEvent as NumberReputationNumberFlaggedWebhookEvent,
     type NumberReputationNumberRemovedWebhookEvent as NumberReputationNumberRemovedWebhookEvent,
-    type RecordingAvailableWebhookEvent as RecordingAvailableWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
     type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,
@@ -4667,6 +4667,7 @@ export declare namespace Telnyx {
 
   export {
     PhoneNumbers as PhoneNumbers,
+    type NumbersError73c9788e53 as NumbersError73c9788e53,
     type NumbersPhoneNumberDetailed as NumbersPhoneNumberDetailed,
     type PhoneNumberDetailed as PhoneNumberDetailed,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
@@ -5569,7 +5570,6 @@ export declare namespace Telnyx {
     type MeetingSessionListResponse as MeetingSessionListResponse,
     type MeetingSessionDeleteRecordingMediaResponse as MeetingSessionDeleteRecordingMediaResponse,
     type MeetingSessionRetrieveEventsResponse as MeetingSessionRetrieveEventsResponse,
-    type MeetingSessionRetrieveRecordingsResponse as MeetingSessionRetrieveRecordingsResponse,
     type MeetingSessionRetrieveTranscriptResponse as MeetingSessionRetrieveTranscriptResponse,
     type MeetingSessionListParams as MeetingSessionListParams,
     type MeetingSessionCreateParams as MeetingSessionCreateParams,
