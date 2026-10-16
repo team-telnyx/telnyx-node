@@ -210,7 +210,10 @@ export class Assistants extends APIResource {
   /**
    * Updates the specified AI assistant's attributes and returns the updated
    * assistant. The request can also control how the change is promoted across
-   * assistant versions.
+   * assistant versions. Every update saves a new version, and an assistant keeps at
+   * most 10 versions: once it has more, the oldest versions are permanently deleted,
+   * except the main version and any version referenced by a traffic distribution
+   * rule.
    *
    * @example
    * ```ts
@@ -832,6 +835,14 @@ export namespace AssistantTool {
       targets: Array<Transfer.TargetsList> | string;
 
       /**
+       * Plays a short beep once the transfer completes and the calls are bridged, so the
+       * transfer destination knows the caller is now on the line. The warm transfer
+       * message plays before the bridge; this marks the moment the caller actually
+       * joins. Works with and without `warm_transfer_acceptance`.
+       */
+      bridge_beep?: Transfer.BridgeBeep;
+
+      /**
        * Custom headers to be added to the SIP INVITE for the transfer command.
        */
       custom_headers?: Array<Transfer.CustomHeader>;
@@ -931,6 +942,25 @@ export namespace AssistantTool {
          * URI.
          */
         sip_auth_username?: string;
+      }
+
+      /**
+       * Plays a short beep once the transfer completes and the calls are bridged, so the
+       * transfer destination knows the caller is now on the line. The warm transfer
+       * message plays before the bridge; this marks the moment the caller actually
+       * joins. Works with and without `warm_transfer_acceptance`.
+       */
+      export interface BridgeBeep {
+        /**
+         * Whether to play the beep when the calls are bridged.
+         */
+        enabled?: boolean;
+
+        /**
+         * Who hears the beep. `self` plays it to the transfer destination only; `both`
+         * plays it to the destination and the original caller.
+         */
+        target_legs?: 'self' | 'both';
       }
 
       export interface CustomHeader {
@@ -1111,6 +1141,18 @@ export namespace AssistantTool {
          * accept on every consult that does run.
          */
         require_acceptance?: boolean;
+
+        /**
+         * How long, in seconds, the destination has to accept the transfer, counted from
+         * when the private consult starts (right after the destination answers, or after
+         * `warm_message_delay_ms`). The caller keeps hearing ringback the whole time. If
+         * no acceptance arrives in time, the destination is hung up and the assistant
+         * returns to the caller (the transfer fails as a timeout). Raise it for
+         * destinations that answer before a human is on the line, such as a call-center
+         * queue/ACD or an IVR playing hold audio; keep it as short as practical, since the
+         * caller waits on ringback until it expires.
+         */
+        timeout_secs?: number;
       }
     }
   }
