@@ -248,8 +248,7 @@ export class DirResource extends APIResource {
    * existing registration stays live throughout the new vetting cycle.
    *
    * Returns `400` from `submitted`/`in_review`/`permanently_rejected`. Returns `400`
-   * if the DIR's business and financial references have not been submitted. Returns
-   * `400` if the DIR has an unresolved infringement claim.
+   * if the DIR has an unresolved infringement claim.
    *
    * @example
    * ```ts
@@ -533,6 +532,7 @@ export interface Document {
     | 'letter_of_authorization'
     | 'business_registration'
     | 'articles_of_incorporation'
+    | 'certificate_of_good_standing'
     | 'tax_document'
     | 'ein_letter'
     | 'trademark_registration'
@@ -542,6 +542,8 @@ export interface Document {
     | 'government_id'
     | 'utility_bill'
     | 'bank_statement'
+    | 'business_credit_report'
+    | 'bank_reference_letter'
     | 'other';
 
   /**
