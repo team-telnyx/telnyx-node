@@ -1210,6 +1210,12 @@ export interface ConversationRelayTranscriptionEngineConfig {
   [k: string]: unknown;
 }
 
+/**
+ * Language to transcribe. Deepgram's medical and phonecall models support English
+ * only.
+ */
+export type DeepgramEnglishTranscriptionLanguage = 'en' | 'en-US' | 'en-AU' | 'en-GB' | 'en-IN' | 'en-NZ';
+
 export interface DeepgramNova2Config {
   transcription_engine: 'deepgram/nova-2';
 
@@ -1217,8 +1223,9 @@ export interface DeepgramNova2Config {
 
   /**
    * Nova-2 keyword biasing without intensifiers. Up to 100 terms to bias recognition
-   * toward. For weighted biasing, use `keywords_boosting` instead. Nova-2-only; use
-   * `keyterms` on Nova-3.
+   * toward. For weighted biasing, use `keywords_boosting` instead. Supported on
+   * Nova-2 models only (`deepgram/nova-2`, `deepgram/nova-2-medical`,
+   * `deepgram/nova-2-phonecall`); use `keyterms` on Nova-3 and Flux.
    */
   hints?: Array<string>;
 
@@ -1312,8 +1319,10 @@ export interface DeepgramNova3Config {
   interim_results?: boolean;
 
   /**
-   * Nova-3 keyterm prompting. Up to 100 domain-specific terms or brand names to bias
-   * recognition toward. Nova-3-only; use `hints` on Nova-2.
+   * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias
+   * recognition toward. Supported on Nova-3 and Flux models (`deepgram/nova-3`,
+   * `deepgram/nova-3-medical`, `deepgram/flux`, `deepgram/flux-multi`); use `hints`
+   * on Nova-2.
    */
   keyterms?: Array<string>;
 
@@ -2060,7 +2069,183 @@ export interface TranscriptionEngineCohereConfig {
   transcription_model?: 'cohere/ar-stt';
 }
 
-export type TranscriptionEngineDeepgramConfig = DeepgramNova2Config | DeepgramNova3Config;
+/**
+ * Deepgram Nova-2 specialty models: `deepgram/nova-2-medical` (medical vocabulary)
+ * and `deepgram/nova-2-phonecall` (low-bandwidth phone audio). English only.
+ */
+export type TranscriptionEngineDeepgramConfig =
+  | DeepgramNova2Config
+  | TranscriptionEngineDeepgramConfig.DeepgramNova2SpecialtyConfig
+  | DeepgramNova3Config
+  | TranscriptionEngineDeepgramConfig.DeepgramNova3MedicalConfig
+  | TranscriptionEngineDeepgramConfig.DeepgramFluxConfig
+  | TranscriptionEngineDeepgramConfig.DeepgramFluxMultiConfig;
+
+export namespace TranscriptionEngineDeepgramConfig {
+  /**
+   * Deepgram Nova-2 specialty models: `deepgram/nova-2-medical` (medical vocabulary)
+   * and `deepgram/nova-2-phonecall` (low-bandwidth phone audio). English only.
+   */
+  export interface DeepgramNova2SpecialtyConfig {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-2-medical' | 'deepgram/nova-2-phonecall';
+
+    /**
+     * Nova-2 keyword biasing without intensifiers. Up to 100 terms to bias recognition
+     * toward. For weighted biasing, use `keywords_boosting` instead. Supported on
+     * Nova-2 models only (`deepgram/nova-2`, `deepgram/nova-2-medical`,
+     * `deepgram/nova-2-phonecall`); use `keyterms` on Nova-3 and Flux.
+     */
+    hints?: Array<string>;
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to transcribe. Deepgram's medical and phonecall models support English
+     * only.
+     */
+    language?: ActionsAPI.DeepgramEnglishTranscriptionLanguage;
+
+    /**
+     * Enable Deepgram's smart formatting (capitalization, punctuation, and digit
+     * normalization). Note: Telnyx defaults this to `true`, overriding Deepgram's
+     * underlying default of `false` — omit the field to get a smart-formatted
+     * transcript, or set it to `false` to receive the raw lowercase transcript without
+     * punctuation.
+     */
+    smart_format?: boolean;
+
+    /**
+     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+     * to 5000 ms.
+     */
+    utterance_end_ms?: number;
+  }
+
+  /**
+   * Deepgram Nova-3 medical model, tuned for medical vocabulary. English only.
+   */
+  export interface DeepgramNova3MedicalConfig {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-3-medical';
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias
+     * recognition toward. Supported on Nova-3 and Flux models (`deepgram/nova-3`,
+     * `deepgram/nova-3-medical`, `deepgram/flux`, `deepgram/flux-multi`); use `hints`
+     * on Nova-2.
+     */
+    keyterms?: Array<string>;
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to transcribe. Deepgram's medical and phonecall models support English
+     * only.
+     */
+    language?: ActionsAPI.DeepgramEnglishTranscriptionLanguage;
+
+    /**
+     * Enable Deepgram's smart formatting (capitalization, punctuation, and digit
+     * normalization). Note: Telnyx defaults this to `true`, overriding Deepgram's
+     * underlying default of `false` — omit the field to get a smart-formatted
+     * transcript, or set it to `false` to receive the raw lowercase transcript without
+     * punctuation.
+     */
+    smart_format?: boolean;
+
+    /**
+     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+     * to 5000 ms.
+     */
+    utterance_end_ms?: number;
+  }
+
+  /**
+   * Deepgram Flux (English), a conversational speech recognition model with built-in
+   * end-of-turn detection. `smart_format`, `utterance_end_ms`, `hints` and
+   * `keywords_boosting` do not apply to Flux.
+   */
+  export interface DeepgramFluxConfig {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/flux';
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias
+     * recognition toward. Supported on Nova-3 and Flux models (`deepgram/nova-3`,
+     * `deepgram/nova-3-medical`, `deepgram/flux`, `deepgram/flux-multi`); use `hints`
+     * on Nova-2.
+     */
+    keyterms?: Array<string>;
+
+    /**
+     * Language to transcribe. `deepgram/flux` supports English only.
+     */
+    language?: 'en';
+  }
+
+  /**
+   * Deepgram Flux multilingual, a conversational speech recognition model with
+   * built-in end-of-turn detection. `smart_format`, `utterance_end_ms`, `hints` and
+   * `keywords_boosting` do not apply to Flux.
+   */
+  export interface DeepgramFluxMultiConfig {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/flux-multi';
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias
+     * recognition toward. Supported on Nova-3 and Flux models (`deepgram/nova-3`,
+     * `deepgram/nova-3-medical`, `deepgram/flux`, `deepgram/flux-multi`); use `hints`
+     * on Nova-2.
+     */
+    keyterms?: Array<string>;
+
+    /**
+     * Language to transcribe. Flux-multi uses the language as a hint; `auto` lets Flux
+     * detect the language.
+     */
+    language?: 'en' | 'es' | 'fr' | 'de' | 'hi' | 'ru' | 'pt' | 'ja' | 'it' | 'nl' | 'auto';
+  }
+}
 
 export interface TranscriptionEngineGoogleConfig {
   /**
@@ -5789,6 +5974,7 @@ export declare namespace Actions {
     type CallControlCommandResultWithConversationID as CallControlCommandResultWithConversationID,
     type ConversationRelayInterruptible as ConversationRelayInterruptible,
     type ConversationRelayTranscriptionEngineConfig as ConversationRelayTranscriptionEngineConfig,
+    type DeepgramEnglishTranscriptionLanguage as DeepgramEnglishTranscriptionLanguage,
     type DeepgramNova2Config as DeepgramNova2Config,
     type DeepgramNova3Config as DeepgramNova3Config,
     type DeveloperMessage as DeveloperMessage,

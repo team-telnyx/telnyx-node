@@ -1553,6 +1553,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResultWithConversationID</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ConversationRelayInterruptible</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ConversationRelayTranscriptionEngineConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">DeepgramEnglishTranscriptionLanguage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova2Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova3Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeveloperMessage</a></code>
