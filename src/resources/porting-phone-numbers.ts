@@ -59,6 +59,7 @@ export interface PortingPhoneNumber {
   phone_number_type?:
     | 'landline'
     | 'local'
+    | 'localcommercial'
     | 'mobile'
     | 'multipurpose'
     | 'national'
