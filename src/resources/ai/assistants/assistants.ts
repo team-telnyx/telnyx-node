@@ -1526,8 +1526,7 @@ export type AuthenticationMethod = 'token' | 'certificate';
  * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
  * avatar or an organization-owned custom avatar returned by the Avatars API.
  * Discover the available stock catalog with GET /v2/ai/avatars and
- * filter[avatar_type]=stock; follow meta.total_pages to load every page. Supported
- * backgrounds are office, studio, and reception.
+ * filter[avatar_type]=stock; follow meta.total_pages to load every page.
  */
 export interface AvatarSettingsRequest {
   /**
@@ -1538,7 +1537,7 @@ export interface AvatarSettingsRequest {
   /**
    * The background to render.
    */
-  background_id: 'office' | 'studio' | 'reception';
+  background_id: 'office' | 'studio' | 'reception' | 'illustrated_workspace';
 
   /**
    * Required avatar model identifier, separate from `avatar_id`. The supported value
@@ -2309,8 +2308,7 @@ export interface InferenceEmbedding {
    * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
    * avatar or an organization-owned custom avatar returned by the Avatars API.
    * Discover the available stock catalog with GET /v2/ai/avatars and
-   * filter[avatar_type]=stock; follow meta.total_pages to load every page. Supported
-   * backgrounds are office, studio, and reception.
+   * filter[avatar_type]=stock; follow meta.total_pages to load every page.
    */
   avatar_settings?: TelnyxAvatarSettings | null;
 
@@ -3543,8 +3541,7 @@ export namespace TelephonySettings {
  * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
  * avatar or an organization-owned custom avatar returned by the Avatars API.
  * Discover the available stock catalog with GET /v2/ai/avatars and
- * filter[avatar_type]=stock; follow meta.total_pages to load every page. Supported
- * backgrounds are office, studio, and reception.
+ * filter[avatar_type]=stock; follow meta.total_pages to load every page.
  */
 export interface TelnyxAvatarSettings {
   /**
@@ -3555,7 +3552,7 @@ export interface TelnyxAvatarSettings {
   /**
    * The background to render.
    */
-  background_id: 'office' | 'studio' | 'reception';
+  background_id: 'office' | 'studio' | 'reception' | 'illustrated_workspace';
 
   /**
    * Required avatar model identifier, separate from `avatar_id`. The supported value
@@ -4535,8 +4532,7 @@ export interface AssistantCreateParams {
    * Body param: **Beta:** Configuration for the Telnyx open-source avatar provider.
    * Use a stock avatar or an organization-owned custom avatar returned by the
    * Avatars API. Discover the available stock catalog with GET /v2/ai/avatars and
-   * filter[avatar_type]=stock; follow meta.total_pages to load every page. Supported
-   * backgrounds are office, studio, and reception.
+   * filter[avatar_type]=stock; follow meta.total_pages to load every page.
    */
   avatar_settings?: AvatarSettingsRequest | null;
 
@@ -4830,8 +4826,7 @@ export interface AssistantUpdateParams {
    * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
    * avatar or an organization-owned custom avatar returned by the Avatars API.
    * Discover the available stock catalog with GET /v2/ai/avatars and
-   * filter[avatar_type]=stock; follow meta.total_pages to load every page. Supported
-   * backgrounds are office, studio, and reception.
+   * filter[avatar_type]=stock; follow meta.total_pages to load every page.
    */
   avatar_settings?: AvatarSettingsRequest | null;
 

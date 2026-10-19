@@ -146,6 +146,17 @@ export interface FqdnConnection {
   android_push_credential_id?: string | null;
 
   /**
+   * Stores the connection preference for generating silent RTP toward the opposite
+   * call leg when comfort-noise packets (CN, payload type 13) are received during
+   * hold. Defaults to false and returns the saved value. Only JSON true and false
+   * are accepted; null and non-boolean values are rejected. This preference is
+   * independent of default_on_hold_comfort_noise_enabled and does not modify that
+   * setting. This API provisions the preference; call-processing behavior is
+   * implemented separately.
+   */
+  bridge_generate_comfort_noise_on_cn?: boolean;
+
+  /**
    * Indicates whether call cost calculation is enabled.
    */
   call_cost_enabled?: boolean;
@@ -656,6 +667,17 @@ export interface FqdnConnectionCreateParams {
   android_push_credential_id?: string | null;
 
   /**
+   * Stores the connection preference for generating silent RTP toward the opposite
+   * call leg when comfort-noise packets (CN, payload type 13) are received during
+   * hold. Optional; defaults to false when omitted on creation. Only JSON true and
+   * false are accepted; null and non-boolean values are rejected. This preference is
+   * independent of default_on_hold_comfort_noise_enabled and does not modify that
+   * setting. This API provisions the preference; call-processing behavior is
+   * implemented separately.
+   */
+  bridge_generate_comfort_noise_on_cn?: boolean;
+
+  /**
    * Specifies if call cost webhooks should be sent for this connection.
    */
   call_cost_in_webhooks?: boolean;
@@ -785,6 +807,17 @@ export interface FqdnConnectionUpdateParams {
    * The uuid of the push credential for Android
    */
   android_push_credential_id?: string | null;
+
+  /**
+   * Stores the connection preference for generating silent RTP toward the opposite
+   * call leg when comfort-noise packets (CN, payload type 13) are received during
+   * hold. Optional; omitting this field preserves the saved value. Only JSON true
+   * and false are accepted; null and non-boolean values are rejected. This
+   * preference is independent of default_on_hold_comfort_noise_enabled and does not
+   * modify that setting. This API provisions the preference; call-processing
+   * behavior is implemented separately.
+   */
+  bridge_generate_comfort_noise_on_cn?: boolean;
 
   /**
    * Specifies if call cost webhooks should be sent for this connection.

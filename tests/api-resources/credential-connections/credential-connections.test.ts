@@ -65,6 +65,7 @@ describe('resource credentialConnections', () => {
       active: true,
       anchorsite_override: 'Latency',
       android_push_credential_id: '06b09dfd-7154-4980-8b75-cebf7a9d4f8e',
+      bridge_generate_comfort_noise_on_cn: false,
       call_cost_in_webhooks: false,
       default_on_hold_comfort_noise_enabled: false,
       dtmf_type: 'RFC 2833',
