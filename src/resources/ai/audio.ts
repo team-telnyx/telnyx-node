@@ -30,7 +30,7 @@ export class Audio extends APIResource {
 
 /**
  * Word-level timing detail. Only present when using a `deepgram/*` model with
- * `model_config` options that enable word timestamps.
+ * `model_config` options that enable word timestamps, or `reson8/prerecorded`.
  */
 export interface AudioTranscriptionResponseWord {
   /**
@@ -78,6 +78,9 @@ export interface AudioTranscriptionResponseWord {
  * return `text` and, depending on `model_config`, may include `words` with
  * per-word timestamps and speaker labels. The Parakeet models
  * (`nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`) return `text` only.
+ * `reson8/prerecorded` returns `text` and, in `verbose_json` mode, `duration` and
+ * `segments` with `words`; with `diarize`, one segment per speaker turn with
+ * speaker labels.
  */
 export interface AudioTranscribeResponse {
   /**
@@ -139,15 +142,17 @@ export namespace AudioTranscribeResponse {
     channel?: number;
 
     /**
-     * Speaker indices heard in this segment. Returned by the `deepgram/*` models when
-     * `diarize` is enabled via `model_config`. With `multichannel`, speakers are
-     * numbered per channel from 0, so identify a speaker by (`channel`, speaker).
+     * Speaker indices heard in this segment. Returned by the `deepgram/*` models and
+     * `reson8/prerecorded` when `diarize` is enabled via `model_config`. With
+     * `multichannel`, speakers are numbered per channel from 0, so identify a speaker
+     * by (`channel`, speaker).
      */
     speakers?: Array<number>;
 
     /**
      * Word-level timing detail for this segment. Returned by the `deepgram/*` models
-     * when word-level output is enabled via `model_config`.
+     * when word-level output is enabled via `model_config`, and by
+     * `reson8/prerecorded`.
      */
     words?: Array<AudioAPI.AudioTranscriptionResponseWord>;
   }
@@ -163,6 +168,8 @@ export interface AudioTranscribeParams {
    * English only (`en` and its regional variants, e.g. `en-US`, `en-GB`).
    * `nvidia/parakeet-v3` is multilingual with automatic language detection;
    * `omi-health/omi-med-stt-v1` is a medical model, English only.
+   * `reson8/prerecorded` covers 10 languages, returns word timestamps, and labels
+   * speakers via `model_config`.
    */
   model:
     | 'distil-whisper/distil-large-v2'
@@ -172,7 +179,8 @@ export interface AudioTranscribeParams {
     | 'deepgram/nova-3'
     | 'deepgram/nova-3-medical'
     | 'nvidia/parakeet-v3'
-    | 'omi-health/omi-med-stt-v1';
+    | 'omi-health/omi-med-stt-v1'
+    | 'reson8/prerecorded';
 
   /**
    * The audio file object to transcribe, in one of these formats: flac, mp3, mp4,
@@ -200,16 +208,20 @@ export interface AudioTranscribeParams {
    * `openai/whisper-large-v3-turbo`, supports multiple languages.
    * `distil-whisper/distil-large-v2` does not support language parameter.
    * `nvidia/parakeet-v3` detects the language automatically;
-   * `omi-health/omi-med-stt-v1` is English only.
+   * `omi-health/omi-med-stt-v1` is English only. `reson8/prerecorded` accepts `nl`,
+   * `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es` and `sv` (regional variants are
+   * transcribed as the base language) and detects the language when it is omitted.
    */
   language?: string;
 
   /**
    * Additional model-specific configuration parameters. Only allowed with the
-   * `deepgram/*` models. Sent as a JSON string in multipart requests and passed
-   * through to Deepgram as query parameters. Any other model with `model_config`
-   * returns 422. Can include Deepgram-specific options such as `smart_format`,
-   * `punctuate`, `diarize` (speaker labels), `multichannel` (transcribe each channel
+   * `deepgram/*` models and `reson8/prerecorded`. Sent as a JSON string in multipart
+   * requests; for the `deepgram/*` models it is passed through to Deepgram as query
+   * parameters, while `reson8/prerecorded` accepts only `diarize` (speaker labels)
+   * and `max_speakers` (1 to 8). Any other model with `model_config` returns 400.
+   * Can include Deepgram-specific options such as `smart_format`, `punctuate`,
+   * `diarize` (speaker labels), `multichannel` (transcribe each channel
    * independently; billed duration is file duration multiplied by the number of
    * channels), `utterances`, `numerals`, and `language`. If `language` is provided
    * both as a top-level parameter and in `model_config`, the top-level parameter

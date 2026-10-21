@@ -6107,12 +6107,21 @@ Methods:
 
 # Compute
 
+Types:
+
+- <code><a href="./src/resources/compute/compute.ts">ComputeRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="get /compute/actors/{id}">client.compute.<a href="./src/resources/compute/compute.ts">retrieve</a>(id) -> ComputeRetrieveResponse</code>
+
 ## Funcs
 
 Types:
 
 - <code><a href="./src/resources/compute/funcs/funcs.ts">FunctionsObservabilityPaginationMeta</a></code>
 - <code><a href="./src/resources/compute/funcs/funcs.ts">LogsMeta</a></code>
+- <code><a href="./src/resources/compute/funcs/funcs.ts">FuncListResponse</a></code>
 - <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveLogsResponse</a></code>
 - <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveMetricAggregatesResponse</a></code>
 - <code><a href="./src/resources/compute/funcs/funcs.ts">FuncRetrieveRevisionsResponse</a></code>
@@ -6124,6 +6133,7 @@ Methods:
 - <code title="get /compute/funcs/{id}/metric_aggregates">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveMetricAggregates</a>(id, { ...params }) -> FuncRetrieveMetricAggregatesResponse</code>
 - <code title="get /compute/funcs/{id}/revisions">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveRevisions</a>(id, { ...params }) -> FuncRetrieveRevisionsResponse</code>
 - <code title="get /compute/funcs/{id}/ship_inspection">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">retrieveShipInspection</a>(id) -> FuncRetrieveShipInspectionResponse</code>
+- <code title="get /compute/funcs">client.compute.funcs.<a href="./src/resources/compute/funcs/funcs.ts">list</a>({ ...params }) -> FuncListResponsesDefaultFlatPagination</code>
 
 ### Export
 
@@ -6287,3 +6297,21 @@ Methods:
 # TtsIntegrations
 
 ## Actions
+
+# TailscaleSubnetRouters
+
+Types:
+
+- <code><a href="./src/resources/tailscale-subnet-routers.ts">TailscaleSubnetRouter</a></code>
+- <code><a href="./src/resources/tailscale-subnet-routers.ts">TailscaleSubnetRouterCreateResponse</a></code>
+- <code><a href="./src/resources/tailscale-subnet-routers.ts">TailscaleSubnetRouterRetrieveResponse</a></code>
+- <code><a href="./src/resources/tailscale-subnet-routers.ts">TailscaleSubnetRouterUpdateResponse</a></code>
+- <code><a href="./src/resources/tailscale-subnet-routers.ts">TailscaleSubnetRouterDeleteResponse</a></code>
+
+Methods:
+
+- <code title="get /tailscale_subnet_routers">client.tailscaleSubnetRouters.<a href="./src/resources/tailscale-subnet-routers.ts">list</a>({ ...params }) -> TailscaleSubnetRoutersDefaultFlatPagination</code>
+- <code title="post /tailscale_subnet_routers">client.tailscaleSubnetRouters.<a href="./src/resources/tailscale-subnet-routers.ts">create</a>({ ...params }) -> TailscaleSubnetRouterCreateResponse</code>
+- <code title="delete /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters.<a href="./src/resources/tailscale-subnet-routers.ts">delete</a>(id) -> TailscaleSubnetRouterDeleteResponse</code>
+- <code title="get /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters.<a href="./src/resources/tailscale-subnet-routers.ts">retrieve</a>(id) -> TailscaleSubnetRouterRetrieveResponse</code>
+- <code title="patch /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters.<a href="./src/resources/tailscale-subnet-routers.ts">update</a>(id, { ...params }) -> TailscaleSubnetRouterUpdateResponse</code>

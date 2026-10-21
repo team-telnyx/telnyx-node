@@ -448,7 +448,7 @@ describe('resource versions', () => {
         model: 'model',
       },
       greeting: 'greeting',
-      insight_settings: { insight_group_id: 'insight_group_id' },
+      insight_settings: { insight_group_id: 'insight_group_id', model: 'zai-org/GLM-5.3-Flash' },
       instructions: 'instructions',
       integrations: [{ integration_id: 'integration_id', allowed_list: ['string'] }],
       interruption_settings: {

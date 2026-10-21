@@ -5,9 +5,17 @@ import * as FuncsAPI from './funcs';
 import * as ExportAPI from './export';
 import { Export, ExportCreateParams, FuncLogExportConfigResponse } from './export';
 import { APIPromise } from '../../../core/api-promise';
+import {
+  DefaultFlatPagination,
+  type DefaultFlatPaginationParams,
+  PagePromise,
+} from '../../../core/pagination';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Manage Edge Compute functions
+ */
 export class Funcs extends APIResource {
   export: ExportAPI.Export = new ExportAPI.Export(this._client);
 
@@ -91,7 +99,33 @@ export class Funcs extends APIResource {
   ): APIPromise<FuncRetrieveShipInspectionResponse> {
     return this._client.get(path`/compute/funcs/${id}/ship_inspection`, options);
   }
+
+  /**
+   * List functions for the authenticated organization. Each function includes its
+   * persisted function-scoped bindings. Actor bindings expose actor_type and
+   * env_name, allowing clients to identify every function attached to a Stateful
+   * Actor type.
+   *
+   * @example
+   * ```ts
+   * // Automatically fetches more pages as needed.
+   * for await (const funcListResponse of client.compute.funcs.list()) {
+   *   // ...
+   * }
+   * ```
+   */
+  list(
+    query: FuncListParams | null | undefined = {},
+    options?: RequestOptions,
+  ): PagePromise<FuncListResponsesDefaultFlatPagination, FuncListResponse> {
+    return this._client.getAPIList('/compute/funcs', DefaultFlatPagination<FuncListResponse>, {
+      query,
+      ...options,
+    });
+  }
 }
+
+export type FuncListResponsesDefaultFlatPagination = DefaultFlatPagination<FuncListResponse>;
 
 export interface FunctionsObservabilityPaginationMeta {
   page_number?: number;
@@ -107,6 +141,66 @@ export interface LogsMeta {
   has_more?: boolean;
 
   partial?: boolean;
+}
+
+export interface FuncListResponse {
+  id?: string;
+
+  /**
+   * Always present; empty when the function has no bindings.
+   */
+  bindings?: Array<FuncListResponse.Binding>;
+
+  created_at?: string;
+
+  invoke_url?: string;
+
+  message?: string;
+
+  name?: string;
+
+  record_type?: string;
+
+  status?: string;
+
+  status_detail?: string;
+
+  updated_at?: string;
+}
+
+export namespace FuncListResponse {
+  /**
+   * A function-scoped binding persisted at ship time. For binding_type=actor,
+   * actor_type is the referenced Stateful Actor type and env_name is the binding
+   * name exposed to the function.
+   */
+  export interface Binding {
+    actor_type?: string;
+
+    binding_id?: string;
+
+    binding_type?: string;
+
+    bucket_id?: string;
+
+    created_at?: string;
+
+    env_name?: string;
+
+    func_id?: string;
+
+    kv_id?: string;
+
+    record_type?: string;
+
+    secret_name?: string;
+
+    sqldb_id?: string;
+
+    status?: string;
+
+    updated_at?: string;
+  }
 }
 
 export type FuncRetrieveLogsResponse =
@@ -318,19 +412,24 @@ export interface FuncRetrieveRevisionsParams {
   'page[size]'?: number;
 }
 
+export interface FuncListParams extends DefaultFlatPaginationParams {}
+
 Funcs.Export = Export;
 
 export declare namespace Funcs {
   export {
     type FunctionsObservabilityPaginationMeta as FunctionsObservabilityPaginationMeta,
     type LogsMeta as LogsMeta,
+    type FuncListResponse as FuncListResponse,
     type FuncRetrieveLogsResponse as FuncRetrieveLogsResponse,
     type FuncRetrieveMetricAggregatesResponse as FuncRetrieveMetricAggregatesResponse,
     type FuncRetrieveRevisionsResponse as FuncRetrieveRevisionsResponse,
     type FuncRetrieveShipInspectionResponse as FuncRetrieveShipInspectionResponse,
+    type FuncListResponsesDefaultFlatPagination as FuncListResponsesDefaultFlatPagination,
     type FuncRetrieveLogsParams as FuncRetrieveLogsParams,
     type FuncRetrieveMetricAggregatesParams as FuncRetrieveMetricAggregatesParams,
     type FuncRetrieveRevisionsParams as FuncRetrieveRevisionsParams,
+    type FuncListParams as FuncListParams,
   };
 
   export {

@@ -197,7 +197,7 @@ export {
   type CommentListParams,
   type CommentCreateParams,
 } from './comments';
-export { Compute } from './compute/compute';
+export { Compute, type ComputeRetrieveResponse } from './compute/compute';
 export {
   Conferences,
   type Conference,
@@ -1411,6 +1411,18 @@ export {
   type SubNumberOrdersReportDownloadResponse,
   type SubNumberOrdersReportCreateParams,
 } from './sub-number-orders-report';
+export {
+  TailscaleSubnetRouters,
+  type TailscaleSubnetRouter,
+  type TailscaleSubnetRouterCreateResponse,
+  type TailscaleSubnetRouterRetrieveResponse,
+  type TailscaleSubnetRouterUpdateResponse,
+  type TailscaleSubnetRouterDeleteResponse,
+  type TailscaleSubnetRouterListParams,
+  type TailscaleSubnetRouterCreateParams,
+  type TailscaleSubnetRouterUpdateParams,
+  type TailscaleSubnetRoutersDefaultFlatPagination,
+} from './tailscale-subnet-routers';
 export {
   TelephonyCredentials,
   type TelephonyCredential,
