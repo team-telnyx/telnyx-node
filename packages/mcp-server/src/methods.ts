@@ -8015,6 +8015,90 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/dial_metrics',
   },
+  {
+    clientCallName: 'client.ttsIntegrations.list',
+    fullyQualifiedName: 'ttsIntegrations.list',
+    httpMethod: 'get',
+    httpPath: '/tts_integrations',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.create',
+    fullyQualifiedName: 'ttsIntegrations.create',
+    httpMethod: 'post',
+    httpPath: '/tts_integrations',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.retrieveDiscoverable',
+    fullyQualifiedName: 'ttsIntegrations.retrieveDiscoverable',
+    httpMethod: 'get',
+    httpPath: '/tts_integrations/discoverable',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.delete',
+    fullyQualifiedName: 'ttsIntegrations.delete',
+    httpMethod: 'delete',
+    httpPath: '/tts_integrations/{id}',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.retrieve',
+    fullyQualifiedName: 'ttsIntegrations.retrieve',
+    httpMethod: 'get',
+    httpPath: '/tts_integrations/{id}',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.update',
+    fullyQualifiedName: 'ttsIntegrations.update',
+    httpMethod: 'patch',
+    httpPath: '/tts_integrations/{id}',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.replace',
+    fullyQualifiedName: 'ttsIntegrations.replace',
+    httpMethod: 'put',
+    httpPath: '/tts_integrations/{id}',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.retrieveConformanceRuns',
+    fullyQualifiedName: 'ttsIntegrations.retrieveConformanceRuns',
+    httpMethod: 'get',
+    httpPath: '/tts_integrations/{id}/conformance_runs',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.retrieveVoices',
+    fullyQualifiedName: 'ttsIntegrations.retrieveVoices',
+    httpMethod: 'get',
+    httpPath: '/tts_integrations/{id}/voices',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.actions.disable',
+    fullyQualifiedName: 'ttsIntegrations.actions.disable',
+    httpMethod: 'post',
+    httpPath: '/tts_integrations/{id}/actions/disable',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.actions.enable',
+    fullyQualifiedName: 'ttsIntegrations.actions.enable',
+    httpMethod: 'post',
+    httpPath: '/tts_integrations/{id}/actions/enable',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.actions.refreshVoices',
+    fullyQualifiedName: 'ttsIntegrations.actions.refreshVoices',
+    httpMethod: 'post',
+    httpPath: '/tts_integrations/{id}/actions/refresh_voices',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.actions.requestReview',
+    fullyQualifiedName: 'ttsIntegrations.actions.requestReview',
+    httpMethod: 'post',
+    httpPath: '/tts_integrations/{id}/actions/request_review',
+  },
+  {
+    clientCallName: 'client.ttsIntegrations.actions.testConnection',
+    fullyQualifiedName: 'ttsIntegrations.actions.testConnection',
+    httpMethod: 'post',
+    httpPath: '/tts_integrations/{id}/actions/test_connection',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

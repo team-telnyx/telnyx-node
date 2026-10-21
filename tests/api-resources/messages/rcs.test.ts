@@ -199,6 +199,7 @@ describe('resource rcs', () => {
       sms_fallback: { from: '+13125551234', text: 'Hello world!' },
       type: 'RCS',
       webhook_url: 'webhook_url',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 });

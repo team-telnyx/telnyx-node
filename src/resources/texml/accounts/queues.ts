@@ -22,7 +22,9 @@ export class Queues extends APIResource {
    * @example
    * ```ts
    * const queueResource =
-   *   await client.texml.accounts.queues.create('account_sid');
+   *   await client.texml.accounts.queues.create(
+   *     'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+   *   );
    * ```
    */
   create(accountSid: string, body: QueueCreateParams, options?: RequestOptions): APIPromise<QueueResource> {
@@ -39,7 +41,7 @@ export class Queues extends APIResource {
    * @example
    * ```ts
    * await client.texml.accounts.queues.delete('queue_sid', {
-   *   account_sid: 'account_sid',
+   *   account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    * });
    * ```
    */
@@ -58,7 +60,7 @@ export class Queues extends APIResource {
    * ```ts
    * const queueResource =
    *   await client.texml.accounts.queues.retrieve('queue_sid', {
-   *     account_sid: 'account_sid',
+   *     account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   });
    * ```
    */
@@ -78,7 +80,7 @@ export class Queues extends APIResource {
    * ```ts
    * const queueResource =
    *   await client.texml.accounts.queues.update('queue_sid', {
-   *     account_sid: 'account_sid',
+   *     account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   });
    * ```
    */
@@ -99,7 +101,7 @@ export class Queues extends APIResource {
    * ```ts
    * // Automatically fetches more pages as needed.
    * for await (const queueResource of client.texml.accounts.queues.list(
-   *   'account_sid',
+   *   'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    * )) {
    *   // ...
    * }
@@ -181,21 +183,36 @@ export interface QueueCreateParams {
 
 export interface QueueDeleteParams {
   /**
-   * The id of the account the resource belongs to.
+   * The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 }
 
 export interface QueueRetrieveParams {
   /**
-   * The id of the account the resource belongs to.
+   * The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 }
 
 export interface QueueUpdateParams {
   /**
-   * Path param: The id of the account the resource belongs to.
+   * Path param: The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 

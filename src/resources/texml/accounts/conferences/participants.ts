@@ -18,7 +18,7 @@ export class Participants extends APIResource {
    * const response =
    *   await client.texml.accounts.conferences.participants.retrieveParticipants(
    *     'conference_sid',
-   *     { account_sid: 'account_sid' },
+   *     { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
    *   );
    * ```
    */
@@ -43,7 +43,7 @@ export class Participants extends APIResource {
    * const response =
    *   await client.texml.accounts.conferences.participants.participants(
    *     'conference_sid',
-   *     { account_sid: 'account_sid' },
+   *     { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
    *   );
    * ```
    */
@@ -69,7 +69,7 @@ export class Participants extends APIResource {
    * await client.texml.accounts.conferences.participants.delete(
    *   'call_sid_or_participant_label',
    *   {
-   *     account_sid: 'account_sid',
+   *     account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *     conference_sid: 'conference_sid',
    *   },
    * );
@@ -97,7 +97,7 @@ export class Participants extends APIResource {
    *   await client.texml.accounts.conferences.participants.retrieve(
    *     'call_sid_or_participant_label',
    *     {
-   *       account_sid: 'account_sid',
+   *       account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *       conference_sid: 'conference_sid',
    *     },
    *   );
@@ -125,7 +125,7 @@ export class Participants extends APIResource {
    *   await client.texml.accounts.conferences.participants.update(
    *     'call_sid_or_participant_label',
    *     {
-   *       account_sid: 'account_sid',
+   *       account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *       conference_sid: 'conference_sid',
    *     },
    *   );
@@ -318,14 +318,24 @@ export interface ParticipantRetrieveParticipantsResponse {
 
 export interface ParticipantRetrieveParticipantsParams {
   /**
-   * The id of the account the resource belongs to.
+   * The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 }
 
 export interface ParticipantParticipantsParams {
   /**
-   * Path param: The id of the account the resource belongs to.
+   * Path param: The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 
@@ -693,7 +703,12 @@ export namespace ParticipantParticipantsParams {
 
 export interface ParticipantDeleteParams {
   /**
-   * The id of the account the resource belongs to.
+   * The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 
@@ -705,7 +720,12 @@ export interface ParticipantDeleteParams {
 
 export interface ParticipantRetrieveParams {
   /**
-   * The id of the account the resource belongs to.
+   * The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 
@@ -717,7 +737,12 @@ export interface ParticipantRetrieveParams {
 
 export interface ParticipantUpdateParams {
   /**
-   * Path param: The id of the account the resource belongs to.
+   * Path param: The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 

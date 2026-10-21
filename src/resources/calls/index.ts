@@ -7,6 +7,7 @@ export {
   type AwsVoiceSettings,
   type CallControlCommandResult,
   type CallControlCommandResultWithConversationID,
+  type CommunityVoiceSettings,
   type ConversationRelayInterruptible,
   type ConversationRelayTranscriptionEngineConfig,
   type DeepgramEnglishTranscriptionLanguage,

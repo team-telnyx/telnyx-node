@@ -283,7 +283,7 @@ describe('resource actions', () => {
       terminating_digit: '#',
       timeout_millis: 60000,
       valid_digits: '123',
-      voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
+      voice_settings: { api_key_ref: 'acme-engine-key' },
     });
   });
 
@@ -559,7 +559,7 @@ describe('resource actions', () => {
       service_level: 'basic',
       stop: 'current',
       target_legs: 'both',
-      voice_settings: { type: 'elevenlabs', api_key_ref: 'my_elevenlabs_api_key' },
+      voice_settings: { api_key_ref: 'acme-engine-key' },
     });
   });
 

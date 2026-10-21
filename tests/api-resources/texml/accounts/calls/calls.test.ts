@@ -10,7 +10,7 @@ const client = new Telnyx({
 describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('retrieveCalls', async () => {
-    const responsePromise = client.texml.accounts.calls.retrieveCalls('account_sid');
+    const responsePromise = client.texml.accounts.calls.retrieveCalls('f5586561-8ff0-4291-a51b-c7dfe4139ff9');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,7 +25,7 @@ describe('resource calls', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.texml.accounts.calls.retrieveCalls(
-        'account_sid',
+        'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
         {
           EndTime: 'EndTime',
           EndTime_lt: 'EndTime<',
@@ -47,7 +47,7 @@ describe('resource calls', () => {
 
   // Mock server tests are disabled
   test.skip('calls: only required params', async () => {
-    const responsePromise = client.texml.accounts.calls.calls('account_sid', {
+    const responsePromise = client.texml.accounts.calls.calls('f5586561-8ff0-4291-a51b-c7dfe4139ff9', {
       body: { Url: 'https://www.example.com/texml.xml' },
     });
     const rawResponse = await responsePromise.asResponse();
@@ -61,10 +61,10 @@ describe('resource calls', () => {
 
   // Mock server tests are disabled
   test.skip('calls: required and optional params', async () => {
-    const response = await client.texml.accounts.calls.calls('account_sid', {
+    const response = await client.texml.accounts.calls.calls('f5586561-8ff0-4291-a51b-c7dfe4139ff9', {
       body: {
         Url: 'https://www.example.com/texml.xml',
-        ApplicationSid: 'example-app-sid',
+        ApplicationSid: '1293384261075731499',
         AsyncAmd: true,
         AsyncAmdStatusCallback: 'https://www.example.com/callback',
         AsyncAmdStatusCallbackMethod: 'GET',
@@ -122,7 +122,9 @@ describe('resource calls', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
-    const responsePromise = client.texml.accounts.calls.retrieve('call_sid', { account_sid: 'account_sid' });
+    const responsePromise = client.texml.accounts.calls.retrieve('call_sid', {
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -134,12 +136,16 @@ describe('resource calls', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.texml.accounts.calls.retrieve('call_sid', { account_sid: 'account_sid' });
+    const response = await client.texml.accounts.calls.retrieve('call_sid', {
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+    });
   });
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.texml.accounts.calls.update('call_sid', { account_sid: 'account_sid' });
+    const responsePromise = client.texml.accounts.calls.update('call_sid', {
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -152,7 +158,7 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.texml.accounts.calls.update('call_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
       FallbackMethod: 'GET',
       FallbackUrl: 'https://www.example.com/intruction-c.xml',
       Method: 'GET',
@@ -167,7 +173,7 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('siprecJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.siprecJson('call_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -181,7 +187,7 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('siprecJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.siprecJson('call_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
       ConnectorName: 'my_connector',
       IncludeMetadataCustomHeaders: true,
       Name: 'my_siprec_session',
@@ -197,7 +203,7 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('streamsJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.streamsJson('call_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -211,7 +217,7 @@ describe('resource calls', () => {
   // Mock server tests are disabled
   test.skip('streamsJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.streamsJson('call_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
       BidirectionalCodec: 'G722',
       BidirectionalMode: 'rtp',
       Name: 'My stream',

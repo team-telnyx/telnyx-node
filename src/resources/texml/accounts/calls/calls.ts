@@ -39,7 +39,7 @@ export class Calls extends APIResource {
    * ```ts
    * const response =
    *   await client.texml.accounts.calls.retrieveCalls(
-   *     'account_sid',
+   *     'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   );
    * ```
    */
@@ -63,12 +63,12 @@ export class Calls extends APIResource {
 
   /**
    * Initiate an outbound TeXML call. Telnyx will request TeXML from the XML Request
-   * URL configured for the connection in the Mission Control Portal.
+   * URL configured for the TeXML Application in the Mission Control Portal.
    *
    * @example
    * ```ts
    * const response = await client.texml.accounts.calls.calls(
-   *   'account_sid',
+   *   'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   { body: { Url: 'https://www.example.com/texml.xml' } },
    * );
    * ```
@@ -90,7 +90,7 @@ export class Calls extends APIResource {
    * ```ts
    * const callResource =
    *   await client.texml.accounts.calls.retrieve('call_sid', {
-   *     account_sid: 'account_sid',
+   *     account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   });
    * ```
    */
@@ -107,7 +107,7 @@ export class Calls extends APIResource {
    * ```ts
    * const callResource =
    *   await client.texml.accounts.calls.update('call_sid', {
-   *     account_sid: 'account_sid',
+   *     account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   });
    * ```
    */
@@ -128,7 +128,7 @@ export class Calls extends APIResource {
    * ```ts
    * const response =
    *   await client.texml.accounts.calls.siprecJson('call_sid', {
-   *     account_sid: 'account_sid',
+   *     account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   });
    * ```
    */
@@ -153,7 +153,7 @@ export class Calls extends APIResource {
    * const response =
    *   await client.texml.accounts.calls.streamsJson(
    *     'call_sid',
-   *     { account_sid: 'account_sid' },
+   *     { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
    *   );
    * ```
    */
@@ -512,7 +512,12 @@ export namespace CallCallsParams {
     Url: string;
 
     /**
-     * The ID of the TeXML Application.
+     * The ID of the TeXML Application that will handle the call, for example
+     * `1293384261075731499`. The `ApplicationSid` name is kept for Twilio API
+     * compatibility, but the value is the numeric ID of one of your TeXML Applications
+     * (see the TeXML Applications API or the Mission Control Portal), not a Twilio
+     * `AP...` SID. If `Url` and `Texml` are omitted, Telnyx fetches instructions from
+     * the XML Request URL configured on this application.
      */
     ApplicationSid?: string;
 
@@ -842,7 +847,12 @@ export namespace CallCallsParams {
     Texml: string;
 
     /**
-     * The ID of the TeXML Application.
+     * The ID of the TeXML Application that will handle the call, for example
+     * `1293384261075731499`. The `ApplicationSid` name is kept for Twilio API
+     * compatibility, but the value is the numeric ID of one of your TeXML Applications
+     * (see the TeXML Applications API or the Mission Control Portal), not a Twilio
+     * `AP...` SID. If `Url` and `Texml` are omitted, Telnyx fetches instructions from
+     * the XML Request URL configured on this application.
      */
     ApplicationSid?: string;
 
@@ -1166,7 +1176,12 @@ export namespace CallCallsParams {
 
   export interface ApplicationDefault {
     /**
-     * The ID of the TeXML Application.
+     * The ID of the TeXML Application that will handle the call, for example
+     * `1293384261075731499`. The `ApplicationSid` name is kept for Twilio API
+     * compatibility, but the value is the numeric ID of one of your TeXML Applications
+     * (see the TeXML Applications API or the Mission Control Portal), not a Twilio
+     * `AP...` SID. If `Url` and `Texml` are omitted, Telnyx fetches instructions from
+     * the XML Request URL configured on this application.
      */
     ApplicationSid?: string;
 
@@ -1493,14 +1508,24 @@ export namespace CallCallsParams {
 
 export interface CallRetrieveParams {
   /**
-   * The id of the account the resource belongs to.
+   * The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 }
 
 export interface CallUpdateParams {
   /**
-   * Path param: The id of the account the resource belongs to.
+   * Path param: The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 
@@ -1551,7 +1576,12 @@ export interface CallUpdateParams {
 
 export interface CallSiprecJsonParams {
   /**
-   * Path param: The id of the account the resource belongs to.
+   * Path param: The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 
@@ -1611,7 +1641,12 @@ export interface CallSiprecJsonParams {
 
 export interface CallStreamsJsonParams {
   /**
-   * Path param: The id of the account the resource belongs to.
+   * Path param: The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 

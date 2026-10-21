@@ -11,6 +11,7 @@ import {
   Rcs,
 } from './rcs';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -32,8 +33,16 @@ export class Messages extends APIResource {
    * });
    * ```
    */
-  send(body: MessageSendParams, options?: RequestOptions): APIPromise<MessageSendResponse> {
-    return this._client.post('/messages', { body, ...options });
+  send(params: MessageSendParams, options?: RequestOptions): APIPromise<MessageSendResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -49,10 +58,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendLongCode(
-    body: MessageSendLongCodeParams,
+    params: MessageSendLongCodeParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendLongCodeResponse> {
-    return this._client.post('/messages/long_code', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/long_code', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -69,10 +86,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendNumberPool(
-    body: MessageSendNumberPoolParams,
+    params: MessageSendNumberPoolParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendNumberPoolResponse> {
-    return this._client.post('/messages/number_pool', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/number_pool', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -88,10 +113,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendShortCode(
-    body: MessageSendShortCodeParams,
+    params: MessageSendShortCodeParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendShortCodeResponse> {
-    return this._client.post('/messages/short_code', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/short_code', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -107,10 +140,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendGroupMms(
-    body: MessageSendGroupMmsParams,
+    params: MessageSendGroupMmsParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendGroupMmsResponse> {
-    return this._client.post('/messages/group_mms', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/group_mms', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -180,10 +221,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendWithAlphanumericSender(
-    body: MessageSendWithAlphanumericSenderParams,
+    params: MessageSendWithAlphanumericSenderParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendWithAlphanumericSenderResponse> {
-    return this._client.post('/messages/alphanumeric_sender_id', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/alphanumeric_sender_id', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -219,8 +268,16 @@ export class Messages extends APIResource {
    * });
    * ```
    */
-  whatsapp(body: MessageWhatsappParams, options?: RequestOptions): APIPromise<MessageWhatsappResponse> {
-    return this._client.post('/messages/whatsapp', { body, ...options });
+  whatsapp(params: MessageWhatsappParams, options?: RequestOptions): APIPromise<MessageWhatsappResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/whatsapp', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -2494,28 +2551,28 @@ export namespace MessageWhatsappResponse {
 
 export interface MessageSendParams {
   /**
-   * Receiving address (+E.164 formatted phone number or short code).
+   * Body param: Receiving address (+E.164 formatted phone number or short code).
    */
   to: string;
 
   /**
-   * Automatically detect if an SMS message is unusually long and exceeds a
-   * recommended limit of message parts.
+   * Body param: Automatically detect if an SMS message is unusually long and exceeds
+   * a recommended limit of message parts.
    */
   auto_detect?: boolean;
 
   /**
-   * Encoding to use for the message. `auto` (default) uses smart encoding to
-   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
-   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
-   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
-   * messaging profile's `smart_encoding` setting.
+   * Body param: Encoding to use for the message. `auto` (default) uses smart
+   * encoding to automatically select the most efficient encoding. `gsm7` forces
+   * GSM-7 encoding (returns 400 if message contains characters that cannot be
+   * encoded). `ucs2` forces UCS-2 encoding and disables smart encoding. When set,
+   * this overrides the messaging profile's `smart_encoding` setting.
    */
   encoding?: 'auto' | 'gsm7' | 'ucs2';
 
   /**
-   * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-   * code).
+   * Body param: Sending address (+E.164 formatted phone number, alphanumeric sender
+   * ID, or short code).
    *
    * **Required if sending with a phone number, short code, or alphanumeric sender
    * ID.**
@@ -2523,311 +2580,371 @@ export interface MessageSendParams {
   from?: string;
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
    */
   media_urls?: Array<string>;
 
   /**
-   * Unique identifier for a messaging profile.
+   * Body param: Unique identifier for a messaging profile.
    *
    * **Required if sending via number pool or with an alphanumeric sender ID.**
    */
   messaging_profile_id?: string;
 
   /**
-   * ISO 8601 formatted date indicating when to send the message - accurate up till a
-   * minute.
+   * Body param: ISO 8601 formatted date indicating when to send the message -
+   * accurate up till a minute.
    */
   send_at?: string | null;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
    */
   text?: string;
 
   /**
-   * The protocol for sending the message, either SMS or MMS.
+   * Body param: The protocol for sending the message, either SMS or MMS.
    */
   type?: 'SMS' | 'MMS';
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageSendLongCodeParams {
   /**
-   * Phone number, in +E.164 format, used to send the message.
+   * Body param: Phone number, in +E.164 format, used to send the message.
    */
   from: string;
 
   /**
-   * Receiving address (+E.164 formatted phone number or short code).
+   * Body param: Receiving address (+E.164 formatted phone number or short code).
    */
   to: string;
 
   /**
-   * Automatically detect if an SMS message is unusually long and exceeds a
-   * recommended limit of message parts.
+   * Body param: Automatically detect if an SMS message is unusually long and exceeds
+   * a recommended limit of message parts.
    */
   auto_detect?: boolean;
 
   /**
-   * Encoding to use for the message. `auto` (default) uses smart encoding to
-   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
-   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
-   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
-   * messaging profile's `smart_encoding` setting.
+   * Body param: Encoding to use for the message. `auto` (default) uses smart
+   * encoding to automatically select the most efficient encoding. `gsm7` forces
+   * GSM-7 encoding (returns 400 if message contains characters that cannot be
+   * encoded). `ucs2` forces UCS-2 encoding and disables smart encoding. When set,
+   * this overrides the messaging profile's `smart_encoding` setting.
    */
   encoding?: 'auto' | 'gsm7' | 'ucs2';
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
    */
   media_urls?: Array<string>;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
    */
   text?: string;
 
   /**
-   * The protocol for sending the message, either SMS or MMS.
+   * Body param: The protocol for sending the message, either SMS or MMS.
    */
   type?: 'SMS' | 'MMS';
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageSendNumberPoolParams {
   /**
-   * Unique identifier for a messaging profile.
+   * Body param: Unique identifier for a messaging profile.
    */
   messaging_profile_id: string;
 
   /**
-   * Receiving address (+E.164 formatted phone number or short code).
+   * Body param: Receiving address (+E.164 formatted phone number or short code).
    */
   to: string;
 
   /**
-   * Automatically detect if an SMS message is unusually long and exceeds a
-   * recommended limit of message parts.
+   * Body param: Automatically detect if an SMS message is unusually long and exceeds
+   * a recommended limit of message parts.
    */
   auto_detect?: boolean;
 
   /**
-   * Encoding to use for the message. `auto` (default) uses smart encoding to
-   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
-   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
-   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
-   * messaging profile's `smart_encoding` setting.
+   * Body param: Encoding to use for the message. `auto` (default) uses smart
+   * encoding to automatically select the most efficient encoding. `gsm7` forces
+   * GSM-7 encoding (returns 400 if message contains characters that cannot be
+   * encoded). `ucs2` forces UCS-2 encoding and disables smart encoding. When set,
+   * this overrides the messaging profile's `smart_encoding` setting.
    */
   encoding?: 'auto' | 'gsm7' | 'ucs2';
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
    */
   media_urls?: Array<string>;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
    */
   text?: string;
 
   /**
-   * The protocol for sending the message, either SMS or MMS.
+   * Body param: The protocol for sending the message, either SMS or MMS.
    */
   type?: 'SMS' | 'MMS';
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageSendShortCodeParams {
   /**
-   * Phone number, in +E.164 format, used to send the message.
+   * Body param: Phone number, in +E.164 format, used to send the message.
    */
   from: string;
 
   /**
-   * Receiving address (+E.164 formatted phone number or short code).
+   * Body param: Receiving address (+E.164 formatted phone number or short code).
    */
   to: string;
 
   /**
-   * Automatically detect if an SMS message is unusually long and exceeds a
-   * recommended limit of message parts.
+   * Body param: Automatically detect if an SMS message is unusually long and exceeds
+   * a recommended limit of message parts.
    */
   auto_detect?: boolean;
 
   /**
-   * Encoding to use for the message. `auto` (default) uses smart encoding to
-   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
-   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
-   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
-   * messaging profile's `smart_encoding` setting.
+   * Body param: Encoding to use for the message. `auto` (default) uses smart
+   * encoding to automatically select the most efficient encoding. `gsm7` forces
+   * GSM-7 encoding (returns 400 if message contains characters that cannot be
+   * encoded). `ucs2` forces UCS-2 encoding and disables smart encoding. When set,
+   * this overrides the messaging profile's `smart_encoding` setting.
    */
   encoding?: 'auto' | 'gsm7' | 'ucs2';
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
    */
   media_urls?: Array<string>;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
    */
   text?: string;
 
   /**
-   * The protocol for sending the message, either SMS or MMS.
+   * Body param: The protocol for sending the message, either SMS or MMS.
    */
   type?: 'SMS' | 'MMS';
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageSendGroupMmsParams {
   /**
-   * Phone number, in +E.164 format, used to send the message.
+   * Body param: Phone number, in +E.164 format, used to send the message.
    */
   from: string;
 
   /**
-   * A list of destinations. No more than 8 destinations are allowed.
+   * Body param: A list of destinations. No more than 8 destinations are allowed.
    */
   to: Array<string>;
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    */
   media_urls?: Array<string>;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    */
   text?: string;
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageScheduleParams {
@@ -2909,70 +3026,98 @@ export interface MessageScheduleParams {
 
 export interface MessageSendWithAlphanumericSenderParams {
   /**
-   * A valid alphanumeric sender ID on the user's account.
+   * Body param: A valid alphanumeric sender ID on the user's account.
    */
   from: string;
 
   /**
-   * The messaging profile ID to use.
+   * Body param: The messaging profile ID to use.
    */
   messaging_profile_id: string;
 
   /**
-   * The message body.
+   * Body param: The message body.
    */
   text: string;
 
   /**
-   * Receiving address (+E.164 formatted phone number).
+   * Body param: Receiving address (+E.164 formatted phone number).
    */
   to: string;
 
   /**
-   * If true, use the messaging profile's webhook settings.
+   * Body param: If true, use the messaging profile's webhook settings.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * Failover callback URL for delivery status updates.
+   * Body param: Failover callback URL for delivery status updates.
    */
   webhook_failover_url?: string | null;
 
   /**
-   * Callback URL for delivery status updates.
+   * Body param: Callback URL for delivery status updates.
    */
   webhook_url?: string | null;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageWhatsappParams {
   /**
-   * Phone number in +E.164 format associated with Whatsapp account
+   * Body param: Phone number in +E.164 format associated with Whatsapp account
    */
   from: string;
 
   /**
-   * Recipient phone number in +E.164 format, or the business-scoped user ID (BSUID)
-   * of a WhatsApp user who hides their phone number, for example
+   * Body param: Recipient phone number in +E.164 format, or the business-scoped user
+   * ID (BSUID) of a WhatsApp user who hides their phone number, for example
    * `US.13491208655302741918`. Authentication templates cannot be sent to a BSUID.
    */
   to: string;
 
+  /**
+   * Body param
+   */
   whatsapp_message: MessageWhatsappParams.WhatsappMessage;
 
   /**
-   * Messaging profile ID - required if the 'from' number is not SMS-enabled
+   * Body param: Messaging profile ID - required if the 'from' number is not
+   * SMS-enabled
    */
   messaging_profile_id?: string;
 
   /**
-   * Message type - must be set to "WHATSAPP"
+   * Body param: Message type - must be set to "WHATSAPP"
    */
   type?: 'WHATSAPP';
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export namespace MessageWhatsappParams {

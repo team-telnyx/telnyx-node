@@ -1422,6 +1422,7 @@ export {
   type TelephonyCredentialListParams,
   type TelephonyCredentialCreateParams,
   type TelephonyCredentialUpdateParams,
+  type TelephonyCredentialCreateTokenParams,
   type TelephonyCredentialsDefaultFlatPagination,
 } from './telephony-credentials';
 export {
@@ -1475,6 +1476,26 @@ export {
   type TrafficPolicyProfilesDefaultFlatPagination,
   type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
 } from './traffic-policy-profiles';
+export {
+  TtsIntegrations,
+  type CommunityTtsAudioFormat,
+  type CommunityTtsEngine,
+  type CommunityTtsEngineCapabilities,
+  type CommunityTtsEngineListMeta,
+  type CommunityTtsEngineStatus,
+  type CommunityTtsEngineVisibility,
+  type UpdateCommunityTtsEngineRequest,
+  type TtsIntegrationListResponse,
+  type TtsIntegrationRetrieveConformanceRunsResponse,
+  type TtsIntegrationRetrieveDiscoverableResponse,
+  type TtsIntegrationRetrieveVoicesResponse,
+  type TtsIntegrationListParams,
+  type TtsIntegrationCreateParams,
+  type TtsIntegrationRetrieveDiscoverableParams,
+  type TtsIntegrationUpdateParams,
+  type TtsIntegrationReplaceParams,
+  type TtsIntegrationRetrieveConformanceRunsParams,
+} from './tts-integrations/tts-integrations';
 export {
   UacConnections,
   type UacConnection,

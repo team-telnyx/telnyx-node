@@ -36,6 +36,7 @@ describe('resource messages', () => {
       use_profile_webhooks: true,
       webhook_failover_url: 'https://backup.example.com/hooks',
       webhook_url: 'http://example.com/webhooks',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 
@@ -65,6 +66,7 @@ describe('resource messages', () => {
       use_profile_webhooks: true,
       webhook_failover_url: 'https://backup.example.com/hooks',
       webhook_url: 'http://example.com/webhooks',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 
@@ -97,6 +99,7 @@ describe('resource messages', () => {
       use_profile_webhooks: true,
       webhook_failover_url: 'https://backup.example.com/hooks',
       webhook_url: 'http://example.com/webhooks',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 
@@ -126,6 +129,7 @@ describe('resource messages', () => {
       use_profile_webhooks: true,
       webhook_failover_url: 'https://backup.example.com/hooks',
       webhook_url: 'http://example.com/webhooks',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 
@@ -155,6 +159,7 @@ describe('resource messages', () => {
       use_profile_webhooks: true,
       webhook_failover_url: 'https://backup.example.com/hooks',
       webhook_url: 'http://example.com/webhooks',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 
@@ -239,6 +244,7 @@ describe('resource messages', () => {
       use_profile_webhooks: true,
       webhook_failover_url: 'webhook_failover_url',
       webhook_url: 'webhook_url',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 
@@ -472,6 +478,7 @@ describe('resource messages', () => {
       messaging_profile_id: '182bd5e5-6e1a-4fe4-a799-aa6d9a6ab26e',
       type: 'WHATSAPP',
       webhook_url: 'webhook_url',
+      'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
 });

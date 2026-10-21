@@ -1174,6 +1174,24 @@ export interface CallControlCommandResultWithConversationID {
 }
 
 /**
+ * Settings for a community text-to-speech engine voice (`<EngineName>.<VoiceId>`).
+ * `api_key_ref` is required. Every other key is a setting the engine declares in
+ * its `voice_settings_schema`, and is passed to the engine as sent. See the
+ * [Community TTS engines guide](/docs/voice/tts/community-engines).
+ */
+export interface CommunityVoiceSettings {
+  /**
+   * The `identifier` of an integration secret that holds your key for the engine.
+   * See
+   * [integration secrets documentation](https://developers.telnyx.com/api/secrets-manager/integration-secrets/create-integration-secret)
+   * for details.
+   */
+  api_key_ref: string;
+
+  [k: string]: unknown;
+}
+
+/**
  * Controls when caller input can interrupt assistant speech. `any` allows speech
  * or DTMF interruptions; `none` disables interruptions; `speech` allows speech
  * only; `dtmf` allows DTMF only.
@@ -2844,6 +2862,33 @@ export interface ActionStartAIAssistantParams {
    * ignore this field.
    */
   transcription?: TranscriptionConfig;
+
+  /**
+   * The voice the assistant speaks with on this call, in place of the assistant's
+   * own voice. Use the same formats as the `voice` of the
+   * [speak](/api-reference/call-commands/speak-text) command. A community engine
+   * voice is `<EngineName>.<VoiceId>` (e.g., `acme.alpha`) and needs
+   * `voice_settings.api_key_ref`; see the
+   * [Community TTS engines guide](/docs/voice/tts/community-engines). Without
+   * `voice`, the assistant's own voice is used.
+   */
+  voice?: string;
+
+  /**
+   * The settings of `voice`. A community engine voice requires `api_key_ref`; the
+   * other keys are the engine's own settings.
+   */
+  voice_settings?:
+    | ElevenLabsVoiceSettings
+    | TelnyxVoiceSettings
+    | AwsVoiceSettings
+    | Shared.MinimaxVoiceSettings
+    | Shared.AzureVoiceSettings
+    | Shared.ResembleVoiceSettings
+    | Shared.InworldVoiceSettings
+    | Shared.XaiVoiceSettings
+    | SonioxVoiceSettings
+    | CommunityVoiceSettings;
 }
 
 export interface ActionStopAIAssistantParams {
@@ -3736,6 +3781,13 @@ export interface ActionGatherUsingSpeakParams {
    *   `sara-en`, `abdulaziz-en`, `sara-ar`, `abdulaziz-ar`, `nourah-ar`,
    *   `abdullah-ar`. Native Arabic (Saudi dialect) and English voices only — no
    *   `ModelId` segment.
+   * - **Community engines:** Use `<EngineName>.<VoiceId>` (e.g., `acme.alpha`),
+   *   where `EngineName` is the lowercase name of a community text-to-speech engine
+   *   and `VoiceId` is one of the voices it lists. You must provide your key for the
+   *   engine as an integration identifier secret in
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`; any other key in
+   *   `voice_settings` is a setting of the engine. See the
+   *   [Community TTS engines guide](/docs/voice/tts/community-engines).
    *
    * For service_level basic, you may define the gender of the speaker (male or
    * female).
@@ -3849,7 +3901,8 @@ export interface ActionGatherUsingSpeakParams {
   valid_digits?: string;
 
   /**
-   * The settings associated with the voice selected
+   * The settings associated with the voice selected. For a community engine voice,
+   * `api_key_ref` plus the engine's own settings.
    */
   voice_settings?:
     | ElevenLabsVoiceSettings
@@ -3860,7 +3913,8 @@ export interface ActionGatherUsingSpeakParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings;
+    | SonioxVoiceSettings
+    | CommunityVoiceSettings;
 }
 
 export interface ActionHangupParams {
@@ -4648,6 +4702,13 @@ export interface ActionSpeakParams {
    *   `sara-en`, `abdulaziz-en`, `sara-ar`, `abdulaziz-ar`, `nourah-ar`,
    *   `abdullah-ar`. Native Arabic (Saudi dialect) and English voices only — no
    *   `ModelId` segment.
+   * - **Community engines:** Use `<EngineName>.<VoiceId>` (e.g., `acme.alpha`),
+   *   where `EngineName` is the lowercase name of a community text-to-speech engine
+   *   and `VoiceId` is one of the voices it lists. You must provide your key for the
+   *   engine as an integration identifier secret in
+   *   `"voice_settings": {"api_key_ref": "<secret_identifier>"}`; any other key in
+   *   `voice_settings` is a setting of the engine. See the
+   *   [Community TTS engines guide](/docs/voice/tts/community-engines).
    *
    * For service_level basic, you may define the gender of the speaker (male or
    * female).
@@ -4733,7 +4794,8 @@ export interface ActionSpeakParams {
   target_legs?: 'self' | 'opposite' | 'both';
 
   /**
-   * The settings associated with the voice selected
+   * The settings associated with the voice selected. For a community engine voice,
+   * `api_key_ref` plus the engine's own settings.
    */
   voice_settings?:
     | ElevenLabsVoiceSettings
@@ -4744,7 +4806,8 @@ export interface ActionSpeakParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings;
+    | SonioxVoiceSettings
+    | CommunityVoiceSettings;
 }
 
 export interface ActionStartStreamingParams {
@@ -5972,6 +6035,7 @@ export declare namespace Actions {
     type AwsVoiceSettings as AwsVoiceSettings,
     type CallControlCommandResult as CallControlCommandResult,
     type CallControlCommandResultWithConversationID as CallControlCommandResultWithConversationID,
+    type CommunityVoiceSettings as CommunityVoiceSettings,
     type ConversationRelayInterruptible as ConversationRelayInterruptible,
     type ConversationRelayTranscriptionEngineConfig as ConversationRelayTranscriptionEngineConfig,
     type DeepgramEnglishTranscriptionLanguage as DeepgramEnglishTranscriptionLanguage,
