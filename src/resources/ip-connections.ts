@@ -282,8 +282,8 @@ export interface IPConnection {
   encode_contact_header_enabled?: boolean;
 
   /**
-   * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
-   * TLS.
+   * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+   * transport protocol is TLS.
    */
   encrypted_media?: CredentialConnectionsAPI.EncryptedMedia | null;
 
@@ -587,8 +587,8 @@ export interface IPConnectionCreateParams {
   encode_contact_header_enabled?: boolean;
 
   /**
-   * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
-   * TLS.
+   * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+   * transport protocol is TLS.
    */
   encrypted_media?: CredentialConnectionsAPI.EncryptedMedia | null;
 
@@ -826,8 +826,8 @@ export interface IPConnectionUpdateParams {
   encode_contact_header_enabled?: boolean;
 
   /**
-   * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
-   * TLS.
+   * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+   * transport protocol is TLS.
    */
   encrypted_media?: CredentialConnectionsAPI.EncryptedMedia | null;
 

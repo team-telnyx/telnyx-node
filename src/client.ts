@@ -246,6 +246,12 @@ import {
   DetailRecords,
 } from './resources/detail-records';
 import {
+  DialMetricListParams,
+  DialMetricListResponse,
+  DialMetricListResponsesCloudfsCursorPagination,
+  DialMetrics,
+} from './resources/dial-metrics';
+import {
   DialogflowConnectionCreateParams,
   DialogflowConnectionResponse,
   DialogflowConnectionUpdateParams,
@@ -3338,6 +3344,10 @@ export class Telnyx {
    * UAC connection operations
    */
   sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
+  /**
+   * Call information
+   */
+  dialMetrics: API.DialMetrics = new API.DialMetrics(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3531,6 +3541,7 @@ Telnyx.MachinePayments = MachinePayments;
 Telnyx.SpendLimits = SpendLimits;
 Telnyx.LlmTokenGateway = LlmTokenGateway;
 Telnyx.SipRegistrationStatus = SipRegistrationStatus;
+Telnyx.DialMetrics = DialMetrics;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5629,6 +5640,13 @@ export declare namespace Telnyx {
     SipRegistrationStatus as SipRegistrationStatus,
     type SipRegistrationStatusListResponse as SipRegistrationStatusListResponse,
     type SipRegistrationStatusListParams as SipRegistrationStatusListParams,
+  };
+
+  export {
+    DialMetrics as DialMetrics,
+    type DialMetricListResponse as DialMetricListResponse,
+    type DialMetricListResponsesCloudfsCursorPagination as DialMetricListResponsesCloudfsCursorPagination,
+    type DialMetricListParams as DialMetricListParams,
   };
 
   export type APIError = API.APIError;

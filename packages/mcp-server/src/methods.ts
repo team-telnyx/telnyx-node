@@ -8009,6 +8009,12 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'get',
     httpPath: '/sip_registration_status',
   },
+  {
+    clientCallName: 'client.dialMetrics.list',
+    fullyQualifiedName: 'dialMetrics.list',
+    httpMethod: 'get',
+    httpPath: '/dial_metrics',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {

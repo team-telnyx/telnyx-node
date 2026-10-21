@@ -220,8 +220,8 @@ export interface CredentialConnection {
   encode_contact_header_enabled?: boolean;
 
   /**
-   * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
-   * TLS.
+   * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+   * transport protocol is TLS.
    */
   encrypted_media?: EncryptedMedia | null;
 
@@ -478,8 +478,8 @@ export interface CredentialOutbound {
 export type DtmfType = 'RFC 2833' | 'Inband' | 'SIP INFO';
 
 /**
- * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
- * TLS.
+ * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+ * transport protocol is TLS.
  */
 export type EncryptedMedia = 'SRTP' | null;
 
@@ -636,8 +636,8 @@ export interface CredentialConnectionCreateParams {
   encode_contact_header_enabled?: boolean;
 
   /**
-   * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
-   * TLS.
+   * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+   * transport protocol is TLS.
    */
   encrypted_media?: EncryptedMedia | null;
 
@@ -789,8 +789,8 @@ export interface CredentialConnectionUpdateParams {
   encode_contact_header_enabled?: boolean;
 
   /**
-   * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
-   * TLS.
+   * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+   * transport protocol is TLS.
    */
   encrypted_media?: EncryptedMedia | null;
 

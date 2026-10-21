@@ -280,6 +280,12 @@ export {
   type DetailRecordListResponsesDefaultFlatPagination,
 } from './detail-records';
 export {
+  DialMetrics,
+  type DialMetricListResponse,
+  type DialMetricListParams,
+  type DialMetricListResponsesCloudfsCursorPagination,
+} from './dial-metrics';
+export {
   DialogflowConnections,
   type DialogflowConnectionResponse,
   type DialogflowConnectionCreateParams,

@@ -118,7 +118,7 @@ describe('resource fqdnConnections', () => {
         report_frequency_secs: 10,
       },
       tags: ['tag1', 'tag2'],
-      transport_protocol: 'UDP',
+      transport_protocol: 'TLS',
       webhook_api_version: '1',
       webhook_event_failover_url: 'https://failover.example.com',
       webhook_event_url: 'https://example.com',

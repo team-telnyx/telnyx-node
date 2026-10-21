@@ -6273,3 +6273,13 @@ Types:
 Methods:
 
 - <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">list</a>({ ...params }) -> SipRegistrationStatusListResponse</code>
+
+# DialMetrics
+
+Types:
+
+- <code><a href="./src/resources/dial-metrics.ts">DialMetricListResponse</a></code>
+
+Methods:
+
+- <code title="get /dial_metrics">client.dialMetrics.<a href="./src/resources/dial-metrics.ts">list</a>({ ...params }) -> DialMetricListResponsesCloudfsCursorPagination</code>

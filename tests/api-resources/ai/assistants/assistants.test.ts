@@ -430,7 +430,11 @@ describe('resource assistants', () => {
         status: 'enabled',
       },
       post_conversation_settings: { enabled: true },
-      privacy_settings: { data_retention: true, in_transit_data_locality: true },
+      privacy_settings: {
+        data_retention: true,
+        in_transit_data_locality: true,
+        pii_redaction: 'disabled',
+      },
       tags: ['string'],
       telephony_settings: {
         conversation_ended_full_history: true,

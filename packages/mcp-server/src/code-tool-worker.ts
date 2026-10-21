@@ -1444,6 +1444,7 @@ const fuse = new Fuse(
     'client.llmTokenGateway.tokenKeys.retrieve',
     'client.llmTokenGateway.tokenKeys.update',
     'client.sipRegistrationStatus.list',
+    'client.dialMetrics.list',
   ],
   { threshold: 1, shouldSort: true },
 );
