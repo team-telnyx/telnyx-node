@@ -11,6 +11,7 @@ import {
   Rcs,
 } from './rcs';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -32,8 +33,16 @@ export class Messages extends APIResource {
    * });
    * ```
    */
-  send(body: MessageSendParams, options?: RequestOptions): APIPromise<MessageSendResponse> {
-    return this._client.post('/messages', { body, ...options });
+  send(params: MessageSendParams, options?: RequestOptions): APIPromise<MessageSendResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -49,10 +58,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendLongCode(
-    body: MessageSendLongCodeParams,
+    params: MessageSendLongCodeParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendLongCodeResponse> {
-    return this._client.post('/messages/long_code', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/long_code', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -69,10 +86,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendNumberPool(
-    body: MessageSendNumberPoolParams,
+    params: MessageSendNumberPoolParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendNumberPoolResponse> {
-    return this._client.post('/messages/number_pool', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/number_pool', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -88,10 +113,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendShortCode(
-    body: MessageSendShortCodeParams,
+    params: MessageSendShortCodeParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendShortCodeResponse> {
-    return this._client.post('/messages/short_code', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/short_code', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -107,10 +140,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendGroupMms(
-    body: MessageSendGroupMmsParams,
+    params: MessageSendGroupMmsParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendGroupMmsResponse> {
-    return this._client.post('/messages/group_mms', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/group_mms', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -180,10 +221,18 @@ export class Messages extends APIResource {
    * ```
    */
   sendWithAlphanumericSender(
-    body: MessageSendWithAlphanumericSenderParams,
+    params: MessageSendWithAlphanumericSenderParams,
     options?: RequestOptions,
   ): APIPromise<MessageSendWithAlphanumericSenderResponse> {
-    return this._client.post('/messages/alphanumeric_sender_id', { body, ...options });
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/alphanumeric_sender_id', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 
   /**
@@ -219,8 +268,16 @@ export class Messages extends APIResource {
    * });
    * ```
    */
-  whatsapp(body: MessageWhatsappParams, options?: RequestOptions): APIPromise<MessageWhatsappResponse> {
-    return this._client.post('/messages/whatsapp', { body, ...options });
+  whatsapp(params: MessageWhatsappParams, options?: RequestOptions): APIPromise<MessageWhatsappResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/whatsapp', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -423,9 +480,17 @@ export namespace MessagingInboundMessagePayload {
     foreign_id?: string;
 
     /**
-     * WhatsApp sender in E.164 format.
+     * WhatsApp sender in E.164 format. Empty when the user hides their phone number;
+     * `from_user_id` then identifies the sender.
      */
     from?: string;
+
+    /**
+     * Business-scoped user ID (BSUID) of the WhatsApp sender when Meta provides one,
+     * for example `US.13491208655302741918`. When `from` is empty, pass this value as
+     * `to` to reply.
+     */
+    from_user_id?: string;
 
     /**
      * Location shared in an RCS message.
@@ -710,7 +775,8 @@ export interface MessagingOutboundMessagePayload {
   id?: string;
 
   /**
-   * RCS webhook message body. Text messages use the text property.
+   * Message body for RCS and WhatsApp. RCS text messages use the text property.
+   * WhatsApp messages contain the `whatsapp_message` object from the send request.
    */
   body?: MessagingOutboundMessagePayload.Body;
 
@@ -818,6 +884,17 @@ export interface MessagingOutboundMessagePayload {
   tcr_campaign_registered?: string | null;
 
   /**
+   * Telnyx ID of the WhatsApp template used by the message, when known.
+   */
+  template_id?: string;
+
+  /**
+   * Name of the WhatsApp template used by the message. Present for WhatsApp template
+   * messages.
+   */
+  template_name?: string;
+
+  /**
    * Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
@@ -829,7 +906,7 @@ export interface MessagingOutboundMessagePayload {
   /**
    * The type of message.
    */
-  type?: 'SMS' | 'MMS' | 'RCS';
+  type?: 'SMS' | 'MMS' | 'RCS' | 'WHATSAPP';
 
   /**
    * Message must be out of the queue by this time or else it will be discarded and
@@ -859,13 +936,16 @@ export interface MessagingOutboundMessagePayload {
 
 export namespace MessagingOutboundMessagePayload {
   /**
-   * RCS webhook message body. Text messages use the text property.
+   * Message body for RCS and WhatsApp. RCS text messages use the text property.
+   * WhatsApp messages contain the `whatsapp_message` object from the send request.
    */
   export interface Body {
     /**
      * RCS text message.
      */
     text?: string;
+
+    [k: string]: unknown;
   }
 
   export interface Cc {
@@ -1030,7 +1110,8 @@ export interface OutboundMessagePayload {
   id?: string;
 
   /**
-   * RCS webhook message body. Text messages use the text property.
+   * Message body for RCS and WhatsApp. RCS text messages use the text property.
+   * WhatsApp messages contain the `whatsapp_message` object from the send request.
    */
   body?: OutboundMessagePayload.Body;
 
@@ -1138,6 +1219,17 @@ export interface OutboundMessagePayload {
   tcr_campaign_registered?: string | null;
 
   /**
+   * Telnyx ID of the WhatsApp template used by the message, when known.
+   */
+  template_id?: string;
+
+  /**
+   * Name of the WhatsApp template used by the message. Present for WhatsApp template
+   * messages.
+   */
+  template_name?: string;
+
+  /**
    * Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
@@ -1149,7 +1241,7 @@ export interface OutboundMessagePayload {
   /**
    * The type of message.
    */
-  type?: 'SMS' | 'MMS' | 'RCS';
+  type?: 'SMS' | 'MMS' | 'RCS' | 'WHATSAPP';
 
   /**
    * Message must be out of the queue by this time or else it will be discarded and
@@ -1179,13 +1271,16 @@ export interface OutboundMessagePayload {
 
 export namespace OutboundMessagePayload {
   /**
-   * RCS webhook message body. Text messages use the text property.
+   * Message body for RCS and WhatsApp. RCS text messages use the text property.
+   * WhatsApp messages contain the `whatsapp_message` object from the send request.
    */
   export interface Body {
     /**
      * RCS text message.
      */
     text?: string;
+
+    [k: string]: unknown;
   }
 
   export interface Cc {
@@ -2456,28 +2551,28 @@ export namespace MessageWhatsappResponse {
 
 export interface MessageSendParams {
   /**
-   * Receiving address (+E.164 formatted phone number or short code).
+   * Body param: Receiving address (+E.164 formatted phone number or short code).
    */
   to: string;
 
   /**
-   * Automatically detect if an SMS message is unusually long and exceeds a
-   * recommended limit of message parts.
+   * Body param: Automatically detect if an SMS message is unusually long and exceeds
+   * a recommended limit of message parts.
    */
   auto_detect?: boolean;
 
   /**
-   * Encoding to use for the message. `auto` (default) uses smart encoding to
-   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
-   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
-   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
-   * messaging profile's `smart_encoding` setting.
+   * Body param: Encoding to use for the message. `auto` (default) uses smart
+   * encoding to automatically select the most efficient encoding. `gsm7` forces
+   * GSM-7 encoding (returns 400 if message contains characters that cannot be
+   * encoded). `ucs2` forces UCS-2 encoding and disables smart encoding. When set,
+   * this overrides the messaging profile's `smart_encoding` setting.
    */
   encoding?: 'auto' | 'gsm7' | 'ucs2';
 
   /**
-   * Sending address (+E.164 formatted phone number, alphanumeric sender ID, or short
-   * code).
+   * Body param: Sending address (+E.164 formatted phone number, alphanumeric sender
+   * ID, or short code).
    *
    * **Required if sending with a phone number, short code, or alphanumeric sender
    * ID.**
@@ -2485,311 +2580,371 @@ export interface MessageSendParams {
   from?: string;
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
    */
   media_urls?: Array<string>;
 
   /**
-   * Unique identifier for a messaging profile.
+   * Body param: Unique identifier for a messaging profile.
    *
    * **Required if sending via number pool or with an alphanumeric sender ID.**
    */
   messaging_profile_id?: string;
 
   /**
-   * ISO 8601 formatted date indicating when to send the message - accurate up till a
-   * minute.
+   * Body param: ISO 8601 formatted date indicating when to send the message -
+   * accurate up till a minute.
    */
   send_at?: string | null;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
    */
   text?: string;
 
   /**
-   * The protocol for sending the message, either SMS or MMS.
+   * Body param: The protocol for sending the message, either SMS or MMS.
    */
   type?: 'SMS' | 'MMS';
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageSendLongCodeParams {
   /**
-   * Phone number, in +E.164 format, used to send the message.
+   * Body param: Phone number, in +E.164 format, used to send the message.
    */
   from: string;
 
   /**
-   * Receiving address (+E.164 formatted phone number or short code).
+   * Body param: Receiving address (+E.164 formatted phone number or short code).
    */
   to: string;
 
   /**
-   * Automatically detect if an SMS message is unusually long and exceeds a
-   * recommended limit of message parts.
+   * Body param: Automatically detect if an SMS message is unusually long and exceeds
+   * a recommended limit of message parts.
    */
   auto_detect?: boolean;
 
   /**
-   * Encoding to use for the message. `auto` (default) uses smart encoding to
-   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
-   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
-   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
-   * messaging profile's `smart_encoding` setting.
+   * Body param: Encoding to use for the message. `auto` (default) uses smart
+   * encoding to automatically select the most efficient encoding. `gsm7` forces
+   * GSM-7 encoding (returns 400 if message contains characters that cannot be
+   * encoded). `ucs2` forces UCS-2 encoding and disables smart encoding. When set,
+   * this overrides the messaging profile's `smart_encoding` setting.
    */
   encoding?: 'auto' | 'gsm7' | 'ucs2';
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
    */
   media_urls?: Array<string>;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
    */
   text?: string;
 
   /**
-   * The protocol for sending the message, either SMS or MMS.
+   * Body param: The protocol for sending the message, either SMS or MMS.
    */
   type?: 'SMS' | 'MMS';
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageSendNumberPoolParams {
   /**
-   * Unique identifier for a messaging profile.
+   * Body param: Unique identifier for a messaging profile.
    */
   messaging_profile_id: string;
 
   /**
-   * Receiving address (+E.164 formatted phone number or short code).
+   * Body param: Receiving address (+E.164 formatted phone number or short code).
    */
   to: string;
 
   /**
-   * Automatically detect if an SMS message is unusually long and exceeds a
-   * recommended limit of message parts.
+   * Body param: Automatically detect if an SMS message is unusually long and exceeds
+   * a recommended limit of message parts.
    */
   auto_detect?: boolean;
 
   /**
-   * Encoding to use for the message. `auto` (default) uses smart encoding to
-   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
-   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
-   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
-   * messaging profile's `smart_encoding` setting.
+   * Body param: Encoding to use for the message. `auto` (default) uses smart
+   * encoding to automatically select the most efficient encoding. `gsm7` forces
+   * GSM-7 encoding (returns 400 if message contains characters that cannot be
+   * encoded). `ucs2` forces UCS-2 encoding and disables smart encoding. When set,
+   * this overrides the messaging profile's `smart_encoding` setting.
    */
   encoding?: 'auto' | 'gsm7' | 'ucs2';
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
    */
   media_urls?: Array<string>;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
    */
   text?: string;
 
   /**
-   * The protocol for sending the message, either SMS or MMS.
+   * Body param: The protocol for sending the message, either SMS or MMS.
    */
   type?: 'SMS' | 'MMS';
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageSendShortCodeParams {
   /**
-   * Phone number, in +E.164 format, used to send the message.
+   * Body param: Phone number, in +E.164 format, used to send the message.
    */
   from: string;
 
   /**
-   * Receiving address (+E.164 formatted phone number or short code).
+   * Body param: Receiving address (+E.164 formatted phone number or short code).
    */
   to: string;
 
   /**
-   * Automatically detect if an SMS message is unusually long and exceeds a
-   * recommended limit of message parts.
+   * Body param: Automatically detect if an SMS message is unusually long and exceeds
+   * a recommended limit of message parts.
    */
   auto_detect?: boolean;
 
   /**
-   * Encoding to use for the message. `auto` (default) uses smart encoding to
-   * automatically select the most efficient encoding. `gsm7` forces GSM-7 encoding
-   * (returns 400 if message contains characters that cannot be encoded). `ucs2`
-   * forces UCS-2 encoding and disables smart encoding. When set, this overrides the
-   * messaging profile's `smart_encoding` setting.
+   * Body param: Encoding to use for the message. `auto` (default) uses smart
+   * encoding to automatically select the most efficient encoding. `gsm7` forces
+   * GSM-7 encoding (returns 400 if message contains characters that cannot be
+   * encoded). `ucs2` forces UCS-2 encoding and disables smart encoding. When set,
+   * this overrides the messaging profile's `smart_encoding` setting.
    */
   encoding?: 'auto' | 'gsm7' | 'ucs2';
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    *
    * **Required for MMS**
    */
   media_urls?: Array<string>;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    *
    * **Required for SMS**
    */
   text?: string;
 
   /**
-   * The protocol for sending the message, either SMS or MMS.
+   * Body param: The protocol for sending the message, either SMS or MMS.
    */
   type?: 'SMS' | 'MMS';
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageSendGroupMmsParams {
   /**
-   * Phone number, in +E.164 format, used to send the message.
+   * Body param: Phone number, in +E.164 format, used to send the message.
    */
   from: string;
 
   /**
-   * A list of destinations. No more than 8 destinations are allowed.
+   * Body param: A list of destinations. No more than 8 destinations are allowed.
    */
   to: Array<string>;
 
   /**
-   * A list of media URLs. The total media size must be less than 1 MB.
+   * Body param: A list of media URLs. The total media size must be less than 1 MB.
    */
   media_urls?: Array<string>;
 
   /**
-   * Subject of multimedia message
+   * Body param: Subject of multimedia message
    */
   subject?: string;
 
   /**
-   * Message body (i.e., content) as a non-empty string.
+   * Body param: Message body (i.e., content) as a non-empty string.
    */
   text?: string;
 
   /**
-   * If the profile this number is associated with has webhooks, use them for
-   * delivery notifications. If webhooks are also specified on the message itself,
-   * they will be attempted first, then those on the profile.
+   * Body param: If the profile this number is associated with has webhooks, use them
+   * for delivery notifications. If webhooks are also specified on the message
+   * itself, they will be attempted first, then those on the profile.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * The failover URL where webhooks related to this message will be sent if sending
-   * to the primary URL fails.
+   * Body param: The failover URL where webhooks related to this message will be sent
+   * if sending to the primary URL fails.
    */
   webhook_failover_url?: string;
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageScheduleParams {
@@ -2871,68 +3026,574 @@ export interface MessageScheduleParams {
 
 export interface MessageSendWithAlphanumericSenderParams {
   /**
-   * A valid alphanumeric sender ID on the user's account.
+   * Body param: A valid alphanumeric sender ID on the user's account.
    */
   from: string;
 
   /**
-   * The messaging profile ID to use.
+   * Body param: The messaging profile ID to use.
    */
   messaging_profile_id: string;
 
   /**
-   * The message body.
+   * Body param: The message body.
    */
   text: string;
 
   /**
-   * Receiving address (+E.164 formatted phone number).
+   * Body param: Receiving address (+E.164 formatted phone number).
    */
   to: string;
 
   /**
-   * If true, use the messaging profile's webhook settings.
+   * Body param: If true, use the messaging profile's webhook settings.
    */
   use_profile_webhooks?: boolean;
 
   /**
-   * Failover callback URL for delivery status updates.
+   * Body param: Failover callback URL for delivery status updates.
    */
   webhook_failover_url?: string | null;
 
   /**
-   * Callback URL for delivery status updates.
+   * Body param: Callback URL for delivery status updates.
    */
   webhook_url?: string | null;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export interface MessageWhatsappParams {
   /**
-   * Phone number in +E.164 format associated with Whatsapp account
+   * Body param: Phone number in +E.164 format associated with Whatsapp account
    */
   from: string;
 
   /**
-   * Phone number in +E.164 format
+   * Body param: Recipient phone number in +E.164 format, or the business-scoped user
+   * ID (BSUID) of a WhatsApp user who hides their phone number, for example
+   * `US.13491208655302741918`. Authentication templates cannot be sent to a BSUID.
    */
   to: string;
 
-  whatsapp_message: WhatsappMessageContent;
+  /**
+   * Body param
+   */
+  whatsapp_message: MessageWhatsappParams.WhatsappMessage;
 
   /**
-   * Messaging profile ID - required if the 'from' number is not SMS-enabled
+   * Body param: Messaging profile ID - required if the 'from' number is not
+   * SMS-enabled
    */
   messaging_profile_id?: string;
 
   /**
-   * Message type - must be set to "WHATSAPP"
+   * Body param: Message type - must be set to "WHATSAPP"
    */
   type?: 'WHATSAPP';
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
+}
+
+export namespace MessageWhatsappParams {
+  export interface WhatsappMessage {
+    audio?: MessagesAPI.WhatsappMedia;
+
+    /**
+     * custom data to return with status update
+     */
+    biz_opaque_callback_data?: string;
+
+    contacts?: Array<WhatsappMessage.Contact>;
+
+    document?: MessagesAPI.WhatsappMedia;
+
+    image?: MessagesAPI.WhatsappMedia;
+
+    interactive?: WhatsappMessage.Interactive;
+
+    location?: MessagesAPI.WhatsappLocation;
+
+    reaction?: MessagesAPI.WhatsappReaction;
+
+    sticker?: MessagesAPI.WhatsappMedia;
+
+    /**
+     * Template message object. Provide either template_id or name + language to
+     * identify the template.
+     */
+    template?: WhatsappMessage.Template;
+
+    /**
+     * Text message content. Can only be sent within a 24-hour customer service window.
+     */
+    text?: WhatsappMessage.Text;
+
+    type?:
+      | 'audio'
+      | 'document'
+      | 'image'
+      | 'sticker'
+      | 'video'
+      | 'interactive'
+      | 'location'
+      | 'template'
+      | 'reaction'
+      | 'contacts'
+      | 'text';
+
+    video?: MessagesAPI.WhatsappMedia;
+  }
+
+  export namespace WhatsappMessage {
+    export interface Contact {
+      addresses?: Array<Contact.Address>;
+
+      birthday?: string;
+
+      emails?: Array<Contact.Email>;
+
+      name?: Contact.Name;
+
+      org?: Contact.Org;
+
+      phones?: Array<Contact.Phone>;
+
+      urls?: Array<Contact.URL>;
+    }
+
+    export namespace Contact {
+      export interface Address {
+        city?: string;
+
+        country?: string;
+
+        country_code?: string;
+
+        state?: string;
+
+        street?: string;
+
+        type?: string;
+
+        zip?: string;
+      }
+
+      export interface Email {
+        email?: string;
+
+        type?: string;
+      }
+
+      export interface Name {
+        /**
+         * contact's full name as displayed in the message
+         */
+        formatted_name: string;
+
+        first_name?: string;
+
+        last_name?: string;
+
+        middle_name?: string;
+
+        prefix?: string;
+
+        suffix?: string;
+      }
+
+      export interface Org {
+        company?: string;
+
+        department?: string;
+
+        title?: string;
+      }
+
+      export interface Phone {
+        phone?: string;
+
+        type?: string;
+
+        wa_id?: string;
+      }
+
+      export interface URL {
+        type?: string;
+
+        url?: string;
+      }
+    }
+
+    export interface Interactive {
+      action?: Interactive.Action;
+
+      body?: Interactive.Body;
+
+      footer?: Interactive.Footer;
+
+      header?: Interactive.Header;
+
+      type?: 'cta_url' | 'list' | 'carousel' | 'button' | 'location_request_message' | 'flow';
+    }
+
+    export namespace Interactive {
+      export interface Action {
+        button?: string;
+
+        buttons?: Array<Action.Button>;
+
+        cards?: Array<Action.Card>;
+
+        catalog_id?: string;
+
+        mode?: string;
+
+        name?: string;
+
+        parameters?: Action.Parameters;
+
+        product_retailer_id?: string;
+
+        sections?: Array<Action.Section>;
+      }
+
+      export namespace Action {
+        export interface Button {
+          reply?: Button.Reply;
+
+          type?: 'reply';
+        }
+
+        export namespace Button {
+          export interface Reply {
+            /**
+             * unique identifier for each button, 256 character maximum
+             */
+            id?: string;
+
+            /**
+             * button label, 20 character maximum
+             */
+            title?: string;
+          }
+        }
+
+        export interface Card {
+          action?: Card.Action;
+
+          body?: Card.Body;
+
+          /**
+           * unique index for each card (0-9)
+           */
+          card_index?: number;
+
+          header?: Card.Header;
+
+          type?: 'cta_url';
+        }
+
+        export namespace Card {
+          export interface Action {
+            /**
+             * the unique ID of the catalog
+             */
+            catalog_id?: string;
+
+            /**
+             * the unique retailer ID of the product
+             */
+            product_retailer_id?: string;
+          }
+
+          export interface Body {
+            /**
+             * 160 character maximum, up to 2 line breaks
+             */
+            text?: string;
+          }
+
+          export interface Header {
+            image?: MessagesAPI.WhatsappMedia;
+
+            type?: 'image' | 'video';
+
+            video?: MessagesAPI.WhatsappMedia;
+          }
+        }
+
+        export interface Parameters {
+          /**
+           * button label text, 20 character maximum
+           */
+          display_text?: string;
+
+          /**
+           * how the flow starts. navigate opens the screen in flow_action_payload;
+           * data_exchange requests the first screen from the business's flow endpoint.
+           * Defaults to navigate
+           */
+          flow_action?: 'navigate' | 'data_exchange';
+
+          /**
+           * optional initial screen and data. When omitted, the flow opens on its first
+           * entry screen. Must be omitted when flow_action is data_exchange
+           */
+          flow_action_payload?: Parameters.FlowActionPayload;
+
+          /**
+           * text of the button that opens the flow, 1-20 characters, no emoji. Required for
+           * flow messages
+           */
+          flow_cta?: string;
+
+          /**
+           * ID of the flow to open. Provide exactly one of flow_id or flow_name
+           */
+          flow_id?: string;
+
+          /**
+           * flow message version, must be 3. Required for flow messages
+           */
+          flow_message_version?: string;
+
+          /**
+           * name of the flow to open. Provide exactly one of flow_id or flow_name
+           */
+          flow_name?: string;
+
+          /**
+           * business-generated identifier for the flow session. Returned in the flow
+           * response for correlation
+           */
+          flow_token?: string;
+
+          /**
+           * use draft to test an unpublished flow. Defaults to published
+           */
+          mode?: 'draft' | 'published';
+
+          /**
+           * button URL to load when tapped by the user
+           */
+          url?: string;
+        }
+
+        export namespace Parameters {
+          /**
+           * optional initial screen and data. When omitted, the flow opens on its first
+           * entry screen. Must be omitted when flow_action is data_exchange
+           */
+          export interface FlowActionPayload {
+            /**
+             * input data for the first screen. Must be a non-empty object when provided
+             */
+            data?: unknown;
+
+            /**
+             * ID of the first screen to show
+             */
+            screen?: string;
+          }
+        }
+
+        export interface Section {
+          product_items?: Array<Section.ProductItem>;
+
+          rows?: Array<Section.Row>;
+
+          /**
+           * section title, 24 character maximum
+           */
+          title?: string;
+        }
+
+        export namespace Section {
+          export interface ProductItem {
+            product_retailer_id?: string;
+          }
+
+          export interface Row {
+            /**
+             * arbitrary string identifying the row, 200 character maximum
+             */
+            id?: string;
+
+            /**
+             * row description, 72 character maximum
+             */
+            description?: string;
+
+            /**
+             * row title, 24 character maximum
+             */
+            title?: string;
+          }
+        }
+      }
+
+      export interface Body {
+        /**
+         * body text, 1024 character maximum
+         */
+        text?: string;
+      }
+
+      export interface Footer {
+        /**
+         * footer text, 60 character maximum
+         */
+        text?: string;
+      }
+
+      export interface Header {
+        /**
+         * header type. Required when a header is provided; the matching document, image,
+         * text, or video field must be set
+         */
+        type: 'document' | 'image' | 'text' | 'video';
+
+        document?: MessagesAPI.WhatsappMedia;
+
+        image?: MessagesAPI.WhatsappMedia;
+
+        sub_text?: string;
+
+        /**
+         * header text, 60 character maximum
+         */
+        text?: string;
+
+        video?: MessagesAPI.WhatsappMedia;
+      }
+    }
+
+    /**
+     * Template message object. Provide either template_id or name + language to
+     * identify the template.
+     */
+    export interface Template {
+      /**
+       * Template parameter values for header, body, and button components.
+       */
+      components?: Array<Template.Component>;
+
+      /**
+       * Template language. Required unless template_id is provided.
+       */
+      language?: Template.Language;
+
+      /**
+       * Template name as registered with Meta. Required unless template_id is provided.
+       */
+      name?: string;
+
+      /**
+       * Telnyx template ID (the id field from template list/get responses). When
+       * provided, name and language are resolved automatically.
+       */
+      template_id?: string;
+    }
+
+    export namespace Template {
+      export interface Component {
+        /**
+         * Button index (required for button components)
+         */
+        index?: number;
+
+        parameters?: Array<Component.Parameter>;
+
+        sub_type?: 'quick_reply' | 'url' | 'flow';
+
+        type?: 'header' | 'body' | 'button';
+      }
+
+      export namespace Component {
+        export interface Parameter {
+          /**
+           * Flow button parameters. Used with type action on a flow button component
+           */
+          action?: Parameter.Action;
+
+          text?: string;
+
+          type?: 'text' | 'image' | 'video' | 'document' | 'currency' | 'date_time' | 'action';
+        }
+
+        export namespace Parameter {
+          /**
+           * Flow button parameters. Used with type action on a flow button component
+           */
+          export interface Action {
+            /**
+             * input data for the first screen of the flow
+             */
+            flow_action_data?: unknown;
+
+            /**
+             * business-generated identifier for the flow session. Returned in the flow
+             * response for correlation
+             */
+            flow_token?: string;
+          }
+        }
+      }
+
+      /**
+       * Template language. Required unless template_id is provided.
+       */
+      export interface Language {
+        /**
+         * Language code (e.g. en_US)
+         */
+        code: string;
+
+        policy?: string;
+      }
+    }
+
+    /**
+     * Text message content. Can only be sent within a 24-hour customer service window.
+     */
+    export interface Text {
+      /**
+       * The text message body.
+       */
+      body: string;
+
+      /**
+       * Whether to show a URL preview in the message.
+       */
+      preview_url?: boolean;
+    }
+  }
 }
 
 Messages.Rcs = Rcs;

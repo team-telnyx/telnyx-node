@@ -33,7 +33,7 @@ export class Conferences extends APIResource {
    * ```ts
    * const response =
    *   await client.texml.accounts.conferences.retrieveConferences(
-   *     'account_sid',
+   *     'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   );
    * ```
    */
@@ -53,7 +53,7 @@ export class Conferences extends APIResource {
    * const conferenceResource =
    *   await client.texml.accounts.conferences.retrieve(
    *     'conference_sid',
-   *     { account_sid: 'account_sid' },
+   *     { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
    *   );
    * ```
    */
@@ -75,7 +75,7 @@ export class Conferences extends APIResource {
    * const conferenceResource =
    *   await client.texml.accounts.conferences.update(
    *     'conference_sid',
-   *     { account_sid: 'account_sid' },
+   *     { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
    *   );
    * ```
    */
@@ -100,7 +100,7 @@ export class Conferences extends APIResource {
    * const response =
    *   await client.texml.accounts.conferences.retrieveRecordings(
    *     'conference_sid',
-   *     { account_sid: 'account_sid' },
+   *     { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
    *   );
    * ```
    */
@@ -124,7 +124,7 @@ export class Conferences extends APIResource {
    * const texmlGetCallRecordingsResponseBody =
    *   await client.texml.accounts.conferences.retrieveRecordingsJson(
    *     'conference_sid',
-   *     { account_sid: 'account_sid' },
+   *     { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
    *   );
    * ```
    */
@@ -419,14 +419,24 @@ export interface ConferenceRetrieveConferencesParams {
 
 export interface ConferenceRetrieveParams {
   /**
-   * The id of the account the resource belongs to.
+   * The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 }
 
 export interface ConferenceUpdateParams {
   /**
-   * Path param: The id of the account the resource belongs to.
+   * Path param: The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 
@@ -451,14 +461,24 @@ export interface ConferenceUpdateParams {
 
 export interface ConferenceRetrieveRecordingsParams {
   /**
-   * The id of the account the resource belongs to.
+   * The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 }
 
 export interface ConferenceRetrieveRecordingsJsonParams {
   /**
-   * The id of the account the resource belongs to.
+   * The UUID of the Telnyx account that owns the resource, for example
+   * `f5586561-8ff0-4291-a51b-c7dfe4139ff9`. The `account_sid` path segment is kept
+   * for Twilio API compatibility, but the value is a Telnyx account UUID, not a
+   * Twilio `AC...` SID. It must match the account that owns the API key used to
+   * authenticate the request, otherwise the endpoint returns `404`. The same value
+   * is sent as `AccountSid` in TeXML webhooks.
    */
   account_sid: string;
 }

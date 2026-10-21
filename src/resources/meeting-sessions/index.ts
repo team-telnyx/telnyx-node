@@ -21,7 +21,6 @@ export {
   type MeetingSessionListResponse,
   type MeetingSessionDeleteRecordingMediaResponse,
   type MeetingSessionRetrieveEventsResponse,
-  type MeetingSessionRetrieveRecordingsResponse,
   type MeetingSessionRetrieveTranscriptResponse,
   type MeetingSessionListParams,
   type MeetingSessionCreateParams,

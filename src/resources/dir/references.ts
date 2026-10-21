@@ -7,6 +7,8 @@ import { path } from '../../internal/utils/path';
 
 /**
  * Submit and manage the two business references and one financial reference that vouch for a DIR. References are contacted to confirm the business identity during vetting.
+ *
+ * References (two business references and one financial reference) are needed only if the documents uploaded with the DIR don't already prove the business is legitimate and financially stable. Any one of these is enough proof: audited or certified financial statements (uploaded as `other`, with a description), a commercial credit report (uploaded as `business_credit_report`), or references. Telnyx reviewers decide during vetting whether your documents are enough.
  */
 export class References extends APIResource {
   /**
@@ -33,21 +35,25 @@ export class References extends APIResource {
   /**
    * Submit the two business references and one financial reference for a DIR.
    *
-   * The DIR's authorizer email must be verified first (see the email-verification
-   * endpoint). Until it is, this returns `409` and no references are stored.
+   * References (two business references and one financial reference) are needed only
+   * if the documents uploaded with the DIR don't already prove the business is
+   * legitimate and financially stable. Any one of these is enough proof: audited or
+   * certified financial statements (uploaded as `other`, with a description), a
+   * commercial credit report (uploaded as `business_credit_report`), or references.
+   * Telnyx reviewers decide during vetting whether your documents are enough.
+   *
+   * References can't be changed while the DIR is `verified`. Update the DIR first,
+   * which returns it to draft.
    *
    * The request body carries exactly two business references plus one financial
    * reference. The first submission stores them and returns `201`. Resubmitting
    * returns `200`: identical values are simply confirmed and nothing is written,
    * while changed values replace those references.
    *
-   * Replacing a reference is allowed only while the DIR itself is still editable,
-   * the same window in which a single reference may be updated; once the DIR has
-   * been submitted for vetting this returns `400`. A replaced reference's pending
-   * verification call is cancelled and its dial-in code stops working, and the
-   * replacement contact is emailed fresh scheduling details. References whose
-   * details did not change keep their existing call, code, and the notice already
-   * sent to them.
+   * A replaced reference's pending verification call is cancelled and its dial-in
+   * code stops working, and the replacement contact is emailed fresh scheduling
+   * details. References whose details did not change keep their existing call, code,
+   * and the notice already sent to them.
    *
    * The response always echoes the stored references in the same shape as the GET.
    *

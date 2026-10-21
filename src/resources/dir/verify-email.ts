@@ -6,7 +6,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the email must be verified before references can be submitted.
+ * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed.
  */
 export class VerifyEmail extends APIResource {
   /**
@@ -26,11 +26,23 @@ export class VerifyEmail extends APIResource {
 
   /**
    * Email a 6-digit code to the DIR's authorizer email to confirm ownership of that
-   * address.
+   * address. The code goes to the authorizer, not to the caller. If the authorizer
+   * is someone else (for example a client's executive), that person has to share the
+   * code with whoever is completing setup.
    *
-   * The code expires in 15 minutes. Requesting a new code invalidates any previous
-   * one. Resends are rate limited (a short cooldown plus a daily cap). Submit the
-   * code to `POST /dir/{dir_id}/verify_email/confirm`.
+   * How long the code lasts: 15 minutes by default. 8 hours when the DIR has a call
+   * center (BPO) linked through `bpo_authorizations` whose authorization is pending
+   * review or approved (a rejected authorization does not count). Link the call
+   * center before you send the code: a code sent before the link keeps the 15-minute
+   * window, and a code sent after the link lasts 8 hours. The email states the
+   * window, and `expires_at` in the response always shows the exact expiry.
+   *
+   * To resend, call this endpoint again. Each send issues a fresh code and
+   * invalidates the previous one. Sends are limited to one every 60 seconds and 10
+   * per DIR per UTC day. A throttled send returns `429` with `retry_after_secs` and
+   * `sends_remaining_today` in the error `meta`.
+   *
+   * Submit the code to `POST /dir/{dir_id}/verify_email/confirm`.
    *
    * @example
    * ```ts

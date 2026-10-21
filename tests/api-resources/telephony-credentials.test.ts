@@ -110,4 +110,16 @@ describe('resource telephonyCredentials', () => {
     expect(dataAndResponse.data).toBe(response);
     expect(dataAndResponse.response).toBe(rawResponse);
   });
+
+  // Mock server tests are disabled
+  test.skip('createToken: request options and params are passed correctly', async () => {
+    // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
+    await expect(
+      client.telephonyCredentials.createToken(
+        'id',
+        { 'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326' },
+        { path: '/_stainless_unknown_path' },
+      ),
+    ).rejects.toThrow(Telnyx.NotFoundError);
+  });
 });

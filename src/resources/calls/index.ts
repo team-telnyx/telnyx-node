@@ -9,6 +9,7 @@ export {
   type CallControlCommandResultWithConversationID,
   type ConversationRelayInterruptible,
   type ConversationRelayTranscriptionEngineConfig,
+  type DeepgramEnglishTranscriptionLanguage,
   type DeepgramNova2Config,
   type DeepgramNova3Config,
   type DeveloperMessage,

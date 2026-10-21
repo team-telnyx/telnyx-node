@@ -298,6 +298,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ArtifactCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallAnalyzedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
@@ -361,7 +362,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
@@ -372,6 +372,7 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">CallAIGatherPartialResultsWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ArtifactCompletedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ArtifactFailedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">CallAnalyzedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallAnsweredWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallBridgedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">CallConversationCreatedWebhookEvent</a></code>
@@ -435,7 +436,6 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
-- <code><a href="./src/resources/webhooks.ts">RecordingAvailableWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
@@ -1221,6 +1221,7 @@ Types:
 - <code><a href="./src/resources/ai/tools.ts">PayToolParams</a></code>
 - <code><a href="./src/resources/ai/tools.ts">SharedToolResponse</a></code>
 - <code><a href="./src/resources/ai/tools.ts">UpdateDynamicVariablesToolParams</a></code>
+- <code><a href="./src/resources/ai/tools.ts">VisionToolParams</a></code>
 
 Methods:
 
@@ -1552,6 +1553,7 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResultWithConversationID</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ConversationRelayInterruptible</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ConversationRelayTranscriptionEngineConfig</a></code>
+- <code><a href="./src/resources/calls/actions.ts">DeepgramEnglishTranscriptionLanguage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova2Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramNova3Config</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeveloperMessage</a></code>
@@ -3029,6 +3031,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/phone-numbers/phone-numbers.ts">NumbersError73c9788e53</a></code>
 - <code><a href="./src/resources/phone-numbers/phone-numbers.ts">NumbersPhoneNumberDetailed</a></code>
 - <code><a href="./src/resources/phone-numbers/phone-numbers.ts">PhoneNumberDetailed</a></code>
 - <code><a href="./src/resources/phone-numbers/phone-numbers.ts">PhoneNumberRetrieveResponse</a></code>
@@ -3077,6 +3080,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/phone-numbers/jobs.ts">NumbersPhoneNumbersJob</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">PhoneNumbersJob</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">JobRetrieveResponse</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">JobDeleteBatchResponse</a></code>
@@ -3085,7 +3089,7 @@ Types:
 
 Methods:
 
-- <code title="get /phone_numbers/jobs">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">list</a>({ ...params }) -> PhoneNumbersJobsDefaultFlatPagination</code>
+- <code title="get /phone_numbers/jobs">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">list</a>({ ...params }) -> NumbersPhoneNumbersJobsDefaultFlatPagination</code>
 - <code title="post /phone_numbers/jobs/delete_phone_numbers">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">deleteBatch</a>({ ...params }) -> JobDeleteBatchResponse</code>
 - <code title="post /phone_numbers/jobs/update_emergency_settings">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">updateEmergencySettingsBatch</a>({ ...params }) -> JobUpdateEmergencySettingsBatchResponse</code>
 - <code title="post /phone_numbers/jobs/update_phone_numbers">client.phoneNumbers.jobs.<a href="./src/resources/phone-numbers/jobs.ts">updateBatch</a>({ ...params }) -> JobUpdateBatchResponse</code>
@@ -4270,7 +4274,7 @@ Methods:
 - <code title="delete /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">delete</a>(id) -> TelephonyCredentialDeleteResponse</code>
 - <code title="get /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">retrieve</a>(id) -> TelephonyCredentialRetrieveResponse</code>
 - <code title="patch /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">update</a>(id, { ...params }) -> TelephonyCredentialUpdateResponse</code>
-- <code title="post /telephony_credentials/{id}/token">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">createToken</a>(id) -> string</code>
+- <code title="post /telephony_credentials/{id}/token">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">createToken</a>(id, { ...params }) -> string</code>
 
 # Texml
 
@@ -5210,6 +5214,20 @@ Methods:
 - <code title="get /whatsapp/signup">client.whatsapp.signup.<a href="./src/resources/whatsapp/signup.ts">list</a>({ ...params }) -> SignupListResponsesDefaultFlatPagination</code>
 - <code title="get /whatsapp/signup/{id}/status">client.whatsapp.signup.<a href="./src/resources/whatsapp/signup.ts">retrieveStatus</a>(id) -> SignupRetrieveStatusResponse</code>
 
+## HostedSignups
+
+Types:
+
+- <code><a href="./src/resources/whatsapp/hosted-signups.ts">HostedSignupCreateResponse</a></code>
+- <code><a href="./src/resources/whatsapp/hosted-signups.ts">HostedSignupRetrieveResponse</a></code>
+- <code><a href="./src/resources/whatsapp/hosted-signups.ts">HostedSignupListResponse</a></code>
+
+Methods:
+
+- <code title="get /whatsapp/hosted_signups">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">list</a>({ ...params }) -> HostedSignupListResponsesDefaultFlatPagination</code>
+- <code title="post /whatsapp/hosted_signups">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">create</a>({ ...params }) -> HostedSignupCreateResponse</code>
+- <code title="get /whatsapp/hosted_signups/{id}">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">retrieve</a>(id) -> HostedSignupRetrieveResponse</code>
+
 # WhatsappMessageTemplates
 
 Types:
@@ -6034,7 +6052,6 @@ Types:
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionListResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionDeleteRecordingMediaResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveEventsResponse</a></code>
-- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveRecordingsResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveTranscriptResponse</a></code>
 
 Methods:
@@ -6046,7 +6063,6 @@ Methods:
 - <code title="patch /meeting_sessions/{id}">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">update</a>(id, { ...params }) -> MeetingSessionResponse</code>
 - <code title="get /meeting_sessions/{id}/events">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveEvents</a>(id, { ...params }) -> MeetingSessionRetrieveEventsResponse</code>
 - <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">deleteRecordingMedia</a>(id) -> MeetingSessionDeleteRecordingMediaResponse</code>
-- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveRecordings</a>(id) -> MeetingSessionRetrieveRecordingsResponse</code>
 - <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveTranscript</a>(id, { ...params }) -> MeetingSessionRetrieveTranscriptResponse</code>
 
 ## Actions
@@ -6257,3 +6273,17 @@ Types:
 Methods:
 
 - <code title="get /sip_registration_status">client.sipRegistrationStatus.<a href="./src/resources/sip-registration-status.ts">list</a>({ ...params }) -> SipRegistrationStatusListResponse</code>
+
+# DialMetrics
+
+Types:
+
+- <code><a href="./src/resources/dial-metrics.ts">DialMetricListResponse</a></code>
+
+Methods:
+
+- <code title="get /dial_metrics">client.dialMetrics.<a href="./src/resources/dial-metrics.ts">list</a>({ ...params }) -> DialMetricListResponsesCloudfsCursorPagination</code>
+
+# TtsIntegrations
+
+## Actions

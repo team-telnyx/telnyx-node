@@ -3,6 +3,7 @@
 import { APIResource } from '../../core/resource';
 import * as MessagesAPI from './messages';
 import { APIPromise } from '../../core/api-promise';
+import { buildHeaders } from '../../internal/headers';
 import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
@@ -43,8 +44,16 @@ export class Rcs extends APIResource {
    * });
    * ```
    */
-  send(body: RcSendParams, options?: RequestOptions): APIPromise<RcSendResponse> {
-    return this._client.post('/messages/rcs', { body, ...options });
+  send(params: RcSendParams, options?: RequestOptions): APIPromise<RcSendResponse> {
+    const { 'Idempotency-Key': idempotencyKey, ...body } = params;
+    return this._client.post('/messages/rcs', {
+      body,
+      ...options,
+      headers: buildHeaders([
+        { ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined) },
+        options?.headers,
+      ]),
+    });
   }
 }
 
@@ -128,35 +137,56 @@ export interface RcGenerateDeeplinkParams {
 
 export interface RcSendParams {
   /**
-   * RCS Agent ID
+   * Body param: RCS Agent ID
    */
   agent_id: string;
 
+  /**
+   * Body param
+   */
   agent_message: MessagesAPI.RcsAgentMessage;
 
   /**
-   * A valid messaging profile ID
+   * Body param: A valid messaging profile ID
    */
   messaging_profile_id: string;
 
   /**
-   * Phone number in +E.164 format
+   * Body param: Phone number in +E.164 format
    */
   to: string;
 
+  /**
+   * Body param
+   */
   mms_fallback?: RcSendParams.MmsFallback;
 
+  /**
+   * Body param
+   */
   sms_fallback?: RcSendParams.SMSFallback;
 
   /**
-   * Message type - must be set to "RCS"
+   * Body param: Message type - must be set to "RCS"
    */
   type?: 'RCS';
 
   /**
-   * The URL where webhooks related to this message will be sent.
+   * Body param: The URL where webhooks related to this message will be sent.
    */
   webhook_url?: string;
+
+  /**
+   * Header param: Optional opaque, unquoted key for safely retrying the same logical
+   * request. Keys must contain 1 to 255 letters, numbers, hyphens, or underscores.
+   * Generate a unique UUID v4 for each operation and reuse it only when retrying
+   * that operation with the same request. Invalid headers—including duplicate,
+   * empty, malformed, or overlong values—return 400 with error code 10015. A request
+   * already in progress with the same key returns 409; reusing the key with a
+   * different request returns 422. Only successful responses are replayed, for up to
+   * 24 hours. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
 }
 
 export namespace RcSendParams {

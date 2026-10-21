@@ -246,6 +246,12 @@ import {
   DetailRecords,
 } from './resources/detail-records';
 import {
+  DialMetricListParams,
+  DialMetricListResponse,
+  DialMetricListResponsesCloudfsCursorPagination,
+  DialMetrics,
+} from './resources/dial-metrics';
+import {
   DialogflowConnectionCreateParams,
   DialogflowConnectionResponse,
   DialogflowConnectionUpdateParams,
@@ -921,6 +927,7 @@ import {
   TelephonyCredential,
   TelephonyCredentialCreateParams,
   TelephonyCredentialCreateResponse,
+  TelephonyCredentialCreateTokenParams,
   TelephonyCredentialCreateTokenResponse,
   TelephonyCredentialDeleteResponse,
   TelephonyCredentialListParams,
@@ -1062,6 +1069,7 @@ import {
   CallAIGatherMessageHistoryUpdatedWebhookEvent,
   CallAIGatherPartialResults,
   CallAIGatherPartialResultsWebhookEvent,
+  CallAnalyzedWebhookEvent,
   CallAnswered,
   CallAnsweredWebhookEvent,
   CallBridged,
@@ -1182,7 +1190,6 @@ import {
   NumberReputationNumberFlaggedWebhookEvent,
   NumberReputationNumberRemovedWebhookEvent,
   OutboundMessage,
-  RecordingAvailableWebhookEvent,
   ReplacedLinkClick,
   ReplacedLinkClickWebhookEvent,
   SessionStatusChangedWebhookEvent,
@@ -1506,7 +1513,6 @@ import {
   MeetingSessionResponse,
   MeetingSessionRetrieveEventsParams,
   MeetingSessionRetrieveEventsResponse,
-  MeetingSessionRetrieveRecordingsResponse,
   MeetingSessionRetrieveTranscriptParams,
   MeetingSessionRetrieveTranscriptResponse,
   MeetingSessionUpdateParams,
@@ -1632,6 +1638,7 @@ import {
 } from './resources/payment/payment';
 import { PhoneNumberBlocks } from './resources/phone-number-blocks/phone-number-blocks';
 import {
+  NumbersError73c9788e53,
   NumbersPhoneNumberDetailed,
   NumbersPhoneNumberDetailedsDefaultFlatPagination,
   PhoneNumberDeleteResponse,
@@ -1802,6 +1809,7 @@ import {
   TextToSpeechListVoicesResponse,
   TextToSpeechRetrieveSpeechParams,
 } from './resources/text-to-speech/text-to-speech';
+import { TtsIntegrations } from './resources/tts-integrations/tts-integrations';
 import {
   UacConnection,
   UacConnectionCreateParams,
@@ -3338,6 +3346,11 @@ export class Telnyx {
    * UAC connection operations
    */
   sipRegistrationStatus: API.SipRegistrationStatus = new API.SipRegistrationStatus(this);
+  /**
+   * Call information
+   */
+  dialMetrics: API.DialMetrics = new API.DialMetrics(this);
+  ttsIntegrations: API.TtsIntegrations = new API.TtsIntegrations(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3531,6 +3544,8 @@ Telnyx.MachinePayments = MachinePayments;
 Telnyx.SpendLimits = SpendLimits;
 Telnyx.LlmTokenGateway = LlmTokenGateway;
 Telnyx.SipRegistrationStatus = SipRegistrationStatus;
+Telnyx.DialMetrics = DialMetrics;
+Telnyx.TtsIntegrations = TtsIntegrations;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3719,6 +3734,7 @@ export declare namespace Telnyx {
     type CallAIGatherPartialResultsWebhookEvent as CallAIGatherPartialResultsWebhookEvent,
     type ArtifactCompletedWebhookEvent as ArtifactCompletedWebhookEvent,
     type ArtifactFailedWebhookEvent as ArtifactFailedWebhookEvent,
+    type CallAnalyzedWebhookEvent as CallAnalyzedWebhookEvent,
     type CallAnsweredWebhookEvent as CallAnsweredWebhookEvent,
     type CallBridgedWebhookEvent as CallBridgedWebhookEvent,
     type CallConversationCreatedWebhookEvent as CallConversationCreatedWebhookEvent,
@@ -3782,7 +3798,6 @@ export declare namespace Telnyx {
     type NumberReputationExternalVerificationStatusChangedWebhookEvent as NumberReputationExternalVerificationStatusChangedWebhookEvent,
     type NumberReputationNumberFlaggedWebhookEvent as NumberReputationNumberFlaggedWebhookEvent,
     type NumberReputationNumberRemovedWebhookEvent as NumberReputationNumberRemovedWebhookEvent,
-    type RecordingAvailableWebhookEvent as RecordingAvailableWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
     type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,
@@ -4667,6 +4682,7 @@ export declare namespace Telnyx {
 
   export {
     PhoneNumbers as PhoneNumbers,
+    type NumbersError73c9788e53 as NumbersError73c9788e53,
     type NumbersPhoneNumberDetailed as NumbersPhoneNumberDetailed,
     type PhoneNumberDetailed as PhoneNumberDetailed,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
@@ -5025,6 +5041,7 @@ export declare namespace Telnyx {
     type TelephonyCredentialListParams as TelephonyCredentialListParams,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
     type TelephonyCredentialUpdateParams as TelephonyCredentialUpdateParams,
+    type TelephonyCredentialCreateTokenParams as TelephonyCredentialCreateTokenParams,
   };
 
   export {
@@ -5569,7 +5586,6 @@ export declare namespace Telnyx {
     type MeetingSessionListResponse as MeetingSessionListResponse,
     type MeetingSessionDeleteRecordingMediaResponse as MeetingSessionDeleteRecordingMediaResponse,
     type MeetingSessionRetrieveEventsResponse as MeetingSessionRetrieveEventsResponse,
-    type MeetingSessionRetrieveRecordingsResponse as MeetingSessionRetrieveRecordingsResponse,
     type MeetingSessionRetrieveTranscriptResponse as MeetingSessionRetrieveTranscriptResponse,
     type MeetingSessionListParams as MeetingSessionListParams,
     type MeetingSessionCreateParams as MeetingSessionCreateParams,
@@ -5630,6 +5646,15 @@ export declare namespace Telnyx {
     type SipRegistrationStatusListResponse as SipRegistrationStatusListResponse,
     type SipRegistrationStatusListParams as SipRegistrationStatusListParams,
   };
+
+  export {
+    DialMetrics as DialMetrics,
+    type DialMetricListResponse as DialMetricListResponse,
+    type DialMetricListResponsesCloudfsCursorPagination as DialMetricListResponsesCloudfsCursorPagination,
+    type DialMetricListParams as DialMetricListParams,
+  };
+
+  export { TtsIntegrations as TtsIntegrations };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

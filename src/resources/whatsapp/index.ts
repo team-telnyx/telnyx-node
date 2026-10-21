@@ -8,6 +8,15 @@ export {
   type BusinessAccountListResponsesDefaultFlatPagination,
 } from './business-accounts/index';
 export {
+  HostedSignups,
+  type HostedSignupCreateResponse,
+  type HostedSignupRetrieveResponse,
+  type HostedSignupListResponse,
+  type HostedSignupListParams,
+  type HostedSignupCreateParams,
+  type HostedSignupListResponsesDefaultFlatPagination,
+} from './hosted-signups';
+export {
   PhoneNumbers,
   type PhoneNumberListResponse,
   type PhoneNumberGetResponse,

@@ -12,7 +12,7 @@ describe('resource json', () => {
   test.skip('deleteRecordingSidJson: only required params', async () => {
     const responsePromise = client.texml.accounts.recordings.json.deleteRecordingSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      { account_sid: 'account_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -27,7 +27,7 @@ describe('resource json', () => {
   test.skip('deleteRecordingSidJson: required and optional params', async () => {
     const response = await client.texml.accounts.recordings.json.deleteRecordingSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      { account_sid: 'account_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
     );
   });
 
@@ -35,7 +35,7 @@ describe('resource json', () => {
   test.skip('retrieveRecordingSidJson: only required params', async () => {
     const responsePromise = client.texml.accounts.recordings.json.retrieveRecordingSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      { account_sid: 'account_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -50,7 +50,7 @@ describe('resource json', () => {
   test.skip('retrieveRecordingSidJson: required and optional params', async () => {
     const response = await client.texml.accounts.recordings.json.retrieveRecordingSidJson(
       '6a09cdc3-8948-47f0-aa62-74ac943d6c58',
-      { account_sid: 'account_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
     );
   });
 });

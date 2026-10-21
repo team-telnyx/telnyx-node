@@ -54,6 +54,7 @@ import {
   ToolUpdateParams,
   Tools,
   UpdateDynamicVariablesToolParams,
+  VisionToolParams,
 } from './tools';
 import * as AnthropicAPI from './anthropic/anthropic';
 import { Anthropic } from './anthropic/anthropic';
@@ -860,6 +861,7 @@ export declare namespace AI {
     type PayToolParams as PayToolParams,
     type SharedToolResponse as SharedToolResponse,
     type UpdateDynamicVariablesToolParams as UpdateDynamicVariablesToolParams,
+    type VisionToolParams as VisionToolParams,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
     type ToolListParams as ToolListParams,
     type ToolCreateParams as ToolCreateParams,

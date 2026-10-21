@@ -280,6 +280,12 @@ export {
   type DetailRecordListResponsesDefaultFlatPagination,
 } from './detail-records';
 export {
+  DialMetrics,
+  type DialMetricListResponse,
+  type DialMetricListParams,
+  type DialMetricListResponsesCloudfsCursorPagination,
+} from './dial-metrics';
+export {
   DialogflowConnections,
   type DialogflowConnectionResponse,
   type DialogflowConnectionCreateParams,
@@ -710,7 +716,6 @@ export {
   type MeetingSessionListResponse,
   type MeetingSessionDeleteRecordingMediaResponse,
   type MeetingSessionRetrieveEventsResponse,
-  type MeetingSessionRetrieveRecordingsResponse,
   type MeetingSessionRetrieveTranscriptResponse,
   type MeetingSessionListParams,
   type MeetingSessionCreateParams,
@@ -1060,6 +1065,7 @@ export {
 export { PhoneNumberBlocks } from './phone-number-blocks/phone-number-blocks';
 export {
   PhoneNumbers,
+  type NumbersError73c9788e53,
   type NumbersPhoneNumberDetailed,
   type PhoneNumberDetailed,
   type PhoneNumberRetrieveResponse,
@@ -1416,6 +1422,7 @@ export {
   type TelephonyCredentialListParams,
   type TelephonyCredentialCreateParams,
   type TelephonyCredentialUpdateParams,
+  type TelephonyCredentialCreateTokenParams,
   type TelephonyCredentialsDefaultFlatPagination,
 } from './telephony-credentials';
 export {
@@ -1469,6 +1476,7 @@ export {
   type TrafficPolicyProfilesDefaultFlatPagination,
   type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
 } from './traffic-policy-profiles';
+export { TtsIntegrations } from './tts-integrations/tts-integrations';
 export {
   UacConnections,
   type UacConnection,
@@ -1681,6 +1689,7 @@ export {
   type CallAIGatherPartialResultsWebhookEvent,
   type ArtifactCompletedWebhookEvent,
   type ArtifactFailedWebhookEvent,
+  type CallAnalyzedWebhookEvent,
   type CallAnsweredWebhookEvent,
   type CallBridgedWebhookEvent,
   type CallConversationCreatedWebhookEvent,
@@ -1744,7 +1753,6 @@ export {
   type NumberReputationExternalVerificationStatusChangedWebhookEvent,
   type NumberReputationNumberFlaggedWebhookEvent,
   type NumberReputationNumberRemovedWebhookEvent,
-  type RecordingAvailableWebhookEvent,
   type ReplacedLinkClickWebhookEvent,
   type SessionStatusChangedWebhookEvent,
   type TranscriptCompletedWebhookEvent,

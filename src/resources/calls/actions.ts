@@ -1210,6 +1210,12 @@ export interface ConversationRelayTranscriptionEngineConfig {
   [k: string]: unknown;
 }
 
+/**
+ * Language to transcribe. Deepgram's medical and phonecall models support English
+ * only.
+ */
+export type DeepgramEnglishTranscriptionLanguage = 'en' | 'en-US' | 'en-AU' | 'en-GB' | 'en-IN' | 'en-NZ';
+
 export interface DeepgramNova2Config {
   transcription_engine: 'deepgram/nova-2';
 
@@ -1217,8 +1223,9 @@ export interface DeepgramNova2Config {
 
   /**
    * Nova-2 keyword biasing without intensifiers. Up to 100 terms to bias recognition
-   * toward. For weighted biasing, use `keywords_boosting` instead. Nova-2-only; use
-   * `keyterms` on Nova-3.
+   * toward. For weighted biasing, use `keywords_boosting` instead. Supported on
+   * Nova-2 models only (`deepgram/nova-2`, `deepgram/nova-2-medical`,
+   * `deepgram/nova-2-phonecall`); use `keyterms` on Nova-3 and Flux.
    */
   hints?: Array<string>;
 
@@ -1312,8 +1319,10 @@ export interface DeepgramNova3Config {
   interim_results?: boolean;
 
   /**
-   * Nova-3 keyterm prompting. Up to 100 domain-specific terms or brand names to bias
-   * recognition toward. Nova-3-only; use `hints` on Nova-2.
+   * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias
+   * recognition toward. Supported on Nova-3 and Flux models (`deepgram/nova-3`,
+   * `deepgram/nova-3-medical`, `deepgram/flux`, `deepgram/flux-multi`); use `hints`
+   * on Nova-2.
    */
   keyterms?: Array<string>;
 
@@ -1771,7 +1780,11 @@ export interface TranscriptionConfig {
    * detection, and the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`,
    * `pt`, `es`, and `sv` to fix the transcription language. For `cohere/ar-stt`,
    * supported values are `ar` and `en`; unlike other models, this model does not
-   * auto-detect and defaults to `ar` when `language` is omitted.
+   * auto-detect and defaults to `ar` when `language` is omitted. For
+   * `speechmatics/linden-1`, there is no auto-detect; set a code from Speechmatics'
+   * Realtime language list (see `SpeechmaticsTranscriptionLanguage`); unset defaults
+   * to `en`, while an explicit `auto`, `auto_beta`, or `multi` is rejected (unlike
+   * `speechmatics/standard`, which defaults to `en`).
    */
   language?: string;
 
@@ -1783,6 +1796,9 @@ export interface TranscriptionConfig {
    * - `deepgram/nova-3` and `deepgram/nova-2` for live streaming transcription.
    * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming
    *   transcription.
+   * - `speechmatics/linden-1` (preview, vendor-hosted) for live streaming
+   *   transcription; no auto-detect, so set `language` from Speechmatics' Realtime
+   *   language list (defaults to `en`).
    * - `assemblyai/universal-3-5-pro` for live streaming transcription. The legacy
    *   alias `assemblyai/universal-streaming` is still accepted and resolves to the
    *   same model.
@@ -1813,6 +1829,7 @@ export interface TranscriptionConfig {
     | 'deepgram/nova-2'
     | 'speechmatics/standard'
     | 'speechmatics/enhanced'
+    | 'speechmatics/linden-1'
     | 'assemblyai/universal-3-5-pro'
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
@@ -2060,7 +2077,183 @@ export interface TranscriptionEngineCohereConfig {
   transcription_model?: 'cohere/ar-stt';
 }
 
-export type TranscriptionEngineDeepgramConfig = DeepgramNova2Config | DeepgramNova3Config;
+/**
+ * Deepgram Nova-2 specialty models: `deepgram/nova-2-medical` (medical vocabulary)
+ * and `deepgram/nova-2-phonecall` (low-bandwidth phone audio). English only.
+ */
+export type TranscriptionEngineDeepgramConfig =
+  | DeepgramNova2Config
+  | TranscriptionEngineDeepgramConfig.DeepgramNova2SpecialtyConfig
+  | DeepgramNova3Config
+  | TranscriptionEngineDeepgramConfig.DeepgramNova3MedicalConfig
+  | TranscriptionEngineDeepgramConfig.DeepgramFluxConfig
+  | TranscriptionEngineDeepgramConfig.DeepgramFluxMultiConfig;
+
+export namespace TranscriptionEngineDeepgramConfig {
+  /**
+   * Deepgram Nova-2 specialty models: `deepgram/nova-2-medical` (medical vocabulary)
+   * and `deepgram/nova-2-phonecall` (low-bandwidth phone audio). English only.
+   */
+  export interface DeepgramNova2SpecialtyConfig {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-2-medical' | 'deepgram/nova-2-phonecall';
+
+    /**
+     * Nova-2 keyword biasing without intensifiers. Up to 100 terms to bias recognition
+     * toward. For weighted biasing, use `keywords_boosting` instead. Supported on
+     * Nova-2 models only (`deepgram/nova-2`, `deepgram/nova-2-medical`,
+     * `deepgram/nova-2-phonecall`); use `keyterms` on Nova-3 and Flux.
+     */
+    hints?: Array<string>;
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to transcribe. Deepgram's medical and phonecall models support English
+     * only.
+     */
+    language?: ActionsAPI.DeepgramEnglishTranscriptionLanguage;
+
+    /**
+     * Enable Deepgram's smart formatting (capitalization, punctuation, and digit
+     * normalization). Note: Telnyx defaults this to `true`, overriding Deepgram's
+     * underlying default of `false` — omit the field to get a smart-formatted
+     * transcript, or set it to `false` to receive the raw lowercase transcript without
+     * punctuation.
+     */
+    smart_format?: boolean;
+
+    /**
+     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+     * to 5000 ms.
+     */
+    utterance_end_ms?: number;
+  }
+
+  /**
+   * Deepgram Nova-3 medical model, tuned for medical vocabulary. English only.
+   */
+  export interface DeepgramNova3MedicalConfig {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/nova-3-medical';
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias
+     * recognition toward. Supported on Nova-3 and Flux models (`deepgram/nova-3`,
+     * `deepgram/nova-3-medical`, `deepgram/flux`, `deepgram/flux-multi`); use `hints`
+     * on Nova-2.
+     */
+    keyterms?: Array<string>;
+
+    /**
+     * Keywords and their respective intensifiers (boosting values) to improve
+     * transcription accuracy for specific words or phrases. The intensifier should be
+     * a numeric value. Example: `{"snuffleupagus": 5, "systrom": 2, "krieger": 1}`.
+     */
+    keywords_boosting?: { [key: string]: number };
+
+    /**
+     * Language to transcribe. Deepgram's medical and phonecall models support English
+     * only.
+     */
+    language?: ActionsAPI.DeepgramEnglishTranscriptionLanguage;
+
+    /**
+     * Enable Deepgram's smart formatting (capitalization, punctuation, and digit
+     * normalization). Note: Telnyx defaults this to `true`, overriding Deepgram's
+     * underlying default of `false` — omit the field to get a smart-formatted
+     * transcript, or set it to `false` to receive the raw lowercase transcript without
+     * punctuation.
+     */
+    smart_format?: boolean;
+
+    /**
+     * Number of milliseconds of silence to consider an utterance ended. Ranges from 0
+     * to 5000 ms.
+     */
+    utterance_end_ms?: number;
+  }
+
+  /**
+   * Deepgram Flux (English), a conversational speech recognition model with built-in
+   * end-of-turn detection. `smart_format`, `utterance_end_ms`, `hints` and
+   * `keywords_boosting` do not apply to Flux.
+   */
+  export interface DeepgramFluxConfig {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/flux';
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias
+     * recognition toward. Supported on Nova-3 and Flux models (`deepgram/nova-3`,
+     * `deepgram/nova-3-medical`, `deepgram/flux`, `deepgram/flux-multi`); use `hints`
+     * on Nova-2.
+     */
+    keyterms?: Array<string>;
+
+    /**
+     * Language to transcribe. `deepgram/flux` supports English only.
+     */
+    language?: 'en';
+  }
+
+  /**
+   * Deepgram Flux multilingual, a conversational speech recognition model with
+   * built-in end-of-turn detection. `smart_format`, `utterance_end_ms`, `hints` and
+   * `keywords_boosting` do not apply to Flux.
+   */
+  export interface DeepgramFluxMultiConfig {
+    transcription_engine: 'Deepgram';
+
+    transcription_model: 'deepgram/flux-multi';
+
+    /**
+     * Whether to send also interim results. If set to false, only final results will
+     * be sent.
+     */
+    interim_results?: boolean;
+
+    /**
+     * Keyterm prompting. Up to 100 domain-specific terms or brand names to bias
+     * recognition toward. Supported on Nova-3 and Flux models (`deepgram/nova-3`,
+     * `deepgram/nova-3-medical`, `deepgram/flux`, `deepgram/flux-multi`); use `hints`
+     * on Nova-2.
+     */
+    keyterms?: Array<string>;
+
+    /**
+     * Language to transcribe. Flux-multi uses the language as a hint; `auto` lets Flux
+     * detect the language.
+     */
+    language?: 'en' | 'es' | 'fr' | 'de' | 'hi' | 'ru' | 'pt' | 'ja' | 'it' | 'nl' | 'auto';
+  }
+}
 
 export interface TranscriptionEngineGoogleConfig {
   /**
@@ -2237,7 +2430,21 @@ export interface TranscriptionEngineSpeechmaticsConfig {
   interim_results?: boolean;
 
   /**
-   * Language to use for speech recognition
+   * Language to use for speech recognition. Accepted values depend on the selected
+   * `transcription_model`. `speechmatics/standard` supports: `en`, `ba`, `eu`, `gl`,
+   * `ga`, `mt`, `mn`, `sw`, `ug`, `cy`, `ar_en`, `cmn_en`, `en_ms`, `en_ta`, `tl`,
+   * `es-bilingual-en`, `cmn_en_ms_ta`. `speechmatics/linden-1` (preview) supports
+   * the same languages as Speechmatics Realtime: `ar`, `ar_en`, `ba`, `be`, `bg`,
+   * `bn`, `ca`, `cmn`, `cmn_en`, `cmn_en_ms_ta`, `cs`, `cy`, `da`, `de`, `el`, `en`,
+   * `en_ms`, `en_ta`, `eo`, `es`, `es-bilingual-en`, `et`, `eu`, `fa`, `fi`, `fr`,
+   * `ga`, `gl`, `he`, `hi`, `hr`, `hu`, `ia`, `id`, `it`, `ja`, `ko`, `lt`, `lv`,
+   * `mn`, `mr`, `ms`, `mt`, `nl`, `no`, `pl`, `pt`, `ro`, `ru`, `sk`, `sl`, `sv`,
+   * `sw`, `ta`, `th`, `tl`, `tr`, `ug`, `uk`, `ur`, `vi`, `yue`, plus the spelling
+   * and script variants `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant` (`en`
+   * alone uses the default spelling). A value outside the selected model's list is
+   * rejected. For `speechmatics/standard`, unset, blank, `auto`, `auto_beta`, or
+   * `multi` defaults to `en`; for `speechmatics/linden-1`, only an unset language
+   * defaults to `en`, and `auto`, `auto_beta`, or `multi` is rejected.
    */
   language?:
     | 'en'
@@ -2256,7 +2463,57 @@ export interface TranscriptionEngineSpeechmaticsConfig {
     | 'en_ta'
     | 'tl'
     | 'es-bilingual-en'
-    | 'cmn_en_ms_ta';
+    | 'cmn_en_ms_ta'
+    | 'ar'
+    | 'be'
+    | 'bg'
+    | 'bn'
+    | 'ca'
+    | 'cmn'
+    | 'cs'
+    | 'da'
+    | 'de'
+    | 'el'
+    | 'eo'
+    | 'es'
+    | 'et'
+    | 'fa'
+    | 'fi'
+    | 'fr'
+    | 'he'
+    | 'hi'
+    | 'hr'
+    | 'hu'
+    | 'ia'
+    | 'id'
+    | 'it'
+    | 'ja'
+    | 'ko'
+    | 'lt'
+    | 'lv'
+    | 'mr'
+    | 'ms'
+    | 'nl'
+    | 'no'
+    | 'pl'
+    | 'pt'
+    | 'ro'
+    | 'ru'
+    | 'sk'
+    | 'sl'
+    | 'sv'
+    | 'ta'
+    | 'th'
+    | 'tr'
+    | 'uk'
+    | 'ur'
+    | 'vi'
+    | 'yue'
+    | 'en-US'
+    | 'en-GB'
+    | 'en-AU'
+    | 'cmn-Hans'
+    | 'cmn-Hant';
 
   /**
    * Engine identifier for Speechmatics transcription service
@@ -2264,9 +2521,10 @@ export interface TranscriptionEngineSpeechmaticsConfig {
   transcription_engine?: 'Speechmatics';
 
   /**
-   * The model to use for transcription.
+   * The model to use for transcription. `speechmatics/linden-1` is a preview,
+   * vendor-hosted model with its own language support (see `language`).
    */
-  transcription_model?: 'speechmatics/standard';
+  transcription_model?: 'speechmatics/standard' | 'speechmatics/linden-1';
 }
 
 export interface TranscriptionEngineTelnyxConfig {
@@ -3695,6 +3953,18 @@ export interface ActionHangupParams {
    * Custom headers to be added to the SIP BYE message.
    */
   custom_headers?: Array<CallsAPI.CustomSipHeader>;
+
+  /**
+   * Text for the SIP `Reason` header (RFC 3326) sent when cancelling an unanswered
+   * outbound leg. The SIP CANCEL carries `Reason: SIP;cause=200;text="<reason>"`;
+   * phones such as Poly and Yealink use it to suppress the missed-call entry for a
+   * call answered elsewhere. Has no effect on an answered leg or an inbound leg. A
+   * hangup sent before the leg's `call.initiated` webhook still hangs up the leg,
+   * but without the `Reason` header. Must not contain `"`, `\`, control characters,
+   * or characters outside the Basic Multilingual Plane (such as emoji); invalid
+   * values are rejected with a 422.
+   */
+  reason?: string;
 }
 
 export interface ActionLeaveQueueParams {
@@ -5777,6 +6047,7 @@ export declare namespace Actions {
     type CallControlCommandResultWithConversationID as CallControlCommandResultWithConversationID,
     type ConversationRelayInterruptible as ConversationRelayInterruptible,
     type ConversationRelayTranscriptionEngineConfig as ConversationRelayTranscriptionEngineConfig,
+    type DeepgramEnglishTranscriptionLanguage as DeepgramEnglishTranscriptionLanguage,
     type DeepgramNova2Config as DeepgramNova2Config,
     type DeepgramNova3Config as DeepgramNova3Config,
     type DeveloperMessage as DeveloperMessage,

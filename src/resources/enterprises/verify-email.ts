@@ -6,7 +6,7 @@ import { RequestOptions } from '../../internal/request-options';
 import { path } from '../../internal/utils/path';
 
 /**
- * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed; the email must be verified before references can be submitted.
+ * Verify ownership of a DIR's authorizer email. A short code is emailed and confirmed.
  */
 export class VerifyEmail extends APIResource {
   /**
