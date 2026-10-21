@@ -58,10 +58,12 @@ export class VoiceClones extends APIResource {
 
   /**
    * Creates a new voice clone by uploading an audio file directly. Supported
-   * formats: WAV, MP3, FLAC, OGG, M4A. For best results, provide 5–60 seconds of
-   * clear speech (Ultra accepts up to 60 seconds; Qwen3TTS auto-trims to 10 seconds;
-   * Minimax accepts up to 5 minutes). Maximum file size: 5MB for Telnyx, 20MB for
-   * Minimax.
+   * formats: WAV, MP3, FLAC, OGG, M4A. Maximum file size: 20MB. Reference audio is
+   * trimmed per model: Qwen3TTS and Bayan use the first 10 seconds, Ultra uses up to
+   * 60 seconds, and Minimax accepts 10 seconds to 5 minutes. Ultra clones return
+   * `202` with status `pending`; all other models return `201` with status `active`.
+   * Bayan clones require `ref_text` (the exact transcript of the reference audio)
+   * and support `ar` (default) and `en` only.
    *
    * @example
    * ```ts
@@ -177,7 +179,7 @@ export interface VoiceCloneData {
   /**
    * TTS model identifier for the voice clone.
    */
-  model_id?: 'Qwen3TTS' | 'Ultra' | 'speech-2.8-turbo';
+  model_id?: 'Qwen3TTS' | 'Ultra' | 'Bayan' | 'speech-2.8-turbo';
 
   /**
    * Name of the voice clone.
@@ -352,11 +354,12 @@ export namespace VoiceCloneCreateParams {
 export interface VoiceCloneCreateFromUploadParams {
   /**
    * Multipart form data for creating a voice clone from a direct audio upload.
-   * Maximum file size: 5MB for Telnyx, 20MB for Minimax.
+   * Maximum file size: 20MB.
    */
   voice_clone_upload_request:
     | VoiceCloneCreateFromUploadParams.TelnyxQwen3TtsClone
     | VoiceCloneCreateFromUploadParams.TelnyxUltraClone
+    | VoiceCloneCreateFromUploadParams.TelnyxBayanClone
     | VoiceCloneCreateFromUploadParams.MinimaxClone;
 }
 
@@ -368,7 +371,7 @@ export namespace VoiceCloneCreateFromUploadParams {
     /**
      * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A.
      * For best quality, provide 5–10 seconds of clear, uninterrupted speech. Maximum
-     * size: 5MB.
+     * size: 20MB.
      */
     audio_file: Uploadable;
 
@@ -415,7 +418,7 @@ export namespace VoiceCloneCreateFromUploadParams {
     /**
      * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A.
      * For best quality, provide up to 60 seconds of clear, uninterrupted speech.
-     * Maximum size: 5MB.
+     * Maximum size: 20MB.
      */
     audio_file: Uploadable;
 
@@ -425,7 +428,7 @@ export namespace VoiceCloneCreateFromUploadParams {
     gender: 'male' | 'female' | 'neutral';
 
     /**
-     * ISO 639-1 language code from the Ultra language set (40 languages).
+     * ISO 639-1 language code from the Ultra language set (42 languages).
      */
     language: string;
 
@@ -453,6 +456,59 @@ export namespace VoiceCloneCreateFromUploadParams {
      * Optional transcript of the audio file. Providing this improves clone quality.
      */
     ref_text?: string;
+  }
+
+  /**
+   * Upload-based voice clone using the Telnyx Bayan model (Arabic and English). The
+   * clone is `active` on creation. Use it as voice `Telnyx.Bayan.<clone_id>`.
+   */
+  export interface TelnyxBayanClone {
+    /**
+     * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A.
+     * Converted to 24 kHz mono WAV and trimmed to the first 10 seconds. For best
+     * quality, provide about 10 seconds of clean, single-speaker speech. Maximum size:
+     * 20MB.
+     */
+    audio_file: Uploadable;
+
+    /**
+     * Gender of the voice clone.
+     */
+    gender: 'male' | 'female' | 'neutral';
+
+    /**
+     * TTS model identifier. Must be `Bayan`.
+     */
+    model_id: 'Bayan';
+
+    /**
+     * Name for the voice clone.
+     */
+    name: string;
+
+    /**
+     * Exact transcript of the reference audio. Required for Bayan: a missing, empty,
+     * or whitespace-only value returns `422` with `source.pointer` `/ref_text`. An
+     * inaccurate transcript can make synthesis with the clone truncated or garbled.
+     * Record a known script of about 10 seconds and pass it verbatim.
+     */
+    ref_text: string;
+
+    /**
+     * Optional custom label describing the voice style.
+     */
+    label?: string;
+
+    /**
+     * Language of the reference audio: `ar` (Arabic) or `en` (English). Defaults to
+     * `ar`. Other values return `422`.
+     */
+    language?: 'ar' | 'en';
+
+    /**
+     * Voice synthesis provider. Defaults to `telnyx`.
+     */
+    provider?: 'telnyx' | 'Telnyx';
   }
 
   /**

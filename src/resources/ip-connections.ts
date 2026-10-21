@@ -233,6 +233,17 @@ export interface IPConnection {
   android_push_credential_id?: string | null;
 
   /**
+   * Stores the connection preference for generating silent RTP toward the opposite
+   * call leg when comfort-noise packets (CN, payload type 13) are received during
+   * hold. Defaults to false and returns the saved value. Only JSON true and false
+   * are accepted; null and non-boolean values are rejected. This preference is
+   * independent of default_on_hold_comfort_noise_enabled and does not modify that
+   * setting. This API provisions the preference; call-processing behavior is
+   * implemented separately.
+   */
+  bridge_generate_comfort_noise_on_cn?: boolean;
+
+  /**
    * Specifies if call cost webhooks should be sent for this connection.
    */
   call_cost_in_webhooks?: boolean;
@@ -271,8 +282,8 @@ export interface IPConnection {
   encode_contact_header_enabled?: boolean;
 
   /**
-   * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
-   * TLS.
+   * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+   * transport protocol is TLS.
    */
   encrypted_media?: CredentialConnectionsAPI.EncryptedMedia | null;
 
@@ -539,6 +550,17 @@ export interface IPConnectionCreateParams {
   android_push_credential_id?: string | null;
 
   /**
+   * Stores the connection preference for generating silent RTP toward the opposite
+   * call leg when comfort-noise packets (CN, payload type 13) are received during
+   * hold. Optional; defaults to false when omitted on creation. Only JSON true and
+   * false are accepted; null and non-boolean values are rejected. This preference is
+   * independent of default_on_hold_comfort_noise_enabled and does not modify that
+   * setting. This API provisions the preference; call-processing behavior is
+   * implemented separately.
+   */
+  bridge_generate_comfort_noise_on_cn?: boolean;
+
+  /**
    * Specifies if call cost webhooks should be sent for this connection.
    */
   call_cost_in_webhooks?: boolean;
@@ -565,8 +587,8 @@ export interface IPConnectionCreateParams {
   encode_contact_header_enabled?: boolean;
 
   /**
-   * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
-   * TLS.
+   * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+   * transport protocol is TLS.
    */
   encrypted_media?: CredentialConnectionsAPI.EncryptedMedia | null;
 
@@ -760,6 +782,17 @@ export interface IPConnectionUpdateParams {
   android_push_credential_id?: string | null;
 
   /**
+   * Stores the connection preference for generating silent RTP toward the opposite
+   * call leg when comfort-noise packets (CN, payload type 13) are received during
+   * hold. Optional; omitting this field preserves the saved value. Only JSON true
+   * and false are accepted; null and non-boolean values are rejected. This
+   * preference is independent of default_on_hold_comfort_noise_enabled and does not
+   * modify that setting. This API provisions the preference; call-processing
+   * behavior is implemented separately.
+   */
+  bridge_generate_comfort_noise_on_cn?: boolean;
+
+  /**
    * Specifies if call cost webhooks should be sent for this connection.
    */
   call_cost_in_webhooks?: boolean;
@@ -793,8 +826,8 @@ export interface IPConnectionUpdateParams {
   encode_contact_header_enabled?: boolean;
 
   /**
-   * Enable use of SRTP for encryption. Cannot be set if the transport_portocol is
-   * TLS.
+   * Enable use of SRTP for encryption. Can only be set when the SIP signaling
+   * transport protocol is TLS.
    */
   encrypted_media?: CredentialConnectionsAPI.EncryptedMedia | null;
 

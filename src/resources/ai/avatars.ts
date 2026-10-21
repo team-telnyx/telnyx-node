@@ -17,7 +17,9 @@ export class Avatars extends APIResource {
    * available to the authenticated organization. Custom avatars owned by other
    * organizations are never returned. The `image_url` value is suitable for
    * displaying a thumbnail and may be refreshed by listing or retrieving the avatar
-   * again.
+   * again. `suggested_voice_id` recommends a compatible Telnyx voice for stock
+   * avatars and is an empty string for custom avatars; it does not change an AI
+   * Assistant's voice automatically.
    *
    * @example
    * ```ts
@@ -102,9 +104,11 @@ export type AvatarsDefaultFlatPagination = DefaultFlatPagination<Avatar>;
 
 export interface Avatar {
   /**
-   * Stable identifier of a Telnyx stock avatar or an organization-owned custom
-   * avatar. Custom avatar IDs are returned by the Avatars API and use the `avatar_`
-   * prefix.
+   * Stable identifier returned by the Avatars API. Discover available stock IDs with
+   * GET /v2/ai/avatars and filter[avatar_type]=stock rather than maintaining a fixed
+   * list. Custom avatar IDs use the `avatar_` prefix and must belong to the
+   * authenticated organization. The service validates that the selected avatar is
+   * available.
    */
   id: AvatarID;
 
@@ -161,6 +165,14 @@ export interface Avatar {
   size_bytes?: number;
 
   /**
+   * Optional recommended Telnyx text-to-speech voice for this avatar. An omitted
+   * field or empty string means no recommendation is available. Custom avatars have
+   * no suggested voice. It is informational and selecting the avatar does not
+   * automatically change the AI Assistant's configured voice.
+   */
+  suggested_voice_id?: string;
+
+  /**
    * Time when the custom avatar was last updated.
    */
   updated_at?: string;
@@ -172,11 +184,13 @@ export interface Avatar {
 }
 
 /**
- * Stable identifier of a Telnyx stock avatar or an organization-owned custom
- * avatar. Custom avatar IDs are returned by the Avatars API and use the `avatar_`
- * prefix.
+ * Stable identifier returned by the Avatars API. Discover available stock IDs with
+ * GET /v2/ai/avatars and filter[avatar_type]=stock rather than maintaining a fixed
+ * list. Custom avatar IDs use the `avatar_` prefix and must belong to the
+ * authenticated organization. The service validates that the selected avatar is
+ * available.
  */
-export type AvatarID = 'elena' | 'ben' | 'jordan' | 'lin' | 'avery' | 'raphael' | (string & {});
+export type AvatarID = string;
 
 export interface AvatarResponse {
   data: Avatar;

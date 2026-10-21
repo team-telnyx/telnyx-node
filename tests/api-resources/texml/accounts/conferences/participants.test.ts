@@ -12,7 +12,7 @@ describe('resource participants', () => {
   test.skip('retrieveParticipants: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.retrieveParticipants(
       'conference_sid',
-      { account_sid: 'account_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -27,14 +27,14 @@ describe('resource participants', () => {
   test.skip('retrieveParticipants: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.participants.retrieveParticipants(
       'conference_sid',
-      { account_sid: 'account_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9' },
     );
   });
 
   // Mock server tests are disabled
   test.skip('participants: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.participants('conference_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -48,7 +48,7 @@ describe('resource participants', () => {
   // Mock server tests are disabled
   test.skip('participants: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.participants.participants('conference_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
       AmdStatusCallback: 'https://www.example.com/amd_result',
       AmdStatusCallbackMethod: 'GET',
       ApplicationSid: '1846572522338780702',
@@ -112,7 +112,7 @@ describe('resource participants', () => {
   test.skip('delete: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.delete(
       'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9', conference_sid: 'conference_sid' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -127,7 +127,7 @@ describe('resource participants', () => {
   test.skip('delete: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.participants.delete(
       'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9', conference_sid: 'conference_sid' },
     );
   });
 
@@ -135,7 +135,7 @@ describe('resource participants', () => {
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.retrieve(
       'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9', conference_sid: 'conference_sid' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -150,7 +150,7 @@ describe('resource participants', () => {
   test.skip('retrieve: required and optional params', async () => {
     const response = await client.texml.accounts.conferences.participants.retrieve(
       'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9', conference_sid: 'conference_sid' },
     );
   });
 
@@ -158,7 +158,7 @@ describe('resource participants', () => {
   test.skip('update: only required params', async () => {
     const responsePromise = client.texml.accounts.conferences.participants.update(
       'call_sid_or_participant_label',
-      { account_sid: 'account_sid', conference_sid: 'conference_sid' },
+      { account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9', conference_sid: 'conference_sid' },
     );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -174,7 +174,7 @@ describe('resource participants', () => {
     const response = await client.texml.accounts.conferences.participants.update(
       'call_sid_or_participant_label',
       {
-        account_sid: 'account_sid',
+        account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
         conference_sid: 'conference_sid',
         AnnounceMethod: 'GET',
         AnnounceUrl: 'https://www.example.com/announce.xml',

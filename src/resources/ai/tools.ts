@@ -202,6 +202,14 @@ export namespace UpdateDynamicVariablesToolParams {
   }
 }
 
+export interface VisionToolParams {
+  /**
+   * Frames received longer ago than this many seconds are not shown to the
+   * assistant, so it never describes a frozen or disconnected camera as live.
+   */
+  max_frame_age_secs?: number;
+}
+
 export interface ToolListParams extends DefaultFlatPaginationParams {
   /**
    * Filter results by filter name.
@@ -268,6 +276,11 @@ export interface ToolCreateParams {
   /**
    * Body param
    */
+  vision?: VisionToolParams;
+
+  /**
+   * Body param
+   */
   webhook?: { [key: string]: unknown };
 
   /**
@@ -309,6 +322,8 @@ export interface ToolUpdateParams {
    */
   update_dynamic_variables?: UpdateDynamicVariablesToolParams;
 
+  vision?: VisionToolParams;
+
   webhook?: { [key: string]: unknown };
 
   [k: string]: unknown;
@@ -319,6 +334,7 @@ export declare namespace Tools {
     type PayToolParams as PayToolParams,
     type SharedToolResponse as SharedToolResponse,
     type UpdateDynamicVariablesToolParams as UpdateDynamicVariablesToolParams,
+    type VisionToolParams as VisionToolParams,
     type SharedToolResponsesDefaultFlatPagination as SharedToolResponsesDefaultFlatPagination,
     type ToolListParams as ToolListParams,
     type ToolCreateParams as ToolCreateParams,

@@ -44,6 +44,18 @@ export class Addresses extends APIResource {
    * services that require a physical address such as emergency calling and
    * regulatory compliance.
    *
+   * By default, the new record is validated for emergency use at creation time. If
+   * the address fails validation, no record is created and the request is rejected
+   * with a 422 response; the `errors` array includes a suggested value for each
+   * offending field when one is available.
+   *
+   * Set `validate_address` to `false` to skip validation at creation, for example
+   * when the address was already validated with the Validate an address action. The
+   * record is then created without emergency validation: if it is not valid it will
+   * not be able to be used for emergency services (such as a phone number's
+   * emergency address), and because address records cannot be updated, a new record
+   * has to be created to correct it.
+   *
    * @example
    * ```ts
    * const address = await client.addresses.create({
@@ -193,7 +205,11 @@ export interface Address {
    * have used the `/addresses/actions/validate` endpoint to validate the address
    * separately prior to creation. If an address is not validated for emergency use
    * upon creation and it is not valid, it will not be able to be used for emergency
-   * services.
+   * services. In an address record, this flag indicates whether emergency validation
+   * was performed at creation: `true` means the record passed emergency validation
+   * before it was created; `false` means validation was skipped during this creation
+   * request, and the address may have been validated separately. This flag is not a
+   * current validity status; emergency use still requires a valid address.
    */
   validate_address?: boolean;
 }
@@ -383,7 +399,11 @@ export interface AddressCreateParams {
    * have used the `/addresses/actions/validate` endpoint to validate the address
    * separately prior to creation. If an address is not validated for emergency use
    * upon creation and it is not valid, it will not be able to be used for emergency
-   * services.
+   * services. In an address record, this flag indicates whether emergency validation
+   * was performed at creation: `true` means the record passed emergency validation
+   * before it was created; `false` means validation was skipped during this creation
+   * request, and the address may have been validated separately. This flag is not a
+   * current validity status; emergency use still requires a valid address.
    */
   validate_address?: boolean;
 }

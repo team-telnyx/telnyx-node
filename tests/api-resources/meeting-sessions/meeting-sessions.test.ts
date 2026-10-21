@@ -46,14 +46,10 @@ describe('resource meetingSessions', () => {
       meeting_url: 'https://zoom.us/j/1234567890',
       assistant: {
         id: 'asst_fake-uuid-1234',
-        audio_gate: 'half_duplex',
-        dynamic_variables: { candidate_name: 'Ada Lovelace', role: 'Staff Engineer' },
+        audio_gate: 'full_duplex',
+        avatar: true,
+        dynamic_variables: { foo: 'string' },
         leave_on_end: true,
-      },
-      avatar: {
-        api_key: 'fake_avatar_api_key_do_not_use',
-        avatar_id: 'avatar_fake-001',
-        provider: 'anam',
       },
       barge_in: true,
       bot_name: 'Notetaker',
@@ -138,20 +134,6 @@ describe('resource meetingSessions', () => {
   // Mock server tests are disabled
   test.skip('deleteRecordingMedia', async () => {
     const responsePromise = client.meetingSessions.deleteRecordingMedia(
-      'mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-    );
-    const rawResponse = await responsePromise.asResponse();
-    expect(rawResponse).toBeInstanceOf(Response);
-    const response = await responsePromise;
-    expect(response).not.toBeInstanceOf(Response);
-    const dataAndResponse = await responsePromise.withResponse();
-    expect(dataAndResponse.data).toBe(response);
-    expect(dataAndResponse.response).toBe(rawResponse);
-  });
-
-  // Mock server tests are disabled
-  test.skip('retrieveRecordings', async () => {
-    const responsePromise = client.meetingSessions.retrieveRecordings(
       'mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890',
     );
     const rawResponse = await responsePromise.asResponse();

@@ -11,7 +11,7 @@ describe('resource siprec', () => {
   // Mock server tests are disabled
   test.skip('siprecSidJson: only required params', async () => {
     const responsePromise = client.texml.accounts.calls.siprec.siprecSidJson('siprec_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
       call_sid: 'call_sid',
     });
     const rawResponse = await responsePromise.asResponse();
@@ -26,7 +26,7 @@ describe('resource siprec', () => {
   // Mock server tests are disabled
   test.skip('siprecSidJson: required and optional params', async () => {
     const response = await client.texml.accounts.calls.siprec.siprecSidJson('siprec_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
       call_sid: 'call_sid',
       Status: 'stopped',
     });

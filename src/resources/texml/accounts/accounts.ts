@@ -67,7 +67,7 @@ export class Accounts extends APIResource {
    * ```ts
    * const texmlGetCallRecordingsResponseBody =
    *   await client.texml.accounts.retrieveRecordingsJson(
-   *     'account_sid',
+   *     'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   );
    * ```
    */
@@ -86,7 +86,7 @@ export class Accounts extends APIResource {
    * ```ts
    * const response =
    *   await client.texml.accounts.retrieveTranscriptionsJson(
-   *     'account_sid',
+   *     'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
    *   );
    * ```
    */

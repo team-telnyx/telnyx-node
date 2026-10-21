@@ -131,8 +131,17 @@ export namespace AudioTranscribeResponse {
     text: string;
 
     /**
+     * Zero-indexed audio channel of this segment. Returned by the `deepgram/*` models
+     * when `multichannel` is enabled via `model_config` and the file has more than one
+     * channel. Segments from all channels are merged in one list ordered by start
+     * time.
+     */
+    channel?: number;
+
+    /**
      * Speaker indices heard in this segment. Returned by the `deepgram/*` models when
-     * `diarize` is enabled via `model_config`.
+     * `diarize` is enabled via `model_config`. With `multichannel`, speakers are
+     * numbered per channel from 0, so identify a speaker by (`channel`, speaker).
      */
     speakers?: Array<number>;
 
@@ -197,10 +206,14 @@ export interface AudioTranscribeParams {
 
   /**
    * Additional model-specific configuration parameters. Only allowed with the
-   * `deepgram/*` models. Can include Deepgram-specific options such as
-   * `smart_format`, `punctuate`, `diarize`, `utterance`, `numerals`, and `language`.
-   * If `language` is provided both as a top-level parameter and in `model_config`,
-   * the top-level parameter takes precedence.
+   * `deepgram/*` models. Sent as a JSON string in multipart requests and passed
+   * through to Deepgram as query parameters. Any other model with `model_config`
+   * returns 422. Can include Deepgram-specific options such as `smart_format`,
+   * `punctuate`, `diarize` (speaker labels), `multichannel` (transcribe each channel
+   * independently; billed duration is file duration multiplied by the number of
+   * channels), `utterances`, `numerals`, and `language`. If `language` is provided
+   * both as a top-level parameter and in `model_config`, the top-level parameter
+   * takes precedence.
    */
   model_config?: { [key: string]: unknown };
 

@@ -10,7 +10,7 @@ const client = new Telnyx({
 describe('resource queues', () => {
   // Mock server tests are disabled
   test.skip('create', async () => {
-    const responsePromise = client.texml.accounts.queues.create('account_sid', {});
+    const responsePromise = client.texml.accounts.queues.create('f5586561-8ff0-4291-a51b-c7dfe4139ff9', {});
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -22,7 +22,9 @@ describe('resource queues', () => {
 
   // Mock server tests are disabled
   test.skip('delete: only required params', async () => {
-    const responsePromise = client.texml.accounts.queues.delete('queue_sid', { account_sid: 'account_sid' });
+    const responsePromise = client.texml.accounts.queues.delete('queue_sid', {
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -34,13 +36,15 @@ describe('resource queues', () => {
 
   // Mock server tests are disabled
   test.skip('delete: required and optional params', async () => {
-    const response = await client.texml.accounts.queues.delete('queue_sid', { account_sid: 'account_sid' });
+    const response = await client.texml.accounts.queues.delete('queue_sid', {
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+    });
   });
 
   // Mock server tests are disabled
   test.skip('retrieve: only required params', async () => {
     const responsePromise = client.texml.accounts.queues.retrieve('queue_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
     });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
@@ -53,12 +57,16 @@ describe('resource queues', () => {
 
   // Mock server tests are disabled
   test.skip('retrieve: required and optional params', async () => {
-    const response = await client.texml.accounts.queues.retrieve('queue_sid', { account_sid: 'account_sid' });
+    const response = await client.texml.accounts.queues.retrieve('queue_sid', {
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+    });
   });
 
   // Mock server tests are disabled
   test.skip('update: only required params', async () => {
-    const responsePromise = client.texml.accounts.queues.update('queue_sid', { account_sid: 'account_sid' });
+    const responsePromise = client.texml.accounts.queues.update('queue_sid', {
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+    });
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -71,14 +79,14 @@ describe('resource queues', () => {
   // Mock server tests are disabled
   test.skip('update: required and optional params', async () => {
     const response = await client.texml.accounts.queues.update('queue_sid', {
-      account_sid: 'account_sid',
+      account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
       MaxSize: 10,
     });
   });
 
   // Mock server tests are disabled
   test.skip('list', async () => {
-    const responsePromise = client.texml.accounts.queues.list('account_sid');
+    const responsePromise = client.texml.accounts.queues.list('f5586561-8ff0-4291-a51b-c7dfe4139ff9');
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -93,7 +101,7 @@ describe('resource queues', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.texml.accounts.queues.list(
-        'account_sid',
+        'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
         {
           DateCreated: 'DateCreated',
           DateUpdated: 'DateUpdated',

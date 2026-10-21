@@ -33,8 +33,9 @@ import {
   JobUpdateEmergencySettingsBatchParams,
   JobUpdateEmergencySettingsBatchResponse,
   Jobs,
+  NumbersPhoneNumbersJob,
+  NumbersPhoneNumbersJobsDefaultFlatPagination,
   PhoneNumbersJob,
-  PhoneNumbersJobsDefaultFlatPagination,
 } from './jobs';
 import * as MessagingAPI from './messaging';
 import {
@@ -185,6 +186,39 @@ export type NumbersPhoneNumberDetailedsDefaultFlatPagination =
 
 export type PhoneNumberSlimListResponsesDefaultFlatPagination =
   DefaultFlatPagination<PhoneNumberSlimListResponse>;
+
+export interface NumbersError73c9788e53 {
+  code?: string;
+
+  detail?: string;
+
+  meta?: NumbersError73c9788e53.Meta;
+
+  source?: NumbersError73c9788e53.Source;
+
+  title?: string;
+}
+
+export namespace NumbersError73c9788e53 {
+  export interface Meta {
+    /**
+     * URL with additional information on the error.
+     */
+    url?: string;
+  }
+
+  export interface Source {
+    /**
+     * Indicates which query parameter caused the error.
+     */
+    parameter?: string;
+
+    /**
+     * JSON pointer (RFC6901) to the offending entity.
+     */
+    pointer?: string;
+  }
+}
 
 export interface NumbersPhoneNumberDetailed {
   /**
@@ -1276,6 +1310,7 @@ PhoneNumbers.Voicemail = Voicemail;
 
 export declare namespace PhoneNumbers {
   export {
+    type NumbersError73c9788e53 as NumbersError73c9788e53,
     type NumbersPhoneNumberDetailed as NumbersPhoneNumberDetailed,
     type PhoneNumberDetailed as PhoneNumberDetailed,
     type PhoneNumberRetrieveResponse as PhoneNumberRetrieveResponse,
@@ -1312,12 +1347,13 @@ export declare namespace PhoneNumbers {
 
   export {
     Jobs as Jobs,
+    type NumbersPhoneNumbersJob as NumbersPhoneNumbersJob,
     type PhoneNumbersJob as PhoneNumbersJob,
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobDeleteBatchResponse as JobDeleteBatchResponse,
     type JobUpdateBatchResponse as JobUpdateBatchResponse,
     type JobUpdateEmergencySettingsBatchResponse as JobUpdateEmergencySettingsBatchResponse,
-    type PhoneNumbersJobsDefaultFlatPagination as PhoneNumbersJobsDefaultFlatPagination,
+    type NumbersPhoneNumbersJobsDefaultFlatPagination as NumbersPhoneNumbersJobsDefaultFlatPagination,
     type JobListParams as JobListParams,
     type JobDeleteBatchParams as JobDeleteBatchParams,
     type JobUpdateEmergencySettingsBatchParams as JobUpdateEmergencySettingsBatchParams,

@@ -102,10 +102,21 @@ export class TelephonyCredentials extends APIResource {
    *   await client.telephonyCredentials.createToken('id');
    * ```
    */
-  createToken(id: string, options?: RequestOptions): APIPromise<string> {
+  createToken(
+    id: string,
+    params: TelephonyCredentialCreateTokenParams | null | undefined = {},
+    options?: RequestOptions,
+  ): APIPromise<string> {
+    const { 'Idempotency-Key': idempotencyKey } = params ?? {};
     return this._client.post(path`/telephony_credentials/${id}/token`, {
       ...options,
-      headers: buildHeaders([{ Accept: 'text/plain' }, options?.headers]),
+      headers: buildHeaders([
+        {
+          Accept: 'text/plain',
+          ...(idempotencyKey != null ? { 'Idempotency-Key': idempotencyKey } : undefined),
+        },
+        options?.headers,
+      ]),
     });
   }
 }
@@ -263,6 +274,16 @@ export interface TelephonyCredentialUpdateParams {
   tag?: string;
 }
 
+export interface TelephonyCredentialCreateTokenParams {
+  /**
+   * Unique key for safely retrying the same logical request. Generate a UUID v4 for
+   * each operation and reuse it only when retrying that operation with the same
+   * request body. Valid characters: A-Z, a-z, 0-9, -, and \_. Length: 1-255
+   * characters. Do not include sensitive data in the key.
+   */
+  'Idempotency-Key'?: string;
+}
+
 export declare namespace TelephonyCredentials {
   export {
     type TelephonyCredential as TelephonyCredential,
@@ -275,5 +296,6 @@ export declare namespace TelephonyCredentials {
     type TelephonyCredentialListParams as TelephonyCredentialListParams,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
     type TelephonyCredentialUpdateParams as TelephonyCredentialUpdateParams,
+    type TelephonyCredentialCreateTokenParams as TelephonyCredentialCreateTokenParams,
   };
 }

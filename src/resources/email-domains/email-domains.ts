@@ -565,7 +565,7 @@ export interface EmailDomainListParams extends DefaultFlatPaginationParams {
   /**
    * Field to sort by. Prefix with `-` for descending order.
    */
-  sort?: 'created_at' | '-created_at' | 'domain' | '-domain';
+  sort?: 'created_at' | '-created_at' | 'domain' | '-domain' | 'updated_at' | '-updated_at';
 }
 
 export interface EmailDomainCreateParams {

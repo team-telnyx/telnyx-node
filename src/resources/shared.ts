@@ -10,6 +10,11 @@ export interface APIError {
 
   description?: string;
 
+  /**
+   * A human-readable explanation of the error.
+   */
+  detail?: string;
+
   meta?: { [key: string]: unknown };
 
   source?: APIError.Source;

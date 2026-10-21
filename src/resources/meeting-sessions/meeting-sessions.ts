@@ -40,13 +40,18 @@ export class MeetingSessions extends APIResource {
    * request body, replay lookup is scoped to the authenticated account and compares
    * only the key; the request payload is not fingerprinted or compared. If a session
    * with that key already exists for the account, the existing session is replayed
-   * (200); otherwise a new session is created (201). Supports bring-your-own-key
-   * (BYOK) configuration. The session may enter asynchronous states (e.g. joining,
-   * waiting_for_admission) before becoming active. Optional `camera_image` input is
-   * write-only and applies only when no Avatar or Assistant webpage output takes
-   * precedence. An ignored URL is not fetched. An effective URL source is resolved
-   * before bot creation; neither the source URL nor image bytes are persisted,
-   * returned, or logged. Treat signed URLs as credentials.
+   * (200); otherwise a new session is created (201). The session may enter
+   * asynchronous states (e.g. joining, waiting_for_admission) before becoming
+   * active. Optional `camera_image` input is write-only and applies only when no
+   * avatar or Assistant webpage output takes precedence. An ignored URL is not
+   * fetched. An effective URL source is resolved before bot creation; neither the
+   * source URL nor image bytes are persisted, returned, or logged. Treat signed URLs
+   * as credentials. With `assistant.avatar: true`, the assistant is read before the
+   * bot is created: an assistant without a Telnyx avatar configured is rejected with
+   * 400 `invalid_request` (message prefix `assistant_avatar_not_configured:`), an
+   * unknown assistant with 400 `invalid_request` (prefix `assistant_not_found:`),
+   * and a failed lookup with 503 `assistant_lookup_unavailable`; no bot is created
+   * in any of these cases.
    *
    * @example
    * ```ts
@@ -143,8 +148,8 @@ export class MeetingSessions extends APIResource {
    * The operation retains the Telnyx-local Meeting session, transcript segments,
    * events, artifacts, and usage records. It is separate from
    * `DELETE /meeting_sessions/{id}`, which stops or cancels participation without
-   * deleting the persisted session. A missing/foreign session returns 404; provider
-   * deletion failures return 502.
+   * deleting the persisted session. A missing/foreign session returns 404; a
+   * deletion request whose outcome is unknown returns 502.
    *
    * @example
    * ```ts
@@ -159,24 +164,6 @@ export class MeetingSessions extends APIResource {
     options?: RequestOptions,
   ): APIPromise<MeetingSessionDeleteRecordingMediaResponse> {
     return this._client.delete(path`/meeting_sessions/${id}/recording_media`, options);
-  }
-
-  /**
-   * Returns recordings for a meeting session.
-   *
-   * @example
-   * ```ts
-   * const response =
-   *   await client.meetingSessions.retrieveRecordings(
-   *     'mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890',
-   *   );
-   * ```
-   */
-  retrieveRecordings(
-    id: string,
-    options?: RequestOptions,
-  ): APIPromise<MeetingSessionRetrieveRecordingsResponse> {
-    return this._client.get(path`/meeting_sessions/${id}/recordings`, options);
   }
 
   /**
@@ -234,12 +221,16 @@ export interface MeetingSession {
   assistant_state_changed_at: string | null;
 
   /**
-   * Avatar configuration if an avatar is attached, otherwise null.
+   * The assistant's avatar, captured from its `avatar_settings` when the session was
+   * created. For display only; later changes to the assistant do not update it.
    */
   avatar: MeetingSession.Avatar | null;
 
   /**
-   * Current state of the avatar connection, or null if no avatar is attached.
+   * Current state of the avatar, or null if the session has no avatar. `starting`
+   * until the avatar's video is playing, then `connected`; `degraded` when the
+   * session has fallen back to voice-only (the `avatar.degraded` event carries the
+   * reason); `disconnected` when the avatar has ended.
    */
   avatar_state: 'starting' | 'connected' | 'degraded' | 'disconnected' | null;
 
@@ -368,7 +359,8 @@ export namespace MeetingSession {
   }
 
   /**
-   * Avatar configuration if an avatar is attached, otherwise null.
+   * The assistant's avatar, captured from its `avatar_settings` when the session was
+   * created. For display only; later changes to the assistant do not update it.
    */
   export interface Avatar {
     /**
@@ -377,9 +369,19 @@ export namespace MeetingSession {
     avatar_id: string;
 
     /**
+     * Identifier of the avatar's background.
+     */
+    background_id: string;
+
+    /**
+     * Avatar rendering model, for example `foxtrot-1`.
+     */
+    model: string;
+
+    /**
      * Avatar provider identifier.
      */
-    provider: 'anam';
+    provider: 'telnyx';
   }
 
   export interface Config {
@@ -460,27 +462,6 @@ export namespace MeetingSessionRetrieveEventsResponse {
   }
 }
 
-export interface MeetingSessionRetrieveRecordingsResponse {
-  data: Array<MeetingSessionRetrieveRecordingsResponse.Data>;
-}
-
-export namespace MeetingSessionRetrieveRecordingsResponse {
-  export interface Data {
-    /**
-     * Expiry timestamp when available, or null. Currently returns null.
-     */
-    expires_at: string | null;
-
-    type: string;
-
-    /**
-     * Current provider download URL. The API does not guarantee URL lifetime or
-     * refresh behavior.
-     */
-    url: string;
-  }
-}
-
 export interface MeetingSessionRetrieveTranscriptResponse {
   data: Array<MeetingSessionRetrieveTranscriptResponse.Data>;
 
@@ -541,11 +522,6 @@ export interface MeetingSessionCreateParams {
   assistant?: MeetingSessionCreateParams.Assistant;
 
   /**
-   * Request options for attaching a bring-your-own-key avatar to the session.
-   */
-  avatar?: MeetingSessionCreateParams.Avatar;
-
-  /**
    * When enabled, a human participant `speech_on` event interrupts and stops the
    * current bot audio; it does not bypass admission or initiate speech. Assistant
    * sessions reject `barge_in: true`.
@@ -602,6 +578,7 @@ export interface MeetingSessionCreateParams {
    * is attached**: the value is accepted and echoed back on the session, but the
    * assistant owns the voice and the line is never delivered, with no event
    * reporting the omission. Use `chat_on_enter` to announce an assistant-backed bot.
+   * Rejected with 400 `invalid_request` when `assistant.avatar` is `true`.
    */
   speak_on_enter?: string;
 
@@ -649,6 +626,20 @@ export namespace MeetingSessionCreateParams {
     audio_gate?: 'half_duplex' | 'full_duplex';
 
     /**
+     * Beta. Show the avatar configured on the assistant (its `avatar_settings`; see
+     * [AI Assistant avatars](/docs/inference/ai-assistants/avatars)) as the bot's
+     * camera, lip-synced to the assistant's own speech. The request carries no avatar
+     * ID or key: the assistant is read at creation and the request is rejected with
+     * 400 `invalid_request` if it has no Telnyx avatar configured. Supported on Google
+     * Meet, Zoom, Microsoft Teams and Webex; other platforms return 422
+     * `unsupported_capability`. REST-only. Not echoed back on `assistant`; the
+     * session's top-level `avatar` and `avatar_state` fields report it instead. If the
+     * avatar fails, the session continues voice-only and `avatar_state` becomes
+     * `degraded`.
+     */
+    avatar?: boolean;
+
+    /**
      * Per-conversation values for the
      * [dynamic variables](/docs/inference/ai-assistants/dynamic-variables) used in the
      * Assistant's instructions, greeting, or tools. Delivered before the Assistant's
@@ -670,27 +661,6 @@ export namespace MeetingSessionCreateParams {
      * session settles.
      */
     leave_on_end?: boolean;
-  }
-
-  /**
-   * Request options for attaching a bring-your-own-key avatar to the session.
-   */
-  export interface Avatar {
-    /**
-     * Bring-your-own-key API key for the avatar provider. The key is never stored or
-     * returned by the API.
-     */
-    api_key: string;
-
-    /**
-     * Identifier of the avatar to use.
-     */
-    avatar_id: string;
-
-    /**
-     * Avatar provider identifier. Currently only "anam" is supported.
-     */
-    provider: 'anam';
   }
 
   export interface MeetingSessionCameraImageBase64Source {
@@ -782,7 +752,6 @@ export declare namespace MeetingSessions {
     type MeetingSessionListResponse as MeetingSessionListResponse,
     type MeetingSessionDeleteRecordingMediaResponse as MeetingSessionDeleteRecordingMediaResponse,
     type MeetingSessionRetrieveEventsResponse as MeetingSessionRetrieveEventsResponse,
-    type MeetingSessionRetrieveRecordingsResponse as MeetingSessionRetrieveRecordingsResponse,
     type MeetingSessionRetrieveTranscriptResponse as MeetingSessionRetrieveTranscriptResponse,
     type MeetingSessionListParams as MeetingSessionListParams,
     type MeetingSessionCreateParams as MeetingSessionCreateParams,

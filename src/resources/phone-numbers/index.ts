@@ -22,6 +22,7 @@ export {
 } from './csv-downloads';
 export {
   Jobs,
+  type NumbersPhoneNumbersJob,
   type PhoneNumbersJob,
   type JobRetrieveResponse,
   type JobDeleteBatchResponse,
@@ -31,7 +32,7 @@ export {
   type JobDeleteBatchParams,
   type JobUpdateEmergencySettingsBatchParams,
   type JobUpdateBatchParams,
-  type PhoneNumbersJobsDefaultFlatPagination,
+  type NumbersPhoneNumbersJobsDefaultFlatPagination,
 } from './jobs';
 export {
   Messaging,
@@ -42,6 +43,7 @@ export {
 } from './messaging';
 export {
   PhoneNumbers,
+  type NumbersError73c9788e53,
   type NumbersPhoneNumberDetailed,
   type PhoneNumberDetailed,
   type PhoneNumberRetrieveResponse,

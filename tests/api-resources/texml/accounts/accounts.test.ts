@@ -10,7 +10,9 @@ const client = new Telnyx({
 describe('resource accounts', () => {
   // Mock server tests are disabled
   test.skip('retrieveRecordingsJson', async () => {
-    const responsePromise = client.texml.accounts.retrieveRecordingsJson('account_sid');
+    const responsePromise = client.texml.accounts.retrieveRecordingsJson(
+      'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -25,7 +27,7 @@ describe('resource accounts', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.texml.accounts.retrieveRecordingsJson(
-        'account_sid',
+        'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
         {
           DateCreated: '2023-05-22T00:00:00Z',
           Page: 0,
@@ -38,7 +40,9 @@ describe('resource accounts', () => {
 
   // Mock server tests are disabled
   test.skip('retrieveTranscriptionsJson', async () => {
-    const responsePromise = client.texml.accounts.retrieveTranscriptionsJson('account_sid');
+    const responsePromise = client.texml.accounts.retrieveTranscriptionsJson(
+      'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
+    );
     const rawResponse = await responsePromise.asResponse();
     expect(rawResponse).toBeInstanceOf(Response);
     const response = await responsePromise;
@@ -53,7 +57,7 @@ describe('resource accounts', () => {
     // ensure the request options are being passed correctly by passing an invalid HTTP method in order to cause an error
     await expect(
       client.texml.accounts.retrieveTranscriptionsJson(
-        'account_sid',
+        'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
         { PageSize: 0, PageToken: 'PageToken' },
         { path: '/_stainless_unknown_path' },
       ),

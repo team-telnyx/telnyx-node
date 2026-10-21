@@ -210,7 +210,10 @@ export class Assistants extends APIResource {
   /**
    * Updates the specified AI assistant's attributes and returns the updated
    * assistant. The request can also control how the change is promoted across
-   * assistant versions.
+   * assistant versions. Every update saves a new version, and an assistant keeps at
+   * most 10 versions: once it has more, the oldest versions are permanently deleted,
+   * except the main version and any version referenced by a traffic distribution
+   * rule.
    *
    * @example
    * ```ts
@@ -648,6 +651,7 @@ export type AssistantTool =
   | AssistantTool.SendDtmf
   | AssistantTool.SendMessage
   | AssistantTool.SkipTurn
+  | AssistantTool.Vision
   | AssistantTool.Pay
   | AssistantTool.UpdateDynamicVariables;
 
@@ -831,6 +835,14 @@ export namespace AssistantTool {
       targets: Array<Transfer.TargetsList> | string;
 
       /**
+       * Plays a short beep once the transfer completes and the calls are bridged, so the
+       * transfer destination knows the caller is now on the line. The warm transfer
+       * message plays before the bridge; this marks the moment the caller actually
+       * joins. Works with and without `warm_transfer_acceptance`.
+       */
+      bridge_beep?: Transfer.BridgeBeep;
+
+      /**
        * Custom headers to be added to the SIP INVITE for the transfer command.
        */
       custom_headers?: Array<Transfer.CustomHeader>;
@@ -930,6 +942,25 @@ export namespace AssistantTool {
          * URI.
          */
         sip_auth_username?: string;
+      }
+
+      /**
+       * Plays a short beep once the transfer completes and the calls are bridged, so the
+       * transfer destination knows the caller is now on the line. The warm transfer
+       * message plays before the bridge; this marks the moment the caller actually
+       * joins. Works with and without `warm_transfer_acceptance`.
+       */
+      export interface BridgeBeep {
+        /**
+         * Whether to play the beep when the calls are bridged.
+         */
+        enabled?: boolean;
+
+        /**
+         * Who hears the beep. `self` plays it to the transfer destination only; `both`
+         * plays it to the destination and the original caller.
+         */
+        target_legs?: 'self' | 'both';
       }
 
       export interface CustomHeader {
@@ -1110,6 +1141,18 @@ export namespace AssistantTool {
          * accept on every consult that does run.
          */
         require_acceptance?: boolean;
+
+        /**
+         * How long, in seconds, the destination has to accept the transfer, counted from
+         * when the private consult starts (right after the destination answers, or after
+         * `warm_message_delay_ms`). The caller keeps hearing ringback the whole time. If
+         * no acceptance arrives in time, the destination is hung up and the assistant
+         * returns to the caller (the transfer fails as a timeout). Raise it for
+         * destinations that answer before a human is on the line, such as a call-center
+         * queue/ACD or an IVR playing hold audio; keep it as short as practical, since the
+         * caller waits on ringback until it expires.
+         */
+        timeout_secs?: number;
       }
     }
   }
@@ -1384,6 +1427,30 @@ export namespace AssistantTool {
   }
 
   /**
+   * (BETA) Lets the assistant look at recent image frames the client sent into the
+   * conversation (for example webcam or screen-share frames). Frames are sent with
+   * `conversation.item.create` and `item.buffer: true`; they never trigger a
+   * response on their own. The assistant decides when to look and which frames it
+   * needs. Requires a model that supports image input.
+   */
+  export interface Vision {
+    type: 'vision';
+
+    /**
+     * Whether this tool comes from the shared Tools Library. Responses merge shared
+     * tools into `tools` with `shared: true`; inline tools carry `shared: false`.
+     * Read-only: set by the server, not accepted in requests. When updating an
+     * assistant, omit `shared: true` tools from the request `tools` array and manage
+     * them through `tool_ids` instead — re-sending their definitions creates an inline
+     * duplicate (rejected with error code 10015 when the type allows only one instance
+     * per assistant).
+     */
+    shared?: boolean;
+
+    vision?: ToolsAPI.VisionToolParams;
+  }
+
+  /**
    * (BETA) The pay tool allows the assistant to collect card payments from the
    * caller via DTMF during the conversation. Recording is automatically paused while
    * the pay tool is active and resumes when the payment flow completes. The
@@ -1456,9 +1523,10 @@ export interface AudioVisualizerConfig {
 export type AuthenticationMethod = 'token' | 'certificate';
 
 /**
- * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
- * the six stock avatars or an organization-owned custom avatar returned by the
- * Avatars API. Supported backgrounds are office, studio, and reception.
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
+ * avatar or an organization-owned custom avatar returned by the Avatars API.
+ * Discover the available stock catalog with GET /v2/ai/avatars and
+ * filter[avatar_type]=stock; follow meta.total_pages to load every page.
  */
 export interface AvatarSettingsRequest {
   /**
@@ -1469,7 +1537,7 @@ export interface AvatarSettingsRequest {
   /**
    * The background to render.
    */
-  background_id: 'office' | 'studio' | 'reception';
+  background_id: 'office' | 'studio' | 'reception' | 'illustrated_workspace';
 
   /**
    * Required avatar model identifier, separate from `avatar_id`. The supported value
@@ -2237,9 +2305,10 @@ export interface InferenceEmbedding {
   a2a_agents?: Array<AssistantA2AAgent>;
 
   /**
-   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
-   * the six stock avatars or an organization-owned custom avatar returned by the
-   * Avatars API. Supported backgrounds are office, studio, and reception.
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
+   * avatar or an organization-owned custom avatar returned by the Avatars API.
+   * Discover the available stock catalog with GET /v2/ai/avatars and
+   * filter[avatar_type]=stock; follow meta.total_pages to load every page.
    */
   avatar_settings?: TelnyxAvatarSettings | null;
 
@@ -3090,6 +3159,34 @@ export interface PrivacySettings {
    * border. Defaults to false.
    */
   in_transit_data_locality?: boolean;
+
+  /**
+   * Controls redaction of personally identifiable information (PII) from the
+   * conversation history that is stored for this assistant. `disabled` (default)
+   * stores content as-is. `redact` replaces detected PII with `<PII:type/>`
+   * placeholders (e.g. `<PII:name/>`, `<PII:phone/>`) as the stored copies are
+   * written: message content (user, assistant, and tool-result messages) and
+   * tool-call arguments are redacted when written to conversation history, so the
+   * stored transcript, its read-back via the history API, and any insights generated
+   * from the stored messages contain the placeholders instead of the PII; response
+   * bodies returned by webhook tools are redacted too, as stored in the webhook logs
+   * — a per-conversation record separate from the transcript. In the Mission Control
+   * Portal this field appears as a "PII Redaction" on/off toggle, where Enabled
+   * corresponds to `redact`. Redaction runs when the stored copy is written, after
+   * the LLM has generated its reply: the live conversation is not redacted, the
+   * assistant's tools keep receiving the full (unredacted) values during the call,
+   * and the LLM still sees full content in its context window. Call recordings
+   * (including any recording layout configured under telephony settings) and the
+   * payloads of messages/webhooks delivered during the call are never redacted by
+   * this setting. The set of detected PII types (names, street addresses, phone
+   * numbers, email addresses, government identifiers like SSN and driver's license
+   * numbers, credit card and bank account numbers, IP addresses, dates of birth, and
+   * other identifiers unique to a person) is fixed by Telnyx and cannot be
+   * configured or extended per assistant. Assistants with `redact` cannot be used
+   * for SMS/WhatsApp messaging (that combination is rejected with a 400 error);
+   * voice and web chat are unaffected.
+   */
+  pii_redaction?: 'disabled' | 'redact';
 }
 
 /**
@@ -3294,9 +3391,16 @@ export interface TelephonySettings {
 
   /**
    * Maximum duration in seconds for the AI assistant to participate on the call.
-   * When this limit is reached the assistant will be stopped. This limit does not
-   * apply to portions of a call without an active assistant (for instance, a call
-   * transferred to a human representative).
+   * When this limit is reached the assistant will be stopped. Stopping the assistant
+   * does not itself hang up the call, and what happens next depends on how the
+   * assistant is running. On Call Control (ai_assistant_start) the call leg stays
+   * connected and continues to be billed until it is hung up (for example with the
+   * Hangup call command) or until the call ends for another reason. On TeXML, the
+   * assistant's `<Connect><AIAssistant>` instruction ends; in the default TeXML
+   * setup for assistants no instructions follow it, so the call is hung up. Your
+   * application receives a call.conversation.ended webhook when the assistant stops.
+   * This limit does not apply to portions of a call without an active assistant (for
+   * instance, a call transferred to a human representative).
    */
   time_limit_secs?: number;
 
@@ -3309,9 +3413,16 @@ export interface TelephonySettings {
 
   /**
    * Maximum duration in seconds of end user silence on the call. When this limit is
-   * reached the assistant will be stopped. This limit does not apply to portions of
-   * a call without an active assistant (for instance, a call transferred to a human
-   * representative).
+   * reached the assistant will be stopped. Stopping the assistant does not itself
+   * hang up the call, and what happens next depends on how the assistant is running.
+   * On Call Control (ai_assistant_start) the call leg stays connected and continues
+   * to be billed until it is hung up (for example with the Hangup call command) or
+   * until the call ends for another reason. On TeXML, the assistant's
+   * `<Connect><AIAssistant>` instruction ends; in the default TeXML setup for
+   * assistants no instructions follow it, so the call is hung up. Your application
+   * receives a call.conversation.ended webhook when the assistant stops. This limit
+   * does not apply to portions of a call without an active assistant (for instance,
+   * a call transferred to a human representative).
    */
   user_idle_timeout_secs?: number;
 
@@ -3455,9 +3566,10 @@ export namespace TelephonySettings {
 }
 
 /**
- * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
- * the six stock avatars or an organization-owned custom avatar returned by the
- * Avatars API. Supported backgrounds are office, studio, and reception.
+ * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
+ * avatar or an organization-owned custom avatar returned by the Avatars API.
+ * Discover the available stock catalog with GET /v2/ai/avatars and
+ * filter[avatar_type]=stock; follow meta.total_pages to load every page.
  */
 export interface TelnyxAvatarSettings {
   /**
@@ -3468,7 +3580,7 @@ export interface TelnyxAvatarSettings {
   /**
    * The background to render.
    */
-  background_id: 'office' | 'studio' | 'reception';
+  background_id: 'office' | 'studio' | 'reception' | 'illustrated_workspace';
 
   /**
    * Required avatar model identifier, separate from `avatar_id`. The supported value
@@ -3657,7 +3769,12 @@ export interface TranscriptionSettings {
    * `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the
    * transcription language. For `cohere/ar-stt`, supported values are `ar` and `en`;
    * unlike other models, this model does not auto-detect and defaults to `ar` when
-   * `language` is omitted.
+   * `language` is omitted. For `speechmatics/linden-1`, there is no auto-detect; set
+   * a code from Speechmatics' Realtime language list (67 language codes, including
+   * `es-bilingual-en` for Spanish and English bilingual, and the spelling and script
+   * variants `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant`; `en` alone uses
+   * the default spelling); unset defaults to `en`, while an explicit `auto`,
+   * `auto_beta`, or `multi` is rejected with a 400.
    */
   language?: string;
 
@@ -3668,6 +3785,12 @@ export interface TranscriptionSettings {
    * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
    * - `deepgram/nova-3` is multilingual with automatic language detection.
    * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
+   * - `speechmatics/standard` is a Speechmatics model self-hosted by Telnyx; it
+   *   supports a fixed set of language packs (including bilingual packs such as
+   *   `ar_en`) and defaults to `en`.
+   * - `speechmatics/linden-1` (preview) is a vendor-hosted streaming model with no
+   *   auto-detect; set `language` from Speechmatics' Realtime language list
+   *   (defaults to `en`).
    * - `azure/fast` is a multilingual Azure transcription model.
    * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with
    *   configurable turn detection. The legacy alias `assemblyai/universal-streaming`
@@ -3691,6 +3814,8 @@ export interface TranscriptionSettings {
     | 'deepgram/flux'
     | 'deepgram/nova-3'
     | 'deepgram/nova-2'
+    | 'speechmatics/standard'
+    | 'speechmatics/linden-1'
     | 'azure/fast'
     | 'assemblyai/universal-3-5-pro'
     | 'assemblyai/universal-streaming'
@@ -3860,9 +3985,9 @@ export interface TranscriptionSettingsConfig {
   enable_endpoint_detection?: boolean;
 
   /**
-   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-   * assemblyai/universal-streaming). Confidence level required to trigger an end of
-   * turn. Higher values require more certainty before ending a turn.
+   * @deprecated Deprecated and ignored. Accepted for backwards compatibility.
+   * AssemblyAI turn detection is configured with min_turn_silence and
+   * max_turn_silence.
    */
   end_of_turn_confidence_threshold?: number;
 
@@ -3885,10 +4010,13 @@ export interface TranscriptionSettingsConfig {
   interim_results?: boolean;
 
   /**
-   * Available only for deepgram/nova-3 and deepgram/flux. A comma-separated list of
-   * key terms to boost for recognition during transcription. Helps improve accuracy
-   * for domain-specific terminology, proper nouns, or uncommon words. This field may
-   * be templated with
+   * A comma-separated list of key terms to boost for recognition during
+   * transcription, used by Deepgram, Reson8, Speechmatics Linden 1 and AssemblyAI
+   * models. Helps improve accuracy for domain-specific terminology, proper nouns, or
+   * uncommon words. At most 1000 characters in total. For
+   * assemblyai/universal-3-5-pro (and its legacy alias
+   * assemblyai/universal-streaming), also at most 100 terms of up to 50 characters
+   * each. This field may be templated with
    * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
    * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are
    * resolved at call time before the value is sent to the speech-to-text engine.
@@ -3924,6 +4052,24 @@ export interface TranscriptionSettingsConfig {
   min_turn_silence?: number;
 
   numerals?: boolean;
+
+  /**
+   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
+   * assemblyai/universal-streaming). Context about the conversation (domain, names,
+   * terms) to improve transcription; describe the content, do not give instructions.
+   * Leave empty unless needed. At most 1750 characters.
+   */
+  prompt?: string;
+
+  /**
+   * Available only for speechmatics/linden-1. When true, filler words such as "um"
+   * and "uh" are removed from the transcript. Disfluency removal is supported only
+   * for `ar`, `cmn`, `da`, `de`, `el`, `en`, `es`, `fr`, `he`, `hi`, `hu`, `it`,
+   * `ja`, `nl`, `pl`, `pt`, and `ru`, determined by the base language (so `en-US`,
+   * `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant` are supported); for other
+   * languages, filler words remain in the transcript.
+   */
+  remove_disfluencies?: boolean;
 
   smart_format?: boolean;
 }
@@ -4435,8 +4581,9 @@ export interface AssistantCreateParams {
 
   /**
    * Body param: **Beta:** Configuration for the Telnyx open-source avatar provider.
-   * Use one of the six stock avatars or an organization-owned custom avatar returned
-   * by the Avatars API. Supported backgrounds are office, studio, and reception.
+   * Use a stock avatar or an organization-owned custom avatar returned by the
+   * Avatars API. Discover the available stock catalog with GET /v2/ai/avatars and
+   * filter[avatar_type]=stock; follow meta.total_pages to load every page.
    */
   avatar_settings?: AvatarSettingsRequest | null;
 
@@ -4727,9 +4874,10 @@ export interface AssistantUpdateParams {
   a2a_agents?: Array<AssistantA2AAgent>;
 
   /**
-   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use one of
-   * the six stock avatars or an organization-owned custom avatar returned by the
-   * Avatars API. Supported backgrounds are office, studio, and reception.
+   * **Beta:** Configuration for the Telnyx open-source avatar provider. Use a stock
+   * avatar or an organization-owned custom avatar returned by the Avatars API.
+   * Discover the available stock catalog with GET /v2/ai/avatars and
+   * filter[avatar_type]=stock; follow meta.total_pages to load every page.
    */
   avatar_settings?: AvatarSettingsRequest | null;
 
