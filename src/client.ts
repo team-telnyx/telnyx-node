@@ -1809,26 +1809,7 @@ import {
   TextToSpeechListVoicesResponse,
   TextToSpeechRetrieveSpeechParams,
 } from './resources/text-to-speech/text-to-speech';
-import {
-  CommunityTtsAudioFormat,
-  CommunityTtsEngine,
-  CommunityTtsEngineCapabilities,
-  CommunityTtsEngineListMeta,
-  CommunityTtsEngineStatus,
-  CommunityTtsEngineVisibility,
-  TtsIntegrationCreateParams,
-  TtsIntegrationListParams,
-  TtsIntegrationListResponse,
-  TtsIntegrationReplaceParams,
-  TtsIntegrationRetrieveConformanceRunsParams,
-  TtsIntegrationRetrieveConformanceRunsResponse,
-  TtsIntegrationRetrieveDiscoverableParams,
-  TtsIntegrationRetrieveDiscoverableResponse,
-  TtsIntegrationRetrieveVoicesResponse,
-  TtsIntegrationUpdateParams,
-  TtsIntegrations,
-  UpdateCommunityTtsEngineRequest,
-} from './resources/tts-integrations/tts-integrations';
+import { TtsIntegrations } from './resources/tts-integrations/tts-integrations';
 import {
   UacConnection,
   UacConnectionCreateParams,
@@ -3369,9 +3350,6 @@ export class Telnyx {
    * Call information
    */
   dialMetrics: API.DialMetrics = new API.DialMetrics(this);
-  /**
-   * Register and manage text-to-speech (TTS) engines you publish, and find the public engines other organizations published, so an AI Assistant, TeXML or Call Control can speak with one of their voices, using your own key for it, instead of a Telnyx-integrated vendor.
-   */
   ttsIntegrations: API.TtsIntegrations = new API.TtsIntegrations(this);
 }
 
@@ -5676,26 +5654,7 @@ export declare namespace Telnyx {
     type DialMetricListParams as DialMetricListParams,
   };
 
-  export {
-    TtsIntegrations as TtsIntegrations,
-    type CommunityTtsAudioFormat as CommunityTtsAudioFormat,
-    type CommunityTtsEngine as CommunityTtsEngine,
-    type CommunityTtsEngineCapabilities as CommunityTtsEngineCapabilities,
-    type CommunityTtsEngineListMeta as CommunityTtsEngineListMeta,
-    type CommunityTtsEngineStatus as CommunityTtsEngineStatus,
-    type CommunityTtsEngineVisibility as CommunityTtsEngineVisibility,
-    type UpdateCommunityTtsEngineRequest as UpdateCommunityTtsEngineRequest,
-    type TtsIntegrationListResponse as TtsIntegrationListResponse,
-    type TtsIntegrationRetrieveConformanceRunsResponse as TtsIntegrationRetrieveConformanceRunsResponse,
-    type TtsIntegrationRetrieveDiscoverableResponse as TtsIntegrationRetrieveDiscoverableResponse,
-    type TtsIntegrationRetrieveVoicesResponse as TtsIntegrationRetrieveVoicesResponse,
-    type TtsIntegrationListParams as TtsIntegrationListParams,
-    type TtsIntegrationCreateParams as TtsIntegrationCreateParams,
-    type TtsIntegrationRetrieveDiscoverableParams as TtsIntegrationRetrieveDiscoverableParams,
-    type TtsIntegrationUpdateParams as TtsIntegrationUpdateParams,
-    type TtsIntegrationReplaceParams as TtsIntegrationReplaceParams,
-    type TtsIntegrationRetrieveConformanceRunsParams as TtsIntegrationRetrieveConformanceRunsParams,
-  };
+  export { TtsIntegrations as TtsIntegrations };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

@@ -558,12 +558,15 @@ export namespace JobListParams {
    */
   export interface Filter {
     /**
-     * Returns jobs whose creation-time customer reference exactly matches the supplied
-     * value, not the current reference on a phone number. Only jobs within the lookup
-     * window (90 days by default) are returned. Supply a single non-blank string of up
-     * to 250 characters, without null characters, using
-     * `filter[customer_reference]=yourcustomerrefhere`. An invalid filter value
-     * returns HTTP 422.
+     * Exact, case-sensitive match for the customer reference supplied when the job was
+     * created. Only jobs created within the last 90 days are returned, including for
+     * accounts otherwise exempt from job retention limits. Searches the stored job
+     * reference, not the current reference on a phone number. Multiple jobs may share
+     * a reference. Combines with the other filters and account ownership. Supply a
+     * single non-blank string of up to 250 characters, without null characters, using
+     * `filter[customer_reference]=yourcustomerrefhere`. Whitespace is preserved; blank
+     * strings, arrays, and objects return HTTP 422. An invalid filter value returns
+     * HTTP 422. The literal string `null` is matched as text.
      */
     customer_reference?: string;
 
@@ -639,7 +642,12 @@ export interface JobUpdateBatchParams {
   connection_id?: string;
 
   /**
-   * Body param: A customer reference string for customer look ups.
+   * Body param: Sets the customer reference on the selected phone numbers and
+   * retains the supplied value on the job. Recover the job without its ID using GET
+   * /phone_numbers/jobs with filter[customer_reference] within 90 days of job
+   * creation. This body field updates the numbers; the separate
+   * filter[customer_reference] query parameter selects numbers by their current
+   * reference.
    */
   customer_reference?: string;
 

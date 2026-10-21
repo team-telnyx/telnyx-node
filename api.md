@@ -1551,7 +1551,6 @@ Types:
 - <code><a href="./src/resources/calls/actions.ts">AwsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResult</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResultWithConversationID</a></code>
-- <code><a href="./src/resources/calls/actions.ts">CommunityVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ConversationRelayInterruptible</a></code>
 - <code><a href="./src/resources/calls/actions.ts">ConversationRelayTranscriptionEngineConfig</a></code>
 - <code><a href="./src/resources/calls/actions.ts">DeepgramEnglishTranscriptionLanguage</a></code>
@@ -6287,42 +6286,4 @@ Methods:
 
 # TtsIntegrations
 
-Types:
-
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">CommunityTtsAudioFormat</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">CommunityTtsEngine</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">CommunityTtsEngineCapabilities</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">CommunityTtsEngineListMeta</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">CommunityTtsEngineStatus</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">CommunityTtsEngineVisibility</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">UpdateCommunityTtsEngineRequest</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">TtsIntegrationListResponse</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">TtsIntegrationRetrieveConformanceRunsResponse</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">TtsIntegrationRetrieveDiscoverableResponse</a></code>
-- <code><a href="./src/resources/tts-integrations/tts-integrations.ts">TtsIntegrationRetrieveVoicesResponse</a></code>
-
-Methods:
-
-- <code title="get /tts_integrations">client.ttsIntegrations.<a href="./src/resources/tts-integrations/tts-integrations.ts">list</a>({ ...params }) -> TtsIntegrationListResponse</code>
-- <code title="post /tts_integrations">client.ttsIntegrations.<a href="./src/resources/tts-integrations/tts-integrations.ts">create</a>({ ...params }) -> CommunityTtsEngine</code>
-- <code title="get /tts_integrations/discoverable">client.ttsIntegrations.<a href="./src/resources/tts-integrations/tts-integrations.ts">retrieveDiscoverable</a>({ ...params }) -> TtsIntegrationRetrieveDiscoverableResponse</code>
-- <code title="delete /tts_integrations/{id}">client.ttsIntegrations.<a href="./src/resources/tts-integrations/tts-integrations.ts">delete</a>(id) -> void</code>
-- <code title="get /tts_integrations/{id}">client.ttsIntegrations.<a href="./src/resources/tts-integrations/tts-integrations.ts">retrieve</a>(id) -> CommunityTtsEngine</code>
-- <code title="patch /tts_integrations/{id}">client.ttsIntegrations.<a href="./src/resources/tts-integrations/tts-integrations.ts">update</a>(id, { ...params }) -> CommunityTtsEngine</code>
-- <code title="put /tts_integrations/{id}">client.ttsIntegrations.<a href="./src/resources/tts-integrations/tts-integrations.ts">replace</a>(id, { ...params }) -> CommunityTtsEngine</code>
-- <code title="get /tts_integrations/{id}/conformance_runs">client.ttsIntegrations.<a href="./src/resources/tts-integrations/tts-integrations.ts">retrieveConformanceRuns</a>(id, { ...params }) -> TtsIntegrationRetrieveConformanceRunsResponse</code>
-- <code title="get /tts_integrations/{id}/voices">client.ttsIntegrations.<a href="./src/resources/tts-integrations/tts-integrations.ts">retrieveVoices</a>(id) -> TtsIntegrationRetrieveVoicesResponse</code>
-
 ## Actions
-
-Types:
-
-- <code><a href="./src/resources/tts-integrations/actions.ts">CommunityTtsConformanceRun</a></code>
-
-Methods:
-
-- <code title="post /tts_integrations/{id}/actions/disable">client.ttsIntegrations.actions.<a href="./src/resources/tts-integrations/actions.ts">disable</a>(id) -> CommunityTtsEngine</code>
-- <code title="post /tts_integrations/{id}/actions/enable">client.ttsIntegrations.actions.<a href="./src/resources/tts-integrations/actions.ts">enable</a>(id) -> CommunityTtsEngine</code>
-- <code title="post /tts_integrations/{id}/actions/refresh_voices">client.ttsIntegrations.actions.<a href="./src/resources/tts-integrations/actions.ts">refreshVoices</a>(id) -> CommunityTtsEngine</code>
-- <code title="post /tts_integrations/{id}/actions/request_review">client.ttsIntegrations.actions.<a href="./src/resources/tts-integrations/actions.ts">requestReview</a>(id) -> CommunityTtsEngine</code>
-- <code title="post /tts_integrations/{id}/actions/test_connection">client.ttsIntegrations.actions.<a href="./src/resources/tts-integrations/actions.ts">testConnection</a>(id, { ...params }) -> CommunityTtsConformanceRun</code>
