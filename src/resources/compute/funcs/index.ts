@@ -5,6 +5,7 @@ export {
   Funcs,
   type FunctionsObservabilityPaginationMeta,
   type LogsMeta,
+  type FuncListResponse,
   type FuncRetrieveLogsResponse,
   type FuncRetrieveMetricAggregatesResponse,
   type FuncRetrieveRevisionsResponse,
@@ -12,4 +13,6 @@ export {
   type FuncRetrieveLogsParams,
   type FuncRetrieveMetricAggregatesParams,
   type FuncRetrieveRevisionsParams,
+  type FuncListParams,
+  type FuncListResponsesDefaultFlatPagination,
 } from './funcs';

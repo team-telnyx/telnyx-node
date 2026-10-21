@@ -6,6 +6,9 @@ import { buildHeaders } from '../../../internal/headers';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
 
+/**
+ * Manage Edge Compute functions
+ */
 export class Export extends APIResource {
   /**
    * Stops exporting a function's logs and removes its destination configuration.

@@ -7818,6 +7818,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/external_requirements/{regulatory_requirement_id}/sub_number_orders/{sub_number_order_id}',
   },
   {
+    clientCallName: 'client.compute.retrieve',
+    fullyQualifiedName: 'compute.retrieve',
+    httpMethod: 'get',
+    httpPath: '/compute/actors/{id}',
+  },
+  {
     clientCallName: 'client.compute.funcs.retrieveLogs',
     fullyQualifiedName: 'compute.funcs.retrieveLogs',
     httpMethod: 'get',
@@ -7840,6 +7846,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'compute.funcs.retrieveShipInspection',
     httpMethod: 'get',
     httpPath: '/compute/funcs/{id}/ship_inspection',
+  },
+  {
+    clientCallName: 'client.compute.funcs.list',
+    fullyQualifiedName: 'compute.funcs.list',
+    httpMethod: 'get',
+    httpPath: '/compute/funcs',
   },
   {
     clientCallName: 'client.compute.funcs.export.deleteAll',
@@ -8014,6 +8026,36 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'dialMetrics.list',
     httpMethod: 'get',
     httpPath: '/dial_metrics',
+  },
+  {
+    clientCallName: 'client.tailscaleSubnetRouters.list',
+    fullyQualifiedName: 'tailscaleSubnetRouters.list',
+    httpMethod: 'get',
+    httpPath: '/tailscale_subnet_routers',
+  },
+  {
+    clientCallName: 'client.tailscaleSubnetRouters.create',
+    fullyQualifiedName: 'tailscaleSubnetRouters.create',
+    httpMethod: 'post',
+    httpPath: '/tailscale_subnet_routers',
+  },
+  {
+    clientCallName: 'client.tailscaleSubnetRouters.delete',
+    fullyQualifiedName: 'tailscaleSubnetRouters.delete',
+    httpMethod: 'delete',
+    httpPath: '/tailscale_subnet_routers/{id}',
+  },
+  {
+    clientCallName: 'client.tailscaleSubnetRouters.retrieve',
+    fullyQualifiedName: 'tailscaleSubnetRouters.retrieve',
+    httpMethod: 'get',
+    httpPath: '/tailscale_subnet_routers/{id}',
+  },
+  {
+    clientCallName: 'client.tailscaleSubnetRouters.update',
+    fullyQualifiedName: 'tailscaleSubnetRouters.update',
+    httpMethod: 'patch',
+    httpPath: '/tailscale_subnet_routers/{id}',
   },
 ];
 

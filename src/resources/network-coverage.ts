@@ -23,7 +23,11 @@ export class NetworkCoverage extends APIResource {
 export type NetworkCoverageListResponsesDefaultFlatPagination =
   DefaultFlatPagination<NetworkCoverageListResponse>;
 
-export type AvailableService = 'cloud_vpn' | 'private_wireless_gateway' | 'virtual_cross_connect';
+export type AvailableService =
+  | 'cloud_vpn'
+  | 'private_wireless_gateway'
+  | 'tailscale_subnet_router'
+  | 'virtual_cross_connect';
 
 export interface NetappsLocation17904fcfbc {
   /**
