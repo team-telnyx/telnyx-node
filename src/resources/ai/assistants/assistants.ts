@@ -3769,7 +3769,12 @@ export interface TranscriptionSettings {
    * `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the
    * transcription language. For `cohere/ar-stt`, supported values are `ar` and `en`;
    * unlike other models, this model does not auto-detect and defaults to `ar` when
-   * `language` is omitted.
+   * `language` is omitted. For `speechmatics/linden-1`, there is no auto-detect; set
+   * a code from Speechmatics' Realtime language list (67 language codes, including
+   * `es-bilingual-en` for Spanish and English bilingual, and the spelling and script
+   * variants `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant`; `en` alone uses
+   * the default spelling); unset defaults to `en`, while an explicit `auto`,
+   * `auto_beta`, or `multi` is rejected with a 400.
    */
   language?: string;
 
@@ -3780,6 +3785,12 @@ export interface TranscriptionSettings {
    * - `deepgram/flux` is optimized for turn-taking with multilingual language hints.
    * - `deepgram/nova-3` is multilingual with automatic language detection.
    * - `deepgram/nova-2` is Deepgram's previous-generation multilingual model.
+   * - `speechmatics/standard` is a Speechmatics model self-hosted by Telnyx; it
+   *   supports a fixed set of language packs (including bilingual packs such as
+   *   `ar_en`) and defaults to `en`.
+   * - `speechmatics/linden-1` (preview) is a vendor-hosted streaming model with no
+   *   auto-detect; set `language` from Speechmatics' Realtime language list
+   *   (defaults to `en`).
    * - `azure/fast` is a multilingual Azure transcription model.
    * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with
    *   configurable turn detection. The legacy alias `assemblyai/universal-streaming`
@@ -3803,6 +3814,8 @@ export interface TranscriptionSettings {
     | 'deepgram/flux'
     | 'deepgram/nova-3'
     | 'deepgram/nova-2'
+    | 'speechmatics/standard'
+    | 'speechmatics/linden-1'
     | 'azure/fast'
     | 'assemblyai/universal-3-5-pro'
     | 'assemblyai/universal-streaming'
@@ -4047,6 +4060,16 @@ export interface TranscriptionSettingsConfig {
    * Leave empty unless needed. At most 1750 characters.
    */
   prompt?: string;
+
+  /**
+   * Available only for speechmatics/linden-1. When true, filler words such as "um"
+   * and "uh" are removed from the transcript. Disfluency removal is supported only
+   * for `ar`, `cmn`, `da`, `de`, `el`, `en`, `es`, `fr`, `he`, `hi`, `hu`, `it`,
+   * `ja`, `nl`, `pl`, `pt`, and `ru`, determined by the base language (so `en-US`,
+   * `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant` are supported); for other
+   * languages, filler words remain in the transcript.
+   */
+  remove_disfluencies?: boolean;
 
   smart_format?: boolean;
 }

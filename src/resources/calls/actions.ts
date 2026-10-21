@@ -1780,7 +1780,11 @@ export interface TranscriptionConfig {
    * detection, and the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`,
    * `pt`, `es`, and `sv` to fix the transcription language. For `cohere/ar-stt`,
    * supported values are `ar` and `en`; unlike other models, this model does not
-   * auto-detect and defaults to `ar` when `language` is omitted.
+   * auto-detect and defaults to `ar` when `language` is omitted. For
+   * `speechmatics/linden-1`, there is no auto-detect; set a code from Speechmatics'
+   * Realtime language list (see `SpeechmaticsTranscriptionLanguage`); unset defaults
+   * to `en`, while an explicit `auto`, `auto_beta`, or `multi` is rejected (unlike
+   * `speechmatics/standard`, which defaults to `en`).
    */
   language?: string;
 
@@ -1792,6 +1796,9 @@ export interface TranscriptionConfig {
    * - `deepgram/nova-3` and `deepgram/nova-2` for live streaming transcription.
    * - `speechmatics/standard` and `speechmatics/enhanced` for live streaming
    *   transcription.
+   * - `speechmatics/linden-1` (preview, vendor-hosted) for live streaming
+   *   transcription; no auto-detect, so set `language` from Speechmatics' Realtime
+   *   language list (defaults to `en`).
    * - `assemblyai/universal-3-5-pro` for live streaming transcription. The legacy
    *   alias `assemblyai/universal-streaming` is still accepted and resolves to the
    *   same model.
@@ -1822,6 +1829,7 @@ export interface TranscriptionConfig {
     | 'deepgram/nova-2'
     | 'speechmatics/standard'
     | 'speechmatics/enhanced'
+    | 'speechmatics/linden-1'
     | 'assemblyai/universal-3-5-pro'
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
@@ -2422,7 +2430,21 @@ export interface TranscriptionEngineSpeechmaticsConfig {
   interim_results?: boolean;
 
   /**
-   * Language to use for speech recognition
+   * Language to use for speech recognition. Accepted values depend on the selected
+   * `transcription_model`. `speechmatics/standard` supports: `en`, `ba`, `eu`, `gl`,
+   * `ga`, `mt`, `mn`, `sw`, `ug`, `cy`, `ar_en`, `cmn_en`, `en_ms`, `en_ta`, `tl`,
+   * `es-bilingual-en`, `cmn_en_ms_ta`. `speechmatics/linden-1` (preview) supports
+   * the same languages as Speechmatics Realtime: `ar`, `ar_en`, `ba`, `be`, `bg`,
+   * `bn`, `ca`, `cmn`, `cmn_en`, `cmn_en_ms_ta`, `cs`, `cy`, `da`, `de`, `el`, `en`,
+   * `en_ms`, `en_ta`, `eo`, `es`, `es-bilingual-en`, `et`, `eu`, `fa`, `fi`, `fr`,
+   * `ga`, `gl`, `he`, `hi`, `hr`, `hu`, `ia`, `id`, `it`, `ja`, `ko`, `lt`, `lv`,
+   * `mn`, `mr`, `ms`, `mt`, `nl`, `no`, `pl`, `pt`, `ro`, `ru`, `sk`, `sl`, `sv`,
+   * `sw`, `ta`, `th`, `tl`, `tr`, `ug`, `uk`, `ur`, `vi`, `yue`, plus the spelling
+   * and script variants `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant` (`en`
+   * alone uses the default spelling). A value outside the selected model's list is
+   * rejected. For `speechmatics/standard`, unset, blank, `auto`, `auto_beta`, or
+   * `multi` defaults to `en`; for `speechmatics/linden-1`, only an unset language
+   * defaults to `en`, and `auto`, `auto_beta`, or `multi` is rejected.
    */
   language?:
     | 'en'
@@ -2441,7 +2463,57 @@ export interface TranscriptionEngineSpeechmaticsConfig {
     | 'en_ta'
     | 'tl'
     | 'es-bilingual-en'
-    | 'cmn_en_ms_ta';
+    | 'cmn_en_ms_ta'
+    | 'ar'
+    | 'be'
+    | 'bg'
+    | 'bn'
+    | 'ca'
+    | 'cmn'
+    | 'cs'
+    | 'da'
+    | 'de'
+    | 'el'
+    | 'eo'
+    | 'es'
+    | 'et'
+    | 'fa'
+    | 'fi'
+    | 'fr'
+    | 'he'
+    | 'hi'
+    | 'hr'
+    | 'hu'
+    | 'ia'
+    | 'id'
+    | 'it'
+    | 'ja'
+    | 'ko'
+    | 'lt'
+    | 'lv'
+    | 'mr'
+    | 'ms'
+    | 'nl'
+    | 'no'
+    | 'pl'
+    | 'pt'
+    | 'ro'
+    | 'ru'
+    | 'sk'
+    | 'sl'
+    | 'sv'
+    | 'ta'
+    | 'th'
+    | 'tr'
+    | 'uk'
+    | 'ur'
+    | 'vi'
+    | 'yue'
+    | 'en-US'
+    | 'en-GB'
+    | 'en-AU'
+    | 'cmn-Hans'
+    | 'cmn-Hant';
 
   /**
    * Engine identifier for Speechmatics transcription service
@@ -2449,9 +2521,10 @@ export interface TranscriptionEngineSpeechmaticsConfig {
   transcription_engine?: 'Speechmatics';
 
   /**
-   * The model to use for transcription.
+   * The model to use for transcription. `speechmatics/linden-1` is a preview,
+   * vendor-hosted model with its own language support (see `language`).
    */
-  transcription_model?: 'speechmatics/standard';
+  transcription_model?: 'speechmatics/standard' | 'speechmatics/linden-1';
 }
 
 export interface TranscriptionEngineTelnyxConfig {
