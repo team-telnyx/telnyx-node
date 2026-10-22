@@ -924,6 +924,18 @@ import {
   SubNumberOrdersReportRetrieveResponse,
 } from './resources/sub-number-orders-report';
 import {
+  TailscaleSubnetRouter,
+  TailscaleSubnetRouterCreateParams,
+  TailscaleSubnetRouterCreateResponse,
+  TailscaleSubnetRouterDeleteResponse,
+  TailscaleSubnetRouterListParams,
+  TailscaleSubnetRouterRetrieveResponse,
+  TailscaleSubnetRouterUpdateParams,
+  TailscaleSubnetRouterUpdateResponse,
+  TailscaleSubnetRouters,
+  TailscaleSubnetRoutersDefaultFlatPagination,
+} from './resources/tailscale-subnet-routers';
+import {
   TelephonyCredential,
   TelephonyCredentialCreateParams,
   TelephonyCredentialCreateResponse,
@@ -1297,7 +1309,7 @@ import {
   StreamBidirectionalTargetLegs,
   StreamCodec,
 } from './resources/calls/calls';
-import { Compute } from './resources/compute/compute';
+import { Compute, ComputeRetrieveResponse } from './resources/compute/compute';
 import {
   Conference,
   ConferenceCreateParams,
@@ -3310,6 +3322,9 @@ export class Telnyx {
   webSearch: API.WebSearch = new API.WebSearch(this);
   meetingSessions: API.MeetingSessions = new API.MeetingSessions(this);
   externalRequirements: API.ExternalRequirements = new API.ExternalRequirements(this);
+  /**
+   * Inspect Stateful Actor types
+   */
   compute: API.Compute = new API.Compute(this);
   /**
    * Noise suppression engines that can be selected when configuring noise suppression on voice connections.
@@ -3351,6 +3366,10 @@ export class Telnyx {
    */
   dialMetrics: API.DialMetrics = new API.DialMetrics(this);
   ttsIntegrations: API.TtsIntegrations = new API.TtsIntegrations(this);
+  /**
+   * Tailscale Subnet Router operations
+   */
+  tailscaleSubnetRouters: API.TailscaleSubnetRouters = new API.TailscaleSubnetRouters(this);
 }
 
 Telnyx.Legacy = Legacy;
@@ -3546,6 +3565,7 @@ Telnyx.LlmTokenGateway = LlmTokenGateway;
 Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 Telnyx.DialMetrics = DialMetrics;
 Telnyx.TtsIntegrations = TtsIntegrations;
+Telnyx.TailscaleSubnetRouters = TailscaleSubnetRouters;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5596,7 +5616,7 @@ export declare namespace Telnyx {
 
   export { ExternalRequirements as ExternalRequirements };
 
-  export { Compute as Compute };
+  export { Compute as Compute, type ComputeRetrieveResponse as ComputeRetrieveResponse };
 
   export {
     NoiseSuppressionEngines as NoiseSuppressionEngines,
@@ -5655,6 +5675,19 @@ export declare namespace Telnyx {
   };
 
   export { TtsIntegrations as TtsIntegrations };
+
+  export {
+    TailscaleSubnetRouters as TailscaleSubnetRouters,
+    type TailscaleSubnetRouter as TailscaleSubnetRouter,
+    type TailscaleSubnetRouterCreateResponse as TailscaleSubnetRouterCreateResponse,
+    type TailscaleSubnetRouterRetrieveResponse as TailscaleSubnetRouterRetrieveResponse,
+    type TailscaleSubnetRouterUpdateResponse as TailscaleSubnetRouterUpdateResponse,
+    type TailscaleSubnetRouterDeleteResponse as TailscaleSubnetRouterDeleteResponse,
+    type TailscaleSubnetRoutersDefaultFlatPagination as TailscaleSubnetRoutersDefaultFlatPagination,
+    type TailscaleSubnetRouterListParams as TailscaleSubnetRouterListParams,
+    type TailscaleSubnetRouterCreateParams as TailscaleSubnetRouterCreateParams,
+    type TailscaleSubnetRouterUpdateParams as TailscaleSubnetRouterUpdateParams,
+  };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;
