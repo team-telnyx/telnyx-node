@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "debug": "node index.js",
-    "start": "node index.js"
+    "start": "node index.js",
+    "chat": "node chat.js"
   },
   "author": "Telnyx <support@telnyx.com> (https://telnyx.com)",
   "license": "ISC",
@@ -13,6 +14,6 @@
     "node": "^18 || >=20"
   },
   "dependencies": {
-    "telnyx": "3.0.0-alpha"
+    "telnyx": "^7.28.0"
   }
 }

@@ -112,6 +112,7 @@ export {
   type BotSignupCreateParams,
   type BotSignupResendMagicLinkParams,
 } from './bot-signup';
+export { BrowserSessions } from './browser-sessions';
 export {
   BulkSimCardActions,
   type BulkSimCardActionDetailed,

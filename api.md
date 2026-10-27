@@ -44,6 +44,8 @@ Types:
 - <code><a href="./src/resources/shared.ts">WhatsappTemplateData</a></code>
 - <code><a href="./src/resources/shared.ts">XaiVoiceSettings</a></code>
 
+# BrowserSessions
+
 # Legacy
 
 ## Reporting

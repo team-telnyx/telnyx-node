@@ -11,13 +11,16 @@ const telnyx = new Telnyx({
 
 (async function aiModels() {
   try {
-    const response = await telnyx.ai.retrieveModels();
+    const response = await telnyx.ai.openai.listModels();
 
     console.log(response);
   } catch (e) {
-    console.error(e);
-    const rawError = e.raw;
-
-    console.dir(JSON.stringify(rawError.errors));
+    // Ref: src/core/error.ts — APIError exposes status and error, not raw.
+    if (e instanceof Telnyx.APIError) {
+      console.error('API error:', e.status, e.error ?? e.message);
+    } else {
+      console.error(e);
+    }
+    process.exitCode = 1;
   }
 })();

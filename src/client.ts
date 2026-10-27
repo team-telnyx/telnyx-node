@@ -135,6 +135,7 @@ import {
   BotSignupResendMagicLinkParams,
   SuccessResponse,
 } from './resources/bot-signup';
+import { BrowserSessions } from './resources/browser-sessions';
 import {
   BulkSimCardActionDetailed,
   BulkSimCardActionDetailedsDefaultFlatPagination,
@@ -2726,6 +2727,7 @@ export class Telnyx {
 
   static toFile = Uploads.toFile;
 
+  browserSessions: API.BrowserSessions = new API.BrowserSessions(this);
   legacy: API.Legacy = new API.Legacy(this);
   oauth: API.OAuth = new API.OAuth(this);
   oauthClients: API.OAuthClients = new API.OAuthClients(this);
@@ -3372,6 +3374,7 @@ export class Telnyx {
   tailscaleSubnetRouters: API.TailscaleSubnetRouters = new API.TailscaleSubnetRouters(this);
 }
 
+Telnyx.BrowserSessions = BrowserSessions;
 Telnyx.Legacy = Legacy;
 Telnyx.OAuth = OAuth;
 Telnyx.OAuthClients = OAuthClients;
@@ -3641,6 +3644,8 @@ export declare namespace Telnyx {
     type CloudfsCursorPaginationParams as CloudfsCursorPaginationParams,
     type CloudfsCursorPaginationResponse as CloudfsCursorPaginationResponse,
   };
+
+  export { BrowserSessions as BrowserSessions };
 
   export { Legacy as Legacy };
 
