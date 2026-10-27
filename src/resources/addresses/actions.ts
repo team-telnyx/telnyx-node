@@ -78,9 +78,6 @@ export interface ActionValidateResponse {
 
 export namespace ActionValidateResponse {
   export interface Data {
-    /**
-     * Indicates whether an address is valid or invalid.
-     */
     result: 'valid' | 'invalid';
 
     /**
@@ -108,6 +105,12 @@ export namespace ActionValidateResponse {
       administrative_area?: string;
 
       /**
+       * The borough of the address. This field is not used for addresses in the US but
+       * is used for some international addresses.
+       */
+      borough?: string;
+
+      /**
        * The two-character (ISO 3166-1 alpha-2) country code of the address.
        */
       country_code?: string;
@@ -119,10 +122,26 @@ export namespace ActionValidateResponse {
       extended_address?: string;
 
       /**
+       * Latitude of the suggested address, when available.
+       */
+      latitude?: number | null;
+
+      /**
        * The locality of the address. For US addresses, this corresponds to the city of
        * the address.
        */
       locality?: string;
+
+      /**
+       * Longitude of the suggested address, when available.
+       */
+      longitude?: number | null;
+
+      /**
+       * The neighborhood of the address. This field is not used for addresses in the US
+       * but is used for some international addresses.
+       */
+      neighborhood?: string;
 
       /**
        * The postal code of the address.
