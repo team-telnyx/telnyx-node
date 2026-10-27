@@ -37,6 +37,7 @@ describe('resource spendLimits', () => {
     const response = await client.spendLimits.create({
       amount: 100,
       product: 'inference',
+      credential_id: 'KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2',
       period: 'daily',
       reason: 'Team budget',
       unlimited: false,
@@ -61,7 +62,11 @@ describe('resource spendLimits', () => {
     await expect(
       client.spendLimits.delete(
         'inference',
-        { period: 'daily', reason: 'reason' },
+        {
+          credential_id: 'KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2',
+          period: 'daily',
+          reason: 'reason',
+        },
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
@@ -83,6 +88,7 @@ describe('resource spendLimits', () => {
   test.skip('update: required and optional params', async () => {
     const response = await client.spendLimits.update('inference', {
       amount: 100,
+      credential_id: 'KEY0192F3A1B2C3D4E5F6A7B8C9D0E1F2',
       period: 'daily',
       reason: 'Raised for the product launch',
       unlimited: false,

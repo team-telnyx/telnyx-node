@@ -37,7 +37,7 @@ export class BotSignup extends APIResource {
    * ```
    */
   create(body: BotSignupCreateParams, options?: RequestOptions): APIPromise<SuccessResponse> {
-    return this._client.post('/v2/bot_signup', { body, ...options });
+    return this._client.post('/bot_signup', { body, ...options });
   }
 
   /**
@@ -61,7 +61,7 @@ export class BotSignup extends APIResource {
     body: BotSignupResendMagicLinkParams,
     options?: RequestOptions,
   ): APIPromise<SuccessResponse> {
-    return this._client.post('/v2/bot_signup/resend_magic_link', { body, ...options });
+    return this._client.post('/bot_signup/resend_magic_link', { body, ...options });
   }
 }
 

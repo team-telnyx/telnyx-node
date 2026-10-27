@@ -91,7 +91,7 @@ for (const name of ['ai', 'connections']) {
     const lock = require(path.join(root, 'examples', name, 'package-lock.json'));
     assert.equal(manifest.dependencies.telnyx, '^7.28.0');
     assert.equal(lock.packages[''].dependencies.telnyx, manifest.dependencies.telnyx);
-    assert.match(lock.packages['node_modules/telnyx'].resolved, /^https:\/\/registry.npmjs.org\/telnyx\//);
+    assert.match(lock.packages['node_modules/telnyx'].resolved, /^https:\/\/registry\.npmjs\.org\/telnyx\//);
   });
   test(`${name}: reports structured API errors without a secondary exception`, () => {
     const result = runExample(name, 'api-error');

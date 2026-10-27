@@ -192,7 +192,8 @@ export interface HostedSignupListParams extends DefaultFlatPaginationParams {}
 
 export interface HostedSignupCreateParams {
   /**
-   * Meta App ID linked to the Telnyx account. The app must be enabled.
+   * Meta App ID linked to the Telnyx account or its manager account. The app must be
+   * enabled.
    */
   app_id: string;
 

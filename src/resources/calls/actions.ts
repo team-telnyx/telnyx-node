@@ -1768,23 +1768,25 @@ export interface TranscriptionConfig {
    * hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For
    * `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect;
    * ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language. For
-   * `assemblyai/universal-3-5-pro` (and its legacy alias
-   * `assemblyai/universal-streaming`), `auto` (or unset) enables native multilingual
-   * code-switching; ISO 639-1 codes (`en`, `es`, `de`, `fr`, `pt`, `it`, `tr`, `nl`,
-   * `sv`, `no`, `da`, `fi`, `hi`, `vi`, `ar`, `he`, `ja`, `zh`) bias the session to
-   * that language. For `humain/realtime`, supported values are `ar`, `en`,
-   * `codeswitch` (Arabic/English code-switching), and `auto` (resolves server-side
-   * to code-switching). Unlike other models, `humain/realtime` does not fall back to
-   * `auto` when `language` is omitted — omitting it applies `en` instead. For
-   * `reson8/turns`, supported values are `auto` (or unset) for automatic language
-   * detection, and the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`,
-   * `pt`, `es`, and `sv` to fix the transcription language. For `cohere/ar-stt`,
-   * supported values are `ar` and `en`; unlike other models, this model does not
-   * auto-detect and defaults to `ar` when `language` is omitted. For
-   * `speechmatics/linden-1`, there is no auto-detect; set a code from Speechmatics'
-   * Realtime language list (see `SpeechmaticsTranscriptionLanguage`); unset defaults
-   * to `en`, while an explicit `auto`, `auto_beta`, or `multi` is rejected (unlike
-   * `speechmatics/standard`, which defaults to `en`).
+   * `assemblyai/universal-3-6-pro` (and its legacy aliases
+   * `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`), `auto` (or
+   * unset) enables native multilingual code-switching; language codes (`en`, `es`,
+   * `de`, `fr`, `pt`, `it`, `tr`, `nl`, `sv`, `no`, `da`, `fi`, `hi`, `vi`, `ar`,
+   * `he`, `ja`, `zh`, `ur`, `ru`, `ko`, `ca`, `gl`, `ro`, `et`, `fa`, `yue`, `af`,
+   * `mr`, `zu`, `xh`, `nn`) bias the session to that language. For
+   * `humain/realtime`, supported values are `ar`, `en`, `codeswitch` (Arabic/English
+   * code-switching), and `auto` (resolves server-side to code-switching). Unlike
+   * other models, `humain/realtime` does not fall back to `auto` when `language` is
+   * omitted — omitting it applies `en` instead. For `reson8/turns`, supported values
+   * are `auto` (or unset) for automatic language detection, and the language codes
+   * `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the
+   * transcription language. For `cohere/ar-stt`, supported values are `ar` and `en`;
+   * unlike other models, this model does not auto-detect and defaults to `ar` when
+   * `language` is omitted. For `speechmatics/linden-1`, there is no auto-detect; set
+   * a code from Speechmatics' Realtime language list (see
+   * `SpeechmaticsTranscriptionLanguage`); unset defaults to `en`, while an explicit
+   * `auto`, `auto_beta`, or `multi` is rejected (unlike `speechmatics/standard`,
+   * which defaults to `en`).
    */
   language?: string;
 
@@ -1799,9 +1801,10 @@ export interface TranscriptionConfig {
    * - `speechmatics/linden-1` (preview, vendor-hosted) for live streaming
    *   transcription; no auto-detect, so set `language` from Speechmatics' Realtime
    *   language list (defaults to `en`).
-   * - `assemblyai/universal-3-5-pro` for live streaming transcription. The legacy
-   *   alias `assemblyai/universal-streaming` is still accepted and resolves to the
-   *   same model.
+   * - `assemblyai/universal-3-6-pro` (AssemblyAI Universal-3.6 Pro) for live
+   *   streaming transcription. The legacy aliases `assemblyai/universal-3-5-pro` and
+   *   `assemblyai/universal-streaming` are still accepted and run the same
+   *   Universal-3.6 Pro model.
    * - `xai/grok-stt` for live streaming transcription.
    * - `soniox/stt-rt-v4` for live streaming multilingual transcription with
    *   automatic language detection.
@@ -1830,6 +1833,7 @@ export interface TranscriptionConfig {
     | 'speechmatics/standard'
     | 'speechmatics/enhanced'
     | 'speechmatics/linden-1'
+    | 'assemblyai/universal-3-6-pro'
     | 'assemblyai/universal-3-5-pro'
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
@@ -1936,10 +1940,15 @@ export interface TranscriptionEngineAssemblyaiConfig {
   transcription_engine?: 'AssemblyAI';
 
   /**
-   * The model to use for transcription. `assemblyai/universal-streaming` is a legacy
-   * alias of `assemblyai/universal-3-5-pro` and resolves to the same model.
+   * The model to use for transcription. `assemblyai/universal-3-6-pro` is the
+   * AssemblyAI Universal-3.6 Pro model. `assemblyai/universal-3-5-pro` (the default)
+   * and `assemblyai/universal-streaming` are legacy aliases that run the same
+   * Universal-3.6 Pro model.
    */
-  transcription_model?: 'assemblyai/universal-3-5-pro' | 'assemblyai/universal-streaming';
+  transcription_model?:
+    | 'assemblyai/universal-3-6-pro'
+    | 'assemblyai/universal-3-5-pro'
+    | 'assemblyai/universal-streaming';
 }
 
 export interface TranscriptionEngineAzureConfig {
@@ -3787,8 +3796,9 @@ export interface ActionGatherUsingSpeakParams {
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
    *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
    *   to configure speed, volume, pitch, and language_boost.
-   * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
-   *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
+   * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
+   *   `Resemble.Turbo.Aaron_en-US`). Supported models: `Pro`, `Turbo`, `Urdu`.
+   *   `<VoiceId>` is a stock voice name or the ID of a Resemble voice clone. Use
    *   `voice_settings` to configure precision, sample_rate, and format.
    * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
    *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,
@@ -4699,8 +4709,9 @@ export interface ActionSpeakParams {
    *   `Minimax.speech-02-hd.Wise_Woman`). Supported models: `speech-02-turbo`,
    *   `speech-02-hd`, `speech-2.6-turbo`, `speech-2.8-turbo`. Use `voice_settings`
    *   to configure speed, volume, pitch, and language_boost.
-   * - **Resemble:** Use `Resemble.Turbo.<voice_id>` (e.g.,
-   *   `Resemble.Turbo.my_voice`). Only `Turbo` model is supported. Use
+   * - **Resemble:** Use `Resemble.<ModelId>.<VoiceId>` (e.g.,
+   *   `Resemble.Turbo.Aaron_en-US`). Supported models: `Pro`, `Turbo`, `Urdu`.
+   *   `<VoiceId>` is a stock voice name or the ID of a Resemble voice clone. Use
    *   `voice_settings` to configure precision, sample_rate, and format.
    * - **Inworld:** Use `Inworld.<ModelId>.<VoiceId>` (e.g., `Inworld.Mini.Loretta`,
    *   `Inworld.Max.Oliver`, `Inworld.TTS2.Loretta`). Supported models: `Mini`,

@@ -80,6 +80,7 @@ import {
   AlphanumericSenderIDsDefaultFlatPagination,
   MessagingPaginationMeta0b38e7044b,
 } from './resources/alphanumeric-sender-ids';
+import { ArtifactDownloadRetrieveParams, ArtifactDownloads } from './resources/artifact-downloads';
 import {
   AuditEventListParams,
   AuditEventListResponse,
@@ -135,7 +136,6 @@ import {
   BotSignupResendMagicLinkParams,
   SuccessResponse,
 } from './resources/bot-signup';
-import { BrowserSessions } from './resources/browser-sessions';
 import {
   BulkSimCardActionDetailed,
   BulkSimCardActionDetailedsDefaultFlatPagination,
@@ -574,6 +574,16 @@ import {
   NetworkCoverageListResponsesDefaultFlatPagination,
 } from './resources/network-coverage';
 import {
+  NetappsCursorPaginationMeta,
+  NetworkRoute,
+  NetworkRouteCreateParams,
+  NetworkRouteCreateResponse,
+  NetworkRouteListParams,
+  NetworkRouteListResponse,
+  NetworkRouteRetrieveResponse,
+  NetworkRoutes,
+} from './resources/network-routes';
+import {
   NoiseSuppressionEngineListResponse,
   NoiseSuppressionEngines,
 } from './resources/noise-suppression-engines';
@@ -726,6 +736,16 @@ import {
   TrafficType,
   UsagePaymentMethod,
 } from './resources/outbound-voice-profiles';
+import {
+  GenericPayConnectorConfig,
+  PayConnector,
+  PayConnectorCreateParams,
+  PayConnectorListParams,
+  PayConnectorResponse,
+  PayConnectorUpdateParams,
+  PayConnectors,
+  PayConnectorsEmailBracketCursorPagination,
+} from './resources/pay-connectors';
 import {
   PhoneNumbersRegulatoryRequirementRetrieveParams,
   PhoneNumbersRegulatoryRequirementRetrieveResponse,
@@ -893,6 +913,7 @@ import {
 } from './resources/siprec-connectors';
 import {
   SpendLimit,
+  SpendLimitBlock,
   SpendLimitCreateParams,
   SpendLimitDeleteParams,
   SpendLimitListResponse,
@@ -1290,6 +1311,18 @@ import {
   ModelMetadata,
   ModelsResponse,
 } from './resources/ai/ai';
+import {
+  BrowserSessionCreateParams,
+  BrowserSessionCreateResponse,
+  BrowserSessionDeleteResponse,
+  BrowserSessionListParams,
+  BrowserSessionListResponse,
+  BrowserSessionRetrieveArtifactParams,
+  BrowserSessionRetrieveArtifactResponse,
+  BrowserSessionRetrieveResponse,
+  BrowserSessions,
+  Session,
+} from './resources/browser-sessions/browser-sessions';
 import { BundlePricing } from './resources/bundle-pricing/bundle-pricing';
 import {
   CallAssistantRequest,
@@ -1444,6 +1477,7 @@ import {
   EmailValidationCreateResponse,
   EmailValidations,
 } from './resources/email-validations/email-validations';
+import { Email } from './resources/email/email';
 import {
   BillingContact,
   EnterpriseCreateParams,
@@ -1601,6 +1635,7 @@ import {
   MessagingProfileUpdateParams,
   MessagingProfileUpdateResponse,
   MessagingProfiles,
+  Mm7Metadata,
   NumberPoolSettings,
   URLShortenerSettings,
 } from './resources/messaging-profiles/messaging-profiles';
@@ -1823,6 +1858,16 @@ import {
   TextToSpeechRetrieveSpeechParams,
 } from './resources/text-to-speech/text-to-speech';
 import { TtsIntegrations } from './resources/tts-integrations/tts-integrations';
+import {
+  Tunnel,
+  TunnelCreateParams,
+  TunnelCreateResponse,
+  TunnelListParams,
+  TunnelListResponse,
+  TunnelRetrieveResponse,
+  TunnelWithToken,
+  Tunnels,
+} from './resources/tunnels/tunnels';
 import {
   UacConnection,
   UacConnectionCreateParams,
@@ -3355,6 +3400,7 @@ export class Telnyx {
    * - **Blocking.** When spend in a period goes above the limit (strictly greater), the product is blocked until the period ends: 00:00 UTC the next day for `daily`, 00:00 UTC on the 1st of the next month for `monthly`. A block appears within about 2 minutes (daily) or 10 minutes (monthly) of the spend being recorded.
    * - **Changes apply immediately.** Creating, updating or deleting a limit checks the period's spend in the same request: raising the limit above the spend, or removing it, lifts that period's block, and lowering it below the spend blocks the product at once. The `evaluation` object in the response says what happened.
    * - **Supported products.** Today only `inference` supports spend limits. A blocked account gets HTTP 403 with the error title `Inference spend limit reached` (code `10039`) on new billable chat completions, Responses, Anthropic Messages and classification requests; requests already running finish normally. Take the list of products from the list operation.
+   * - **API key limits.** For `inference`, a limit can also apply to one API key, named by `credential_id`: the key's identifier as recorded on usage, never its secret. When the key's spend goes above its own limit, only that key is blocked, with the error title `API key spend limit reached` (code `10039`); the account's other keys keep working. The API key limits of a period cannot add up to more than the total limit when the total has an amount. Only language-model requests authenticated with an API key count toward its limit.
    * - **Limits set by Telnyx.** Telnyx support can also set a limit on your account. It is listed with `origin: operator` and you can update or delete it like your own.
    */
   spendLimits: API.SpendLimits = new API.SpendLimits(this);
@@ -3372,6 +3418,23 @@ export class Telnyx {
    * Tailscale Subnet Router operations
    */
   tailscaleSubnetRouters: API.TailscaleSubnetRouters = new API.TailscaleSubnetRouters(this);
+  /**
+   * Download screenshots and other artifacts.
+   */
+  artifactDownloads: API.ArtifactDownloads = new API.ArtifactDownloads(this);
+  email: API.Email = new API.Email(this);
+  /**
+   * Routes on a Network that send a CIDR to a next hop, such as a tunnel.
+   */
+  networkRoutes: API.NetworkRoutes = new API.NetworkRoutes(this);
+  /**
+   * Generic payment connector configuration.
+   */
+  payConnectors: API.PayConnectors = new API.PayConnectors(this);
+  /**
+   * Tunnels connect a Network to hosts behind a tunnel process within the user's network.
+   */
+  tunnels: API.Tunnels = new API.Tunnels(this);
 }
 
 Telnyx.BrowserSessions = BrowserSessions;
@@ -3569,6 +3632,11 @@ Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 Telnyx.DialMetrics = DialMetrics;
 Telnyx.TtsIntegrations = TtsIntegrations;
 Telnyx.TailscaleSubnetRouters = TailscaleSubnetRouters;
+Telnyx.ArtifactDownloads = ArtifactDownloads;
+Telnyx.Email = Email;
+Telnyx.NetworkRoutes = NetworkRoutes;
+Telnyx.PayConnectors = PayConnectors;
+Telnyx.Tunnels = Tunnels;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3645,7 +3713,18 @@ export declare namespace Telnyx {
     type CloudfsCursorPaginationResponse as CloudfsCursorPaginationResponse,
   };
 
-  export { BrowserSessions as BrowserSessions };
+  export {
+    BrowserSessions as BrowserSessions,
+    type Session as Session,
+    type BrowserSessionCreateResponse as BrowserSessionCreateResponse,
+    type BrowserSessionRetrieveResponse as BrowserSessionRetrieveResponse,
+    type BrowserSessionListResponse as BrowserSessionListResponse,
+    type BrowserSessionDeleteResponse as BrowserSessionDeleteResponse,
+    type BrowserSessionRetrieveArtifactResponse as BrowserSessionRetrieveArtifactResponse,
+    type BrowserSessionRetrieveArtifactParams as BrowserSessionRetrieveArtifactParams,
+    type BrowserSessionListParams as BrowserSessionListParams,
+    type BrowserSessionCreateParams as BrowserSessionCreateParams,
+  };
 
   export { Legacy as Legacy };
 
@@ -4490,6 +4569,7 @@ export declare namespace Telnyx {
     type MessagingMessagingProfile as MessagingMessagingProfile,
     type MessagingProfile as MessagingProfile,
     type MessagingProfileFeatures as MessagingProfileFeatures,
+    type Mm7Metadata as Mm7Metadata,
     type NumberPoolSettings as NumberPoolSettings,
     type URLShortenerSettings as URLShortenerSettings,
     type MessagingProfileCreateResponse as MessagingProfileCreateResponse,
@@ -5656,6 +5736,7 @@ export declare namespace Telnyx {
   export {
     SpendLimits as SpendLimits,
     type SpendLimit as SpendLimit,
+    type SpendLimitBlock as SpendLimitBlock,
     type SpendLimitPeriod as SpendLimitPeriod,
     type SpendLimitResponse as SpendLimitResponse,
     type SpendLimitListResponse as SpendLimitListResponse,
@@ -5692,6 +5773,46 @@ export declare namespace Telnyx {
     type TailscaleSubnetRouterListParams as TailscaleSubnetRouterListParams,
     type TailscaleSubnetRouterCreateParams as TailscaleSubnetRouterCreateParams,
     type TailscaleSubnetRouterUpdateParams as TailscaleSubnetRouterUpdateParams,
+  };
+
+  export {
+    ArtifactDownloads as ArtifactDownloads,
+    type ArtifactDownloadRetrieveParams as ArtifactDownloadRetrieveParams,
+  };
+
+  export { Email as Email };
+
+  export {
+    NetworkRoutes as NetworkRoutes,
+    type NetappsCursorPaginationMeta as NetappsCursorPaginationMeta,
+    type NetworkRoute as NetworkRoute,
+    type NetworkRouteCreateResponse as NetworkRouteCreateResponse,
+    type NetworkRouteRetrieveResponse as NetworkRouteRetrieveResponse,
+    type NetworkRouteListResponse as NetworkRouteListResponse,
+    type NetworkRouteListParams as NetworkRouteListParams,
+    type NetworkRouteCreateParams as NetworkRouteCreateParams,
+  };
+
+  export {
+    PayConnectors as PayConnectors,
+    type GenericPayConnectorConfig as GenericPayConnectorConfig,
+    type PayConnector as PayConnector,
+    type PayConnectorResponse as PayConnectorResponse,
+    type PayConnectorsEmailBracketCursorPagination as PayConnectorsEmailBracketCursorPagination,
+    type PayConnectorListParams as PayConnectorListParams,
+    type PayConnectorCreateParams as PayConnectorCreateParams,
+    type PayConnectorUpdateParams as PayConnectorUpdateParams,
+  };
+
+  export {
+    Tunnels as Tunnels,
+    type Tunnel as Tunnel,
+    type TunnelWithToken as TunnelWithToken,
+    type TunnelCreateResponse as TunnelCreateResponse,
+    type TunnelRetrieveResponse as TunnelRetrieveResponse,
+    type TunnelListResponse as TunnelListResponse,
+    type TunnelListParams as TunnelListParams,
+    type TunnelCreateParams as TunnelCreateParams,
   };
 
   export type APIError = API.APIError;

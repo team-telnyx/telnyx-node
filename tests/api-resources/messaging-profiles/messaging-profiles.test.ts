@@ -64,6 +64,10 @@ describe('resource messagingProfiles', () => {
       enabled: true,
       features: { ai_opt_out_detection_enabled: true },
       health_webhook_url: 'health_webhook_url',
+      mm7_metadata: {
+        mm7_failover_webhook_url: 'https://backup.example.com/hooks',
+        mm7_webhook_url: 'https://www.example.com/hooks',
+      },
       mms_fall_back_to_sms: true,
       mms_transcoding: true,
       mobile_only: true,
