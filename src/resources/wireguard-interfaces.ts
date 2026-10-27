@@ -64,16 +64,6 @@ export interface WireguardInterface
    * Enable SIP traffic forwarding over VPN interface.
    */
   enable_sip_trunking?: boolean;
-
-  /**
-   * The Telnyx WireGuard peers `Peer.endpoint` value.
-   */
-  endpoint?: string;
-
-  /**
-   * The Telnyx WireGuard peers `Peer.PublicKey`.
-   */
-  public_key?: string;
 }
 
 export interface WireguardInterfaceRead {

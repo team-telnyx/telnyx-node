@@ -56,7 +56,7 @@ describe('parseCLIOptions', () => {
 
     expect(result.includeCodeTool).toBe(false);
     expect(result.serverApiKey).toBe('test-server-key');
-    expect(result.host).toBe('127.0.0.1');
+    expect(result).toHaveProperty('host', '127.0.0.1');
     cleanup();
   });
 });
