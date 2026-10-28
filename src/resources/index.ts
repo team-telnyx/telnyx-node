@@ -1524,7 +1524,6 @@ export {
   type TrafficPolicyProfilesDefaultFlatPagination,
   type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
 } from './traffic-policy-profiles';
-export { TtsIntegrations } from './tts-integrations/tts-integrations';
 export {
   Tunnels,
   type Tunnel,

@@ -6451,10 +6451,6 @@ Methods:
 
 - <code title="get /dial_metrics">client.dialMetrics.<a href="./src/resources/dial-metrics.ts">list</a>({ ...params }) -> DialMetricListResponsesCloudfsCursorPagination</code>
 
-# TtsIntegrations
-
-## Actions
-
 # TailscaleSubnetRouters
 
 Types:

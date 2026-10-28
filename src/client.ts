@@ -1857,7 +1857,6 @@ import {
   TextToSpeechListVoicesResponse,
   TextToSpeechRetrieveSpeechParams,
 } from './resources/text-to-speech/text-to-speech';
-import { TtsIntegrations } from './resources/tts-integrations/tts-integrations';
 import {
   Tunnel,
   TunnelCreateParams,
@@ -3413,7 +3412,6 @@ export class Telnyx {
    * Call information
    */
   dialMetrics: API.DialMetrics = new API.DialMetrics(this);
-  ttsIntegrations: API.TtsIntegrations = new API.TtsIntegrations(this);
   /**
    * Tailscale Subnet Router operations
    */
@@ -3630,7 +3628,6 @@ Telnyx.SpendLimits = SpendLimits;
 Telnyx.LlmTokenGateway = LlmTokenGateway;
 Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 Telnyx.DialMetrics = DialMetrics;
-Telnyx.TtsIntegrations = TtsIntegrations;
 Telnyx.TailscaleSubnetRouters = TailscaleSubnetRouters;
 Telnyx.ArtifactDownloads = ArtifactDownloads;
 Telnyx.Email = Email;
@@ -5759,8 +5756,6 @@ export declare namespace Telnyx {
     type DialMetricListResponsesCloudfsCursorPagination as DialMetricListResponsesCloudfsCursorPagination,
     type DialMetricListParams as DialMetricListParams,
   };
-
-  export { TtsIntegrations as TtsIntegrations };
 
   export {
     TailscaleSubnetRouters as TailscaleSubnetRouters,
