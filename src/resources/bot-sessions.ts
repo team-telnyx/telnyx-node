@@ -22,7 +22,7 @@ export class BotSessions extends APIResource {
    * the magic link token in the query string is the credential.
    */
   list(query: BotSessionListParams, options?: RequestOptions): APIPromise<BotSessionListResponse> {
-    return this._client.get('/v2/bot_sessions', { query, ...options });
+    return this._client.get('/bot_sessions', { query, ...options });
   }
 }
 

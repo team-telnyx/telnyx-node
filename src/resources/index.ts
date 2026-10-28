@@ -57,6 +57,7 @@ export {
   type AlphanumericSenderIDCreateParams,
   type AlphanumericSenderIDsDefaultFlatPagination,
 } from './alphanumeric-sender-ids';
+export { ArtifactDownloads, type ArtifactDownloadRetrieveParams } from './artifact-downloads';
 export {
   AuditEvents,
   type AuditEventListResponse,
@@ -112,6 +113,18 @@ export {
   type BotSignupCreateParams,
   type BotSignupResendMagicLinkParams,
 } from './bot-signup';
+export {
+  BrowserSessions,
+  type Session,
+  type BrowserSessionCreateResponse,
+  type BrowserSessionRetrieveResponse,
+  type BrowserSessionListResponse,
+  type BrowserSessionDeleteResponse,
+  type BrowserSessionRetrieveArtifactResponse,
+  type BrowserSessionRetrieveArtifactParams,
+  type BrowserSessionListParams,
+  type BrowserSessionCreateParams,
+} from './browser-sessions/browser-sessions';
 export {
   BulkSimCardActions,
   type BulkSimCardActionDetailed,
@@ -354,6 +367,7 @@ export {
   type DynamicEmergencyEndpointCreateParams,
   type DynamicEmergencyEndpointsDefaultFlatPagination,
 } from './dynamic-emergency-endpoints';
+export { Email } from './email/email';
 export {
   EmailBlocks,
   type EmailBlock,
@@ -809,6 +823,7 @@ export {
   type MessagingMessagingProfile,
   type MessagingProfile,
   type MessagingProfileFeatures,
+  type Mm7Metadata,
   type NumberPoolSettings,
   type URLShortenerSettings,
   type MessagingProfileCreateResponse,
@@ -875,6 +890,16 @@ export {
   type NetworkCoverageListParams,
   type NetworkCoverageListResponsesDefaultFlatPagination,
 } from './network-coverage';
+export {
+  NetworkRoutes,
+  type NetappsCursorPaginationMeta,
+  type NetworkRoute,
+  type NetworkRouteCreateResponse,
+  type NetworkRouteRetrieveResponse,
+  type NetworkRouteListResponse,
+  type NetworkRouteListParams,
+  type NetworkRouteCreateParams,
+} from './network-routes';
 export {
   Networks,
   type InterfaceStatus,
@@ -1057,6 +1082,16 @@ export {
   type OutboundVoiceProfileUpdateParams,
   type OutboundVoiceProfilesDefaultFlatPagination,
 } from './outbound-voice-profiles';
+export {
+  PayConnectors,
+  type GenericPayConnectorConfig,
+  type PayConnector,
+  type PayConnectorResponse,
+  type PayConnectorListParams,
+  type PayConnectorCreateParams,
+  type PayConnectorUpdateParams,
+  type PayConnectorsEmailBracketCursorPagination,
+} from './pay-connectors';
 export {
   Payment,
   type PaymentCreateStoredPaymentTransactionResponse,
@@ -1380,6 +1415,7 @@ export {
 export {
   SpendLimits,
   type SpendLimit,
+  type SpendLimitBlock,
   type SpendLimitPeriod,
   type SpendLimitResponse,
   type SpendLimitListResponse,
@@ -1489,6 +1525,16 @@ export {
   type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
 } from './traffic-policy-profiles';
 export { TtsIntegrations } from './tts-integrations/tts-integrations';
+export {
+  Tunnels,
+  type Tunnel,
+  type TunnelWithToken,
+  type TunnelCreateResponse,
+  type TunnelRetrieveResponse,
+  type TunnelListResponse,
+  type TunnelListParams,
+  type TunnelCreateParams,
+} from './tunnels/tunnels';
 export {
   UacConnections,
   type UacConnection,

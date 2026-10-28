@@ -286,6 +286,11 @@ export interface MessagingMessagingProfile {
   health_webhook_url?: string | null;
 
   /**
+   * MM7 settings for inbound messages
+   */
+  mm7_metadata?: Mm7Metadata | null;
+
+  /**
    * enables SMS fallback for MMS messages.
    */
   mms_fall_back_to_sms?: boolean;
@@ -568,6 +573,21 @@ export interface MessagingProfileFeatures {
 }
 
 /**
+ * MM7 settings for inbound messages
+ */
+export interface Mm7Metadata {
+  /**
+   * Failover webhook URL to receive inbound MM7 traffic
+   */
+  mm7_failover_webhook_url?: string;
+
+  /**
+   * Webhook URL to receive inbound MM7 traffic
+   */
+  mm7_webhook_url?: string;
+}
+
+/**
  * Number Pool allows you to send messages from a pool of numbers of different
  * types, assigning weights to each type. The pool consists of all the long code
  * and toll free numbers assigned to the messaging profile.
@@ -757,6 +777,11 @@ export interface MessagingProfileCreateParams {
   health_webhook_url?: string | null;
 
   /**
+   * MM7 settings for inbound messages
+   */
+  mm7_metadata?: Mm7Metadata | null;
+
+  /**
    * enables SMS fallback for MMS messages.
    */
   mms_fall_back_to_sms?: boolean;
@@ -855,6 +880,11 @@ export interface MessagingProfileUpdateParams {
    * preserved for forward compatibility with rolling deployments.
    */
   features?: MessagingProfileFeatures | null;
+
+  /**
+   * MM7 settings for inbound messages
+   */
+  mm7_metadata?: Mm7Metadata | null;
 
   /**
    * enables SMS fallback for MMS messages.
@@ -971,6 +1001,7 @@ export declare namespace MessagingProfiles {
     type MessagingMessagingProfile as MessagingMessagingProfile,
     type MessagingProfile as MessagingProfile,
     type MessagingProfileFeatures as MessagingProfileFeatures,
+    type Mm7Metadata as Mm7Metadata,
     type NumberPoolSettings as NumberPoolSettings,
     type URLShortenerSettings as URLShortenerSettings,
     type MessagingProfileCreateResponse as MessagingProfileCreateResponse,

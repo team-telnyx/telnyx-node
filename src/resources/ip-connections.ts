@@ -186,8 +186,8 @@ export interface InboundIP {
    * in the same way a phone number is used, from a SIP endpoint. Example: the
    * subdomain "example.sip.telnyx.com" can be called from any SIP endpoint by using
    * the SIP URI "sip:@example.sip.telnyx.com" where the user part can be any
-   * alphanumeric value. Please note TLS encrypted calls are not allowed for
-   * subdomain calls.
+   * alphanumeric value. TLS signaling is supported. SRTP media encryption requires
+   * TLS transport.
    */
   sip_subdomain?: string;
 
@@ -739,8 +739,8 @@ export namespace IPConnectionCreateParams {
      * in the same way a phone number is used, from a SIP endpoint. Example: the
      * subdomain "example.sip.telnyx.com" can be called from any SIP endpoint by using
      * the SIP URI "sip:@example.sip.telnyx.com" where the user part can be any
-     * alphanumeric value. Please note TLS encrypted calls are not allowed for
-     * subdomain calls.
+     * alphanumeric value. TLS signaling is supported. SRTP media encryption requires
+     * TLS transport.
      */
     sip_subdomain?: string;
 

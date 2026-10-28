@@ -14,7 +14,7 @@ export class TextToSpeech extends APIResource {
    * `provider` is specified, returns voices for that provider only. Otherwise,
    * returns voices from all providers.
    *
-   * Some providers (ElevenLabs, Resemble) require an API key to list voices.
+   * Some providers (ElevenLabs) require an API key to list voices.
    *
    * @example
    * ```ts
@@ -81,7 +81,6 @@ export class TextToSpeech extends APIResource {
    *   output_type: 'binary_output',
    *   provider: 'aws',
    *   resemble: {
-   *     api_key: 'string',
    *     precision: 'string',
    *     sample_rate: 'string',
    *     format: 'string',
@@ -597,11 +596,6 @@ export namespace TextToSpeechGenerateSpeechParams {
    * Resemble AI provider-specific parameters.
    */
   export interface Resemble {
-    /**
-     * Custom Resemble API key.
-     */
-    api_key?: string;
-
     /**
      * Audio output format.
      */

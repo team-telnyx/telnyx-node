@@ -26,6 +26,7 @@ describe('resource voiceClones', () => {
     await expect(
       client.voiceClones.list(
         {
+          'filter[model_id]': 'Qwen3TTS',
           'filter[name]': 'filter[name]',
           'filter[provider]': 'telnyx',
           'page[number]': 1,
