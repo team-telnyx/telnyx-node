@@ -404,6 +404,12 @@ export interface ModelMetadata {
   base_model?: string | null;
 
   /**
+   * Whether the model is in beta. New Telnyx-hosted models launch with `beta: true`;
+   * the label is removed once the model is established.
+   */
+  beta?: boolean;
+
+  /**
    * Short, human-readable summary of what the model is best suited for.
    */
   description?: string | null;
