@@ -70,11 +70,6 @@ export interface NetworkInterface {
    * The id of the network associated with the interface.
    */
   network_id?: string;
-
-  /**
-   * The current status of the interface deployment.
-   */
-  status?: NetworksAPI.InterfaceStatus;
 }
 
 export interface NetworkInterfaceRegion {
@@ -85,11 +80,6 @@ export interface NetworkInterfaceRegion {
 }
 
 export interface PublicInternetGateway extends GlobalIPAssignmentsAPI.Record, NetworkInterface {
-  /**
-   * The publically accessible ip for this interface.
-   */
-  public_ip?: string;
-
   /**
    * The region interface is deployed to.
    */

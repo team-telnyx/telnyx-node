@@ -59,11 +59,12 @@ export class VoiceClones extends APIResource {
   /**
    * Creates a new voice clone by uploading an audio file directly. Supported
    * formats: WAV, MP3, FLAC, OGG, M4A. Maximum file size: 20MB. Reference audio is
-   * trimmed per model: Qwen3TTS and Bayan use the first 10 seconds, Ultra uses up to
-   * 60 seconds, and Minimax accepts 10 seconds to 5 minutes. Ultra clones return
-   * `202` with status `pending`; all other models return `201` with status `active`.
-   * Bayan clones require `ref_text` (the exact transcript of the reference audio)
-   * and support `ar` (default) and `en` only.
+   * trimmed per model: Qwen3TTS, Bayan, and Resemble use the first 10 seconds, Ultra
+   * uses up to 60 seconds, and Minimax accepts 10 seconds to 5 minutes. Ultra clones
+   * return `202` with status `pending`; all other models return `201` with status
+   * `active`. Bayan clones require `ref_text` (the exact transcript of the reference
+   * audio) and support `ar` (default) and `en` only. Resemble clones
+   * (`provider: resemble`) take `model_id` `Pro`, `Turbo`, or `Urdu`.
    *
    * @example
    * ```ts
@@ -172,14 +173,15 @@ export interface VoiceCloneData {
   label?: string | null;
 
   /**
-   * ISO 639-1 language code of the voice clone.
+   * Language code of the voice clone (ISO 639-1, or the Resemble catalogue code such
+   * as `en-US`).
    */
   language?: string | null;
 
   /**
    * TTS model identifier for the voice clone.
    */
-  model_id?: 'Qwen3TTS' | 'Ultra' | 'Bayan' | 'speech-2.8-turbo';
+  model_id?: 'Qwen3TTS' | 'Ultra' | 'Bayan' | 'speech-2.8-turbo' | 'Pro' | 'Turbo' | 'Urdu';
 
   /**
    * Name of the voice clone.
@@ -265,6 +267,11 @@ export interface VoiceDesignsPaginationMeta {
 }
 
 export interface VoiceCloneListParams extends DefaultFlatPaginationParams {
+  /**
+   * Filter by TTS model. Case-insensitive.
+   */
+  'filter[model_id]'?: 'Qwen3TTS' | 'Ultra' | 'Bayan' | 'speech-2.8-turbo' | 'Pro' | 'Turbo' | 'Urdu';
+
   /**
    * Case-insensitive substring filter on the name field.
    */
@@ -360,7 +367,8 @@ export interface VoiceCloneCreateFromUploadParams {
     | VoiceCloneCreateFromUploadParams.TelnyxQwen3TtsClone
     | VoiceCloneCreateFromUploadParams.TelnyxUltraClone
     | VoiceCloneCreateFromUploadParams.TelnyxBayanClone
-    | VoiceCloneCreateFromUploadParams.MinimaxClone;
+    | VoiceCloneCreateFromUploadParams.MinimaxClone
+    | VoiceCloneCreateFromUploadParams.ResembleClone;
 }
 
 export namespace VoiceCloneCreateFromUploadParams {
@@ -556,6 +564,78 @@ export namespace VoiceCloneCreateFromUploadParams {
      * Optional transcript of the audio file. Providing this improves clone quality.
      */
     ref_text?: string;
+  }
+
+  /**
+   * Upload-based voice clone using the Resemble provider. The clone is `active` on
+   * creation. Use it as voice `Resemble.<model_id>.<clone_id>`.
+   */
+  export interface ResembleClone {
+    /**
+     * Audio file to clone the voice from. Supported formats: WAV, MP3, FLAC, OGG, M4A.
+     * Converted to WAV and trimmed to the first 10 seconds. For best quality, provide
+     * about 10 seconds of clean, single-speaker speech. Maximum size: 20MB.
+     */
+    audio_file: Uploadable;
+
+    /**
+     * Gender of the voice clone.
+     */
+    gender: 'male' | 'female' | 'neutral';
+
+    /**
+     * Resemble model: `Pro`, `Turbo` (English only), or `Urdu`. A clone works only
+     * with this model.
+     */
+    model_id: 'Pro' | 'Turbo' | 'Urdu';
+
+    /**
+     * Name for the voice clone.
+     */
+    name: string;
+
+    /**
+     * Voice synthesis provider. Must be `resemble`.
+     */
+    provider: 'resemble' | 'Resemble';
+
+    /**
+     * Optional custom label describing the voice style.
+     */
+    label?: string;
+
+    /**
+     * Language of the reference audio, matched case-insensitively. Pro: required, one
+     * of `ar`, `da`, `de`, `el`, `en-US`, `es`, `fi`, `fr-fr`, `he`, `hi`, `it`, `ja`,
+     * `ko`, `ms`, `nl`, `no`, `pl`, `pt`, `ru`, `sv`, `sw`, `tr`, `zh`. Turbo: `en` or
+     * `en-US` (default `en-US`). Urdu: `ur` (default). Other values return `422`.
+     */
+    language?:
+      | 'ar'
+      | 'da'
+      | 'de'
+      | 'el'
+      | 'en'
+      | 'en-US'
+      | 'es'
+      | 'fi'
+      | 'fr-fr'
+      | 'he'
+      | 'hi'
+      | 'it'
+      | 'ja'
+      | 'ko'
+      | 'ms'
+      | 'nl'
+      | 'no'
+      | 'pl'
+      | 'pt'
+      | 'ru'
+      | 'sv'
+      | 'sw'
+      | 'tr'
+      | 'ur'
+      | 'zh';
   }
 }
 

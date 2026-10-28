@@ -3804,9 +3804,10 @@ export interface TranscriptionSettings {
    *   auto-detect; set `language` from Speechmatics' Realtime language list
    *   (defaults to `en`).
    * - `azure/fast` is a multilingual Azure transcription model.
-   * - `assemblyai/universal-3-5-pro` is a multilingual streaming model with
-   *   configurable turn detection. The legacy alias `assemblyai/universal-streaming`
-   *   is still accepted and resolves to the same model.
+   * - `assemblyai/universal-3-6-pro` (AssemblyAI Universal-3.6 Pro) is a
+   *   multilingual streaming model with configurable turn detection. The legacy
+   *   aliases `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`
+   *   are still accepted and run the same model.
    * - `xai/grok-stt` is a multilingual Grok STT model.
    * - `soniox/stt-rt-v4` and `soniox/stt-rt-v5` are multilingual streaming models
    *   with automatic language detection, configurable endpointing, term biasing
@@ -3829,6 +3830,7 @@ export interface TranscriptionSettings {
     | 'speechmatics/standard'
     | 'speechmatics/linden-1'
     | 'azure/fast'
+    | 'assemblyai/universal-3-6-pro'
     | 'assemblyai/universal-3-5-pro'
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
@@ -3861,11 +3863,11 @@ export namespace TranscriptionSettings {
     /**
      * The language booster's model. It must be the same kind of model as
      * `transcription.model`: both streaming (`deepgram/flux`, `deepgram/nova-3`,
-     * `deepgram/nova-2`, `assemblyai/universal-3-5-pro` or its legacy alias
-     * `assemblyai/universal-streaming`, `xai/grok-stt`, `soniox/stt-rt-v4`,
-     * `soniox/stt-rt-v5`, `humain/realtime`, `reson8/turns`) or both non-streaming
-     * (`azure/fast`, `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`,
-     * `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
+     * `deepgram/nova-2`, `assemblyai/universal-3-6-pro` or its legacy aliases
+     * `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`,
+     * `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`,
+     * `reson8/turns`) or both non-streaming (`azure/fast`, `nvidia/parakeet-v3`,
+     * `omi-health/omi-med-stt-v1`, `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
      * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
      * `transcription.model` on a different `language`.
      */
@@ -3874,6 +3876,7 @@ export namespace TranscriptionSettings {
       | 'deepgram/nova-3'
       | 'deepgram/nova-2'
       | 'azure/fast'
+      | 'assemblyai/universal-3-6-pro'
       | 'assemblyai/universal-3-5-pro'
       | 'assemblyai/universal-streaming'
       | 'xai/grok-stt'
@@ -3936,14 +3939,16 @@ export namespace TranscriptionSettings {
     /**
      * The fallback model. It must be a streaming model other than
      * `transcription.model` and the other fallbacks: `deepgram/flux`,
-     * `deepgram/nova-3`, `deepgram/nova-2`, `assemblyai/universal-3-5-pro` (or its
-     * legacy alias `assemblyai/universal-streaming`), `xai/grok-stt`,
-     * `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
+     * `deepgram/nova-3`, `deepgram/nova-2`, `assemblyai/universal-3-6-pro` (or its
+     * legacy aliases `assemblyai/universal-3-5-pro` and
+     * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`,
+     * `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
      */
     model:
       | 'deepgram/flux'
       | 'deepgram/nova-3'
       | 'deepgram/nova-2'
+      | 'assemblyai/universal-3-6-pro'
       | 'assemblyai/universal-3-5-pro'
       | 'assemblyai/universal-streaming'
       | 'xai/grok-stt'
@@ -4026,9 +4031,9 @@ export interface TranscriptionSettingsConfig {
    * transcription, used by Deepgram, Reson8, Speechmatics Linden 1 and AssemblyAI
    * models. Helps improve accuracy for domain-specific terminology, proper nouns, or
    * uncommon words. At most 1000 characters in total. For
-   * assemblyai/universal-3-5-pro (and its legacy alias
-   * assemblyai/universal-streaming), also at most 100 terms of up to 50 characters
-   * each. This field may be templated with
+   * assemblyai/universal-3-6-pro (and its legacy aliases
+   * assemblyai/universal-3-5-pro and assemblyai/universal-streaming), also at most
+   * 100 terms of up to 50 characters each. This field may be templated with
    * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
    * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are
    * resolved at call time before the value is sent to the speech-to-text engine.
@@ -4050,26 +4055,28 @@ export interface TranscriptionSettingsConfig {
   max_endpoint_delay_ms?: number;
 
   /**
-   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-   * assemblyai/universal-streaming). Maximum duration of silence in milliseconds
-   * before forcing an end of turn.
+   * Available only for assemblyai/universal-3-6-pro (and its legacy aliases
+   * assemblyai/universal-3-5-pro and assemblyai/universal-streaming). Maximum
+   * duration of silence in milliseconds before forcing an end of turn.
    */
   max_turn_silence?: number;
 
   /**
-   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-   * assemblyai/universal-streaming). Minimum duration of silence in milliseconds
-   * before a turn can end. Must be less than or equal to max_turn_silence.
+   * Available only for assemblyai/universal-3-6-pro (and its legacy aliases
+   * assemblyai/universal-3-5-pro and assemblyai/universal-streaming). Minimum
+   * duration of silence in milliseconds before a turn can end. Must be less than or
+   * equal to max_turn_silence.
    */
   min_turn_silence?: number;
 
   numerals?: boolean;
 
   /**
-   * Available only for assemblyai/universal-3-5-pro (and its legacy alias
-   * assemblyai/universal-streaming). Context about the conversation (domain, names,
-   * terms) to improve transcription; describe the content, do not give instructions.
-   * Leave empty unless needed. At most 1750 characters.
+   * Available only for assemblyai/universal-3-6-pro (and its legacy aliases
+   * assemblyai/universal-3-5-pro and assemblyai/universal-streaming). Context about
+   * the conversation (domain, names, terms) to improve transcription; describe the
+   * content, do not give instructions. Leave empty unless needed. At most 1750
+   * characters.
    */
   prompt?: string;
 

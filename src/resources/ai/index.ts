@@ -174,6 +174,7 @@ export {
   type MissionDataDefaultFlatPagination,
 } from './missions/index';
 export { OpenAI, type OpenAICreateResponseResponse, type OpenAICreateResponseParams } from './openai/index';
+export { Tests } from './tests/index';
 export {
   Tools,
   type PayToolParams,

@@ -19,6 +19,7 @@ export {
   type MessagingMessagingProfile,
   type MessagingProfile,
   type MessagingProfileFeatures,
+  type Mm7Metadata,
   type NumberPoolSettings,
   type URLShortenerSettings,
   type MessagingProfileCreateResponse,

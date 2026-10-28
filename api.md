@@ -44,6 +44,47 @@ Types:
 - <code><a href="./src/resources/shared.ts">WhatsappTemplateData</a></code>
 - <code><a href="./src/resources/shared.ts">XaiVoiceSettings</a></code>
 
+# BrowserSessions
+
+Types:
+
+- <code><a href="./src/resources/browser-sessions/browser-sessions.ts">Session</a></code>
+- <code><a href="./src/resources/browser-sessions/browser-sessions.ts">BrowserSessionCreateResponse</a></code>
+- <code><a href="./src/resources/browser-sessions/browser-sessions.ts">BrowserSessionRetrieveResponse</a></code>
+- <code><a href="./src/resources/browser-sessions/browser-sessions.ts">BrowserSessionListResponse</a></code>
+- <code><a href="./src/resources/browser-sessions/browser-sessions.ts">BrowserSessionDeleteResponse</a></code>
+- <code><a href="./src/resources/browser-sessions/browser-sessions.ts">BrowserSessionRetrieveArtifactResponse</a></code>
+
+Methods:
+
+- <code title="get /browser_sessions/{id}">client.browserSessions.<a href="./src/resources/browser-sessions/browser-sessions.ts">retrieve</a>(id) -> BrowserSessionRetrieveResponse</code>
+- <code title="get /browser_sessions/{id}/artifacts/{artifactId}">client.browserSessions.<a href="./src/resources/browser-sessions/browser-sessions.ts">retrieveArtifact</a>(artifactID, { ...params }) -> BrowserSessionRetrieveArtifactResponse</code>
+- <code title="get /browser_sessions">client.browserSessions.<a href="./src/resources/browser-sessions/browser-sessions.ts">list</a>({ ...params }) -> BrowserSessionListResponse</code>
+- <code title="post /browser_sessions">client.browserSessions.<a href="./src/resources/browser-sessions/browser-sessions.ts">create</a>({ ...params }) -> BrowserSessionCreateResponse</code>
+- <code title="delete /browser_sessions/{id}">client.browserSessions.<a href="./src/resources/browser-sessions/browser-sessions.ts">delete</a>(id) -> BrowserSessionDeleteResponse</code>
+
+## Actions
+
+Types:
+
+- <code><a href="./src/resources/browser-sessions/actions.ts">ActionResponse</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">ClickAction</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">FillAction</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">NavigateAction</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">ObserveAction</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">PressAction</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">ScreenshotAction</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">ScrollAction</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">SelectAction</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">WaitForAction</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">ActionCreateResponse</a></code>
+- <code><a href="./src/resources/browser-sessions/actions.ts">ActionRetrieveResponse</a></code>
+
+Methods:
+
+- <code title="post /browser_sessions/{id}/actions">client.browserSessions.actions.<a href="./src/resources/browser-sessions/actions.ts">create</a>(id, { ...params }) -> ActionCreateResponse</code>
+- <code title="get /browser_sessions/{id}/actions/{actionId}">client.browserSessions.actions.<a href="./src/resources/browser-sessions/actions.ts">retrieve</a>(actionID, { ...params }) -> ActionRetrieveResponse</code>
+
 # Legacy
 
 ## Reporting
@@ -1360,6 +1401,120 @@ Methods:
 - <code title="get /ai/avatars/{avatar_id}">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">retrieve</a>(avatarID) -> AvatarResponse</code>
 - <code title="patch /ai/avatars/{avatar_id}">client.ai.avatars.<a href="./src/resources/ai/avatars.ts">update</a>(avatarID, { ...params }) -> AvatarResponse</code>
 
+## Tests
+
+### Schedules
+
+#### V1
+
+##### CronJobs
+
+Types:
+
+- <code><a href="./src/resources/ai/tests/schedules/v1/cron-jobs.ts">ScheduledTestJob</a></code>
+- <code><a href="./src/resources/ai/tests/schedules/v1/cron-jobs.ts">CronJobDeleteResponse</a></code>
+- <code><a href="./src/resources/ai/tests/schedules/v1/cron-jobs.ts">CronJobRetrieveCronJobsResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/tests/schedules/v1/cron-jobs">client.ai.tests.schedules.v1.cronJobs.<a href="./src/resources/ai/tests/schedules/v1/cron-jobs.ts">retrieveCronJobs</a>({ ...params }) -> CronJobRetrieveCronJobsResponse</code>
+- <code title="post /ai/tests/schedules/v1/cron-jobs">client.ai.tests.schedules.v1.cronJobs.<a href="./src/resources/ai/tests/schedules/v1/cron-jobs.ts">cronJobs</a>({ ...params }) -> ScheduledTestJob</code>
+- <code title="delete /ai/tests/schedules/v1/cron-jobs/{id}">client.ai.tests.schedules.v1.cronJobs.<a href="./src/resources/ai/tests/schedules/v1/cron-jobs.ts">delete</a>(id) -> unknown</code>
+- <code title="get /ai/tests/schedules/v1/cron-jobs/{id}">client.ai.tests.schedules.v1.cronJobs.<a href="./src/resources/ai/tests/schedules/v1/cron-jobs.ts">retrieve</a>(id) -> ScheduledTestJob</code>
+- <code title="patch /ai/tests/schedules/v1/cron-jobs/{id}">client.ai.tests.schedules.v1.cronJobs.<a href="./src/resources/ai/tests/schedules/v1/cron-jobs.ts">update</a>(id, { ...params }) -> ScheduledTestJob</code>
+
+### TestFramework
+
+#### V1
+
+Types:
+
+- <code><a href="./src/resources/ai/tests/test-framework/v1/v1.ts">V1RetrievePersonalitiesResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/tests/test_framework/v1/personalities">client.ai.tests.testFramework.v1.<a href="./src/resources/ai/tests/test-framework/v1/v1.ts">retrievePersonalities</a>() -> V1RetrievePersonalitiesResponse</code>
+
+##### Aiagents
+
+Types:
+
+- <code><a href="./src/resources/ai/tests/test-framework/v1/aiagents.ts">TestAgent</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/aiagents.ts">AiagentListResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/aiagents.ts">AiagentDeleteResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/tests/test_framework/v1/aiagents">client.ai.tests.testFramework.v1.aiagents.<a href="./src/resources/ai/tests/test-framework/v1/aiagents.ts">list</a>({ ...params }) -> AiagentListResponse</code>
+- <code title="post /ai/tests/test_framework/v1/aiagents">client.ai.tests.testFramework.v1.aiagents.<a href="./src/resources/ai/tests/test-framework/v1/aiagents.ts">create</a>({ ...params }) -> TestAgent</code>
+- <code title="delete /ai/tests/test_framework/v1/aiagents/{id}">client.ai.tests.testFramework.v1.aiagents.<a href="./src/resources/ai/tests/test-framework/v1/aiagents.ts">delete</a>(id) -> unknown</code>
+- <code title="get /ai/tests/test_framework/v1/aiagents/{id}">client.ai.tests.testFramework.v1.aiagents.<a href="./src/resources/ai/tests/test-framework/v1/aiagents.ts">retrieve</a>(id) -> TestAgent</code>
+- <code title="put /ai/tests/test_framework/v1/aiagents/{id}">client.ai.tests.testFramework.v1.aiagents.<a href="./src/resources/ai/tests/test-framework/v1/aiagents.ts">update</a>(id, { ...params }) -> TestAgent</code>
+
+##### Metrics
+
+Types:
+
+- <code><a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">AITestMetric</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">CreateAITestMetricRequest</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">ScenarioGenerationResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">MetricListResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">MetricDeleteResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">MetricBulkCreateResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">MetricRetrieveGenerateMetricsProgressResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/tests/test_framework/v1/metrics">client.ai.tests.testFramework.v1.metrics.<a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">list</a>({ ...params }) -> MetricListResponse</code>
+- <code title="post /ai/tests/test_framework/v1/metrics">client.ai.tests.testFramework.v1.metrics.<a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">create</a>({ ...params }) -> AITestMetric</code>
+- <code title="post /ai/tests/test_framework/v1/metrics/bulk_create">client.ai.tests.testFramework.v1.metrics.<a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">bulkCreate</a>([ ...body ]) -> MetricBulkCreateResponse</code>
+- <code title="post /ai/tests/test_framework/v1/metrics/generate_metrics">client.ai.tests.testFramework.v1.metrics.<a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">generateMetrics</a>({ ...params }) -> ScenarioGenerationResponse</code>
+- <code title="get /ai/tests/test_framework/v1/metrics/generate_metrics_progress">client.ai.tests.testFramework.v1.metrics.<a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">retrieveGenerateMetricsProgress</a>({ ...params }) -> MetricRetrieveGenerateMetricsProgressResponse</code>
+- <code title="delete /ai/tests/test_framework/v1/metrics/{id}">client.ai.tests.testFramework.v1.metrics.<a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">delete</a>(id) -> unknown</code>
+- <code title="get /ai/tests/test_framework/v1/metrics/{id}">client.ai.tests.testFramework.v1.metrics.<a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">retrieve</a>(id) -> AITestMetric</code>
+- <code title="patch /ai/tests/test_framework/v1/metrics/{id}">client.ai.tests.testFramework.v1.metrics.<a href="./src/resources/ai/tests/test-framework/v1/metrics.ts">update</a>(id, { ...params }) -> AITestMetric</code>
+
+##### Results
+
+Types:
+
+- <code><a href="./src/resources/ai/tests/test-framework/v1/results.ts">TestRunResult</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/results.ts">ResultListResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/results.ts">ResultDeleteResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/tests/test_framework/v1/results">client.ai.tests.testFramework.v1.results.<a href="./src/resources/ai/tests/test-framework/v1/results.ts">list</a>({ ...params }) -> ResultListResponse</code>
+- <code title="delete /ai/tests/test_framework/v1/results/{id}">client.ai.tests.testFramework.v1.results.<a href="./src/resources/ai/tests/test-framework/v1/results.ts">delete</a>(id) -> unknown</code>
+- <code title="get /ai/tests/test_framework/v1/results/{id}">client.ai.tests.testFramework.v1.results.<a href="./src/resources/ai/tests/test-framework/v1/results.ts">retrieve</a>(id) -> TestRunResult</code>
+- <code title="post /ai/tests/test_framework/v1/results/{id}/rerun">client.ai.tests.testFramework.v1.results.<a href="./src/resources/ai/tests/test-framework/v1/results.ts">rerun</a>(id) -> TestRunResult</code>
+
+##### Scenarios
+
+Types:
+
+- <code><a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">EvaluatorScenarioDetail</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">ScenarioListResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">ScenarioDeleteResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">ScenarioRetrieveGenerateProgressResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">ScenarioRetrieveScenarioAgentProgressResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">ScenarioRunScenariosResponse</a></code>
+- <code><a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">ScenarioScenarioAgentResponse</a></code>
+
+Methods:
+
+- <code title="get /ai/tests/test_framework/v1/scenarios">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">list</a>({ ...params }) -> ScenarioListResponse</code>
+- <code title="post /ai/tests/test_framework/v1/scenarios">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">create</a>({ ...params }) -> EvaluatorScenarioDetail</code>
+- <code title="get /ai/tests/test_framework/v1/scenarios/export_scenarios">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">retrieveExportScenarios</a>({ ...params }) -> Response</code>
+- <code title="post /ai/tests/test_framework/v1/scenarios/generate-bg">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">generateBg</a>({ ...params }) -> ScenarioGenerationResponse</code>
+- <code title="get /ai/tests/test_framework/v1/scenarios/generate-progress">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">retrieveGenerateProgress</a>({ ...params }) -> ScenarioRetrieveGenerateProgressResponse</code>
+- <code title="post /ai/tests/test_framework/v1/scenarios/run_scenarios">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">runScenarios</a>({ ...params }) -> ScenarioRunScenariosResponse</code>
+- <code title="post /ai/tests/test_framework/v1/scenarios/scenario-agent">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">scenarioAgent</a>({ ...params }) -> ScenarioScenarioAgentResponse</code>
+- <code title="get /ai/tests/test_framework/v1/scenarios/scenario-agent-progress">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">retrieveScenarioAgentProgress</a>({ ...params }) -> ScenarioRetrieveScenarioAgentProgressResponse</code>
+- <code title="delete /ai/tests/test_framework/v1/scenarios/{id}">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">delete</a>(id) -> unknown</code>
+- <code title="get /ai/tests/test_framework/v1/scenarios/{id}">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">retrieve</a>(id) -> EvaluatorScenarioDetail</code>
+- <code title="patch /ai/tests/test_framework/v1/scenarios/{id}">client.ai.tests.testFramework.v1.scenarios.<a href="./src/resources/ai/tests/test-framework/v1/scenarios.ts">update</a>(id, { ...params }) -> EvaluatorScenarioDetail</code>
+
 # AuditEvents
 
 Types:
@@ -2611,6 +2766,7 @@ Types:
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingMessagingProfile</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfile</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileFeatures</a></code>
+- <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">Mm7Metadata</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">NumberPoolSettings</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">URLShortenerSettings</a></code>
 - <code><a href="./src/resources/messaging-profiles/messaging-profiles.ts">MessagingProfileCreateResponse</a></code>
@@ -6165,7 +6321,7 @@ Types:
 
 Methods:
 
-- <code title="post /v2/bot_challenge">client.botChallenge.<a href="./src/resources/bot-challenge.ts">create</a>({ ...params }) -> BotChallengeCreateResponse</code>
+- <code title="post /bot_challenge">client.botChallenge.<a href="./src/resources/bot-challenge.ts">create</a>({ ...params }) -> BotChallengeCreateResponse</code>
 
 # BotSessions
 
@@ -6175,7 +6331,7 @@ Types:
 
 Methods:
 
-- <code title="get /v2/bot_sessions">client.botSessions.<a href="./src/resources/bot-sessions.ts">list</a>({ ...params }) -> BotSessionListResponse</code>
+- <code title="get /bot_sessions">client.botSessions.<a href="./src/resources/bot-sessions.ts">list</a>({ ...params }) -> BotSessionListResponse</code>
 
 # BotSignup
 
@@ -6185,8 +6341,8 @@ Types:
 
 Methods:
 
-- <code title="post /v2/bot_signup">client.botSignup.<a href="./src/resources/bot-signup.ts">create</a>({ ...params }) -> SuccessResponse</code>
-- <code title="post /v2/bot_signup/resend_magic_link">client.botSignup.<a href="./src/resources/bot-signup.ts">resendMagicLink</a>({ ...params }) -> SuccessResponse</code>
+- <code title="post /bot_signup">client.botSignup.<a href="./src/resources/bot-signup.ts">create</a>({ ...params }) -> SuccessResponse</code>
+- <code title="post /bot_signup/resend_magic_link">client.botSignup.<a href="./src/resources/bot-signup.ts">resendMagicLink</a>({ ...params }) -> SuccessResponse</code>
 
 # MachinePayments
 
@@ -6203,6 +6359,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/spend-limits.ts">SpendLimit</a></code>
+- <code><a href="./src/resources/spend-limits.ts">SpendLimitBlock</a></code>
 - <code><a href="./src/resources/spend-limits.ts">SpendLimitPeriod</a></code>
 - <code><a href="./src/resources/spend-limits.ts">SpendLimitResponse</a></code>
 - <code><a href="./src/resources/spend-limits.ts">SpendLimitListResponse</a></code>
@@ -6315,3 +6472,123 @@ Methods:
 - <code title="delete /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters.<a href="./src/resources/tailscale-subnet-routers.ts">delete</a>(id) -> TailscaleSubnetRouterDeleteResponse</code>
 - <code title="get /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters.<a href="./src/resources/tailscale-subnet-routers.ts">retrieve</a>(id) -> TailscaleSubnetRouterRetrieveResponse</code>
 - <code title="patch /tailscale_subnet_routers/{id}">client.tailscaleSubnetRouters.<a href="./src/resources/tailscale-subnet-routers.ts">update</a>(id, { ...params }) -> TailscaleSubnetRouterUpdateResponse</code>
+
+# ArtifactDownloads
+
+Methods:
+
+- <code title="get /artifact_downloads/{artifactId}">client.artifactDownloads.<a href="./src/resources/artifact-downloads.ts">retrieve</a>(artifactID, { ...params }) -> Response</code>
+
+# Email
+
+## DedicatedIPs
+
+Types:
+
+- <code><a href="./src/resources/email/dedicated-ips/dedicated-ips.ts">DedicatedIP</a></code>
+- <code><a href="./src/resources/email/dedicated-ips/dedicated-ips.ts">DedicatedIPShowResponse</a></code>
+- <code><a href="./src/resources/email/dedicated-ips/dedicated-ips.ts">DedicatedIPListResponse</a></code>
+
+Methods:
+
+- <code title="get /email/dedicated_ips">client.email.dedicatedIPs.<a href="./src/resources/email/dedicated-ips/dedicated-ips.ts">list</a>({ ...params }) -> DedicatedIPListResponse</code>
+- <code title="post /email/dedicated_ips">client.email.dedicatedIPs.<a href="./src/resources/email/dedicated-ips/dedicated-ips.ts">create</a>({ ...params }) -> DedicatedIPShowResponse</code>
+- <code title="delete /email/dedicated_ips/{id}">client.email.dedicatedIPs.<a href="./src/resources/email/dedicated-ips/dedicated-ips.ts">delete</a>(id, { ...params }) -> DedicatedIPShowResponse</code>
+- <code title="get /email/dedicated_ips/{id}">client.email.dedicatedIPs.<a href="./src/resources/email/dedicated-ips/dedicated-ips.ts">retrieve</a>(id) -> DedicatedIPShowResponse</code>
+- <code title="patch /email/dedicated_ips/{id}">client.email.dedicatedIPs.<a href="./src/resources/email/dedicated-ips/dedicated-ips.ts">update</a>(id, { ...params }) -> DedicatedIPShowResponse</code>
+
+### Actions
+
+Methods:
+
+- <code title="post /email/dedicated_ips/{id}/actions/complete_warmup">client.email.dedicatedIPs.actions.<a href="./src/resources/email/dedicated-ips/actions.ts">completeWarmup</a>(id) -> DedicatedIPShowResponse</code>
+- <code title="post /email/dedicated_ips/{id}/actions/pause_warmup">client.email.dedicatedIPs.actions.<a href="./src/resources/email/dedicated-ips/actions.ts">pauseWarmup</a>(id) -> DedicatedIPShowResponse</code>
+- <code title="post /email/dedicated_ips/{id}/actions/resume_warmup">client.email.dedicatedIPs.actions.<a href="./src/resources/email/dedicated-ips/actions.ts">resumeWarmup</a>(id) -> DedicatedIPShowResponse</code>
+- <code title="post /email/dedicated_ips/{id}/actions/start_warmup">client.email.dedicatedIPs.actions.<a href="./src/resources/email/dedicated-ips/actions.ts">startWarmup</a>(id) -> DedicatedIPShowResponse</code>
+
+## IPPools
+
+Types:
+
+- <code><a href="./src/resources/email/ip-pools/ip-pools.ts">IPPool</a></code>
+- <code><a href="./src/resources/email/ip-pools/ip-pools.ts">IPPoolShowResponse</a></code>
+- <code><a href="./src/resources/email/ip-pools/ip-pools.ts">IPPoolListResponse</a></code>
+
+Methods:
+
+- <code title="get /email/ip_pools">client.email.ipPools.<a href="./src/resources/email/ip-pools/ip-pools.ts">list</a>() -> IPPoolListResponse</code>
+- <code title="post /email/ip_pools">client.email.ipPools.<a href="./src/resources/email/ip-pools/ip-pools.ts">create</a>({ ...params }) -> IPPoolShowResponse</code>
+- <code title="delete /email/ip_pools/{id}">client.email.ipPools.<a href="./src/resources/email/ip-pools/ip-pools.ts">delete</a>(id, { ...params }) -> void</code>
+- <code title="get /email/ip_pools/{id}">client.email.ipPools.<a href="./src/resources/email/ip-pools/ip-pools.ts">retrieve</a>(id) -> IPPoolShowResponse</code>
+- <code title="patch /email/ip_pools/{id}">client.email.ipPools.<a href="./src/resources/email/ip-pools/ip-pools.ts">update</a>(id, { ...params }) -> IPPoolShowResponse</code>
+
+### IPs
+
+Types:
+
+- <code><a href="./src/resources/email/ip-pools/ips.ts">IPCreateResponse</a></code>
+
+Methods:
+
+- <code title="post /email/ip_pools/{id}/ips">client.email.ipPools.ips.<a href="./src/resources/email/ip-pools/ips.ts">create</a>(id, { ...params }) -> IPCreateResponse</code>
+- <code title="delete /email/ip_pools/{id}/ips/{ip_id}">client.email.ipPools.ips.<a href="./src/resources/email/ip-pools/ips.ts">delete</a>(ipID, { ...params }) -> void</code>
+
+# NetworkRoutes
+
+Types:
+
+- <code><a href="./src/resources/network-routes.ts">NetappsCursorPaginationMeta</a></code>
+- <code><a href="./src/resources/network-routes.ts">NetworkRoute</a></code>
+- <code><a href="./src/resources/network-routes.ts">NetworkRouteCreateResponse</a></code>
+- <code><a href="./src/resources/network-routes.ts">NetworkRouteRetrieveResponse</a></code>
+- <code><a href="./src/resources/network-routes.ts">NetworkRouteListResponse</a></code>
+
+Methods:
+
+- <code title="get /network_routes">client.networkRoutes.<a href="./src/resources/network-routes.ts">list</a>({ ...params }) -> NetworkRouteListResponse</code>
+- <code title="post /network_routes">client.networkRoutes.<a href="./src/resources/network-routes.ts">create</a>({ ...params }) -> NetworkRouteCreateResponse</code>
+- <code title="delete /network_routes/{id}">client.networkRoutes.<a href="./src/resources/network-routes.ts">delete</a>(id) -> void</code>
+- <code title="get /network_routes/{id}">client.networkRoutes.<a href="./src/resources/network-routes.ts">retrieve</a>(id) -> NetworkRouteRetrieveResponse</code>
+
+# PayConnectors
+
+Types:
+
+- <code><a href="./src/resources/pay-connectors.ts">GenericPayConnectorConfig</a></code>
+- <code><a href="./src/resources/pay-connectors.ts">PayConnector</a></code>
+- <code><a href="./src/resources/pay-connectors.ts">PayConnectorResponse</a></code>
+
+Methods:
+
+- <code title="get /pay_connectors">client.payConnectors.<a href="./src/resources/pay-connectors.ts">list</a>({ ...params }) -> PayConnectorsEmailBracketCursorPagination</code>
+- <code title="post /pay_connectors">client.payConnectors.<a href="./src/resources/pay-connectors.ts">create</a>({ ...params }) -> PayConnectorResponse</code>
+- <code title="delete /pay_connectors/{name}">client.payConnectors.<a href="./src/resources/pay-connectors.ts">delete</a>(name) -> void</code>
+- <code title="get /pay_connectors/{name}">client.payConnectors.<a href="./src/resources/pay-connectors.ts">retrieve</a>(name) -> PayConnectorResponse</code>
+- <code title="patch /pay_connectors/{name}">client.payConnectors.<a href="./src/resources/pay-connectors.ts">update</a>(name, { ...params }) -> PayConnectorResponse</code>
+
+# Tunnels
+
+Types:
+
+- <code><a href="./src/resources/tunnels/tunnels.ts">Tunnel</a></code>
+- <code><a href="./src/resources/tunnels/tunnels.ts">TunnelWithToken</a></code>
+- <code><a href="./src/resources/tunnels/tunnels.ts">TunnelCreateResponse</a></code>
+- <code><a href="./src/resources/tunnels/tunnels.ts">TunnelRetrieveResponse</a></code>
+- <code><a href="./src/resources/tunnels/tunnels.ts">TunnelListResponse</a></code>
+
+Methods:
+
+- <code title="get /tunnels">client.tunnels.<a href="./src/resources/tunnels/tunnels.ts">list</a>({ ...params }) -> TunnelListResponse</code>
+- <code title="post /tunnels">client.tunnels.<a href="./src/resources/tunnels/tunnels.ts">create</a>({ ...params }) -> TunnelCreateResponse</code>
+- <code title="delete /tunnels/{id}">client.tunnels.<a href="./src/resources/tunnels/tunnels.ts">delete</a>(id) -> void</code>
+- <code title="get /tunnels/{id}">client.tunnels.<a href="./src/resources/tunnels/tunnels.ts">retrieve</a>(id) -> TunnelRetrieveResponse</code>
+
+## Actions
+
+Types:
+
+- <code><a href="./src/resources/tunnels/actions.ts">ActionRotateTokenResponse</a></code>
+
+Methods:
+
+- <code title="post /tunnels/{id}/actions/rotate_token">client.tunnels.actions.<a href="./src/resources/tunnels/actions.ts">rotateToken</a>(id) -> ActionRotateTokenResponse</code>

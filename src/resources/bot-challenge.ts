@@ -32,7 +32,7 @@ export class BotChallenge extends APIResource {
     body: BotChallengeCreateParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<BotChallengeCreateResponse> {
-    return this._client.post('/v2/bot_challenge', { body, ...options });
+    return this._client.post('/bot_challenge', { body, ...options });
   }
 }
 

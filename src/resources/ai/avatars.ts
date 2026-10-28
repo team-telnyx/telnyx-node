@@ -44,15 +44,15 @@ export class Avatars extends APIResource {
    * is stored independently from the rendering model and background, which are
    * selected where the avatar is consumed. Supported image types are JPEG, PNG, and
    * WebP. Images may be up to 10 MiB, must be between 256 and 8192 pixels on each
-   * side, and may contain at most 40 megapixels. Each organization may have up to 20
-   * custom avatars. For best results, use a 16:9 landscape image, preferably 1920 by
-   * 1080 pixels and at least 1280 by 720 pixels. Show one centered, front-facing
-   * person from the shoulders up, keep the full head and hair visible with space
-   * around it, and use a sharp, evenly lit image with unobstructed eyes and mouth.
-   * Use a transparent PNG or WebP when the avatar will be combined with a selectable
-   * background. These composition recommendations are not enforced in the first
-   * release; the first release does not validate the number of faces, pose, or image
-   * content.
+   * side, and may contain at most 40 megapixels. A per-organization custom-avatar
+   * quota applies; the create request returns an error when the quota is reached.
+   * For best results, use a 16:9 landscape image, preferably 1920 by 1080 pixels and
+   * at least 1280 by 720 pixels. Show one centered, front-facing person from the
+   * shoulders up, keep the full head and hair visible with space around it, and use
+   * a sharp, evenly lit image with unobstructed eyes and mouth. Use a transparent
+   * PNG or WebP when the avatar will be combined with a selectable background. These
+   * composition recommendations are not enforced in the first release; the first
+   * release does not validate the number of faces, pose, or image content.
    *
    * @example
    * ```ts

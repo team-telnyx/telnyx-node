@@ -193,6 +193,8 @@ import {
 } from './missions/missions';
 import * as OpenAIAPI from './openai/openai';
 import { OpenAI, OpenAICreateResponseParams, OpenAICreateResponseResponse } from './openai/openai';
+import * as TestsAPI from './tests/tests';
+import { Tests } from './tests/tests';
 import * as TypesafeAPI from './typesafe/typesafe';
 import { Typesafe } from './typesafe/typesafe';
 import { APIPromise } from '../../core/api-promise';
@@ -219,6 +221,7 @@ export class AI extends APIResource {
   typesafe: TypesafeAPI.Typesafe = new TypesafeAPI.Typesafe(this._client);
   memory: MemoryAPI.Memory = new MemoryAPI.Memory(this._client);
   avatars: AvatarsAPI.Avatars = new AvatarsAPI.Avatars(this._client);
+  tests: TestsAPI.Tests = new TestsAPI.Tests(this._client);
 
   /**
    * Generate a summary of a file's contents.
@@ -674,6 +677,7 @@ AI.Knowledge = Knowledge;
 AI.Typesafe = Typesafe;
 AI.Memory = Memory;
 AI.Avatars = Avatars;
+AI.Tests = Tests;
 
 export declare namespace AI {
   export {
@@ -887,4 +891,6 @@ export declare namespace AI {
     type AvatarCreateParams as AvatarCreateParams,
     type AvatarUpdateParams as AvatarUpdateParams,
   };
+
+  export { Tests as Tests };
 }
