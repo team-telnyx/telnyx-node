@@ -78,7 +78,7 @@ export interface ActionValidateResponse {
 
 export namespace ActionValidateResponse {
   export interface Data {
-    result: 'valid' | 'invalid';
+    result: 'valid';
 
     /**
      * Provides normalized address when available.
