@@ -80,7 +80,7 @@ export interface ActionResponse {
    * Normalized request metadata; defaults may be materialized and fill values are
    * redacted as {redacted: true, length: number}, including inside batch actions.
    */
-  request: unknown;
+  request: { [key: string]: unknown };
 
   result: ActionResponse.Result | null;
 
@@ -131,7 +131,7 @@ export namespace ActionResponse {
     /**
      * Present only for batch actions.
      */
-    results?: Array<unknown>;
+    results?: Array<{ [key: string]: unknown }>;
 
     title?: string;
 
@@ -162,7 +162,7 @@ export namespace ActionResponse {
        */
       ref_count?: number;
 
-      refs?: unknown;
+      refs?: { [key: string]: unknown };
 
       title?: string;
 
