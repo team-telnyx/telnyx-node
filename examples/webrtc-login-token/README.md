@@ -32,6 +32,12 @@ one on every run.
    like this to the WebRTC SDK as its `login_token`.
 
 ```ts
-const { data: credential } = await client.telephonyCredentials.create({ connection_id });
+const { data: credential } = await client.telephonyCredentials.create({
+  connection_id,
+  include: 'token_material',
+});
 const loginToken = await client.telephonyCredentials.toJwt(credential, { ttl: 3600 });
 ```
+
+To mint later with no request, store `id`, `user_id`, `sip_username`, `expires_at` and
+`token_material` with the user, server side; `toJwt` accepts that stored object.

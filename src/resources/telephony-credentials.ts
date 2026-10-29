@@ -44,10 +44,16 @@ export class TelephonyCredentials extends APIResource {
    * ```
    */
   create(
-    body: TelephonyCredentialCreateParams,
+    params: TelephonyCredentialCreateParams,
     options?: RequestOptions,
   ): APIPromise<TelephonyCredentialCreateResponse> {
-    return this._client.post('/telephony_credentials', { body, ...options });
+    // `include` is a query parameter; everything else is the body.
+    const { include, ...body } = params;
+    return this._client.post('/telephony_credentials', {
+      ...(include === undefined ? {} : { query: { include } }),
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -294,6 +300,12 @@ export namespace TelephonyCredentialListParams {
 }
 
 export interface TelephonyCredentialCreateParams {
+  /**
+   * Query param: extra fields to return. `token_material` adds what `toJwt` signs
+   * with (as sensitive as `sip_password`; keep it on the server).
+   */
+  include?: 'token_material' | undefined;
+
   /**
    * Identifies the Credential Connection this credential is associated with.
    */

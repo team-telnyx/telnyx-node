@@ -118,13 +118,27 @@ See the [complete Express webhook verification example](examples/webhook-verific
 A WebRTC client logs in with a token for a telephony credential. Instead of asking the API for one per login (`createToken`), your backend can sign it itself from the credential's `token_material`, with no request to Telnyx per token:
 
 ```ts
-const { data: credential } = await client.telephonyCredentials.create({ connection_id: '1234567890' });
+// Once, when the user is set up: create the credential and ask for the signing material.
+const { data: credential } = await client.telephonyCredentials.create({
+  connection_id: '1234567890',
+  include: 'token_material',
+});
+// Store these with the user, server side: the token is built from all of them.
+await db.save(userId, {
+  id: credential.id,
+  user_id: credential.user_id,
+  sip_username: credential.sip_username,
+  expires_at: credential.expires_at,
+  token_material: credential.token_material,
+});
 
-// token_material comes with the create response; stored, it serves every later token
+// On every login, with no request to Telnyx:
 const loginToken = await client.telephonyCredentials.toJwt(credential, { ttl: 3600 });
+// or later, from the stored values:
+const loginTokenFromStore = await client.telephonyCredentials.toJwt(await db.load(userId), { ttl: 3600 });
 ```
 
-For a credential that did not come from `create`, `toJwt` fetches the material once with `retrieveTokenMaterial`. `token_material` is as sensitive as the SIP password: keep it on the server. See the [WebRTC login token example](examples/webrtc-login-token/).
+The API returns `token_material` only when `include: 'token_material'` is passed. For a credential created without it, or retrieved later, `toJwt` fetches the material once with `retrieveTokenMaterial`. `token_material` is as sensitive as the SIP password: keep it on the server. See the [WebRTC login token example](examples/webrtc-login-token/).
 
 ### Configure retries
 

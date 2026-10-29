@@ -12,9 +12,16 @@
  * the SIP password, so keep it on the server; never ship it to a browser.
  *
  * @example
- * const { data: credential } = await client.telephonyCredentials.create({ connection_id: '123' });
+ * const { data: credential } = await client.telephonyCredentials.create({
+ *   connection_id: '123',
+ *   include: 'token_material',   // the API returns the material only when asked
+ * });
  * const loginToken = await client.telephonyCredentials.toJwt(credential);          // 1 hour
  * const shortLived = await client.telephonyCredentials.toJwt(credential, { ttl: 600 });
+ *
+ * To mint later with no request at all, store these with the user the credential
+ * belongs to, server side: `id`, `user_id`, `sip_username`, `expires_at` and
+ * `token_material`. The token is built from all of them.
  *
  * @example From stored values, without a request at all
  * import { createLoginToken } from 'telnyx/lib/login-token';

@@ -169,4 +169,35 @@ describe('client.telephonyCredentials.toJwt', () => {
     const client = new Telnyx({ apiKey: 'My API Key', fetch });
     expect((await client.telephonyCredentials.retrieveTokenMaterial('abc')).data).toEqual(material);
   });
+
+  test('create sends include as a query parameter, not in the body', async () => {
+    const fetch = jest.fn(async (url: string | URL | Request, init?: RequestInit) => {
+      expect(String(url)).toBe('https://api.telnyx.com/v2/telephony_credentials?include=token_material');
+      expect(JSON.parse(String(init?.body))).toEqual({ connection_id: '123' });
+      return new Response(JSON.stringify({ data: { ...credential } }), {
+        status: 201,
+        headers: { 'content-type': 'application/json' },
+      });
+    });
+    const client = new Telnyx({ apiKey: 'My API Key', fetch });
+    const { data } = await client.telephonyCredentials.create({
+      connection_id: '123',
+      include: 'token_material',
+    });
+    expect(data?.token_material).toEqual(material);
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
+
+  test('create without include sends no query string', async () => {
+    const fetch = jest.fn(async (url: string | URL | Request) => {
+      expect(String(url)).toBe('https://api.telnyx.com/v2/telephony_credentials');
+      return new Response(JSON.stringify({ data: { id: 'x' } }), {
+        status: 201,
+        headers: { 'content-type': 'application/json' },
+      });
+    });
+    const client = new Telnyx({ apiKey: 'My API Key', fetch });
+    await client.telephonyCredentials.create({ connection_id: '123' });
+    expect(fetch).toHaveBeenCalledTimes(1);
+  });
 });

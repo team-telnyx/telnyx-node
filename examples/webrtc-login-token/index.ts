@@ -23,6 +23,7 @@ async function credential(): Promise<Telnyx.TelephonyCredential> {
   const { data } = await client.telephonyCredentials.create({
     connection_id: connectionId,
     name: `toJwt example ${new Date().toISOString()}`,
+    include: 'token_material', // the API returns the signing material only when asked
   });
   return data!;
 }
