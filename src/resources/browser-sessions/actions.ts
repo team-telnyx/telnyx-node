@@ -313,7 +313,7 @@ export interface WaitForAction {
     | WaitForAction.UnionMember0
     | WaitForAction.UnionMember1
     | WaitForAction.UnionMember2
-    | WaitForAction.Kind;
+    | WaitForAction.UnionMember3;
 
   type: 'wait_for';
 
@@ -345,7 +345,7 @@ export namespace WaitForAction {
     text: string;
   }
 
-  export interface Kind {
+  export interface UnionMember3 {
     kind: 'dom_stable';
   }
 }
@@ -658,7 +658,7 @@ export declare namespace ActionCreateParams {
       | WaitForAction.UnionMember0
       | WaitForAction.UnionMember1
       | WaitForAction.UnionMember2
-      | WaitForAction.Kind;
+      | WaitForAction.UnionMember3;
 
     /**
      * Body param
@@ -709,7 +709,7 @@ export declare namespace ActionCreateParams {
       text: string;
     }
 
-    export interface Kind {
+    export interface UnionMember3 {
       kind: 'dom_stable';
     }
   }
