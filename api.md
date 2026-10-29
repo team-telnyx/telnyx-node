@@ -654,7 +654,9 @@ Types:
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TelnyxAvatarSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNode</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">ToolNodeReq</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionChallenger</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionEndpointingPlan</a></code>
+- <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionFallbackModel</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettings</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TranscriptionSettingsConfig</a></code>
 - <code><a href="./src/resources/ai/assistants/assistants.ts">TransferTool</a></code>
@@ -1378,7 +1380,9 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/memory/namespaces/settings.ts">NamespaceSettings</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/settings.ts">NamespaceSettingsResponse</a></code>
+- <code><a href="./src/resources/ai/memory/namespaces/settings.ts">SummarySettings</a></code>
 
 Methods:
 
@@ -3238,6 +3242,8 @@ Types:
 
 - <code><a href="./src/resources/phone-numbers/jobs.ts">NumbersPhoneNumbersJob</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">PhoneNumbersJob</a></code>
+- <code><a href="./src/resources/phone-numbers/jobs.ts">PhoneNumbersJobPendingOperation</a></code>
+- <code><a href="./src/resources/phone-numbers/jobs.ts">PhoneNumbersJobSuccessfulOperation</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">JobRetrieveResponse</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">JobDeleteBatchResponse</a></code>
 - <code><a href="./src/resources/phone-numbers/jobs.ts">JobUpdateBatchResponse</a></code>
@@ -5223,13 +5229,9 @@ Methods:
 
 ### PhoneNumbers
 
-Types:
-
-- <code><a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">PhoneNumberListResponse</a></code>
-
 Methods:
 
-- <code title="get /v2/whatsapp/business_accounts/{id}/phone_numbers">client.whatsapp.businessAccounts.phoneNumbers.<a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">list</a>(id, { ...params }) -> PhoneNumberListResponsesDefaultFlatPagination</code>
+- <code title="get /v2/whatsapp/business_accounts/{id}/phone_numbers">client.whatsapp.businessAccounts.phoneNumbers.<a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">list</a>(id, { ...params }) -> WhatsappPhoneResponsesDefaultFlatPagination</code>
 - <code title="post /v2/whatsapp/business_accounts/{id}/phone_numbers">client.whatsapp.businessAccounts.phoneNumbers.<a href="./src/resources/whatsapp/business-accounts/phone-numbers.ts">initializeVerification</a>(id, { ...params }) -> void</code>
 
 ### Settings
@@ -5265,14 +5267,14 @@ Methods:
 
 Types:
 
-- <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberListResponse</a></code>
+- <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">WhatsappPhoneResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberGetResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberRetrieveConversationWindowResponse</a></code>
 - <code><a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">PhoneNumberRetrievePhoneNumberResponse</a></code>
 
 Methods:
 
-- <code title="get /v2/whatsapp/phone_numbers">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">list</a>({ ...params }) -> PhoneNumberListResponsesDefaultFlatPagination</code>
+- <code title="get /v2/whatsapp/phone_numbers">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">list</a>({ ...params }) -> WhatsappPhoneResponsesDefaultFlatPagination</code>
 - <code title="delete /v2/whatsapp/phone_numbers/{phone_number}">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">delete</a>(phoneNumber) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/resend_verification">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">resendVerification</a>(phoneNumber, { ...params }) -> void</code>
 - <code title="post /v2/whatsapp/phone_numbers/{phone_number}/verify">client.whatsapp.phoneNumbers.<a href="./src/resources/whatsapp/phone-numbers/phone-numbers.ts">verify</a>(phoneNumber, { ...params }) -> void</code>
@@ -5374,13 +5376,13 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/whatsapp/hosted-signups.ts">WhatsappHostedSignup</a></code>
 - <code><a href="./src/resources/whatsapp/hosted-signups.ts">HostedSignupCreateResponse</a></code>
 - <code><a href="./src/resources/whatsapp/hosted-signups.ts">HostedSignupRetrieveResponse</a></code>
-- <code><a href="./src/resources/whatsapp/hosted-signups.ts">HostedSignupListResponse</a></code>
 
 Methods:
 
-- <code title="get /whatsapp/hosted_signups">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">list</a>({ ...params }) -> HostedSignupListResponsesDefaultFlatPagination</code>
+- <code title="get /whatsapp/hosted_signups">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">list</a>({ ...params }) -> WhatsappHostedSignupsDefaultFlatPagination</code>
 - <code title="post /whatsapp/hosted_signups">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">create</a>({ ...params }) -> HostedSignupCreateResponse</code>
 - <code title="get /whatsapp/hosted_signups/{id}">client.whatsapp.hostedSignups.<a href="./src/resources/whatsapp/hosted-signups.ts">retrieve</a>(id) -> HostedSignupRetrieveResponse</code>
 
@@ -6085,6 +6087,7 @@ Types:
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateCommon</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateResponse</a></code>
 - <code><a href="./src/resources/email-templates.ts">UpdateEmailTemplateRequest</a></code>
+- <code><a href="./src/resources/email-templates.ts">VariableSchemaEntry</a></code>
 - <code><a href="./src/resources/email-templates.ts">EmailTemplateRenderResponse</a></code>
 
 Methods:
@@ -6295,6 +6298,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/compute/funcs/export.ts">FuncLogExportConfig</a></code>
 - <code><a href="./src/resources/compute/funcs/export.ts">FuncLogExportConfigResponse</a></code>
 
 Methods:

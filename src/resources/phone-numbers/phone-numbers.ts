@@ -36,6 +36,8 @@ import {
   NumbersPhoneNumbersJob,
   NumbersPhoneNumbersJobsDefaultFlatPagination,
   PhoneNumbersJob,
+  PhoneNumbersJobPendingOperation,
+  PhoneNumbersJobSuccessfulOperation,
 } from './jobs';
 import * as MessagingAPI from './messaging';
 import {
@@ -1349,6 +1351,8 @@ export declare namespace PhoneNumbers {
     Jobs as Jobs,
     type NumbersPhoneNumbersJob as NumbersPhoneNumbersJob,
     type PhoneNumbersJob as PhoneNumbersJob,
+    type PhoneNumbersJobPendingOperation as PhoneNumbersJobPendingOperation,
+    type PhoneNumbersJobSuccessfulOperation as PhoneNumbersJobSuccessfulOperation,
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobDeleteBatchResponse as JobDeleteBatchResponse,
     type JobUpdateBatchResponse as JobUpdateBatchResponse,

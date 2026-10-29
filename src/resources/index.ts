@@ -442,6 +442,7 @@ export {
   type EmailTemplateCommon,
   type EmailTemplateResponse,
   type UpdateEmailTemplateRequest,
+  type VariableSchemaEntry,
   type EmailTemplateRenderResponse,
   type EmailTemplateListParams,
   type EmailTemplateCreateParams,

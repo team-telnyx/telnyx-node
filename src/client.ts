@@ -323,6 +323,7 @@ import {
   EmailTemplates,
   EmailTemplatesEmailCursorPagination,
   UpdateEmailTemplateRequest,
+  VariableSchemaEntry,
 } from './resources/email-templates';
 import {
   EmailThreadListParams,
@@ -5634,6 +5635,7 @@ export declare namespace Telnyx {
     type EmailTemplateCommon as EmailTemplateCommon,
     type EmailTemplateResponse as EmailTemplateResponse,
     type UpdateEmailTemplateRequest as UpdateEmailTemplateRequest,
+    type VariableSchemaEntry as VariableSchemaEntry,
     type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
     type EmailTemplatesEmailCursorPagination as EmailTemplatesEmailCursorPagination,
     type EmailTemplateListParams as EmailTemplateListParams,

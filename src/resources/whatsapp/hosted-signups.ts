@@ -14,7 +14,7 @@ export class HostedSignups extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const hostedSignupListResponse of client.whatsapp.hostedSignups.list()) {
+   * for await (const whatsappHostedSignup of client.whatsapp.hostedSignups.list()) {
    *   // ...
    * }
    * ```
@@ -22,12 +22,11 @@ export class HostedSignups extends APIResource {
   list(
     query: HostedSignupListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<HostedSignupListResponsesDefaultFlatPagination, HostedSignupListResponse> {
-    return this._client.getAPIList(
-      '/whatsapp/hosted_signups',
-      DefaultFlatPagination<HostedSignupListResponse>,
-      { query, ...options },
-    );
+  ): PagePromise<WhatsappHostedSignupsDefaultFlatPagination, WhatsappHostedSignup> {
+    return this._client.getAPIList('/whatsapp/hosted_signups', DefaultFlatPagination<WhatsappHostedSignup>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -63,95 +62,9 @@ export class HostedSignups extends APIResource {
   }
 }
 
-export type HostedSignupListResponsesDefaultFlatPagination = DefaultFlatPagination<HostedSignupListResponse>;
+export type WhatsappHostedSignupsDefaultFlatPagination = DefaultFlatPagination<WhatsappHostedSignup>;
 
-export interface HostedSignupCreateResponse {
-  data?: HostedSignupCreateResponse.Data;
-}
-
-export namespace HostedSignupCreateResponse {
-  export interface Data {
-    /**
-     * Hosted signup ID
-     */
-    id?: string;
-
-    /**
-     * Meta App ID the hosted signup onboards customers into
-     */
-    app_id?: string;
-
-    created_at?: string;
-
-    /**
-     * When the onboarding URL stops working
-     */
-    expires_at?: string;
-
-    /**
-     * Signed token embedded in `url`
-     */
-    jwt?: string;
-
-    record_type?: 'whatsapp_jwt';
-
-    /**
-     * Meta Partner Solution ID linked to the app. Returned only when creating a hosted
-     * signup.
-     */
-    solution_id?: string;
-
-    /**
-     * Hosted onboarding URL to share with the end customer
-     */
-    url?: string;
-  }
-}
-
-export interface HostedSignupRetrieveResponse {
-  data?: HostedSignupRetrieveResponse.Data;
-}
-
-export namespace HostedSignupRetrieveResponse {
-  export interface Data {
-    /**
-     * Hosted signup ID
-     */
-    id?: string;
-
-    /**
-     * Meta App ID the hosted signup onboards customers into
-     */
-    app_id?: string;
-
-    created_at?: string;
-
-    /**
-     * When the onboarding URL stops working
-     */
-    expires_at?: string;
-
-    /**
-     * Signed token embedded in `url`
-     */
-    jwt?: string;
-
-    record_type?: 'whatsapp_jwt';
-
-    /**
-     * Meta Partner Solution ID linked to the app. Returned only when creating a hosted
-     * signup.
-     */
-    solution_id?: string;
-
-    /**
-     * Hosted onboarding URL to share with the end customer
-     */
-    url?: string;
-  }
-}
-
-export interface HostedSignupListResponse {
+export interface WhatsappHostedSignup {
   /**
    * Hosted signup ID
    */
@@ -188,6 +101,14 @@ export interface HostedSignupListResponse {
   url?: string;
 }
 
+export interface HostedSignupCreateResponse {
+  data?: WhatsappHostedSignup;
+}
+
+export interface HostedSignupRetrieveResponse {
+  data?: WhatsappHostedSignup;
+}
+
 export interface HostedSignupListParams extends DefaultFlatPaginationParams {}
 
 export interface HostedSignupCreateParams {
@@ -212,10 +133,10 @@ export interface HostedSignupCreateParams {
 
 export declare namespace HostedSignups {
   export {
+    type WhatsappHostedSignup as WhatsappHostedSignup,
     type HostedSignupCreateResponse as HostedSignupCreateResponse,
     type HostedSignupRetrieveResponse as HostedSignupRetrieveResponse,
-    type HostedSignupListResponse as HostedSignupListResponse,
-    type HostedSignupListResponsesDefaultFlatPagination as HostedSignupListResponsesDefaultFlatPagination,
+    type WhatsappHostedSignupsDefaultFlatPagination as WhatsappHostedSignupsDefaultFlatPagination,
     type HostedSignupListParams as HostedSignupListParams,
     type HostedSignupCreateParams as HostedSignupCreateParams,
   };
