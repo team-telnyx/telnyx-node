@@ -113,6 +113,19 @@ const event = webhookClient.webhooks.unwrap(rawBody, {
 
 See the [complete Express webhook verification example](examples/webhook-verification/) for raw-body handling and error responses.
 
+### Mint a WebRTC login token locally
+
+A WebRTC client logs in with a token for a telephony credential. Instead of asking the API for one per login (`createToken`), your backend can sign it itself from the credential's `token_material`, with no request to Telnyx per token:
+
+```ts
+const { data: credential } = await client.telephonyCredentials.create({ connection_id: '1234567890' });
+
+// token_material comes with the create response; stored, it serves every later token
+const loginToken = await client.telephonyCredentials.toJwt(credential, { ttl: 3600 });
+```
+
+For a credential that did not come from `create`, `toJwt` fetches the material once with `retrieveTokenMaterial`. `token_material` is as sensitive as the SIP password: keep it on the server. See the [WebRTC login token example](examples/webrtc-login-token/).
+
 ### Configure retries
 
 Connection failures and retryable HTTP responses are retried twice by default. Set `maxRetries` for the client or override it for an individual request:

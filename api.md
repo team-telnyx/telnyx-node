@@ -4422,6 +4422,8 @@ Types:
 - <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialUpdateResponse</a></code>
 - <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialDeleteResponse</a></code>
 - <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialCreateTokenResponse</a></code>
+- <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialRetrieveTokenMaterialResponse</a></code>
+- <code><a href="./src/resources/telephony-credentials.ts">TokenMaterial</a></code>
 
 Methods:
 
@@ -4431,6 +4433,8 @@ Methods:
 - <code title="get /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">retrieve</a>(id) -> TelephonyCredentialRetrieveResponse</code>
 - <code title="patch /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">update</a>(id, { ...params }) -> TelephonyCredentialUpdateResponse</code>
 - <code title="post /telephony_credentials/{id}/token">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">createToken</a>(id, { ...params }) -> string</code>
+- <code title="get /telephony_credentials/{id}/token_material">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">retrieveTokenMaterial</a>(id) -> TelephonyCredentialRetrieveTokenMaterialResponse</code>
+- <code>client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">toJwt</a>(credential, { ...options }) -> string</code>
 
 # Texml
 
