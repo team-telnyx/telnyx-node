@@ -159,7 +159,11 @@ function clampTtl(ttl: number | undefined): number {
 }
 
 function base64url(data: string | Uint8Array): string {
-  return toBase64(data).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/, '');
+  // Base64 pads with at most two '=': a bounded match keeps this linear on any input.
+  return toBase64(data)
+    .replace(/\+/g, '-')
+    .replace(/\//g, '_')
+    .replace(/={1,2}$/, '');
 }
 
 function fromBase64url(str: string): Uint8Array {
