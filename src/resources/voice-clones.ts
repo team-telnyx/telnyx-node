@@ -191,7 +191,7 @@ export interface VoiceCloneData {
   /**
    * Voice synthesis provider used for this clone.
    */
-  provider?: 'telnyx' | 'minimax';
+  provider?: 'telnyx' | 'minimax' | 'resemble';
 
   /**
    * List of TTS model identifiers supported by this clone's provider.
@@ -280,7 +280,7 @@ export interface VoiceCloneListParams extends DefaultFlatPaginationParams {
   /**
    * Filter by voice synthesis provider. Case-insensitive.
    */
-  'filter[provider]'?: 'telnyx' | 'minimax';
+  'filter[provider]'?: 'telnyx' | 'minimax' | 'resemble';
 
   /**
    * Sort order. Prefix with `-` for descending. Defaults to `-created_at`.
@@ -516,7 +516,7 @@ export namespace VoiceCloneCreateFromUploadParams {
     /**
      * Voice synthesis provider. Defaults to `telnyx`.
      */
-    provider?: 'telnyx' | 'Telnyx';
+    provider?: 'telnyx';
   }
 
   /**
@@ -597,7 +597,7 @@ export namespace VoiceCloneCreateFromUploadParams {
     /**
      * Voice synthesis provider. Must be `resemble`.
      */
-    provider: 'resemble' | 'Resemble';
+    provider: 'resemble';
 
     /**
      * Optional custom label describing the voice style.
