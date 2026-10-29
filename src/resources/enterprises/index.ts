@@ -25,6 +25,7 @@ export {
 } from './reputation/index';
 export {
   VerifyEmail,
+  type EnterpriseEmailVerificationStatus,
   type EnterpriseEmailVerificationStatusWrapped,
   type VerifyEmailConfirmParams,
 } from './verify-email';

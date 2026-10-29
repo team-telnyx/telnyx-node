@@ -449,6 +449,7 @@ describe('resource assistants', () => {
         default_texml_app_id: 'default_texml_app_id',
         disable_dtmf: true,
         fallback_destination: 'fallback_destination',
+        greeting_delay_ms: 0,
         noise_suppression: 'aicoustics',
         noise_suppression_config: {
           attenuation_limit: 0,

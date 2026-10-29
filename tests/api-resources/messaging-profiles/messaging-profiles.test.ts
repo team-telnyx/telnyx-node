@@ -62,7 +62,7 @@ describe('resource messagingProfiles', () => {
       daily_spend_limit: '269125115713',
       daily_spend_limit_enabled: true,
       enabled: true,
-      features: { ai_opt_out_detection_enabled: true },
+      features: { ai_opt_out_detection_enabled: true, auto_chunk_long_messages: true },
       health_webhook_url: 'health_webhook_url',
       mm7_metadata: {
         mm7_failover_webhook_url: 'https://backup.example.com/hooks',

@@ -323,6 +323,7 @@ import {
   EmailTemplates,
   EmailTemplatesEmailCursorPagination,
   UpdateEmailTemplateRequest,
+  VariableSchemaEntry,
 } from './resources/email-templates';
 import {
   EmailThreadListParams,
@@ -966,10 +967,12 @@ import {
   TelephonyCredentialDeleteResponse,
   TelephonyCredentialListParams,
   TelephonyCredentialRetrieveResponse,
+  TelephonyCredentialRetrieveTokenMaterialResponse,
   TelephonyCredentialUpdateParams,
   TelephonyCredentialUpdateResponse,
   TelephonyCredentials,
   TelephonyCredentialsDefaultFlatPagination,
+  TokenMaterial,
 } from './resources/telephony-credentials';
 import {
   TexmlApplication,
@@ -1857,7 +1860,6 @@ import {
   TextToSpeechListVoicesResponse,
   TextToSpeechRetrieveSpeechParams,
 } from './resources/text-to-speech/text-to-speech';
-import { TtsIntegrations } from './resources/tts-integrations/tts-integrations';
 import {
   Tunnel,
   TunnelCreateParams,
@@ -3413,7 +3415,6 @@ export class Telnyx {
    * Call information
    */
   dialMetrics: API.DialMetrics = new API.DialMetrics(this);
-  ttsIntegrations: API.TtsIntegrations = new API.TtsIntegrations(this);
   /**
    * Tailscale Subnet Router operations
    */
@@ -3630,7 +3631,6 @@ Telnyx.SpendLimits = SpendLimits;
 Telnyx.LlmTokenGateway = LlmTokenGateway;
 Telnyx.SipRegistrationStatus = SipRegistrationStatus;
 Telnyx.DialMetrics = DialMetrics;
-Telnyx.TtsIntegrations = TtsIntegrations;
 Telnyx.TailscaleSubnetRouters = TailscaleSubnetRouters;
 Telnyx.ArtifactDownloads = ArtifactDownloads;
 Telnyx.Email = Email;
@@ -5137,11 +5137,13 @@ export declare namespace Telnyx {
   export {
     TelephonyCredentials as TelephonyCredentials,
     type TelephonyCredential as TelephonyCredential,
+    type TokenMaterial as TokenMaterial,
     type TelephonyCredentialCreateResponse as TelephonyCredentialCreateResponse,
     type TelephonyCredentialRetrieveResponse as TelephonyCredentialRetrieveResponse,
     type TelephonyCredentialUpdateResponse as TelephonyCredentialUpdateResponse,
     type TelephonyCredentialDeleteResponse as TelephonyCredentialDeleteResponse,
     type TelephonyCredentialCreateTokenResponse as TelephonyCredentialCreateTokenResponse,
+    type TelephonyCredentialRetrieveTokenMaterialResponse as TelephonyCredentialRetrieveTokenMaterialResponse,
     type TelephonyCredentialsDefaultFlatPagination as TelephonyCredentialsDefaultFlatPagination,
     type TelephonyCredentialListParams as TelephonyCredentialListParams,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
@@ -5637,6 +5639,7 @@ export declare namespace Telnyx {
     type EmailTemplateCommon as EmailTemplateCommon,
     type EmailTemplateResponse as EmailTemplateResponse,
     type UpdateEmailTemplateRequest as UpdateEmailTemplateRequest,
+    type VariableSchemaEntry as VariableSchemaEntry,
     type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
     type EmailTemplatesEmailCursorPagination as EmailTemplatesEmailCursorPagination,
     type EmailTemplateListParams as EmailTemplateListParams,
@@ -5759,8 +5762,6 @@ export declare namespace Telnyx {
     type DialMetricListResponsesCloudfsCursorPagination as DialMetricListResponsesCloudfsCursorPagination,
     type DialMetricListParams as DialMetricListParams,
   };
-
-  export { TtsIntegrations as TtsIntegrations };
 
   export {
     TailscaleSubnetRouters as TailscaleSubnetRouters,

@@ -5,8 +5,6 @@ import * as PhoneNumbersAPI from './phone-numbers';
 import {
   PhoneNumberInitializeVerificationParams,
   PhoneNumberListParams,
-  PhoneNumberListResponse,
-  PhoneNumberListResponsesDefaultFlatPagination,
   PhoneNumbers,
 } from './phone-numbers';
 import * as SettingsAPI from './settings';
@@ -202,8 +200,6 @@ export declare namespace BusinessAccounts {
 
   export {
     PhoneNumbers as PhoneNumbers,
-    type PhoneNumberListResponse as PhoneNumberListResponse,
-    type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberInitializeVerificationParams as PhoneNumberInitializeVerificationParams,
   };

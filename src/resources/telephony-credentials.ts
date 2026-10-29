@@ -119,6 +119,27 @@ export class TelephonyCredentials extends APIResource {
       ]),
     });
   }
+
+  /**
+   * Returns the material a server needs to mint login tokens for the credential
+   * locally, with no request per token: `kid`, `tel_token` and `signing_secret`. The
+   * same material is in the response of `POST /telephony_credentials`. Treat it like
+   * the SIP password.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.telephonyCredentials.retrieveTokenMaterial(
+   *     'id',
+   *   );
+   * ```
+   */
+  retrieveTokenMaterial(
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<TelephonyCredentialRetrieveTokenMaterialResponse> {
+    return this._client.get(path`/telephony_credentials/${id}/token_material`, options);
+  }
 }
 
 export type TelephonyCredentialsDefaultFlatPagination = DefaultFlatPagination<TelephonyCredential>;
@@ -167,6 +188,12 @@ export interface TelephonyCredential {
   sip_username?: string;
 
   /**
+   * Returned when the credential is created. See
+   * `GET /telephony_credentials/{id}/token_material` to fetch it again.
+   */
+  token_material?: TokenMaterial;
+
+  /**
    * ISO-8601 formatted date indicating when the resource was updated.
    */
   updated_at?: string;
@@ -175,6 +202,30 @@ export interface TelephonyCredential {
    * Identifies the user this credential is associated with.
    */
   user_id?: string;
+}
+
+/**
+ * What a server needs to mint login tokens for the credential itself, with no
+ * request per token (`TelephonyCredential#to_jwt` in telnyx-ruby 3.1.0 or later).
+ * As sensitive as `sip_password`: keep it on the server.
+ */
+export interface TokenMaterial {
+  /**
+   * Identifies the Telnyx signing key the `signing_secret` was derived with. Goes in
+   * the token header.
+   */
+  kid?: string;
+
+  /**
+   * The HMAC-SHA256 key the token is signed with, base64url without padding.
+   */
+  signing_secret?: string;
+
+  /**
+   * Opaque value Telnyx uses to resolve the credential. Carried in the token's
+   * `tel_token` claim as is.
+   */
+  tel_token?: string;
 }
 
 export interface TelephonyCredentialCreateResponse {
@@ -194,6 +245,15 @@ export interface TelephonyCredentialDeleteResponse {
 }
 
 export type TelephonyCredentialCreateTokenResponse = string;
+
+export interface TelephonyCredentialRetrieveTokenMaterialResponse {
+  /**
+   * What a server needs to mint login tokens for the credential itself, with no
+   * request per token (`TelephonyCredential#to_jwt` in telnyx-ruby 3.1.0 or later).
+   * As sensitive as `sip_password`: keep it on the server.
+   */
+  data?: TokenMaterial;
+}
 
 export interface TelephonyCredentialListParams extends DefaultFlatPaginationParams {
   /**
@@ -287,11 +347,13 @@ export interface TelephonyCredentialCreateTokenParams {
 export declare namespace TelephonyCredentials {
   export {
     type TelephonyCredential as TelephonyCredential,
+    type TokenMaterial as TokenMaterial,
     type TelephonyCredentialCreateResponse as TelephonyCredentialCreateResponse,
     type TelephonyCredentialRetrieveResponse as TelephonyCredentialRetrieveResponse,
     type TelephonyCredentialUpdateResponse as TelephonyCredentialUpdateResponse,
     type TelephonyCredentialDeleteResponse as TelephonyCredentialDeleteResponse,
     type TelephonyCredentialCreateTokenResponse as TelephonyCredentialCreateTokenResponse,
+    type TelephonyCredentialRetrieveTokenMaterialResponse as TelephonyCredentialRetrieveTokenMaterialResponse,
     type TelephonyCredentialsDefaultFlatPagination as TelephonyCredentialsDefaultFlatPagination,
     type TelephonyCredentialListParams as TelephonyCredentialListParams,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
