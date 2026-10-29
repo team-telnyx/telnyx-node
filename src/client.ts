@@ -966,10 +966,12 @@ import {
   TelephonyCredentialDeleteResponse,
   TelephonyCredentialListParams,
   TelephonyCredentialRetrieveResponse,
+  TelephonyCredentialRetrieveTokenMaterialResponse,
   TelephonyCredentialUpdateParams,
   TelephonyCredentialUpdateResponse,
   TelephonyCredentials,
   TelephonyCredentialsDefaultFlatPagination,
+  TokenMaterial,
 } from './resources/telephony-credentials';
 import {
   TexmlApplication,
@@ -5142,6 +5144,8 @@ export declare namespace Telnyx {
     type TelephonyCredentialUpdateResponse as TelephonyCredentialUpdateResponse,
     type TelephonyCredentialDeleteResponse as TelephonyCredentialDeleteResponse,
     type TelephonyCredentialCreateTokenResponse as TelephonyCredentialCreateTokenResponse,
+    type TelephonyCredentialRetrieveTokenMaterialResponse as TelephonyCredentialRetrieveTokenMaterialResponse,
+    type TokenMaterial as TokenMaterial,
     type TelephonyCredentialsDefaultFlatPagination as TelephonyCredentialsDefaultFlatPagination,
     type TelephonyCredentialListParams as TelephonyCredentialListParams,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,

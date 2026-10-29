@@ -6,6 +6,7 @@ import { DefaultFlatPagination, type DefaultFlatPaginationParams, PagePromise } 
 import { buildHeaders } from '../internal/headers';
 import { RequestOptions } from '../internal/request-options';
 import { path } from '../internal/utils/path';
+import { createLoginToken, type LoginTokenOptions, type TokenMaterial } from '../lib/login-token';
 
 export class TelephonyCredentials extends APIResource {
   /**
@@ -43,10 +44,16 @@ export class TelephonyCredentials extends APIResource {
    * ```
    */
   create(
-    body: TelephonyCredentialCreateParams,
+    params: TelephonyCredentialCreateParams,
     options?: RequestOptions,
   ): APIPromise<TelephonyCredentialCreateResponse> {
-    return this._client.post('/telephony_credentials', { body, ...options });
+    // `include` is a query parameter; everything else is the body.
+    const { include, ...body } = params;
+    return this._client.post('/telephony_credentials', {
+      ...(include === undefined ? {} : { query: { include } }),
+      body,
+      ...options,
+    });
   }
 
   /**
@@ -91,6 +98,52 @@ export class TelephonyCredentials extends APIResource {
     options?: RequestOptions,
   ): APIPromise<TelephonyCredentialUpdateResponse> {
     return this._client.patch(path`/telephony_credentials/${id}`, { body, ...options });
+  }
+
+  /**
+   * The material a login token is signed with (`kid`, `tel_token`,
+   * `signing_secret`), for a credential that did not come from `create`. Treat
+   * the result like the SIP password.
+   *
+   * @example
+   * ```ts
+   * const { data: tokenMaterial } =
+   *   await client.telephonyCredentials.retrieveTokenMaterial('id');
+   * ```
+   */
+  retrieveTokenMaterial(
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<TelephonyCredentialRetrieveTokenMaterialResponse> {
+    return this._client.get(path`/telephony_credentials/${id}/token_material`, options);
+  }
+
+  /**
+   * Mints a WebRTC login token for the credential locally: the same use as
+   * `createToken`, with no request to Telnyx per token. Uses the
+   * `token_material` of a credential from `create`, or `tokenMaterial` from the
+   * options, or fetches it once with `retrieveTokenMaterial`.
+   *
+   * `ttl` is the token lifetime in seconds, 1..86400, default one hour.
+   *
+   * @example
+   * ```ts
+   * const { data: credential } = await client.telephonyCredentials.create({
+   *   connection_id: '1234567890',
+   * });
+   * const loginToken = await client.telephonyCredentials.toJwt(credential);
+   * ```
+   */
+  async toJwt(
+    credential: TelephonyCredential,
+    options?: LoginTokenOptions & { requestOptions?: RequestOptions | undefined },
+  ): Promise<string> {
+    const { requestOptions, ...tokenOptions } = options ?? {};
+    const tokenMaterial =
+      tokenOptions.tokenMaterial ??
+      credential.token_material ??
+      (await this.retrieveTokenMaterial(credential.id ?? '', requestOptions)).data;
+    return createLoginToken(credential, { ...tokenOptions, tokenMaterial });
   }
 
   /**
@@ -175,6 +228,16 @@ export interface TelephonyCredential {
    * Identifies the user this credential is associated with.
    */
   user_id?: string;
+
+  /**
+   * What a login token is signed with. Returned by `create`; see `toJwt` and
+   * `retrieveTokenMaterial`.
+   */
+  token_material?: TokenMaterial;
+}
+
+export interface TelephonyCredentialRetrieveTokenMaterialResponse {
+  data?: TokenMaterial;
 }
 
 export interface TelephonyCredentialCreateResponse {
@@ -238,6 +301,12 @@ export namespace TelephonyCredentialListParams {
 
 export interface TelephonyCredentialCreateParams {
   /**
+   * Query param: extra fields to return. `token_material` adds what `toJwt` signs
+   * with (as sensitive as `sip_password`; keep it on the server).
+   */
+  include?: 'token_material' | undefined;
+
+  /**
    * Identifies the Credential Connection this credential is associated with.
    */
   connection_id: string;
@@ -284,6 +353,8 @@ export interface TelephonyCredentialCreateTokenParams {
   'Idempotency-Key'?: string;
 }
 
+export type { LoginTokenOptions, TokenMaterial } from '../lib/login-token';
+
 export declare namespace TelephonyCredentials {
   export {
     type TelephonyCredential as TelephonyCredential,
@@ -292,6 +363,8 @@ export declare namespace TelephonyCredentials {
     type TelephonyCredentialUpdateResponse as TelephonyCredentialUpdateResponse,
     type TelephonyCredentialDeleteResponse as TelephonyCredentialDeleteResponse,
     type TelephonyCredentialCreateTokenResponse as TelephonyCredentialCreateTokenResponse,
+    type TelephonyCredentialRetrieveTokenMaterialResponse as TelephonyCredentialRetrieveTokenMaterialResponse,
+    type TokenMaterial as TokenMaterial,
     type TelephonyCredentialsDefaultFlatPagination as TelephonyCredentialsDefaultFlatPagination,
     type TelephonyCredentialListParams as TelephonyCredentialListParams,
     type TelephonyCredentialCreateParams as TelephonyCredentialCreateParams,
