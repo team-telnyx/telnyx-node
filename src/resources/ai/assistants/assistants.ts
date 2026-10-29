@@ -3363,6 +3363,15 @@ export interface TelephonySettings {
   fallback_destination?: string;
 
   /**
+   * Milliseconds to wait after an inbound call is answered before the assistant
+   * starts and speaks its greeting. Increase it if the beginning of the greeting is
+   * cut off on some connections (for example, WebRTC calls). When unset (`null`),
+   * the platform default of 250 ms is used. Set to `0` to start without a delay.
+   * Maximum 2000.
+   */
+  greeting_delay_ms?: number | null;
+
+  /**
    * The noise suppression engine to use. 'aicoustics' is STT-optimized and
    * recommended for AI assistants (configure through noise_suppression_config). Use
    * 'disabled' to turn off noise suppression.
