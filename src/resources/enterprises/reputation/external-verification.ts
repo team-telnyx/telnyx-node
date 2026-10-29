@@ -1,7 +1,6 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../../core/resource';
-import * as ExternalVerificationAPI from './external-verification';
 import { APIPromise } from '../../../core/api-promise';
 import { RequestOptions } from '../../../internal/request-options';
 import { path } from '../../../internal/utils/path';
@@ -9,7 +8,7 @@ import { path } from '../../../internal/utils/path';
 /**
  * Phone-number reputation monitoring (spam-score lookup and tracking).
  */
-export class ExternalVerification extends APIResource {
+export class ExternalVerificationResource extends APIResource {
   /**
    * Get the review status of the enterprise's ownership proof for phone numbers
    * hosted with another provider. Returns 404 when no proof has been submitted.
@@ -58,6 +57,35 @@ export class ExternalVerification extends APIResource {
   }
 }
 
+export interface ExternalVerification {
+  /**
+   * The ownership-proof documents on file.
+   */
+  document_ids?: Array<string>;
+
+  enterprise_id?: string;
+
+  /**
+   * The phone numbers you listed with the documents.
+   */
+  phone_numbers?: Array<string>;
+
+  /**
+   * Why the proof was rejected. Set only when `status` is `rejected`.
+   */
+  rejection_reason?: string | null;
+
+  reviewed_at?: string | null;
+
+  /**
+   * Review state of the ownership proof that allows adding phone numbers hosted with
+   * another provider.
+   */
+  status?: ExternalVerificationStatus;
+
+  submitted_at?: string | null;
+}
+
 /**
  * Review state of the ownership proof that allows adding phone numbers hosted with
  * another provider.
@@ -65,38 +93,7 @@ export class ExternalVerification extends APIResource {
 export type ExternalVerificationStatus = 'pending' | 'approved' | 'rejected';
 
 export interface ExternalVerificationWrapped {
-  data: ExternalVerificationWrapped.Data;
-}
-
-export namespace ExternalVerificationWrapped {
-  export interface Data {
-    /**
-     * The ownership-proof documents on file.
-     */
-    document_ids?: Array<string>;
-
-    enterprise_id?: string;
-
-    /**
-     * The phone numbers you listed with the documents.
-     */
-    phone_numbers?: Array<string>;
-
-    /**
-     * Why the proof was rejected. Set only when `status` is `rejected`.
-     */
-    rejection_reason?: string | null;
-
-    reviewed_at?: string | null;
-
-    /**
-     * Review state of the ownership proof that allows adding phone numbers hosted with
-     * another provider.
-     */
-    status?: ExternalVerificationAPI.ExternalVerificationStatus;
-
-    submitted_at?: string | null;
-  }
+  data: ExternalVerification;
 }
 
 export interface ExternalVerificationCreateParams {
@@ -116,8 +113,9 @@ export interface ExternalVerificationCreateParams {
   phone_numbers?: Array<string>;
 }
 
-export declare namespace ExternalVerification {
+export declare namespace ExternalVerificationResource {
   export {
+    type ExternalVerification as ExternalVerification,
     type ExternalVerificationStatus as ExternalVerificationStatus,
     type ExternalVerificationWrapped as ExternalVerificationWrapped,
     type ExternalVerificationCreateParams as ExternalVerificationCreateParams,

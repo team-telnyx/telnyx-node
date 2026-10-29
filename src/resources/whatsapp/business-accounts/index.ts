@@ -9,10 +9,8 @@ export {
 } from './business-accounts';
 export {
   PhoneNumbers,
-  type PhoneNumberListResponse,
   type PhoneNumberListParams,
   type PhoneNumberInitializeVerificationParams,
-  type PhoneNumberListResponsesDefaultFlatPagination,
 } from './phone-numbers';
 export {
   Settings,

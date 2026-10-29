@@ -97,10 +97,11 @@ export class DedicatedIPs extends APIResource {
     params: DedicatedIPDeleteParams | null | undefined = {},
     options?: RequestOptions,
   ): APIPromise<DedicatedIPShowResponse> {
-    const { query_drain, query_force, query_reason, ...body } = params ?? {};
+    const { query_drain, query_force, query_reason, body_drain, body_force, body_reason, ...body } =
+      params ?? {};
     return this._client.delete(path`/email/dedicated_ips/${id}`, {
       query: { drain: query_drain, force: query_force, reason: query_reason },
-      body,
+      body: { drain: body_drain, force: body_force, reason: body_reason, ...body },
       ...options,
     });
   }

@@ -75,7 +75,7 @@ describe('resource browserSessions', () => {
       policy: { allowed_domains: ['example.com'] },
       idempotency_key: 'x',
       limits: { idle_timeout_s: 30, lifetime_s: 60 },
-      metadata: {},
+      metadata: { foo: 'bar' },
     });
   });
 

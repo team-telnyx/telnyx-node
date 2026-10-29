@@ -378,7 +378,7 @@ describe('resource messages', () => {
               display_text: 'display_text',
               flow_action: 'navigate',
               flow_action_payload: {
-                data: {},
+                data: { foo: 'bar' },
                 screen: 'screen',
               },
               flow_cta: 'flow_cta',
@@ -451,7 +451,7 @@ describe('resource messages', () => {
               parameters: [
                 {
                   action: {
-                    flow_action_data: {},
+                    flow_action_data: { foo: 'bar' },
                     flow_token: 'flow_token',
                   },
                   text: 'text',

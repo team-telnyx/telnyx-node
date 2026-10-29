@@ -24,6 +24,8 @@ export {
   Jobs,
   type NumbersPhoneNumbersJob,
   type PhoneNumbersJob,
+  type PhoneNumbersJobPendingOperation,
+  type PhoneNumbersJobSuccessfulOperation,
   type JobRetrieveResponse,
   type JobDeleteBatchResponse,
   type JobUpdateBatchResponse,

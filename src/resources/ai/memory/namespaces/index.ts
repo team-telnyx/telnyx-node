@@ -28,4 +28,10 @@ export {
   type ProfilePreviewParams,
   type ProfileListResponsesDefaultFlatPagination,
 } from './profiles/index';
-export { Settings, type NamespaceSettingsResponse, type SettingPatchAllParams } from './settings';
+export {
+  Settings,
+  type NamespaceSettings,
+  type NamespaceSettingsResponse,
+  type SummarySettings,
+  type SettingPatchAllParams,
+} from './settings';

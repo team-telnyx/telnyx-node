@@ -61,45 +61,43 @@ export class VerifyEmail extends APIResource {
   }
 }
 
+/**
+ * Verification state for an enterprise account's contact email.
+ */
+export interface EnterpriseEmailVerificationStatus {
+  /**
+   * Whether the enterprise account's contact email has been confirmed.
+   */
+  email_verified: boolean;
+
+  /**
+   * Always `email_verification`.
+   */
+  record_type: 'email_verification';
+
+  /**
+   * `sent` after a code is emailed; `verified` after a successful confirm.
+   */
+  status: 'sent' | 'verified';
+
+  /**
+   * When the code just sent stops being accepted. Present on a send response; null
+   * on a confirm response.
+   */
+  expires_at?: string | null;
+
+  /**
+   * How many more codes may be requested for this enterprise account today. Present
+   * on a send response; null on a confirm response.
+   */
+  sends_remaining_today?: number | null;
+}
+
 export interface EnterpriseEmailVerificationStatusWrapped {
   /**
    * Verification state for an enterprise account's contact email.
    */
-  data: EnterpriseEmailVerificationStatusWrapped.Data;
-}
-
-export namespace EnterpriseEmailVerificationStatusWrapped {
-  /**
-   * Verification state for an enterprise account's contact email.
-   */
-  export interface Data {
-    /**
-     * Whether the enterprise account's contact email has been confirmed.
-     */
-    email_verified: boolean;
-
-    /**
-     * Always `email_verification`.
-     */
-    record_type: 'email_verification';
-
-    /**
-     * `sent` after a code is emailed; `verified` after a successful confirm.
-     */
-    status: 'sent' | 'verified';
-
-    /**
-     * When the code just sent stops being accepted. Present on a send response; null
-     * on a confirm response.
-     */
-    expires_at?: string | null;
-
-    /**
-     * How many more codes may be requested for this enterprise account today. Present
-     * on a send response; null on a confirm response.
-     */
-    sends_remaining_today?: number | null;
-  }
+  data: EnterpriseEmailVerificationStatus;
 }
 
 export interface VerifyEmailConfirmParams {
@@ -111,6 +109,7 @@ export interface VerifyEmailConfirmParams {
 
 export declare namespace VerifyEmail {
   export {
+    type EnterpriseEmailVerificationStatus as EnterpriseEmailVerificationStatus,
     type EnterpriseEmailVerificationStatusWrapped as EnterpriseEmailVerificationStatusWrapped,
     type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
   };
