@@ -4423,11 +4423,13 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredential</a></code>
+- <code><a href="./src/resources/telephony-credentials.ts">TokenMaterial</a></code>
 - <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialCreateResponse</a></code>
 - <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialRetrieveResponse</a></code>
 - <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialUpdateResponse</a></code>
 - <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialDeleteResponse</a></code>
 - <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialCreateTokenResponse</a></code>
+- <code><a href="./src/resources/telephony-credentials.ts">TelephonyCredentialRetrieveTokenMaterialResponse</a></code>
 
 Methods:
 
@@ -4437,6 +4439,7 @@ Methods:
 - <code title="get /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">retrieve</a>(id) -> TelephonyCredentialRetrieveResponse</code>
 - <code title="patch /telephony_credentials/{id}">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">update</a>(id, { ...params }) -> TelephonyCredentialUpdateResponse</code>
 - <code title="post /telephony_credentials/{id}/token">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">createToken</a>(id, { ...params }) -> string</code>
+- <code title="get /telephony_credentials/{id}/token_material">client.telephonyCredentials.<a href="./src/resources/telephony-credentials.ts">retrieveTokenMaterial</a>(id) -> TelephonyCredentialRetrieveTokenMaterialResponse</code>
 
 # Texml
 
@@ -5571,6 +5574,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/enterprises/reputation/external-verification.ts">ExternalVerification</a></code>
 - <code><a href="./src/resources/enterprises/reputation/external-verification.ts">ExternalVerificationStatus</a></code>
 - <code><a href="./src/resources/enterprises/reputation/external-verification.ts">ExternalVerificationWrapped</a></code>
 
@@ -5590,6 +5594,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/enterprises/verify-email.ts">EnterpriseEmailVerificationStatus</a></code>
 - <code><a href="./src/resources/enterprises/verify-email.ts">EnterpriseEmailVerificationStatusWrapped</a></code>
 
 Methods:

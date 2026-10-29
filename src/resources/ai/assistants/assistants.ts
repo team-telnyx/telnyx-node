@@ -4000,9 +4000,8 @@ export interface TranscriptionSettingsConfig {
   enable_endpoint_detection?: boolean;
 
   /**
-   * @deprecated Deprecated and ignored. Accepted for backwards compatibility.
-   * AssemblyAI turn detection is configured with min_turn_silence and
-   * max_turn_silence.
+   * @deprecated Ignored. Configure AssemblyAI turn detection with min_turn_silence
+   * and max_turn_silence instead.
    */
   end_of_turn_confidence_threshold?: number;
 

@@ -338,13 +338,7 @@ export interface MessageEvent {
   occurred_at: string;
 
   /**
-   * @deprecated Bare stored event names returned by message history. In addition to
-   * the normal send and delivery lifecycle, polling can expose suppression, scan,
-   * and quarantine lifecycle rows. Sharp canonical names gw_reject,
-   * injection_timeout, and expired distinguish gateway rejection, ambiguous
-   * injection timeout, and MTA expiration. The failed and bounced names remain valid
-   * for system/admin failures and hard bounces respectively. Existing stored rows
-   * retain their original names.
+   * @deprecated Use event_type instead.
    */
   type: EmailEventsAPI.EmailEventType;
 

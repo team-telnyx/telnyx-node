@@ -3444,7 +3444,7 @@ export namespace MessageWhatsappParams {
             /**
              * input data for the first screen. Must be a non-empty object when provided
              */
-            data?: unknown;
+            data?: { [key: string]: unknown };
 
             /**
              * ID of the first screen to show
@@ -3585,7 +3585,7 @@ export namespace MessageWhatsappParams {
             /**
              * input data for the first screen of the flow
              */
-            flow_action_data?: unknown;
+            flow_action_data?: { [key: string]: unknown };
 
             /**
              * business-generated identifier for the flow session. Returned in the flow

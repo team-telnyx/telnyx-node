@@ -5,6 +5,7 @@ import * as DirAPI from './dir';
 import { Dir, DirCreateParams, DirListParams } from './dir';
 import * as VerifyEmailAPI from './verify-email';
 import {
+  EnterpriseEmailVerificationStatus,
   EnterpriseEmailVerificationStatusWrapped,
   VerifyEmail,
   VerifyEmailConfirmParams,
@@ -895,6 +896,7 @@ export declare namespace Enterprises {
 
   export {
     VerifyEmail as VerifyEmail,
+    type EnterpriseEmailVerificationStatus as EnterpriseEmailVerificationStatus,
     type EnterpriseEmailVerificationStatusWrapped as EnterpriseEmailVerificationStatusWrapped,
     type VerifyEmailConfirmParams as VerifyEmailConfirmParams,
   };

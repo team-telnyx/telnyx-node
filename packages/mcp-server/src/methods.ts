@@ -5588,6 +5588,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/telephony_credentials/{id}/token',
   },
   {
+    clientCallName: 'client.telephonyCredentials.retrieveTokenMaterial',
+    fullyQualifiedName: 'telephonyCredentials.retrieveTokenMaterial',
+    httpMethod: 'get',
+    httpPath: '/telephony_credentials/{id}/token_material',
+  },
+  {
     clientCallName: 'client.texml.secrets',
     fullyQualifiedName: 'texml.secrets',
     httpMethod: 'post',

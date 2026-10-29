@@ -1039,6 +1039,7 @@ const fuse = new Fuse(
     'client.telephonyCredentials.delete',
     'client.telephonyCredentials.list',
     'client.telephonyCredentials.retrieve',
+    'client.telephonyCredentials.retrieveTokenMaterial',
     'client.telephonyCredentials.update',
     'client.texml.initiateAICall',
     'client.texml.secrets',

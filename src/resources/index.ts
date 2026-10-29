@@ -1463,11 +1463,13 @@ export {
 export {
   TelephonyCredentials,
   type TelephonyCredential,
+  type TokenMaterial,
   type TelephonyCredentialCreateResponse,
   type TelephonyCredentialRetrieveResponse,
   type TelephonyCredentialUpdateResponse,
   type TelephonyCredentialDeleteResponse,
   type TelephonyCredentialCreateTokenResponse,
+  type TelephonyCredentialRetrieveTokenMaterialResponse,
   type TelephonyCredentialListParams,
   type TelephonyCredentialCreateParams,
   type TelephonyCredentialUpdateParams,
