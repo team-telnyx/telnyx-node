@@ -126,7 +126,7 @@ export interface Session {
 
   limits: Session.Limits;
 
-  metadata: unknown;
+  metadata: { [key: string]: unknown };
 
   policy: Session.Policy;
 
@@ -218,7 +218,7 @@ export interface BrowserSessionCreateParams {
   /**
    * Arbitrary key-value metadata.
    */
-  metadata?: unknown;
+  metadata?: { [key: string]: unknown };
 }
 
 export namespace BrowserSessionCreateParams {

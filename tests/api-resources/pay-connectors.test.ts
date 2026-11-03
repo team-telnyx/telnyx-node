@@ -69,11 +69,11 @@ describe('resource payConnectors', () => {
     const response = await client.payConnectors.create({
       config: {
         auth_type: 'none',
-        token: {},
+        token: 'token',
         endpoint_url: 'https://processor.example.com/pay',
-        password: {},
+        password: 'password',
         timeout: 1,
-        username: {},
+        username: 'username',
       },
       name: 'my-payment-connector',
       mode: 'test',

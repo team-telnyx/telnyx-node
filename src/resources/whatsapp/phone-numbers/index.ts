@@ -23,7 +23,7 @@ export {
 } from './conversational-components';
 export {
   PhoneNumbers,
-  type PhoneNumberListResponse,
+  type WhatsappPhoneResponse,
   type PhoneNumberGetResponse,
   type PhoneNumberRetrieveConversationWindowResponse,
   type PhoneNumberRetrievePhoneNumberResponse,
@@ -32,7 +32,7 @@ export {
   type PhoneNumberVerifyParams,
   type PhoneNumberRetrieveConversationWindowParams,
   type PhoneNumberGetParams,
-  type PhoneNumberListResponsesDefaultFlatPagination,
+  type WhatsappPhoneResponsesDefaultFlatPagination,
 } from './phone-numbers';
 export {
   Profile,

@@ -853,6 +853,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/ai/conversations/{conversation_id}/message',
   },
   {
+    clientCallName: 'client.ai.conversations.deleteDelete',
+    fullyQualifiedName: 'ai.conversations.deleteDelete',
+    httpMethod: 'delete',
+    httpPath: '/ai/conversations/{conversation_id}/conversations-insights/{insight_id}',
+  },
+  {
     clientCallName: 'client.ai.conversations.insightGroups.retrieveInsightGroups',
     fullyQualifiedName: 'ai.conversations.insightGroups.retrieveInsightGroups',
     httpMethod: 'get',
@@ -5586,6 +5592,12 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'telephonyCredentials.createToken',
     httpMethod: 'post',
     httpPath: '/telephony_credentials/{id}/token',
+  },
+  {
+    clientCallName: 'client.telephonyCredentials.retrieveTokenMaterial',
+    fullyQualifiedName: 'telephonyCredentials.retrieveTokenMaterial',
+    httpMethod: 'get',
+    httpPath: '/telephony_credentials/{id}/token_material',
   },
   {
     clientCallName: 'client.texml.secrets',

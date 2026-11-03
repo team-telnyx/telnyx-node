@@ -3,6 +3,11 @@
 import { APIResource } from '../core/resource';
 import * as EmailEventsAPI from './email-events';
 import { APIPromise } from '../core/api-promise';
+import {
+  EmailEventsCursorPagination,
+  type EmailEventsCursorPaginationParams,
+  PagePromise,
+} from '../core/pagination';
 import { RequestOptions } from '../internal/request-options';
 
 /**
@@ -29,8 +34,11 @@ export class EmailEvents extends APIResource {
   list(
     query: EmailEventListParams | null | undefined = {},
     options?: RequestOptions,
-  ): APIPromise<EmailEventListResponse> {
-    return this._client.get('/email_events', { query, ...options });
+  ): PagePromise<EmailEventListResponsesEmailEventsCursorPagination, EmailEventListResponse> {
+    return this._client.getAPIList('/email_events', EmailEventsCursorPagination<EmailEventListResponse>, {
+      query,
+      ...options,
+    });
   }
 
   /**
@@ -44,6 +52,9 @@ export class EmailEvents extends APIResource {
     return this._client.get('/email_events/stats', { query, ...options });
   }
 }
+
+export type EmailEventListResponsesEmailEventsCursorPagination =
+  EmailEventsCursorPagination<EmailEventListResponse>;
 
 /**
  * Bare stored event names returned by message history. In addition to the normal
@@ -95,169 +106,150 @@ export interface TimeRange {
   to: string | null;
 }
 
+/**
+ * An account-polling event. The envelope is webhook-shaped, but polling preserves
+ * stored-event cardinality: queued, sending, sandbox, cancelled, and
+ * daily_limit_exceeded message events fan out per recipient; scheduled remains one
+ * message-scoped row. Payload fields vary among recipient-scoped, message-scoped,
+ * and minimal fallback rows.
+ */
 export interface EmailEventListResponse {
-  data: Array<EmailEventListResponse.Data>;
+  /**
+   * Event UUID.
+   */
+  id: string;
 
-  meta: EmailEventListResponse.Meta;
+  /**
+   * Additive canonical outcome name, prefixed with `email.`. Gateway rejection is
+   * `email.gw_reject`, ambiguous injection timeout is `email.injection_timeout`, and
+   * MTA expiration is `email.expired`. Unchanged outcomes retain their names.
+   * Existing stored rows are translated only when recorded payload evidence proves
+   * the outcome; a legacy failed row is not guessed or sharpened.
+   */
+  canonical_event_type: string;
+
+  /**
+   * Legacy customer-visible event name, prefixed with `email.`. Gateway rejections
+   * render `email.failed`; MTA expirations render `email.bounced`. Webhook
+   * subscription allowlists match the legacy name.
+   */
+  event_type: string;
+
+  occurred_at: string;
+
+  /**
+   * Payload returned by GET /email_events. Every row includes id, status, and
+   * occurred_at. Recipient-scoped rows also include recipient_id, from, subject, and
+   * exactly one object-valued to, cc, or bcc field. Legacy or message-scoped rows
+   * can omit recipient_id and use object-valued or string-valued to/cc fields,
+   * including an empty string when no address exists; bcc is redacted. If the
+   * related message or recipient cannot be loaded, the minimal fallback can omit
+   * from, subject, and recipient fields. Additional persisted public evidence can be
+   * present.
+   */
+  payload: EmailEventListResponse.Payload;
+
+  /**
+   * Durable email recipient UUID. Present for recipient-scoped events, including
+   * each queued, sending, sandbox, cancelled, and daily_limit_exceeded fan-out
+   * event.
+   */
+  recipient_id?: string;
 }
 
 export namespace EmailEventListResponse {
   /**
-   * An account-polling event. The envelope is webhook-shaped, but polling preserves
-   * stored-event cardinality: queued, sending, sandbox, cancelled, and
-   * daily_limit_exceeded message events fan out per recipient; scheduled remains one
-   * message-scoped row. Payload fields vary among recipient-scoped, message-scoped,
-   * and minimal fallback rows.
+   * Payload returned by GET /email_events. Every row includes id, status, and
+   * occurred_at. Recipient-scoped rows also include recipient_id, from, subject, and
+   * exactly one object-valued to, cc, or bcc field. Legacy or message-scoped rows
+   * can omit recipient_id and use object-valued or string-valued to/cc fields,
+   * including an empty string when no address exists; bcc is redacted. If the
+   * related message or recipient cannot be loaded, the minimal fallback can omit
+   * from, subject, and recipient fields. Additional persisted public evidence can be
+   * present.
    */
-  export interface Data {
+  export interface Payload {
     /**
-     * Event UUID.
+     * Email message UUID.
      */
     id: string;
-
-    /**
-     * Additive canonical outcome name, prefixed with `email.`. Gateway rejection is
-     * `email.gw_reject`, ambiguous injection timeout is `email.injection_timeout`, and
-     * MTA expiration is `email.expired`. Unchanged outcomes retain their names.
-     * Existing stored rows are translated only when recorded payload evidence proves
-     * the outcome; a legacy failed row is not guessed or sharpened.
-     */
-    canonical_event_type: string;
-
-    /**
-     * Legacy customer-visible event name, prefixed with `email.`. Gateway rejections
-     * render `email.failed`; MTA expirations render `email.bounced`. Webhook
-     * subscription allowlists match the legacy name.
-     */
-    event_type: string;
 
     occurred_at: string;
 
     /**
-     * Payload returned by GET /email_events. Every row includes id, status, and
-     * occurred_at. Recipient-scoped rows also include recipient_id, from, subject, and
-     * exactly one object-valued to, cc, or bcc field. Legacy or message-scoped rows
-     * can omit recipient_id and use object-valued or string-valued to/cc fields,
-     * including an empty string when no address exists; bcc is redacted. If the
-     * related message or recipient cannot be loaded, the minimal fallback can omit
-     * from, subject, and recipient fields. Additional persisted public evidence can be
-     * present.
+     * Stored event outcome slug, not the authoritative recipient status. Account
+     * polling returns the stored name, including suppression, scan, and quarantine
+     * lifecycle names. Webhooks retain legacy payload names: gateway rejections use
+     * failed and MTA expirations use bounced. New sharp stored rows can expose
+     * gw_reject, injection_timeout, or expired. Use the envelope canonical_event_type
+     * to identify the outcome across surfaces.
      */
-    payload: Data.Payload;
+    status:
+      | 'queued'
+      | 'deferred'
+      | 'scheduled'
+      | 'cancelled'
+      | 'sandbox'
+      | 'sending'
+      | 'sent'
+      | 'failed'
+      | 'delivered'
+      | 'bounced'
+      | 'complained'
+      | 'suppressed'
+      | 'rejected'
+      | 'opened'
+      | 'clicked'
+      | 'unsubscribed'
+      | 'daily_limit_exceeded'
+      | 'scan_deferred'
+      | 'quarantined'
+      | 'quarantine_released'
+      | 'quarantine_release_dispatched'
+      | 'quarantine_rejected'
+      | 'quarantine_expired'
+      | 'gw_reject'
+      | 'injection_timeout'
+      | 'expired';
+
+    bcc?: EmailEventsAPI.EmailWebhookRecipient | 'redacted';
 
     /**
-     * Durable email recipient UUID. Present for recipient-scoped events, including
-     * each queued, sending, sandbox, cancelled, and daily_limit_exceeded fan-out
-     * event.
+     * Legacy message-scoped address, or an empty string when absent.
+     */
+    cc?: EmailEventsAPI.EmailWebhookRecipient | string;
+
+    /**
+     * Sender projection in account event polling. The display name is explicitly null
+     * when the message has no sender name.
+     */
+    from?: Payload.From;
+
+    /**
+     * Durable email recipient UUID. Present for recipient-scoped events.
      */
     recipient_id?: string;
-  }
 
-  export namespace Data {
-    /**
-     * Payload returned by GET /email_events. Every row includes id, status, and
-     * occurred_at. Recipient-scoped rows also include recipient_id, from, subject, and
-     * exactly one object-valued to, cc, or bcc field. Legacy or message-scoped rows
-     * can omit recipient_id and use object-valued or string-valued to/cc fields,
-     * including an empty string when no address exists; bcc is redacted. If the
-     * related message or recipient cannot be loaded, the minimal fallback can omit
-     * from, subject, and recipient fields. Additional persisted public evidence can be
-     * present.
-     */
-    export interface Payload {
-      /**
-       * Email message UUID.
-       */
-      id: string;
-
-      occurred_at: string;
-
-      /**
-       * Stored event outcome slug, not the authoritative recipient status. Account
-       * polling returns the stored name, including suppression, scan, and quarantine
-       * lifecycle names. Webhooks retain legacy payload names: gateway rejections use
-       * failed and MTA expirations use bounced. New sharp stored rows can expose
-       * gw_reject, injection_timeout, or expired. Use the envelope canonical_event_type
-       * to identify the outcome across surfaces.
-       */
-      status:
-        | 'queued'
-        | 'deferred'
-        | 'scheduled'
-        | 'cancelled'
-        | 'sandbox'
-        | 'sending'
-        | 'sent'
-        | 'failed'
-        | 'delivered'
-        | 'bounced'
-        | 'complained'
-        | 'suppressed'
-        | 'rejected'
-        | 'opened'
-        | 'clicked'
-        | 'unsubscribed'
-        | 'daily_limit_exceeded'
-        | 'scan_deferred'
-        | 'quarantined'
-        | 'quarantine_released'
-        | 'quarantine_release_dispatched'
-        | 'quarantine_rejected'
-        | 'quarantine_expired'
-        | 'gw_reject'
-        | 'injection_timeout'
-        | 'expired';
-
-      bcc?: EmailEventsAPI.EmailWebhookRecipient | 'redacted';
-
-      /**
-       * Legacy message-scoped address, or an empty string when absent.
-       */
-      cc?: EmailEventsAPI.EmailWebhookRecipient | string;
-
-      /**
-       * Sender projection in account event polling. The display name is explicitly null
-       * when the message has no sender name.
-       */
-      from?: Payload.From;
-
-      /**
-       * Durable email recipient UUID. Present for recipient-scoped events.
-       */
-      recipient_id?: string;
-
-      subject?: string;
-
-      /**
-       * Legacy message-scoped address, or an empty string when absent.
-       */
-      to?: EmailEventsAPI.EmailWebhookRecipient | string;
-
-      [k: string]: unknown;
-    }
-
-    export namespace Payload {
-      /**
-       * Sender projection in account event polling. The display name is explicitly null
-       * when the message has no sender name.
-       */
-      export interface From {
-        email: string;
-
-        name: string | null;
-      }
-    }
-  }
-
-  export interface Meta {
-    page_size: number;
-
-    time_range: EmailEventsAPI.TimeRange;
+    subject?: string;
 
     /**
-     * Cursor for the next page, when more results are available.
+     * Legacy message-scoped address, or an empty string when absent.
      */
-    page_cursor?: string;
+    to?: EmailEventsAPI.EmailWebhookRecipient | string;
+
+    [k: string]: unknown;
+  }
+
+  export namespace Payload {
+    /**
+     * Sender projection in account event polling. The display name is explicitly null
+     * when the message has no sender name.
+     */
+    export interface From {
+      email: string;
+
+      name: string | null;
+    }
   }
 }
 
@@ -356,7 +348,7 @@ export namespace EmailEventRetrieveStatsResponse {
   }
 }
 
-export interface EmailEventListParams {
+export interface EmailEventListParams extends EmailEventsCursorPaginationParams {
   /**
    * Filter events for a specific email message UUID. Invalid UUID values are
    * silently ignored (no filter applied).
@@ -387,18 +379,6 @@ export interface EmailEventListParams {
   from?: string;
 
   /**
-   * Number of results to return. Defaults to 25; maximum is 100. Invalid values are
-   * clamped to the valid range.
-   */
-  page_size?: number;
-
-  /**
-   * Opaque URL-safe Base64 cursor returned by a previous event list response. The
-   * legacy `page[after]` and flat `page_cursor` forms are also accepted.
-   */
-  'page[cursor]'?: string;
-
-  /**
    * Inclusive ISO 8601 end timestamp. When `from` is provided without `to`, defaults
    * to `from + 30 days`.
    */
@@ -425,6 +405,7 @@ export declare namespace EmailEvents {
     type TimeRange as TimeRange,
     type EmailEventListResponse as EmailEventListResponse,
     type EmailEventRetrieveStatsResponse as EmailEventRetrieveStatsResponse,
+    type EmailEventListResponsesEmailEventsCursorPagination as EmailEventListResponsesEmailEventsCursorPagination,
     type EmailEventListParams as EmailEventListParams,
     type EmailEventRetrieveStatsParams as EmailEventRetrieveStatsParams,
   };

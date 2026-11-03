@@ -416,10 +416,12 @@ export interface ProfileDeleteParams {
   namespace: string;
 }
 
-export type ProfileIngestParams = ProfileIngestParams.Variant0 | ProfileIngestParams.Variant1;
+export type ProfileIngestParams =
+  | ProfileIngestParams.IngestPayloadObject
+  | ProfileIngestParams.IngestPayloadValue;
 
 export declare namespace ProfileIngestParams {
-  export interface Variant0 {
+  export interface IngestPayloadObject {
     /**
      * Path param
      */
@@ -438,7 +440,7 @@ export declare namespace ProfileIngestParams {
     session_id?: string | null;
   }
 
-  export interface Variant1 {
+  export interface IngestPayloadValue {
     /**
      * Path param
      */

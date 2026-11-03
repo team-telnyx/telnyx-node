@@ -124,7 +124,9 @@ import {
   TelnyxAvatarSettings,
   ToolNode,
   ToolNodeReq,
+  TranscriptionChallenger,
   TranscriptionEndpointingPlan,
+  TranscriptionFallbackModel,
   TranscriptionSettings,
   TranscriptionSettingsConfig,
   TransferTool,
@@ -148,6 +150,7 @@ import {
   Conversation,
   ConversationAddMessageParams,
   ConversationCreateParams,
+  ConversationDeleteDeleteParams,
   ConversationListParams,
   ConversationListResponse,
   ConversationRetrieveConversationsInsightsResponse,
@@ -402,6 +405,12 @@ export interface ModelMetadata {
    * models.
    */
   base_model?: string | null;
+
+  /**
+   * Whether the model is in beta. New Telnyx-hosted models launch with `beta: true`;
+   * the label is removed once the model is established.
+   */
+  beta?: boolean;
 
   /**
    * Short, human-readable summary of what the model is best suited for.
@@ -741,7 +750,9 @@ export declare namespace AI {
     type TelnyxAvatarSettings as TelnyxAvatarSettings,
     type ToolNode as ToolNode,
     type ToolNodeReq as ToolNodeReq,
+    type TranscriptionChallenger as TranscriptionChallenger,
     type TranscriptionEndpointingPlan as TranscriptionEndpointingPlan,
+    type TranscriptionFallbackModel as TranscriptionFallbackModel,
     type TranscriptionSettings as TranscriptionSettings,
     type TranscriptionSettingsConfig as TranscriptionSettingsConfig,
     type TransferTool as TransferTool,
@@ -808,6 +819,7 @@ export declare namespace AI {
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationAddMessageParams as ConversationAddMessageParams,
+    type ConversationDeleteDeleteParams as ConversationDeleteDeleteParams,
   };
 
   export {

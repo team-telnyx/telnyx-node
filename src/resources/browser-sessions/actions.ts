@@ -80,7 +80,7 @@ export interface ActionResponse {
    * Normalized request metadata; defaults may be materialized and fill values are
    * redacted as {redacted: true, length: number}, including inside batch actions.
    */
-  request: unknown;
+  request: { [key: string]: unknown };
 
   result: ActionResponse.Result | null;
 
@@ -131,7 +131,7 @@ export namespace ActionResponse {
     /**
      * Present only for batch actions.
      */
-    results?: Array<unknown>;
+    results?: Array<{ [key: string]: unknown }>;
 
     title?: string;
 
@@ -162,7 +162,7 @@ export namespace ActionResponse {
        */
       ref_count?: number;
 
-      refs?: unknown;
+      refs?: { [key: string]: unknown };
 
       title?: string;
 
@@ -313,7 +313,7 @@ export interface WaitForAction {
     | WaitForAction.UnionMember0
     | WaitForAction.UnionMember1
     | WaitForAction.UnionMember2
-    | WaitForAction.Kind;
+    | WaitForAction.UnionMember3;
 
   type: 'wait_for';
 
@@ -345,7 +345,7 @@ export namespace WaitForAction {
     text: string;
   }
 
-  export interface Kind {
+  export interface UnionMember3 {
     kind: 'dom_stable';
   }
 }
@@ -658,7 +658,7 @@ export declare namespace ActionCreateParams {
       | WaitForAction.UnionMember0
       | WaitForAction.UnionMember1
       | WaitForAction.UnionMember2
-      | WaitForAction.Kind;
+      | WaitForAction.UnionMember3;
 
     /**
      * Body param
@@ -709,7 +709,7 @@ export declare namespace ActionCreateParams {
       text: string;
     }
 
-    export interface Kind {
+    export interface UnionMember3 {
       kind: 'dom_stable';
     }
   }

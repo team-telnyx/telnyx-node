@@ -60,7 +60,7 @@ export class PhoneNumbers extends APIResource {
    * @example
    * ```ts
    * // Automatically fetches more pages as needed.
-   * for await (const phoneNumberListResponse of client.whatsapp.phoneNumbers.list()) {
+   * for await (const whatsappPhoneResponse of client.whatsapp.phoneNumbers.list()) {
    *   // ...
    * }
    * ```
@@ -68,10 +68,10 @@ export class PhoneNumbers extends APIResource {
   list(
     query: PhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
-  ): PagePromise<PhoneNumberListResponsesDefaultFlatPagination, PhoneNumberListResponse> {
+  ): PagePromise<WhatsappPhoneResponsesDefaultFlatPagination, WhatsappPhoneResponse> {
     return this._client.getAPIList(
       '/v2/whatsapp/phone_numbers',
-      DefaultFlatPagination<PhoneNumberListResponse>,
+      DefaultFlatPagination<WhatsappPhoneResponse>,
       { query, ...options },
     );
   }
@@ -194,9 +194,9 @@ export class PhoneNumbers extends APIResource {
   }
 }
 
-export type PhoneNumberListResponsesDefaultFlatPagination = DefaultFlatPagination<PhoneNumberListResponse>;
+export type WhatsappPhoneResponsesDefaultFlatPagination = DefaultFlatPagination<WhatsappPhoneResponse>;
 
-export interface PhoneNumberListResponse {
+export interface WhatsappPhoneResponse {
   calling_enabled?: boolean;
 
   /**
@@ -256,7 +256,7 @@ export interface PhoneNumberListResponse {
    * Synchronization progress. This object is returned only while a coexistence
    * number is synchronizing.
    */
-  sync_progress?: PhoneNumberListResponse.SyncProgress | null;
+  sync_progress?: WhatsappPhoneResponse.SyncProgress | null;
 
   /**
    * User ID
@@ -269,7 +269,7 @@ export interface PhoneNumberListResponse {
   waba_id?: string;
 }
 
-export namespace PhoneNumberListResponse {
+export namespace WhatsappPhoneResponse {
   /**
    * Synchronization progress. This object is returned only while a coexistence
    * number is synchronizing.
@@ -288,102 +288,9 @@ export namespace PhoneNumberListResponse {
 }
 
 export interface PhoneNumberGetResponse {
-  data?: Array<PhoneNumberGetResponse.Data>;
+  data?: Array<WhatsappPhoneResponse>;
 
   meta?: Shared.MessagingPaginationMeta;
-}
-
-export namespace PhoneNumberGetResponse {
-  export interface Data {
-    calling_enabled?: boolean;
-
-    /**
-     * Current lifecycle state for a coexistence number. This is null for a standard
-     * Cloud API number.
-     */
-    coexistence_state?:
-      | 'pending_onboarding'
-      | 'sync_pending'
-      | 'syncing'
-      | 'sync_complete'
-      | 'active'
-      | 'history_declined'
-      | 'sync_deadline_expired'
-      | 'offboarded'
-      | 'disconnected'
-      | null;
-
-    created_at?: string;
-
-    display_name?: string;
-
-    enabled?: boolean;
-
-    /**
-     * Indicates whether the number is connected to both the WhatsApp Business app and
-     * Cloud API through WhatsApp Coexistence.
-     */
-    is_on_biz_app?: boolean;
-
-    /**
-     * Phone number in E164 format
-     */
-    phone_number?: string;
-
-    /**
-     * Whatsapp phone number ID
-     */
-    phone_number_id?: string;
-
-    /**
-     * Whatsapp quality rating
-     */
-    quality_rating?: string;
-
-    record_type?: string;
-
-    status?: string;
-
-    /**
-     * Deadline for initiating the current coexistence synchronization cycle. This is
-     * null when no deadline applies.
-     */
-    sync_deadline?: string | null;
-
-    /**
-     * Synchronization progress. This object is returned only while a coexistence
-     * number is synchronizing.
-     */
-    sync_progress?: Data.SyncProgress | null;
-
-    /**
-     * User ID
-     */
-    user_id?: string;
-
-    /**
-     * WABA ID of Whatsapp business account
-     */
-    waba_id?: string;
-  }
-
-  export namespace Data {
-    /**
-     * Synchronization progress. This object is returned only while a coexistence
-     * number is synchronizing.
-     */
-    export interface SyncProgress {
-      contacts_status?: string;
-
-      history_chunk_order?: number | null;
-
-      history_phase?: number | null;
-
-      history_progress?: number | null;
-
-      history_status?: string;
-    }
-  }
 }
 
 export interface PhoneNumberRetrieveConversationWindowResponse {
@@ -415,100 +322,7 @@ export namespace PhoneNumberRetrieveConversationWindowResponse {
 }
 
 export interface PhoneNumberRetrievePhoneNumberResponse {
-  data: PhoneNumberRetrievePhoneNumberResponse.Data;
-}
-
-export namespace PhoneNumberRetrievePhoneNumberResponse {
-  export interface Data {
-    calling_enabled?: boolean;
-
-    /**
-     * Current lifecycle state for a coexistence number. This is null for a standard
-     * Cloud API number.
-     */
-    coexistence_state?:
-      | 'pending_onboarding'
-      | 'sync_pending'
-      | 'syncing'
-      | 'sync_complete'
-      | 'active'
-      | 'history_declined'
-      | 'sync_deadline_expired'
-      | 'offboarded'
-      | 'disconnected'
-      | null;
-
-    created_at?: string;
-
-    display_name?: string;
-
-    enabled?: boolean;
-
-    /**
-     * Indicates whether the number is connected to both the WhatsApp Business app and
-     * Cloud API through WhatsApp Coexistence.
-     */
-    is_on_biz_app?: boolean;
-
-    /**
-     * Phone number in E164 format
-     */
-    phone_number?: string;
-
-    /**
-     * Whatsapp phone number ID
-     */
-    phone_number_id?: string;
-
-    /**
-     * Whatsapp quality rating
-     */
-    quality_rating?: string;
-
-    record_type?: string;
-
-    status?: string;
-
-    /**
-     * Deadline for initiating the current coexistence synchronization cycle. This is
-     * null when no deadline applies.
-     */
-    sync_deadline?: string | null;
-
-    /**
-     * Synchronization progress. This object is returned only while a coexistence
-     * number is synchronizing.
-     */
-    sync_progress?: Data.SyncProgress | null;
-
-    /**
-     * User ID
-     */
-    user_id?: string;
-
-    /**
-     * WABA ID of Whatsapp business account
-     */
-    waba_id?: string;
-  }
-
-  export namespace Data {
-    /**
-     * Synchronization progress. This object is returned only while a coexistence
-     * number is synchronizing.
-     */
-    export interface SyncProgress {
-      contacts_status?: string;
-
-      history_chunk_order?: number | null;
-
-      history_phase?: number | null;
-
-      history_progress?: number | null;
-
-      history_status?: string;
-    }
-  }
+  data: WhatsappPhoneResponse;
 }
 
 export interface PhoneNumberListParams extends DefaultFlatPaginationParams {}
@@ -541,11 +355,11 @@ PhoneNumbers.CallingRouting = CallingRouting;
 
 export declare namespace PhoneNumbers {
   export {
-    type PhoneNumberListResponse as PhoneNumberListResponse,
+    type WhatsappPhoneResponse as WhatsappPhoneResponse,
     type PhoneNumberGetResponse as PhoneNumberGetResponse,
     type PhoneNumberRetrieveConversationWindowResponse as PhoneNumberRetrieveConversationWindowResponse,
     type PhoneNumberRetrievePhoneNumberResponse as PhoneNumberRetrievePhoneNumberResponse,
-    type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
+    type WhatsappPhoneResponsesDefaultFlatPagination as WhatsappPhoneResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,

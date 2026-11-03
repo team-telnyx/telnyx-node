@@ -157,7 +157,7 @@ export namespace GenericPayConnectorConfig {
      * Nonblank string required for bearer authentication. Write-only; omitted from
      * responses. Re-send when replacing a bearer-auth config.
      */
-    token?: unknown;
+    token?: string;
 
     auth_type?: 'basic';
 
@@ -192,7 +192,7 @@ export namespace GenericPayConnectorConfig {
      * Nonblank string required for basic authentication. Write-only; omitted from
      * responses. Re-send when replacing a basic-auth config.
      */
-    password?: unknown;
+    password?: string;
 
     /**
      * Processor HTTP timeout in milliseconds. Omitted or null uses 10000; null is
@@ -204,7 +204,7 @@ export namespace GenericPayConnectorConfig {
      * Nonblank string required for basic authentication. Returned in connector
      * responses.
      */
-    username?: unknown;
+    username?: string;
   }
 
   export interface NoProcessorAuthentication {
@@ -214,7 +214,7 @@ export namespace GenericPayConnectorConfig {
      * Nonblank string required for bearer authentication. Write-only; omitted from
      * responses. Re-send when replacing a bearer-auth config.
      */
-    token?: unknown;
+    token?: string;
 
     /**
      * HTTP or HTTPS processor URL with a host. Use HTTPS to protect payment data in
@@ -226,7 +226,7 @@ export namespace GenericPayConnectorConfig {
      * Nonblank string required for basic authentication. Write-only; omitted from
      * responses. Re-send when replacing a basic-auth config.
      */
-    password?: unknown;
+    password?: string;
 
     /**
      * Processor HTTP timeout in milliseconds. Omitted or null uses 10000; null is
@@ -238,7 +238,7 @@ export namespace GenericPayConnectorConfig {
      * Nonblank string required for basic authentication. Returned in connector
      * responses.
      */
-    username?: unknown;
+    username?: string;
   }
 }
 
@@ -330,7 +330,7 @@ export namespace PayConnector {
      * Stored username, when supplied. Required to be a nonblank string for basic
      * authentication.
      */
-    username?: unknown;
+    username?: string;
   }
 }
 

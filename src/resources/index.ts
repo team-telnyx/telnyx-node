@@ -410,6 +410,7 @@ export {
   type EmailEventRetrieveStatsResponse,
   type EmailEventListParams,
   type EmailEventRetrieveStatsParams,
+  type EmailEventListResponsesEmailEventsCursorPagination,
 } from './email-events';
 export {
   EmailInboxes,
@@ -442,6 +443,7 @@ export {
   type EmailTemplateCommon,
   type EmailTemplateResponse,
   type UpdateEmailTemplateRequest,
+  type VariableSchemaEntry,
   type EmailTemplateRenderResponse,
   type EmailTemplateListParams,
   type EmailTemplateCreateParams,
@@ -1462,11 +1464,13 @@ export {
 export {
   TelephonyCredentials,
   type TelephonyCredential,
+  type TokenMaterial,
   type TelephonyCredentialCreateResponse,
   type TelephonyCredentialRetrieveResponse,
   type TelephonyCredentialUpdateResponse,
   type TelephonyCredentialDeleteResponse,
   type TelephonyCredentialCreateTokenResponse,
+  type TelephonyCredentialRetrieveTokenMaterialResponse,
   type TelephonyCredentialListParams,
   type TelephonyCredentialCreateParams,
   type TelephonyCredentialUpdateParams,
@@ -1524,7 +1528,6 @@ export {
   type TrafficPolicyProfilesDefaultFlatPagination,
   type TrafficPolicyProfileListServicesResponsesDefaultFlatPagination,
 } from './traffic-policy-profiles';
-export { TtsIntegrations } from './tts-integrations/tts-integrations';
 export {
   Tunnels,
   type Tunnel,

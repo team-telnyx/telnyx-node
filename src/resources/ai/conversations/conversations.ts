@@ -93,7 +93,11 @@ export class Conversations extends APIResource {
   }
 
   /**
-   * Delete a specific conversation by its ID.
+   * Delete a specific conversation by its ID. Permanently deletes the conversation
+   * and its associated data: the conversation's messages, its insight generation
+   * results, any conversation memories, and its webhook request logs. Recordings are
+   * not deleted — recordings are managed separately through the /v2/recordings
+   * endpoints. This action cannot be undone.
    *
    * @example
    * ```ts
@@ -191,6 +195,32 @@ export class Conversations extends APIResource {
         options?.headers,
       ]),
     });
+  }
+
+  /**
+   * Delete one insight generation request for a conversation. Generation results are
+   * stored per conversation and per insight template; deleting a request permanently
+   * removes the stored result but does not stop insight generation from running
+   * again. To remove every insight result for the conversation, delete the
+   * conversation itself. A successful delete returns an empty response.
+   *
+   * @example
+   * ```ts
+   * await client.ai.conversations.deleteDelete('insight_id', {
+   *   conversation_id: 'conversation_id',
+   * });
+   * ```
+   */
+  deleteDelete(
+    insightID: string,
+    params: ConversationDeleteDeleteParams,
+    options?: RequestOptions,
+  ): APIPromise<void> {
+    const { conversation_id } = params;
+    return this._client.delete(
+      path`/ai/conversations/${conversation_id}/conversations-insights/${insightID}`,
+      { ...options, headers: buildHeaders([{ Accept: '*/*' }, options?.headers]) },
+    );
   }
 }
 
@@ -442,6 +472,13 @@ export interface ConversationAddMessageParams {
   'Idempotency-Key'?: string;
 }
 
+export interface ConversationDeleteDeleteParams {
+  /**
+   * Unique identifier of the conversation.
+   */
+  conversation_id: string;
+}
+
 Conversations.InsightGroups = InsightGroups;
 Conversations.Insights = Insights;
 Conversations.Messages = Messages;
@@ -458,6 +495,7 @@ export declare namespace Conversations {
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationAddMessageParams as ConversationAddMessageParams,
+    type ConversationDeleteDeleteParams as ConversationDeleteDeleteParams,
   };
 
   export {

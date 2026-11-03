@@ -663,6 +663,64 @@ export class EmailCursorPagination<Item>
   }
 }
 
+export interface EmailEventsCursorPaginationResponse<Item> {
+  data: Array<Item>;
+
+  meta: EmailEventsCursorPaginationResponse.Meta;
+}
+
+export namespace EmailEventsCursorPaginationResponse {
+  export interface Meta {
+    page_cursor?: string;
+  }
+}
+
+export interface EmailEventsCursorPaginationParams {
+  'page[cursor]'?: string;
+
+  page_size?: number;
+}
+
+export class EmailEventsCursorPagination<Item>
+  extends AbstractPage<Item>
+  implements EmailEventsCursorPaginationResponse<Item>
+{
+  data: Array<Item>;
+
+  meta: EmailEventsCursorPaginationResponse.Meta;
+
+  constructor(
+    client: Telnyx,
+    response: Response,
+    body: EmailEventsCursorPaginationResponse<Item>,
+    options: FinalRequestOptions,
+  ) {
+    super(client, response, body, options);
+
+    this.data = body.data || [];
+    this.meta = body.meta || {};
+  }
+
+  getPaginatedItems(): Item[] {
+    return this.data ?? [];
+  }
+
+  nextPageRequestOptions(): PageRequestOptions | null {
+    const cursor = this.meta?.page_cursor;
+    if (!cursor) {
+      return null;
+    }
+
+    return {
+      ...this.options,
+      query: {
+        ...maybeObj(this.options.query),
+        'page[cursor]': cursor,
+      },
+    };
+  }
+}
+
 export interface EmailBracketCursorPaginationResponse<Item> {
   data: Array<Item>;
 

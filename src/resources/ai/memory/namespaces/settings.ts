@@ -57,41 +57,37 @@ export class Settings extends APIResource {
   }
 }
 
+/**
+ * A namespace's settings, grouped by what they affect.
+ */
+export interface NamespaceSettings {
+  /**
+   * Settings that shape this namespace's summaries.
+   */
+  summary?: SummarySettings;
+}
+
 export interface NamespaceSettingsResponse {
   /**
    * A namespace's settings, grouped by what they affect.
    */
-  data: NamespaceSettingsResponse.Data;
+  data: NamespaceSettings;
 }
 
-export namespace NamespaceSettingsResponse {
+/**
+ * A namespace's summary settings, shared by every profile in it.
+ */
+export interface SummarySettings {
   /**
-   * A namespace's settings, grouped by what they affect.
+   * Free-form instructions that influence how this namespace's summaries are
+   * written, shared by every profile in the namespace. How you use them is up to you
+   * -- they steer the outcome, so try a phrasing and see how the summary comes out.
+   * Advisory: they steer the summary but never override or deny a profile's own
+   * facts, and they do not affect recall. Null or empty means none are set, and
+   * summaries use the neutral default. A change reaches each summary the next time
+   * it is regenerated.
    */
-  export interface Data {
-    /**
-     * Settings that shape this namespace's summaries.
-     */
-    summary?: Data.Summary;
-  }
-
-  export namespace Data {
-    /**
-     * Settings that shape this namespace's summaries.
-     */
-    export interface Summary {
-      /**
-       * Free-form instructions that influence how this namespace's summaries are
-       * written, shared by every profile in the namespace. How you use them is up to you
-       * -- they steer the outcome, so try a phrasing and see how the summary comes out.
-       * Advisory: they steer the summary but never override or deny a profile's own
-       * facts, and they do not affect recall. Null or empty means none are set, and
-       * summaries use the neutral default. A change reaches each summary the next time
-       * it is regenerated.
-       */
-      instructions?: string | null;
-    }
-  }
+  instructions?: string | null;
 }
 
 export interface SettingPatchAllParams {
@@ -123,7 +119,9 @@ export namespace SettingPatchAllParams {
 
 export declare namespace Settings {
   export {
+    type NamespaceSettings as NamespaceSettings,
     type NamespaceSettingsResponse as NamespaceSettingsResponse,
+    type SummarySettings as SummarySettings,
     type SettingPatchAllParams as SettingPatchAllParams,
   };
 }

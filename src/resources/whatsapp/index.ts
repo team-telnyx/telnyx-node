@@ -9,16 +9,16 @@ export {
 } from './business-accounts/index';
 export {
   HostedSignups,
+  type WhatsappHostedSignup,
   type HostedSignupCreateResponse,
   type HostedSignupRetrieveResponse,
-  type HostedSignupListResponse,
   type HostedSignupListParams,
   type HostedSignupCreateParams,
-  type HostedSignupListResponsesDefaultFlatPagination,
+  type WhatsappHostedSignupsDefaultFlatPagination,
 } from './hosted-signups';
 export {
   PhoneNumbers,
-  type PhoneNumberListResponse,
+  type WhatsappPhoneResponse,
   type PhoneNumberGetResponse,
   type PhoneNumberRetrieveConversationWindowResponse,
   type PhoneNumberRetrievePhoneNumberResponse,
@@ -27,7 +27,7 @@ export {
   type PhoneNumberVerifyParams,
   type PhoneNumberRetrieveConversationWindowParams,
   type PhoneNumberGetParams,
-  type PhoneNumberListResponsesDefaultFlatPagination,
+  type WhatsappPhoneResponsesDefaultFlatPagination,
 } from './phone-numbers/index';
 export {
   Signup,

@@ -133,4 +133,25 @@ describe('resource conversations', () => {
       'Idempotency-Key': '8e03978e-40d5-43e8-bc93-6894a57f9326',
     });
   });
+
+  // Mock server tests are disabled
+  test.skip('deleteDelete: only required params', async () => {
+    const responsePromise = client.ai.conversations.deleteDelete('insight_id', {
+      conversation_id: 'conversation_id',
+    });
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
+  });
+
+  // Mock server tests are disabled
+  test.skip('deleteDelete: required and optional params', async () => {
+    const response = await client.ai.conversations.deleteDelete('insight_id', {
+      conversation_id: 'conversation_id',
+    });
+  });
 });

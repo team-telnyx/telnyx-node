@@ -121,7 +121,7 @@ export namespace V1RetrievePersonalitiesResponse {
      */
     forked_from?: number | null;
 
-    generation_config?: unknown | null;
+    generation_config?: { [key: string]: unknown } | null;
 
     /**
      * How aggressively the personality interrupts the assistant.
@@ -131,9 +131,9 @@ export namespace V1RetrievePersonalitiesResponse {
     /**
      * Idle-timeout plan for messages during a call.
      */
-    message_plan?: unknown | null;
+    message_plan?: { [key: string]: unknown } | null;
 
-    network_simulation?: unknown | null;
+    network_simulation?: { [key: string]: unknown } | null;
 
     organization?: number | null;
 
@@ -141,9 +141,9 @@ export namespace V1RetrievePersonalitiesResponse {
 
     speed?: number | string | null;
 
-    start_speaking_plan?: number | unknown | null;
+    start_speaking_plan?: number | { [key: string]: unknown } | null;
 
-    stop_speaking_plan?: unknown | null;
+    stop_speaking_plan?: { [key: string]: unknown } | null;
 
     voice_volume?: number | null;
   }
