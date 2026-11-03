@@ -150,6 +150,7 @@ import {
   Conversation,
   ConversationAddMessageParams,
   ConversationCreateParams,
+  ConversationDeleteDeleteParams,
   ConversationListParams,
   ConversationListResponse,
   ConversationRetrieveConversationsInsightsResponse,
@@ -818,6 +819,7 @@ export declare namespace AI {
     type ConversationCreateParams as ConversationCreateParams,
     type ConversationUpdateParams as ConversationUpdateParams,
     type ConversationAddMessageParams as ConversationAddMessageParams,
+    type ConversationDeleteDeleteParams as ConversationDeleteDeleteParams,
   };
 
   export {

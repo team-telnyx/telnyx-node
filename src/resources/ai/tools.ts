@@ -195,32 +195,32 @@ export namespace PayToolParams {
     /**
      * A default prompt string or an ordered list of qualified prompts.
      */
-    'bank-account-number'?: string | Array<Prompts.UnionMember1>;
+    'bank-account-number'?: string | Array<Prompts.PayToolPromptList>;
 
     /**
      * A default prompt string or an ordered list of qualified prompts.
      */
-    'bank-routing-number'?: string | Array<Prompts.UnionMember1>;
+    'bank-routing-number'?: string | Array<Prompts.PayToolPromptList>;
 
     /**
      * A default prompt string or an ordered list of qualified prompts.
      */
-    'expiration-date'?: string | Array<Prompts.UnionMember1>;
+    'expiration-date'?: string | Array<Prompts.PayToolPromptList>;
 
     /**
      * A default prompt string or an ordered list of qualified prompts.
      */
-    'payment-card-number'?: string | Array<Prompts.UnionMember1>;
+    'payment-card-number'?: string | Array<Prompts.PayToolPromptList>;
 
     /**
      * A default prompt string or an ordered list of qualified prompts.
      */
-    'postal-code'?: string | Array<Prompts.UnionMember1>;
+    'postal-code'?: string | Array<Prompts.PayToolPromptList>;
 
     /**
      * A default prompt string or an ordered list of qualified prompts.
      */
-    'security-code'?: string | Array<Prompts.UnionMember1>;
+    'security-code'?: string | Array<Prompts.PayToolPromptList>;
   }
 
   export namespace Prompts {
@@ -228,7 +228,7 @@ export namespace PayToolParams {
      * A text-to-speech prompt with optional matching qualifiers, mirroring the Voice
      * API PayPrompt schema.
      */
-    export interface UnionMember1 {
+    export interface PayToolPromptList {
       /**
        * Text spoken for the payment collection step.
        */
@@ -275,7 +275,7 @@ export namespace PayToolParams {
      * A text-to-speech prompt with optional matching qualifiers, mirroring the Voice
      * API PayPrompt schema.
      */
-    export interface UnionMember1 {
+    export interface PayToolPromptList {
       /**
        * Text spoken for the payment collection step.
        */
@@ -322,7 +322,7 @@ export namespace PayToolParams {
      * A text-to-speech prompt with optional matching qualifiers, mirroring the Voice
      * API PayPrompt schema.
      */
-    export interface UnionMember1 {
+    export interface PayToolPromptList {
       /**
        * Text spoken for the payment collection step.
        */
@@ -369,7 +369,7 @@ export namespace PayToolParams {
      * A text-to-speech prompt with optional matching qualifiers, mirroring the Voice
      * API PayPrompt schema.
      */
-    export interface UnionMember1 {
+    export interface PayToolPromptList {
       /**
        * Text spoken for the payment collection step.
        */
@@ -416,7 +416,7 @@ export namespace PayToolParams {
      * A text-to-speech prompt with optional matching qualifiers, mirroring the Voice
      * API PayPrompt schema.
      */
-    export interface UnionMember1 {
+    export interface PayToolPromptList {
       /**
        * Text spoken for the payment collection step.
        */
@@ -463,7 +463,7 @@ export namespace PayToolParams {
      * A text-to-speech prompt with optional matching qualifiers, mirroring the Voice
      * API PayPrompt schema.
      */
-    export interface UnionMember1 {
+    export interface PayToolPromptList {
       /**
        * Text spoken for the payment collection step.
        */

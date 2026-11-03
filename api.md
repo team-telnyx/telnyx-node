@@ -940,6 +940,7 @@ Methods:
 - <code title="put /ai/conversations/{conversation_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">update</a>(conversationID, { ...params }) -> ConversationUpdateResponse</code>
 - <code title="get /ai/conversations/{conversation_id}/conversations-insights">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">retrieveConversationsInsights</a>(conversationID) -> ConversationRetrieveConversationsInsightsResponse</code>
 - <code title="post /ai/conversations/{conversation_id}/message">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">addMessage</a>(conversationID, { ...params }) -> void</code>
+- <code title="delete /ai/conversations/{conversation_id}/conversations-insights/{insight_id}">client.ai.conversations.<a href="./src/resources/ai/conversations/conversations.ts">deleteDelete</a>(insightID, { ...params }) -> void</code>
 
 ### InsightGroups
 
@@ -5924,7 +5925,7 @@ Types:
 
 Methods:
 
-- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponse</code>
+- <code title="get /email_events">client.emailEvents.<a href="./src/resources/email-events.ts">list</a>({ ...params }) -> EmailEventListResponsesEmailEventsCursorPagination</code>
 - <code title="get /email_events/stats">client.emailEvents.<a href="./src/resources/email-events.ts">retrieveStats</a>({ ...params }) -> EmailEventRetrieveStatsResponse</code>
 
 # EmailInboxes

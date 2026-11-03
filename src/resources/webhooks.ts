@@ -5002,7 +5002,7 @@ export namespace CallAnalyzedWebhookEvent {
        * retries, this field carries the placeholder string `No cost data available.`
        * instead of an object.
        */
-      cost?: Payload.UnionMember0 | string;
+      cost?: Payload.CallCostBreakdown | string;
 
       /**
        * Duration of the conversation in seconds.
@@ -5084,18 +5084,13 @@ export namespace CallAnalyzedWebhookEvent {
       }
 
       /**
-       * The session's cost breakdown from Session Analysis, covering every product
-       * billed on the call: the AI Voice Assistant engine minutes
-       * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
-       * SIP trunking, and recording lines. If cost data could not be retrieved after
-       * retries, this field carries the placeholder string `No cost data available.`
-       * instead of an object.
+       * The itemized cost of the call.
        */
-      export interface UnionMember0 {
+      export interface CallCostBreakdown {
         /**
          * Cost lines grouped by product.
          */
-        breakdown?: Array<UnionMember0.Breakdown>;
+        breakdown?: Array<CallCostBreakdown.Breakdown>;
 
         /**
          * The currency of the cost amounts.
@@ -5108,7 +5103,7 @@ export namespace CallAnalyzedWebhookEvent {
         total?: string;
       }
 
-      export namespace UnionMember0 {
+      export namespace CallCostBreakdown {
         export interface Breakdown {
           /**
            * Total cost for this product across the call, in the currency given by
@@ -7346,7 +7341,7 @@ export namespace CallAnalyzedWebhookEvent {
        * retries, this field carries the placeholder string `No cost data available.`
        * instead of an object.
        */
-      cost?: Payload.UnionMember0 | string;
+      cost?: Payload.CallCostBreakdown | string;
 
       /**
        * Duration of the conversation in seconds.
@@ -7428,18 +7423,13 @@ export namespace CallAnalyzedWebhookEvent {
       }
 
       /**
-       * The session's cost breakdown from Session Analysis, covering every product
-       * billed on the call: the AI Voice Assistant engine minutes
-       * (`ai-voice-assistant`), LLM inference tokens (`inference`), and call-control,
-       * SIP trunking, and recording lines. If cost data could not be retrieved after
-       * retries, this field carries the placeholder string `No cost data available.`
-       * instead of an object.
+       * The itemized cost of the call.
        */
-      export interface UnionMember0 {
+      export interface CallCostBreakdown {
         /**
          * Cost lines grouped by product.
          */
-        breakdown?: Array<UnionMember0.Breakdown>;
+        breakdown?: Array<CallCostBreakdown.Breakdown>;
 
         /**
          * The currency of the cost amounts.
@@ -7452,7 +7442,7 @@ export namespace CallAnalyzedWebhookEvent {
         total?: string;
       }
 
-      export namespace UnionMember0 {
+      export namespace CallCostBreakdown {
         export interface Breakdown {
           /**
            * Total cost for this product across the call, in the currency given by

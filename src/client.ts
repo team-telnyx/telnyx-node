@@ -37,6 +37,8 @@ import {
   EmailBracketCursorPaginationResponse,
   type EmailCursorPaginationParams,
   EmailCursorPaginationResponse,
+  type EmailEventsCursorPaginationParams,
+  EmailEventsCursorPaginationResponse,
   type PerPagePaginationParams,
   PerPagePaginationResponse,
   type PerPagePaginationV2Params,
@@ -303,6 +305,7 @@ import {
 import {
   EmailEventListParams,
   EmailEventListResponse,
+  EmailEventListResponsesEmailEventsCursorPagination,
   EmailEventRetrieveStatsParams,
   EmailEventRetrieveStatsResponse,
   EmailEventType,
@@ -3701,6 +3704,12 @@ export declare namespace Telnyx {
     type EmailCursorPaginationResponse as EmailCursorPaginationResponse,
   };
 
+  export import EmailEventsCursorPagination = Pagination.EmailEventsCursorPagination;
+  export {
+    type EmailEventsCursorPaginationParams as EmailEventsCursorPaginationParams,
+    type EmailEventsCursorPaginationResponse as EmailEventsCursorPaginationResponse,
+  };
+
   export import EmailBracketCursorPagination = Pagination.EmailBracketCursorPagination;
   export {
     type EmailBracketCursorPaginationParams as EmailBracketCursorPaginationParams,
@@ -5602,6 +5611,7 @@ export declare namespace Telnyx {
     type TimeRange as TimeRange,
     type EmailEventListResponse as EmailEventListResponse,
     type EmailEventRetrieveStatsResponse as EmailEventRetrieveStatsResponse,
+    type EmailEventListResponsesEmailEventsCursorPagination as EmailEventListResponsesEmailEventsCursorPagination,
     type EmailEventListParams as EmailEventListParams,
     type EmailEventRetrieveStatsParams as EmailEventRetrieveStatsParams,
   };

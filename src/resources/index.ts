@@ -410,6 +410,7 @@ export {
   type EmailEventRetrieveStatsResponse,
   type EmailEventListParams,
   type EmailEventRetrieveStatsParams,
+  type EmailEventListResponsesEmailEventsCursorPagination,
 } from './email-events';
 export {
   EmailInboxes,

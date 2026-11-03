@@ -246,6 +246,7 @@ const fuse = new Fuse(
     'client.ai.conversations.addMessage',
     'client.ai.conversations.create',
     'client.ai.conversations.delete',
+    'client.ai.conversations.deleteDelete',
     'client.ai.conversations.list',
     'client.ai.conversations.retrieve',
     'client.ai.conversations.retrieveConversationsInsights',

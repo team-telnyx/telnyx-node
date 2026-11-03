@@ -137,6 +137,7 @@ export {
   type ConversationCreateParams,
   type ConversationUpdateParams,
   type ConversationAddMessageParams,
+  type ConversationDeleteDeleteParams,
 } from './conversations/index';
 export {
   Embeddings,
