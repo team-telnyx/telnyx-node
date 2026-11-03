@@ -1707,6 +1707,7 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/calls/actions.ts">AIAssistantJoinParticipant</a></code>
+- <code><a href="./src/resources/calls/actions.ts">AssemblyAIVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">AssistantMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">AwsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResult</a></code>

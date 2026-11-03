@@ -2605,6 +2605,14 @@ export interface InferenceEmbeddingVoiceSettings {
   expressive_mode?: boolean;
 
   /**
+   * Two-letter ISO 639-1 code of the language the voice speaks, for example `es`.
+   * Only applicable to Soniox and AssemblyAI voices, which speak every language of
+   * their model. AssemblyAI accepts `en`, `es`, `de`, `fr`, `it`, and `pt`. When
+   * unset, the voice speaks English.
+   */
+  language?: string | null;
+
+  /**
    * Enhances recognition for specific languages and dialects during MiniMax TTS
    * synthesis. Default is null (no boost). Set to 'auto' for automatic language
    * detection. Only applicable when using MiniMax voices.
