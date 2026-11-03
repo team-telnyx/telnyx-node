@@ -6,10 +6,10 @@ import {
   HostedSignupCreateParams,
   HostedSignupCreateResponse,
   HostedSignupListParams,
-  HostedSignupListResponse,
-  HostedSignupListResponsesDefaultFlatPagination,
   HostedSignupRetrieveResponse,
   HostedSignups,
+  WhatsappHostedSignup,
+  WhatsappHostedSignupsDefaultFlatPagination,
 } from './hosted-signups';
 import * as SignupAPI from './signup';
 import {
@@ -52,14 +52,14 @@ import {
   PhoneNumberGetParams,
   PhoneNumberGetResponse,
   PhoneNumberListParams,
-  PhoneNumberListResponse,
-  PhoneNumberListResponsesDefaultFlatPagination,
   PhoneNumberResendVerificationParams,
   PhoneNumberRetrieveConversationWindowParams,
   PhoneNumberRetrieveConversationWindowResponse,
   PhoneNumberRetrievePhoneNumberResponse,
   PhoneNumberVerifyParams,
   PhoneNumbers,
+  WhatsappPhoneResponse,
+  WhatsappPhoneResponsesDefaultFlatPagination,
 } from './phone-numbers/phone-numbers';
 
 export class Whatsapp extends APIResource {
@@ -103,11 +103,11 @@ export declare namespace Whatsapp {
 
   export {
     PhoneNumbers as PhoneNumbers,
-    type PhoneNumberListResponse as PhoneNumberListResponse,
+    type WhatsappPhoneResponse as WhatsappPhoneResponse,
     type PhoneNumberGetResponse as PhoneNumberGetResponse,
     type PhoneNumberRetrieveConversationWindowResponse as PhoneNumberRetrieveConversationWindowResponse,
     type PhoneNumberRetrievePhoneNumberResponse as PhoneNumberRetrievePhoneNumberResponse,
-    type PhoneNumberListResponsesDefaultFlatPagination as PhoneNumberListResponsesDefaultFlatPagination,
+    type WhatsappPhoneResponsesDefaultFlatPagination as WhatsappPhoneResponsesDefaultFlatPagination,
     type PhoneNumberListParams as PhoneNumberListParams,
     type PhoneNumberResendVerificationParams as PhoneNumberResendVerificationParams,
     type PhoneNumberVerifyParams as PhoneNumberVerifyParams,
@@ -133,10 +133,10 @@ export declare namespace Whatsapp {
 
   export {
     HostedSignups as HostedSignups,
+    type WhatsappHostedSignup as WhatsappHostedSignup,
     type HostedSignupCreateResponse as HostedSignupCreateResponse,
     type HostedSignupRetrieveResponse as HostedSignupRetrieveResponse,
-    type HostedSignupListResponse as HostedSignupListResponse,
-    type HostedSignupListResponsesDefaultFlatPagination as HostedSignupListResponsesDefaultFlatPagination,
+    type WhatsappHostedSignupsDefaultFlatPagination as WhatsappHostedSignupsDefaultFlatPagination,
     type HostedSignupListParams as HostedSignupListParams,
     type HostedSignupCreateParams as HostedSignupCreateParams,
   };

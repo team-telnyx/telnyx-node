@@ -5,6 +5,7 @@ import * as ExternalVerificationAPI from './external-verification';
 import {
   ExternalVerification,
   ExternalVerificationCreateParams,
+  ExternalVerificationResource,
   ExternalVerificationStatus,
   ExternalVerificationWrapped,
 } from './external-verification';
@@ -55,8 +56,8 @@ export class Reputation extends APIResource {
   numbers: NumbersAPI.Numbers = new NumbersAPI.Numbers(this._client);
   loa: LoaAPI.Loa = new LoaAPI.Loa(this._client);
   remediation: RemediationAPI.Remediation = new RemediationAPI.Remediation(this._client);
-  externalVerification: ExternalVerificationAPI.ExternalVerification =
-    new ExternalVerificationAPI.ExternalVerification(this._client);
+  externalVerification: ExternalVerificationAPI.ExternalVerificationResource =
+    new ExternalVerificationAPI.ExternalVerificationResource(this._client);
 
   /**
    * Disable Phone Number Reputation. All registered numbers are de-registered as a
@@ -282,7 +283,7 @@ export interface ReputationUpdateWebhookParams {
 Reputation.Numbers = Numbers;
 Reputation.Loa = Loa;
 Reputation.Remediation = Remediation;
-Reputation.ExternalVerification = ExternalVerification;
+Reputation.ExternalVerificationResource = ExternalVerificationResource;
 
 export declare namespace Reputation {
   export {
@@ -335,7 +336,8 @@ export declare namespace Reputation {
   };
 
   export {
-    ExternalVerification as ExternalVerification,
+    ExternalVerificationResource as ExternalVerificationResource,
+    type ExternalVerification as ExternalVerification,
     type ExternalVerificationStatus as ExternalVerificationStatus,
     type ExternalVerificationWrapped as ExternalVerificationWrapped,
     type ExternalVerificationCreateParams as ExternalVerificationCreateParams,

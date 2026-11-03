@@ -205,7 +205,7 @@ export interface EmailTemplateCommon {
    * Structured variable requirements, or `null` when the template uses only the
    * legacy `variables` array.
    */
-  variable_schema: { [key: string]: EmailTemplateCommon.VariableSchema } | null;
+  variable_schema: { [key: string]: VariableSchemaEntry } | null;
 
   /**
    * Persisted variable names. In `explicit` mode this array preserves the exact
@@ -219,21 +219,6 @@ export interface EmailTemplateCommon {
    * when `variables` is the exact manually managed array.
    */
   variables_mode: 'automatic' | 'explicit';
-}
-
-export namespace EmailTemplateCommon {
-  export interface VariableSchema {
-    /**
-     * Whether the variable must be supplied when strict variable validation is
-     * enabled.
-     */
-    required: boolean;
-
-    /**
-     * Default value for an optional variable. Rejected when `required` is `true`.
-     */
-    default?: string;
-  }
 }
 
 export interface EmailTemplateResponse {
@@ -272,7 +257,7 @@ export interface UpdateEmailTemplateRequest {
    * Structured variable requirements. Required variables cannot define defaults;
    * invalid combinations return 422. Set to `null` to clear the schema.
    */
-  variable_schema?: { [key: string]: UpdateEmailTemplateRequest.VariableSchema } | null;
+  variable_schema?: { [key: string]: VariableSchemaEntry } | null;
 
   /**
    * Persisted variable names. In `automatic` mode a non-null array is rejected; in
@@ -292,19 +277,17 @@ export interface UpdateEmailTemplateRequest {
   variables_mode?: 'automatic' | 'explicit';
 }
 
-export namespace UpdateEmailTemplateRequest {
-  export interface VariableSchema {
-    /**
-     * Whether the variable must be supplied when strict variable validation is
-     * enabled.
-     */
-    required: boolean;
+export interface VariableSchemaEntry {
+  /**
+   * Whether the variable must be supplied when strict variable validation is
+   * enabled.
+   */
+  required: boolean;
 
-    /**
-     * Default value for an optional variable. Rejected when `required` is `true`.
-     */
-    default?: string;
-  }
+  /**
+   * Default value for an optional variable. Rejected when `required` is `true`.
+   */
+  default?: string;
 }
 
 export interface EmailTemplateRenderResponse {
@@ -410,7 +393,7 @@ export interface EmailTemplateCreateParams {
    * while present values such as `false` and `0` pass (they are present, not empty).
    * Optional variables fall back to their `default` when absent.
    */
-  variable_schema?: { [key: string]: EmailTemplateCreateParams.VariableSchema } | null;
+  variable_schema?: { [key: string]: VariableSchemaEntry } | null;
 
   /**
    * Body param: Persisted variable names. In `automatic` mode a non-null array is
@@ -440,21 +423,6 @@ export interface EmailTemplateCreateParams {
    * 24 hours. Do not include sensitive data in the key.
    */
   'Idempotency-Key'?: string;
-}
-
-export namespace EmailTemplateCreateParams {
-  export interface VariableSchema {
-    /**
-     * Whether the variable must be supplied when strict variable validation is
-     * enabled.
-     */
-    required: boolean;
-
-    /**
-     * Default value for an optional variable. Rejected when `required` is `true`.
-     */
-    default?: string;
-  }
 }
 
 export interface EmailTemplateReplaceParams {
@@ -489,7 +457,7 @@ export interface EmailTemplateReplaceParams {
    * Structured variable requirements. Required variables cannot define defaults;
    * invalid combinations return 422. Set to `null` to clear the schema.
    */
-  variable_schema?: { [key: string]: EmailTemplateReplaceParams.VariableSchema } | null;
+  variable_schema?: { [key: string]: VariableSchemaEntry } | null;
 
   /**
    * Persisted variable names. In `automatic` mode a non-null array is rejected; in
@@ -507,21 +475,6 @@ export interface EmailTemplateReplaceParams {
    * the current mode. Source-content changes re-extract only in automatic mode.
    */
   variables_mode?: 'automatic' | 'explicit';
-}
-
-export namespace EmailTemplateReplaceParams {
-  export interface VariableSchema {
-    /**
-     * Whether the variable must be supplied when strict variable validation is
-     * enabled.
-     */
-    required: boolean;
-
-    /**
-     * Default value for an optional variable. Rejected when `required` is `true`.
-     */
-    default?: string;
-  }
 }
 
 export interface EmailTemplateUpdateParams {
@@ -556,7 +509,7 @@ export interface EmailTemplateUpdateParams {
    * Structured variable requirements. Required variables cannot define defaults;
    * invalid combinations return 422. Set to `null` to clear the schema.
    */
-  variable_schema?: { [key: string]: EmailTemplateUpdateParams.VariableSchema } | null;
+  variable_schema?: { [key: string]: VariableSchemaEntry } | null;
 
   /**
    * Persisted variable names. In `automatic` mode a non-null array is rejected; in
@@ -576,21 +529,6 @@ export interface EmailTemplateUpdateParams {
   variables_mode?: 'automatic' | 'explicit';
 }
 
-export namespace EmailTemplateUpdateParams {
-  export interface VariableSchema {
-    /**
-     * Whether the variable must be supplied when strict variable validation is
-     * enabled.
-     */
-    required: boolean;
-
-    /**
-     * Default value for an optional variable. Rejected when `required` is `true`.
-     */
-    default?: string;
-  }
-}
-
 export interface EmailTemplateRenderParams {
   /**
    * Variables for Liquid template rendering. Non-object values are silently treated
@@ -605,6 +543,7 @@ export declare namespace EmailTemplates {
     type EmailTemplateCommon as EmailTemplateCommon,
     type EmailTemplateResponse as EmailTemplateResponse,
     type UpdateEmailTemplateRequest as UpdateEmailTemplateRequest,
+    type VariableSchemaEntry as VariableSchemaEntry,
     type EmailTemplateRenderResponse as EmailTemplateRenderResponse,
     type EmailTemplatesEmailCursorPagination as EmailTemplatesEmailCursorPagination,
     type EmailTemplateListParams as EmailTemplateListParams,

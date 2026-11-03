@@ -2,7 +2,13 @@
 
 import { APIResource } from '../../../../core/resource';
 import * as SettingsAPI from './settings';
-import { NamespaceSettingsResponse, SettingPatchAllParams, Settings } from './settings';
+import {
+  NamespaceSettings,
+  NamespaceSettingsResponse,
+  SettingPatchAllParams,
+  Settings,
+  SummarySettings,
+} from './settings';
 import * as ProfilesAPI from './profiles/profiles';
 import {
   PageMeta,
@@ -192,7 +198,9 @@ export declare namespace Namespaces {
 
   export {
     Settings as Settings,
+    type NamespaceSettings as NamespaceSettings,
     type NamespaceSettingsResponse as NamespaceSettingsResponse,
+    type SummarySettings as SummarySettings,
     type SettingPatchAllParams as SettingPatchAllParams,
   };
 }

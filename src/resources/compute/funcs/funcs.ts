@@ -3,7 +3,7 @@
 import { APIResource } from '../../../core/resource';
 import * as FuncsAPI from './funcs';
 import * as ExportAPI from './export';
-import { Export, ExportCreateParams, FuncLogExportConfigResponse } from './export';
+import { Export, ExportCreateParams, FuncLogExportConfig, FuncLogExportConfigResponse } from './export';
 import { APIPromise } from '../../../core/api-promise';
 import {
   DefaultFlatPagination,
@@ -434,6 +434,7 @@ export declare namespace Funcs {
 
   export {
     Export as Export,
+    type FuncLogExportConfig as FuncLogExportConfig,
     type FuncLogExportConfigResponse as FuncLogExportConfigResponse,
     type ExportCreateParams as ExportCreateParams,
   };

@@ -1814,6 +1814,22 @@ export interface ExternalLlm {
   certificate_ref?: string;
 
   /**
+   * Custom HTTP headers Telnyx sets on every request to the external LLM endpoint,
+   * in addition to the authentication header. Keys are header names, values are
+   * static strings. At most 32 headers. Reserved names are rejected:
+   * accept-encoding, authorization, connection, content-encoding, content-length,
+   * content-type, cookie, expect, host, keep-alive, proxy-authenticate,
+   * proxy-authorization, proxy-connection, set-cookie, te, trailer,
+   * transfer-encoding, upgrade, x-host-rewrite, x-request-id, x-trace-id, and any
+   * x-telnyx-_ or x-stainless-_ header; '\_' counts as '-' when names are compared.
+   * Names must be valid HTTP header names (RFC 7230 token, at most 128 characters)
+   * and must not repeat (case-insensitive). Values must be printable ASCII, at most
+   * 4096 characters, with no leading or trailing whitespace. Values are stored as
+   * plain text and returned when the assistant is retrieved.
+   */
+  extra_headers?: { [key: string]: string } | null;
+
+  /**
    * When `true`, Telnyx forwards the assistant's dynamic variables to the external
    * LLM endpoint as a top-level `extra_metadata` object on the chat completion
    * request body. Defaults to `false`. Example payload sent to the external
@@ -1856,6 +1872,22 @@ export interface ExternalLlmReq {
    * authentication.
    */
   certificate_ref?: string;
+
+  /**
+   * Custom HTTP headers Telnyx sets on every request to the external LLM endpoint,
+   * in addition to the authentication header. Keys are header names, values are
+   * static strings. At most 32 headers. Reserved names are rejected:
+   * accept-encoding, authorization, connection, content-encoding, content-length,
+   * content-type, cookie, expect, host, keep-alive, proxy-authenticate,
+   * proxy-authorization, proxy-connection, set-cookie, te, trailer,
+   * transfer-encoding, upgrade, x-host-rewrite, x-request-id, x-trace-id, and any
+   * x-telnyx-_ or x-stainless-_ header; '\_' counts as '-' when names are compared.
+   * Names must be valid HTTP header names (RFC 7230 token, at most 128 characters)
+   * and must not repeat (case-insensitive). Values must be printable ASCII, at most
+   * 4096 characters, with no leading or trailing whitespace. Values are stored as
+   * plain text and returned when the assistant is retrieved.
+   */
+  extra_headers?: { [key: string]: string } | null;
 
   /**
    * When `true`, Telnyx forwards the assistant's dynamic variables to the external
@@ -2513,8 +2545,20 @@ export interface InferenceEmbeddingInterruptionSettings {
    * thresholds primarily apply to non turn-taking transcription models. For
    * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
    * transcription end-of-turn settings under `transcription.settings` instead.
+   *
+   * Sending any `start_speaking_plan` object — an empty `{}` included (the stored
+   * config fills in field defaults) — engages per-turn transcript matching: on each
+   * turn the transcript tail is evaluated against the configured
+   * `transcription_endpointing_plan` tiers, and the wait is set to the matching
+   * tier's seconds. When the transcript ends without terminal punctuation or a
+   * number and `transcription_endpointing_plan` is set, its
+   * `on_no_punctuation_seconds` tier applies. Only when no tier matches
+   * (`transcription_endpointing_plan` unset or null) does the wait stay on
+   * `wait_seconds`. Setting `start_speaking_plan` to `null` (or omitting it) turns
+   * per-turn matching off entirely, and the assistant starts speaking as soon as
+   * silence is detected.
    */
-  start_speaking_plan?: StartSpeakingPlan;
+  start_speaking_plan?: StartSpeakingPlan | null;
 }
 
 export interface InferenceEmbeddingVoiceSettings {
@@ -3157,18 +3201,26 @@ export interface PrivacySettings {
   data_retention?: boolean;
 
   /**
-   * Requires every model call made for a web chat turn to be received and served
-   * inside your organization's data-locality region, rather than only stored there.
-   * Applies to web chat only — voice and messaging assistants are unaffected.
-   * Enabling it requires a data-locality region with in-region inference (USA, EU,
-   * AUS, UAE; see
-   * [Inference regions](https://developers.telnyx.com/docs/inference/models/regions))
-   * and Telnyx-hosted models for the assistant, its fallback, and any
-   * conversation-flow node that overrides the model; the request is rejected
-   * otherwise. Once enabled, send chat requests to your region's API hostname: a
-   * request entering the platform in another region is rejected rather than
-   * forwarded, because forwarding it would already have moved the content across the
-   * border. Defaults to false.
+   * Requires this assistant's conversations to be processed inside your
+   * organization's data-locality region, rather than only stored there, on every
+   * channel: for web chat, every model call of a turn; for voice, the call's model
+   * calls and the Telnyx-hosted speech services it uses; for SMS and WhatsApp, the
+   * model calls of each turn (how messages travel through carriers is not covered).
+   * Covered processing that cannot be handled in region fails rather than being
+   * served elsewhere. Enabling it requires a data-locality region with in-region
+   * inference (USA, EU, AUS, UAE; see
+   * [Inference regions](https://developers.telnyx.com/docs/inference/models/regions)),
+   * Telnyx-hosted models for the assistant, its fallback, and any conversation-flow
+   * node that overrides the model, and, when `insight_settings.model` is set, an
+   * insight model available in that region; the request is rejected otherwise. A
+   * voice call fails when it starts if its STT model or TTS voice is not self-hosted
+   * by Telnyx, if the assistant uses a speech-to-speech model, or if the call's
+   * media is anchored outside the region. Once enabled, send web chat requests and
+   * WebSocket or WebRTC conversations to your region's API hostname: one entering
+   * the platform in another region is refused rather than forwarded, because
+   * forwarding it would already have moved the content across the border. See
+   * [Data residency](https://developers.telnyx.com/docs/inference/data-residency#in-region-processing-for-ai-assistants).
+   * Defaults to false.
    */
   in_transit_data_locality?: boolean;
 
@@ -3311,18 +3363,37 @@ export interface SpeakNodeReq {
  * thresholds primarily apply to non turn-taking transcription models. For
  * turn-taking models like `deepgram/flux`, end-of-turn detection is driven by the
  * transcription end-of-turn settings under `transcription.settings` instead.
+ *
+ * Sending any `start_speaking_plan` object — an empty `{}` included (the stored
+ * config fills in field defaults) — engages per-turn transcript matching: on each
+ * turn the transcript tail is evaluated against the configured
+ * `transcription_endpointing_plan` tiers, and the wait is set to the matching
+ * tier's seconds. When the transcript ends without terminal punctuation or a
+ * number and `transcription_endpointing_plan` is set, its
+ * `on_no_punctuation_seconds` tier applies. Only when no tier matches
+ * (`transcription_endpointing_plan` unset or null) does the wait stay on
+ * `wait_seconds`. Setting `start_speaking_plan` to `null` (or omitting it) turns
+ * per-turn matching off entirely, and the assistant starts speaking as soon as
+ * silence is detected.
  */
 export interface StartSpeakingPlan {
   /**
    * Endpointing thresholds used to decide when the user has finished speaking.
    * Applies to non turn-taking transcription models. For `deepgram/flux`, use
    * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
-   * `eager_eot_threshold`.
+   * `eager_eot_threshold`. Evaluated per turn, on each caller transcript, only while
+   * `start_speaking_plan` is present: the tier whose suffix matches the transcript
+   * tail is applied (a transcript with no terminal punctuation or number falls
+   * through to `on_no_punctuation_seconds`); with no tiers configured (or a null
+   * nested plan), the per-turn wait stays on `start_speaking_plan.wait_seconds`.
    */
-  transcription_endpointing_plan?: TranscriptionEndpointingPlan;
+  transcription_endpointing_plan?: TranscriptionEndpointingPlan | null;
 
   /**
-   * Minimum seconds to wait before the assistant starts speaking.
+   * Wait used when per-turn endpointing does not select a tier. While the plan is
+   * present this applies on every turn without a matching tier (including when
+   * `transcription_endpointing_plan` is unset); a matching tier replaces it for that
+   * turn, and a tier may be shorter or longer than this value.
    */
   wait_seconds?: number;
 }
@@ -3361,6 +3432,15 @@ export interface TelephonySettings {
    * bridged the call.
    */
   fallback_destination?: string;
+
+  /**
+   * Milliseconds to wait after an inbound call is answered before the assistant
+   * starts and speaks its greeting. Increase it if the beginning of the greeting is
+   * cut off on some connections (for example, WebRTC calls). When unset (`null`),
+   * the platform default of 250 ms is used. Set to `0` to start without a delay.
+   * Maximum 2000.
+   */
+  greeting_delay_ms?: number | null;
 
   /**
    * The noise suppression engine to use. 'aicoustics' is STT-optimized and
@@ -3717,10 +3797,90 @@ export interface ToolNodeReq {
 }
 
 /**
+ * A second speech-to-text model that transcribes alongside `transcription.model`,
+ * and the rule that decides which transcript the assistant uses.
+ */
+export interface TranscriptionChallenger {
+  /**
+   * The language booster's model. It must be the same kind of model as
+   * `transcription.model`: both streaming (`deepgram/flux`, `deepgram/nova-3`,
+   * `deepgram/nova-2`, `assemblyai/universal-3-6-pro` or its legacy aliases
+   * `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`,
+   * `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`,
+   * `reson8/turns`) or both non-streaming (`azure/fast`, `nvidia/parakeet-v3`,
+   * `omi-health/omi-med-stt-v1`, `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
+   * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
+   * `transcription.model` on a different `language`.
+   */
+  model:
+    | 'deepgram/flux'
+    | 'deepgram/nova-3'
+    | 'deepgram/nova-2'
+    | 'azure/fast'
+    | 'assemblyai/universal-3-6-pro'
+    | 'assemblyai/universal-3-5-pro'
+    | 'assemblyai/universal-streaming'
+    | 'xai/grok-stt'
+    | 'soniox/stt-rt-v4'
+    | 'soniox/stt-rt-v5'
+    | 'nvidia/parakeet-v3'
+    | 'omi-health/omi-med-stt-v1'
+    | 'humain/realtime'
+    | 'reson8/turns'
+    | 'cohere/ar-stt'
+    | 'telnyx/basira'
+    | 'distil-whisper/distil-large-v2'
+    | 'openai/whisper-large-v3-turbo';
+
+  /**
+   * The language this model transcribes. Omit it or set it to `null` to use the
+   * language of `transcription.model`. The request is rejected when this model
+   * doesn't support the language it would run. It is also rejected when it would run
+   * the same model on the same language as `transcription.model`.
+   */
+  language?: string | null;
+
+  /**
+   * How the assistant picks the transcript it uses. The models are compared on how
+   * complete and confident their transcripts are, not on language, so the rules work
+   * best when both models understand the callers' language.
+   *
+   * - `best_turn` (default): both models transcribe the whole call. Each turn uses
+   *   the language booster's transcript only when it scores higher than the
+   *   transcript of `transcription.model` (clearly higher with non-streaming
+   *   models). With streaming models, `transcription.model` also decides when each
+   *   turn ends. Available for every pair.
+   * - `best_engine`: both models transcribe the first turns, then the call continues
+   *   alone on the model whose transcripts scored higher. If neither clearly leads,
+   *   `transcription.model` continues. Streaming models only.
+   * - `merge_words`: both models transcribe each utterance and their words are
+   *   merged, keeping Arabic and English spoken in the same sentence. Available only
+   *   for `telnyx/basira` with `cohere/ar-stt`, in either order. The pair runs on
+   *   the language that applies to `telnyx/basira` (its own, or that of
+   *   `transcription.model`), which must be Arabic (`ar` or an `ar-` locale),
+   *   `multi`, or `auto`.
+   */
+  rule?: 'best_turn' | 'best_engine' | 'merge_words';
+
+  /**
+   * Settings for the language booster, with the same fields and limits as
+   * `transcription.settings`. Fields that don't apply to this model's provider are
+   * dropped, and the provider's defaults fill in the rest. Omit it or set it to
+   * `null` to use the settings of `transcription.model` where they apply to this
+   * model.
+   */
+  settings?: TranscriptionSettingsConfig | null;
+}
+
+/**
  * Endpointing thresholds used to decide when the user has finished speaking.
  * Applies to non turn-taking transcription models. For `deepgram/flux`, use
  * `transcription.settings.eot_threshold` / `eot_timeout_ms` /
- * `eager_eot_threshold`.
+ * `eager_eot_threshold`. Evaluated per turn, on each caller transcript, only while
+ * `start_speaking_plan` is present: the tier whose suffix matches the transcript
+ * tail is applied (a transcript with no terminal punctuation or number falls
+ * through to `on_no_punctuation_seconds`); with no tiers configured (or a null
+ * nested plan), the per-turn wait stays on `start_speaking_plan.wait_seconds`.
  */
 export interface TranscriptionEndpointingPlan {
   /**
@@ -3739,6 +3899,49 @@ export interface TranscriptionEndpointingPlan {
   on_punctuation_seconds?: number;
 }
 
+/**
+ * A streaming speech-to-text model that takes over transcription when the model in
+ * use fails.
+ */
+export interface TranscriptionFallbackModel {
+  /**
+   * The fallback model. It must be a streaming model other than
+   * `transcription.model` and the other fallbacks: `deepgram/flux`,
+   * `deepgram/nova-3`, `deepgram/nova-2`, `assemblyai/universal-3-6-pro` (or its
+   * legacy aliases `assemblyai/universal-3-5-pro` and
+   * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`,
+   * `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
+   */
+  model:
+    | 'deepgram/flux'
+    | 'deepgram/nova-3'
+    | 'deepgram/nova-2'
+    | 'assemblyai/universal-3-6-pro'
+    | 'assemblyai/universal-3-5-pro'
+    | 'assemblyai/universal-streaming'
+    | 'xai/grok-stt'
+    | 'soniox/stt-rt-v4'
+    | 'soniox/stt-rt-v5'
+    | 'humain/realtime'
+    | 'reson8/turns';
+
+  /**
+   * The language the fallback transcribes. Omit it or set it to `null` to use the
+   * language of `transcription.model`. The request is rejected when the fallback
+   * model doesn't support the language it would run.
+   */
+  language?: string | null;
+
+  /**
+   * Settings for the fallback, with the same fields and limits as
+   * `transcription.settings`. Fields that don't apply to this model's provider are
+   * dropped, and the provider's defaults fill in the rest. Omit it or set it to
+   * `null` to use the settings of `transcription.model` where they apply to this
+   * model.
+   */
+  settings?: TranscriptionSettingsConfig | null;
+}
+
 export interface TranscriptionSettings {
   /**
    * Integration secret identifier for the transcription provider API key. Currently
@@ -3750,7 +3953,7 @@ export interface TranscriptionSettings {
    * A second speech-to-text model that transcribes alongside `transcription.model`,
    * and the rule that decides which transcript the assistant uses.
    */
-  challenger?: TranscriptionSettings.Challenger | null;
+  challenger?: TranscriptionChallenger | null;
 
   /**
    * Up to 3 streaming models that take over transcription, in this order, when the
@@ -3762,7 +3965,7 @@ export interface TranscriptionSettings {
    * Can't be combined with `challenger`, the language booster; to replace a stored
    * language booster, send `challenger: null` in the same request.
    */
-  fallback_models?: Array<TranscriptionSettings.FallbackModel> | null;
+  fallback_models?: Array<TranscriptionFallbackModel> | null;
 
   /**
    * The language of the audio to be transcribed. If not set, or if set to `auto`,
@@ -3854,127 +4057,6 @@ export interface TranscriptionSettings {
   settings?: TranscriptionSettingsConfig;
 }
 
-export namespace TranscriptionSettings {
-  /**
-   * A second speech-to-text model that transcribes alongside `transcription.model`,
-   * and the rule that decides which transcript the assistant uses.
-   */
-  export interface Challenger {
-    /**
-     * The language booster's model. It must be the same kind of model as
-     * `transcription.model`: both streaming (`deepgram/flux`, `deepgram/nova-3`,
-     * `deepgram/nova-2`, `assemblyai/universal-3-6-pro` or its legacy aliases
-     * `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`,
-     * `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`,
-     * `reson8/turns`) or both non-streaming (`azure/fast`, `nvidia/parakeet-v3`,
-     * `omi-health/omi-med-stt-v1`, `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
-     * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
-     * `transcription.model` on a different `language`.
-     */
-    model:
-      | 'deepgram/flux'
-      | 'deepgram/nova-3'
-      | 'deepgram/nova-2'
-      | 'azure/fast'
-      | 'assemblyai/universal-3-6-pro'
-      | 'assemblyai/universal-3-5-pro'
-      | 'assemblyai/universal-streaming'
-      | 'xai/grok-stt'
-      | 'soniox/stt-rt-v4'
-      | 'soniox/stt-rt-v5'
-      | 'nvidia/parakeet-v3'
-      | 'omi-health/omi-med-stt-v1'
-      | 'humain/realtime'
-      | 'reson8/turns'
-      | 'cohere/ar-stt'
-      | 'telnyx/basira'
-      | 'distil-whisper/distil-large-v2'
-      | 'openai/whisper-large-v3-turbo';
-
-    /**
-     * The language this model transcribes. Omit it or set it to `null` to use the
-     * language of `transcription.model`. The request is rejected when this model
-     * doesn't support the language it would run. It is also rejected when it would run
-     * the same model on the same language as `transcription.model`.
-     */
-    language?: string | null;
-
-    /**
-     * How the assistant picks the transcript it uses. The models are compared on how
-     * complete and confident their transcripts are, not on language, so the rules work
-     * best when both models understand the callers' language.
-     *
-     * - `best_turn` (default): both models transcribe the whole call. Each turn uses
-     *   the language booster's transcript only when it scores higher than the
-     *   transcript of `transcription.model` (clearly higher with non-streaming
-     *   models). With streaming models, `transcription.model` also decides when each
-     *   turn ends. Available for every pair.
-     * - `best_engine`: both models transcribe the first turns, then the call continues
-     *   alone on the model whose transcripts scored higher. If neither clearly leads,
-     *   `transcription.model` continues. Streaming models only.
-     * - `merge_words`: both models transcribe each utterance and their words are
-     *   merged, keeping Arabic and English spoken in the same sentence. Available only
-     *   for `telnyx/basira` with `cohere/ar-stt`, in either order. The pair runs on
-     *   the language that applies to `telnyx/basira` (its own, or that of
-     *   `transcription.model`), which must be Arabic (`ar` or an `ar-` locale),
-     *   `multi`, or `auto`.
-     */
-    rule?: 'best_turn' | 'best_engine' | 'merge_words';
-
-    /**
-     * Settings for the language booster, with the same fields and limits as
-     * `transcription.settings`. Fields that don't apply to this model's provider are
-     * dropped, and the provider's defaults fill in the rest. Omit it or set it to
-     * `null` to use the settings of `transcription.model` where they apply to this
-     * model.
-     */
-    settings?: AssistantsAPI.TranscriptionSettingsConfig | null;
-  }
-
-  /**
-   * A streaming speech-to-text model that takes over transcription when the model in
-   * use fails.
-   */
-  export interface FallbackModel {
-    /**
-     * The fallback model. It must be a streaming model other than
-     * `transcription.model` and the other fallbacks: `deepgram/flux`,
-     * `deepgram/nova-3`, `deepgram/nova-2`, `assemblyai/universal-3-6-pro` (or its
-     * legacy aliases `assemblyai/universal-3-5-pro` and
-     * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`,
-     * `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
-     */
-    model:
-      | 'deepgram/flux'
-      | 'deepgram/nova-3'
-      | 'deepgram/nova-2'
-      | 'assemblyai/universal-3-6-pro'
-      | 'assemblyai/universal-3-5-pro'
-      | 'assemblyai/universal-streaming'
-      | 'xai/grok-stt'
-      | 'soniox/stt-rt-v4'
-      | 'soniox/stt-rt-v5'
-      | 'humain/realtime'
-      | 'reson8/turns';
-
-    /**
-     * The language the fallback transcribes. Omit it or set it to `null` to use the
-     * language of `transcription.model`. The request is rejected when the fallback
-     * model doesn't support the language it would run.
-     */
-    language?: string | null;
-
-    /**
-     * Settings for the fallback, with the same fields and limits as
-     * `transcription.settings`. Fields that don't apply to this model's provider are
-     * dropped, and the provider's defaults fill in the rest. Omit it or set it to
-     * `null` to use the settings of `transcription.model` where they apply to this
-     * model.
-     */
-    settings?: AssistantsAPI.TranscriptionSettingsConfig | null;
-  }
-}
-
 export interface TranscriptionSettingsConfig {
   /**
    * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. A comma-separated list
@@ -4002,9 +4084,8 @@ export interface TranscriptionSettingsConfig {
   enable_endpoint_detection?: boolean;
 
   /**
-   * @deprecated Deprecated and ignored. Accepted for backwards compatibility.
-   * AssemblyAI turn detection is configured with min_turn_silence and
-   * max_turn_silence.
+   * @deprecated Ignored. Configure AssemblyAI turn detection with min_turn_silence
+   * and max_turn_silence instead.
    */
   end_of_turn_confidence_threshold?: number;
 
@@ -5271,7 +5352,9 @@ export declare namespace Assistants {
     type TelnyxAvatarSettings as TelnyxAvatarSettings,
     type ToolNode as ToolNode,
     type ToolNodeReq as ToolNodeReq,
+    type TranscriptionChallenger as TranscriptionChallenger,
     type TranscriptionEndpointingPlan as TranscriptionEndpointingPlan,
+    type TranscriptionFallbackModel as TranscriptionFallbackModel,
     type TranscriptionSettings as TranscriptionSettings,
     type TranscriptionSettingsConfig as TranscriptionSettingsConfig,
     type TransferTool as TransferTool,

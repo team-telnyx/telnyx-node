@@ -161,7 +161,7 @@ export interface NumbersPhoneNumbersJob {
    */
   parameters?: NumbersPhoneNumbersJob.Parameters;
 
-  pending_operations?: Array<NumbersPhoneNumbersJob.PendingOperation>;
+  pending_operations?: Array<PhoneNumbersJobPendingOperation>;
 
   phone_numbers?: Array<Shared.PhoneNumbersJobPhoneNumber>;
 
@@ -175,7 +175,7 @@ export interface NumbersPhoneNumbersJob {
    */
   status?: 'pending' | 'in_progress' | 'completed' | 'failed' | 'expired';
 
-  successful_operations?: Array<NumbersPhoneNumbersJob.SuccessfulOperation>;
+  successful_operations?: Array<PhoneNumbersJobSuccessfulOperation>;
 
   /**
    * Identifies the type of the background job.
@@ -391,38 +391,6 @@ export namespace NumbersPhoneNumbersJob {
       }
     }
   }
-
-  /**
-   * The phone numbers pending confirmation on update results. Entries in this list
-   * are transient, and will be moved to either successful_operations or
-   * failed_operations once the processing is done.
-   */
-  export interface PendingOperation {
-    /**
-     * The phone number's ID
-     */
-    id?: string;
-
-    /**
-     * The phone number in e164 format.
-     */
-    phone_number?: string;
-  }
-
-  /**
-   * The phone numbers successfully updated.
-   */
-  export interface SuccessfulOperation {
-    /**
-     * The phone number's ID
-     */
-    id?: string;
-
-    /**
-     * The phone number in e164 format.
-     */
-    phone_number?: string;
-  }
 }
 
 export interface PhoneNumbersJob {
@@ -444,7 +412,7 @@ export interface PhoneNumbersJob {
 
   failed_operations?: Array<PhoneNumbersJob.FailedOperation>;
 
-  pending_operations?: Array<PhoneNumbersJob.PendingOperation>;
+  pending_operations?: Array<PhoneNumbersJobPendingOperation>;
 
   phone_numbers?: Array<Shared.PhoneNumbersJobPhoneNumber>;
 
@@ -458,7 +426,7 @@ export interface PhoneNumbersJob {
    */
   status?: 'pending' | 'in_progress' | 'completed' | 'failed' | 'expired';
 
-  successful_operations?: Array<PhoneNumbersJob.SuccessfulOperation>;
+  successful_operations?: Array<PhoneNumbersJobSuccessfulOperation>;
 
   /**
    * Identifies the type of the background job.
@@ -485,38 +453,30 @@ export namespace PhoneNumbersJob {
      */
     phone_number?: string;
   }
+}
+
+export interface PhoneNumbersJobPendingOperation {
+  /**
+   * The phone number's ID
+   */
+  id?: string;
 
   /**
-   * The phone numbers pending confirmation on update results. Entries in this list
-   * are transient, and will be moved to either successful_operations or
-   * failed_operations once the processing is done.
+   * The phone number in e164 format.
    */
-  export interface PendingOperation {
-    /**
-     * The phone number's ID
-     */
-    id?: string;
+  phone_number?: string;
+}
 
-    /**
-     * The phone number in e164 format.
-     */
-    phone_number?: string;
-  }
+export interface PhoneNumbersJobSuccessfulOperation {
+  /**
+   * The phone number's ID
+   */
+  id?: string;
 
   /**
-   * The phone numbers successfully updated.
+   * The phone number in e164 format.
    */
-  export interface SuccessfulOperation {
-    /**
-     * The phone number's ID
-     */
-    id?: string;
-
-    /**
-     * The phone number in e164 format.
-     */
-    phone_number?: string;
-  }
+  phone_number?: string;
 }
 
 export interface JobRetrieveResponse {
@@ -790,6 +750,8 @@ export declare namespace Jobs {
   export {
     type NumbersPhoneNumbersJob as NumbersPhoneNumbersJob,
     type PhoneNumbersJob as PhoneNumbersJob,
+    type PhoneNumbersJobPendingOperation as PhoneNumbersJobPendingOperation,
+    type PhoneNumbersJobSuccessfulOperation as PhoneNumbersJobSuccessfulOperation,
     type JobRetrieveResponse as JobRetrieveResponse,
     type JobDeleteBatchResponse as JobDeleteBatchResponse,
     type JobUpdateBatchResponse as JobUpdateBatchResponse,

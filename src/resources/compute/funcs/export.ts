@@ -75,56 +75,54 @@ export class Export extends APIResource {
   }
 }
 
+/**
+ * Metadata-only view of a function's log export destination. Header values are
+ * write-only (encrypted server-side) and never appear in any response.
+ */
+export interface FuncLogExportConfig {
+  /**
+   * Configuration record ID
+   */
+  id?: string;
+
+  created_at?: string;
+
+  /**
+   * Whether export is enabled for this function
+   */
+  enabled?: boolean;
+
+  /**
+   * HTTPS OTLP endpoint URL logs are pushed to
+   */
+  endpoint?: string;
+
+  /**
+   * Function ID this configuration belongs to
+   */
+  func_id?: string;
+
+  /**
+   * Whether invocation records (one per HTTP request) are exported
+   */
+  invocation_export_enabled?: boolean;
+
+  record_type?: 'compute_func_log_export_config';
+
+  /**
+   * Whether runtime logs (function stdout/stderr) are exported
+   */
+  runtime_export_enabled?: boolean;
+
+  updated_at?: string;
+}
+
 export interface FuncLogExportConfigResponse {
   /**
    * Metadata-only view of a function's log export destination. Header values are
    * write-only (encrypted server-side) and never appear in any response.
    */
-  data?: FuncLogExportConfigResponse.Data;
-}
-
-export namespace FuncLogExportConfigResponse {
-  /**
-   * Metadata-only view of a function's log export destination. Header values are
-   * write-only (encrypted server-side) and never appear in any response.
-   */
-  export interface Data {
-    /**
-     * Configuration record ID
-     */
-    id?: string;
-
-    created_at?: string;
-
-    /**
-     * Whether export is enabled for this function
-     */
-    enabled?: boolean;
-
-    /**
-     * HTTPS OTLP endpoint URL logs are pushed to
-     */
-    endpoint?: string;
-
-    /**
-     * Function ID this configuration belongs to
-     */
-    func_id?: string;
-
-    /**
-     * Whether invocation records (one per HTTP request) are exported
-     */
-    invocation_export_enabled?: boolean;
-
-    record_type?: 'compute_func_log_export_config';
-
-    /**
-     * Whether runtime logs (function stdout/stderr) are exported
-     */
-    runtime_export_enabled?: boolean;
-
-    updated_at?: string;
-  }
+  data?: FuncLogExportConfig;
 }
 
 export interface ExportCreateParams {
@@ -153,6 +151,7 @@ export interface ExportCreateParams {
 
 export declare namespace Export {
   export {
+    type FuncLogExportConfig as FuncLogExportConfig,
     type FuncLogExportConfigResponse as FuncLogExportConfigResponse,
     type ExportCreateParams as ExportCreateParams,
   };

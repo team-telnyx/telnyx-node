@@ -229,6 +229,12 @@ export namespace NumberLookupRetrieveResponse {
       caller_name?: string | null;
 
       /**
+       * The entity type of the phone number's owner, from the enhanced caller name data
+       * source — `Person` or `Business`. Null when not available.
+       */
+      entity_type?: string | null;
+
+      /**
        * A lookup-specific error code if the enhanced caller name could not be resolved;
        * otherwise null.
        */

@@ -55,7 +55,8 @@ export class Portouts extends APIResource {
     new SupportingDocumentsAPI.SupportingDocuments(this._client);
 
   /**
-   * Returns the portout requests according to filters
+   * Returns the portout requests according to filters. Carrier Port Out API
+   * available. Please contact porting@telnyx.com.
    *
    * @example
    * ```ts

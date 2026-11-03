@@ -1,6 +1,11 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
-export { Export, type FuncLogExportConfigResponse, type ExportCreateParams } from './export';
+export {
+  Export,
+  type FuncLogExportConfig,
+  type FuncLogExportConfigResponse,
+  type ExportCreateParams,
+} from './export';
 export {
   Funcs,
   type FunctionsObservabilityPaginationMeta,

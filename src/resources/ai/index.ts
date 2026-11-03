@@ -62,7 +62,9 @@ export {
   type TelnyxAvatarSettings,
   type ToolNode,
   type ToolNodeReq,
+  type TranscriptionChallenger,
   type TranscriptionEndpointingPlan,
+  type TranscriptionFallbackModel,
   type TranscriptionSettings,
   type TranscriptionSettingsConfig,
   type TransferTool,
@@ -135,6 +137,7 @@ export {
   type ConversationCreateParams,
   type ConversationUpdateParams,
   type ConversationAddMessageParams,
+  type ConversationDeleteDeleteParams,
 } from './conversations/index';
 export {
   Embeddings,
