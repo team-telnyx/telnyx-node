@@ -6600,3 +6600,16 @@ Types:
 Methods:
 
 - <code title="post /tunnels/{id}/actions/rotate_token">client.tunnels.actions.<a href="./src/resources/tunnels/actions.ts">rotateToken</a>(id) -> ActionRotateTokenResponse</code>
+
+# UserProfile
+
+Types:
+
+- <code><a href="./src/resources/user-profile.ts">UserProfile</a></code>
+- <code><a href="./src/resources/user-profile.ts">UserProfileListResponse</a></code>
+- <code><a href="./src/resources/user-profile.ts">UserProfilePatchAllResponse</a></code>
+
+Methods:
+
+- <code title="get /user_profile">client.userProfile.<a href="./src/resources/user-profile.ts">list</a>() -> UserProfileListResponse</code>
+- <code title="patch /user_profile">client.userProfile.<a href="./src/resources/user-profile.ts">patchAll</a>({ ...params }) -> UserProfilePatchAllResponse</code>

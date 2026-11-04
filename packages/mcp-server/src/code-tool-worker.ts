@@ -1526,6 +1526,8 @@ const fuse = new Fuse(
     'client.tunnels.list',
     'client.tunnels.retrieve',
     'client.tunnels.actions.rotateToken',
+    'client.userProfile.list',
+    'client.userProfile.patchAll',
   ],
   { threshold: 1, shouldSort: true },
 );

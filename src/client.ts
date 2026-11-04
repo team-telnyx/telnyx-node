@@ -1022,6 +1022,13 @@ import {
   UserAddressesUserAddress,
   UserAddressesUserAddressesDefaultFlatPagination,
 } from './resources/user-addresses';
+import {
+  UserProfile,
+  UserProfileListResponse,
+  UserProfilePatchAllParams,
+  UserProfilePatchAllResponse,
+  UserProfileResource,
+} from './resources/user-profile';
 import { UserTagListParams, UserTagListResponse, UserTags } from './resources/user-tags';
 import {
   MessageTemplate,
@@ -3439,6 +3446,10 @@ export class Telnyx {
    * Tunnels connect a Network to hosts behind a tunnel process within the user's network.
    */
   tunnels: API.Tunnels = new API.Tunnels(this);
+  /**
+   * Read and update the authenticated user's profile and data locality.
+   */
+  userProfile: API.UserProfileResource = new API.UserProfileResource(this);
 }
 
 Telnyx.BrowserSessions = BrowserSessions;
@@ -3640,6 +3651,7 @@ Telnyx.Email = Email;
 Telnyx.NetworkRoutes = NetworkRoutes;
 Telnyx.PayConnectors = PayConnectors;
 Telnyx.Tunnels = Tunnels;
+Telnyx.UserProfileResource = UserProfileResource;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5824,6 +5836,14 @@ export declare namespace Telnyx {
     type TunnelListResponse as TunnelListResponse,
     type TunnelListParams as TunnelListParams,
     type TunnelCreateParams as TunnelCreateParams,
+  };
+
+  export {
+    UserProfileResource as UserProfileResource,
+    type UserProfile as UserProfile,
+    type UserProfileListResponse as UserProfileListResponse,
+    type UserProfilePatchAllResponse as UserProfilePatchAllResponse,
+    type UserProfilePatchAllParams as UserProfilePatchAllParams,
   };
 
   export type APIError = API.APIError;

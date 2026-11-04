@@ -1573,6 +1573,13 @@ export {
   type UserAddressCreateParams,
   type UserAddressesUserAddressesDefaultFlatPagination,
 } from './user-addresses';
+export {
+  UserProfileResource,
+  type UserProfile,
+  type UserProfileListResponse,
+  type UserProfilePatchAllResponse,
+  type UserProfilePatchAllParams,
+} from './user-profile';
 export { UserTags, type UserTagListResponse, type UserTagListParams } from './user-tags';
 export {
   Verifications,

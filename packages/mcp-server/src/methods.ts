@@ -8501,6 +8501,18 @@ export const sdkMethods: SdkMethod[] = [
     httpMethod: 'post',
     httpPath: '/tunnels/{id}/actions/rotate_token',
   },
+  {
+    clientCallName: 'client.userProfile.list',
+    fullyQualifiedName: 'userProfile.list',
+    httpMethod: 'get',
+    httpPath: '/user_profile',
+  },
+  {
+    clientCallName: 'client.userProfile.patchAll',
+    fullyQualifiedName: 'userProfile.patchAll',
+    httpMethod: 'patch',
+    httpPath: '/user_profile',
+  },
 ];
 
 function allowedMethodsForCodeTool(options: McpOptions | undefined): SdkMethod[] | undefined {
