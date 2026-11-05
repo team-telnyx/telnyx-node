@@ -6720,6 +6720,7 @@ Types:
 - <code><a href="./src/resources/agent-gateways/policies.ts">AgentGatewayPolicyGuardrails</a></code>
 - <code><a href="./src/resources/agent-gateways/policies.ts">AgentGatewayPolicyPipeline</a></code>
 - <code><a href="./src/resources/agent-gateways/policies.ts">AgentGatewayPolicyResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/policies.ts">AgentGatewayPolicyStep</a></code>
 - <code><a href="./src/resources/agent-gateways/policies.ts">PolicyListResponse</a></code>
 
 Methods:

@@ -61,6 +61,7 @@ export {
   type AgentGatewayPolicyGuardrails,
   type AgentGatewayPolicyPipeline,
   type AgentGatewayPolicyResponse,
+  type AgentGatewayPolicyStep,
   type PolicyListResponse,
   type PolicyCreateParams,
   type PolicyDeleteParams,

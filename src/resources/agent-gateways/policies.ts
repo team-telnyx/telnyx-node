@@ -192,47 +192,7 @@ export interface AgentGatewayPolicyPipeline {
    */
   hook: 'before_request' | 'after_request';
 
-  steps: Array<AgentGatewayPolicyPipeline.Step>;
-}
-
-export namespace AgentGatewayPolicyPipeline {
-  /**
-   * One pipeline step: a guardrail, and what happens when it passes, fails, or
-   * errors.
-   */
-  export interface Step {
-    /**
-     * A guardrail on the instance, by name.
-     */
-    guardrail: string;
-
-    /**
-     * The response that replaces the model's when an outcome is `respond`. Required
-     * with `respond`.
-     */
-    message?: string | null;
-
-    /**
-     * What happens when the guardrail errors. Left out, the same as `on_fail`.
-     */
-    on_error?: 'next' | 'allow' | 'block' | 'respond' | null;
-
-    /**
-     * What happens when the guardrail fails.
-     */
-    on_fail?: 'next' | 'allow' | 'block' | 'respond';
-
-    /**
-     * What happens when the guardrail passes. `next` goes on to the next step, `allow`
-     * allows the request, `block` blocks it, and `respond` answers with `message`.
-     */
-    on_pass?: 'next' | 'allow' | 'block' | 'respond';
-
-    /**
-     * `true` hands the step's modified request, such as masked text, to the next step.
-     */
-    pass_data?: boolean;
-  }
+  steps: Array<AgentGatewayPolicyStep>;
 }
 
 export interface AgentGatewayPolicyResponse {
@@ -240,6 +200,44 @@ export interface AgentGatewayPolicyResponse {
    * A named set of guardrails.
    */
   data: AgentGatewayPolicy;
+}
+
+/**
+ * One pipeline step: a guardrail, and what happens when it passes, fails, or
+ * errors.
+ */
+export interface AgentGatewayPolicyStep {
+  /**
+   * A guardrail on the instance, by name.
+   */
+  guardrail: string;
+
+  /**
+   * The response that replaces the model's when an outcome is `respond`. Required
+   * with `respond`.
+   */
+  message?: string | null;
+
+  /**
+   * What happens when the guardrail errors. Left out, the same as `on_fail`.
+   */
+  on_error?: 'next' | 'allow' | 'block' | 'respond' | null;
+
+  /**
+   * What happens when the guardrail fails.
+   */
+  on_fail?: 'next' | 'allow' | 'block' | 'respond';
+
+  /**
+   * What happens when the guardrail passes. `next` goes on to the next step, `allow`
+   * allows the request, `block` blocks it, and `respond` answers with `message`.
+   */
+  on_pass?: 'next' | 'allow' | 'block' | 'respond';
+
+  /**
+   * `true` hands the step's modified request, such as masked text, to the next step.
+   */
+  pass_data?: boolean;
 }
 
 export interface PolicyListResponse {
@@ -340,6 +338,7 @@ export declare namespace Policies {
     type AgentGatewayPolicyGuardrails as AgentGatewayPolicyGuardrails,
     type AgentGatewayPolicyPipeline as AgentGatewayPolicyPipeline,
     type AgentGatewayPolicyResponse as AgentGatewayPolicyResponse,
+    type AgentGatewayPolicyStep as AgentGatewayPolicyStep,
     type PolicyListResponse as PolicyListResponse,
     type PolicyCreateParams as PolicyCreateParams,
     type PolicyDeleteParams as PolicyDeleteParams,
