@@ -1315,6 +1315,17 @@ import {
   AddressesDefaultFlatPagination,
 } from './resources/addresses/addresses';
 import {
+  AgentGateway,
+  AgentGatewayCreateParams,
+  AgentGatewayListParams,
+  AgentGatewayResponse,
+  AgentGatewayRetrieveModelsResponse,
+  AgentGatewayRetrieveSpendLogsParams,
+  AgentGatewayRetrieveSpendLogsResponse,
+  AgentGateways,
+  AgentGatewaysDefaultFlatPagination,
+} from './resources/agent-gateways/agent-gateways';
+import {
   AI,
   AIRetrieveConversationHistoriesParams,
   AIRetrieveConversationHistoriesResponse,
@@ -3450,6 +3461,7 @@ export class Telnyx {
    * Read and update the authenticated user's profile and data locality.
    */
   userProfile: API.UserProfileResource = new API.UserProfileResource(this);
+  agentGateways: API.AgentGateways = new API.AgentGateways(this);
 }
 
 Telnyx.BrowserSessions = BrowserSessions;
@@ -3652,6 +3664,7 @@ Telnyx.NetworkRoutes = NetworkRoutes;
 Telnyx.PayConnectors = PayConnectors;
 Telnyx.Tunnels = Tunnels;
 Telnyx.UserProfileResource = UserProfileResource;
+Telnyx.AgentGateways = AgentGateways;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -5844,6 +5857,18 @@ export declare namespace Telnyx {
     type UserProfileListResponse as UserProfileListResponse,
     type UserProfilePatchAllResponse as UserProfilePatchAllResponse,
     type UserProfilePatchAllParams as UserProfilePatchAllParams,
+  };
+
+  export {
+    AgentGateways as AgentGateways,
+    type AgentGateway as AgentGateway,
+    type AgentGatewayResponse as AgentGatewayResponse,
+    type AgentGatewayRetrieveModelsResponse as AgentGatewayRetrieveModelsResponse,
+    type AgentGatewayRetrieveSpendLogsResponse as AgentGatewayRetrieveSpendLogsResponse,
+    type AgentGatewaysDefaultFlatPagination as AgentGatewaysDefaultFlatPagination,
+    type AgentGatewayListParams as AgentGatewayListParams,
+    type AgentGatewayCreateParams as AgentGatewayCreateParams,
+    type AgentGatewayRetrieveSpendLogsParams as AgentGatewayRetrieveSpendLogsParams,
   };
 
   export type APIError = API.APIError;

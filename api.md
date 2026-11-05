@@ -1333,6 +1333,7 @@ Methods:
 
 Types:
 
+- <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">AgentMemoryPageMeta</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">PageMeta</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileListResponse</a></code>
 - <code><a href="./src/resources/ai/memory/namespaces/profiles/profiles.ts">ProfileDeleteResponse</a></code>
@@ -6613,3 +6614,154 @@ Methods:
 
 - <code title="get /user_profile">client.userProfile.<a href="./src/resources/user-profile.ts">list</a>() -> UserProfileListResponse</code>
 - <code title="patch /user_profile">client.userProfile.<a href="./src/resources/user-profile.ts">patchAll</a>({ ...params }) -> UserProfilePatchAllResponse</code>
+
+# AgentGateways
+
+Types:
+
+- <code><a href="./src/resources/agent-gateways/agent-gateways.ts">AgentGateway</a></code>
+- <code><a href="./src/resources/agent-gateways/agent-gateways.ts">AgentGatewayResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/agent-gateways.ts">AgentGatewayRetrieveModelsResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/agent-gateways.ts">AgentGatewayRetrieveSpendLogsResponse</a></code>
+
+Methods:
+
+- <code title="get /agent_gateways">client.agentGateways.<a href="./src/resources/agent-gateways/agent-gateways.ts">list</a>({ ...params }) -> AgentGatewaysDefaultFlatPagination</code>
+- <code title="post /agent_gateways">client.agentGateways.<a href="./src/resources/agent-gateways/agent-gateways.ts">create</a>({ ...params }) -> AgentGatewayResponse</code>
+- <code title="delete /agent_gateways/{instance_id}">client.agentGateways.<a href="./src/resources/agent-gateways/agent-gateways.ts">delete</a>(instanceID) -> AgentGatewayResponse</code>
+- <code title="get /agent_gateways/{instance_id}">client.agentGateways.<a href="./src/resources/agent-gateways/agent-gateways.ts">retrieve</a>(instanceID) -> AgentGatewayResponse</code>
+- <code title="get /agent_gateways/{instance_id}/models">client.agentGateways.<a href="./src/resources/agent-gateways/agent-gateways.ts">retrieveModels</a>(instanceID) -> AgentGatewayRetrieveModelsResponse</code>
+- <code title="get /agent_gateways/{instance_id}/spend_logs">client.agentGateways.<a href="./src/resources/agent-gateways/agent-gateways.ts">retrieveSpendLogs</a>(instanceID, { ...params }) -> AgentGatewayRetrieveSpendLogsResponse</code>
+
+## APIs
+
+Types:
+
+- <code><a href="./src/resources/agent-gateways/apis.ts">AgentGatewayAPI</a></code>
+- <code><a href="./src/resources/agent-gateways/apis.ts">AgentGatewayAPIResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/apis.ts">AgentGatewayNoAuth</a></code>
+- <code><a href="./src/resources/agent-gateways/apis.ts">AgentGatewayOAuthClientCredentials</a></code>
+- <code><a href="./src/resources/agent-gateways/apis.ts">AgentGatewayPassthroughAuth</a></code>
+- <code><a href="./src/resources/agent-gateways/apis.ts">AgentGatewayShownAuth</a></code>
+- <code><a href="./src/resources/agent-gateways/apis.ts">AgentGatewayStaticAuth</a></code>
+- <code><a href="./src/resources/agent-gateways/apis.ts">APIListResponse</a></code>
+
+Methods:
+
+- <code title="get /agent_gateways/{instance_id}/apis">client.agentGateways.apis.<a href="./src/resources/agent-gateways/apis.ts">list</a>(instanceID) -> APIListResponse</code>
+- <code title="post /agent_gateways/{instance_id}/apis">client.agentGateways.apis.<a href="./src/resources/agent-gateways/apis.ts">create</a>(instanceID, { ...params }) -> AgentGatewayAPIResponse</code>
+- <code title="delete /agent_gateways/{instance_id}/apis/{api_id}">client.agentGateways.apis.<a href="./src/resources/agent-gateways/apis.ts">delete</a>(apiID, { ...params }) -> AgentGatewayAPIResponse</code>
+- <code title="patch /agent_gateways/{instance_id}/apis/{api_id}">client.agentGateways.apis.<a href="./src/resources/agent-gateways/apis.ts">update</a>(apiID, { ...params }) -> AgentGatewayAPIResponse</code>
+
+## Guardrails
+
+Types:
+
+- <code><a href="./src/resources/agent-gateways/guardrails.ts">AgentGatewayGuardrail</a></code>
+- <code><a href="./src/resources/agent-gateways/guardrails.ts">AgentGatewayGuardrailResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/guardrails.ts">GuardrailListResponse</a></code>
+
+Methods:
+
+- <code title="get /agent_gateways/{instance_id}/guardrails">client.agentGateways.guardrails.<a href="./src/resources/agent-gateways/guardrails.ts">list</a>(instanceID) -> GuardrailListResponse</code>
+- <code title="post /agent_gateways/{instance_id}/guardrails">client.agentGateways.guardrails.<a href="./src/resources/agent-gateways/guardrails.ts">create</a>(instanceID, { ...params }) -> AgentGatewayGuardrailResponse</code>
+- <code title="delete /agent_gateways/{instance_id}/guardrails/{guardrail_id}">client.agentGateways.guardrails.<a href="./src/resources/agent-gateways/guardrails.ts">delete</a>(guardrailID, { ...params }) -> AgentGatewayGuardrailResponse</code>
+- <code title="patch /agent_gateways/{instance_id}/guardrails/{guardrail_id}">client.agentGateways.guardrails.<a href="./src/resources/agent-gateways/guardrails.ts">update</a>(guardrailID, { ...params }) -> AgentGatewayGuardrailResponse</code>
+
+## Keys
+
+Types:
+
+- <code><a href="./src/resources/agent-gateways/keys/keys.ts">AgentGatewayKey</a></code>
+- <code><a href="./src/resources/agent-gateways/keys/keys.ts">AgentGatewayKeyResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/keys/keys.ts">KeyCreateResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/keys/keys.ts">KeyListResponse</a></code>
+
+Methods:
+
+- <code title="get /agent_gateways/{instance_id}/keys">client.agentGateways.keys.<a href="./src/resources/agent-gateways/keys/keys.ts">list</a>(instanceID, { ...params }) -> KeyListResponse</code>
+- <code title="post /agent_gateways/{instance_id}/keys">client.agentGateways.keys.<a href="./src/resources/agent-gateways/keys/keys.ts">create</a>(instanceID, { ...params }) -> KeyCreateResponse</code>
+- <code title="delete /agent_gateways/{instance_id}/keys/{key_id}">client.agentGateways.keys.<a href="./src/resources/agent-gateways/keys/keys.ts">delete</a>(keyID, { ...params }) -> AgentGatewayKeyResponse</code>
+- <code title="patch /agent_gateways/{instance_id}/keys/{key_id}">client.agentGateways.keys.<a href="./src/resources/agent-gateways/keys/keys.ts">update</a>(keyID, { ...params }) -> AgentGatewayKeyResponse</code>
+
+### ToolPermissions
+
+Types:
+
+- <code><a href="./src/resources/agent-gateways/keys/tool-permissions.ts">AgentGatewayToolPermissions</a></code>
+- <code><a href="./src/resources/agent-gateways/keys/tool-permissions.ts">AgentGatewayToolPermissionsResponse</a></code>
+
+Methods:
+
+- <code title="get /agent_gateways/{instance_id}/keys/{key_id}/tool_permissions">client.agentGateways.keys.toolPermissions.<a href="./src/resources/agent-gateways/keys/tool-permissions.ts">list</a>(keyID, { ...params }) -> AgentGatewayToolPermissionsResponse</code>
+- <code title="put /agent_gateways/{instance_id}/keys/{key_id}/tool_permissions">client.agentGateways.keys.toolPermissions.<a href="./src/resources/agent-gateways/keys/tool-permissions.ts">create</a>(keyID, { ...params }) -> AgentGatewayToolPermissionsResponse</code>
+
+## McpServers
+
+Types:
+
+- <code><a href="./src/resources/agent-gateways/mcp-servers.ts">AgentGatewayAwsSigV4Auth</a></code>
+- <code><a href="./src/resources/agent-gateways/mcp-servers.ts">AgentGatewayMcpServer</a></code>
+- <code><a href="./src/resources/agent-gateways/mcp-servers.ts">AgentGatewayMcpServerResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/mcp-servers.ts">McpServerListResponse</a></code>
+
+Methods:
+
+- <code title="get /agent_gateways/{instance_id}/mcp_servers">client.agentGateways.mcpServers.<a href="./src/resources/agent-gateways/mcp-servers.ts">list</a>(instanceID) -> McpServerListResponse</code>
+- <code title="post /agent_gateways/{instance_id}/mcp_servers">client.agentGateways.mcpServers.<a href="./src/resources/agent-gateways/mcp-servers.ts">create</a>(instanceID, { ...params }) -> AgentGatewayMcpServerResponse</code>
+- <code title="delete /agent_gateways/{instance_id}/mcp_servers/{server_id}">client.agentGateways.mcpServers.<a href="./src/resources/agent-gateways/mcp-servers.ts">delete</a>(serverID, { ...params }) -> AgentGatewayMcpServerResponse</code>
+- <code title="patch /agent_gateways/{instance_id}/mcp_servers/{server_id}">client.agentGateways.mcpServers.<a href="./src/resources/agent-gateways/mcp-servers.ts">update</a>(serverID, { ...params }) -> AgentGatewayMcpServerResponse</code>
+
+## Policies
+
+Types:
+
+- <code><a href="./src/resources/agent-gateways/policies.ts">AgentGatewayPolicy</a></code>
+- <code><a href="./src/resources/agent-gateways/policies.ts">AgentGatewayPolicyGuardrails</a></code>
+- <code><a href="./src/resources/agent-gateways/policies.ts">AgentGatewayPolicyPipeline</a></code>
+- <code><a href="./src/resources/agent-gateways/policies.ts">AgentGatewayPolicyResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/policies.ts">PolicyListResponse</a></code>
+
+Methods:
+
+- <code title="get /agent_gateways/{instance_id}/policies">client.agentGateways.policies.<a href="./src/resources/agent-gateways/policies.ts">list</a>(instanceID) -> PolicyListResponse</code>
+- <code title="post /agent_gateways/{instance_id}/policies">client.agentGateways.policies.<a href="./src/resources/agent-gateways/policies.ts">create</a>(instanceID, { ...params }) -> AgentGatewayPolicyResponse</code>
+- <code title="delete /agent_gateways/{instance_id}/policies/{name}">client.agentGateways.policies.<a href="./src/resources/agent-gateways/policies.ts">delete</a>(name, { ...params }) -> AgentGatewayPolicyResponse</code>
+- <code title="get /agent_gateways/{instance_id}/policies/{name}">client.agentGateways.policies.<a href="./src/resources/agent-gateways/policies.ts">retrieve</a>(name, { ...params }) -> AgentGatewayPolicyResponse</code>
+- <code title="patch /agent_gateways/{instance_id}/policies/{name}">client.agentGateways.policies.<a href="./src/resources/agent-gateways/policies.ts">update</a>(name, { ...params }) -> AgentGatewayPolicyResponse</code>
+
+## PolicyAttachments
+
+Types:
+
+- <code><a href="./src/resources/agent-gateways/policy-attachments.ts">AgentGatewayPolicyAttachment</a></code>
+- <code><a href="./src/resources/agent-gateways/policy-attachments.ts">AgentGatewayPolicyAttachmentResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/policy-attachments.ts">PolicyAttachmentListResponse</a></code>
+
+Methods:
+
+- <code title="get /agent_gateways/{instance_id}/policy_attachments">client.agentGateways.policyAttachments.<a href="./src/resources/agent-gateways/policy-attachments.ts">list</a>(instanceID) -> PolicyAttachmentListResponse</code>
+- <code title="post /agent_gateways/{instance_id}/policy_attachments">client.agentGateways.policyAttachments.<a href="./src/resources/agent-gateways/policy-attachments.ts">create</a>(instanceID, { ...params }) -> AgentGatewayPolicyAttachmentResponse</code>
+- <code title="delete /agent_gateways/{instance_id}/policy_attachments/{attachment_id}">client.agentGateways.policyAttachments.<a href="./src/resources/agent-gateways/policy-attachments.ts">delete</a>(attachmentID, { ...params }) -> AgentGatewayPolicyAttachmentResponse</code>
+
+## Teams
+
+Types:
+
+- <code><a href="./src/resources/agent-gateways/teams/teams.ts">AgentGatewayTeam</a></code>
+- <code><a href="./src/resources/agent-gateways/teams/teams.ts">AgentGatewayTeamResponse</a></code>
+- <code><a href="./src/resources/agent-gateways/teams/teams.ts">TeamListResponse</a></code>
+
+Methods:
+
+- <code title="get /agent_gateways/{instance_id}/teams">client.agentGateways.teams.<a href="./src/resources/agent-gateways/teams/teams.ts">list</a>(instanceID) -> TeamListResponse</code>
+- <code title="post /agent_gateways/{instance_id}/teams">client.agentGateways.teams.<a href="./src/resources/agent-gateways/teams/teams.ts">create</a>(instanceID, { ...params }) -> AgentGatewayTeamResponse</code>
+- <code title="delete /agent_gateways/{instance_id}/teams/{team_id}">client.agentGateways.teams.<a href="./src/resources/agent-gateways/teams/teams.ts">delete</a>(teamID, { ...params }) -> AgentGatewayTeamResponse</code>
+- <code title="patch /agent_gateways/{instance_id}/teams/{team_id}">client.agentGateways.teams.<a href="./src/resources/agent-gateways/teams/teams.ts">update</a>(teamID, { ...params }) -> AgentGatewayTeamResponse</code>
+
+### ToolPermissions
+
+Methods:
+
+- <code title="get /agent_gateways/{instance_id}/teams/{team_id}/tool_permissions">client.agentGateways.teams.toolPermissions.<a href="./src/resources/agent-gateways/teams/tool-permissions.ts">list</a>(teamID, { ...params }) -> AgentGatewayToolPermissionsResponse</code>
+- <code title="put /agent_gateways/{instance_id}/teams/{team_id}/tool_permissions">client.agentGateways.teams.toolPermissions.<a href="./src/resources/agent-gateways/teams/tool-permissions.ts">create</a>(teamID, { ...params }) -> AgentGatewayToolPermissionsResponse</code>

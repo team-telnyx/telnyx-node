@@ -47,6 +47,17 @@ export {
   type AdvancedOrderUpdateRequirementGroupParams,
 } from './advanced-orders';
 export {
+  AgentGateways,
+  type AgentGateway,
+  type AgentGatewayResponse,
+  type AgentGatewayRetrieveModelsResponse,
+  type AgentGatewayRetrieveSpendLogsResponse,
+  type AgentGatewayListParams,
+  type AgentGatewayCreateParams,
+  type AgentGatewayRetrieveSpendLogsParams,
+  type AgentGatewaysDefaultFlatPagination,
+} from './agent-gateways/agent-gateways';
+export {
   AlphanumericSenderIDs,
   type AlphanumericSenderID,
   type MessagingPaginationMeta0b38e7044b,
