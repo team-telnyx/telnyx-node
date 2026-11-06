@@ -6946,6 +6946,98 @@ export namespace NumberReputationNumberRemovedWebhookEvent {
   }
 }
 
+export interface RecordingExportFailedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  data: RecordingExportFailedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'recording.export_failed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace RecordingExportFailedWebhookEvent {
+  export interface Data {
+    bucket: string;
+
+    key: string;
+
+    reason:
+      | 'invalid_target'
+      | 'invalid_media'
+      | 'source_changed'
+      | 'source_unavailable'
+      | 'too_large'
+      | 'storage_unavailable'
+      | 'object_conflict'
+      | 'verification_failed'
+      | 'worker_lost'
+      | 'internal_error';
+
+    region: string;
+
+    session_id: string;
+
+    type: 'video';
+  }
+}
+
+export interface RecordingExportedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  data: RecordingExportedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'recording.exported';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace RecordingExportedWebhookEvent {
+  export interface Data {
+    bucket: string;
+
+    bytes: number;
+
+    key: string;
+
+    region: string;
+
+    session_id: string;
+
+    sha256: string;
+
+    type: 'video';
+  }
+}
+
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
 }
@@ -7001,6 +7093,19 @@ export namespace SessionStatusChangedWebhookEvent {
      * Additional detail about the status (for example `cancelled`), or null.
      */
     status_detail: string | null;
+
+    /**
+     * Previous lifecycle status, when supplied.
+     */
+    previous_status?:
+      | 'scheduled'
+      | 'joining'
+      | 'waiting_for_admission'
+      | 'active'
+      | 'leaving'
+      | 'ended'
+      | 'failed'
+      | 'admission_denied';
   }
 }
 
@@ -9285,6 +9390,98 @@ export namespace NumberReputationNumberRemovedWebhookEvent {
   }
 }
 
+export interface RecordingExportFailedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  data: RecordingExportFailedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'recording.export_failed';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace RecordingExportFailedWebhookEvent {
+  export interface Data {
+    bucket: string;
+
+    key: string;
+
+    reason:
+      | 'invalid_target'
+      | 'invalid_media'
+      | 'source_changed'
+      | 'source_unavailable'
+      | 'too_large'
+      | 'storage_unavailable'
+      | 'object_conflict'
+      | 'verification_failed'
+      | 'worker_lost'
+      | 'internal_error';
+
+    region: string;
+
+    session_id: string;
+
+    type: 'video';
+  }
+}
+
+export interface RecordingExportedWebhookEvent {
+  /**
+   * Unique event id; deduplicate deliveries on it.
+   */
+  id: string;
+
+  data: RecordingExportedWebhookEvent.Data;
+
+  /**
+   * Event type.
+   */
+  event: 'recording.exported';
+
+  /**
+   * When the event occurred.
+   */
+  occurred_at: string;
+
+  /**
+   * Envelope version.
+   */
+  version: string;
+}
+
+export namespace RecordingExportedWebhookEvent {
+  export interface Data {
+    bucket: string;
+
+    bytes: number;
+
+    key: string;
+
+    region: string;
+
+    session_id: string;
+
+    sha256: string;
+
+    type: 'video';
+  }
+}
+
 export interface ReplacedLinkClickWebhookEvent {
   data?: ReplacedLinkClick;
 }
@@ -9340,6 +9537,19 @@ export namespace SessionStatusChangedWebhookEvent {
      * Additional detail about the status (for example `cancelled`), or null.
      */
     status_detail: string | null;
+
+    /**
+     * Previous lifecycle status, when supplied.
+     */
+    previous_status?:
+      | 'scheduled'
+      | 'joining'
+      | 'waiting_for_admission'
+      | 'active'
+      | 'leaving'
+      | 'ended'
+      | 'failed'
+      | 'admission_denied';
   }
 }
 
@@ -9528,6 +9738,8 @@ export type UnsafeUnwrapWebhookEvent =
   | NumberReputationExternalVerificationStatusChangedWebhookEvent
   | NumberReputationNumberFlaggedWebhookEvent
   | NumberReputationNumberRemovedWebhookEvent
+  | RecordingExportFailedWebhookEvent
+  | RecordingExportedWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
@@ -9613,6 +9825,8 @@ export type UnwrapWebhookEvent =
   | NumberReputationExternalVerificationStatusChangedWebhookEvent
   | NumberReputationNumberFlaggedWebhookEvent
   | NumberReputationNumberRemovedWebhookEvent
+  | RecordingExportFailedWebhookEvent
+  | RecordingExportedWebhookEvent
   | ReplacedLinkClickWebhookEvent
   | SessionStatusChangedWebhookEvent
   | TranscriptCompletedWebhookEvent
@@ -9756,6 +9970,8 @@ export declare namespace Webhooks {
     type NumberReputationExternalVerificationStatusChangedWebhookEvent as NumberReputationExternalVerificationStatusChangedWebhookEvent,
     type NumberReputationNumberFlaggedWebhookEvent as NumberReputationNumberFlaggedWebhookEvent,
     type NumberReputationNumberRemovedWebhookEvent as NumberReputationNumberRemovedWebhookEvent,
+    type RecordingExportFailedWebhookEvent as RecordingExportFailedWebhookEvent,
+    type RecordingExportedWebhookEvent as RecordingExportedWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
     type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,

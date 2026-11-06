@@ -10,7 +10,13 @@ import { path } from '../../internal/utils/path';
  */
 export class Actions extends APIResource {
   /**
-   * Sends a chat message into a meeting session.
+   * Send chat as the bot in an active meeting. Returns 202 with data.accepted=true.
+   * Google Meet and Teams confirm sending before success; 502 chat_not_sent means
+   * not sent, while chat_delivery_unknown means delivery may have occurred. Inspect
+   * chat and chat.sent events before retrying an uncertain send. Each request is a
+   * new message and is not idempotent. Google Meet and Teams allow at most 1000 chat
+   * requests per session, including an entrance message; exceeding this returns 409
+   * invalid_state.
    *
    * @example
    * ```ts
@@ -31,15 +37,13 @@ export class Actions extends APIResource {
 
   /**
    * Sends audio / text-to-speech into a meeting session. With a Telnyx AI Assistant
-   * attached, the bot is a webpage-output bot: the speak audio routes through the
-   * assistant's output page rather than the bot mic and plays once the assistant is
-   * connected -- it is not refused. If that page cannot be reached, delivery fails
-   * with the 502 below, which may arrive without an error envelope, so branch on the
-   * status code before parsing a body. The assistant is designed to own the
-   * conversation, so prefer letting it speak or use `send_chat`. With a digital
-   * avatar (`assistant.avatar: true`), speak is refused with 409 `invalid_state`
-   * (message prefix `avatar_requires_assistant_speech:`): the avatar renders only
-   * the assistant's own speech.
+   * attached, wait for the assistant to connect before requesting speech. If audio
+   * delivery fails, the response can be 502, which may arrive without an error
+   * envelope, so branch on the status code before parsing a body. The assistant is
+   * designed to own the conversation, so prefer letting it speak or use `send_chat`.
+   * With a digital avatar (`assistant.avatar: true`), speak is refused with 409
+   * `invalid_state` (message prefix `avatar_requires_assistant_speech:`): the avatar
+   * renders only the assistant's own speech.
    *
    * @example
    * ```ts
@@ -87,7 +91,9 @@ export namespace ActionAcceptedResponse {
 
 export interface ActionSendChatParams {
   /**
-   * Chat message text to send in the meeting.
+   * Message text, 1–4000 characters. On Google Meet and Teams, also at most 4096
+   * UTF-8 bytes and nonblank; control characters other than tab and line breaks are
+   * rejected. CRLF is normalized to LF.
    */
   text: string;
 }
