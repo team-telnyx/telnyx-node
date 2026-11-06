@@ -403,6 +403,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">RecordingExportFailedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">RecordingExportedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
@@ -477,6 +479,8 @@ Types:
 - <code><a href="./src/resources/webhooks.ts">NumberReputationExternalVerificationStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberFlaggedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">NumberReputationNumberRemovedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">RecordingExportFailedWebhookEvent</a></code>
+- <code><a href="./src/resources/webhooks.ts">RecordingExportedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">ReplacedLinkClickWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">SessionStatusChangedWebhookEvent</a></code>
 - <code><a href="./src/resources/webhooks.ts">TranscriptCompletedWebhookEvent</a></code>
@@ -6216,10 +6220,14 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSession</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionLeavePolicy</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRecordingDestination</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRecordingExport</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionListResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionDeleteRecordingMediaResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveEventsResponse</a></code>
+- <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveRecordingsResponse</a></code>
 - <code><a href="./src/resources/meeting-sessions/meeting-sessions.ts">MeetingSessionRetrieveTranscriptResponse</a></code>
 
 Methods:
@@ -6232,6 +6240,7 @@ Methods:
 - <code title="get /meeting_sessions/{id}/events">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveEvents</a>(id, { ...params }) -> MeetingSessionRetrieveEventsResponse</code>
 - <code title="delete /meeting_sessions/{id}/recording_media">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">deleteRecordingMedia</a>(id) -> MeetingSessionDeleteRecordingMediaResponse</code>
 - <code title="get /meeting_sessions/{id}/transcript">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveTranscript</a>(id, { ...params }) -> MeetingSessionRetrieveTranscriptResponse</code>
+- <code title="get /meeting_sessions/{id}/recordings">client.meetingSessions.<a href="./src/resources/meeting-sessions/meeting-sessions.ts">retrieveRecordings</a>(id) -> MeetingSessionRetrieveRecordingsResponse</code>
 
 ## Actions
 
@@ -6766,3 +6775,47 @@ Methods:
 
 - <code title="get /agent_gateways/{instance_id}/teams/{team_id}/tool_permissions">client.agentGateways.teams.toolPermissions.<a href="./src/resources/agent-gateways/teams/tool-permissions.ts">list</a>(teamID, { ...params }) -> AgentGatewayToolPermissionsResponse</code>
 - <code title="put /agent_gateways/{instance_id}/teams/{team_id}/tool_permissions">client.agentGateways.teams.toolPermissions.<a href="./src/resources/agent-gateways/teams/tool-permissions.ts">create</a>(teamID, { ...params }) -> AgentGatewayToolPermissionsResponse</code>
+
+# CalendarConnections
+
+Types:
+
+- <code><a href="./src/resources/calendar-connections/calendar-connections.ts">CalendarConnection</a></code>
+- <code><a href="./src/resources/calendar-connections/calendar-connections.ts">CalendarConnectionResponse</a></code>
+- <code><a href="./src/resources/calendar-connections/calendar-connections.ts">MeetingSessionAssistant</a></code>
+- <code><a href="./src/resources/calendar-connections/calendar-connections.ts">CalendarConnectionCreateResponse</a></code>
+- <code><a href="./src/resources/calendar-connections/calendar-connections.ts">CalendarConnectionUpdateResponse</a></code>
+- <code><a href="./src/resources/calendar-connections/calendar-connections.ts">CalendarConnectionListResponse</a></code>
+
+Methods:
+
+- <code title="get /calendar_connections">client.calendarConnections.<a href="./src/resources/calendar-connections/calendar-connections.ts">list</a>() -> CalendarConnectionListResponse</code>
+- <code title="post /calendar_connections">client.calendarConnections.<a href="./src/resources/calendar-connections/calendar-connections.ts">create</a>({ ...params }) -> CalendarConnectionCreateResponse</code>
+- <code title="delete /calendar_connections/{id}">client.calendarConnections.<a href="./src/resources/calendar-connections/calendar-connections.ts">delete</a>(id) -> CalendarConnectionResponse</code>
+- <code title="get /calendar_connections/{id}">client.calendarConnections.<a href="./src/resources/calendar-connections/calendar-connections.ts">retrieve</a>(id) -> CalendarConnectionResponse</code>
+- <code title="patch /calendar_connections/{id}">client.calendarConnections.<a href="./src/resources/calendar-connections/calendar-connections.ts">update</a>(id, { ...params }) -> CalendarConnectionUpdateResponse</code>
+
+## Meetings
+
+Types:
+
+- <code><a href="./src/resources/calendar-connections/meetings.ts">CalendarMeeting</a></code>
+- <code><a href="./src/resources/calendar-connections/meetings.ts">MeetingUpdateResponse</a></code>
+- <code><a href="./src/resources/calendar-connections/meetings.ts">MeetingListResponse</a></code>
+
+Methods:
+
+- <code title="get /calendar_connections/{id}/meetings">client.calendarConnections.meetings.<a href="./src/resources/calendar-connections/meetings.ts">list</a>(id, { ...params }) -> MeetingListResponse</code>
+- <code title="patch /calendar_connections/{id}/meetings/{meeting_id}">client.calendarConnections.meetings.<a href="./src/resources/calendar-connections/meetings.ts">update</a>(meetingID, { ...params }) -> MeetingUpdateResponse</code>
+
+# MeetingBot
+
+## Calendar
+
+Types:
+
+- <code><a href="./src/resources/meeting-bot/calendar.ts">CalendarRetrieveOAuthCallbackResponse</a></code>
+
+Methods:
+
+- <code title="get /meeting_bot/calendar/oauth_callback">client.meetingBot.calendar.<a href="./src/resources/meeting-bot/calendar.ts">retrieveOAuthCallback</a>({ ...params }) -> string</code>

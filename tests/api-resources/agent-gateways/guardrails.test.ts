@@ -43,12 +43,7 @@ describe('resource guardrails', () => {
       name: 'mask-pii',
       type: 'content_filter',
       always_on: true,
-      settings: {
-        patterns: [
-          { name: 'us_ssn', action: 'mask' },
-          { name: 'email', action: 'mask' },
-        ],
-      },
+      settings: { patterns: 'bar' },
     });
   });
 
@@ -94,7 +89,7 @@ describe('resource guardrails', () => {
       always_on: true,
       modes: ['before_request'],
       name: 'name',
-      settings: {},
+      settings: { foo: 'bar' },
     });
   });
 });

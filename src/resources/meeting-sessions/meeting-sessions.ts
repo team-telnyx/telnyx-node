@@ -1,6 +1,8 @@
 // File generated from our OpenAPI spec by Stainless. See CONTRIBUTING.md for details.
 
 import { APIResource } from '../../core/resource';
+import * as MeetingSessionsAPI from './meeting-sessions';
+import * as CalendarConnectionsAPI from '../calendar-connections/calendar-connections';
 import * as ActionsAPI from './actions';
 import { ActionAcceptedResponse, ActionSendChatParams, ActionSpeakParams, Actions } from './actions';
 import * as ArtifactsAPI from './artifacts';
@@ -21,7 +23,9 @@ export class MeetingSessions extends APIResource {
   artifacts: ArtifactsAPI.Artifacts = new ArtifactsAPI.Artifacts(this._client);
 
   /**
-   * Returns a list of meeting sessions, optionally filtered by status.
+   * Returns a list of meeting sessions, optionally filtered by status. List items
+   * omit assistant.dynamic_variables and recording_export. Some items include
+   * remote_state_observed_at; retrieve the individual session for current state.
    *
    * @example
    * ```ts
@@ -36,19 +40,18 @@ export class MeetingSessions extends APIResource {
   }
 
   /**
-   * Creates a new meeting session. When an idempotency_key is supplied in the
-   * request body, replay lookup is scoped to the authenticated account and compares
-   * only the key; the request payload is not fingerprinted or compared. If a session
-   * with that key already exists for the account, the existing session is replayed
-   * (200); otherwise a new session is created (201). The session may enter
-   * asynchronous states (e.g. joining, waiting_for_admission) before becoming
-   * active. Optional `camera_image` input is write-only and applies only when no
-   * avatar or Assistant webpage output takes precedence. An ignored URL is not
-   * fetched. An effective URL source is resolved before bot creation; neither the
-   * source URL nor image bytes are persisted, returned, or logged. Treat signed URLs
-   * as credentials. With `assistant.avatar: true`, the assistant is read before the
-   * bot is created: an assistant without a Telnyx avatar configured is rejected with
-   * 400 `invalid_request` (message prefix `assistant_avatar_not_configured:`), an
+   * Creates a meeting session and returns 201, or 200 for a replay. Use a unique
+   * `idempotency_key` per intended join and reuse the same key and request on
+   * retries. Reusing a key with a different join configuration or meeting URL can
+   * return 409 invalid_state. Always retry with the original request. The session
+   * can pass through joining and waiting_for_admission before active. Optional
+   * `camera_image` input is write-only and applies when no assistant avatar takes
+   * precedence. An ignored URL is not fetched. An effective URL source is resolved
+   * before bot creation; the source URL and image bytes are not returned in the
+   * session response. Treat signed URLs as credentials. With
+   * `assistant.avatar: true`, the assistant is read before the bot is created: an
+   * assistant without a Telnyx avatar configured is rejected with 400
+   * `invalid_request` (message prefix `assistant_avatar_not_configured:`), an
    * unknown assistant with 400 `invalid_request` (prefix `assistant_not_found:`),
    * and a failed lookup with 503 `assistant_lookup_unavailable`; no bot is created
    * in any of these cases.
@@ -68,7 +71,9 @@ export class MeetingSessions extends APIResource {
   /**
    * Stops a meeting session without deleting its persisted record. Scheduled bots
    * are cancelled, while bots that are joining or active are asked to leave. The
-   * persisted meeting session record remains available.
+   * persisted meeting session record remains available. A successful response can
+   * report leaving while departure is pending. Poll until ended, failed, or
+   * admission_denied. Exported Storage objects are unaffected.
    *
    * @example
    * ```ts
@@ -102,7 +107,10 @@ export class MeetingSessions extends APIResource {
    * Updates mutable properties of a meeting session. Only sessions in the scheduled
    * state can be updated; any other state returns 409 with the invalid_state error
    * code. All request fields are optional, and an empty object is a valid no-op
-   * update.
+   * update. Calendar-controlled Google Meet and Teams sessions return 409
+   * calendar_managed; change the event instead. A conflicting pending edit returns
+   * 409 edit_in_progress. On a timeout or 503, read the session and retry the same
+   * changes.
    *
    * @example
    * ```ts
@@ -149,7 +157,10 @@ export class MeetingSessions extends APIResource {
    * events, artifacts, and usage records. It is separate from
    * `DELETE /meeting_sessions/{id}`, which stops or cancels participation without
    * deleting the persisted session. A missing/foreign session returns 404; a
-   * deletion request whose outcome is unknown returns 502.
+   * deletion request whose outcome is unknown returns 502. Customer Storage exports
+   * do not support this operation (422 unsupported_capability); delete the exported
+   * object through Storage instead. Stopping a session does not delete an exported
+   * object.
    *
    * @example
    * ```ts
@@ -167,10 +178,11 @@ export class MeetingSessions extends APIResource {
   }
 
   /**
-   * Returns transcript segments ordered by ascending `seq`. Default `limit` is 100
-   * and maximum is 1,000. Continue with `after=meta.next_after`. A long-poll timeout
-   * returns 200 with empty `data` and `meta.next_after: null`; retain the cursor
-   * supplied to that request because null is not a replacement cursor.
+   * Returns transcript segments ordered by ascending seq. Default limit is 100,
+   * maximum 1000. Continue with after=meta.next_after. On an empty page,
+   * meta.next_after preserves a positive supplied after cursor, or is null when no
+   * positive cursor was supplied. wait_seconds holds an empty read for up to 25
+   * seconds; a timeout still returns 200.
    *
    * @example
    * ```ts
@@ -187,12 +199,38 @@ export class MeetingSessions extends APIResource {
   ): APIPromise<MeetingSessionRetrieveTranscriptResponse> {
     return this._client.get(path`/meeting_sessions/${id}/transcript`, { query, ...options });
   }
+
+  /**
+   * Retrieve recording export status. Customer Storage exports include
+   * recording_export with the bucket, region, key and pending/exported/failed
+   * status, or null when no reference is available. The data array is empty for
+   * these exports. Download or share the object using the Storage API once its
+   * status is exported. Zoom recordings and existing Google Meet or Teams recordings
+   * held by the Meeting service continue returning temporary download links in data
+   * through this same endpoint and session ID. Those recordings do not require
+   * Storage setup or migration. Refresh this endpoint when a link expires. Select
+   * the download method from the returned fields, not the platform alone.
+   *
+   * @example
+   * ```ts
+   * const response =
+   *   await client.meetingSessions.retrieveRecordings(
+   *     'mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+   *   );
+   * ```
+   */
+  retrieveRecordings(
+    id: string,
+    options?: RequestOptions,
+  ): APIPromise<MeetingSessionRetrieveRecordingsResponse> {
+    return this._client.get(path`/meeting_sessions/${id}/recordings`, options);
+  }
 }
 
 /**
- * Represents a meeting session. All serializer fields are present and required;
- * nullable fields use null when absent. No actor, provider-bot, idempotency,
- * routing, key, or internal fields are exposed.
+ * Represents a meeting session. Core serializer fields are required;
+ * platform-specific fields are optional. Nullable fields use null when absent. No
+ * actor, provider-bot, idempotency, routing, key, or internal fields are exposed.
  */
 export interface MeetingSession {
   /**
@@ -208,7 +246,7 @@ export interface MeetingSession {
   /**
    * Assistant configuration if an assistant is attached, otherwise null.
    */
-  assistant: MeetingSession.Assistant | null;
+  assistant: CalendarConnectionsAPI.MeetingSessionAssistant | null;
 
   /**
    * Current state of the assistant, or null if no assistant is attached.
@@ -257,7 +295,14 @@ export interface MeetingSession {
   ended_at: string | null;
 
   /**
-   * Human-readable failure reason if the session failed, or null.
+   * A machine-readable lifecycle reason, or null. Values include left_on_request,
+   * meeting_ended, everyone_left, no_one_joined, silence_timeout,
+   * max_duration_reached, admission_timeout, admission_denied, removed_from_meeting,
+   * recording_permission_denied, meeting_not_found, meeting_not_started,
+   * meeting_access_denied, meeting_full, cancelled, cancelled_calendar_disconnected,
+   * cancelled_calendar_event_deleted, cancelled_calendar_superseded,
+   * cancelled_policy, internal_error, and other. Treat this vocabulary as
+   * extensible.
    */
   failure_reason: string | null;
 
@@ -288,9 +333,9 @@ export interface MeetingSession {
   platform: 'zoom' | 'google_meet' | 'teams' | 'webex' | 'unknown';
 
   /**
-   * Provider handling the meeting session.
+   * Always telnyx.
    */
-  provider: string;
+  provider: 'telnyx';
 
   /**
    * Whether the session is being recorded.
@@ -316,7 +361,14 @@ export interface MeetingSession {
     | 'admission_denied';
 
   /**
-   * Additional human-readable detail about the status, or null.
+   * A machine-readable lifecycle reason, or null. Values include left_on_request,
+   * meeting_ended, everyone_left, no_one_joined, silence_timeout,
+   * max_duration_reached, admission_timeout, admission_denied, removed_from_meeting,
+   * recording_permission_denied, meeting_not_found, meeting_not_started,
+   * meeting_access_denied, meeting_full, cancelled, cancelled_calendar_disconnected,
+   * cancelled_calendar_event_deleted, cancelled_calendar_superseded,
+   * cancelled_policy, internal_error, and other. Treat this vocabulary as
+   * extensible.
    */
   status_detail: string | null;
 
@@ -329,35 +381,22 @@ export interface MeetingSession {
    * Webhook endpoint for session lifecycle callbacks, or null if not configured.
    */
   webhook_url: string | null;
+
+  /**
+   * Customer Storage recording reference. Pending is not downloadable; exported
+   * means upload was verified; failed is terminal. Download with ordinary Storage
+   * authorization. No presigned URL is returned.
+   */
+  recording_export?: MeetingSessionRecordingExport | null;
+
+  /**
+   * Optional observation time on session list items. Retrieve the individual session
+   * when current state is required.
+   */
+  remote_state_observed_at?: string;
 }
 
 export namespace MeetingSession {
-  /**
-   * Assistant configuration if an assistant is attached, otherwise null.
-   */
-  export interface Assistant {
-    /**
-     * Identifier of the assistant.
-     */
-    id: string;
-
-    /**
-     * Audio gating strategy in force for the assistant call leg.
-     */
-    audio_gate: 'half_duplex' | 'full_duplex';
-
-    /**
-     * The dynamic variables in force for this session, or null when none were
-     * supplied.
-     */
-    dynamic_variables: { [key: string]: string } | null;
-
-    /**
-     * Whether the bot leaves when the Assistant's conversation ends or fails.
-     */
-    leave_on_end: boolean;
-  }
-
   /**
    * The assistant's avatar, captured from its `avatar_settings` when the session was
    * created. For display only; later changes to the assistant do not update it.
@@ -398,6 +437,11 @@ export namespace MeetingSession {
     chat_on_enter: string | null;
 
     /**
+     * Detection settings. Enabling audio or video detection is currently unsupported.
+     */
+    deepfake_detection: Config.DeepfakeDetection;
+
+    /**
      * Text spoken on meeting entry, or null if not set.
      */
     speak_on_enter: string | null;
@@ -411,14 +455,129 @@ export namespace MeetingSession {
      * Configured voice identifier, or null if not set.
      */
     voice: string | null;
+
+    /**
+     * Automatic departure settings for Google Meet and Teams. Omitted fields use the
+     * default behavior. Set at creation; cannot be changed later. Zoom ignores this
+     * policy.
+     */
+    leave_policy?: MeetingSessionsAPI.MeetingSessionLeavePolicy;
+
+    /**
+     * Recording intent set at creation for Google Meet and Teams. Distinct from the
+     * top-level recording field, which reports current activity.
+     */
+    recording?: boolean;
+
+    /**
+     * Non-default recording layout. Omitted for the default speaker_view layout.
+     */
+    recording_view?: 'gallery_view' | 'speaker_view_no_sidebar';
   }
+
+  export namespace Config {
+    /**
+     * Detection settings. Enabling audio or video detection is currently unsupported.
+     */
+    export interface DeepfakeDetection {
+      audio: boolean;
+
+      video: boolean;
+    }
+  }
+}
+
+/**
+ * Automatic departure settings for Google Meet and Teams. Omitted fields use the
+ * default behavior. Set at creation; cannot be changed later. Zoom ignores this
+ * policy.
+ */
+export interface MeetingSessionLeavePolicy {
+  /**
+   * Seconds alone after another participant has attended and left. Does not start
+   * just because the bot arrives first.
+   */
+  alone_seconds?: number;
+
+  /**
+   * Case-insensitive names or phrases identifying other bots to exclude when
+   * deciding whether this bot is alone. Matching splits names on spaces, hyphens and
+   * underscores. Null or an empty array disables filtering.
+   */
+  bot_name_keywords?: Array<string> | null;
+
+  /**
+   * Seconds to wait for the host to start the meeting.
+   */
+  host_wait_seconds?: number;
+
+  /**
+   * Seconds to wait for lobby admission.
+   */
+  lobby_wait_seconds?: number;
+
+  /**
+   * Maximum seconds after joining. Null means no per-join duration limit; service
+   * safety limits still apply.
+   */
+  max_duration_seconds?: number | null;
+
+  /**
+   * Seconds after joining before silence detection starts a fresh inactivity timer.
+   */
+  silence_grace_seconds?: number;
+
+  /**
+   * Continuous audio inactivity before departure after the silence grace period.
+   */
+  silence_seconds?: number;
+}
+
+/**
+ * Customer-owned Telnyx Storage destination for recording exports. Uses the
+ * authenticated organization and user; do not supply credentials, region,
+ * organization ID or object key.
+ */
+export interface MeetingSessionRecordingDestination {
+  /**
+   * Existing accessible bucket. Consecutive dots and IPv4-address names are
+   * rejected.
+   */
+  bucket: string;
+
+  /**
+   * Optional object-key prefix. One trailing slash is normalized. Empty path
+   * segments, . and .. segments are rejected.
+   */
+  prefix?: string;
+}
+
+/**
+ * Customer Storage recording reference. Pending is not downloadable; exported
+ * means upload was verified; failed is terminal. Download with ordinary Storage
+ * authorization. No presigned URL is returned.
+ */
+export interface MeetingSessionRecordingExport {
+  bucket: string;
+
+  bytes: number | null;
+
+  exported_at: string | null;
+
+  key: string;
+
+  region: string;
+
+  status: 'pending' | 'exported' | 'failed';
+
+  type: 'video';
 }
 
 export interface MeetingSessionResponse {
   /**
-   * Represents a meeting session. All serializer fields are present and required;
-   * nullable fields use null when absent. No actor, provider-bot, idempotency,
-   * routing, key, or internal fields are exposed.
+   * Represents a meeting session. Core serializer fields are required;
+   * platform-specific fields are optional. Nullable fields use null when absent. No
+   * actor, provider-bot, idempotency, routing, key, or internal fields are exposed.
    */
   data: MeetingSession;
 }
@@ -462,6 +621,33 @@ export namespace MeetingSessionRetrieveEventsResponse {
   }
 }
 
+export interface MeetingSessionRetrieveRecordingsResponse {
+  /**
+   * Temporary download URLs for recordings held by the Meeting service, including
+   * Zoom and existing Google Meet and Teams recordings. Empty for customer Storage
+   * exports; use recording_export instead. Choose the download method from these
+   * fields rather than the platform alone.
+   */
+  data: Array<MeetingSessionRetrieveRecordingsResponse.Data>;
+
+  /**
+   * Customer Storage recording reference. Pending is not downloadable; exported
+   * means upload was verified; failed is terminal. Download with ordinary Storage
+   * authorization. No presigned URL is returned.
+   */
+  recording_export?: MeetingSessionRecordingExport | null;
+}
+
+export namespace MeetingSessionRetrieveRecordingsResponse {
+  export interface Data {
+    expires_at: string | null;
+
+    type: string;
+
+    url: string;
+  }
+}
+
 export interface MeetingSessionRetrieveTranscriptResponse {
   data: Array<MeetingSessionRetrieveTranscriptResponse.Data>;
 
@@ -476,8 +662,17 @@ export namespace MeetingSessionRetrieveTranscriptResponse {
 
     relative_ts: number | null;
 
+    /**
+     * Monotonic transcript append cursor. This is separate from the event-history
+     * cursor and does not establish conversational turn order.
+     */
     seq: number;
 
+    /**
+     * Recorded participant or bot label, or null when unavailable. Labels are
+     * attribution, not verified identity. Segments from concurrent speakers can
+     * finalize in a different order from the conversation.
+     */
     speaker_label: string | null;
 
     text: string;
@@ -514,10 +709,8 @@ export interface MeetingSessionCreateParams {
   meeting_url: string;
 
   /**
-   * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the
-   * Meeting service connects it to the meeting directly. The Call Control
-   * connection, caller ID and loopback SIP URI previously required here have been
-   * removed and are now rejected as unknown fields.
+   * Attach a Telnyx AI Assistant owned by the authenticated account. Supply its ID
+   * and optional conversation settings. Unknown fields are rejected.
    */
   assistant?: MeetingSessionCreateParams.Assistant;
 
@@ -534,12 +727,13 @@ export interface MeetingSessionCreateParams {
   bot_name?: string;
 
   /**
-   * Write-only static camera-tile image for this session, not a native account or
+   * Not supported for Google Meet and Teams joins (422 unsupported_capability).
+   * Write-only static camera-tile image for this session, not an account or
    * participant profile photo. Supply exactly one JPEG source. When effective, the
    * image is used as the bot's static camera/video output; presentation varies by
    * meeting platform and recording configuration and is not guaranteed in
-   * recordings. An effective Avatar or Assistant webpage output takes precedence, so
-   * this input is ignored and a URL source is not fetched.
+   * recordings. An attached assistant or avatar takes precedence, so this input is
+   * ignored and a URL source is not fetched.
    */
   camera_image?:
     | MeetingSessionCreateParams.MeetingSessionCameraImageBase64Source
@@ -550,22 +744,33 @@ export interface MeetingSessionCreateParams {
    * typically a recording disclosure. Delivered at most once. Independent of
    * `speak_on_enter`: both may be set, and the chat message posts first because it
    * does not wait for text-to-speech or avatar startup. Rejected with 422
-   * `unsupported_capability` on platforms without meeting chat.
+   * `unsupported_capability` on platforms without meeting chat. For Google Meet and
+   * Teams, text must be nonblank, at most 4096 UTF-8 bytes, with no control
+   * characters except tabs and line breaks. Counts toward the 1000-chat-request
+   * session limit.
    */
   chat_on_enter?: string;
 
   /**
-   * Client-supplied idempotency key to safely retry creation requests without
-   * duplicating sessions. Lookup is scoped to the authenticated account and compares
-   * the key only; the request payload is not fingerprinted or compared.
+   * Use a unique key per intended join and reuse the same key and request on
+   * retries. Reusing a key with a different join configuration or meeting URL can
+   * return 409 invalid_state. Always retry with the original request.
    */
   idempotency_key?: string;
 
   /**
-   * ISO-8601 timestamp in the future at which the bot should join. If omitted, the
-   * bot joins immediately.
+   * Future ISO-8601 join timestamp including timezone. Google Meet and Teams accept
+   * dates at most three years ahead. Omit for an immediate join. Assistant sessions
+   * created through this endpoint must join immediately.
    */
   join_at?: string;
+
+  /**
+   * Automatic departure settings for Google Meet and Teams. Omitted fields use the
+   * default behavior. Set at creation; cannot be changed later. Zoom ignores this
+   * policy.
+   */
+  leave_policy?: MeetingSessionLeavePolicy;
 
   /**
    * Arbitrary key-value metadata attached to the session. The serialized JSON
@@ -574,11 +779,31 @@ export interface MeetingSessionCreateParams {
   metadata?: { [key: string]: unknown };
 
   /**
-   * Text the bot speaks when it enters the meeting. **Not spoken when an `assistant`
-   * is attached**: the value is accepted and echoed back on the session, but the
-   * assistant owns the voice and the line is never delivered, with no event
-   * reporting the omission. Use `chat_on_enter` to announce an assistant-backed bot.
-   * Rejected with 400 `invalid_request` when `assistant.avatar` is `true`.
+   * Google Meet and Teams only. Defaults to true when recording_export is supplied
+   * and false otherwise. True requires recording_export.bucket; false cannot be
+   * combined with recording_export. Fixed at creation, with no pause/resume action.
+   * Zoom rejects recording, recording_view, and recording_export with 422
+   * unsupported_capability; omit these fields for Zoom.
+   */
+  recording?: boolean;
+
+  /**
+   * Customer-owned Telnyx Storage destination for recording exports. Uses the
+   * authenticated organization and user; do not supply credentials, region,
+   * organization ID or object key.
+   */
+  recording_export?: MeetingSessionRecordingDestination;
+
+  /**
+   * Recording layout for Google Meet and Teams. Defaults to speaker_view. Accepted
+   * at creation only; does not enable recording by itself.
+   */
+  recording_view?: 'speaker_view' | 'gallery_view' | 'speaker_view_no_sidebar';
+
+  /**
+   * Text the bot speaks after joining. Available for sessions without a digital
+   * avatar. With an AI Assistant, the greeting waits until the assistant is
+   * connected. Rejected with 400 invalid_request when assistant.avatar is true.
    */
   speak_on_enter?: string;
 
@@ -590,7 +815,8 @@ export interface MeetingSessionCreateParams {
   /**
    * Session-default voice identifier used for `speak_on_enter` and ordinary speak
    * actions. A voice supplied on an individual speak action overrides this default
-   * for that utterance.
+   * for that utterance. With an assistant attached, its conversational voice remains
+   * configured on the assistant.
    */
   voice?: string;
 
@@ -604,10 +830,8 @@ export interface MeetingSessionCreateParams {
 
 export namespace MeetingSessionCreateParams {
   /**
-   * Attach a Telnyx AI Assistant to the session. Supply the Assistant's ID; the
-   * Meeting service connects it to the meeting directly. The Call Control
-   * connection, caller ID and loopback SIP URI previously required here have been
-   * removed and are now rejected as unknown fields.
+   * Attach a Telnyx AI Assistant owned by the authenticated account. Supply its ID
+   * and optional conversation settings. Unknown fields are rejected.
    */
   export interface Assistant {
     /**
@@ -616,12 +840,9 @@ export namespace MeetingSessionCreateParams {
     id: string;
 
     /**
-     * Audio gating strategy for the assistant call leg. `half_duplex` (default) sends
-     * the assistant a single mixed meeting stream and mutes it while the assistant
-     * speaks, so the assistant cannot hear itself and cannot be interrupted.
-     * `full_duplex` sends a separate stream per participant, which allows barge-in and
-     * removes self-hearing, and COSTS SIGNIFICANTLY MORE: per-participant streams
-     * multiply the per-minute cost by the number of participants.
+     * Use half_duplex (default) to pause listening while the assistant speaks, or
+     * full_duplex to allow participants to interrupt. Full-duplex pricing depends on
+     * participant audio usage; see the Meeting pricing guide.
      */
     audio_gate?: 'half_duplex' | 'full_duplex';
 
@@ -630,12 +851,11 @@ export namespace MeetingSessionCreateParams {
      * [AI Assistant avatars](/docs/inference/ai-assistants/avatars)) as the bot's
      * camera, lip-synced to the assistant's own speech. The request carries no avatar
      * ID or key: the assistant is read at creation and the request is rejected with
-     * 400 `invalid_request` if it has no Telnyx avatar configured. Supported on Google
-     * Meet, Zoom, Microsoft Teams and Webex; other platforms return 422
-     * `unsupported_capability`. REST-only. Not echoed back on `assistant`; the
-     * session's top-level `avatar` and `avatar_state` fields report it instead. If the
-     * avatar fails, the session continues voice-only and `avatar_state` becomes
-     * `degraded`.
+     * 400 `invalid_request` if it has no Telnyx avatar configured. Available for
+     * Google Meet, Zoom, and Teams sessions. REST-only. Not echoed back on
+     * `assistant`; the session's top-level `avatar` and `avatar_state` fields report
+     * it instead. If the avatar fails, the session continues voice-only and
+     * `avatar_state` becomes `degraded`.
      */
     avatar?: boolean;
 
@@ -647,18 +867,13 @@ export namespace MeetingSessionCreateParams {
      * conversation. At most 63 entries; keys 1-128 characters; values must be strings.
      * The map is budgeted in aggregate at 1,047,552 bytes (1023 KiB) rather than
      * capped per value. `streaming_audio`, `ai_assistant_streaming_audio` and
-     * `meeting_session_id` are reserved and rejected with `400 invalid_request` --
-     * they toggle provider infrastructure or are set by the service rather than fill a
-     * prompt template.
+     * `meeting_session_id` are reserved and rejected with `400 invalid_request`.
      */
     dynamic_variables?: { [key: string]: string };
 
     /**
-     * Leave the meeting when the Assistant's conversation reaches a terminal state --
-     * `ended` **or** `failed`. Off by default, which leaves the bot in the meeting
-     * after the Assistant stops. Fires once: a second terminal transition does not
-     * leave twice, and a leave the provider refuses is logged without changing how the
-     * session settles.
+     * Leave when the assistant conversation ends or fails. Defaults to false. Other
+     * leave-policy rules and explicit leave requests still apply.
      */
     leave_on_end?: boolean;
   }
@@ -669,7 +884,7 @@ export namespace MeetingSessionCreateParams {
      * and the URL-safe alphabet are rejected. The encoded value is limited to
      * 1,835,008 characters and the decoded JPEG to 1,363,148 bytes. The JPEG is
      * limited to 4,096 pixels per dimension, 4 megapixels, and 128 MB of decoder
-     * memory. The image bytes are not persisted, returned, or logged.
+     * memory. The image bytes are not returned in the session response.
      */
     base64_data: string;
 
@@ -692,8 +907,8 @@ export namespace MeetingSessionCreateParams {
      * Fetching is limited to public network destinations, a five-second timeout, no
      * redirects, a 2xx image/jpeg response with identity or no content encoding, and a
      * 1,363,148-byte limit enforced against both declared and streamed content. The
-     * service resolves the URL before bot creation and does not persist, return, or
-     * log the URL or image bytes.
+     * service resolves the URL before bot creation and does not return the URL or
+     * image bytes in the session response.
      */
     url: string;
   }
@@ -748,10 +963,14 @@ MeetingSessions.Artifacts = Artifacts;
 export declare namespace MeetingSessions {
   export {
     type MeetingSession as MeetingSession,
+    type MeetingSessionLeavePolicy as MeetingSessionLeavePolicy,
+    type MeetingSessionRecordingDestination as MeetingSessionRecordingDestination,
+    type MeetingSessionRecordingExport as MeetingSessionRecordingExport,
     type MeetingSessionResponse as MeetingSessionResponse,
     type MeetingSessionListResponse as MeetingSessionListResponse,
     type MeetingSessionDeleteRecordingMediaResponse as MeetingSessionDeleteRecordingMediaResponse,
     type MeetingSessionRetrieveEventsResponse as MeetingSessionRetrieveEventsResponse,
+    type MeetingSessionRetrieveRecordingsResponse as MeetingSessionRetrieveRecordingsResponse,
     type MeetingSessionRetrieveTranscriptResponse as MeetingSessionRetrieveTranscriptResponse,
     type MeetingSessionListParams as MeetingSessionListParams,
     type MeetingSessionCreateParams as MeetingSessionCreateParams,

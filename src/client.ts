@@ -1237,6 +1237,8 @@ import {
   NumberReputationNumberFlaggedWebhookEvent,
   NumberReputationNumberRemovedWebhookEvent,
   OutboundMessage,
+  RecordingExportFailedWebhookEvent,
+  RecordingExportedWebhookEvent,
   ReplacedLinkClick,
   ReplacedLinkClickWebhookEvent,
   SessionStatusChangedWebhookEvent,
@@ -1348,6 +1350,17 @@ import {
   Session,
 } from './resources/browser-sessions/browser-sessions';
 import { BundlePricing } from './resources/bundle-pricing/bundle-pricing';
+import {
+  CalendarConnection,
+  CalendarConnectionCreateParams,
+  CalendarConnectionCreateResponse,
+  CalendarConnectionListResponse,
+  CalendarConnectionResponse,
+  CalendarConnectionUpdateParams,
+  CalendarConnectionUpdateResponse,
+  CalendarConnections,
+  MeetingSessionAssistant,
+} from './resources/calendar-connections/calendar-connections';
 import {
   CallAssistantRequest,
   CallDialParams,
@@ -1575,15 +1588,20 @@ import {
   ManagedAccountUpdateResponse,
   ManagedAccounts,
 } from './resources/managed-accounts/managed-accounts';
+import { MeetingBot } from './resources/meeting-bot/meeting-bot';
 import {
   MeetingSession,
   MeetingSessionCreateParams,
   MeetingSessionDeleteRecordingMediaResponse,
+  MeetingSessionLeavePolicy,
   MeetingSessionListParams,
   MeetingSessionListResponse,
+  MeetingSessionRecordingDestination,
+  MeetingSessionRecordingExport,
   MeetingSessionResponse,
   MeetingSessionRetrieveEventsParams,
   MeetingSessionRetrieveEventsResponse,
+  MeetingSessionRetrieveRecordingsResponse,
   MeetingSessionRetrieveTranscriptParams,
   MeetingSessionRetrieveTranscriptResponse,
   MeetingSessionUpdateParams,
@@ -3462,6 +3480,11 @@ export class Telnyx {
    */
   userProfile: API.UserProfileResource = new API.UserProfileResource(this);
   agentGateways: API.AgentGateways = new API.AgentGateways(this);
+  /**
+   * Connect calendars and manage automatic meeting joins.
+   */
+  calendarConnections: API.CalendarConnections = new API.CalendarConnections(this);
+  meetingBot: API.MeetingBot = new API.MeetingBot(this);
 }
 
 Telnyx.BrowserSessions = BrowserSessions;
@@ -3665,6 +3688,8 @@ Telnyx.PayConnectors = PayConnectors;
 Telnyx.Tunnels = Tunnels;
 Telnyx.UserProfileResource = UserProfileResource;
 Telnyx.AgentGateways = AgentGateways;
+Telnyx.CalendarConnections = CalendarConnections;
+Telnyx.MeetingBot = MeetingBot;
 
 export declare namespace Telnyx {
   export type RequestOptions = Opts.RequestOptions;
@@ -3936,6 +3961,8 @@ export declare namespace Telnyx {
     type NumberReputationExternalVerificationStatusChangedWebhookEvent as NumberReputationExternalVerificationStatusChangedWebhookEvent,
     type NumberReputationNumberFlaggedWebhookEvent as NumberReputationNumberFlaggedWebhookEvent,
     type NumberReputationNumberRemovedWebhookEvent as NumberReputationNumberRemovedWebhookEvent,
+    type RecordingExportFailedWebhookEvent as RecordingExportFailedWebhookEvent,
+    type RecordingExportedWebhookEvent as RecordingExportedWebhookEvent,
     type ReplacedLinkClickWebhookEvent as ReplacedLinkClickWebhookEvent,
     type SessionStatusChangedWebhookEvent as SessionStatusChangedWebhookEvent,
     type TranscriptCompletedWebhookEvent as TranscriptCompletedWebhookEvent,
@@ -5725,10 +5752,14 @@ export declare namespace Telnyx {
   export {
     MeetingSessions as MeetingSessions,
     type MeetingSession as MeetingSession,
+    type MeetingSessionLeavePolicy as MeetingSessionLeavePolicy,
+    type MeetingSessionRecordingDestination as MeetingSessionRecordingDestination,
+    type MeetingSessionRecordingExport as MeetingSessionRecordingExport,
     type MeetingSessionResponse as MeetingSessionResponse,
     type MeetingSessionListResponse as MeetingSessionListResponse,
     type MeetingSessionDeleteRecordingMediaResponse as MeetingSessionDeleteRecordingMediaResponse,
     type MeetingSessionRetrieveEventsResponse as MeetingSessionRetrieveEventsResponse,
+    type MeetingSessionRetrieveRecordingsResponse as MeetingSessionRetrieveRecordingsResponse,
     type MeetingSessionRetrieveTranscriptResponse as MeetingSessionRetrieveTranscriptResponse,
     type MeetingSessionListParams as MeetingSessionListParams,
     type MeetingSessionCreateParams as MeetingSessionCreateParams,
@@ -5870,6 +5901,20 @@ export declare namespace Telnyx {
     type AgentGatewayCreateParams as AgentGatewayCreateParams,
     type AgentGatewayRetrieveSpendLogsParams as AgentGatewayRetrieveSpendLogsParams,
   };
+
+  export {
+    CalendarConnections as CalendarConnections,
+    type CalendarConnection as CalendarConnection,
+    type CalendarConnectionResponse as CalendarConnectionResponse,
+    type MeetingSessionAssistant as MeetingSessionAssistant,
+    type CalendarConnectionCreateResponse as CalendarConnectionCreateResponse,
+    type CalendarConnectionUpdateResponse as CalendarConnectionUpdateResponse,
+    type CalendarConnectionListResponse as CalendarConnectionListResponse,
+    type CalendarConnectionCreateParams as CalendarConnectionCreateParams,
+    type CalendarConnectionUpdateParams as CalendarConnectionUpdateParams,
+  };
+
+  export { MeetingBot as MeetingBot };
 
   export type APIError = API.APIError;
   export type AvailablePhoneNumbersMetadata = API.AvailablePhoneNumbersMetadata;

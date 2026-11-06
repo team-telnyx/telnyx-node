@@ -45,8 +45,8 @@ describe('resource meetingSessions', () => {
     const response = await client.meetingSessions.create({
       meeting_url: 'https://zoom.us/j/1234567890',
       assistant: {
-        id: 'asst_fake-uuid-1234',
-        audio_gate: 'full_duplex',
+        id: 'x',
+        audio_gate: 'half_duplex',
         avatar: true,
         dynamic_variables: { foo: 'string' },
         leave_on_end: true,
@@ -59,9 +59,21 @@ describe('resource meetingSessions', () => {
         format: 'jpeg',
       },
       chat_on_enter: 'x',
-      idempotency_key: 'x',
+      idempotency_key: 'weekly-planning-2026-11-10',
       join_at: '2019-12-27T18:11:19.117Z',
+      leave_policy: {
+        alone_seconds: 300,
+        bot_name_keywords: ['x'],
+        host_wait_seconds: 1,
+        lobby_wait_seconds: 1,
+        max_duration_seconds: 7200,
+        silence_grace_seconds: 1,
+        silence_seconds: 1,
+      },
       metadata: { foo: 'bar' },
+      recording: true,
+      recording_export: { bucket: 'meeting-recordings', prefix: 'weekly-planning' },
+      recording_view: 'speaker_view',
       speak_on_enter: 'x',
       summarize_on_end: true,
       voice: 'x',
@@ -173,5 +185,19 @@ describe('resource meetingSessions', () => {
         { path: '/_stainless_unknown_path' },
       ),
     ).rejects.toThrow(Telnyx.NotFoundError);
+  });
+
+  // Mock server tests are disabled
+  test.skip('retrieveRecordings', async () => {
+    const responsePromise = client.meetingSessions.retrieveRecordings(
+      'mtgsess_a1b2c3d4-e5f6-7890-abcd-ef1234567890',
+    );
+    const rawResponse = await responsePromise.asResponse();
+    expect(rawResponse).toBeInstanceOf(Response);
+    const response = await responsePromise;
+    expect(response).not.toBeInstanceOf(Response);
+    const dataAndResponse = await responsePromise.withResponse();
+    expect(dataAndResponse.data).toBe(response);
+    expect(dataAndResponse.response).toBe(rawResponse);
   });
 });

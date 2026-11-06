@@ -156,7 +156,7 @@ export interface AgentGatewayGuardrail {
    * `endpoint`, `severity` (0 to 7). Provider secrets are write-only. Responses
    * leave the secrets out.
    */
-  settings: unknown;
+  settings: { [key: string]: unknown };
 
   type:
     | 'content_filter'
@@ -233,7 +233,7 @@ export interface GuardrailCreateParams {
    * `secret_access_key`, or `role_name`. `azure_content_safety`: `api_key`,
    * `endpoint`, `severity` (0 to 7). Provider secrets are write-only.
    */
-  settings?: unknown;
+  settings?: { [key: string]: unknown };
 }
 
 export interface GuardrailDeleteParams {
@@ -289,7 +289,7 @@ export interface GuardrailUpdateParams {
    * `secret_access_key`, or `role_name`. `azure_content_safety`: `api_key`,
    * `endpoint`, `severity` (0 to 7). Provider secrets are write-only.
    */
-  settings?: unknown;
+  settings?: { [key: string]: unknown };
 }
 
 export declare namespace Guardrails {

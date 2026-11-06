@@ -8028,6 +8028,12 @@ export const sdkMethods: SdkMethod[] = [
     httpPath: '/meeting_sessions/{id}/transcript',
   },
   {
+    clientCallName: 'client.meetingSessions.retrieveRecordings',
+    fullyQualifiedName: 'meetingSessions.retrieveRecordings',
+    httpMethod: 'get',
+    httpPath: '/meeting_sessions/{id}/recordings',
+  },
+  {
     clientCallName: 'client.meetingSessions.actions.sendChat',
     fullyQualifiedName: 'meetingSessions.actions.sendChat',
     httpMethod: 'post',
@@ -8740,6 +8746,54 @@ export const sdkMethods: SdkMethod[] = [
     fullyQualifiedName: 'agentGateways.teams.toolPermissions.create',
     httpMethod: 'put',
     httpPath: '/agent_gateways/{instance_id}/teams/{team_id}/tool_permissions',
+  },
+  {
+    clientCallName: 'client.calendarConnections.list',
+    fullyQualifiedName: 'calendarConnections.list',
+    httpMethod: 'get',
+    httpPath: '/calendar_connections',
+  },
+  {
+    clientCallName: 'client.calendarConnections.create',
+    fullyQualifiedName: 'calendarConnections.create',
+    httpMethod: 'post',
+    httpPath: '/calendar_connections',
+  },
+  {
+    clientCallName: 'client.calendarConnections.delete',
+    fullyQualifiedName: 'calendarConnections.delete',
+    httpMethod: 'delete',
+    httpPath: '/calendar_connections/{id}',
+  },
+  {
+    clientCallName: 'client.calendarConnections.retrieve',
+    fullyQualifiedName: 'calendarConnections.retrieve',
+    httpMethod: 'get',
+    httpPath: '/calendar_connections/{id}',
+  },
+  {
+    clientCallName: 'client.calendarConnections.update',
+    fullyQualifiedName: 'calendarConnections.update',
+    httpMethod: 'patch',
+    httpPath: '/calendar_connections/{id}',
+  },
+  {
+    clientCallName: 'client.calendarConnections.meetings.list',
+    fullyQualifiedName: 'calendarConnections.meetings.list',
+    httpMethod: 'get',
+    httpPath: '/calendar_connections/{id}/meetings',
+  },
+  {
+    clientCallName: 'client.calendarConnections.meetings.update',
+    fullyQualifiedName: 'calendarConnections.meetings.update',
+    httpMethod: 'patch',
+    httpPath: '/calendar_connections/{id}/meetings/{meeting_id}',
+  },
+  {
+    clientCallName: 'client.meetingBot.calendar.retrieveOAuthCallback',
+    fullyQualifiedName: 'meetingBot.calendar.retrieveOAuthCallback',
+    httpMethod: 'get',
+    httpPath: '/meeting_bot/calendar/oauth_callback',
   },
 ];
 

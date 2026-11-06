@@ -146,6 +146,17 @@ export {
 } from './bulk-sim-card-actions';
 export { BundlePricing } from './bundle-pricing/bundle-pricing';
 export {
+  CalendarConnections,
+  type CalendarConnection,
+  type CalendarConnectionResponse,
+  type MeetingSessionAssistant,
+  type CalendarConnectionCreateResponse,
+  type CalendarConnectionUpdateResponse,
+  type CalendarConnectionListResponse,
+  type CalendarConnectionCreateParams,
+  type CalendarConnectionUpdateParams,
+} from './calendar-connections/calendar-connections';
+export {
   CallControlApplications,
   type CallControlApplication,
   type CallControlApplicationInbound,
@@ -736,13 +747,18 @@ export {
   type MediaUploadParams,
   type MediaUpdateParams,
 } from './media';
+export { MeetingBot } from './meeting-bot/meeting-bot';
 export {
   MeetingSessions,
   type MeetingSession,
+  type MeetingSessionLeavePolicy,
+  type MeetingSessionRecordingDestination,
+  type MeetingSessionRecordingExport,
   type MeetingSessionResponse,
   type MeetingSessionListResponse,
   type MeetingSessionDeleteRecordingMediaResponse,
   type MeetingSessionRetrieveEventsResponse,
+  type MeetingSessionRetrieveRecordingsResponse,
   type MeetingSessionRetrieveTranscriptResponse,
   type MeetingSessionListParams,
   type MeetingSessionCreateParams,
@@ -1832,6 +1848,8 @@ export {
   type NumberReputationExternalVerificationStatusChangedWebhookEvent,
   type NumberReputationNumberFlaggedWebhookEvent,
   type NumberReputationNumberRemovedWebhookEvent,
+  type RecordingExportFailedWebhookEvent,
+  type RecordingExportedWebhookEvent,
   type ReplacedLinkClickWebhookEvent,
   type SessionStatusChangedWebhookEvent,
   type TranscriptCompletedWebhookEvent,
