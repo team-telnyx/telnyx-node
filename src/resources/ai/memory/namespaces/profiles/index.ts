@@ -10,6 +10,7 @@ export {
 } from './memories';
 export {
   Profiles,
+  type AgentMemoryPageMeta,
   type PageMeta,
   type ProfileListResponse,
   type ProfileDeleteResponse,

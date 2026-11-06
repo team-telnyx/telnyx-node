@@ -42,7 +42,7 @@ export class TextToSpeech extends APIResource {
    * parameters.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `elevenlabs`, `minimax`,
-   * `resemble`, `xai`, `humain`, `soniox`.
+   * `resemble`, `xai`, `humain`, `soniox`, `assemblyai`.
    *
    * The Telnyx `Ultra` model supports 44 languages with emotion control, speed
    * adjustment, and volume control. Use the `telnyx` provider-specific parameters to
@@ -51,6 +51,12 @@ export class TextToSpeech extends APIResource {
    * @example
    * ```ts
    * const response = await client.textToSpeech.generateSpeech({
+   *   assemblyai: {
+   *     voice_id: 'aai-jane',
+   *     model_id: 'assemblyai-tts-1',
+   *     language: 'en',
+   *     audio_format: 'mp3',
+   *   },
    *   aws: {
    *     language_code: 'string',
    *     text_type: 'text',
@@ -125,7 +131,7 @@ export class TextToSpeech extends APIResource {
    * synthesize; receive JSON frames containing base64-encoded audio chunks.
    *
    * Supported providers: `aws`, `telnyx`, `azure`, `minimax`, `resemble`,
-   * `elevenlabs`, `xai`, `humain`, `soniox`.
+   * `elevenlabs`, `xai`, `humain`, `soniox`, `assemblyai`.
    *
    * **Connection flow:**
    *
@@ -343,10 +349,26 @@ export interface TextToSpeechListVoicesParams {
   /**
    * Filter voices by provider. If omitted, voices from all providers are returned.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain' | 'soniox';
+  provider?:
+    | 'aws'
+    | 'telnyx'
+    | 'azure'
+    | 'elevenlabs'
+    | 'minimax'
+    | 'resemble'
+    | 'xai'
+    | 'humain'
+    | 'soniox'
+    | 'assemblyai';
 }
 
 export interface TextToSpeechGenerateSpeechParams {
+  /**
+   * AssemblyAI provider-specific parameters. Every voice speaks all six supported
+   * languages; set `language` to the language of the text.
+   */
+  assemblyai?: TextToSpeechGenerateSpeechParams.Assemblyai;
+
   /**
    * AWS Polly provider-specific parameters.
    */
@@ -393,7 +415,17 @@ export interface TextToSpeechGenerateSpeechParams {
   /**
    * TTS provider. Required unless `voice` is provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain' | 'soniox';
+  provider?:
+    | 'aws'
+    | 'telnyx'
+    | 'azure'
+    | 'elevenlabs'
+    | 'minimax'
+    | 'resemble'
+    | 'xai'
+    | 'humain'
+    | 'soniox'
+    | 'assemblyai';
 
   /**
    * Resemble AI provider-specific parameters.
@@ -450,6 +482,40 @@ export interface TextToSpeechGenerateSpeechParams {
 }
 
 export namespace TextToSpeechGenerateSpeechParams {
+  /**
+   * AssemblyAI provider-specific parameters. Every voice speaks all six supported
+   * languages; set `language` to the language of the text.
+   */
+  export interface Assemblyai {
+    /**
+     * AssemblyAI voice from the
+     * [voices listing](https://developers.telnyx.com/api-reference/text-to-speech-commands/list-available-voices),
+     * for example `aai-jane`.
+     */
+    voice_id: string;
+
+    /**
+     * Audio output format.
+     */
+    audio_format?: 'mp3' | 'wav' | 'pcm_s16le' | 'pcm_mulaw' | 'pcm_alaw';
+
+    /**
+     * Two-letter ISO 639-1 code of the text. AssemblyAI does not detect the language.
+     */
+    language?: 'en' | 'es' | 'de' | 'fr' | 'it' | 'pt';
+
+    /**
+     * AssemblyAI model.
+     */
+    model_id?: 'assemblyai-tts-1';
+
+    /**
+     * Audio sample rate in Hz. Defaults to 24000, or 8000 for `pcm_mulaw` and
+     * `pcm_alaw`.
+     */
+    sample_rate?: 8000 | 16000 | 22050 | 24000 | 44100 | 48000;
+  }
+
   /**
    * AWS Polly provider-specific parameters.
    */
@@ -750,7 +816,17 @@ export interface TextToSpeechRetrieveSpeechParams {
    * TTS provider. Defaults to `telnyx` if not specified. Ignored when `voice` is
    * provided.
    */
-  provider?: 'aws' | 'telnyx' | 'azure' | 'elevenlabs' | 'minimax' | 'resemble' | 'xai' | 'humain' | 'soniox';
+  provider?:
+    | 'aws'
+    | 'telnyx'
+    | 'azure'
+    | 'elevenlabs'
+    | 'minimax'
+    | 'resemble'
+    | 'xai'
+    | 'humain'
+    | 'soniox'
+    | 'assemblyai';
 
   /**
    * Client-provided socket identifier for tracking. If not provided, one is

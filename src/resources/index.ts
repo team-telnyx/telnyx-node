@@ -47,6 +47,17 @@ export {
   type AdvancedOrderUpdateRequirementGroupParams,
 } from './advanced-orders';
 export {
+  AgentGateways,
+  type AgentGateway,
+  type AgentGatewayResponse,
+  type AgentGatewayRetrieveModelsResponse,
+  type AgentGatewayRetrieveSpendLogsResponse,
+  type AgentGatewayListParams,
+  type AgentGatewayCreateParams,
+  type AgentGatewayRetrieveSpendLogsParams,
+  type AgentGatewaysDefaultFlatPagination,
+} from './agent-gateways/agent-gateways';
+export {
   AlphanumericSenderIDs,
   type AlphanumericSenderID,
   type MessagingPaginationMeta0b38e7044b,
@@ -134,6 +145,17 @@ export {
   type BulkSimCardActionDetailedsDefaultFlatPagination,
 } from './bulk-sim-card-actions';
 export { BundlePricing } from './bundle-pricing/bundle-pricing';
+export {
+  CalendarConnections,
+  type CalendarConnection,
+  type CalendarConnectionResponse,
+  type MeetingSessionAssistant,
+  type CalendarConnectionCreateResponse,
+  type CalendarConnectionUpdateResponse,
+  type CalendarConnectionListResponse,
+  type CalendarConnectionCreateParams,
+  type CalendarConnectionUpdateParams,
+} from './calendar-connections/calendar-connections';
 export {
   CallControlApplications,
   type CallControlApplication,
@@ -725,13 +747,18 @@ export {
   type MediaUploadParams,
   type MediaUpdateParams,
 } from './media';
+export { MeetingBot } from './meeting-bot/meeting-bot';
 export {
   MeetingSessions,
   type MeetingSession,
+  type MeetingSessionLeavePolicy,
+  type MeetingSessionRecordingDestination,
+  type MeetingSessionRecordingExport,
   type MeetingSessionResponse,
   type MeetingSessionListResponse,
   type MeetingSessionDeleteRecordingMediaResponse,
   type MeetingSessionRetrieveEventsResponse,
+  type MeetingSessionRetrieveRecordingsResponse,
   type MeetingSessionRetrieveTranscriptResponse,
   type MeetingSessionListParams,
   type MeetingSessionCreateParams,
@@ -1573,6 +1600,13 @@ export {
   type UserAddressCreateParams,
   type UserAddressesUserAddressesDefaultFlatPagination,
 } from './user-addresses';
+export {
+  UserProfileResource,
+  type UserProfile,
+  type UserProfileListResponse,
+  type UserProfilePatchAllResponse,
+  type UserProfilePatchAllParams,
+} from './user-profile';
 export { UserTags, type UserTagListResponse, type UserTagListParams } from './user-tags';
 export {
   Verifications,
@@ -1814,6 +1848,8 @@ export {
   type NumberReputationExternalVerificationStatusChangedWebhookEvent,
   type NumberReputationNumberFlaggedWebhookEvent,
   type NumberReputationNumberRemovedWebhookEvent,
+  type RecordingExportFailedWebhookEvent,
+  type RecordingExportedWebhookEvent,
   type ReplacedLinkClickWebhookEvent,
   type SessionStatusChangedWebhookEvent,
   type TranscriptCompletedWebhookEvent,
