@@ -11,6 +11,7 @@ import {
 } from './settings';
 import * as ProfilesAPI from './profiles/profiles';
 import {
+  AgentMemoryPageMeta,
   PageMeta,
   ProfileDeleteParams,
   ProfileDeleteResponse,
@@ -178,6 +179,7 @@ export declare namespace Namespaces {
 
   export {
     Profiles as Profiles,
+    type AgentMemoryPageMeta as AgentMemoryPageMeta,
     type PageMeta as PageMeta,
     type ProfileListResponse as ProfileListResponse,
     type ProfileDeleteResponse as ProfileDeleteResponse,

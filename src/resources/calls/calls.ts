@@ -88,6 +88,7 @@ import {
   ActionUpdateClientStateParams,
   ActionUpdateClientStateResponse,
   Actions,
+  AssemblyAIVoiceSettings,
   AssistantMessage,
   AwsVoiceSettings,
   CallControlCommandResult,
@@ -595,7 +596,8 @@ export interface ConversationRelayEmbeddedConfig {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | ActionsAPI.SonioxVoiceSettings;
+    | ActionsAPI.SonioxVoiceSettings
+    | ActionsAPI.AssemblyAIVoiceSettings;
 }
 
 /**
@@ -704,7 +706,8 @@ export interface ConversationRelayLanguage {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | ActionsAPI.SonioxVoiceSettings;
+    | ActionsAPI.SonioxVoiceSettings
+    | ActionsAPI.AssemblyAIVoiceSettings;
 }
 
 export interface CustomSipHeader {
@@ -1654,6 +1657,7 @@ export declare namespace Calls {
   export {
     Actions as Actions,
     type AIAssistantJoinParticipant as AIAssistantJoinParticipant,
+    type AssemblyAIVoiceSettings as AssemblyAIVoiceSettings,
     type AssistantMessage as AssistantMessage,
     type AwsVoiceSettings as AwsVoiceSettings,
     type CallControlCommandResult as CallControlCommandResult,

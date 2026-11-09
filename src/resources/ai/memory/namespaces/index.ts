@@ -11,6 +11,7 @@ export {
 } from './namespaces';
 export {
   Profiles,
+  type AgentMemoryPageMeta,
   type PageMeta,
   type ProfileListResponse,
   type ProfileDeleteResponse,

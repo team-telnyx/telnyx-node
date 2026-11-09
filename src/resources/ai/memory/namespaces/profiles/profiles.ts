@@ -250,7 +250,7 @@ export type ProfileListResponsesDefaultFlatPagination = DefaultFlatPagination<Pr
  * move as writes land, so paging through a busy namespace can repeat or miss an
  * entry at a page boundary.
  */
-export interface PageMeta {
+export interface AgentMemoryPageMeta {
   /**
    * The page returned, counting from 1.
    */
@@ -271,6 +271,28 @@ export interface PageMeta {
 
   /**
    * Results the request matched, including any past the deepest page.
+   */
+  total_results: number;
+}
+
+export interface PageMeta {
+  /**
+   * The page returned, counting from 1.
+   */
+  page_number: number;
+
+  /**
+   * Results per page.
+   */
+  page_size: number;
+
+  /**
+   * Pages that can be requested; 0 when nothing matched.
+   */
+  total_pages: number;
+
+  /**
+   * Results across every page.
    */
   total_results: number;
 }
@@ -517,6 +539,7 @@ Profiles.Sources = Sources;
 
 export declare namespace Profiles {
   export {
+    type AgentMemoryPageMeta as AgentMemoryPageMeta,
     type PageMeta as PageMeta,
     type ProfileListResponse as ProfileListResponse,
     type ProfileDeleteResponse as ProfileDeleteResponse,

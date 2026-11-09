@@ -1092,6 +1092,13 @@ export interface AIAssistantJoinParticipant {
   on_hangup?: 'continue_conversation' | 'end_conversation';
 }
 
+export interface AssemblyAIVoiceSettings {
+  /**
+   * Voice settings provider type
+   */
+  type: 'assemblyai';
+}
+
 /**
  * Messages sent by the model in response to user messages.
  */
@@ -3653,7 +3660,8 @@ export interface ActionGatherUsingAIParams {
     | Shared.AzureVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings;
+    | SonioxVoiceSettings
+    | AssemblyAIVoiceSettings;
 }
 
 export namespace ActionGatherUsingAIParams {
@@ -3943,7 +3951,8 @@ export interface ActionGatherUsingSpeakParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings;
+    | SonioxVoiceSettings
+    | AssemblyAIVoiceSettings;
 }
 
 export interface ActionHangupParams {
@@ -4828,7 +4837,8 @@ export interface ActionSpeakParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings;
+    | SonioxVoiceSettings
+    | AssemblyAIVoiceSettings;
 }
 
 export interface ActionStartStreamingParams {
@@ -5815,7 +5825,8 @@ export interface ActionStartConversationRelayParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings;
+    | SonioxVoiceSettings
+    | AssemblyAIVoiceSettings;
 }
 
 export namespace ActionStartConversationRelayParams {
@@ -6052,6 +6063,7 @@ export namespace ActionPayParams {
 export declare namespace Actions {
   export {
     type AIAssistantJoinParticipant as AIAssistantJoinParticipant,
+    type AssemblyAIVoiceSettings as AssemblyAIVoiceSettings,
     type AssistantMessage as AssistantMessage,
     type AwsVoiceSettings as AwsVoiceSettings,
     type CallControlCommandResult as CallControlCommandResult,
