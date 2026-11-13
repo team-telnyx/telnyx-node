@@ -172,8 +172,6 @@ import {
   EmbeddingURLParams,
   Embeddings,
 } from './embeddings/embeddings';
-import * as FineTuningAPI from './fine-tuning/fine-tuning';
-import { FineTuning } from './fine-tuning/fine-tuning';
 import * as IntegrationsAPI from './integrations/integrations';
 import { Integration, IntegrationListResponse, Integrations } from './integrations/integrations';
 import * as KnowledgeAPI from './knowledge/knowledge';
@@ -213,7 +211,6 @@ export class AI extends APIResource {
   collections: CollectionsAPI.Collections = new CollectionsAPI.Collections(this._client);
   conversations: ConversationsAPI.Conversations = new ConversationsAPI.Conversations(this._client);
   embeddings: EmbeddingsAPI.Embeddings = new EmbeddingsAPI.Embeddings(this._client);
-  fineTuning: FineTuningAPI.FineTuning = new FineTuningAPI.FineTuning(this._client);
   integrations: IntegrationsAPI.Integrations = new IntegrationsAPI.Integrations(this._client);
   mcpServers: McpServersAPI.McpServers = new McpServersAPI.McpServers(this._client);
   missions: MissionsAPI.Missions = new MissionsAPI.Missions(this._client);
@@ -418,8 +415,8 @@ export interface ModelMetadata {
   description?: string | null;
 
   /**
-   * Whether the model can be used as a base for a fine-tuning job via
-   * `POST /v2/ai/fine_tuning/jobs`.
+   * Whether the model can be used as a base for fine-tuning. Fine-tuning jobs are no
+   * longer served by the Telnyx API.
    */
   is_fine_tunable?: boolean;
 
@@ -675,7 +672,6 @@ AI.Clusters = Clusters;
 AI.Collections = Collections;
 AI.Conversations = Conversations;
 AI.Embeddings = Embeddings;
-AI.FineTuning = FineTuning;
 AI.Integrations = Integrations;
 AI.McpServers = McpServers;
 AI.Missions = Missions;
@@ -834,8 +830,6 @@ export declare namespace AI {
     type EmbeddingSimilaritySearchParams as EmbeddingSimilaritySearchParams,
     type EmbeddingURLParams as EmbeddingURLParams,
   };
-
-  export { FineTuning as FineTuning };
 
   export {
     Integrations as Integrations,

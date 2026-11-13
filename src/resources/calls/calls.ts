@@ -88,7 +88,6 @@ import {
   ActionUpdateClientStateParams,
   ActionUpdateClientStateResponse,
   Actions,
-  AssemblyAIVoiceSettings,
   AssistantMessage,
   AwsVoiceSettings,
   CallControlCommandResult,
@@ -596,8 +595,7 @@ export interface ConversationRelayEmbeddedConfig {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | ActionsAPI.SonioxVoiceSettings
-    | ActionsAPI.AssemblyAIVoiceSettings;
+    | ActionsAPI.SonioxVoiceSettings;
 }
 
 /**
@@ -706,8 +704,7 @@ export interface ConversationRelayLanguage {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | ActionsAPI.SonioxVoiceSettings
-    | ActionsAPI.AssemblyAIVoiceSettings;
+    | ActionsAPI.SonioxVoiceSettings;
 }
 
 export interface CustomSipHeader {
@@ -1164,6 +1161,16 @@ export interface CallDialParams {
    * is 0 (infinite).
    */
   record_max_length?: number;
+
+  /**
+   * Applies to the recording started with `record`. Silences spoken details of the
+   * given kinds in the recording: `pci` (card number, expiry date, security code),
+   * `pii` (personal details such as names, phone numbers, addresses and other
+   * identifying numbers) and `phi` (health details such as medications, doses and
+   * conditions). Redaction works on English speech only. Redacted recordings are
+   * charged at the Deepgram speech-to-text rate.
+   */
+  record_redaction?: Array<'pci' | 'pii' | 'phi'>;
 
   /**
    * The number of seconds that Telnyx will wait for the recording to be stopped if
@@ -1657,7 +1664,6 @@ export declare namespace Calls {
   export {
     Actions as Actions,
     type AIAssistantJoinParticipant as AIAssistantJoinParticipant,
-    type AssemblyAIVoiceSettings as AssemblyAIVoiceSettings,
     type AssistantMessage as AssistantMessage,
     type AwsVoiceSettings as AwsVoiceSettings,
     type CallControlCommandResult as CallControlCommandResult,

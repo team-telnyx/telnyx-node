@@ -112,14 +112,38 @@ export type RemediationListResponsesDefaultFlatPagination = DefaultFlatPaginatio
  * null-checking each key.
  */
 export interface RemediationPerNumberResults {
+  /**
+   * Numbers the reputation partner did not re-review because it had already reviewed
+   * them within the previous 60 days (already reviewed). The cooldown is measured
+   * from the partner's most recent review, not the API submission date. This array
+   * identifies the numbers but does not include their last-review or re-eligibility
+   * dates.
+   */
   ineligible?: Array<string>;
 
+  /**
+   * The reputation partner reported no prior spam label for the number (no prior
+   * spam label).
+   */
   not_flagged?: Array<string>;
 
+  /**
+   * The reputation partner reviewed the number and declined the redress request
+   * (redress declined); the number remains flagged.
+   */
   refused?: Array<string>;
 
+  /**
+   * The reputation partner approved redress (redress approved) or reported that the
+   * number had already been redressed recently (already recently redressed). This
+   * does not guarantee removal from every spam list.
+   */
   remediated?: Array<string>;
 
+  /**
+   * The number needs further review, or the partner response did not match a
+   * recognized outcome.
+   */
   requires_review?: Array<string>;
 }
 
@@ -140,7 +164,8 @@ export interface RemediationRequest {
   phone_numbers_count: number;
 
   /**
-   * Numbers rejected before submission (e.g. cooldown).
+   * Number of phone numbers the reputation partner did not re-review because it had
+   * reviewed them within the previous 60 days.
    */
   phone_numbers_ineligible: number;
 

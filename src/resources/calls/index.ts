@@ -3,7 +3,6 @@
 export {
   Actions,
   type AIAssistantJoinParticipant,
-  type AssemblyAIVoiceSettings,
   type AssistantMessage,
   type AwsVoiceSettings,
   type CallControlCommandResult,

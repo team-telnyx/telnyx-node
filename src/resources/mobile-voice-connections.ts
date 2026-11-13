@@ -26,7 +26,7 @@ export class MobileVoiceConnections extends APIResource {
     options?: RequestOptions,
   ): PagePromise<MobileVoiceConnectionsDefaultFlatPagination, MobileVoiceConnection> {
     return this._client.getAPIList(
-      '/v2/mobile_voice_connections',
+      '/mobile_voice_connections',
       DefaultFlatPagination<MobileVoiceConnection>,
       { query, ...options },
     );
@@ -56,7 +56,7 @@ export class MobileVoiceConnections extends APIResource {
     body: MobileVoiceConnectionCreateParams,
     options?: RequestOptions,
   ): APIPromise<MobileVoiceConnectionCreateResponse> {
-    return this._client.post('/v2/mobile_voice_connections', { body, ...options });
+    return this._client.post('/mobile_voice_connections', { body, ...options });
   }
 
   /**
@@ -69,7 +69,7 @@ export class MobileVoiceConnections extends APIResource {
    * ```
    */
   delete(id: string, options?: RequestOptions): APIPromise<MobileVoiceConnectionDeleteResponse> {
-    return this._client.delete(path`/v2/mobile_voice_connections/${id}`, options);
+    return this._client.delete(path`/mobile_voice_connections/${id}`, options);
   }
 
   /**
@@ -82,7 +82,7 @@ export class MobileVoiceConnections extends APIResource {
    * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MobileVoiceConnectionRetrieveResponse> {
-    return this._client.get(path`/v2/mobile_voice_connections/${id}`, options);
+    return this._client.get(path`/mobile_voice_connections/${id}`, options);
   }
 
   /**
@@ -108,7 +108,7 @@ export class MobileVoiceConnections extends APIResource {
     body: MobileVoiceConnectionUpdateParams,
     options?: RequestOptions,
   ): APIPromise<MobileVoiceConnectionUpdateResponse> {
-    return this._client.patch(path`/v2/mobile_voice_connections/${id}`, { body, ...options });
+    return this._client.patch(path`/mobile_voice_connections/${id}`, { body, ...options });
   }
 }
 

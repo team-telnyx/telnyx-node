@@ -2606,10 +2606,8 @@ export interface InferenceEmbeddingVoiceSettings {
 
   /**
    * Two-letter ISO 639-1 code of the language the voice speaks, for example `es`.
-   * Only applicable to Soniox and AssemblyAI voices, which speak every language of
-   * their model. AssemblyAI accepts `en`, `es`, `de`, `fr`, `it`, and `pt`, as a
-   * literal code: a dynamic variable is rejected. When unset, the voice speaks
-   * English.
+   * Only applicable to Soniox voices, which speak every language of their model.
+   * When unset, the voice speaks English.
    */
   language?: string | null;
 
@@ -3821,11 +3819,12 @@ export interface TranscriptionChallenger {
    * `transcription.model`: both streaming (`deepgram/flux`, `deepgram/nova-3`,
    * `deepgram/nova-2`, `assemblyai/universal-3-6-pro` or its legacy aliases
    * `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`,
-   * `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `humain/realtime`,
-   * `reson8/turns`) or both non-streaming (`azure/fast`, `nvidia/parakeet-v3`,
-   * `omi-health/omi-med-stt-v1`, `cohere/ar-stt`, `distil-whisper/distil-large-v2`,
-   * `openai/whisper-large-v3-turbo`, `telnyx/basira`). It can be the same model as
-   * `transcription.model` on a different `language`.
+   * `xai/grok-stt`, `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, `soniox/stt-rt-v6`,
+   * `humain/realtime`, `reson8/turns`) or both non-streaming (`azure/fast`,
+   * `nvidia/parakeet-v3`, `omi-health/omi-med-stt-v1`, `cohere/ar-stt`,
+   * `distil-whisper/distil-large-v2`, `openai/whisper-large-v3-turbo`,
+   * `telnyx/basira`). It can be the same model as `transcription.model` on a
+   * different `language`.
    */
   model:
     | 'deepgram/flux'
@@ -3838,6 +3837,7 @@ export interface TranscriptionChallenger {
     | 'xai/grok-stt'
     | 'soniox/stt-rt-v4'
     | 'soniox/stt-rt-v5'
+    | 'soniox/stt-rt-v6'
     | 'nvidia/parakeet-v3'
     | 'omi-health/omi-med-stt-v1'
     | 'humain/realtime'
@@ -3925,7 +3925,7 @@ export interface TranscriptionFallbackModel {
    * `deepgram/nova-3`, `deepgram/nova-2`, `assemblyai/universal-3-6-pro` (or its
    * legacy aliases `assemblyai/universal-3-5-pro` and
    * `assemblyai/universal-streaming`), `xai/grok-stt`, `soniox/stt-rt-v4`,
-   * `soniox/stt-rt-v5`, `humain/realtime`, or `reson8/turns`.
+   * `soniox/stt-rt-v5`, `soniox/stt-rt-v6`, `humain/realtime`, or `reson8/turns`.
    */
   model:
     | 'deepgram/flux'
@@ -3937,6 +3937,7 @@ export interface TranscriptionFallbackModel {
     | 'xai/grok-stt'
     | 'soniox/stt-rt-v4'
     | 'soniox/stt-rt-v5'
+    | 'soniox/stt-rt-v6'
     | 'humain/realtime'
     | 'reson8/turns';
 
@@ -3987,24 +3988,25 @@ export interface TranscriptionSettings {
    * supported models will automatically detect the language. For `deepgram/flux`,
    * supported values are: `auto` (Telnyx language detection controls the language
    * hint), `multi` (no language hint), and language-specific hints `en`, `es`, `fr`,
-   * `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For `soniox/stt-rt-v4` and
-   * `soniox/stt-rt-v5`, `auto` omits the language hint and lets Soniox auto-detect;
-   * ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language;
-   * `settings.language_hints` can pin multiple languages at once instead. For
-   * `humain/realtime`, supported values are `ar`, `en`, `codeswitch` (Arabic/English
-   * code-switching), and `auto` (resolves server-side to code-switching). Unlike
-   * other models, `humain/realtime` does not fall back to `auto` when `language` is
-   * omitted — omitting it applies `en` instead. For `reson8/turns`, supported values
-   * are `auto` (or unset) for automatic language detection, and the language codes
-   * `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`, `pt`, `es`, and `sv` to fix the
-   * transcription language. For `cohere/ar-stt`, supported values are `ar` and `en`;
-   * unlike other models, this model does not auto-detect and defaults to `ar` when
-   * `language` is omitted. For `speechmatics/linden-1`, there is no auto-detect; set
-   * a code from Speechmatics' Realtime language list (67 language codes, including
-   * `es-bilingual-en` for Spanish and English bilingual, and the spelling and script
-   * variants `en-US`, `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant`; `en` alone uses
-   * the default spelling); unset defaults to `en`, while an explicit `auto`,
-   * `auto_beta`, or `multi` is rejected with a 400.
+   * `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For `soniox/stt-rt-v4`,
+   * `soniox/stt-rt-v5`, and `soniox/stt-rt-v6`, `auto` omits the language hint and
+   * lets Soniox auto-detect; ISO 639-1 codes (e.g. `en`, `es`) bias detection toward
+   * that language; `settings.language_hints` can pin multiple languages at once
+   * instead. For `humain/realtime`, supported values are `ar`, `en`, `codeswitch`
+   * (Arabic/English code-switching), and `auto` (resolves server-side to
+   * code-switching). Unlike other models, `humain/realtime` does not fall back to
+   * `auto` when `language` is omitted — omitting it applies `en` instead. For
+   * `reson8/turns`, supported values are `auto` (or unset) for automatic language
+   * detection, and the language codes `nl`, `en`, `fr`, `fy`, `de`, `it`, `pl`,
+   * `pt`, `es`, and `sv` to fix the transcription language. For `cohere/ar-stt`,
+   * supported values are `ar` and `en`; unlike other models, this model does not
+   * auto-detect and defaults to `ar` when `language` is omitted. For
+   * `speechmatics/linden-1`, there is no auto-detect; set a code from Speechmatics'
+   * Realtime language list (67 language codes, including `es-bilingual-en` for
+   * Spanish and English bilingual, and the spelling and script variants `en-US`,
+   * `en-GB`, `en-AU`, `cmn-Hans`, and `cmn-Hant`; `en` alone uses the default
+   * spelling); unset defaults to `en`, while an explicit `auto`, `auto_beta`, or
+   * `multi` is rejected with a 400.
    */
   language?: string;
 
@@ -4027,9 +4029,9 @@ export interface TranscriptionSettings {
    *   aliases `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`
    *   are still accepted and run the same model.
    * - `xai/grok-stt` is a multilingual Grok STT model.
-   * - `soniox/stt-rt-v4` and `soniox/stt-rt-v5` are multilingual streaming models
-   *   with automatic language detection, configurable endpointing, term biasing
-   *   (`context`), and `language_hints`.
+   * - `soniox/stt-rt-v4`, `soniox/stt-rt-v5`, and `soniox/stt-rt-v6` are
+   *   multilingual streaming models with automatic language detection, configurable
+   *   endpointing, term biasing (`context`), and `language_hints`.
    * - `nvidia/parakeet-v3` is a multilingual transcription model with automatic
    *   language detection.
    * - `omi-health/omi-med-stt-v1` is an English-only medical transcription model
@@ -4054,6 +4056,7 @@ export interface TranscriptionSettings {
     | 'xai/grok-stt'
     | 'soniox/stt-rt-v4'
     | 'soniox/stt-rt-v5'
+    | 'soniox/stt-rt-v6'
     | 'nvidia/parakeet-v3'
     | 'omi-health/omi-med-stt-v1'
     | 'humain/realtime'
@@ -4074,10 +4077,10 @@ export interface TranscriptionSettings {
 
 export interface TranscriptionSettingsConfig {
   /**
-   * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. A comma-separated list
-   * of terms to boost for recognition during transcription, for staff names,
-   * building names, or other domain-specific vocabulary. This field may be templated
-   * with
+   * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. A
+   * comma-separated list of terms to boost for recognition during transcription, for
+   * staff names, building names, or other domain-specific vocabulary. This field may
+   * be templated with
    * [dynamic variables](https://developers.telnyx.com/docs/inference/ai-assistants/dynamic-variables)
    * using mustache syntax (e.g. `Telnyx,{{customer_name}},VoIP`). Variables are
    * resolved at call time before the value is sent to Soniox.
@@ -4092,8 +4095,8 @@ export interface TranscriptionSettingsConfig {
   eager_eot_threshold?: number;
 
   /**
-   * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. When true, Soniox
-   * emits end-of-utterance events at the cadence configured by
+   * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6.
+   * When true, Soniox emits end-of-utterance events at the cadence configured by
    * `max_endpoint_delay_ms`.
    */
   enable_endpoint_detection?: boolean;
@@ -4117,8 +4120,9 @@ export interface TranscriptionSettingsConfig {
   eot_timeout_ms?: number;
 
   /**
-   * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. When true, Soniox
-   * streams interim (non-final) results in addition to finalized transcripts.
+   * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6.
+   * When true, Soniox streams interim (non-final) results in addition to finalized
+   * transcripts.
    */
   interim_results?: boolean;
 
@@ -4137,16 +4141,16 @@ export interface TranscriptionSettingsConfig {
   keyterm?: string;
 
   /**
-   * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. A list of ISO 639-1
-   * language codes (e.g. `["nl", "fr"]`) to pin recognition to multiple languages at
-   * once, overriding the single hint derived from `language`.
+   * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6. A
+   * list of ISO 639-1 language codes (e.g. `["nl", "fr"]`) to pin recognition to
+   * multiple languages at once, overriding the single hint derived from `language`.
    */
   language_hints?: Array<string>;
 
   /**
-   * Available only for soniox/stt-rt-v4 and soniox/stt-rt-v5. Maximum silence (in
-   * milliseconds) before Soniox emits an end-of-utterance event. Only honored when
-   * `enable_endpoint_detection` is true.
+   * Available only for soniox/stt-rt-v4, soniox/stt-rt-v5, and soniox/stt-rt-v6.
+   * Maximum silence (in milliseconds) before Soniox emits an end-of-utterance event.
+   * Only honored when `enable_endpoint_detection` is true.
    */
   max_endpoint_delay_ms?: number;
 
