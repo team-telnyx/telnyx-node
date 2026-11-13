@@ -1034,22 +1034,6 @@ Methods:
 - <code title="delete /ai/embeddings/buckets/{bucket_name}">client.ai.embeddings.buckets.<a href="./src/resources/ai/embeddings/buckets.ts">delete</a>(bucketName) -> void</code>
 - <code title="get /ai/embeddings/buckets/{bucket_name}">client.ai.embeddings.buckets.<a href="./src/resources/ai/embeddings/buckets.ts">retrieve</a>(bucketName) -> BucketRetrieveResponse</code>
 
-## FineTuning
-
-### Jobs
-
-Types:
-
-- <code><a href="./src/resources/ai/fine-tuning/jobs.ts">FineTuningJob</a></code>
-- <code><a href="./src/resources/ai/fine-tuning/jobs.ts">JobListResponse</a></code>
-
-Methods:
-
-- <code title="get /ai/fine_tuning/jobs">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">list</a>() -> JobListResponse</code>
-- <code title="post /ai/fine_tuning/jobs">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">create</a>({ ...params }) -> FineTuningJob</code>
-- <code title="get /ai/fine_tuning/jobs/{job_id}">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">retrieve</a>(jobID) -> FineTuningJob</code>
-- <code title="post /ai/fine_tuning/jobs/{job_id}/cancel">client.ai.fineTuning.jobs.<a href="./src/resources/ai/fine-tuning/jobs.ts">cancel</a>(jobID) -> FineTuningJob</code>
-
 ## Integrations
 
 Types:
@@ -1712,7 +1696,6 @@ Methods:
 Types:
 
 - <code><a href="./src/resources/calls/actions.ts">AIAssistantJoinParticipant</a></code>
-- <code><a href="./src/resources/calls/actions.ts">AssemblyAIVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">AssistantMessage</a></code>
 - <code><a href="./src/resources/calls/actions.ts">AwsVoiceSettings</a></code>
 - <code><a href="./src/resources/calls/actions.ts">CallControlCommandResult</a></code>
@@ -3162,7 +3145,7 @@ Types:
 
 Methods:
 
-- <code title="post /v2/payment/stored_payment_transactions">client.payment.<a href="./src/resources/payment/payment.ts">createStoredPaymentTransaction</a>({ ...params }) -> PaymentCreateStoredPaymentTransactionResponse</code>
+- <code title="post /payment/stored_payment_transactions">client.payment.<a href="./src/resources/payment/payment.ts">createStoredPaymentTransaction</a>({ ...params }) -> PaymentCreateStoredPaymentTransactionResponse</code>
 
 ## AutoRechargePrefs
 
@@ -4942,9 +4925,9 @@ Types:
 
 Methods:
 
-- <code title="get /v2/mobile_phone_numbers">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">list</a>({ ...params }) -> MobilePhoneNumbersDefaultFlatPagination</code>
-- <code title="get /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">retrieve</a>(id) -> MobilePhoneNumberRetrieveResponse</code>
-- <code title="patch /v2/mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">update</a>(id, { ...params }) -> MobilePhoneNumberUpdateResponse</code>
+- <code title="get /mobile_phone_numbers">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">list</a>({ ...params }) -> MobilePhoneNumbersDefaultFlatPagination</code>
+- <code title="get /mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">retrieve</a>(id) -> MobilePhoneNumberRetrieveResponse</code>
+- <code title="patch /mobile_phone_numbers/{id}">client.mobilePhoneNumbers.<a href="./src/resources/mobile-phone-numbers/mobile-phone-numbers.ts">update</a>(id, { ...params }) -> MobilePhoneNumberUpdateResponse</code>
 
 ## Messaging
 
@@ -4970,11 +4953,11 @@ Types:
 
 Methods:
 
-- <code title="get /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">list</a>({ ...params }) -> MobileVoiceConnectionsDefaultFlatPagination</code>
-- <code title="post /v2/mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">create</a>({ ...params }) -> MobileVoiceConnectionCreateResponse</code>
-- <code title="delete /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">delete</a>(id) -> MobileVoiceConnectionDeleteResponse</code>
-- <code title="get /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">retrieve</a>(id) -> MobileVoiceConnectionRetrieveResponse</code>
-- <code title="patch /v2/mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">update</a>(id, { ...params }) -> MobileVoiceConnectionUpdateResponse</code>
+- <code title="get /mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">list</a>({ ...params }) -> MobileVoiceConnectionsDefaultFlatPagination</code>
+- <code title="post /mobile_voice_connections">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">create</a>({ ...params }) -> MobileVoiceConnectionCreateResponse</code>
+- <code title="delete /mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">delete</a>(id) -> MobileVoiceConnectionDeleteResponse</code>
+- <code title="get /mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">retrieve</a>(id) -> MobileVoiceConnectionRetrieveResponse</code>
+- <code title="patch /mobile_voice_connections/{id}">client.mobileVoiceConnections.<a href="./src/resources/mobile-voice-connections.ts">update</a>(id, { ...params }) -> MobileVoiceConnectionUpdateResponse</code>
 
 # Messaging10dlc
 

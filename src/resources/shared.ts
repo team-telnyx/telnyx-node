@@ -998,7 +998,7 @@ export interface PortingOrderStatus {
   /**
    * A list of 0 or more details about this porting order's status
    */
-  details?: Array<PortingOrdersExceptionType>;
+  details?: Array<PortingOrderStatus.Detail>;
 
   /**
    * The current status of the porting order
@@ -1014,37 +1014,195 @@ export interface PortingOrderStatus {
     | 'cancel-pending';
 }
 
+export namespace PortingOrderStatus {
+  export interface Detail {
+    /**
+     * Identifier of the exception. Includes legacy codes persisted on older orders
+     */
+    code:
+      | 'ACCOUNT_NUMBER_MISMATCH'
+      | 'ACCOUNT_NUMBER_MISMATCH_OR_MISSING'
+      | 'ACCOUNT_NUMBER_REQUIRED'
+      | 'ALL_DATA_MISMATCH'
+      | 'AUTH_PERSON_MISMATCH'
+      | 'BTN_ATN_MISMATCH'
+      | 'DOCUMENT_BLOCKED'
+      | 'ENTITY_NAME_MISMATCH'
+      | 'FOC_EXPIRED'
+      | 'FOC_REJECTED'
+      | 'INCORRECT_LOA_TEMPLATE'
+      | 'INCORRECT_LOSING_COMMUNICATION_PROVIDER'
+      | 'INCORRECT_PORT_TYPE'
+      | 'INVALID_OR_MISSING_INVOICE'
+      | 'INVALID_OR_MISSING_LOA'
+      | 'INVALID_SIGNATURE_ON_THE_LOA'
+      | 'J2_PASSCODE_PIN_INVALID'
+      | 'LOA_ILLEGIBLE'
+      | 'LOCATION_MISMATCH'
+      | 'LOSING_CARRIER_OUTAGE'
+      | 'LSR_PENDING'
+      | 'MAIN_BTN_PORTING'
+      | 'MISSING_MANDATORY_REQUIREMENT'
+      | 'MISSING_NUMBER_DETAILS'
+      | 'NUMBER_HAS_ASSOCIATED_SERVICES'
+      | 'ORDER_REFLOW'
+      | 'OSP_IRRESPONSIVE'
+      | 'OTHER'
+      | 'PASSCODE_PIN_INVALID'
+      | 'PHONE_NUMBER_HAS_SPECIAL_FEATURE'
+      | 'PHONE_NUMBER_MISMATCH'
+      | 'PHONE_NUMBER_NOT_PORTABLE'
+      | 'PORTING_ORDER_SPLIT_REQUIRED'
+      | 'PORT_TYPE_INCORRECT'
+      | 'POSTAL_CODE_MISMATCH'
+      | 'RATE_CENTER_NOT_PORTABLE'
+      | 'RESELLER_INVALID'
+      | 'STRANDED_SERVICES_NEED_NEW_BTN'
+      | 'SV_CONFLICT'
+      | 'SV_UNKNOWN_FAILURE'
+      | 'TNS_ON_MULTIPLE_ACCOUNTS'
+      | 'TN_BUILD_CONFLICT'
+      | 'TN_DISCONNECTED'
+      | 'UNAUTHORIZED_PERSON_SIGNATURE';
+
+    /**
+     * Description of the exception
+     */
+    description: string;
+
+    /**
+     * Structured remediation steps so an agent can map the exception to a fix via the
+     * API alone
+     */
+    remediation: Detail.Remediation;
+  }
+
+  export namespace Detail {
+    /**
+     * Structured remediation steps so an agent can map the exception to a fix via the
+     * API alone
+     */
+    export interface Remediation {
+      /**
+       * The type of remediation action to take
+       */
+      action:
+        | 'update_order_fields'
+        | 'upload_document'
+        | 'create_orders'
+        | 'assign_foc_datetime'
+        | 'wait'
+        | 'external_action'
+        | 'contact_support';
+
+      /**
+       * Patchable field paths to correct, empty when no field update applies
+       */
+      fields: Array<string>;
+
+      /**
+       * The document to (re)upload, when applicable
+       */
+      required_document: 'loa' | 'invoice' | 'null' | null;
+
+      /**
+       * Whether resubmission or polling alone can unblock the order
+       */
+      retryable: boolean;
+    }
+  }
+}
+
 export interface PortingOrdersExceptionType {
   /**
    * Identifier of an exception type
    */
-  code?:
+  code:
     | 'ACCOUNT_NUMBER_MISMATCH'
+    | 'ACCOUNT_NUMBER_MISMATCH_OR_MISSING'
+    | 'ACCOUNT_NUMBER_REQUIRED'
+    | 'ALL_DATA_MISMATCH'
     | 'AUTH_PERSON_MISMATCH'
     | 'BTN_ATN_MISMATCH'
+    | 'DOCUMENT_BLOCKED'
     | 'ENTITY_NAME_MISMATCH'
     | 'FOC_EXPIRED'
     | 'FOC_REJECTED'
+    | 'INCORRECT_LOA_TEMPLATE'
+    | 'INCORRECT_LOSING_COMMUNICATION_PROVIDER'
+    | 'INCORRECT_PORT_TYPE'
+    | 'INVALID_OR_MISSING_INVOICE'
+    | 'INVALID_OR_MISSING_LOA'
+    | 'INVALID_SIGNATURE_ON_THE_LOA'
+    | 'J2_PASSCODE_PIN_INVALID'
     | 'LOCATION_MISMATCH'
     | 'LSR_PENDING'
     | 'MAIN_BTN_PORTING'
+    | 'MISSING_MANDATORY_REQUIREMENT'
+    | 'MISSING_NUMBER_DETAILS'
+    | 'NUMBER_HAS_ASSOCIATED_SERVICES'
+    | 'ORDER_REFLOW'
     | 'OSP_IRRESPONSIVE'
     | 'OTHER'
     | 'PASSCODE_PIN_INVALID'
-    | 'PHONE_NUMBER_HAS_SPECIAL_FEATURE'
     | 'PHONE_NUMBER_MISMATCH'
     | 'PHONE_NUMBER_NOT_PORTABLE'
-    | 'PORT_TYPE_INCORRECT'
-    | 'PORTING_ORDER_SPLIT_REQUIRED'
     | 'POSTAL_CODE_MISMATCH'
     | 'RATE_CENTER_NOT_PORTABLE'
+    | 'RESELLER_INVALID'
+    | 'STRANDED_SERVICES_NEED_NEW_BTN'
     | 'SV_CONFLICT'
-    | 'SV_UNKNOWN_FAILURE';
+    | 'SV_UNKNOWN_FAILURE'
+    | 'TNS_ON_MULTIPLE_ACCOUNTS'
+    | 'TN_BUILD_CONFLICT'
+    | 'TN_DISCONNECTED'
+    | 'UNAUTHORIZED_PERSON_SIGNATURE';
 
   /**
    * Description of an exception type
    */
-  description?: string;
+  description: string;
+
+  /**
+   * Structured remediation steps so an agent can map the exception to a fix via the
+   * API alone
+   */
+  remediation: PortingOrdersExceptionType.Remediation;
+}
+
+export namespace PortingOrdersExceptionType {
+  /**
+   * Structured remediation steps so an agent can map the exception to a fix via the
+   * API alone
+   */
+  export interface Remediation {
+    /**
+     * The type of remediation action to take
+     */
+    action:
+      | 'update_order_fields'
+      | 'upload_document'
+      | 'create_orders'
+      | 'assign_foc_datetime'
+      | 'wait'
+      | 'external_action'
+      | 'contact_support';
+
+    /**
+     * Patchable field paths to correct, empty when no field update applies
+     */
+    fields: Array<string>;
+
+    /**
+     * The document to (re)upload, when applicable
+     */
+    required_document: 'loa' | 'invoice' | 'null' | null;
+
+    /**
+     * Whether resubmission or polling alone can unblock the order
+     */
+    retryable: boolean;
+  }
 }
 
 export interface RegionInformation {

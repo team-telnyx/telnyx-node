@@ -49,6 +49,7 @@ describe('resource recordingsJson', () => {
       account_sid: 'f5586561-8ff0-4291-a51b-c7dfe4139ff9',
       PlayBeep: false,
       RecordingChannels: 'single',
+      RecordingRedaction: 'pci,pii',
       RecordingStatusCallback: 'http://webhook.com/callback',
       RecordingStatusCallbackEvent: 'in-progress completed absent',
       RecordingStatusCallbackMethod: 'GET',

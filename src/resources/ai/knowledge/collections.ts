@@ -86,7 +86,7 @@ export namespace CollectionRetrieveDocumentsResponse {
 
     /**
      * The source record kind this chunk came from (e.g. `voice`, `meeting_bot`,
-     * `message`).
+     * `message`, `email`, `whatsapp`).
      */
     record_type?: string;
 

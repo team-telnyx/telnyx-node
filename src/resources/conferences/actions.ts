@@ -709,6 +709,15 @@ export interface ActionRecordStartParams {
   play_beep?: boolean;
 
   /**
+   * Silences spoken details of the given kinds in the recording: `pci` (card number,
+   * expiry date, security code), `pii` (personal details such as names, phone
+   * numbers, addresses and other identifying numbers) and `phi` (health details such
+   * as medications, doses and conditions). Redaction works on English speech only.
+   * Redacted recordings are charged at the Deepgram speech-to-text rate.
+   */
+  redaction?: Array<'pci' | 'pii' | 'phi'>;
+
+  /**
    * Region where the conference data is located. Defaults to the region defined in
    * user's data locality settings (Europe or US).
    */
@@ -888,8 +897,7 @@ export interface ActionSpeakParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | ActionsAPI.SonioxVoiceSettings
-    | ActionsAPI.AssemblyAIVoiceSettings;
+    | ActionsAPI.SonioxVoiceSettings;
 }
 
 export interface ActionStopParams {

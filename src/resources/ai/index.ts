@@ -151,7 +151,6 @@ export {
   type EmbeddingSimilaritySearchParams,
   type EmbeddingURLParams,
 } from './embeddings/index';
-export { FineTuning } from './fine-tuning/index';
 export { Integrations, type Integration, type IntegrationListResponse } from './integrations/index';
 export { Knowledge } from './knowledge/index';
 export {

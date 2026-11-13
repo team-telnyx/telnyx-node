@@ -149,6 +149,7 @@ describe('resource actions', () => {
       command_id: '891510ac-f3e4-11e8-af5b-de00688a4901',
       custom_file_name: 'my_recording_file_name',
       play_beep: true,
+      redaction: ['pci', 'pii'],
       region: 'US',
       trim: 'trim-silence',
     });

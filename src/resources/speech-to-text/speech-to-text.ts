@@ -320,6 +320,7 @@ export interface SpeechToTextRetrieveTranscriptionParams {
     | 'speechmatics/standard'
     | 'speechmatics/linden-1'
     | 'soniox/stt-rt-v4'
+    | 'soniox/stt-rt-v6'
     | 'nvidia/parakeet-v3'
     | 'omi-health/omi-med-stt-v1'
     | 'humain/realtime'
