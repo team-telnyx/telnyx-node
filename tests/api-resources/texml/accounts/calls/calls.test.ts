@@ -96,6 +96,7 @@ describe('resource calls', () => {
         PreferredCodecs: 'PCMA,PCMU',
         Record: false,
         RecordingChannels: 'dual',
+        RecordingRedaction: 'pci,pii',
         RecordingStatusCallback: 'https://example.com/recording_status_callback',
         RecordingStatusCallbackEvent: 'in-progress completed absent',
         RecordingStatusCallbackMethod: 'GET',

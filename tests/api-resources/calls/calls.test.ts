@@ -207,6 +207,7 @@ describe('resource calls', () => {
       record_custom_file_name: 'my_recording_file_name',
       record_format: 'wav',
       record_max_length: 1000,
+      record_redaction: ['pci', 'pii'],
       record_timeout_secs: 100,
       record_track: 'outbound',
       record_trim: 'trim-silence',

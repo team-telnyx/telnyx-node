@@ -1955,7 +1955,8 @@ export namespace CallRecordingError {
       | 'Failed to authorize with storage using custom credentials'
       | 'Invalid credentials json'
       | 'Unsupported backend'
-      | 'Internal server error';
+      | 'Internal server error'
+      | 'Recording redaction failed, so the recording was not saved.';
   }
 }
 

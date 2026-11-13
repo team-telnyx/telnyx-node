@@ -1163,6 +1163,16 @@ export interface CallDialParams {
   record_max_length?: number;
 
   /**
+   * Applies to the recording started with `record`. Silences spoken details of the
+   * given kinds in the recording: `pci` (card number, expiry date, security code),
+   * `pii` (personal details such as names, phone numbers, addresses and other
+   * identifying numbers) and `phi` (health details such as medications, doses and
+   * conditions). Redaction works on English speech only. Redacted recordings are
+   * charged at the Deepgram speech-to-text rate.
+   */
+  record_redaction?: Array<'pci' | 'pii' | 'phi'>;
+
+  /**
    * The number of seconds that Telnyx will wait for the recording to be stopped if
    * silence is detected when `record` is specified. The timer only starts when the
    * speech is detected. Please note that call transcription is used to detect

@@ -712,6 +712,16 @@ export namespace CallCallsParams {
     RecordingChannels?: 'mono' | 'dual';
 
     /**
+     * Silences spoken details of the given kinds in the recording: one or more of
+     * `pci` (card number, expiry date, security code), `pii` (personal details such as
+     * names, phone numbers, addresses and other identifying numbers) and `phi` (health
+     * details such as medications, doses and conditions), separated by commas, for
+     * example `pci,pii`. Redaction works on English speech only. Redacted recordings
+     * are charged at the Deepgram speech-to-text rate.
+     */
+    RecordingRedaction?: string;
+
+    /**
      * The URL the recording callbacks will be sent to.
      */
     RecordingStatusCallback?: string;
@@ -1100,6 +1110,16 @@ export namespace CallCallsParams {
     RecordingChannels?: 'mono' | 'dual';
 
     /**
+     * Silences spoken details of the given kinds in the recording: one or more of
+     * `pci` (card number, expiry date, security code), `pii` (personal details such as
+     * names, phone numbers, addresses and other identifying numbers) and `phi` (health
+     * details such as medications, doses and conditions), separated by commas, for
+     * example `pci,pii`. Redaction works on English speech only. Redacted recordings
+     * are charged at the Deepgram speech-to-text rate.
+     */
+    RecordingRedaction?: string;
+
+    /**
      * The URL the recording callbacks will be sent to.
      */
     RecordingStatusCallback?: string;
@@ -1480,6 +1500,16 @@ export namespace CallCallsParams {
      * The number of channels in the final recording. Defaults to `mono`.
      */
     RecordingChannels?: 'mono' | 'dual';
+
+    /**
+     * Silences spoken details of the given kinds in the recording: one or more of
+     * `pci` (card number, expiry date, security code), `pii` (personal details such as
+     * names, phone numbers, addresses and other identifying numbers) and `phi` (health
+     * details such as medications, doses and conditions), separated by commas, for
+     * example `pci,pii`. Redaction works on English speech only. Redacted recordings
+     * are charged at the Deepgram speech-to-text rate.
+     */
+    RecordingRedaction?: string;
 
     /**
      * The URL the recording callbacks will be sent to.

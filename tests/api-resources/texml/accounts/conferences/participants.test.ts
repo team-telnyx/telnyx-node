@@ -59,6 +59,7 @@ describe('resource participants', () => {
       CancelPlaybackOnMachineDetection: false,
       Coaching: false,
       ConferenceRecord: 'record-from-start',
+      ConferenceRecordingRedaction: 'pci,pii',
       ConferenceRecordingStatusCallback: 'https://example.com/conference_recording_status_callback',
       ConferenceRecordingStatusCallbackEvent: 'in-progress completed failed absent',
       ConferenceRecordingStatusCallbackMethod: 'GET',
