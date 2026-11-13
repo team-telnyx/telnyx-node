@@ -778,6 +778,59 @@ export namespace CallCallsParams {
     StatusCallbackMethod?: 'GET' | 'POST';
 
     /**
+     * An authentication token for the WebSocket server. It is sent as the
+     * `x-telnyx-streaming-auth-token` header of the WebSocket handshake and repeated
+     * as `connected.x-telnyx-streaming-auth-token` in the `connected` event. Maximum
+     * length is 4000 characters. Requires `StreamUrl`.
+     */
+    StreamAuthToken?: string;
+
+    /**
+     * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+     * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+     */
+    StreamBidirectionalCodec?: 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16';
+
+    /**
+     * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+     * `StreamUrl`.
+     */
+    StreamBidirectionalMode?: 'mp3' | 'rtp';
+
+    /**
+     * Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`.
+     */
+    StreamBidirectionalSamplingRate?: 8000 | 16000 | 22050 | 24000 | 48000;
+
+    /**
+     * Specifies the codec to be used for the streamed audio. When set to `default` or
+     * when transcoding is not possible, the codec from the call will be used. Requires
+     * `StreamUrl`.
+     */
+    StreamCodec?: 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16' | 'default';
+
+    /**
+     * Establishes the WebSocket connection before the destination is dialed, so no
+     * audio is missed while the connection is set up. If the WebSocket connection
+     * can't be established, the call is not placed and the request fails with a `422`
+     * error. `StreamUrl` is required when this is `true`.
+     */
+    StreamEstablishBeforeCallOriginate?: boolean;
+
+    /**
+     * Specifies which track should be streamed. Requires `StreamUrl`.
+     */
+    StreamTrack?: 'inbound_track' | 'outbound_track' | 'both_tracks';
+
+    /**
+     * The destination WebSocket address where the call's media stream is delivered,
+     * for example `wss://www.example.com/websocket`. When set, a media stream is
+     * started on the outbound call. Required when any other `Stream*` parameter is
+     * set. Can't be combined with `SuperviseCallSid`.
+     */
+    StreamUrl?: string;
+
+    /**
      * The call control ID of the existing call to supervise. When provided, the
      * created leg will be added to the specified call in supervising mode. Status
      * callbacks and action callbacks will NOT be sent for the supervising leg.
@@ -1113,6 +1166,59 @@ export namespace CallCallsParams {
     StatusCallbackMethod?: 'GET' | 'POST';
 
     /**
+     * An authentication token for the WebSocket server. It is sent as the
+     * `x-telnyx-streaming-auth-token` header of the WebSocket handshake and repeated
+     * as `connected.x-telnyx-streaming-auth-token` in the `connected` event. Maximum
+     * length is 4000 characters. Requires `StreamUrl`.
+     */
+    StreamAuthToken?: string;
+
+    /**
+     * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+     * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+     */
+    StreamBidirectionalCodec?: 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16';
+
+    /**
+     * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+     * `StreamUrl`.
+     */
+    StreamBidirectionalMode?: 'mp3' | 'rtp';
+
+    /**
+     * Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`.
+     */
+    StreamBidirectionalSamplingRate?: 8000 | 16000 | 22050 | 24000 | 48000;
+
+    /**
+     * Specifies the codec to be used for the streamed audio. When set to `default` or
+     * when transcoding is not possible, the codec from the call will be used. Requires
+     * `StreamUrl`.
+     */
+    StreamCodec?: 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16' | 'default';
+
+    /**
+     * Establishes the WebSocket connection before the destination is dialed, so no
+     * audio is missed while the connection is set up. If the WebSocket connection
+     * can't be established, the call is not placed and the request fails with a `422`
+     * error. `StreamUrl` is required when this is `true`.
+     */
+    StreamEstablishBeforeCallOriginate?: boolean;
+
+    /**
+     * Specifies which track should be streamed. Requires `StreamUrl`.
+     */
+    StreamTrack?: 'inbound_track' | 'outbound_track' | 'both_tracks';
+
+    /**
+     * The destination WebSocket address where the call's media stream is delivered,
+     * for example `wss://www.example.com/websocket`. When set, a media stream is
+     * started on the outbound call. Required when any other `Stream*` parameter is
+     * set. Can't be combined with `SuperviseCallSid`.
+     */
+    StreamUrl?: string;
+
+    /**
      * The call control ID of the existing call to supervise. When provided, the
      * created leg will be added to the specified call in supervising mode. Status
      * callbacks and action callbacks will NOT be sent for the supervising leg.
@@ -1440,6 +1546,59 @@ export namespace CallCallsParams {
      * HTTP request type used for `StatusCallback`.
      */
     StatusCallbackMethod?: 'GET' | 'POST';
+
+    /**
+     * An authentication token for the WebSocket server. It is sent as the
+     * `x-telnyx-streaming-auth-token` header of the WebSocket handshake and repeated
+     * as `connected.x-telnyx-streaming-auth-token` in the `connected` event. Maximum
+     * length is 4000 characters. Requires `StreamUrl`.
+     */
+    StreamAuthToken?: string;
+
+    /**
+     * Indicates the codec for bidirectional streaming RTP payloads. Used only with
+     * `StreamBidirectionalMode=rtp`. Case sensitive. Requires `StreamUrl`.
+     */
+    StreamBidirectionalCodec?: 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16';
+
+    /**
+     * Configures the method of bidirectional streaming: `mp3` or `rtp`. Requires
+     * `StreamUrl`.
+     */
+    StreamBidirectionalMode?: 'mp3' | 'rtp';
+
+    /**
+     * Audio sampling rate for bidirectional streaming, in Hz. Requires `StreamUrl`.
+     */
+    StreamBidirectionalSamplingRate?: 8000 | 16000 | 22050 | 24000 | 48000;
+
+    /**
+     * Specifies the codec to be used for the streamed audio. When set to `default` or
+     * when transcoding is not possible, the codec from the call will be used. Requires
+     * `StreamUrl`.
+     */
+    StreamCodec?: 'PCMU' | 'PCMA' | 'G722' | 'OPUS' | 'AMR-WB' | 'L16' | 'default';
+
+    /**
+     * Establishes the WebSocket connection before the destination is dialed, so no
+     * audio is missed while the connection is set up. If the WebSocket connection
+     * can't be established, the call is not placed and the request fails with a `422`
+     * error. `StreamUrl` is required when this is `true`.
+     */
+    StreamEstablishBeforeCallOriginate?: boolean;
+
+    /**
+     * Specifies which track should be streamed. Requires `StreamUrl`.
+     */
+    StreamTrack?: 'inbound_track' | 'outbound_track' | 'both_tracks';
+
+    /**
+     * The destination WebSocket address where the call's media stream is delivered,
+     * for example `wss://www.example.com/websocket`. When set, a media stream is
+     * started on the outbound call. Required when any other `Stream*` parameter is
+     * set. Can't be combined with `SuperviseCallSid`.
+     */
+    StreamUrl?: string;
 
     /**
      * The call control ID of the existing call to supervise. When provided, the

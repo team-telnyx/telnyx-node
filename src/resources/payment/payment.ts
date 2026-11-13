@@ -35,7 +35,7 @@ export class Payment extends APIResource {
     body: PaymentCreateStoredPaymentTransactionParams,
     options?: RequestOptions,
   ): APIPromise<PaymentCreateStoredPaymentTransactionResponse> {
-    return this._client.post('/v2/payment/stored_payment_transactions', { body, ...options });
+    return this._client.post('/payment/stored_payment_transactions', { body, ...options });
   }
 }
 

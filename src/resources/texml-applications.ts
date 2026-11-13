@@ -301,16 +301,38 @@ export namespace TexmlApplicationListParams {
    */
   export interface Filter {
     /**
-     * If present, applications with <code>friendly_name</code> containing the given
-     * value will be returned. Matching is not case-sensitive. Requires at least three
-     * characters.
+     * If present, applications with <code>friendly_name</code> exactly matching the
+     * given value will be returned. Matching is case-sensitive.
      */
-    friendly_name?: string;
+    friendly_name?: string | Filter.UnionMember1;
 
     /**
-     * Identifies the associated outbound voice profile.
+     * If present, only applications associated with the given outbound voice profile
+     * will be returned. Matching is exact.
      */
-    outbound_voice_profile_id?: string;
+    outbound_voice_profile_id?: string | Filter.Eq;
+  }
+
+  export namespace Filter {
+    export interface UnionMember1 {
+      /**
+       * If present, applications with <code>friendly_name</code> containing the given
+       * value will be returned. Matching is not case-sensitive.
+       */
+      contains?: string;
+
+      /**
+       * Exact match for friendly_name. Matching is case-sensitive.
+       */
+      eq?: string;
+    }
+
+    export interface Eq {
+      /**
+       * Exact match for the associated outbound voice profile.
+       */
+      eq?: string;
+    }
   }
 }
 

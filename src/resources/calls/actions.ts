@@ -1092,13 +1092,6 @@ export interface AIAssistantJoinParticipant {
   on_hangup?: 'continue_conversation' | 'end_conversation';
 }
 
-export interface AssemblyAIVoiceSettings {
-  /**
-   * Voice settings provider type
-   */
-  type: 'assemblyai';
-}
-
 /**
  * Messages sent by the model in response to user messages.
  */
@@ -1773,9 +1766,9 @@ export interface TranscriptionConfig {
    * `deepgram/flux`, supported values are: `auto` (Telnyx language detection
    * controls the language hint), `multi` (no language hint), and language-specific
    * hints `en`, `es`, `fr`, `de`, `hi`, `ru`, `pt`, `ja`, `it`, and `nl`. For
-   * `soniox/stt-rt-v4`, `auto` omits the language hint and lets Soniox auto-detect;
-   * ISO 639-1 codes (e.g. `en`, `es`) bias detection toward that language. For
-   * `assemblyai/universal-3-6-pro` (and its legacy aliases
+   * `soniox/stt-rt-v4` and `soniox/stt-rt-v6`, `auto` omits the language hint and
+   * lets Soniox auto-detect; ISO 639-1 codes (e.g. `en`, `es`) bias detection toward
+   * that language. For `assemblyai/universal-3-6-pro` (and its legacy aliases
    * `assemblyai/universal-3-5-pro` and `assemblyai/universal-streaming`), `auto` (or
    * unset) enables native multilingual code-switching; language codes (`en`, `es`,
    * `de`, `fr`, `pt`, `it`, `tr`, `nl`, `sv`, `no`, `da`, `fi`, `hi`, `vi`, `ar`,
@@ -1813,8 +1806,8 @@ export interface TranscriptionConfig {
    *   `assemblyai/universal-streaming` are still accepted and run the same
    *   Universal-3.6 Pro model.
    * - `xai/grok-stt` for live streaming transcription.
-   * - `soniox/stt-rt-v4` for live streaming multilingual transcription with
-   *   automatic language detection.
+   * - `soniox/stt-rt-v4` and `soniox/stt-rt-v6` for live streaming multilingual
+   *   transcription with automatic language detection.
    * - `nvidia/parakeet-v3` for multilingual transcription with automatic language
    *   detection.
    * - `omi-health/omi-med-stt-v1` for English-only medical transcription
@@ -1845,6 +1838,7 @@ export interface TranscriptionConfig {
     | 'assemblyai/universal-streaming'
     | 'xai/grok-stt'
     | 'soniox/stt-rt-v4'
+    | 'soniox/stt-rt-v6'
     | 'nvidia/parakeet-v3'
     | 'omi-health/omi-med-stt-v1'
     | 'humain/realtime'
@@ -2435,7 +2429,7 @@ export interface TranscriptionEngineSonioxConfig {
   /**
    * The model to use for transcription.
    */
-  transcription_model?: 'soniox/stt-rt-v4';
+  transcription_model?: 'soniox/stt-rt-v4' | 'soniox/stt-rt-v6';
 }
 
 export interface TranscriptionEngineSpeechmaticsConfig {
@@ -3660,8 +3654,7 @@ export interface ActionGatherUsingAIParams {
     | Shared.AzureVoiceSettings
     | Shared.ResembleVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings
-    | AssemblyAIVoiceSettings;
+    | SonioxVoiceSettings;
 }
 
 export namespace ActionGatherUsingAIParams {
@@ -3951,8 +3944,7 @@ export interface ActionGatherUsingSpeakParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings
-    | AssemblyAIVoiceSettings;
+    | SonioxVoiceSettings;
 }
 
 export interface ActionHangupParams {
@@ -4837,8 +4829,7 @@ export interface ActionSpeakParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings
-    | AssemblyAIVoiceSettings;
+    | SonioxVoiceSettings;
 }
 
 export interface ActionStartStreamingParams {
@@ -5600,7 +5591,19 @@ export interface ActionAddAIAssistantMessagesParams {
   /**
    * When `true`, the injected messages immediately trigger an assistant
    * response/turn instead of waiting for the next natural turn or idle timeout. This
-   * may interrupt a user who is still speaking.
+   * may interrupt a user who is still speaking. How the turn starts depends on the
+   * last message in `messages`: if it is a `user` message, the assistant responds to
+   * that message as if the caller had said it, whether or not `trigger_response` is
+   * set. Any other last role (`system`, `developer`, `assistant`, `tool`) starts a
+   * turn with no new user input, as after a long silence. When `trigger_response` is
+   * not set, a payload that does not end in a `user` message is context only and
+   * does not start a turn. GPT Live models (`openai/gpt-live-*`) do not support a
+   * forced mid-session turn: injected `system`, `developer`, and `assistant` content
+   * is appended to the Live session's instructions and the model brings it into its
+   * next turn on its own; an injected `tool` record is not forwarded to the Live
+   * session, so it stays context only and never reaches the Live model. Any of
+   * `user`, `system`, `developer`, or `assistant` is the supported way to get
+   * content into the Live session.
    */
   trigger_response?: boolean;
 }
@@ -5825,8 +5828,7 @@ export interface ActionStartConversationRelayParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | SonioxVoiceSettings
-    | AssemblyAIVoiceSettings;
+    | SonioxVoiceSettings;
 }
 
 export namespace ActionStartConversationRelayParams {
@@ -6063,7 +6065,6 @@ export namespace ActionPayParams {
 export declare namespace Actions {
   export {
     type AIAssistantJoinParticipant as AIAssistantJoinParticipant,
-    type AssemblyAIVoiceSettings as AssemblyAIVoiceSettings,
     type AssistantMessage as AssistantMessage,
     type AwsVoiceSettings as AwsVoiceSettings,
     type CallControlCommandResult as CallControlCommandResult,

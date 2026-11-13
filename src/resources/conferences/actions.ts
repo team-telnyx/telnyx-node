@@ -888,8 +888,7 @@ export interface ActionSpeakParams {
     | Shared.ResembleVoiceSettings
     | Shared.InworldVoiceSettings
     | Shared.XaiVoiceSettings
-    | ActionsAPI.SonioxVoiceSettings
-    | ActionsAPI.AssemblyAIVoiceSettings;
+    | ActionsAPI.SonioxVoiceSettings;
 }
 
 export interface ActionStopParams {

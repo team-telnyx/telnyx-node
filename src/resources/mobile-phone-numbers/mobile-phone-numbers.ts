@@ -35,7 +35,7 @@ export class MobilePhoneNumbers extends APIResource {
     query: MobilePhoneNumberListParams | null | undefined = {},
     options?: RequestOptions,
   ): PagePromise<MobilePhoneNumbersDefaultFlatPagination, MobilePhoneNumber> {
-    return this._client.getAPIList('/v2/mobile_phone_numbers', DefaultFlatPagination<MobilePhoneNumber>, {
+    return this._client.getAPIList('/mobile_phone_numbers', DefaultFlatPagination<MobilePhoneNumber>, {
       query,
       ...options,
     });
@@ -51,7 +51,7 @@ export class MobilePhoneNumbers extends APIResource {
    * ```
    */
   retrieve(id: string, options?: RequestOptions): APIPromise<MobilePhoneNumberRetrieveResponse> {
-    return this._client.get(path`/v2/mobile_phone_numbers/${id}`, options);
+    return this._client.get(path`/mobile_phone_numbers/${id}`, options);
   }
 
   /**
@@ -81,7 +81,7 @@ export class MobilePhoneNumbers extends APIResource {
     body: MobilePhoneNumberUpdateParams,
     options?: RequestOptions,
   ): APIPromise<MobilePhoneNumberUpdateResponse> {
-    return this._client.patch(path`/v2/mobile_phone_numbers/${id}`, { body, ...options });
+    return this._client.patch(path`/mobile_phone_numbers/${id}`, { body, ...options });
   }
 }
 
