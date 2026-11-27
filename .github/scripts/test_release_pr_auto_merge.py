@@ -229,6 +229,7 @@ class ReleasePRAutoMergeGateTests(unittest.TestCase):
             "wrong author login": lambda s: s["pr"]["user"].update(login="human"),
             "wrong author ID": lambda s: s["pr"]["user"].update(id=1),
             "forked head": lambda s: s["pr"]["head"]["repo"].update(full_name="fork/repo"),
+            "missing head repository": lambda s: s["pr"]["head"].update(repo=None),
             "wrong branch": lambda s: s["pr"]["head"].update(ref="feature/human"),
             "draft": lambda s: s["pr"].update(draft=True),
             "closed": lambda s: s["pr"].update(state="closed"),
