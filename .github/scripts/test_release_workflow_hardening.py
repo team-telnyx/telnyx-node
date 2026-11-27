@@ -69,6 +69,14 @@ class ReleaseWorkflowHardeningTests(unittest.TestCase):
         self.assertNotIn("INPUT_DRY_RUN", workflow)
         self.assertNotIn("Attest exact head and merge normally", workflow)
 
+    def test_auto_merge_gate_rejects_fork_heads_before_the_job_starts(self):
+        workflow = Path(".github/workflows/release-pr-auto-merge.yml").read_text()
+        gate = workflow.split("\n  gate:\n", 1)[1].split("\n    runs-on:", 1)[0]
+        self.assertIn(
+            "github.event.pull_request.head.repo.full_name == github.repository",
+            gate,
+        )
+
 
 if __name__ == "__main__":
     unittest.main()
